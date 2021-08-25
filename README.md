@@ -1,5 +1,5 @@
 # VimDocHu
-Translation of the Vim reference &amp; help files
+Ongoing Translation of the Vim reference &amp; help files
 
 ## How to configure
 * Please move the 'hu' directory into your $VIMRUNTIME/doc
