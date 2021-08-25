@@ -10,6 +10,6 @@ Ongoing Translation of the Vim reference &amp; help files
 
 ## PLease only commit if
 * Your English better than good
-* Your Hungarian grammar is more the acceptable
+* Your Hungarian grammar is nearly perfect
 * You not gonna use translate engines
 
