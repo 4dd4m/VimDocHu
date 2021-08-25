@@ -1,166 +1,174 @@
-*intro.txt*     For Vim version 8.2.  Last change: 2020 Dec 29
+*intro.txt*     Vim verzió 8.2.  Frissítve: 2020 Dec 29
 
 
 		  VIM REFERENCIA    by Bram Moolenaar
 
 
-Introduction to Vim					*ref* *reference*
+Bevezetés a VIM használatába				*ref* *reference*
 
-1. Introduction			|intro|
-2. Vim on the internet		|internet|
-3. Credits			|credits|
-4. Notation			|notation|
-5. Modes, introduction		|vim-modes-intro|
-6. Switching from mode to mode	|mode-switching|
-7. The window contents		|window-contents|
-8. Definitions			|definitions|
+1. Bevezetés			|intro|
+2. Internetes források		|internet|
+3. Köszönet			|credits|
+4. Jelölésrendszer		|notation|
+5. Módok, bevezetés		|vim-modes-intro|
+6. Módok közötti váltás		|mode-switching|
+7. Az ablak tartalma		|window-contents|
+8. Definíciók			|definitions|
 
 ==============================================================================
-1. Introduction						*intro*
+1. Bevezetés						*intro*
 
-Vim stands for Vi IMproved.  It used to be Vi IMitation, but there are so many
-improvements that a name change was appropriate.  Vim is a text editor which
-includes almost all the commands from the Unix program "Vi" and a lot of new
-ones.  It is very useful for editing programs and other plain text.
-   All commands are given with the keyboard.  This has the advantage that you
-can keep your fingers on the keyboard and your eyes on the screen.  For those
-who want it, there is mouse support and a GUI version with scrollbars and
-menus (see |gui.txt|).
+A Vim egy rövidítés, jelentése: Vi IMproved. Kezdetben Vi IMitationt jelen-
+tett, de a számos fejlesztés hatására a névcsere elengedhetetlenné vált. A Vim
+egy szövegszerkesztő, mely örökölte a Unixos "Vi" szinte összes funkcióját és
+megannyi mást is. Nagyon hasznos programok, valamint szöveges állományok szer-
+kesztésére.
+    Az összes parancs kiadható a billentyűzet segítségével, így az ujjainknak
+nem kell elhagyniuk a billentyűzetet. Egér támogatás, GUI görgetősávokkal is
+rendelkezésre áll azok számára, akik igényt tartanak rá (lásd |gui.txt|).
 
-An overview of this manual can be found in the file "help.txt", |help.txt|.
-It can be accessed from within Vim with the <Help> or <F1> key and with the
-|:help| command (just type ":help", without the bars or quotes).
-   The 'helpfile' option can be set to the name of the help file, in case it
-is not located in the default place.  You can jump to subjects like with tags:
-Use CTRL-] to jump to a subject under the cursor, use CTRL-T to jump back.
+A dokumentáció gyors áttekintőjét találhatjuk ebben a fájlban (|help.txt)|.
 
-The differences between Vi and Vim are mentioned in |vi_diff.txt|.
+Elérhető a Vimből a <Help> vagy az <F1> billentyűk segítségével, valamint a
+|:help| paranccsal (csak írjuk be ":help", cső és időzőjel karakterek nélkül).
+    A 'helpfile' opció beállításával változtathatjuk a alapértelmezetten
+megnyíló helpfájlt (argumentumok nélküli hívás esetén). A tárgyszavakra
+helyezve a kurzort, a CTRL-] kombinációval az adott szó definíciójára
+ugorhatunk, vissza pedig a CTRL-T-vel.
 
-This manual refers to Vim on various machines.  There may be small differences
-between different computers and terminals.  Besides the remarks given in this
-document, there is a separate document for each supported system, see
-|sys-file-list|.
+A Vi és Vim közötti kölönbségekről bővebben itt |vi_diff.txt|.
+
+A dokumentáció a futtató környezetetek között nem tesz különbséget, a használ-
+atot egységesen írja le. Környezetek és terminálok között azonban apró különb-
+ségekben eltérhetnek. Ezen kívül, léteznek rendszerspecifikus dokumentációk
+(lásd |sys-file-list|).
 
 							*pronounce*
-Vim is pronounced as one word, like Jim, not vi-ai-em.  It's written with a
-capital, since it's a name, again like Jim.
+A Vim szót úgy ejtjük, ahogy leírjuk, nem betűzzük (vé-i-em). Az első v betű
+pedig minden esetben nagy kezdőbetű, hiszen a név tulajdonnév.
 
-This manual is a reference for all the Vim commands and options.  This is not
-an introduction to the use of Vi or Vim, it gets a bit complicated here and
-there.  For beginners, there is a hands-on |tutor|.  To learn using Vim, read
-the user manual |usr_toc.txt|.
+A dokumentáció leírja az összes parancs és opció használatát. Nem egy bevezető
+kezdőknek, ezért teljesen természetes, hogy olykor-olykor egy kissé bonyolult-
+tá válik. Teljesen kezdők rendelkezésére áll |tutor|. A Vim használatát a
+|usr_toc| dokumentum mutatja be.
 
 							*book* *books*
-Most books on Vi and Vim contain a section for beginners.  Others are spending
-more words on specific functionality.  You can find an overview of Vim books
-here:
+Nyomtatott könyvek rendszerint szentelnek fejezeteket a kezdők számára, míg
+mások részletesebben kitérnek egy adott konkrét funkció leírására. Az elérhető
+könyvekről készült lista itt megtekinthető, a teljesség igénye nélkül:
+
 	http://iccf-holland.org/vim_books.html
 
 ==============================================================================
-2. Vim on the internet					*internet*
+2. Internetes források					*internet*
 
 			*www* *WWW*  *faq* *FAQ* *distribution* *download*
-The Vim pages contain the most recent information about Vim.  They also
-contain links to the most recent version of Vim.  The FAQ is a list of
-Frequently Asked Questions.  Read this if you have problems.
+A Vim weboldalain tájékozódhatunk a legfrissebb információkról. Szintén ugyan-
+itt szerezhetjük be a legfrissebb verziót. A FAQ a Gyakran Ismételt Kérdések
+listája. Ha problémáid adódnak, érdemes átolvasnod.
 
-	Vim home page:	  https://www.vim.org/
-	Vim FAQ:	  https://vimhelp.org/vim_faq.txt.html
-	Downloading:	  https://www.vim.org/download.php
-
-
-Asking questions, finding answers: https://vi.stackexchange.com/
-"Vi and Vim Stack Exchange is a question and answer site for people using the
-vi and Vim families of text editors"
+	Vim honlapja:	  https://www.vim.org/
+	Vim GYIK:	  https://vimhelp.org/vim_faq.txt.html
+	Letöltés:	  https://www.vim.org/download.php
 
 
-Usenet News group where Vim is discussed:		*news* *usenet*
+Kérdések és válaszo: https://vi.stackexchange.com/
+"Vi and Vim Stack Exchange egy kérdezz-felek weboldal a vi és Vim család fel-
+használói számára.
+
+
+Usenet hírcsoport, beszélgetések a Vimről:		*news* *usenet*
 	comp.editors
-This group is also for other editors.  If you write about Vim, don't forget to
-mention that.
-You can access it here:
+A csoport más szövegszerkesztők számára is otthont ad, így ha Vim témakörben
+írsz, ne felejtsd el megemlíteni.
+Itt érheted el (angol):
 https://groups.google.com/forum/#!topic/comp.editors
 
 						*mail-list* *maillist*
-There are several mailing lists for Vim:
+Levelező listák:
 <vim@vim.org>					*vim-use* *vim_use*
-	For discussions about using existing versions of Vim: Useful mappings,
-	questions, answers, where to get a specific version, etc.  There are
-	quite a few people watching this list and answering questions, also
-	for beginners.  Don't hesitate to ask your question here.
+	Eszmecserék a legfrissebb Vim használatáról: Hasznos mappek, kérdések,
+	válaszok (hol szerezhető be egy specifikus verzió) stb. Elég sokan
+	fel vannak íratkozva és válaszolnak is akár kezdők számára is. Ha kér-
+	désed van, ne habozz.
 <vim-dev@vim.org>				*vim-dev* *vim_dev* *vimdev*
-	For discussions about changing Vim: New features, porting, patches,
-	beta-test versions, etc.
+	A szerkesztőt érintő változtatásokról szóló levelezőlista, új funkciók
+	, portolás, javítások, béta teszt verziók, stb.
 <vim-announce@vim.org>				*vim-announce* *vim_announce*
-	Announcements about new versions of Vim; also for beta-test versions
-	and ports to different systems.  This is a read-only list.
+	Új verziók bejelentése (tesztverziók is), portolás új rendszerekre.
+	(csak olvasható).
 <vim-mac@vim.org>				*vim-mac* *vim_mac*
-	For discussions about using and improving the Macintosh version of
-	Vim.
+	A szerkesztő Macintosh rendszerére írodott verzió javításával
+	kapcsolatos beszélgetések.
 
-See http://www.vim.org/maillist.php for the latest information.
+Legfrissebb információkért lásd http://www.vim.org/maillist.php.
 
 NOTE:
-- Anyone can see the archive, e.g. on Google groups.  Search this if you have
-  questions.
-- You can only send messages to these lists if you have subscribed!
-- The first message is moderated, thus it may take a few hours to show up.
-- You need to send the messages from the same location as where you subscribed
-  from (to avoid spam mail).
+- Az archivált levelezőlista bárki számára elérhető a Google csoportokon. Ha
+  kérdésed van, először keress választ itt.
+- Csak úgy tudsz üzenetet küldeni a listákra, ha felíratkozol!
+- Az első üzenet moderáción esik át, így előfordulhat, hogy pár órán át nem
+  fogod látni.
+- Az üzenetek és a regisztráció helyszínének azonosnak kell lennie (a spam
+  emailek elkerülése végett).
 
 						*subscribe-maillist*
-If you want to join, send a message to
+Ha csatlakozni szeretnél, küldj üzenetet ide:
 	<vim-subscribe@vim.org>
-Make sure that your "From:" address is correct.  Then the list server will
-give you help on how to subscribe.
+Győződj meg arról, hogy levél feladója helyesen van kitöltve. A szerver továb-
+bi üzenetben értesít a csatlakozás pontos menetéről.
 
 						*maillist-archive*
-For more information and archives look on the Vim maillist page:
+További információk a levelezőlistáról, archívum:
 http://www.vim.org/maillist.php
 
 
-Bug reports:				*bugs* *bug-reports* *bugreport.vim*
+Bug reportok:				*bugs* *bug-reports* *bugreport.vim*
 
-There are three ways to report bugs:
-1. Open an issue on GitHub: https://github.com/vim/vim/issues
-   The text will be forwarded to the vim-dev maillist.
-2. For issues with runtime files, look in the header for an email address or
-   any other way to report it to the maintainer.
-3. Send bug reports to: Vim Developers <vim-dev@vim.org>
-   This is a maillist, you need to become a member first and many people will
-   see the message.  If you don't want that, e.g. because it is a security
-   issue, send it to <bugs@vim.org>, this only goes to the Vim maintainer
-   (that's Bram).
+Bugokat három módon jelenthetük:
+1. Nyiss egy új issuet GitHubon: https://github.com/vim/vim/issues
+   A tartalom automatikusan továbbítódik a vim-dev levelezőlistára.
+2. Egyéb futtatható állományok esetén a header tartalmazza a karbantartó
+   e-mail címét, ahol a problémát jelenteni lehet.
+3. Jelentésed küldd ide: Vim Developers <vim-dev@vim.org>
+   Ez egy levelezőlista, fel kell rá íratkozod. Az üzenet publikus a felíratko-
+   zók számára. Ha ezt nem szeretnéd, jelentésed küldd ide: <bugs@vim.org>,
+   ezt az üzenetet csak Bram fogja látni.
 
-Please be brief; all the time that is spent on answering mail is subtracted
-from the time that is spent on improving Vim!  Always give a reproducible
-example and try to find out which settings or other things trigger the bug.
+Pontosan írd le a problémát. Minden megválaszolt emaillel kevesebb idő jut a
+vim fejlesztésére! Írd le, hogy a hiba hogyan reprodukálható és próbáld meg
+melyik beállítás vagy egyéb dolog okozhatja a problémát.
 
+Lehetőleg indítsd a Vimet ezzel a pranccsal:
 Preferably start Vim with: >
 	vim --clean -u reproduce.vim
-Where reproduce.vim is a script that reproduces the problem.  Try different
-machines, if relevant (is this an MS-Windows specific bug perhaps?).
+ahol a reproduce.vim egy scriptet tartalmaz, ami reprodukálja a problémát. Ha
+lehetőséged van rá, próbáld reprodukálni a problémát egyéb rendszereken,
+(lehet a probléma csak kizárólag egy platformot érint?).
 
-Send me patches if you can!  If you create a pull request on
-https://github.com/vim/vim then the automated checks will run and report any
-obvious problems.  But you can also send the patch by email (use an attachment
-to avoid white space changes).
+Ha tudod javítani a problémát, küldd el a javítást! Csinálj egy pull requestet
+itt https://github.com/vim/vim, ezen végig fog futni egy algoritmus és jelenti
+a legnyilvánvalóbb problémákat. A javítást emailen keresztül is elküldheted.
 
-It will help to include information about the version of Vim you are using and
-your setup.  You can get the information with this command: >
+Segít, ha leírod, hogy a Vim melyik verzióját használod, milyen beállításokkal.
+Több információt ezzel a paranccsal érhetsz el:
+
    :so $VIMRUNTIME/bugreport.vim
-This will create a file "bugreport.txt" in the current directory, with a lot
-of information of your environment.  Before sending this out, check if it
-doesn't contain any confidential information!
 
-If Vim crashes, please try to find out where.  You can find help on this here:
-|debug.txt|.
+A parancs létrehoz egy "bugreport.txt" fájlt az aktív könyvtárban rengeteg
+hasznos információval a futtató környezetről. Mielőtt elküldenéd, ellenőrizd
+le, hogy nem tartalmaz érzékeny adatokat!
 
-In case of doubt or when you wonder if the problem has already been fixed but
-you can't find a fix for it, become a member of the vim-dev maillist and ask
-your question there. |maillist|
+Összeomlás esetén próbáld meg kideríteni, hogy hol történik a probléma. Ezzel
+kapcsolatban a |debug.txt| segítségedre lesz.
+
+Abban az esetben, ha a problémát már javították, de Te mégsem találod a
+javítást, íratkozz fel a vim-dev levelezőlistára és tedd fel a kérdésed.
+|maillist|.
 
 							*year-2000* *Y2K*
+A vimben nincs összetett dátumkezelés, így a 2000-es éveket érintő
+problémaűmiatt nem kell aggódni.
 Since Vim internally doesn't use dates for editing, there is no year 2000
 problem to worry about.  Vim does use the time in the form of seconds since
 January 1st 1970.  It is used for a time-stamp check of the edited file and

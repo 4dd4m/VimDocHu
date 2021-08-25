@@ -1,4 +1,4 @@
-*usr_41.txt*	For Vim version 8.2.  Last change: 2021 Aug 08
+*usr_41.txt*	 Vim verzió 8.2.  Frissítve: 2021 Aug 08
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -1873,7 +1873,7 @@ mapping.  For these commands, any character until the end-of-line or '|' is
 included.  As a consequence of this behavior, you don't always see that
 trailing whitespace is included: >
 
-	:map <F4> o#include  
+	:map <F4> o#include
 
 To spot these problems, you can set the 'list' option when editing vimrc
 files.
@@ -1894,7 +1894,7 @@ PITFALLS
 Even bigger problem arises in the following example: >
 
 	:map ,ab o#include
-	:unmap ,ab 
+	:unmap ,ab
 
 Here the unmap command will not work, because it tries to unmap ",ab ".  This
 does not exist as a mapped sequence.  An error will be issued, which is very
