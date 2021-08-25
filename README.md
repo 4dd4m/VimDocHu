@@ -9,7 +9,7 @@ Ongoing Translation of the Vim reference &amp; help files
 * search the original documentation if needed like :h tag@hu
 
 ## PLease only commit if
-* Your English more than good
+* Your English better than good
 * Your Hungarian grammar is more the acceptable
 * You not gonna use translate engines
 
