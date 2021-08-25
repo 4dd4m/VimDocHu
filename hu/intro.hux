@@ -8,7 +8,7 @@ Bevezetés a VIM használatába				*ref* *reference*
 
 1. Bevezetés			|intro|
 2. Internetes források		|internet|
-3. Köszönet			|credits|
+3. Alkotók			|credits|
 4. Jelölésrendszer		|notation|
 5. Módok, bevezetés		|vim-modes-intro|
 6. Módok közötti váltás		|mode-switching|
@@ -72,7 +72,7 @@ listája. Ha problémáid adódnak, érdemes átolvasnod.
 	Letöltés:	  https://www.vim.org/download.php
 
 
-Kérdések és válaszo: https://vi.stackexchange.com/
+Kérdések és válaszok: https://vi.stackexchange.com/
 "Vi and Vim Stack Exchange egy kérdezz-felek weboldal a vi és Vim család fel-
 használói számára.
 
@@ -123,9 +123,9 @@ További információk a levelezőlistáról, archívum:
 http://www.vim.org/maillist.php
 
 
-Bug reportok:				*bugs* *bug-reports* *bugreport.vim*
+Hibajelentések:				*bugs* *bug-reports* *bugreport.vim*
 
-Bugokat három módon jelenthetük:
+Hibákat három módon jelenthetük:
 1. Nyiss egy új issuet GitHubon: https://github.com/vim/vim/issues
    A tartalom automatikusan továbbítódik a vim-dev levelezőlistára.
 2. Egyéb futtatható állományok esetén a header tartalmazza a karbantartó
@@ -167,143 +167,151 @@ javítást, íratkozz fel a vim-dev levelezőlistára és tedd fel a kérdésed.
 |maillist|.
 
 							*year-2000* *Y2K*
-A vimben nincs összetett dátumkezelés, így a 2000-es éveket érintő
-problémaűmiatt nem kell aggódni.
-Since Vim internally doesn't use dates for editing, there is no year 2000
-problem to worry about.  Vim does use the time in the form of seconds since
-January 1st 1970.  It is used for a time-stamp check of the edited file and
-the swap file, which is not critical and should only cause warning messages.
+A vimben nincs összetett dátumkezelés, így a 2000-es éveket (továbbiakban Y2K)
+érintő probléma miatt nem kell aggódni. Az idő nyomonkövetésére az 1970 Január
+1. óta eltelt másodpercek számát alkalmazza (fájl és swapfáj közötti megkülön-
+böztetés gyanánt). Figyelmeztető üzenetnél többet a probléma nem okozhat.
 
-There might be a year 2038 problem, when the seconds don't fit in a 32 bit int
-anymore.  This depends on the compiler, libraries and operating system.
-Specifically, time_t and the ctime() function are used.  And the time_t is
-stored in four bytes in the swap file.  But that's only used for printing a
-file date/time for recovery, it will never affect normal editing.
+Lesz viszont a 2038 évet érintő probléma, ekkor a másodpercek száma már nem
+lesz ábrázolható 32 bites egész számon. Messzire menő következtetéseket nem éri
+meg levonni, a megoldás nagyban függ a majdani fordítótól, könyvtáraktól és
+operációs rendszerektől (timet_t, ctime()). time_t a swapfájlban négy bájton
+tárolódik, bár ez csak a nyomtatásra van kihatással, soha nem fogja befolyás-
+olni a szöveges fájlok szerkesztési munkafolyamatait.
 
-The Vim strftime() function directly uses the strftime() system function.
-localtime() uses the time() system function.  getftime() uses the time
-returned by the stat() system function.  If your system libraries are year
-2000 compliant, Vim is too.
+A vim strftime() függvénye közvetlenül hívja a rendszer strftime() függvényét.
+A localtime() függvény a rendszer time() hívja meg. A getftime() a stat()
+függvény által visszaadott időt használja. Ha a rendszered megfelel a 2000-es
+évek elvárásainak, akkor a Vim is.
 
-The user may create scripts for Vim that use external commands.  These might
-introduce Y2K problems, but those are not really part of Vim itself.
+A felhasználó írhat olyan scripteket, melyek külső programot használnak és így
+belefuthat a Y2K problémába, viszont az ily' módon meghívott külső eszközök
+nem tekinthetőek a Vim részeként.
 
 ==============================================================================
-3. Credits				*credits* *author* *Bram* *Moolenaar*
+3. Alkotók				*credits* *author* *Bram* *Moolenaar*
 
-Most of Vim was created by Bram Moolenaar <Bram@vim.org>.
+A Vim nagy részét Bram Moolenaar <Bram@vim.org> írta.
 
-Parts of the documentation come from several Vi manuals, written by:
+A dokumentáció egyes részei a Vi leírását képezték, szerzőik:
 	W.N. Joy
 	Alan P.W. Hewett
 	Mark Horton
 
-The Vim editor is based on Stevie and includes (ideas from) other software,
-worked on by the people mentioned here.  Other people helped by sending me
-patches, suggestions and giving feedback about what is good and bad in Vim.
+A VIm szövegszerkesztő a Stevie (és más szoftverek) megoldásaiból építkezett,
+munkájuk azonban felhasználásra kerültek a szövegszerkesztő fejlesztése során.
+Mások javításokat küldtek, javaslatokat és visszajelzéseket a jó és rossz dol-
+gokról.
 
-Vim would never have become what it is now, without the help of these people!
+A Vim soha nem vált volna a segítségük nélkül azzá, ami.
 
-	Ron Aaron		Win32 GUI changes
-	Mohsin Ahmed		encryption
-	Zoltan Arpadffy		work on VMS port
+	Ron Aaron		Win32 GUI javítások
+	Mohsin Ahmed		titkosítás
+	Zoltan Arpadffy		VMS port munkálatok
 	Tony Andrews		Stevie
-	Gert van Antwerpen	changes for DJGPP on MS-DOS
-	Berkeley DB(3)		ideas for swap file implementation
+	Gert van Antwerpen	javítások (DJGPP - MS-DOS)
+	Berkeley DB(3)		ötletek a swap fájl implementáció kapcsán
 	Keith Bostic		Nvi
-	Walter Briscoe		Makefile updates, various patches
-	Ralf Brown		SPAWNO library for MS-DOS
-	Robert Colon		many useful remarks
-	Marcin Dalecki		GTK+ GUI port, toolbar icons, gettext()
-	Kayhan Demirel		sent me news in Uganda
-	Chris & John Downey	xvi (ideas for multi-windows version)
-	Henk Elbers		first VMS port
+	Walter Briscoe		Makefile frissítések, javítások
+	Ralf Brown		SPAWNO könyvtár - MS-DOS
+	Robert Colon		számos hasznos visszajelzés
+	Marcin Dalecki		GTK+ GUI port, eszköztár, ikonok, gettext()
+	Kayhan Demirel		híreket küldött Ugandába
+	Chris & John Downey	xvi (ötletek multi-windows verziókhoz)
+	Henk Elbers		az első VMS port
 	Daniel Elstner		GTK+ 2 port
-	Eric Fischer		Mac port, 'cindent', and other improvements
-	Benji Fisher		Answering lots of user questions
+	Eric Fischer		Mac port, 'cindent', számos egyéb fejlesztés
+	Benji Fisher		felhasználói kérdések megválaszolása
 	Bill Foster		Athena GUI port
-	Google			Lets me work on Vim one day a week
-	Loic Grenie		xvim (ideas for multi windows version)
-	Sven Guckes		Vim promoter and previous WWW page maintainer
-	Darren Hiebert		Exuberant ctags
+	Google			Hagyja, hogy heti egy napot a Vimet fejlesszem
+	Loic Grenie		xvim (ötletek - multi windows version)
+	Sven Guckes		Vim promóter, előző WWW karbantartó
+	Darren Hiebert		ctags
 	Jason Hildebrand	GTK+ 2 port
-	Bruce Hunsaker		improvements for VMS port
-	Andy Kahn		Cscope support, GTK+ GUI port
-	Oezguer Kesim		Maintainer of Vim Mailing Lists
-	Axel Kielhorn		work on the Macintosh port
+	Bruce Hunsaker		VMS port fejlesztései
+	Andy Kahn		Cscope támogatás, GTK+ GUI port
+	Oezguer Kesim		A Vim levelezőlista karbantartója
+	Axel Kielhorn		Macintosh port
 	Steve Kirkendall	Elvis
-	Roger Knobbe		original port to Windows NT
+	Roger Knobbe		eredeti Windows NT port
 	Sergey Laskavy		Vim's help from Moscow
-	Felix von Leitner	Previous maintainer of Vim Mailing Lists
-	David Leonard		Port of Python extensions to Unix
-	Avner Lottem		Edit in right-to-left windows
-	Flemming Madsen		X11 client-server, various features and patches
-	Tony Mechelynck		answers many user questions
-	Paul Moore		Python interface extensions, many patches
-	Katsuhito Nagano	Work on multibyte versions
-	Sung-Hyun Nam		Work on multibyte versions
-	Vince Negri		Win32 GUI and generic console enhancements
-	Steve Oualline		Author of the first Vim book |frombook|
-	Dominique Pelle		Valgrind reports and many fixes
-	A.Politz		Many bug reports and some fixes
-	George V. Reilly	Win32 port, Win32 GUI start-off
-	Stephen Riehm		bug collector
-	Stefan Roemer		various patches and help to users
+	Felix von Leitner	A Vim levelezőlista előző karbantartója.
+	David Leonard		Python kiterjesztések portjai - Unix
+	Avner Lottem		jobbról balra szövegirány
+	Flemming Madsen		X11 kliens-szerver, javítások
+	Tony Mechelynck		felhasználói kérdések megválaszolása
+	Paul Moore		Python interface kiterjesztések, számos patch
+	Katsuhito Nagano	multibyte verzió
+	Sung-Hyun Nam		multibyte verzió
+	Vince Negri		Win32 GUI és alapvető konzolos javítások
+	Steve Oualline		A legelső Vim könyv szerzője|frombook|
+	Dominique Pelle		Valgrind jelentés és számos javítás
+	A.Politz		hibajelentések, javítások
+	George V. Reilly	Win32 port, Win32 GUI kezdete
+	Stephen Riehm		hibák gyűjtése
+	Stefan Roemer		számos hibajavítás, felhasználók segítése
 	Ralf Schandl		IBM OS/390 port
-	Olaf Seibert		DICE and BeBox version, regexp improvements
-	Mortaza Shiran		Farsi patches
+	Olaf Seibert		DICE és BeBox verzio, regexp fejlesztések
+	Mortaza Shiran		Farsi javítások
 	Peter da Silva		termlib
 	Paul Slootman		OS/2 port
-	Henry Spencer		regular expressions
+	Henry Spencer		reguláris kifejezések
 	Dany St-Amant		Macintosh port
 	Tim Thompson		Stevie
 	G. R. (Fred) Walter	Stevie
-	Sven Verdoolaege	Perl interface
-	Robert Webb		Command-line completion, GUI versions, and
-				lots of patches
-	Ingo Wilken		Tcl interface
-	Mike Williams		PostScript printing
-	Juergen Weigert		Lattice version, AUX improvements, UNIX and
-				MS-DOS ports, autoconf
-	Stefan 'Sec' Zehl	Maintainer of vim.org
-	Yasuhiro Matsumoto	many MS-Windows improvements
-	Ken Takata		fixes and features
+	Sven Verdoolaege	Perl interfész
+	Robert Webb		Command-line kiegészítés, GUI verziók, és
+				rengeteg javítás
+	Ingo Wilken		Tcl interfész
+	Mike Williams		PostScript nyomtatás
+	Juergen Weigert		Lattice verzió, AUX fejlesztése, UNIX és
+				MS-DOS portok, autoconf
+	Stefan 'Sec' Zehl	a vim.org karbantartója
+	Yasuhiro Matsumoto	számos MS-Windows fejlesztés
+	Ken Takata		javítás és extra funkciók
 	Kazunobu Kuriyama	GTK 3
-	Christian Brabandt	many fixes, features, user support, etc.
-	Yegappan Lakshmanan	many quickfix features
+	Christian Brabandt	számos javítás, fejlesztés, felhasználói
+				segítségnyújtás, stb.
+	Yegappan Lakshmanan	quickfix funkciók
 
-I wish to thank all the people that sent me bug reports and suggestions.  The
-list is too long to mention them all here.  Vim would not be the same without
-the ideas from all these people: They keep Vim alive!
+Szeretném megköszönni mindannyiuknak az elküldött hibajelentésekért és javas-
+lataikért. A lista túl hosszú lenne mindannyiukat megemlíteni. Az ötleteik
+nélkül a Vim ma nem tartana itt: Ők tartják életben a Vimet!
 *love* *peace* *friendship* *gross-national-happiness*
 
 
-In this documentation there are several references to other versions of Vi:
+A dokumentációban hivatkozásokat találhatunk a Vi egyéb verzióira:
 							*Vi* *vi*
-Vi	"the original".  Without further remarks this is the version
-	of Vi that appeared in Sun OS 4.x.  ":version" returns
-	"Version 3.7, 6/7/85".  Sometimes other versions are referred
-	to.  Only runs under Unix.  Source code is now available under a
-	BSD-style license.  More information on Vi can be found through:
+Vi	Az "eredeti", (amennyiben nincs külön hivatkozás veriószámra), az a
+	verzió, amely megjelent a Sun OS 4.x.-ben. ":version" parancs eredmé-
+	nye: "Version 3.7, 6/7/85". Esetenként más verziók is megemlítésre
+	lerülhetnek. Kizárólag Unix alatt fut. Forráskódját BSD-style licensz
+	védi. További információk:
 		http://ex-vi.sourceforge.net/
 							*Posix*
-Posix	From the IEEE standard 1003.2, Part 2: Shell and utilities.
-	Generally known as "Posix".  This is a textual description of
-	how Vi is supposed to work.
-	See |posix-compliance|.
+Posix	Az IEEE standard 1003.2 (ismertebb nevén "Posix"), a Vi működési
+	elveit tárgyalja.
+	lásd |posix-compliance|.
 							*Nvi*
-Nvi	The "New" Vi.  The version of Vi that comes with BSD 4.4 and FreeBSD.
-	Very good compatibility with the original Vi, with a few extensions.
-	The version used is 1.79.  ":version" returns "Version 1.79
-	(10/23/96)".  There has been no release the last few years, although
-	there is a development version 1.81.
-	Source code is freely available.
+Nvi	Az "új" Vi. A BSD 4.4 és a FreeBSD alapértelmezett szövegszerkesztője.
+	A régi verzióval a kompatibilitása nagyon jó. Megjelennek az első
+	kiegészítők (pluginok). Az említett Nvi verziószáma 1.79, a ":version"
+	parancs "Version 1.79 (10/23/96)" ad vissza. Az elmúlt években nem
+	volt új verzió, bár a fejlesztői változat elérhető (1.81). Forrás
+	kódja szabadon letölthető.
 							*Elvis*
-Elvis	Another Vi clone, made by Steve Kirkendall.  Very compact but isn't
-	as flexible as Vim.  Development has stalled, Elvis has left the
-	building!  Source code is freely available.
+Elvis   A következő Vi klón, szerzője: Steve Kirkendall. Kompakt, de nem
+	annyira flexibilis, mint a Vim. Fejlesztése megállt. Elvis él!
+	A forráskód szabadon letölthető.
 							*Neovim*
-Neovim	A Vim clone.  Forked the Vim source in 2014 and went a different way.
+Neovim  Vim klón. 2014-ben indult útjára, de más irányt vett. A githubhoz
+	nagyon kötődik, sokkal több függősége van ami miatt komplexebb,
+	hordozhatósága limitáltabb. A kódbázis részei refaktoráláson estek át,
+	ami már nem kompatibilis a Vimmel. Támogatja a távoli grafikus inter-
+	fészt és egyéb sciptnyelvek integrációját.
+
+
+A Vim clone.  Forked the Vim source in 2014 and went a different way.
 	Very much bound to github and has many more dependencies, making
 	development more complex and limiting portability.  Code has been
 	refactored, resulting in patches not being exchangeable with Vim.
