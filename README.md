@@ -12,4 +12,5 @@ Ongoing Translation of the Vim reference &amp; help files
 * Your English better than good
 * Your Hungarian grammar is nearly perfect
 * You not gonna use translate engines
+* You understand the meaning of the english information and you are not afraid to void the 'word by word' translation sometimes
 
