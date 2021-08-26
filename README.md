@@ -13,7 +13,7 @@ Ongoing Translation of the Vim reference &amp; help files
 * mark that with an '@@@' where the English is okay but you do now how the things work in Vim
 * If you want, add your comment as well like:
     * "??? My Comment ???"
-    * "@@@ Mz comment @@@"
+    * "@@@ My comment @@@"
     * Or even your translation but in this case leave the original text intact
 
 ## PLease only commit if
