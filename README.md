@@ -9,7 +9,12 @@ Ongoing Translation of the Vim reference &amp; help files
 * search the original documentation if needed like :h tag@hu
 
 ## If something is not clear
-* mark that with an '???' and leave the whole sentence and/or section untranslated and we will figure that out
+* mark that with an '???' and leave the whole sentence and/or section untranslated and we will figure that out (mostly caused by language barrier)
+* mark that with an '@@@' where the English is okay but you do now how the things work in Vim
+* If you want, add your comment as well like:
+    * "??? My Comment ???"
+    * "@@@ Mz comment @@@"
+    * Or even your translation but in this case leave the original text intact
 
 ## PLease only commit if
 * Your English better than good
