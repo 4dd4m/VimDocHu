@@ -14,9 +14,9 @@ Ongoing Translation of the Vim reference &amp; help files
 * If you want, add your comment as well like:
     * "??? My Comment ???"
     * "@@@ My comment @@@"
-    * Or even your translation but in this case leave the original text intact
+    * Or even your translation enclosed by these symbols, but in this case leave the original text intact
 
-## PLease only commit if
+## Please only commit if
 * Your English better than good
 * Your Hungarian grammar is nearly perfect
 * You not gonna use translate engines
