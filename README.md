@@ -8,6 +8,9 @@ Ongoing Translation of the Vim reference &amp; help files
 * Add to your .vimrc to prioritize hu help files ':helplang=hu,en'
 * search the original documentation if needed like :h tag@hu
 
+## If something is not clear
+* mark that with an '???' and leave the whole sentence and/or section untranslated and we will figure that out
+
 ## PLease only commit if
 * Your English better than good
 * Your Hungarian grammar is nearly perfect
