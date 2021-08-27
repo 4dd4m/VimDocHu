@@ -1,210 +1,226 @@
-*help.hux*	Vim verzió 8.2.  Frissítve: 2020 Aug 15
+*help.txt*	Vim verzió 8.2.  Frissítve: 2020 Aug 15
 
 			VIM - Fő help fájl
 									 k
-      Move around:  Use the cursor keys, or "h" to go left,	       h   l
-		    "j" to go down, "k" to go up, "l" to go right.	 j
-Close this window:  Use ":q<Enter>".
-   Get out of Vim:  Use ":qa!<Enter>" (careful, all changes are lost!).
+         Mozgatás:  Nyilakkal, vagy "h" - balra, "j" - le, "k" - fel   h   l
+		    "l" - jobbra.				         j
 
-Jump to a subject:  Position the cursor on a tag (e.g. |bars|) and hit CTRL-].
-   With the mouse:  ":set mouse=a" to enable the mouse (in xterm or GUI).
-		    Double-click the left mouse button on a tag, e.g. |bars|.
-	Jump back:  Type CTRL-O.  Repeat to go further back.
+   Ablak bezárása:  ":q<Enter>".
 
-Get specific help:  It is possible to go directly to whatever you want help
-		    on, by giving an argument to the |:help| command.
-		    Prepend something to specify the context:  *help-context*
+ Kilépés a Vimből:  Gépeld be: ":qa!<Enter>". Óvatosan! Az összes változtatás
+		    elvész.
 
-			  WHAT			PREPEND    EXAMPLE	~
-		      Normal mode command		   :help x
-		      Visual mode command	  v_	   :help v_u
-		      Insert mode command	  i_	   :help i_<Esc>
-		      Command-line command	  :	   :help :quit
-		      Command-line editing	  c_	   :help c_<Del>
-		      Vim command argument	  -	   :help -r
-		      Option			  '	   :help 'textwidth'
-		      Regular expression	  /	   :help /[
-		    See |help-summary| for more contexts and an explanation.
+   Tárgyhoz ugrás:  Állítsd rá a kurzort egy tárgyra (például |bars|) és üss
+		    CTRL-] (magyar kiosztáson CTRL-ú).
 
-  Search for help:  Type ":help word", then hit CTRL-D to see matching
-		    help entries for "word".
-		    Or use ":helpgrep word". |:helpgrep|
+	  Egérrel:  Engedélyezd az egeret a következő paranccsal: ":set mouse=a"
+		    (xtermben, vagy GUIban), majd dupla klikkelj a kiemelt
+		    elemekre.
 
-  Getting started:  Do the Vim tutor, a 30-minute interactive course for the
-		    basic commands, see |vimtutor|.
-		    Read the user manual from start to end: |usr_01.txt|
+      Visszalépés:  CTRL-O
 
-Vim stands for Vi IMproved.  Most of Vim was made by Bram Moolenaar, but only
-through the help of many others.  See |credits|.
+Specifikus segítség:	Ha tudod, hogy konkrétan mire szeretnél rákeresni,
+			akkor csak add át a |:help| parancsnak argumentumként.
+			Speciális előtagokkal tovább szűkítheted a keresést.
+							    *help-context*
+
+			  MI			ELŐTAG		PÉLDA	~
+		      Normál parancs			   :help x
+		      Vizuális parancs		  v_	   :help v_u
+		      Beszúró parancs		  i_	   :help i_<Esc>
+		      Command-line parancs	  :	   :help :quit
+		      Command-line szerkesztő	  c_	   :help c_<Del>
+		      Vim argument		  -	   :help -r
+		      Opció			  '	   :help 'textwidth'
+		      Reguláris Kifejezés	  /	   :help /[
+		    A kontextusokról többet megtudhatsz itt:  |help-sumary|
+
+Keresés a manuálban:  Gépeld be a ":help word", majd üss CTRL-D-t, így
+		      láthatod, hogy milyen oldalak érhetők el "word" címszó
+		      alatt.
+		      Alternatíva: ":helpgrep word".  |:helpgrep|
+
+      Ezzel kezdj:  Csináld végig a Vim tutort, 30 perces interaktív gyors-
+		    talpaló a legalapvetőbb parancsokkal lásd: |vimtutor|.
+		    Olvasd el a felhasználói kézikönyvet az elejétől a végéig.
+		    |usr_01.txt|.
+
+A Vim rövidítés a Vi IMprovedből származtatható. Nagy részét Bram Moolenaar
+írta, rengeteg hozzájárulással egyéb személyektől. Lásd |credits|.
 ------------------------------------------------------------------------------
 						*doc-file-list* *Q_ct*
 BASIC:
-|quickref|	Overview of the most common commands you will use
-|tutor|		30-minute interactive course for beginners
-|copying|	About copyrights
-|iccf|		Helping poor children in Uganda
-|sponsor|	Sponsor Vim development, become a registered Vim user
-|www|		Vim on the World Wide Web
-|bugs|		Where to send bug reports
+|quickref|	Áttekintés a leggyakrabban használt parancsokról
+|tutor|		30 perces interaktív kurzus kezdők számára
+|copying|	Licenszelési információk
+|iccf|		Segíts Uganda szegény gyermekein
+|sponsor|	Szponzoráld a Vim fejlesztését, válj regisztrált taggá
+|www|		Vim az interneten
+|bugs|		Hogyan jelentsd az esetleges hibákat
 
-USER MANUAL: These files explain how to accomplish an editing task.
+FELHASZNÁLÓI KÉZIKÖNYV: Ezek a fájlok elmagyarázzák, hogy hogyan kell
+megoldnai a szerkesztési folyamatokat.
 
-|usr_toc.txt|	Table Of Contents
+|usr_toc.txt|	Tartalomjegyzék
 
-Getting Started ~
-|usr_01.txt|  About the manuals
-|usr_02.txt|  The first steps in Vim
-|usr_03.txt|  Moving around
-|usr_04.txt|  Making small changes
-|usr_05.txt|  Set your settings
-|usr_06.txt|  Using syntax highlighting
-|usr_07.txt|  Editing more than one file
-|usr_08.txt|  Splitting windows
-|usr_09.txt|  Using the GUI
-|usr_10.txt|  Making big changes
-|usr_11.txt|  Recovering from a crash
-|usr_12.txt|  Clever tricks
+Kezdő lpések ~
+|usr_01.txt|  A kézikönyvről
+|usr_02.txt|  Első lépések
+|usr_03.txt|  Navigáció
+|usr_04.txt|  Kisebb szerkesztése
+|usr_05.txt|  A beállításaid
+|usr_06.txt|  Szintaxis kiemelés használata
+|usr_07.txt|  Két, vagy több fájl szerkesztése
+|usr_08.txt|  Ablakok splitelése
+|usr_09.txt|  A GUI használata
+|usr_10.txt|  Nagy szerkesztések
+|usr_11.txt|  Helyreállítás összeomlás után
+|usr_12.txt|  Okos trükkök
 
-Editing Effectively ~
-|usr_20.txt|  Typing command-line commands quickly
-|usr_21.txt|  Go away and come back
-|usr_22.txt|  Finding the file to edit
-|usr_23.txt|  Editing other files
-|usr_24.txt|  Inserting quickly
-|usr_25.txt|  Editing formatted text
-|usr_26.txt|  Repeating
-|usr_27.txt|  Search commands and patterns
+Szerkesztés hatékonyan ~
+|usr_20.txt|  Command-lineba gépelés gyorsan
+|usr_21.txt|  Interkció más programokkal
+|usr_22.txt|  Fájlok keresése
+|usr_23.txt|  Más fájlok szerkesztése
+|usr_24.txt|  Gyors beillesztés
+|usr_25.txt|  Formázott szöveg szerkesztése
+|usr_26.txt|  Ismétlés
+|usr_27.txt|  Keresési parancsok és minták
 |usr_28.txt|  Folding
-|usr_29.txt|  Moving through programs
-|usr_30.txt|  Editing programs
-|usr_31.txt|  Exploiting the GUI
-|usr_32.txt|  The undo tree
+|usr_29.txt|  Mozgás a kódbázisban
+|usr_30.txt|  Progarom szerkesztése
+|usr_31.txt|  A GUI kihasználása
+|usr_32.txt|  A visszavonás-fa
 
-Tuning Vim ~
-|usr_40.txt|  Make new commands
-|usr_41.txt|  Write a Vim script
-|usr_42.txt|  Add new menus
-|usr_43.txt|  Using filetypes
-|usr_44.txt|  Your own syntax highlighted
-|usr_45.txt|  Select your language
+A Vim beállításai~
+|usr_40.txt| Új parancsok készítése
+|usr_41.txt|  VimScript
+|usr_42.txt|  Új menü hozzáadása
+|usr_43.txt|  Filetypes használata
+|usr_44.txt|  A saját szintaxis kiemelésed
+|usr_45.txt|  Nyelv kiválasztása
 
-Making Vim Run ~
-|usr_90.txt|  Installing Vim
+A Vim futtatása~
+|usr_90.txt|  A Vim telepítése
 
 
-REFERENCE MANUAL: These files explain every detail of Vim.	*reference_toc*
+VIM DOKUMENTÁCIÓ: Ezek a fájlok elmagyarázzzák a Vim működését a
+		  legapróbb részletekig.			*reference_toc*
 
-General subjects ~
-|intro.txt|	general introduction to Vim; notation used in help files
-|help.txt|	overview and quick reference (this file)
-|helphelp.txt|	about using the help files
-|index.txt|	alphabetical index of all commands
-|help-tags|	all the tags you can jump to (index of tags)
-|howto.txt|	how to do the most common editing tasks
-|tips.txt|	various tips on using Vim
-|message.txt|	(error) messages and explanations
-|quotes.txt|	remarks from users of Vim
-|todo.txt|	known problems and desired extensions
-|develop.txt|	development of Vim
-|debug.txt|	debugging Vim itself
-|uganda.txt|	Vim distribution conditions and what to do with your money
+Általános témakörök~
+|intro.txt|	általános bevezetés a Vim használatába, a dokumentáció
+		jelölésrendszere
+|help.txt|	áttekintés és referencia (jelen fájl)
+|helphelp.txt|	a dokumentáció használata
+|index.txt|	parancsok rendezett listája
+|help-tags|	az összes tárgy, melyekhez ugorhatunk (tárgymutató)
+|howto.txt|	a Leggyakoribb szerkesztési feladatok kivitelezése
+|tips.txt|	számos tipp
+|message.txt|	(hiba) üzenetek és értelmezéseik
+|quotes.txt|	idézetek Vim felhasználóktól
+|todo.txt|	ismert problémák, fejlesztési feladatok
+|develop.txt|	a Vim fejlesztése
+|debug.txt|	a Vim debug használata
+|uganda.txt|	vim felhasználási felételek, mi töreturnénik a pénzeddel
 
-Basic editing ~
-|starting.txt|	starting Vim, Vim command arguments, initialisation
-|editing.txt|	editing and writing files
-|motion.txt|	commands for moving around
-|scroll.txt|	scrolling the text in the window
-|insert.txt|	Insert and Replace mode
-|change.txt|	deleting and replacing text
-|undo.txt|	Undo and Redo
-|repeat.txt|	repeating commands, Vim scripts and debugging
-|visual.txt|	using the Visual mode (selecting a text area)
-|various.txt|	various remaining commands
+Alapvető szerkesztési feladatok ~
+|starting.txt|	vim indítása, argumentumai, inicializáció
+|editing.txt|	fájlok szerkesztése és írása
+|motion.txt|	navigációs parancsok
+|scroll.txt|	görgetás
+|insert.txt|	insert and Replace mode
+|insert.txt|	beszúr és csere
+|undo.txt|	visszavonás és újra
+|repeat.txt|	parancsok ismétlése, Vim sxriptek, debuggolás
+|visual.txt|	a vizuális mód használata (szöveg kijelölése)
+|various.txt|	számos egyéb parancs
 |recover.txt|	recovering from a crash
+|recover.txt|	helyreállítás összeomlás után
 
-Advanced editing ~
-|cmdline.txt|	Command-line editing
-|options.txt|	description of all options
-|pattern.txt|	regexp patterns and search commands
-|map.txt|	key mapping and abbreviations
-|tagsrch.txt|	tags and special searches
-|windows.txt|	commands for using multiple windows and buffers
-|tabpage.txt|	commands for using multiple tab pages
-|spell.txt|	spell checking
-|diff.txt|	working with two to eight versions of the same file
-|autocmd.txt|	automatically executing commands on an event
-|eval.txt|	expression evaluation, conditional commands
-|channel.txt|	Jobs, Channels, inter-process communication
-|fold.txt|	hide (fold) ranges of lines
+Szerkesztés felsőfokon~
+|cmdline.txt|	command-line szerkesztés
+|options.txt|	az összes opció leírása
+|pattern.txt|	regexp minták és keresési parancsok
+|map.txt|	billentyűk mappelése, rövidítések
+|tagsrch.txt|	tagek, speciális keresés
+|windows.txt|	parancsok több ablak és buffer használatához
+|tabpage.txt|	parancsok a fülek használatához
+|spell.txt|	helyesírás ellenőrzés
+|diff.txt|	adott fájl különböző verzióinak szerkesztés
+|autocmd.txt|	eseményvezérelt parancsok
+|eval.txt|	kifejezések kiéreturnékelése, feltételes parancsok
+|channel.txt|	munkák, csatornák, kommunikáció
+|channel.txt|	jobs, Channels, inter-process communication
+|fold.txt|	kód folding
 
-Special issues ~
-|testing.txt|	testing Vim and Vim scripts
-|print.txt|	printing
-|remote.txt|	using Vim as a server or client
-|term.txt|	using different terminals and mice
-|terminal.txt|	Terminal window support
-|popup.txt|	popup window support
-|vim9.txt|	using Vim9 script
+Speciális helyzetek~
+|testing.txt|	A Vim (és VimScriptek) tesztelése
+|print.txt|	nyomtatás
+|remote.txt|	A vim szyerver vagy kilensként
+|term.txt|	különböző terminálok és egerek használata
+|terminal.txt|	terminálablakok támogatása
+|popup.txt|	felugró ablakok támogatása
+|vim9.txt|	Vim9 script használata
 
-Programming language support ~
-|indent.txt|	automatic indenting for C and other languages
-|syntax.txt|	syntax highlighting
-|textprop.txt|	Attaching properties to text for highlighting or other
-|filetype.txt|	settings done specifically for a type of file
-|quickfix.txt|	commands for a quick edit-compile-fix cycle
-|ft_ada.txt|	Ada (the programming language) support
-|ft_ps1.txt|	Filetype plugin for Windows PowerShell
-|ft_raku.txt|	Filetype plugin for Raku
-|ft_rust.txt|	Filetype plugin for Rust
-|ft_sql.txt|	about the SQL filetype plugin
+Programnyelvek támogatása~
+|indent.txt|	automatikus behúzás C és más nyelvek szmára
+|syntax.txt|	szintaxiskiemelés
+|textprop.txt|	szavak ellátása tulajdonságokkal (szintaxis kiemelés számára)
+|filetype.txt|	fájltípusfüggő beállítások
+|quickfix.txt|	parancsok a gyors szerkesztés-fordítás-javítás ciklushoz
+|ft_ada.txt|	ada (programozási nyelv) támogatása
+|ft_ps1.txt|	filetype beépülő Windows PowerShellhez
+|ft_raku.txt|	filetype beépülő Rakuhoz
+|ft_rust.txt|	filetype beépülő Rusthoz
+|ft_sql.txt|	az SQL filetype beépülőről
 
-Language support ~
+Támogatott nyelvek~
 |digraph.txt|	list of available digraphs
-|mbyte.txt|	multibyte text support
-|mlang.txt|	non-English language support
-|rileft.txt|	right-to-left editing mode
-|arabic.txt|	Arabic language support and editing
-|farsi.txt|	Farsi (Persian) editing
-|hebrew.txt|	Hebrew language support and editing
-|russian.txt|	Russian language support and editing
-|hangulin.txt|	Hangul (Korean) input mode
+|hungarian.txt|   Magyar nyelv támogatása
+|mbyte.txt|	multibyte támogatás
+|mlang.txt|	nem Angol nyelvek támogatása
+|rileft.txt|	jobbról-balra töreturnénő szerkesztés
+|arabic.txt|	arab nyelvű támogatás
+|farsi.txt|	Farsi (perzsa) támogatás
+|hebrew.txt|	Héber nyelv támogatása
+|russian.txt|	Orosz nyelv támogatása
+|hangulin.txt|	Koreai beviteli mód
 
-GUI ~
-|gui.txt|	Graphical User Interface (GUI)
+Felhasználói felület~
+|gui.txt|	Grafikus felület (GUI)
 |gui_w32.txt|	Win32 GUI
 |gui_x11.txt|	X11 GUI
 
-Interfaces ~
-|if_cscop.txt|	using Cscope with Vim
-|if_lua.txt|	Lua interface
-|if_mzsch.txt|	MzScheme interface
-|if_perl.txt|	Perl interface
-|if_pyth.txt|	Python interface
-|if_tcl.txt|	Tcl interface
-|if_ole.txt|	OLE automation interface for Win32
-|if_ruby.txt|	Ruby interface
-|debugger.txt|	Interface with a debugger
-|netbeans.txt|	NetBeans External Editor interface
-|sign.txt|	debugging signs
+Interfészek~
+|if_cscop.txt|	Cscope használata Vimmel
+|if_lua.txt|	Lua interfész
+|if_mzsch.txt|	MzScheme interfész
+|if_perl.txt|	Perl interfész
+|if_pyth.txt|	Python interfész
+|if_tcl.txt|	Tcl interfész
+|if_ole.txt|	OLE automatizációs interfész (Win32)
+|if_ruby.txt|	Ruby interfész
+|debugger.txt|	Interfész debuggerrel
+|netbeans.txt|	NetBeans Külső szerkesztői interfész
+|sign.txt|	signok debuggolása
 
-Versions ~
-|vi_diff.txt|	Main differences between Vim and Vi
-|version4.txt|	Differences between Vim version 3.0 and 4.x
-|version5.txt|	Differences between Vim version 4.6 and 5.x
-|version6.txt|	Differences between Vim version 5.7 and 6.x
-|version7.txt|	Differences between Vim version 6.4 and 7.x
-|version8.txt|	Differences between Vim version 7.4 and 8.x
+Javítások~
+|vi_diff.txt|	A Vi és Vim közötti legfőbb különbségek
+|version4.txt|	Különbségek a Vim version 3.0 és 4.x között
+|version5.txt|	Különbségek a Vim version 4.6 és 5.x között
+|version6.txt|	Különbségek a Vim version 5.7 és 6.x között
+|version7.txt|	Különbségek a Vim version 6.4 és 7.x között
+|version8.txt|	Különbségek a Vim version 7.4 és 8.x között
 						*sys-file-list*
-Remarks about specific systems ~
+Gondolatok különböző rendszerekről~
 |os_390.txt|	OS/390 Unix
 |os_amiga.txt|	Amiga
-|os_beos.txt|	BeOS and BeBox
-|os_dos.txt|	MS-DOS and MS-Windows common items
+|os_beos.txt|	BeOS és BeBox
+|os_dos.txt|	MS-DOS és MS-Windows
 |os_haiku.txt|	Haiku
 |os_mac.txt|	Macintosh
 |os_mint.txt|	Atari MiNT
-|os_msdos.txt|	MS-DOS (plain DOS and DOS box under Windows)
+|os_msdos.txt|	MS-DOS (plain DOS és DOS box Windows alatt)
 |os_os2.txt|	OS/2
 |os_qnx.txt|	QNX
 |os_risc.txt|	RISC-OS
@@ -212,31 +228,32 @@ Remarks about specific systems ~
 |os_vms.txt|	VMS
 |os_win32.txt|	MS-Windows
 						*standard-plugin-list*
-Standard plugins ~
-|pi_getscript.txt| Downloading latest version of Vim scripts
-|pi_gzip.txt|      Reading and writing compressed files
-|pi_logipat.txt|   Logical operators on patterns
-|pi_netrw.txt|     Reading and writing files over a network
-|pi_paren.txt|     Highlight matching parens
-|pi_spec.txt|      Filetype plugin to work with rpm spec files
-|pi_tar.txt|       Tar file explorer
-|pi_vimball.txt|   Create a self-installing Vim script
-|pi_zip.txt|       Zip archive explorer
+Alapértelmezett beépülők~
+|pi_getscript.txt| Vim scriptek legfrissebb verziójának letöltése
+|pi_gzip.txt|      Tömörített állományok írása és olvasása
+|pi_logipat.txt|   Logikai operátorok és minták
+|pi_netrw.txt|     Fájlok távoli írása és olvasása
+|pi_paren.txt|     Illeszkedő minták kiemelése
+|pi_spec.txt|      Filetype beépülő rpm spec fájlokhoz
+|pi_tar.txt|       Tar fájlböngésző
+|pi_vimball.txt|   Vim Script telepítő készítése
+|pi_zip.txt|       Zip archívum böngésző
 
-LOCAL ADDITIONS:				*local-additions*
+HELYI KIEGÉSZÍTÉS				*local-additions*
 
 ------------------------------------------------------------------------------
 *bars*		Bars example
 
-Now that you've jumped here with CTRL-] or a double mouse click, you can use
-CTRL-T, CTRL-O, g<RightMouse>, or <C-RightMouse> to go back to where you were.
+Gratulálok, sikerült idetalálnod a CTRL-] (CTRL-ú) vagy dupla egérklikk
+segítségével. Vissza tudsz lépni az előző pontra a CTRL-T,CTRL-O, g<RightMouse>
+vagy <C-RightMouse> segítségével.
 
-Note that tags are within | characters, but when highlighting is enabled these
-characters are hidden.  That makes it easier to read a command.
+Megjegyzés: a tageket | karakterek határolják, viszont, ha a kiemelés
+engedélyezve van, akkor ezeket nem lehet látni. Így egyszerűbb olvasni a
+dokumentációt.
 
-Anyway, you can use CTRL-] on any word, also when it is not within |, and Vim
-will try to find help for it.  Especially for options in single quotes, e.g.
-'compatible'.
+Egyébként, a CTRL-] (CTRL-ú) bármikor használhatod, nem csak a kiemelt szavakon,
+ha tartozik a szóhoz helpfájl, a Vim megnyitja.
 
 ------------------------------------------------------------------------------
  vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:

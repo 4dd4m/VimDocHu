@@ -1,138 +1,141 @@
 *quickref.txt*  Vim verzió 8.2.  Frissítve: 2021 Mar 29
 
 
-		  VIM REFERENCE MANUAL    by Bram Moolenaar
+		  Bram Moolenaar: VIM REFERENCIA
 
-			    Quick reference guide
+			    Referencia Áttekintés
 
 							 *quickref* *Contents*
- tag	  subject			 tag	  subject	~
-|Q_ct|	list of help files		|Q_re|	Repeating commands
-|Q_lr|	motion: Left-right		|Q_km|	Key mapping
-|Q_ud|	motion: Up-down			|Q_ab|	Abbreviations
-|Q_tm|	motion: Text object		|Q_op|	Options
-|Q_pa|	motion: Pattern searches	|Q_ur|	Undo/Redo commands
-|Q_ma|	motion: Marks			|Q_et|	External commands
-|Q_vm|	motion: Various			|Q_qf|	Quickfix commands
-|Q_ta|	motion: Using tags		|Q_vc|	Various commands
-|Q_sc|	Scrolling			|Q_ce|	Ex: Command-line editing
-|Q_in|	insert: Inserting text		|Q_ra|	Ex: Ranges
-|Q_ai|	insert: Keys			|Q_ex|	Ex: Special characters
-|Q_ss|	insert: Special keys		|Q_st|	Starting Vim
-|Q_di|	insert: Digraphs		|Q_ed|	Editing a file
-|Q_si|	insert: Special inserts		|Q_fl|	Using the argument list
-|Q_de|	change: Deleting text		|Q_wq|	Writing and quitting
-|Q_cm|	change: Copying and moving	|Q_ac|	Automatic commands
-|Q_ch|	change: Changing text		|Q_wi|	Multi-window commands
-|Q_co|	change: Complex			|Q_bu|	Buffer list commands
-|Q_vi|	Visual mode			|Q_sy|	Syntax highlighting
-|Q_to|	Text objects			|Q_gu|	GUI commands
+ tag	  tárgy			 tag	  tárgy	~
+|Q_ct|	helpfájlok listája		|Q_re|	Parancsok ismétlése
+|Q_lr|	mozgás: Balra-jobbra		|Q_km|	Billentyűmappek
+|Q_ud|	mozgás: Fel-le			|Q_ab|	Rövidítések
+|Q_tm|	mozgás: Szöveges objektumok	|Q_op|	Beállíltások
+|Q_pa|	mozgás: Keresési minták		|Q_ur|	Visszavonás / újra
+|Q_ma|	mozgás: Jelölők			|Q_et|	Külső parancsok
+|Q_vm|	mozgás: Egyebek			|Q_qf|	Quickfix parancsok
+|Q_ta|	mozgás: Tagek használata	|Q_vc|	Egyéb parancsok
+|Q_sc|	Görgetés			|Q_ce|	Ex: Command-line szerkesztés
+|Q_in|	beszúrás: Szöveg beszúrása	|Q_ra|	Ex: Tartományok
+|Q_ai|	beszúrás: Billentyűk		|Q_ex|	Ex: Speciális Karakterek
+|Q_ss|	beszúrás: Speciális billentyűk	|Q_st|	A Vim indítása
+|Q_di|	beszúrás: Digraphs		|Q_ed|	Fájl szerkesztése
+|Q_si|	beszúrás: Speciális beszúrások	|Q_fl|	Argumentumlista használata
+|Q_de|	változtatás: Törlés		|Q_wq|	Mentés és kilépés
+|Q_cm|	változtatás: Másolás, mozgatás	|Q_ac|	Automatikus parancsok
+|Q_ch|	változtatás: Szöveg mozgatása	|Q_wi|	Több ablakos parancsok
+|Q_co|	változtatás: Komplex		|Q_bu|	Buffer lista parancsok
+|Q_vi|	Vizuális mód			|Q_sy|	Szintakszis kiemelésk
+|Q_to|	Szöveges Objektumok		|Q_gu|	GUI parancsok
 					|Q_fo|	Folding
 
 ------------------------------------------------------------------------------
-N is used to indicate an optional count that can be given before the command.
+Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé kerül.
 ------------------------------------------------------------------------------
-*Q_lr*		Left-right motions
+*Q_lr*		Balra-jobbra mozgások
 
-|h|	N  h		left (also: CTRL-H, <BS>, or <Left> key)
-|l|	N  l		right (also: <Space> or <Right> key)
-|0|	   0		to first character in the line (also: <Home> key)
-|^|	   ^		to first non-blank character in the line
-|$|	N  $		to the last character in the line (N-1 lines lower)
-			   (also: <End> key)
-|g0|	   g0		to first character in screen line (differs from "0"
-			   when lines wrap)
-|g^|	   g^		to first non-blank character in screen line (differs
-			   from "^" when lines wrap)
-|g$|	N  g$		to last character in screen line (differs from "$"
-			   when lines wrap)
-|gm|	   gm		to middle of the screen line
-|gM|	   gM		to middle of the line
-|bar|	N  |		to column N (default: 1)
-|f|	N  f{char}	to the Nth occurrence of {char} to the right
-|F|	N  F{char}	to the Nth occurrence of {char} to the left
-|t|	N  t{char}	till before the Nth occurrence of {char} to the right
-|T|	N  T{char}	till before the Nth occurrence of {char} to the left
-|;|	N  ;		repeat the last "f", "F", "t", or "T" N times
-|,|	N  ,		repeat the last "f", "F", "t", or "T" N times in
+|h|	N  h		balra (valamint: CTRL-H, <BS>, vagy <Left> billentyű)
+|l|	N  l		jobbra (valamint: <Space> or <Right> billentyű)
+|0|	   0		ugrás a sor legelső karakterére (valamint: <Home>
+			billentyű)
+|^|	   ^		ugrás a sor legelső nem üres karakterére
+|$|	N  $		ugrás a sor legutolsó karakterére (N-1 sorral lejjebb)
+			(valamint: <End> billentyű)
+|g0|	   g0		ugrás a képernyő sorának első karakterére (különbözik
+			a "0"-tól ha a sor tördelt)
+|g^|	   g^		ugrás a képernyő sorának első nem üres karakterére
+			(különbözik a "^"-tól, ha a sor tördelt)
+|g$|	N  g$		ugrás a képernyő sorának a legutolsó karakterére
+			(különbözik a "$"-tól, ha a sor tördelt)
+|gm|	   gm		ugrás a képernyő sorának közepére
+|gM|	   gM		ugrás a sor közepére
+|bar|	N  |		ugrás az N. sorra (alapértelmezett: 1)
+|f|	N  f{char}	ugrás {char} N. előfordulására - jobbra
+|F|	N  F{char}      ugrás {char} N. előfordulására - balra
+|t|	N  t{char}	ugrás {char} N. előfordulása elé - jobbra
+|T|	N  T{char}	ugrás {char} N. előfordulása elé - balra
+|;|	N  ;		az utolsó "f", "F", "t" vagy "T" parancs ismétlése
+			N-szer
+|,|	N  ,		az utolsó "f", "F", "t" vagy "T" parancs ismétlése
+			N-szer ellenkező irányban
 			   opposite direction
 ------------------------------------------------------------------------------
-*Q_ud*		Up-down motions
+*Q_ud*		Fel-Le mozgások
 
-|k|	N  k		up N lines (also: CTRL-P and <Up>)
-|j|	N  j		down N lines (also: CTRL-J, CTRL-N, <NL>, and <Down>)
-|-|	N  -		up N lines, on the first non-blank character
-|+|	N  +		down N lines, on the first non-blank character (also:
-			   CTRL-M and <CR>)
-|_|	N  _		down N-1 lines, on the first non-blank character
-|G|	N  G		goto line N (default: last line), on the first
-			   non-blank character
-|gg|	N  gg		goto line N (default: first line), on the first
-			   non-blank character
-|N%|	N  %		goto line N percentage down in the file; N must be
-			   given, otherwise it is the |%| command
-|gk|	N  gk		up N screen lines (differs from "k" when line wraps)
-|gj|	N  gj		down N screen lines (differs from "j" when line wraps)
+|k|	N  k		fel N sort (valamint: CTRL-P és <Up>)
+|j|	N  j		le N sort (valamint: CTRL-J, CTRL-N, <NL>, és <Down>)
+|-|	N  -		fel N sort, ugrás a sor első nem üres karakterére
+|+|	N  +		le N sort, ugrás a sor első nem üres karakterére
+			(valamint: CTRL-M és <CR>)
+|_|	N  _		le N-1 sort, a legelső nem üres karakterre
+|G|	N  G		ugrás az N. sorra (alapértelmezett: utolsó sor), az
+			első nem üres karakterre
+|gg|	N  gg		ugrás az N. sorra (alapértelmezett: legelső sor), az
+			első nem üres karakterre
+|N%|	N  %		ugrás N |%|-ot le. az N számot kötelező megadni,
+			különben a |%| parancsként értékelődik ki.
+|gk|	N  gk		fel N sort (különbözik "k"-tól sortörés esetén)
+|gj|	N  gj		le N sort (különbözik "j"-től sortörés esetén)
 ------------------------------------------------------------------------------
-*Q_tm*		Text object motions
+*Q_tm*		Szövegobjektum szintű mozgások
 
-|w|	N  w		N words forward
-|W|	N  W		N blank-separated |WORD|s forward
-|e|	N  e		forward to the end of the Nth word
-|E|	N  E		forward to the end of the Nth blank-separated |WORD|
-|b|	N  b		N words backward
-|B|	N  B		N blank-separated |WORD|s backward
-|ge|	N  ge		backward to the end of the Nth word
-|gE|	N  gE		backward to the end of the Nth blank-separated |WORD|
+|w|	N  w		N szót előre
+|W|	N  W		N SZÓT előre (|WORD|)
+|e|	N  e		ugrás az N. szó utolsó karakterére
+|E|	N  E		ugrás az N. SZÓ utolsó karakterére (|WORD|)
+|b|	N  b		N szót hátra
+|B|	N  B		N SZÓT hátra (|WORD|)
+|ge|	N  ge		ugrás hátra, az N. szó végére
+|gE|	N  gE		ugrás hátra, az N. SZÓ végére (|WORD|)
 
-|)|	N  )		N sentences forward
-|(|	N  (		N sentences backward
-|}|	N  }		N paragraphs forward
-|{|	N  {		N paragraphs backward
-|]]|	N  ]]		N sections forward, at start of section
-|[[|	N  [[		N sections backward, at start of section
-|][|	N  ][		N sections forward, at end of section
-|[]|	N  []		N sections backward, at end of section
-|[(|	N  [(		N times back to unclosed '('
-|[{|	N  [{		N times back to unclosed '{'
-|[m|	N  [m		N times back to start of method (for Java)
-|[M|	N  [M		N times back to end of method (for Java)
-|])|	N  ])		N times forward to unclosed ')'
-|]}|	N  ]}		N times forward to unclosed '}'
-|]m|	N  ]m		N times forward to start of method (for Java)
-|]M|	N  ]M		N times forward to end of method (for Java)
-|[#|	N  [#		N times back to unclosed "#if" or "#else"
-|]#|	N  ]#		N times forward to unclosed "#else" or "#endif"
-|[star|	N  [*		N times back to start of comment "/*"
-|]star|	N  ]*		N times forward to end of comment "*/"
+|)|	N  )		N mondatot előre
+|(|	N  (		N mondatot hátra
+|}|	N  }		N bekezdést előre
+|{|	N  {		N bekezdést hátra
+|]]|	N  ]]		N fejezetet előre, a fejezet kezdetéhez
+|[[|	N  [[		N fejezetet hátra, a fejezet kezdetéhez
+|][|	N  ][		N fejezetet előre, a fejezet végéhez
+|[]|	N  []		N fejezetet hátra, a fejezet végéhez
+|[(|	N  [(		N-szer vissza, páratlan '('-hez
+|[{|	N  [{		N-szer vissza, páratlan '{'-hez
+|[m|	N  [m		N-szer vissza a metódus kezdetéhez (Java)
+|[M|	N  [M		N-szer vissza a metódus végéhez (Java)
+|])|	N  ])		N-szer előre, páratlan ')'-hez
+|]}|	N  ]}		N-szer előre, páratlan '}'-hez
+|]m|	N  ]m		N-szer előre, a metódus kezdetéhez  (Java)
+|]M|	N  ]M		N-szer előre, a metódus végéhez (Java)
+|[#|	N  [#		N-szer vissza, páratlan "#if" vagy "#else"-hez
+|]#|	N  ]#		N-szer előre, páratlan "#else" or "#endif"-hez
+|[star|	N  [*		N-szer hátra, komment kezdetéhez "/*"
+|]star|	N  ]*		N-szer előre, komment végéhez "*/"
 ------------------------------------------------------------------------------
-*Q_pa*		Pattern searches
+*Q_pa*		Keresési minták
 
 |/|	N  /{pattern}[/[offset]]<CR>
-			search forward for the Nth occurrence of {pattern}
+			keresés előre, a {pattern} N. előfordulása
 |?|	N  ?{pattern}[?[offset]]<CR>
-			search backward for the Nth occurrence of {pattern}
-|/<CR>|	N  /<CR>	repeat last search, in the forward direction
-|?<CR>|	N  ?<CR>	repeat last search, in the backward direction
-|n|	N  n		repeat last search
-|N|	N  N		repeat last search, in opposite direction
-|star|	N  *		search forward for the identifier under the cursor
-|#|	N  #		search backward for the identifier under the cursor
-|gstar|	N  g*		like "*", but also find partial matches
-|g#|	N  g#		like "#", but also find partial matches
-|gd|	   gd		goto local declaration of identifier under the cursor
-|gD|	   gD		goto global declaration of identifier under the cursor
+			keresés hátra, a {pattern} N. előfordulása
+|/<CR>|	N  /<CR>	az utolsó keresés megismétlése előre irányban
+|?<CR>|	N  ?<CR>	az utolsó keresés megismétlése hátra irányban
+|n|	N  n		keresés ismétlése (azaz következő előfordulás)
+|N|	N  N		keresés ismétlése (azaz előző előforfulás)
+|star|	N  *		keresés előre (kurzor alatti szóra)
+|#|	N  #		keresés hátra (kurzor alatti szóra)
+|gstar|	N  g*		mint a  "*", a részleges illeszkedéseket is
+|g#|	N  g#		mint a  "#", a részleges illeszkedéseket is
+|gd|	   gd		ugrás a kurzor alatti objektum definíciójára (lokális)
+|gD|	   gD		ugrás a kurzor alatti objektum definíciójára (globális)
 
-|pattern|		Special characters in search patterns
-
-			meaning		      magic   nomagic	~
-		matches any single character	.	\.
-		       matches start of line	^	^
-			       matches <EOL>	$	$
-		       matches start of word	\<	\<
-			 matches end of word	\>	\>
-	matches a single char from the range	[a-z]	\[a-z]
-      matches a single char not in the range	[^a-z]	\[^a-z]
+|pattern|		Speciális karakterek jelentési a keresési mintákban
+??? idem? ???
+			jelentés	      magic   nomagic	~
+		illeszkedik bármely karakterre	.	\.
+		   illeszkedik a sorkezdetre	^	^
+			   illeszkedik <EOL>	$	$
+		   illeszkedik a szó elejére	\<	\<
+		    illeszkedik a szó végére	\>	\>
+     illeszkedik a tartomány egy karakterére	[a-z]	\[a-z]
+  illeszkedik ha a tartomány nem tartalmazza	[^a-z]	\[^a-z]
 		  matches an identifier char	\i	\i
 		   idem but excluding digits	\I	\I
 		 matches a keyword character	\k	\k
@@ -144,23 +147,23 @@ N is used to indicate an optional count that can be given before the command.
 	     matches a white space character	\s	\s
 	 matches a non-white space character	\S	\S
 
-			       matches <Esc>	\e	\e
-			       matches <Tab>	\t	\t
-				matches <CR>	\r	\r
-				matches <BS>	\b	\b
+			   illeszkedik <Esc>	\e	\e
+			   illeszkedik <Tab>	\t	\t
+			    illeszkedik <CR>	\r	\r
+			    illeszkedik <BS>	\b	\b
 
      matches 0 or more of the preceding atom	*	\*
      matches 1 or more of the preceding atom	\+	\+
 	matches 0 or 1 of the preceding atom	\=	\=
 	matches 2 to 5 of the preceding atom	\{2,5}  \{2,5}
-		  separates two alternatives	\|	\|
-		group a pattern into an atom	\(\)	\(\)
+	        két alternatíva elválasztása	\|	\|
+			   soportosítás atom	\(\)	\(\)
 
-|search-offset|		Offsets allowed after search command
+|search-offset|		A keresés offsetelhető
 
-    [num]	[num] lines downwards, in column 1
-    +[num]	[num] lines downwards, in column 1
-    -[num]	[num] lines upwards, in column 1
+    [num]	[num] sort lefelé, az első oszlopban
+    +[num]	[num] sort lefelé, az első oszlopban
+    -[num]	[num] sort felfelé, az első oszlopban
     e[+num]	[num] characters to the right of the end of the match
     e[-num]	[num] characters to the left of the end of the match
     s[+num]	[num] characters to the right of the start of the match
