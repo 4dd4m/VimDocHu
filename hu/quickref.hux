@@ -6,7 +6,7 @@
 			    Referencia Áttekintés
 
 							 *quickref* *Contents*
- tag	  tárgy			 tag	  tárgy	~
+ tag	  tárgy				tag	tárgy	~
 |Q_ct|	helpfájlok listája		|Q_re|	Parancsok ismétlése
 |Q_lr|	mozgás: Balra-jobbra		|Q_km|	Billentyűmappek
 |Q_ud|	mozgás: Fel-le			|Q_ab|	Rövidítések
@@ -72,7 +72,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 			első nem üres karakterre
 |gg|	N  gg		ugrás az N. sorra (alapértelmezett: legelső sor), az
 			első nem üres karakterre
-|N%|	N  %		ugrás N |%|-ot le. az N számot kötelező megadni,
+|N%|	N  %		ugrás N |%|-nyit le. az N számot kötelező megadni,
 			különben a |%| parancsként értékelődik ki.
 |gk|	N  gk		fel N sort (különbözik "k"-tól sortörés esetén)
 |gj|	N  gj		le N sort (különbözik "j"-től sortörés esetén)
@@ -87,7 +87,6 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |B|	N  B		N SZÓT hátra (|WORD|)
 |ge|	N  ge		ugrás hátra, az N. szó végére
 |gE|	N  gE		ugrás hátra, az N. SZÓ végére (|WORD|)
-
 |)|	N  )		N mondatot előre
 |(|	N  (		N mondatot hátra
 |}|	N  }		N bekezdést előre
@@ -123,11 +122,12 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |#|	N  #		keresés hátra (kurzor alatti szóra)
 |gstar|	N  g*		mint a  "*", a részleges illeszkedéseket is
 |g#|	N  g#		mint a  "#", a részleges illeszkedéseket is
-|gd|	   gd		ugrás a kurzor alatti objektum definíciójára (lokális)
-|gD|	   gD		ugrás a kurzor alatti objektum definíciójára (globális)
+|gd|	   gd		ugrás a kurzor alatti szó definíciójára (lokális)
+|gD|	   gD		ugrás a kurzor alatti szó definíciójára (globális)
 
-|pattern|		Speciális karakterek jelentési a keresési mintákban
-??? idem? ???
+|pattern|		Speciális karakterek jelentései a keresési mintákban
+
+??? missing a couple of things, not clear yet ???
 			jelentés	      magic   nomagic	~
 		illeszkedik bármely karakterre	.	\.
 		   illeszkedik a sorkezdetre	^	^
@@ -136,75 +136,75 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 		    illeszkedik a szó végére	\>	\>
      illeszkedik a tartomány egy karakterére	[a-z]	\[a-z]
   illeszkedik ha a tartomány nem tartalmazza	[^a-z]	\[^a-z]
-		  matches an identifier char	\i	\i
-		   idem but excluding digits	\I	\I
+	 egy azonosítókarakterre illeszkedik	\i	\i
+			 ugyanaz de nem szám	\I	\I
 		 matches a keyword character	\k	\k
-		   idem but excluding digits	\K	\K
+		         ugyanaz de nem szám	\K	\K
 	       matches a file name character	\f	\f
-		   idem but excluding digits	\F	\F
+			 ugyanaz de nem szám	\F	\F
 	       matches a printable character	\p	\p
-		   idem but excluding digits	\P	\P
-	     matches a white space character	\s	\s
-	 matches a non-white space character	\S	\S
-
+		   ugyanaz but excluding digits	\P	\P
+		        white-space karakter	\s	\s
+	           nem white-space karakter	\S	\S
 			   illeszkedik <Esc>	\e	\e
 			   illeszkedik <Tab>	\t	\t
 			    illeszkedik <CR>	\r	\r
 			    illeszkedik <BS>	\b	\b
-
-     matches 0 or more of the preceding atom	*	\*
-     matches 1 or more of the preceding atom	\+	\+
-	matches 0 or 1 of the preceding atom	\=	\=
-	matches 2 to 5 of the preceding atom	\{2,5}  \{2,5}
-	        két alternatíva elválasztása	\|	\|
-			   soportosítás atom	\(\)	\(\)
+    az előző minta 0 vagy töbször fordul elő	*	\*
+  az előző minta legalább egy- vagy többször	\+	\+
+	       az előző minta 0 vagy egyszer	\=	\=
+    az alőző minta min 2-szer de max. 5-ször    \{2,5}  \{2,5}
+	              két alternatíva (VAGY) 	\|	\|
+			       csoportosítás	\(\)	\(\)
 
 |search-offset|		A keresés offsetelhető
 
     [num]	[num] sort lefelé, az első oszlopban
     +[num]	[num] sort lefelé, az első oszlopban
     -[num]	[num] sort felfelé, az első oszlopban
-    e[+num]	[num] characters to the right of the end of the match
-    e[-num]	[num] characters to the left of the end of the match
-    s[+num]	[num] characters to the right of the start of the match
-    s[-num]	[num] characters to the left of the start of the match
-    b[+num]	[num] identical to s[+num] above (mnemonic: begin)
-    b[-num]	[num] identical to s[-num] above (mnemonic: begin)
-    ;{search-command}	execute {search-command} next
+    e[+num]	[num] karakter jobbra a minta végétől
+    e[-num]	[num] karakter balra a minta végétől
+    s[+num]	[num] karakter jobbra a mint elejétől
+    s[-num]	[num] karakter balra a minta elejétől
+    b[+num]	[num] azonos ezzel: s[+num] (begin)
+    b[+num]	[num] azonos ezzel: s[+num] (begin)
+    b[-num]	[num] azonos ezzel: s[-num] (begin)
+    ;{search-command} {search-command} futtatása  (következő)
 ------------------------------------------------------------------------------
-*Q_ma*		Marks and motions
+*Q_ma*		Jelölések és navigációs parancsaik
 
-|m|        m{a-zA-Z}	mark current position with mark {a-zA-Z}
-|`a|       `{a-z}	go to mark {a-z} within current file
-|`A|       `{A-Z}	go to mark {A-Z} in any file
-|`0|       `{0-9}	go to the position where Vim was previously exited
-|``|       ``		go to the position before the last jump
-|`quote|   `"		go to the position when last editing this file
-|`[|       `[		go to the start of the previously operated or put text
-|`]|       `]		go to the end of the previously operated or put text
-|`<|       `<		go to the start of the (previous) Visual area
-|`>|       `>		go to the end of the (previous) Visual area
-|`.|       `.		go to the position of the last change in this file
+|m|        m{a-zA-Z}	pozíció megjelölése {a-zA-Z}
+|`a|       `{a-z}	menj jelöléshez {a-z} a fájlban
+|`A|       `{A-Z}	menj jelöléshez {A-Z} bármely fájlban
+|`0|       `{0-9}	menj ahhoz a pozícióhoz, ahol a Vim előzőleg bezárult
+|``|       ``		menj az utolsó ugrás előtti pozícióhoz
+|`quote|   `"		menj az előzőleg bezárt buffer kurzor-pozíciójához
+			(buffer újra-nyitásnál, alapértelmezetten a legelső sor.
+			Lásd: |marks|).
+|`[|       `[		menj a legutolsó szerkesztett (vagy másolt) szöveg
+			elejére
+|`]|       `]		menj a legutolsó szerkesztett (vagy másolt) szöveg
+			végére
+|`<|       `<		menj az utóljára kijelölt szöveg elejéhez
+|`>|       `>		menj az utóljára kijelölt szöveg végéhez
+|`.|       `.		menj a legutolsó szerkesztés pozíciójához
 |'|        '{a-zA-Z0-9[]'"<>.}
-			same as `, but on the first non-blank in the line
-|:marks|  :marks	print the active marks
-|CTRL-O|  N  CTRL-O	go to Nth older position in jump list
-|CTRL-I|  N  CTRL-I	go to Nth newer position in jump list
-|:ju|     :ju[mps]	print the jump list
+			ugyan az, mint `, de a sor legelső nem üres karakterére
+|:marks|  :marks	aktív jelölők megjelenítése
+|CTRL-O|  N  CTRL-O	N. régebbi pozíció a jump listben
+|CTRL-I|  N  CTRL-I	N. újabb pozíció a jump listben
+|:ju|     :ju[mps]	jump lista megtekintése
 ------------------------------------------------------------------------------
-*Q_vm*		Various motions
+*Q_vm*		Egyéb navigációs parnacsok
 
-|%|	   %		find the next brace, bracket, comment, or "#if"/
-			   "#else"/"#endif" in this line and go to its match
-|H|	N  H		go to the Nth line in the window, on the first
-			   non-blank
-|M|	   M		go to the middle line in the window, on the first
-			   non-blank
-|L|	N  L		go to the Nth line from the bottom, on the first
-			   non-blank
+|%|	   %	        "(", "[", "#else", "#endif" vagy komment párjához ugrás
+|H|	N  H		ugorj az N. sorhoz az ablakban (legelső nem üres
+	    krakter)
+|M|	   M		ugorj az ablak középső sorára (nem üres)
+|L|	N  L		ugorj az ablak N. alsó sorára (nem üres)
 
-|go|	N  go			go to Nth byte in the buffer
-|:go|	:[range]go[to] [off]	go to [off] byte in the buffer
+|go|	N  go		menj az N. bájthoz a the buffer
+|:go|	:[range]go[to] [off]	haldj [off] bájtnyit a bufferben.
 ------------------------------------------------------------------------------
 *Q_ta*		Using tags
 
