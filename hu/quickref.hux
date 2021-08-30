@@ -143,7 +143,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 	       matches a file name character	\f	\f
 			 ugyanaz de nem szám	\F	\F
 	       matches a printable character	\p	\p
-		   ugyanaz but excluding digits	\P	\P
+		ugyanaz but excluding digits	\P	\P
 		        white-space karakter	\s	\s
 	           nem white-space karakter	\S	\S
 			   illeszkedik <Esc>	\e	\e
@@ -154,7 +154,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
   az előző minta legalább egy- vagy többször	\+	\+
 	       az előző minta 0 vagy egyszer	\=	\=
     az alőző minta min 2-szer de max. 5-ször    \{2,5}  \{2,5}
-	              két alternatíva (VAGY) 	\|	\|
+          két (vagy több) alternatíva (VAGY) 	\|	\|
 			       csoportosítás	\(\)	\(\)
 
 |search-offset|		A keresés offsetelhető
@@ -171,7 +171,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
     b[-num]	[num] azonos ezzel: s[-num] (begin)
     ;{search-command} {search-command} futtatása  (következő)
 ------------------------------------------------------------------------------
-*Q_ma*		Jelölések és navigációs parancsaik
+*Q_ma*		Jelölések (mark) és navigációs parancsaik
 
 |m|        m{a-zA-Z}	pozíció megjelölése {a-zA-Z}
 |`a|       `{a-z}	menj jelöléshez {a-z} a fájlban
@@ -190,10 +190,10 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |`.|       `.		menj a legutolsó szerkesztés pozíciójához
 |'|        '{a-zA-Z0-9[]'"<>.}
 			ugyan az, mint `, de a sor legelső nem üres karakterére
-|:marks|  :marks	aktív jelölők megjelenítése
-|CTRL-O|  N  CTRL-O	N. régebbi pozíció a jump listben
-|CTRL-I|  N  CTRL-I	N. újabb pozíció a jump listben
-|:ju|     :ju[mps]	jump lista megtekintése
+|:marks|  :marks	jelölők megjelenítése
+|CTRL-O|  N  CTRL-O	N. régebbi pozíció a jump-listben
+|CTRL-I|  N  CTRL-I	N. újabb pozíció a jump-listben
+|:ju|     :ju[mps]	jump-list megtekintése
 ------------------------------------------------------------------------------
 *Q_vm*		Egyéb navigációs parnacsok
 
@@ -203,12 +203,12 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |M|	   M		ugorj az ablak középső sorára (nem üres)
 |L|	N  L		ugorj az ablak N. alsó sorára (nem üres)
 
-|go|	N  go		menj az N. bájthoz a the buffer
-|:go|	:[range]go[to] [off]	haldj [off] bájtnyit a bufferben.
+|go|	N  go		menj a buffer N. bájtjához
+|:go|	:[range]go[to] [off]	haladj [off] bájtnyit a bufferben
 ------------------------------------------------------------------------------
-*Q_ta*		Using tags
-
-|:ta|      :ta[g][!] {tag}	jump to tag {tag}
+*Q_ta*		Tagek (címkék)  használata
+??? maybe later ???
+|:ta|      :ta[g][!] {tag}	ugroj taghez {tag}
 |:ta|      :[count]ta[g][!]	jump to [count]'th newer tag in tag list
 |CTRL-]|      CTRL-]		jump to the tag under cursor, unless changes
 				   have been made
@@ -218,7 +218,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |:ltag|    :lt[ag][!] [tag]	jump to tag [tag] and add matching tags to the
 				   location list
 
-|:tags|    :tags		print tag list
+|:tags|    :tags		tagek listázása
 |CTRL-T|   N  CTRL-T		jump back from Nth older tag in tag list
 |:po|      :[count]po[p][!]	jump back from [count]'th older tag in tag list
 |:tnext|   :[count]tn[ext][!]	jump to [count]'th next matching tag
@@ -226,226 +226,238 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |:tr|      :[count]tr[ewind][!]	jump to [count]'th matching tag
 |:tl|      :tl[ast][!]		jump to last matching tag
 
-|:ptag|    :pt[ag] {tag}	open a preview window to show tag {tag}
-|CTRL-W_}|    CTRL-W }		like CTRL-] but show tag in preview window
+|:ptag|    :pt[ag] {tag}	{tag} megtekintése előnézeti ablakban
+|CTRL-W_}|    CTRL-W }		mint CTRL-], tag előnézeti ablakban
 |:pts|     :pts[elect]		like ":tselect" but show tag in preview window
 |:ptjump|  :ptj[ump]		like ":tjump" but show tag in preview window
-|:pclose|  :pc[lose]		close tag preview window
-|CTRL-W_z|    CTRL-W z		close tag preview window
+|:pclose|  :pc[lose]		tag-előnézet bezárása
+|CTRL-W_z|    CTRL-W z		tag-előnézet bezárása
 ------------------------------------------------------------------------------
-*Q_sc*		Scrolling
+*Q_sc*		Görgetés
 
-|CTRL-E|	N  CTRL-E	window N lines downwards (default: 1)
-|CTRL-D|	N  CTRL-D	window N lines Downwards (default: 1/2 window)
-|CTRL-F|	N  CTRL-F	window N pages Forwards (downwards)
-|CTRL-Y|	N  CTRL-Y	window N lines upwards (default: 1)
-|CTRL-U|	N  CTRL-U	window N lines Upwards (default: 1/2 window)
-|CTRL-B|	N  CTRL-B	window N pages Backwards (upwards)
-|z<CR>|		   z<CR> or zt	redraw, current line at top of window
-|z.|		   z.	 or zz	redraw, current line at center of window
-|z-|		   z-	 or zb	redraw, current line at bottom of window
+|CTRL-E|	N  CTRL-E	N sort lefelé (1 sor)
+|CTRL-D|	N  CTRL-D	N sort lefelé (1/2 ablak)
+|CTRL-F|	N  CTRL-F	N sort előre (képernyő)
+|CTRL-Y|	N  CTRL-Y	N sort felfelé (1 sor)
+|CTRL-U|	N  CTRL-U	N sort felfelé (1/2 ablak)
+|CTRL-B|	N  CTRL-B	N sort hátra (képernyő)
+|z<CR>|		   z<CR> or zt	jelenlegi sor az ablak tetejére
+|z.|		   z.	 or zz	jelenlegi sor az ablak közepére
+|z-|		   z-	 or zb	jelenlegi sor az ablak aljára
 
-These only work when 'wrap' is off:
-|zh|		N  zh		scroll screen N characters to the right
-|zl|		N  zl		scroll screen N characters to the left
-|zH|		N  zH		scroll screen half a screenwidth to the right
-|zL|		N  zL		scroll screen half a screenwidth to the left
+Ezek a parancsok csak akkor működnek, ha 'wrap' nincs bekapcsolva:
+|zh|		N  zh		képernyő görgetése N karakterrel jobbra
+|zl|		N  zl		képernyő görgetése N karakterrel balra
+|zH|		N  zH		görgetés fél képernyőnyit jobbra
+|zL|		N  zL		görgetés fél képernyőnyit balra
 ------------------------------------------------------------------------------
-*Q_in*		Inserting text
+*Q_in*		Szöveg beszúrása
 
-|a|	N  a	append text after the cursor (N times)
-|A|	N  A	append text at the end of the line (N times)
-|i|	N  i	insert text before the cursor (N times) (also: <Insert>)
-|I|	N  I	insert text before the first non-blank in the line (N times)
-|gI|	N  gI	insert text in column 1 (N times)
-|o|	N  o	open a new line below the current line, append text (N times)
-|O|	N  O	open a new line above the current line, append text (N times)
-|:startinsert|  :star[tinsert][!]  start Insert mode, append when [!] used
-|:startreplace| :startr[eplace][!]  start Replace mode, at EOL when [!] used
+|a|	N  a	kurzor pozíciója után (N-szer)
+|A|	N  A	sor végére (N-szer)
+|i|	N  i	a kurzor elé (N-szer) (azaz: <Insert>)
+|I|	N  I	a sor első nem üres karaktere elé (N-szer)
+|gI|	N  gI	az első oszlopba (N-szer)
+|o|	N  o	új sor a kurzor alá, majd Insert mód (N-szer)
+|O|	N  O	új sor a kurzor fölé, majd Insert mód (N-szer)
+|:startinsert|  :star[tinsert][!]  Insert mód, hozzáfűzés [!] esetén
+|:startreplace| :startr[eplace][!] Csere (Replace) mód, [!] esetén a sor végén
 
-in Visual block mode:
-|v_b_I|	   I	insert the same text in front of all the selected lines
-|v_b_A|	   A	append the same text after all the selected lines
+Visual block módban:
+|v_b_I|	   I	ugyanazon szöveg beszúrása minden kijelölt sor elé
+|v_b_A|	   A	ugyanazon szöveg beszúrása minden kijelölt sor után
 ------------------------------------------------------------------------------
-*Q_ai*		Insert mode keys
+*Q_ai*		Insert mód billentyűparancsok
 
-|insert-index|	alphabetical index of Insert mode commands
+|insert-index|	Insert mód parancsok, betűrendben
 
-leaving Insert mode:
-|i_<Esc>|	<Esc>		  end Insert mode, back to Normal mode
-|i_CTRL-C|	CTRL-C		  like <Esc>, but do not use an abbreviation
-|i_CTRL-O|	CTRL-O {command}  execute {command} and return to Insert mode
+kilépés Insert módból:
+|i_<Esc>|	<Esc>		  Insert mód vége, vissza Normal módba
+|i_CTRL-C|	CTRL-C		  mint <Esc>, de nem használ rövidítést
+|i_CTRL-O|	CTRL-O {command}  futtatja a {command} parancsot,  majd
+				  visszatér Insert módba
 
-moving around:
-|i_<Up>|	cursor keys	  move cursor left/right/up/down
-|i_<S-Left>|	shift-left/right  one word left/right
-|i_<S-Up>|	shift-up/down	  one screenful backward/forward
-|i_<End>|	<End>		  cursor after last character in the line
-|i_<Home>|	<Home>		  cursor to first character in the line
+mozgások:
+|i_<Up>|	cursor keys	  kurzor mozgatása le/fel/balra/jobbra
+|i_<S-Left>|	shift-left/right  egy szót balra/jobbra
+|i_<S-Up>|	shift-up/down	  egy képernyőnyit előre/hátra
+|i_<End>|	<End>		  kurzort a sor végére
+|i_<Home>|	<Home>		  kurort a sor első karakterére
 ------------------------------------------------------------------------------
-*Q_ss*		Special keys in Insert mode
+*Q_ss*		Speciális billentyűk Insert módban
 
-|i_CTRL-V|	CTRL-V {char}..	  insert character literally, or enter decimal
-				     byte value
-|i_<NL>|	<NL> or <CR> or CTRL-M or CTRL-J
-				  begin new line
-|i_CTRL-E|	CTRL-E		  insert the character from below the cursor
-|i_CTRL-Y|	CTRL-Y		  insert the character from above the cursor
+|i_CTRL-V|	CTRL-V {char}..	  karakterek beszúrása decimális érték alapján
+				  (oktális, hexadecimális értékek alapján is)
+|i_<NL>|	<NL> or <CR> or CTRL-M or CTRL-J  új sor
+|i_CTRL-E|	CTRL-E		  kurzor alatti karakter beszúrása
+|i_CTRL-Y|	CTRL-Y		  kurzor feletti karakter beszúrása
 
-|i_CTRL-A|	CTRL-A		  insert previously inserted text
-|i_CTRL-@|	CTRL-@		  insert previously inserted text and stop
-				     Insert mode
-|i_CTRL-R|	CTRL-R {register} insert the contents of a register
+|i_CTRL-A|	CTRL-A		  a megelőző Insert módban beszúrt szöveg
+				  beszúrása
+|i_CTRL-@|	CTRL-@		  mint CTRL-A és kilépés Insert módból
+|i_CTRL-R|	CTRL-R {register} regiszter tartalmának beszúrása
 
-|i_CTRL-N|	CTRL-N		  insert next match of identifier before the
-				     cursor
-|i_CTRL-P|	CTRL-P		  insert previous match of identifier before
-				     the cursor
-|i_CTRL-X|	CTRL-X ...	  complete the word before the cursor in
-				     various ways
+|i_CTRL-N|	CTRL-N		  kurzor előtti szó kiegészítése, következő
+				  találat beillesztése a kurzor elé
+|i_CTRL-P|	CTRL-P		  kurzor előtti szó kiegészítése, az előző
+		         	  találat beszúrása
+|i_CTRL-X|	CTRL-X ...	  szavak kiegészítése számos módszerrel
 
-|i_<BS>|	<BS> or CTRL-H	  delete the character before the cursor
-|i_<Del>|	<Del>		  delete the character under the cursor
-|i_CTRL-W|	CTRL-W		  delete word before the cursor
-|i_CTRL-U|	CTRL-U		  delete all entered characters in the current
-				     line
-|i_CTRL-T|	CTRL-T		  insert one shiftwidth of indent in front of
-				       the current line
-|i_CTRL-D|	CTRL-D		  delete one shiftwidth of indent in front of
-				     the current line
-|i_0_CTRL-D|	0 CTRL-D	  delete all indent in the current line
-|i_^_CTRL-D|	^ CTRL-D	  delete all indent in the current line,
-				     restore indent in next line
+|i_<BS>|	<BS> or CTRL-H	  kurzor előtti karakter törlése
+|i_<Del>|	<Del>		  kurzor alatt lévő karakter törlése
+|i_CTRL-W|	CTRL-W		  kurzor előtti szó törlése
+|i_CTRL-U|	CTRL-U		  kurzor előtt álló összes karakter törlése a
+				  sorban
+|i_CTRL-T|	CTRL-T		  behúzás növelés
+|i_CTRL-D|	CTRL-D		  behúzás csökkentése
+|i_0_CTRL-D|	0 CTRL-D	  behúzás eltávolítása
+|i_^_CTRL-D|	^ CTRL-D	  behúzás eltávolítása, a következő sor
+       				  behúzásának visszaállítása
 ------------------------------------------------------------------------------
-*Q_di*		Digraphs
+*Q_di*		Digrammák (Digraphs)
 
-|:dig|	   :dig[raphs]		show current list of digraphs
+|:dig|	   :dig[raphs]		digrammák listájának mutatása
 |:dig|	   :dig[raphs] {char1}{char2} {number} ...
-				add digraph(s) to the list
+				digrammák hozzaádása a listához
 
-In Insert or Command-line mode:
+Insert vagy Command-line módban:
 |i_CTRL-K|	CTRL-K {char1} {char2}
-				  enter digraph
+				  digramma bevitele
 |i_digraph|	{char1} <BS> {char2}
-				  enter digraph if 'digraph' option set
+				  digramma bevitele ha 'digraph' opció be van
+				  állítva
 ------------------------------------------------------------------------------
-*Q_si*		Special inserts
+*Q_si*		Speciális beszúrások
 
-|:r|	   :r [file]	   insert the contents of [file] below the cursor
-|:r!|	   :r! {command}   insert the standard output of {command} below the
-			      cursor
+|:r|	   :r [file]	   [file] tartalmának beszúrása a kurzor alá
+|:r!|	   :r! {command}   {command} parancs szabványos kimenetének a
+			   beillesztése
 ------------------------------------------------------------------------------
-*Q_de*		Deleting text
+*Q_de*		Szöveg Törlése
 
-|x|	N  x		delete N characters under and after the cursor
-|<Del>|	N  <Del>	delete N characters under and after the cursor
-|X|	N  X		delete N characters before the cursor
-|d|	N  d{motion}	delete the text that is moved over with {motion}
-|v_d|	   {visual}d	delete the highlighted text
-|dd|	N  dd		delete N lines
-|D|	N  D		delete to the end of the line (and N-1 more lines)
-|J|	N  J		join N-1 lines (delete <EOL>s)
-|v_J|	   {visual}J	join the highlighted lines
-|gJ|	N  gJ		like "J", but without inserting spaces
-|v_gJ|	   {visual}gJ	like "{visual}J", but without inserting spaces
-|:d|	:[range]d [x]	delete [range] lines [into register x]
+|x|	N  x		N karakter törlése a kurzortól jobbra
+|<Del>|	N  <Del>	N karakter törlése kurzortól jobbra, a kurzor alól is
+|X|	N  X		N karakter törlése a kurzortól balra
+|d|	N  d{motion}	{motion}  tartomány törlése
+|v_d|	   {visual}d	kijelölt szöveg törlése
+|dd|	N  dd		N sor törlése
+|D|	N  D		törlés a kurzortól a sor végégig
+|J|	N  J		N sor egyesítése (<EOL> törlése)
+|v_J|	   {visual}J	kijelölt sorok egyesítése
+|gJ|	N  gJ		mint "J", de szóközök beszúrása nélkül
+|v_gJ|	   {visual}gJ	mint "{visual}J", szóközök beszúrása nélkül
+|:d|	:[range]d [x]	[range] or törlése [regiszter "x"-be]
 ------------------------------------------------------------------------------
-*Q_cm*		Copying and moving text
+*Q_cm*		Szöveg másolása és mozgatása
 
-|quote|	  "{char}	use register {char} for the next delete, yank, or put
-|:reg|	  :reg		show the contents of all registers
-|:reg|	  :reg {arg}	show the contents of registers mentioned in {arg}
-|y|	  N  y{motion}	yank the text moved over with {motion} into a register
-|v_y|	     {visual}y	yank the highlighted text into a register
-|yy|	  N  yy		yank N lines into a register
-|Y|	  N  Y		yank N lines into a register
-|p|	  N  p		put a register after the cursor position (N times)
-|P|	  N  P		put a register before the cursor position (N times)
-|]p|	  N  ]p		like p, but adjust indent to current line
-|[p|	  N  [p		like P, but adjust indent to current line
-|gp|	  N  gp		like p, but leave cursor after the new text
-|gP|	  N  gP		like P, but leave cursor after the new text
+|quote|	  "{char}	{char} azonosítójú regiszter használata a következő
+			művelethez (törlés, másolás, beillesztés)
+|:reg|	  :reg		megjeleníti az összes regiszter tartalmát
+|:reg|	  :reg {arg}	megjelíti {arg} regiszter tartalmát
+|y|	  N  y{motion}	szöveg másolása {motion} tartománnyal
+|v_y|	     {visual}y	kijelölt szöveg másolása
+|yy|	  N  yy		N sor másolása
+|Y|	  N  Y		N sor másolása
+|p|	  N  p		a regiszter tartalmának másolása (azaz, beillesztése)
+			a kurzor után (N-szer)
+|P|	  N  P		a regiszter tartalmának másolása (azaz, beillesztése)
+			a kurzor elé (N-szer)
+|]p|	  N  ]p		mint p, de megtartja a sor behúzását
+|[p|	  N  [p		mint P, de megtartja a sor behúzását
+|gp|	  N  gp		mint p, de a kurzort a másolt szöveg végére helyezi
+|gP|	  N  gP		mint P, de a kurzort a másolt szöveg végére helyezi
 ------------------------------------------------------------------------------
-*Q_ch*		Changing text
+*Q_ch*		Csere
 
-|r|	  N  r{char}	replace N characters with {char}
+|r|	  N  r{char}	cserél N karaktert {char} karakterre
 |gr|	  N  gr{char}	replace N characters without affecting layout
-|R|	  N  R		enter Replace mode (repeat the entered text N times)
-|gR|	  N  gR		enter virtual Replace mode: Like Replace mode but
-			   without affecting layout
+|R|	  N  R		Replace mód (begépelt szöveg ismétlése N-szer)
+|gR|	  N  gR		mint R, viszont a csere nem a buffer alapján történik
+			(ebben a módban a <Tab> nem egy karakternek számít)
 |v_b_r|	     {visual}r{char}
-			in Visual block mode: Replace each char of the
-			   selected text with {char}
+			Visual block mód: A kijelölt szöveg összes
+			karakterének csere {char}-al
 
-	(change = delete text and enter Insert mode)
-|c|	  N  c{motion}	change the text that is moved over with {motion}
-|v_c|	     {visual}c	change the highlighted text
-|cc|	  N  cc		change N lines
-|S|	  N  S		change N lines
-|C|	  N  C		change to the end of the line (and N-1 more lines)
-|s|	  N  s		change N characters
-|v_b_c|	     {visual}c	in Visual block mode: Change each of the selected
-			   lines with the entered text
-|v_b_C|	     {visual}C	in Visual block mode: Change each of the selected
-			   lines until end-of-line with the entered text
+	(csere = szöveg törlése, Insert módba lépés)
+|c|	  N  c{motion}	{motion} tartomány cseréje
+|v_c|	     {visual}c	kijelölt tartomány cseréje
+|cc|	  N  cc		N sor cseréje
+|S|	  N  S		N sor cseréje
+|C|	  N  C		csere a sor végéig
+|s|	  N  s		N karakter cseréje
+|v_b_c|	     {visual}c	Visual block módban: Az összes kijelölt sor cseréje
+|v_b_C|	     {visual}C	Visual block módban: Az összes kijelölt sor cseréje a
+			sor végéig
 
-|~|	  N  ~		switch case for N characters and advance cursor
-|v_~|	     {visual}~	switch case for highlighted text
-|v_u|	     {visual}u	make highlighted text lowercase
-|v_U|	     {visual}U	make highlighted text uppercase
-|g~|	     g~{motion} switch case for the text that is moved over with
-			   {motion}
-|gu|	     gu{motion} make the text that is moved over with {motion}
-			   lowercase
-|gU|	     gU{motion} make the text that is moved over with {motion}
-			   uppercase
-|v_g?|	     {visual}g? perform rot13 encoding on highlighted text
-|g?|	     g?{motion} perform rot13 encoding on the text that is moved over
-			   with {motion}
+|~|	  N  ~		kis-nagybetűk megfordítása N karakteren kersztül
+			(a soron belüli, kurzort N-hez helyezi)
+|v_~|	     {visual}~	kijelölt szövegrész kis- nagybetűinek megfordítása
+|v_u|	     {visual}u	kijelölt tartomány kisbetűssé alakítása
+|v_U|	     {visual}U	kijelölt tartomány nagybetűssé alakítása
+|g~|	     g~{motion} kijelölt {motion} tartomány (akár több sor) kis- és
+			nagybetűinek konvertálása
+|gu|	     gu{motion} kijelölt {motion} tartomány (akár több sor) kisbetűssé
+			alakítása
+|gU|	     gU{motion} kijelölt {motion} tartomány (akár több sor) nagybetűssé
+			alakítása
+|v_g?|	     {visual}g? kijelölt szöveg rot13 titkosítása
+|g?|	     g?{motion} kijelölt {motion} tartomány rot13 titkosítása
 
-|CTRL-A|  N  CTRL-A	add N to the number at or after the cursor
-|CTRL-X|  N  CTRL-X	subtract N from the number at or after the cursor
+|CTRL-A|  N  CTRL-A	kurzor alatt lévő, vagy a kurzorhoz legközelebb eső
+			szám növelése N-el
+|CTRL-X|  N  CTRL-X	kurzor alatt lévő, vagy a kurzorhoz legközelebb eső
+			szám csökkentése N-el
 
-|<|	  N  <{motion}	move the lines that are moved over with {motion} one
-			   shiftwidth left
-|<<|	  N  <<		move N lines one shiftwidth left
-|>|	  N  >{motion}	move the lines that are moved over with {motion} one
-			   shiftwidth right
-|>>|	  N  >>		move N lines one shiftwidth right
-|gq|	  N  gq{motion}	format the lines that are moved over with {motion} to
-			   'textwidth' length
+|<|	  N  <{motion}	sorok behúzásának csökkentése {motion} tartományban
+			('shiftwidth' értékkel)
+|<<|	  N  <<		N sor mozgatása egy 'shiftwidth'-el balra
+|>|	  N  >{motion}	sorok behúzásának növelése {motion} tartományban
+			('shiftwidth' értékkel)
+|>>|	  N  >>		N sor mozgatása egy 'shiftwidth'-el jobbra
+|gq|	  N  gq{motion}	sorok hosszának tördelése {motion} tartományban
+		        'textwidth' érték szerint
 |:ce|	  :[range]ce[nter] [width]
-			center the lines in [range]
+			sorok középre húzása [range] tartományban [width]
+			szélesség szerint
 |:le|	  :[range]le[ft] [indent]
-			left-align the lines in [range] (with [indent])
+			sorok balra igazítása [range] tartományban ( [indent]
+			behúzással)
 |:ri|	  :[range]ri[ght] [width]
-			right-align the lines in [range]
+			sorok jobbra igazítása [range] tartományban [width]
+			szélesség szerint
 ------------------------------------------------------------------------------
-*Q_co*		Complex changes
+*Q_co*		Komplex cserék
 
 |!|	   N  !{motion}{command}<CR>
-			filter the lines that are moved over through {command}
+			kijelölt tartomány átadása külső (például shell)
+			{command} programnak
 |!!|	   N  !!{command}<CR>
-			filter N lines through {command}
+			N sor átadása külső {command} programnak
 |v_!|	      {visual}!{command}<CR>
-			filter the highlighted lines through {command}
+			kijelölt sorok átadása külső {command} programnak
 |:range!|  :[range]! {command}<CR>
-			filter [range] lines through {command}
+			[range] tartomány átadása  külső {command} programnak
 |=|	   N  ={motion}
-			filter the lines that are moved over through 'equalprg'
-|==|	   N  ==	filter N lines through 'equalprg'
+			{motion} tartomány átadása az 'equalprg' által
+			beállított külső programnak. Ha nincs beállítva más
+			érték, akkor automatikus behúzás.
+|==|	   N  ==	N sor átadása az 'equalprg' áltlal beállított külső
+			programnak. Ha nincs beállítva érték, akkor
+			automatikus behúzás.
 |v_=|	      {visual}=
-			filter the highlighted lines through 'equalprg'
+			kijelölt sorok átadása 'equalprg'-nek
 |:s|	   :[range]s[ubstitute]/{pattern}/{string}/[g][c]
-			substitute {pattern} by {string} in [range] lines;
-			   with [g], replace all occurrences of {pattern};
-			   with [c], confirm each replacement
+			csere {pattern} (ezt) {string} (erre) ebben a [range]
+			   tartományban (sor alapú);
+			   [g] (globális), kicseréli az összes előfordulást
+				{pattern};
+			   [c] (confirm), megerősítés kérése a csere előtt
 |:s|	   :[range]s[ubstitute] [g][c]
-			repeat previous ":s" with new range and options
-|&|	      &		Repeat previous ":s" on current line without options
+			az előző ":s" futtatása új tartománnyal és opciókkal
+|&|	      &		az előző ":s" futtatása az aktív soron, opciók nélkül
 |:ret|	   :[range]ret[ab][!] [tabstop]
-			set 'tabstop' to new value and adjust white space
-			   accordingly
+			új 'tabstop' érték beállítása és érvényesítése a
+			fájlon belül
 ------------------------------------------------------------------------------
 *Q_vi*		Visual mode
 
