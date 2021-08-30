@@ -444,211 +444,243 @@ Insert vagy Command-line módban:
 |==|	   N  ==	N sor átadása az 'equalprg' áltlal beállított külső
 			programnak. Ha nincs beállítva érték, akkor
 			automatikus behúzás.
-|v_=|	      {visual}=
-			kijelölt sorok átadása 'equalprg'-nek
+|v_=|	   {visual}=	kijelölt sorok átadása 'equalprg'-nek
+
 |:s|	   :[range]s[ubstitute]/{pattern}/{string}/[g][c]
 			csere {pattern} (ezt) {string} (erre) ebben a [range]
 			   tartományban (sor alapú);
 			   [g] (globális), kicseréli az összes előfordulást
 				{pattern};
 			   [c] (confirm), megerősítés kérése a csere előtt
+
 |:s|	   :[range]s[ubstitute] [g][c]
 			az előző ":s" futtatása új tartománnyal és opciókkal
+
 |&|	      &		az előző ":s" futtatása az aktív soron, opciók nélkül
+
 |:ret|	   :[range]ret[ab][!] [tabstop]
 			új 'tabstop' érték beállítása és érvényesítése a
 			fájlon belül
 ------------------------------------------------------------------------------
-*Q_vi*		Visual mode
+*Q_vi*		Visual mód
 
-|visual-index|	list of Visual mode commands.
+|visual-index|	Visual mód parancsok listája
 
-|v|        v		start highlighting characters  }  move cursor and use
-|V|        V		start highlighting linewise    }  operator to affect
-|CTRL-V|   CTRL-V	start highlighting blockwise   }  highlighted text
-|v_o|      o		exchange cursor position with start of highlighting
-|gv|       gv		start highlighting on previous visual area
-|v_v|      v		highlight characters or stop highlighting
-|v_V|      V		highlight linewise or stop highlighting
-|v_CTRL-V| CTRL-V	highlight blockwise or stop highlighting
+|v|        v		karakterenkénti kijelölés
+|V|        V		soronkénti kijelölés
+|CTRL-V|   CTRL-V	blokk kijelölés
+|v_o|      o		ugrás a kijelölés elejéhez/végéhez
+|gv|       gv		előzőleg kijelölt terület újra kijelölése
+|v_v|      v		karakterenkénti kijelölés (vagy kilépés ebből a módból)
+|v_V|      V		soronkénti kijelölés (vagy kilépés ebből a módból
+|v_CTRL-V| CTRL-V	blokk kijelölés (vagy kilépés ebből a módból)
 ------------------------------------------------------------------------------
-*Q_to*		Text objects (only in Visual mode or after an operator)
-
-|v_aw|	   N  aw	Select "a word"
-|v_iw|	   N  iw	Select "inner word"
-|v_aW|	   N  aW	Select "a |WORD|"
-|v_iW|	   N  iW	Select "inner |WORD|"
-|v_as|	   N  as	Select "a sentence"
-|v_is|	   N  is	Select "inner sentence"
-|v_ap|	   N  ap	Select "a paragraph"
-|v_ip|	   N  ip	Select "inner paragraph"
-|v_ab|	   N  ab	Select "a block" (from "[(" to "])")
-|v_ib|	   N  ib	Select "inner block" (from "[(" to "])")
-|v_aB|	   N  aB	Select "a Block" (from "[{" to "]}")
-|v_iB|	   N  iB	Select "inner Block" (from "[{" to "]}")
-|v_a>|	   N  a>	Select "a <> block"
-|v_i>|	   N  i>	Select "inner <> block"
-|v_at|	   N  at	Select "a tag block" (from <aaa> to </aaa>)
-|v_it|	   N  it	Select "inner tag block" (from <aaa> to </aaa>)
-|v_a'|	   N  a'	Select "a single quoted string"
-|v_i'|	   N  i'	Select "inner single quoted string"
-|v_aquote| N  a"	Select "a double quoted string"
-|v_iquote| N  i"	Select "inner double quoted string"
-|v_a`|	   N  a`	Select "a backward quoted string"
-|v_i`|	   N  i`	Select "inner backward quoted string"
+*Q_to*		Szöveges objektumok (csak Visual módban vagy parancs után)
+??? check what inner is???
+|v_aw|	   N  aw	"szó" kijelölése
+|v_iw|	   N  iw	"inner szó" kijelölése
+|v_aW|	   N  aW	"SZÓ" kijelölése (lásd |WORD|)
+|v_iW|	   N  iW	"SZÓ" kijelölése (lásd |WORD|)
+|v_as|	   N  as	"mondat" kijelölése
+|v_is|	   N  is	"inner mondat" kijelölése
+|v_ap|	   N  ap	"bekezdés" kijelölése
+|v_ip|	   N  ip	"inner bekezdés" kijelölése
+|v_ab|	   N  ab	"blokk" kijelölése ("[("-tól "])"-ig)
+|v_ib|	   N  ib	"inner blokk" kijelölése ("[("-tól "])"-ig)
+|v_aB|	   N  aB	"Block" kijelölése ("[{"-tól "]}"-ig)
+|v_iB|	   N  iB	"inner Blokk" kijelölése ("[{"-tól "]}"-ig)
+|v_a>|	   N  a>	" <> blokk" kijelölése
+|v_i>|	   N  i>	"inner <> blokk" kijelölése
+|v_at|	   N  at	"tag" kijelölése (<aaa>-tól </aaa>-ig)
+|v_it|	   N  it	"inner tag" (<aaa>-tól </aaa>-ig)
+|v_a'|	   N  a'	aposztrófok közötti tartalom kijelölése (az
+			aposztrófot "'" tartalmazza a kijelölés)
+|v_i'|	   N  i'	aposztrófok közötti tartalom kijelölése (az
+			aposztrófot "'" nem tartalmazza a kijelölés)
+|v_aquote| N  a"	idézőjelek közötti tartalom kijelölése (az '"'-et
+			tartalmazza a kijelölés)
+|v_iquote| N  i"	idézőjelek közötti tartalom kijelölése (az '"'-et
+			nem tartalmazza a kijelölés)
+|v_a`|	   N  a`	backtick közötti tartalom kiválasztása (beleértve "`")
+|v_i`|	   N  i`	backtick közötti tartalom kiválasztása (kivéve "`")
 
 ------------------------------------------------------------------------------
-*Q_re*		Repeating commands
+*Q_re*		Ismétlő parancsok
 
-|.|	   N  .		repeat last change (with count replaced with N)
-|q|	      q{a-z}	record typed characters into register {a-z}
-|q|	      q{A-Z}	record typed characters, appended to register {a-z}
-|q|	      q		stop recording
-|@|	   N  @{a-z}	execute the contents of register {a-z} (N times)
-|@@|	   N  @@	   repeat previous @{a-z} (N times)
-|:@|	   :@{a-z}	execute the contents of register {a-z} as an Ex
-			   command
-|:@@|	   :@@		repeat previous :@{a-z}
+|.|	   N  .		utolsó szerkesztés ismétlése N-szer
+|q|	      q{a-z}	begépelt karakterek rögzítése regiszterbe (felülír){a-z}
+|q|	      q{A-Z}	begépelt karakterek rögzítése regiszterbe (hozzáfűz)
+			{a-z}
+|q|	      q		rögzítés lállítása
+|@|	   N  @{a-z}	regiszter tartalmának futtatása {a-z} (N-szer)
+|@@|	   N  @@	az utolsó futtatott regiszter ismételt futtatás @{a-z}
+			(N-szer)
+|:@|	   :@{a-z}	regiszter tartalmának futtatása {a-z} Ex prancsként
+|:@@|	   :@@		előző :@{a-z} ismétlése
+
 |:g|	   :[range]g[lobal]/{pattern}/[cmd]
-			execute Ex command [cmd] (default: ":p") on the lines
-			   within [range] where {pattern} matches
+			futtasd a [cmd] parancsot Ex módban (alapértelmezett:
+			    ":p") a sorokon [range] tartományban, ahol a minta
+			    {pattern} egyezik
+
 |:g|	   :[range]g[lobal]!/{pattern}/[cmd]
-			execute Ex command [cmd] (default: ":p") on the lines
-			   within [range] where {pattern} does NOT match
+			futtasd a [cmd] parancsot Ex módban (alapértelmezett:
+			   futtasd a [cmd] parancsot Ex módban
+			   ":p") a sorokon [range] tartományban, ahol a minta
+			   {pattern} NEM egyezik
+
 |:so|	   :so[urce] {file}
-			read Ex commands from {file}
+			Ex parancsok beolvasása fájlból {file}
 |:so|	   :so[urce]! {file}
-			read Vim commands from {file}
+			Vim parancsok beolvasása fájlból {file}
 |:sl|	   :sl[eep] [sec]
-			don't do anything for [sec] seconds
-|gs|	   N  gs	goto Sleep for N seconds
+			alvó mód [sec] másodpercig
+|gs|	   N  gs	alvó mód N másodpercig
 ------------------------------------------------------------------------------
 *Q_km*		Key mapping
 
-|:map|       :ma[p] {lhs} {rhs}	  map {lhs} to {rhs} in Normal and Visual mode
-|:map!|      :ma[p]! {lhs} {rhs}  map {lhs} to {rhs} in Insert and Command-line
-				     mode
-|:noremap|   :no[remap][!] {lhs} {rhs}
-				  same as ":map", no remapping for this {rhs}
-|:unmap|     :unm[ap] {lhs}	  remove the mapping of {lhs} for Normal and
-				     Visual mode
-|:unmap!|    :unm[ap]! {lhs}	  remove the mapping of {lhs} for Insert and
-				     Command-line mode
-|:map_l|     :ma[p] [lhs]	  list mappings (starting with [lhs]) for
-				     Normal and Visual mode
-|:map_l!|    :ma[p]! [lhs]	  list mappings (starting with [lhs]) for
-				     Insert and Command-line mode
+|:map|       :ma[p] {lhs} {rhs}	a baloldal {lhs} hozzárendelése (map) a jobb-
+				oldalhoz {rhs} Normal és Visual módban
+|:map!|      :ma[p]! {lhs} {rhs}  a baloldal {lhs} hozzárendelése (map) a jobb-
+				oldalhoz {lhs} Insert és Command-line módban
+
+|:noremap|   :no[remap][!] {lhs} {rhs}  mint a  ":map", nem remappelődik a {rhs}
+
+|:unmap|     :unm[ap] {lhs}	{lhs} mapjének eltávolítása Normal és Visual
+				módban
+|:unmap!|    :unm[ap]! {lhs}	{lhs} mapjének eltávolítása Insert és Command-
+				line módban
+|:map_l|     :ma[p] [lhs]	mappek listázása [lhs] szerint rendezve
+				Normal és Visual módban
+|:map_l!|    :ma[p]! [lhs]	mappek listázása [lhs] szerint rendezve Insert
+				és Command-line módban
 |:cmap|      :cmap/:cunmap/:cnoremap
-				  like ":map!"/":unmap!"/":noremap!" but for
-				     Command-line mode only
+				  mint a ":map!"/":unmap!"/":noremap!" de csak
+				     Command-line módban
 |:imap|      :imap/:iunmap/:inoremap
-				  like ":map!"/":unmap!"/":noremap!" but for
-				     Insert mode only
+				  mint a ":map!"/":unmap!"/":noremap!" de csak
+				     Insert módban
 |:nmap|      :nmap/:nunmap/:nnoremap
-				  like ":map"/":unmap"/":noremap" but for
-				     Normal mode only
+				  mint a  ":map"/":unmap"/":noremap" de csak
+				     Normal módban
 |:vmap|      :vmap/:vunmap/:vnoremap
-				  like ":map"/":unmap"/":noremap" but for
+				  mint a  ":map"/":unmap"/":noremap" de csak
 				     Visual mode only
 |:omap|      :omap/:ounmap/:onoremap
-				  like ":map"/":unmap"/":noremap" but only for
-				     when an operator is pending
-|:mapc|      :mapc[lear]	  remove mappings for Normal and Visual mode
-|:mapc|      :mapc[lear]!	  remove mappings for Insert and Cmdline mode
-|:imapc|     :imapc[lear]	  remove mappings for Insert mode
-|:vmapc|     :vmapc[lear]	  remove mappings for Visual mode
-|:omapc|     :omapc[lear]	  remove mappings for Operator-pending mode
-|:nmapc|     :nmapc[lear]	  remove mappings for Normal mode
-|:cmapc|     :cmapc[lear]	  remove mappings for Cmdline mode
-|:mkexrc|    :mk[exrc][!] [file]  write current mappings, abbreviations, and
-				     settings to [file] (default: ".exrc";
-				     use ! to overwrite)
-|:mkvimrc|   :mkv[imrc][!] [file]
-				  same as ":mkexrc", but with default ".vimrc"
-|:mksession| :mks[ession][!] [file]
-				  like ":mkvimrc", but store current files,
-				     windows, etc. too, to be able to continue
-				     this session later
-------------------------------------------------------------------------------
-*Q_ab*		Abbreviations
+				  mint a  ":map"/":unmap"/":noremap" de csak
+				     ha az operátor hiányzik
+|:mapc|      :mapc[lear]	Normal és Visual mód mappek eltávolítása
+|:mapc|      :mapc[lear]!	Insert és Cmdline mappek eltávolítása
+|:imapc|     :imapc[lear]	Insert mód mappek eltávolítása
+|:vmapc|     :vmapc[lear]	Visual mód mappek eltávolítása
+|:omapc|     :omapc[lear]	Operator-pending mód mappek eltávolítása
+|:nmapc|     :nmapc[lear]	Normal mód mappek eltávolítása
+|:cmapc|     :cmapc[lear]	Cmdline mód mappek eltávolítása
 
-|:abbreviate|	:ab[breviate] {lhs} {rhs}  add abbreviation for {lhs} to {rhs}
-|:abbreviate|	:ab[breviate] {lhs}	   show abbr's that start with {lhs}
-|:abbreviate|	:ab[breviate]		   show all abbreviations
-|:unabbreviate|	:una[bbreviate] {lhs}	   remove abbreviation for {lhs}
-|:noreabbrev|	:norea[bbrev] [lhs] [rhs]  like ":ab", but don't remap [rhs]
-|:iabbrev|	:iab/:iunab/:inoreab	   like ":ab", but only for Insert mode
-|:cabbrev|	:cab/:cunab/:cnoreab	   like ":ab", but only for
-						Command-line mode
-|:abclear|	:abc[lear]		   remove all abbreviations
-|:cabclear|	:cabc[lear]		   remove all abbr's for Cmdline mode
-|:iabclear|	:iabc[lear]		   remove all abbr's for Insert mode
-------------------------------------------------------------------------------
-*Q_op*		Options
+|:mkexrc|    :mk[exrc][!] [file]  az érvényben lévő mappek, rövidítések és
+				beállítások kiírása [file]-ba,
+				(alapélrtelmezett: ".exrc"; felülíráshoz
+				használj !-t)
 
-|:set|		:se[t]			  show all modified options
+|:mkvimrc|   :mkv[imrc][!] [file] mint az ":mkexrc", alapértelmezett fájl:
+				".vimrc"
+
+|:mksession| :mks[ession][!] [file] mint az ":mkvimrc", tárolja a megnyitott
+				  fájlokat, ablakokat stb, hogy később tudjuk
+				  folytatni a munkamenetet
+------------------------------------------------------------------------------
+*Q_ab*		Rövidítések
+
+|:abbreviate|	:ab[breviate] {lhs} {rhs}  {lhs} rövidítése {rhs}-el
+|:abbreviate|	:ab[breviate] {lhs}	   {lhs} kezdődő rövidítések mutatása
+|:abbreviate|	:ab[breviate]		   összes rövidítés mutatása
+|:unabbreviate|	:una[bbreviate] {lhs}	   {lhs} rövidítésének eltávolítása
+|:noreabbrev|	:norea[bbrev] [lhs] [rhs]  mint ":ab", de nem remappolja [rhs]-t
+|:iabbrev|	:iab/:iunab/:inoreab	   mint ":ab", de csak Insert módban
+|:cabbrev|	:cab/:cunab/:cnoreab	   mint ":ab", de csak Comman-line
+					   módban
+|:abclear|	:abc[lear]		   az összes rövidítés eltávolítása
+|:cabclear|	:cabc[lear]		   az összes Command-line rövidítés
+					   eltávolítása
+|:iabclear|	:iabc[lear]		   az összes Insert mód rövidítés
+					   eltávolítása
+------------------------------------------------------------------------------
+*Q_op*		Beállítások
+
+??? termcap? ???
+
+|:set|		:se[t]			  az összes módosított beálltás
+				          listázása
 |:set|		:se[t] all		  show all non-termcap options
 |:set|		:se[t] termcap		  show all termcap options
-|:set|		:se[t] {option}		  set boolean option (switch it on),
-					  show string or number option
-|:set|		:se[t] no{option}	  reset boolean option (switch it off)
-|:set|		:se[t] inv{option}	  invert boolean option
-|:set|		:se[t] {option}={value}	  set string/number option to {value}
-|:set|		:se[t] {option}+={value}  append {value} to string option, add
-					  {value} to number option
-|:set|		:se[t] {option}-={value}  remove {value} to string option,
-					  subtract {value} from number option
-|:set|		:se[t] {option}?	  show value of {option}
-|:set|		:se[t] {option}&	  reset {option} to its default value
+|:set|		:se[t] {option}		  boolean változót állít be (true, on),
+|:set|		:se[t] no{option}	  boolean változót állít be (false,
+	   				  off)
+|:set|		:se[t] inv{option}	  boolean változót invertál
+|:set|		:se[t] {option}={value}	  string/szám értékadás = {value}
+|:set|		:se[t] {option}+={value}  String esetében hozzáfűz  {value}
+					  értékkel, szám esetén növeli a számot
+					  {value} értékével
+|:set|		:se[t] {option}-={value}  String esetén {value} értéket
+					  eltávolítja, szám esetén {value}
+					  értékével csökkenti a változót
+|:set|		:se[t] {option}?	  {option} értékének kiíratása
+|:set|		:se[t] {option}&	  {option} alapértelmezettre állít
 
-|:setlocal|	:setl[ocal]		  like ":set" but set the local value
-					  for options that have one
-|:setglobal|	:setg[lobal]		  like ":set" but set the global value
-					  of a local option
+|:setlocal|	:setl[ocal]		  mint ":set" de a változók lokális
+					  példányának ad értéket (ha ez
+					  létezik)
+|:setglobal|	:setg[lobal]		  mint ":set" de a változók globális
+					  példányának ad értéket (ha ez létezik)
 
-|:fix|		:fix[del]		  set value of 't_kD' according to
-					  value of 't_kb'
-|:options|	:opt[ions]		  open a new window to view and set
-					  options, grouped by functionality,
-					  a one line explanation and links to
-					  the help
+|:fix|		:fix[del]		  't_kD' értékét 't_kb' értékére
+   				          állítja
+|:options|	:opt[ions]		  új ablakot nyit, listázva az összes
+				          beállítást kategóriánként
+					  csoportosítva, illetve egy rövid egy
+					  soros összefoglalóval
 
-Short explanation of each option:		*option-list*
+??? "whatis" ballon ???
+Az összes opció rövid magyarázata:		*option-list*
 'aleph'		  'al'	    ASCII code of the letter Aleph (Hebrew)
-'allowrevins'	  'ari'     allow CTRL-_ in Insert and Command-line mode
-'altkeymap'	  'akm'	    obsolete option for Farsi
+'allowrevins'	  'ari'     engedélyezi CTRL-_ használatát Insert és Command
+			    line módban
+'altkeymap'	  'akm'	    Farsi elavult opciója
 'ambiwidth'	  'ambw'    what to do with Unicode chars of ambiguous width
-'antialias'	  'anti'    Mac OS X: use smooth, antialiased fonts
-'autochdir'	  'acd'     change directory to the file in the current window
-'autoshelldir'	  'asd'     change directory to the shell's current directory
-'arabic'	  'arab'    for Arabic as a default second language
-'arabicshape'	  'arshape' do shaping for Arabic characters
-'autoindent'	  'ai'	    take indent for new line from previous line
-'autoread'	  'ar'	    autom. read file when changed outside of Vim
-'autowrite'	  'aw'	    automatically write file if changed
-'autowriteall'	  'awa'     as 'autowrite', but works with more commands
-'background'	  'bg'	    "dark" or "light", used for highlight colors
-'backspace'	  'bs'	    how backspace works at start of line
-'backup'	  'bk'	    keep backup file after overwriting a file
-'backupcopy'	  'bkc'     make backup as a copy, don't rename the file
-'backupdir'	  'bdir'    list of directories for the backup file
-'backupext'	  'bex'     extension used for the backup file
-'backupskip'	  'bsk'     no backup for files that match these patterns
-'balloondelay'	  'bdlay'   delay in mS before a balloon may pop up
+'antialias'	  'anti'    Mac OS X: karakterek élsimítása
+'autochdir'	  'acd'     az aktív ablak munkakönyvtára a megnyitott fájl
+			    könyvtárát
+'autoshelldir'	  'asd'     a Vim munkakönyvtárát a shell munkakönyvtárára
+			    állítja
+'arabic'	  'arab'    Arab nyelv alapértelmezett második nyelvként
+'arabicshape'	  'arshape' Arab karakterek formázása
+'autoindent'	  'ai'	    az új sor behúzása követi az előző sorét
+'autoread'	  'ar'	    fájl auto. beolvasása ha Vimen kívülről változott
+'autowrite'	  'aw'	    fájl automatikus mentése változás esetén
+'autowriteall'	  'awa'     mint 'autowrite', több paranccsal kompatibilis
+'background'	  'bg'	    "dark" vagy "light", kiemeléshez használatos
+'backspace'	  'bs'	    <Bs> viselkedésének módja (1. oszlopban)
+'backup'	  'bk'	    biztonsági másolatok
+'backupcopy'	  'bkc'     biztonsági másolat esetén ne nevezze át a fájlt
+'backupdir'	  'bdir'    a biztonsági másolatok könyvtára
+'backupext'	  'bex'     biztonsági másolatnál használt kiegészítők
+'backupskip'	  'bsk'     biztonsági másolat kihagyása illeszkedő minta
+			    esetén
+'balloondelay'	  'bdlay'   értesítési időköz (mS)
 'ballooneval'	  'beval'     switch on balloon evaluation in the GUI
 'balloonevalterm' 'bevalterm' switch on balloon evaluation in the terminal
 'balloonexpr'	  'bexpr'   expression to show in balloon
-'belloff'	  'bo'	    do not ring the bell for these reasons
-'binary'	  'bin'     read/write/edit file in binary mode
+'belloff'	  'bo'	    csengő kikapcsolása események alapján
+'binary'	  'bin'     fájl szerkesztés, olvasás, írás bináris módban
 'bioskey'	  'biosk'   MS-DOS: use bios calls for input characters
-'bomb'			    prepend a Byte Order Mark to the file
-'breakat'	  'brk'     characters that may cause a line break
-'breakindent'	  'bri'     wrapped line repeats indent
-'breakindentopt'  'briopt'  settings for 'breakindent'
-'browsedir'	  'bsdir'   which directory to start browsing in
-'bufhidden'	  'bh'	    what to do when buffer is no longer in window
-'buflisted'	  'bl'	    whether the buffer shows up in the buffer list
-'buftype'	  'bt'	    special type of buffer
+'bomb'			    BOM hozzáfűzése a dokumentumhoz
+'breakat'	  'brk'     sortörést okozó karakterek
+'breakindent'	  'bri'     tördelt sor örökli a behúzást
+'breakindentopt'  'briopt'  'breakindent' beállítása
+'browsedir'	  'bsdir'   böngészési alap. könyvtár
+'bufhidden'	  'bh'	    teendők ha a buffer már nincs az ablakban
+'buflisted'	  'bl'	    teendők ha a buffer a bufferlistára kerül
+'buftype'	  'bt'	    speciális buffer
 'casemap'	  'cmp'     specifies how case of letters is changed
 'cdpath'	  'cd'	    list of directories searched with ":cd"
 'cedit'			    key used to open the command-line window
