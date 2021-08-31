@@ -681,120 +681,124 @@ Az összes opció rövid magyarázata:		*option-list*
 'bufhidden'	  'bh'	    teendők ha a buffer már nincs az ablakban
 'buflisted'	  'bl'	    teendők ha a buffer a bufferlistára kerül
 'buftype'	  'bt'	    speciális buffer
-'casemap'	  'cmp'     specifies how case of letters is changed
-'cdpath'	  'cd'	    list of directories searched with ":cd"
-'cedit'			    key used to open the command-line window
-'charconvert'	  'ccv'     expression for character encoding conversion
-'cindent'	  'cin'     do C program indenting
-'cinkeys'	  'cink'    keys that trigger indent when 'cindent' is set
-'cinoptions'	  'cino'    how to do indenting when 'cindent' is set
-'cinwords'	  'cinw'    words where 'si' and 'cin' add an indent
-'clipboard'	  'cb'	    use the clipboard as the unnamed register
-'cmdheight'	  'ch'	    number of lines to use for the command-line
-'cmdwinheight'	  'cwh'     height of the command-line window
-'colorcolumn'	  'cc'	    columns to highlight
-'columns'	  'co'	    number of columns in the display
-'comments'	  'com'     patterns that can start a comment line
-'commentstring'   'cms'     template for comments; used for fold marker
-'compatible'	  'cp'	    behave Vi-compatible as much as possible
-'complete'	  'cpt'     specify how Insert mode completion works
-'completefunc'	  'cfu'     function to be used for Insert mode completion
-'completeopt'	  'cot'     options for Insert mode completion
-'completepopup'	  'cpp'     options for the Insert mode completion info popup
-'completeslash'	  'csl'	    like 'shellslash' for completion
-'concealcursor'	  'cocu'    whether concealable text is hidden in cursor line
-'conceallevel'	  'cole'    whether concealable text is shown or hidden
-'confirm'	  'cf'	    ask what to do about unsaved/read-only files
-'conskey'	  'consk'   get keys directly from console (MS-DOS only)
-'copyindent'	  'ci'	    make 'autoindent' use existing indent structure
-'cpoptions'	  'cpo'     flags for Vi-compatible behavior
-'cryptmethod'	  'cm'	    type of encryption to use for file writing
-'cscopepathcomp'  'cspc'    how many components of the path to show
-'cscopeprg'       'csprg'   command to execute cscope
-'cscopequickfix'  'csqf'    use quickfix window for cscope results
-'cscoperelative'  'csre'    Use cscope.out path basename as prefix
-'cscopetag'       'cst'     use cscope for tag commands
-'cscopetagorder'  'csto'    determines ":cstag" search order
-'cscopeverbose'   'csverb'  give messages when adding a cscope database
-'cursorbind'	  'crb'     move cursor in window as it moves in other windows
-'cursorcolumn'	  'cuc'	    highlight the screen column of the cursor
-'cursorline'	  'cul'	    highlight the screen line of the cursor
-'cursorlineopt'	  'culopt'  settings for 'cursorline'
-'debug'			    set to "msg" to see all error messages
-'define'	  'def'     pattern to be used to find a macro definition
-'delcombine'	  'deco'    delete combining characters on their own
-'dictionary'	  'dict'    list of file names used for keyword completion
-'diff'			    use diff mode for the current window
-'diffexpr'	  'dex'     expression used to obtain a diff file
-'diffopt'	  'dip'     options for using diff mode
-'digraph'	  'dg'	    enable the entering of digraphs in Insert mode
-'directory'	  'dir'     list of directory names for the swap file
-'display'	  'dy'	    list of flags for how to display text
-'eadirection'	  'ead'     in which direction 'equalalways' works
-'edcompatible'	  'ed'	    toggle flags of ":substitute" command
-'emoji'		  'emo'	    emoji characters are considered full width
-'encoding'	  'enc'     encoding used internally
-'endofline'	  'eol'     write <EOL> for last line in file
-'equalalways'	  'ea'	    windows are automatically made the same size
-'equalprg'	  'ep'	    external program to use for "=" command
-'errorbells'	  'eb'	    ring the bell for error messages
-'errorfile'	  'ef'	    name of the errorfile for the QuickFix mode
-'errorformat'	  'efm'     description of the lines in the error file
-'esckeys'	  'ek'	    recognize function keys in Insert mode
-'eventignore'	  'ei'	    autocommand events that are ignored
-'expandtab'	  'et'	    use spaces when <Tab> is inserted
-'exrc'		  'ex'	    read .vimrc and .exrc in the current directory
-'fileencoding'	  'fenc'    file encoding for multibyte text
-'fileencodings'   'fencs'   automatically detected character encodings
-'fileformat'	  'ff'	    file format used for file I/O
-'fileformats'	  'ffs'     automatically detected values for 'fileformat'
-'fileignorecase'  'fic'     ignore case when using file names
-'filetype'	  'ft'	    type of file, used for autocommands
-'fillchars'	  'fcs'     characters to use for displaying special items
-'fixendofline'	  'fixeol'  make sure last line in file has <EOL>
-'fkmap'		  'fk'	    obsolete option for Farsi
-'foldclose'	  'fcl'     close a fold when the cursor leaves it
-'foldcolumn'	  'fdc'     width of the column used to indicate folds
-'foldenable'	  'fen'     set to display all folds open
-'foldexpr'	  'fde'     expression used when 'foldmethod' is "expr"
-'foldignore'	  'fdi'     ignore lines when 'foldmethod' is "indent"
-'foldlevel'	  'fdl'     close folds with a level higher than this
-'foldlevelstart'  'fdls'    'foldlevel' when starting to edit a file
-'foldmarker'	  'fmr'     markers used when 'foldmethod' is "marker"
-'foldmethod'	  'fdm'     folding type
-'foldminlines'	  'fml'     minimum number of lines for a fold to be closed
-'foldnestmax'	  'fdn'     maximum fold depth
-'foldopen'	  'fdo'     for which commands a fold will be opened
-'foldtext'	  'fdt'     expression used to display for a closed fold
-'formatexpr'	  'fex'     expression used with "gq" command
-'formatlistpat'   'flp'     pattern used to recognize a list header
-'formatoptions'   'fo'	    how automatic formatting is to be done
-'formatprg'	  'fp'	    name of external program used with "gq" command
-'fsync'		  'fs'	    whether to invoke fsync() after file write
-'gdefault'	  'gd'	    the ":substitute" flag 'g' is default on
-'grepformat'	  'gfm'     format of 'grepprg' output
-'grepprg'	  'gp'	    program to use for ":grep"
-'guicursor'	  'gcr'     GUI: settings for cursor shape and blinking
-'guifont'	  'gfn'     GUI: Name(s) of font(s) to be used
-'guifontset'	  'gfs'     GUI: Names of multibyte fonts to be used
-'guifontwide'	  'gfw'     list of font names for double-wide characters
-'guiheadroom'	  'ghr'     GUI: pixels room for window decorations
-'guioptions'	  'go'	    GUI: Which components and options are used
-'guipty'		    GUI: try to use a pseudo-tty for ":!" commands
-'guitablabel'	  'gtl'     GUI: custom label for a tab page
-'guitabtooltip'   'gtt'     GUI: custom tooltip for a tab page
-'helpfile'	  'hf'	    full path name of the main help file
-'helpheight'	  'hh'	    minimum height of a new help window
-'helplang'	  'hlg'     preferred help languages
-'hidden'	  'hid'     don't unload buffer when it is |abandon|ed
-'highlight'	  'hl'	    sets highlighting mode for various occasions
-'history'	  'hi'	    number of command-lines that are remembered
-'hkmap'		  'hk'	    Hebrew keyboard mapping
-'hkmapp'	  'hkp'     phonetic Hebrew keyboard mapping
-'hlsearch'	  'hls'     highlight matches with last search pattern
-'icon'			    let Vim set the text of the window icon
-'iconstring'		    string to use for the Vim icon text
-'ignorecase'	  'ic'	    ignore case in search patterns
+'casemap'	  'cmp'     kis- nagybetűs karakterek cseréjére vonatkozó
+			    beállítások
+'cdpath'	  'cd'	    könyvtárak listája, melyben a ":cd" parancs keres
+'cedit'			    command-line ablakot megnyitó billentyű
+'charconvert'	  'ccv'     kifejezések karater kódolás konvertálására
+'cindent'	  'cin'     C program-szerű identálás
+'cinkeys'	  'cink'    'cindent' opcióban beállított karakterek listája
+'cinoptions'	  'cino'    identálás a 'cindent' beállítás esetén
+'cinwords'	  'cinw'    szavak, melyeknél a  'si' és 'cin' identál
+'clipboard'	  'cb'	    vágólap használata névtelen regiszterként
+'cmdheight'	  'ch'	    command-line sormagassága
+'cmdwinheight'	  'cwh'     command-line ablak magassága
+'colorcolumn'	  'cc'	    oszlopok kiemlése
+'columns'	  'co'	    ablak oszlopainak a száma
+'comments'	  'com'     minták, melyek alapján a sor kommentként lesz
+			    kezelve
+'commentstring'   'cms'     kommentek mintája (fold jelölő)
+'compatible'	  'cp'	    Vi kompatibilis mód (amennyire lehetséges)
+'complete'	  'cpt'     Insert mód kiegészítéseinek mechanikái
+'completefunc'	  'cfu'     függvény a kiegészítéshez (Insert mód)
+'completeopt'	  'cot'     kiegészítések beállításai (Insert mód)
+'completepopup'	  'cpp'     kiegészítés felugró ablakainak beállítása (Insert
+			    mód)
+'completeslash'	  'csl'	    mint 'shellslash', kiegészítésekhez
+'concealcursor'	  'cocu'    helyettesítések a kurzor sorában (conceal)
+'conceallevel'	  'cole'    helyettesítések ki- és bekapcsolása
+'confirm'	  'cf'	    kérdés a nem mentett, csak olvasható fájlok esetén
+'conskey'	  'consk'   billentyűk észlelés a konzolból (csak MS-DOS)
+'copyindent'	  'ci'	    az 'autoindent' az előző identálási struktúrát
+			    használja
+'cpoptions'	  'cpo'     flagek a Vi kompatibilis viselkedéséhez
+'cryptmethod'	  'cm'	    titkosítási metódus meghatározása
+'cscopepathcomp'  'cspc'    elérési út komponenseinek meghatározása
+'cscopeprg'       'csprg'   cscope-ot meghívó program
+'cscopequickfix'  'csqf'    quickfix ablak használata a cscope eredményeihez
+'cscoperelative'  'csre'    cscope.out használata prefixként
+'cscopetag'       'cst'     cscope használata tag parancsokhoz
+'cscopetagorder'  'csto'    ":cstag" keresési sorrendjének meghatározása
+'cscopeverbose'   'csverb'  üzenettel jelzia cscope adatbázis hozzáadását
+'cursorbind'	  'crb'     a kurzor összehangoltan mozog az ablakokban
+'cursorcolumn'	  'cuc'	    kurzor oszlopának kiemelése
+'cursorline'	  'cul'	    kurzor sorának kiemelése
+'cursorlineopt'	  'culopt'  'cursorline' opció beállításai
+'debug'			    "msg" minden hibaüzenetet megjelenít
+'define'	  'def'     minta a makró-definíció keresésekhez
+'delcombine'	  'deco'    több tagú karakterek törlésének módja
+'dictionary'	  'dict'    szótárfájlok a kiegészítéshez
+'diff'			    diff mód használata a jelenlegi ablakban
+'diffexpr'	  'dex'     diff fájlt előállító kifejezés
+'diffopt'	  'dip'     diff mód bállításai
+'digraph'	  'dg'	    digrammák engedélyezése Insert módban
+'directory'	  'dir'     swap fájl elérési útjai
+'display'	  'dy'	    sorok megjelenítésének beállítási
+'eadirection'	  'ead'     melyik irányban működik az 'equalalways'
+'edcompatible'	  'ed'	    ":substitute" parancs flagjei
+'emoji'		  'emo'	    teljes szélességű emojik
+'encoding'	  'enc'     belső karakterkódolás
+'endofline'	  'eol'     fájl utolsó sorának végére  <EOL> kerül
+'equalalways'	  'ea'	    azonos méretű ablakok
+'equalprg'	  'ep'	    külső program a "=" parancshoz
+'errorbells'	  'eb'	    csengetés hibaüzenet esetén
+'errorfile'	  'ef'	    errorFile neve QuickFix módban
+'errorformat'	  'efm'     errorFile sorainak mintája
+'esckeys'	  'ek'	    <F1>...<F12> billentyűk felismerése Insert módban
+'eventignore'	  'ei'	    figyelmen kívül hagyott autocommandok
+'expandtab'	  'et'	    szóközök használata <Tab> esetén
+'exrc'		  'ex'	    .vimrc és .exrc olvasása a jelennlegi könyvtárból
+'fileencoding'	  'fenc'    aktív buffer karakterkódolása
+'fileencodings'   'fencs'   karakterkódolás automatikus felismerés
+'fileformat'	  'ff'	    fájlformátum (<EOL> karakterek, dos, unix, mac)
+'fileformats'	  'ffs'     'fileformat' értékeinek automatikus meghatározása
+'fileignorecase'  'fic'     betűtípus figyelmen kívül hagyása fájlnevek esetén
+'filetype'	  'ft'	    a fájl típusa (autocommanodknál)
+'fillchars'	  'fcs'     speciális karakterek megjelenítésének karakterei
+'fixendofline'	  'fixeol'  a fájl utolsó sorában legyen <EOL>
+'fkmap'		  'fk'	    Farsi elavult opciója
+'foldclose'	  'fcl'     fold bezárása, ha a kurzor elhagyja
+'foldcolumn'	  'fdc'     foldok hossza (oszlopszélességben)
+'foldenable'	  'fen'     minden fold nyitva
+'foldexpr'	  'fde'     kifejezés, ha 'foldmethod' "expr"
+'foldignore'	  'fdi'     sorok mellőzése, ha 'foldmethod' "indent"
+'foldlevel'	  'fdl'     eggyel nagyobb szintű foldok bezárása
+'foldlevelstart'  'fdls'    'foldlevel' értéke a szerkesztés kezdetekor
+'foldmarker'	  'fmr'     mi a marker, ha 'foldmethod' "marker"
+'foldmethod'	  'fdm'     foldolás típusa
+'foldminlines'	  'fml'     minimális sorok száma a fold létrehozásához
+'foldnestmax'	  'fdn'     maximális fold mélység
+'foldopen'	  'fdo'     milyen parancsra nyílnak ki a foldok
+'foldtext'	  'fdt'     bezárt fold megjelenítési mintája
+'formatexpr'	  'fex'     "gq" parancs kifejezése
+'formatlistpat'   'flp'     minták a 'list header' felismeréséhez
+'formatoptions'   'fo'	    automatikus formázás módja
+'formatprg'	  'fp'	    külső program a "gq" parancs használatához
+'fsync'		  'fs'	    fsync() hívása mentés után
+'gdefault'	  'gd'	    ":substitute" flag 'g' bekapcsolva
+'grepformat'	  'gfm'     'grepprg' kimenetének formázása
+'grepprg'	  'gp'	    külső program a ":grep" parancshoz
+'guicursor'	  'gcr'     GUI: kurzortípus, villogás
+'guifont'	  'gfn'     GUI: karaktertípus
+'guifontset'	  'gfs'     GUI: multibyte karaktertípus
+'guifontwide'	  'gfw'     dupla-szélességű karaktertípusok listája
+'guiheadroom'	  'ghr'     GUI: ablakdekoráció
+'guioptions'	  'go'	    GUI: Komponensek és opciók
+'guipty'		    GUI: pseudo-tty használata ":!" parancsokhoz
+'guitablabel'	  'gtl'     GUI: fülsáv egyedi címkéi
+'guitabtooltip'   'gtt'     GUI: fülsáv egyedi tooltipje
+'helpfile'	  'hf'	    dokumentációs index elérési útvonala
+'helpheight'	  'hh'	    dokumentációs ablak minimum magassága
+'helplang'	  'hlg'     dokumentáció (előnyben részesített) nyelve(i)
+'hidden'	  'hid'     buffer tartalmának megtartása (|abandon|)
+'highlight'	  'hl'	    kiemelések
+'history'	  'hi'	    maximális command-line history
+'hkmap'		  'hk'	    Héber billentyű mappelés
+'hkmapp'	  'hkp'     fonetikus Héber billentyű mappelés
+'hlsearch'	  'hls'     utolsó keresés találatainak kiemelése
+'icon'			    a Vim állítja be az ablak címsorát
+'iconstring'		    ablak címsor mintája
+'ignorecase'	  'ic'	    keresésekben nem számít a nagy- és kisbetű
 'imactivatefunc'  'imaf'    function to enable/disable the X input method
 'imactivatekey'   'imak'    key that activates the X input method
 'imcmdline'	  'imc'     use IM when starting to edit a command line
