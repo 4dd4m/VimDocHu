@@ -1133,172 +1133,189 @@ Az összes opció rövid magyarázata:		*option-list*
 |c_CTRL-V|	CTRL-V {number}    karakterbevitel decimális érték alapján
 				   (maximum három számjegyig)
 
-|c_<Left>|	<Left>/<Right>	   cursor left/right
-|c_<S-Left>|	<S-Left>/<S-Right> cursor one word left/right
-|c_CTRL-B|	CTRL-B/CTRL-E	   cursor to beginning/end of command-line
+|c_<Left>|	<Left>/<Right>	   kurzor balra/jobbra
+|c_<S-Left>|	<S-Left>/<S-Right> kurzor egy szót balra, jobbra
+|c_CTRL-B|	CTRL-B/CTRL-E	   kurzor a command-line elejére
 
-|c_<BS>|	<BS>		   delete the character in front of the cursor
-|c_<Del>|	<Del>		   delete the character under the cursor
-|c_CTRL-W|	CTRL-W		   delete the word in front of the cursor
-|c_CTRL-U|	CTRL-U		   remove all characters
+|c_<BS>|	<BS>		   kurzor előtti karakter törlése
+|c_<Del>|	<Del>		   kurzor alatti akrakter törlése
+|c_CTRL-W|	CTRL-W		   kurzor előtti szó törlése
+|c_CTRL-U|	CTRL-U		   összes bevitt karakter törlése
 
-|c_<Up>|	<Up>/<Down>	   recall older/newer command-line that starts
-				      with current command
-|c_<S-Up>|	<S-Up>/<S-Down>	   recall older/newer command-line from history
-|c_CTRL-G|	CTRL-G		   next match when 'incsearch' is active
-|c_CTRL-T|	CTRL-T		   previous match when 'incsearch' is active
-|:history|	:his[tory]	   show older command-lines
+|c_<Up>|	<Up>/<Down>	   parancs kiegészítése a historyból (kiegészíti
+				   az eddig beírt parancsot)
+|c_<S-Up>|	<S-Up>/<S-Down>	   böngészés a command-line historyban
+|c_CTRL-G|	CTRL-G		   következő egyezés ('incsearch' aktív)
+|c_CTRL-T|	CTRL-T		   előző egyezés ('incsearch' aktív)
+|:history|	:his[tory]	   comman-line előzmények mutatsa
 
-Context-sensitive completion on the command-line:
+Kiegészítés kontextus alapján a command-lineban:
 
-|c_wildchar|	'wildchar'  (default: <Tab>)
-				do completion on the pattern in front of the
-				   cursor; if there are multiple matches,
-				   beep and show the first one; further
-				   'wildchar' will show the next ones
-|c_CTRL-D|	CTRL-D		list all names that match the pattern in
-				   front of the cursor
+|c_wildchar|	'wildchar'  (alapértelmezetten: <Tab>)
+				kiegészíti a kurzor előtt lévő mintát, majd az
+				elsőt mutatja, több találat esetén hangjelzést
+				ad és az elsőt mutatja, többi 'wildchar'
+				karakterek szűkítik a tatálatokat
+|c_CTRL-D|	CTRL-D		kurzor előtt lévő minta összes egyezésének
+				mutatása
+??? needs to be tested ???
 |c_CTRL-A|	CTRL-A		insert all names that match pattern in front
+??? endtest ???
 				   of cursor
-|c_CTRL-L|	CTRL-L		insert longest common part of names that
-				   match pattern
-|c_CTRL-N|	CTRL-N		after 'wildchar' with multiple matches: go
-				   to next match
-|c_CTRL-P|	CTRL-P		after 'wildchar' with multiple matches: go
-				   to previous match
+|c_CTRL-L|	CTRL-L		több találat esetén a leghosszabb közös részt
+				illeszti be
+|c_CTRL-N|	CTRL-N		'wildchar' után (több találat esetén az első
+				egyezéshez ugrik)
+|c_CTRL-P|	CTRL-P		'wildchar' után (több találat esetén az előző
+				egyezéshez ugrik)
 ------------------------------------------------------------------------------
-*Q_ra*		Ex ranges
+*Q_ra*		Ex tartományok
 
-|:range|	,		separates two line numbers
-|:range|	;		idem, set cursor to the first line number
-				before interpreting the second one
+|:range|	,		két sorszám elválasztása
+|:range|	;		szintén, a kurzor az első értékkel meghatározott
+				sorra ugrik, mielőtt a második (sor) érték
+				kiértékelődne
 
-|:range|	{number}	an absolute line number
-|:range|	.		the current line
-|:range|	$		the last line in the file
-|:range|	%		equal to 1,$ (the entire file)
-|:range|	*		equal to '<,'> (visual area)
-|:range|	't		position of mark t
-|:range|	/{pattern}[/]	the next line where {pattern} matches
-|:range|	?{pattern}[?]	the previous line where {pattern} matches
+|:range|	{number}	sor abszolút száma
+|:range|	.		a jelenlegi sor
+|:range|	$		a fájl utolsó sora
+|:range|	%		ugyanez ezzel: 1,$ (az egész fájl)
+|:range|	*		ugyanez ezzel: '<,'> (Visual kijelölés)
+|:range|	't		t jelölő (mark) pozíciója
+|:range|	/{pattern}[/]	a következő sor, ahol a {pattern} egyezik
+|:range|	?{pattern}[?]	az előző sor, ahol a {pattern} egyezik
 
-|:range|	+[num]		add [num] to the preceding line number
-				   (default: 1)
-|:range|	-[num]		subtract [num] from the preceding line
-				   number (default: 1)
+|:range|	+[num]		hozzáad [num] számú sort (tartomány-értéket) az
+				előzőleg meghatározott sor számához
+				   (alapértelmezés: 1)
+|:range|	-[num]		kivon [num] számú sort (tartomány-értéket) az
+				előzőleg meghatározott sor számához
+				   number (alapértelmezés: 1)
 ------------------------------------------------------------------------------
-*Q_ex*		Special Ex characters
+*Q_ex*		Speciális Ex karakterek
 
-|:bar|      |		separates two commands (not for ":global" and ":!")
-|:quote|    "		begins comment
+|:bar|      |		két parancsot választ el (":global" és ":!"
+			parancsoknál nem)
+|:quote|    "		komment kezdete
 
-|:_%|       %		current file name (only where a file name is expected)
-|:_#|       #[num]	alternate file name [num] (only where a file name is
-			   expected)
-	Note: The next seven are typed literally; these are not special keys!
-|:<abuf>|   <abuf>	buffer number, for use in an autocommand (only where a
-			   file name is expected)
-|:<afile>|  <afile>	file name, for use in an autocommand (only where a
-			   file name is expected)
-|:<amatch>| <amatch>	what matched with the pattern, for use in an
-			   autocommand (only where a file name is expected)
-|:<cword>|  <cword>	word under the cursor (only where a file name is
-			   expected)
-|:<cWORD>|  <cWORD>	WORD under the cursor (only where a file name is
-			   expected) (see |WORD|)
-|:<cfile>|  <cfile>	file name under the cursor (only where a file name is
-			   expected)
-|:<sfile>|  <sfile>	file name of a ":source"d file, within that file (only
-			   where a file name is expected)
+|:_%|       %		jelenlegi fájlnév (csak ott, ahol az elvárt érték
+			fájlnév)
+|:_#|       #[num]	másik fájlnáv (előzőleg megnyitott fájl),  [num] (de
+			csak ott, ahol fájlnév az elvárt érték)
+	Note: A következő hét értéket be kell gépelni (nem parancsként
+			értelmeződnek)
+|:<abuf>|   <abuf>	buffer sorszáma, autocommand használata esetén (de csak
+			ott, ahol fájlnév az elvárt érték)
+|:<afile>|  <afile>	fájl neve, autocommand használata esetén (de csak ott,
+			ahol féjlnév az elvárt érték)
+|:<amatch>| <amatch>	a minta alapján egyező érték, autocommand használata
+			esetén (de csak ott, ahol fájlnév az elvárt érték)
+|:<cword>|  <cword>	kurzor alatt lévő szó (de csak ott, ahol a fájlnév az
+			elvárt érték)
+|:<cWORD>|  <cWORD>	 kurzor alatt lévő SZÓ (de csak ott, ahol fajálnév az
+			elvárt érték) (lásd |WORD|)
+|:<cfile>|  <cfile>	kurzor alatt lévő fájlnév (de csak ott, ahol fájlnév
+			az elvárt érték)
+|:<sfile>|  <sfile>	":source"-olt fájl neve file, a fájlban (de csak ott
+			ahol fájlnév az elvárt érték)
 
-		After "%", "#", "<cfile>", "<sfile>" or "<afile>"
-		|::p|	    :p		full path
-		|::h|	    :h		head (file name removed)
-		|::t|	    :t		tail (file name only)
-		|::r|	    :r		root (extension removed)
-		|::e|	    :e		extension
-		|::s|	    :s/{pat}/{repl}/	substitute {pat} with {repl}
+		"%", "#", "<cfile>", "<sfile>" vagy "<afile>" után:
+		|::p|	    :p		teljes elértési út
+		|::h|	    :h		head (fájlnév eltávolítva)
+		|::t|	    :t		tail (csak a fájlnév)
+		|::r|	    :r		root (kiterjesztés eltávolítva)
+		|::e|	    :e		kiterjesztés
+		|::s|	    :s/{pat}/{repl}/	 {pat} cseréje {repl}-el
 ------------------------------------------------------------------------------
-*Q_st*		Starting Vim
+*Q_st*		Vim indítása
 
-|-vim|	   vim [options]		start editing with an empty buffer
-|-file|	   vim [options] {file} ..	start editing one or more files
-|--|	   vim [options] -		read file from stdin
+|-vim|	   vim [options]		Vim indítása üres bufferrel
+|-file|	   vim [options] {file} ..	egy (vagy több) fájl szerkesztése
+|--|	   vim [options] -		beolvasás standard bementeről (stdin)
 |-tag|	   vim [options] -t {tag}	edit the file associated with {tag}
-|-qf|	   vim [options] -q [fname]	start editing in QuickFix mode,
-					   display the first error
+|-qf|	   vim [options] -q [fname]	szekresztés elkezdése QuickFix módban,
+					   az első hiba jelzése
 
-	Most useful Vim arguments (for full list see |startup-options|)
+	A legfontosabb Vim argumentumok (a teljes listához lásd |startup-options|)
 
-|-gui|	-g		    start GUI (also allows other options)
+|-gui|	-g		    GUI indítása (egyéb opciók engedélyezése)
 
-|-+|	+[num]		    put the cursor at line [num] (default: last line)
-|-+c|	+{command}	    execute {command} after loading the file
-|-+/|	+/{pat} {file} ..   put the cursor at the first occurrence of {pat}
-|-v|	-v		    Vi mode, start ex in Normal mode
-|-e|	-e		    Ex mode, start vim in Ex mode
-|-R|	-R		    Read-only mode, implies -n
-|-m|	-m		    modifications not allowed (resets 'write' option)
-|-d|	-d		    diff mode |diff|
-|-b|	-b		    binary mode
-|-l|	-l		    lisp mode
-|-A|	-A		    Arabic mode ('arabic' is set)
-|-F|	-F		    Farsi mode ('fkmap' and 'rightleft' are set)
-|-H|	-H		    Hebrew mode ('hkmap' and 'rightleft' are set)
+|-+|	+[num]		    kurzort a [num] sorra teszi (alap.: utolsó sor)
+|-+c|	+{command}	    {command} parancs futtatása a fájl megnyitását
+			    követően
+|-+/|	+/{pat} {file} ..   a kurzor {pat} első találatához kerül
+|-v|	-v		    Vi mód, ex indítása Normal módban
+|-e|	-e		    Ex mód, Vim indítása Ex módan
+|-R|	-R		    Írásvédett mód , implies -n
+|-m|	-m		    a változtatás nem lehetséges (visszaállítja 'write'
+			    opció értékét)
+|-d|	-d		    diff mód |diff|
+|-b|	-b		    bináris mód
+|-l|	-l		    lisp mód
+|-A|	-A		    Arabic mód ('arabic')
+|-F|	-F		    Farsi mód ('fkmap' és 'rightleft')
+|-H|	-H		    Héber mód ('hkmap' és 'rightleft')
 |-V|	-V		    Verbose, give informative messages
-|-C|	-C		    Compatible, set the 'compatible' option
-|-N|	-N		    Nocompatible, reset the 'compatible' option
-|-r|	-r		    give list of swap files
-|-r|	-r {file} ..	    recover aborted edit session
-|-n|	-n		    do not create a swap file
-|-o|	-o [num]	    open [num] windows (default: one for each file)
-|-f|	-f		    GUI: foreground process, don't fork
-			    Amiga: do not restart Vim to open a window (for
-				e.g., mail)
-|-s|	-s {scriptin}	    first read commands from the file {scriptin}
-|-w|	-w {scriptout}	    write typed chars to file {scriptout} (append)
-|-W|	-W {scriptout}	    write typed chars to file {scriptout} (overwrite)
-|-T|	-T {terminal}	    set terminal name
-|-d|	-d {device}	    Amiga: open {device} to be used as a console
-|-u|	-u {vimrc}	    read inits from {vimrc} instead of other inits
-|-U|	-U {gvimrc}	    idem, for when starting the GUI
-|-i|	-i {viminfo}	    read info from {viminfo} instead of other files
-|---|	--		    end of options, other arguments are file names
-|--help|    --help	    show list of arguments and exit
-|--version| --version	    show version info and exit
-|--|	-		    read file from stdin
+|-C|	-C		    Egyéb informatív üzenetek megjelenítése (beszédes
+			    mód)
+|-N|	-N		    Nocompatible, visszaállítja 'compatible' opció értékét
+|-r|	-r		    listázza a swap fájlokat
+|-r|	-r {file} ..	    visszaállítja az összeomlott munkamenetet
+|-n|	-n		    nem hoz létre swapfájlt
+|-o|	-o [num]	    [num] számú ablakot nyit (alap.: egy fájlhoz egy
+			    buffer)
+			    ??? dont fork? ???
+|-f|	-f		    GUI: előtérben, don't fork
+			    Amiga: új ablak nyitásához ne indítsa újra a Vimet
+			    (például emailhez)
+|-s|	-s {scriptin}	    olvassa be (indulás előtt) {scriptin} parancsokat
+			    fájlból
+|-w|	-w {scriptout}	    begépelt karakterek írása {scriptout}  fájlba
+			    (hozzáfűsés mód)
+|-W|	-W {scriptout}	    begépelt karakterek írása {scriptout} fájlba (felülír)
+|-T|	-T {terminal}	    terminál nevének beállítása
+|-d|	-d {device}	    Amiga: {device} megnyitása konzolhoz való
+			    használathoz
+|-u|	-u {vimrc}	    a kezdő {vimrc} beállításokat olvassa ebből a
+			    fájlból
+|-U|	-U {gvimrc}	    szintén, GUI indulásakor
+|-i|	-i {viminfo}	    olvassa be {viminfo} beállításokat innen
+|---|	--		    opciók vége, egyéb argumentumok fájlnevekként
+			    értelmeződnek
+|--help|    --help	    argumentumlista mutatása és kilépés
+|--version| --version	    verzióinformáaciók mutatása és kilépés
+|--|	-		    beolvasás standard bementeről (stdin)
 ------------------------------------------------------------------------------
-*Q_ed*		Editing a file
+*Q_ed*		Fájl szerkesztése
 
-	   Without !: Fail if changes have been made to the current buffer.
-	      With !: Discard any changes to the current buffer.
-|:edit_f|  :e[dit][!] {file}	edit {file}
-|:edit|    :e[dit][!]		reload the current file
-|:enew|    :ene[w][!]		edit a new, unnamed buffer
-|:find|    :fin[d][!] {file}	find {file} in 'path' and edit it
+	    ! nélkül: Nem érvényes, ha a buffer tartalma már megváltozott
+	       !-el : Az aktuális buffer változásainak elvetése (mégse)
+|:edit_f|  :e[dit][!] {file}	{file} szerkesztése
+|:edit|    :e[dit][!]		bufferben lévő fájl újratöltése
+|:enew|    :ene[w][!]		névtelen (új) buffer szerkesztése
+|:find|    :fin[d][!] {file}	{file} keresése a 'path'-ben, majd szerkesztés
 
-|CTRL-^|   N  CTRL-^		edit alternate file N (equivalent to ":e #N")
-|gf|          gf  or ]f		edit the file whose name is under the cursor
-|:pwd|     :pwd			print the current directory name
-|:cd|      :cd [path]		change the current directory to [path]
-|:cd-|     :cd -		back to previous current directory
-|:file|    :f[ile]		print the current file name and the cursor
-				   position
-|:file|    :f[ile] {name}	set the current file name to {name}
-|:files|   :files		show alternate file names
+|CTRL-^|   N  CTRL-^		alterált N fájl szerkesztése (egyenértékű ":e #N")
+|gf|          gf  or ]f		kurzor alatt lévő fájl megnyitása szerkesztésre
+|:pwd|     :pwd			aktuális munkakönyvtár kiíratása
+|:cd|      :cd [path]		munkakönyvtár megváltoztatása [path] útvonalra
+|:cd-|     :cd -		egy könyvtárral feljebb
+|:file|    :f[ile]		fájlnév kiíratása a kurzorpozícióval együtt
+|:file|    :f[ile] {name}	fájl átnevezése {name}-re
+|:files|   :files		alternatív fájlok listája
 ------------------------------------------------------------------------------
-*Q_fl*		Using the argument list			|argument-list|
+*Q_fl*		Az arhumentumlista használata			|argument-list|
 
-|:args|	   :ar[gs]		print the argument list, with the current file
-				   in "[]"
-|:all|	   :all  or :sall	open a window for every file in the arg list
-|:wn|	   :wn[ext][!]		write file and edit next file
-|:wn|	   :wn[ext][!] {file}	write to {file} and edit next file, unless
-				   {file} exists; With !, overwrite existing
-				   file
-|:wN|	   :wN[ext][!] [file]	write file and edit previous file
+|:args|	   :ar[gs]		aktív fájl argumentumainak kiírása ("[]")
+|:all|	   :all  or :sall	argumentumlistában szereplő összes fájlhoz új
+				ablakoz nyit
+|:wn|	   :wn[ext][!]		fájl írása - következő fájlra ugrás
+|:wn|	   :wn[ext][!] {file}	{file} írása, a következő fájlra ugrás, míg
+				{file} létezik; !-el, felülírja a létező
+				fájlt
+|:wN|	   :wN[ext][!] [file]	fájl mentése, előző fájl szerkesztése
 
-	     in current window    in new window	~
+	     aktív ablakban    új ablakban	~
 |:argument|  :argu[ment] N	  :sar[gument] N	edit file N
 |:next|      :n[ext]		  :sn[ext]		edit next file
 |:next_f|    :n[ext] {arglist}	  :sn[ext] {arglist}	define new arg list
@@ -1307,206 +1324,235 @@ Context-sensitive completion on the command-line:
 |:first|     :fir[st]		  :sfir[st]		edit first file
 |:last|      :la[st]		  :sla[st]		edit last file
 ------------------------------------------------------------------------------
-*Q_wq*		Writing and quitting
+*Q_wq*		Mentés is kilépés
 
-|:w|	  :[range]w[rite][!]		write to the current file
-|:w_f|	  :[range]w[rite] {file}	write to {file}, unless it already
-					   exists
-|:w_f|	  :[range]w[rite]! {file}	write to {file}.  Overwrite an existing
-					   file
-|:w_a|	  :[range]w[rite][!] >>		append to the current file
-|:w_a|	  :[range]w[rite][!] >> {file}	append to {file}
-|:w_c|	  :[range]w[rite] !{cmd}	execute {cmd} with [range] lines as
-					   standard input
-|:up|	  :[range]up[date][!]		write to current file if modified
-|:wall|	  :wa[ll][!]			write all changed buffers
+|:w|	  :[range]w[rite][!]		menti az aktív fájlt
+|:w_f|	  :[range]w[rite] {file}	{file} mentése, kivéve ha a fájl létezik
+|:w_f|	  :[range]w[rite]! {file}	{file} mentése.  Felülírja a létező fájlt
+|:w_a|	  :[range]w[rite][!] >>		hozzáfűzés az aktív fájlhoz
+|:w_a|	  :[range]w[rite][!] >> {file}	hozzáfűzés {file}-hoz
+|:w_c|	  :[range]w[rite] !{cmd}	{cmd} parancsot futtatja [range]
+					tartományon standard bemenetként
+|:up|	  :[range]up[date][!]		módosítások esetén menti az aktuális
+					fájlt
 
-|:q|	  :q[uit]		quit current buffer, unless changes have been
-				   made; Exit Vim when there are no other
-				   non-help buffers
-|:q|	  :q[uit]!		quit current buffer always, discard any
-				   changes.  Exit Vim when there are no other
-				   non-help buffers
-|:qa|	  :qa[ll]		exit Vim, unless changes have been made
-|:qa|	  :qa[ll]!		exit Vim always, discard any changes
-|:cq|	  :cq			quit without writing and return error code
+|:wall|	  :wa[ll][!]			kiírja az összes buffert (melyek meg-
+					változtak)
 
-|:wq|	  :wq[!]		write the current file and exit
-|:wq|	  :wq[!] {file}		write to {file} and exit
-|:xit|	  :x[it][!] [file]	like ":wq" but write only when changes have
-				   been made
-|ZZ|	     ZZ			same as ":x"
-|ZQ|	     ZQ			same as ":q!"
+|:q|	  :q[uit]		kilép a bufferből, kivéve, ha megváltozott,
+				kilépés Vimből
+|:q|	  :q[uit]!		kilép a bufferből, a módosításokat elveti
+				kilpés a Vimből
+|:qa|	  :qa[ll]		kilépés Vimből, kivéve ha megváltozott a buffer
+|:qa|	  :qa[ll]!		kilépés vimből minden esetben, a módosítások
+				elvetése
+|:cq|	  :cq			kilépés mentés nélkül, visszatérés hibakóddal
+
+|:wq|	  :wq[!]		aktív fájl mentése és kilépés
+|:wq|	  :wq[!] {file}		{file} mentése, majd kilépés
+|:xit|	  :x[it][!] [file]	mint ":wq" de csak akkor ment, ha történt
+				változás
+|ZZ|	     ZZ			ugyanaz, mint: ":x"
+|ZQ|	     ZQ			ugyanaz, mint: ":q!"
 |:xall|	  :xa[ll][!]  or :wqall[!]
-				write all changed buffers and exit
+				az össze változott buffer tartalmát menti
 
-|:stop|	  :st[op][!]		suspend Vim or start new shell; if 'aw' option
-				   is set and [!] not given write the buffer
-|CTRL-Z|     CTRL-Z		same as ":stop"
+|:stop|	  :st[op][!]		Vim felfüggesztése vagy új shell indítása; ha
+				'aw' opció be van állítva és [!] nincs megadva
+				az íráshoz
+|CTRL-Z|     CTRL-Z		ugyanaz, mint ":stop"
 ------------------------------------------------------------------------------
-*Q_ac*		Automatic Commands
+*Q_ac*		Automatikus parancsok
 
-|viminfo-file|	read registers, marks, history at startup, save when exiting.
+|viminfo-file|	regiszterek, jelölők, history olvasása indításkor, mentés
+		bezáráskor
 
-|:rviminfo|	:rv[iminfo] [file]	read info from viminfo file [file]
-|:rviminfo|	:rv[iminfo]! [file]	idem, overwrite existing info
-|:wviminfo|	:wv[iminfo] [file]	add info to viminfo file [file]
-|:wviminfo|	:wv[iminfo]! [file]	write info to viminfo file [file]
+|:rviminfo|	:rv[iminfo] [file]	viminfo beolvasása [file]-ból
+|:rviminfo|	:rv[iminfo]! [file]	szintén, felülírja a már létező
+					viminfót
+|:wviminfo|	:wv[iminfo] [file]	információ hozzáadása viminfo
+					[file]-hoz
+					fájlhoz
+|:wviminfo|	:wv[iminfo]! [file]	információ hozzáadása viminfo
+					[file]-hoz
 
-|modeline|	Automatic option setting when editing a file
+|modeline|	Automatikus opciók fájl szerkesztésekor
 
-|modeline|	vim:{set-arg}: ..	In the first and last lines of the
-					file (see 'ml' option), {set-arg} is
-					given as an argument to ":set"
+|modeline|	vim:{set-arg}: ..	A fájl első és utolsó sora, lásd ('ml'
+					beállítást, {set-args} argumentumként
+					van átadva ":set"-nek.
 
-|autocommand|	Automatic execution of commands on certain events.
+|autocommand|	Automatikus eseményvezérelt parancsfuttatás
 
-|:autocmd|	:au			  list all autocommands
-|:autocmd|	:au {event}		  list all autocommands for {event}
-|:autocmd|	:au {event} {pat}	  list all autocommands for {event}
-					  with {pat}
-|:autocmd|	:au {event} {pat} {cmd}	  enter new autocommands for {event}
-					  with {pat}
-|:autocmd|	:au!			  remove all autocommands
-|:autocmd|	:au! {event}		  remove all autocommands for {event}
-|:autocmd|	:au! * {pat}		  remove all autocommands for {pat}
-|:autocmd|	:au! {event} {pat}	  remove all autocommands for {event}
-					  with {pat}
-|:autocmd|	:au! {event} {pat} {cmd}  remove all autocommands for {event}
-					  with {pat} and enter new one
+|:autocmd|	:au			  az összes autocommand listázása
+|:autocmd|	:au {event}		  {event} eseményhez tartozó
+					  autocommandok listázásáa
+|:autocmd|	:au {event} {pat}	  {event} eseményhez tartozó
+					  autocommandok listázása {pat} minta
+					  szerint
+|:autocmd|	:au {event} {pat} {cmd}	  {event} eseménynél futó autocommand
+					  hozzáadása {pat} minta alapján
+|:autocmd|	:au!			  az összes autocommand eltávolítása
+|:autocmd|	:au! {event}		  {event} eseményhez tartozó összes
+					  autocommand eltávolítása
+|:autocmd|	:au! * {pat}		  {pat}-hez tartozó összes autocommand
+					  eltávolítása
+|:autocmd|	:au! {event} {pat}	  {event} eseményhez tartozó összes
+					  autocommand eltávolítása {pat} alapján
+|:autocmd|	:au! {event} {pat} {cmd}  {event} eseményhez tartozó összes
+					  autocommand eltávolítása {pat}
+					  alapján, új au megadása
 ------------------------------------------------------------------------------
-*Q_wi*		Multi-window commands
+*Q_wi*		Több ablakos parancsok
 
-|CTRL-W_s|	CTRL-W s  or  :split	split window into two parts
-|:split_f|	:split {file}		split window and edit {file} in one of
-					   them
-|:vsplit|	:vsplit {file}		same, but split vertically
-|:vertical|	:vertical {cmd}		make {cmd} split vertically
+|CTRL-W_s|	CTRL-W s  or  :split	ablak splitelése két részre
+|:split_f|	:split {file}		ablak splitelése, {file} az egyikben
+|:vsplit|	:vsplit {file}		szintén, de vertikálisan
+|:vertical|	:vertical {cmd}		{cmd} parancs vertikális splitet hoz
+					létre
 
-|:sfind|	:sf[ind] {file}		split window, find {file} in 'path'
-					   and edit it
-|:terminal|	:terminal {cmd}		open a terminal window
-|CTRL-W_]|	CTRL-W ]		split window and jump to tag under
-					   cursor
-|CTRL-W_f|	CTRL-W f		split window and edit file name under
-					   the cursor
-|CTRL-W_^|	CTRL-W ^		split window and edit alternate file
-|CTRL-W_n|	CTRL-W n  or  :new	create new empty window
-|CTRL-W_q|	CTRL-W q  or  :q[uit]	quit editing and close window
-|CTRL-W_c|	CTRL-W c  or  :cl[ose]	make buffer hidden and close window
-|CTRL-W_o|	CTRL-W o  or  :on[ly]	make current window only one on the
-					   screen
+|:sfind|	:sf[ind] {file}		ablak splitelése, {file} keresése a 'path'
+					-ban, majd szerkesztés
+|:terminal|	:terminal {cmd}		terminálablak nyitása
+|CTRL-W_]|	CTRL-W ]		ablak splitelése, a kurzor alatt lévő
+					taghez ugrás
+|CTRL-W_f|	CTRL-W f		ablak splitelése, kurzor alatt lévő
+					fájl szerkesztése
+|CTRL-W_^|	CTRL-W ^		ablak splitelése, előző fájl
+					szerkesztése
+|CTRL-W_n|	CTRL-W n  or  :new	üres ablak nyitása
+|CTRL-W_q|	CTRL-W q  or  :q[uit]	kilépés szerkesztésből, ablak bezárása
+|CTRL-W_c|	CTRL-W c  or  :cl[ose]	aktuális buffer elrejtése, abak bezárása
+|CTRL-W_c|	CTRL-W c  or  :cl[ose]	aktuális buffer elrejtése, ablak
+					bezárása
+|CTRL-W_o|	CTRL-W o  or  :on[ly]	csak az aktális ablak megjelenítése
+					(a többi bezárása)
 
-|CTRL-W_j|	CTRL-W j		move cursor to window below
-|CTRL-W_k|	CTRL-W k		move cursor to window above
-|CTRL-W_CTRL-W|	CTRL-W CTRL-W		move cursor to window below (wrap)
-|CTRL-W_W|	CTRL-W W		move cursor to window above (wrap)
-|CTRL-W_t|	CTRL-W t		move cursor to top window
-|CTRL-W_b|	CTRL-W b		move cursor to bottom window
-|CTRL-W_p|	CTRL-W p		move cursor to previous active window
+|CTRL-W_j|	CTRL-W j		kurzor mozgatása az alsó ablakba
+|CTRL-W_k|	CTRL-W k		korzor mozgatása a felső ablakba
+|CTRL-W_CTRL-W|	CTRL-W CTRL-W		kurzor mozgatása az alsó ablakba (wrap)
+|CTRL-W_W|	CTRL-W W		kurzor mozgatása a felső ablakba (wrap)
+|CTRL-W_t|	CTRL-W t		kurzor mozgatása a legfelső ablakba
+|CTRL-W_b|	CTRL-W b		kurzor mozgatása a legalsó ablakba
+|CTRL-W_p|	CTRL-W p		kurzor mozgatása a legutolsó aktív
+					ablakba
 
-|CTRL-W_r|	CTRL-W r		rotate windows downwards
-|CTRL-W_R|	CTRL-W R		rotate windows upwards
-|CTRL-W_x|	CTRL-W x		exchange current window with next one
+|CTRL-W_r|	CTRL-W r		ablakok forgatása lefelés
+|CTRL-W_R|	CTRL-W R		ablakok forgatása felfelé
+|CTRL-W_x|	CTRL-W x		jelenlegi ablak cseréje a következővel
 
-|CTRL-W_=|	CTRL-W =		make all windows equal height & width
-|CTRL-W_-|	CTRL-W -		decrease current window height
-|CTRL-W_+|	CTRL-W +		increase current window height
-|CTRL-W__|	CTRL-W _		set current window height (default:
-					   very high)
+|CTRL-W_=|	CTRL-W =		összes ablak egyenlő hosszúságra és
+					szélességre
+|CTRL-W_-|	CTRL-W -		ablak magasságának csökkentése
+|CTRL-W_+|	CTRL-W +		ablak magasságának növelése
+|CTRL-W__|	CTRL-W _		beállítja az aktív ablak magasságát
+					(alap.: nagyon magas)
 
-|CTRL-W_<|	CTRL-W <		decrease current window width
-|CTRL-W_>|	CTRL-W >		increase current window width
-|CTRL-W_bar|	CTRL-W |		set current window width (default:
-					   widest possible)
+|CTRL-W_<|	CTRL-W <		aktív ablak szélességének csökkentése
+|CTRL-W_>|	CTRL-W >		aktív ablak szélességének növelése
+|CTRL-W_bar|	CTRL-W |		beállítja az aktív ablak szélességét
+					(alap.: a lehető legszélesebb)
 ------------------------------------------------------------------------------
-*Q_bu*		Buffer list commands
+*Q_bu*		Bufferek parancsai
 
-|:buffers|	:buffers  or  :files	list all known buffer and file names
+|:buffers|	:buffers  or  :files	az összes ismert buffer és fájlnév
+					listázása
 
-|:ball|		:ball	  or  :sball	edit all args/buffers
-|:unhide|	:unhide   or  :sunhide	edit all loaded buffers
+|:ball|		:ball	  or  :sball	az összes argumentum/buffer szerkesztése
+|:unhide|	:unhide   or  :sunhide	összes betöltött buffer szerkesztése
 
-|:badd|		:badd {fname}		add file name {fname} to the list
-|:bunload|	:bunload[!] [N]		unload buffer [N] from memory
-|:bdelete|	:bdelete[!] [N]		unload buffer [N] and delete it from
-					   the buffer list
+|:badd|		:badd {fname}		{fname} hozzáadáa a listához
+|:bunload|	:bunload[!] [N]		buffer [N] tartalmát felszabadítja a
+					memóriából
+|:bdelete|	:bdelete[!] [N]		buffer [N]  tartalmát felszabadítja és
+					törli a bufferlistából
 
-		in current window  in new window       ~
-|:buffer|	:[N]buffer [N]     :[N]sbuffer [N]     to arg/buf N
-|:bnext|	:[N]bnext [N]      :[N]sbnext [N]      to Nth next arg/buf
-|:bNext|	:[N]bNext [N]      :[N]sbNext [N]      to Nth previous arg/buf
-|:bprevious|	:[N]bprevious [N]  :[N]sbprevious [N]  to Nth previous arg/buf
-|:bfirst|	:bfirst	           :sbfirst            to first arg/buf
-|:blast|	:blast	           :sblast             to last arg/buf
-|:bmodified|	:[N]bmod [N]       :[N]sbmod [N]       to Nth modified buf
+		aktív ablakban	    új ablakban       ~
+|:buffer|	:[N]buffer [N]     :[N]sbuffer [N]     N bufferre vált
+|:bnext|	:[N]bnext [N]      :[N]sbnext [N]      az N következő bufferre
+						       vált
+|:bNext|	:[N]bNext [N]      :[N]sbNext [N]      az N következő bufferre
+						       lép
+|:bprevious|	:[N]bprevious [N]  :[N]sbprevious [N]  az N előző bufferre lép
+|:bfirst|	:bfirst	           :sbfirst            az első bufferhez
+|:blast|	:blast	           :sblast             az utolsó bufferhez
+|:bmodified|	:[N]bmod [N]       :[N]sbmod [N]       az N módosítot
+						       bufferhez lép
 ------------------------------------------------------------------------------
-*Q_sy*		Syntax Highlighting
+*Q_sy*		Szintaxiskiemelés
 
-|:syn-on|	:syntax on		start using syntax highlighting
-|:syn-off|	:syntax off		stop using syntax highlighting
+|:syn-on|	:syntax on		szinaxiskiemelés bekapcsolása
+|:syn-off|	:syntax off		szintaxiskiemelés kikapcsolása
 
 |:syn-keyword|	:syntax keyword {group-name} {keyword} ..
-					add a syntax keyword item
+					szintaxis kulcsszó hozzáadása
 |:syn-match|	:syntax match {group-name} {pattern} ...
-					add syntax match item
+					szintaxis egyezés definiálása
 |:syn-region|	:syntax region {group-name} {pattern} ...
-					add syntax region item
+					szintaxis régiót definiál
 |:syn-sync|	:syntax sync [ccomment | lines {N} | ...]
-					tell syntax how to sync
-|:syntax|	:syntax [list]		list current syntax items
-|:syn-clear|	:syntax clear		clear all syntax info
+					szintaxis szinkronizálásának módja
+|:syntax|	:syntax [list]		szintaxiselemek listázása
+|:syn-clear|	:syntax clear		szintaxiskiemelés eltávolítása
 
-|:highlight|	:highlight clear	clear all highlight info
+|:highlight|	:highlight clear	kiemelés megszüntetése
 |:highlight|	:highlight {group-name} {key}={arg} ..
-					set highlighting for {group-name}
+					{group-name} csoport kiemelésének
+					meghatározása
 
-|:filetype|	:filetype on		switch on file type detection, without
-					syntax highlighting
+|:filetype|	:filetype on		fájlfelismerés bekapcsolása
+					(szintaxiskiemelés nélkül)
 |:filetype|	:filetype plugin indent on
-					switch on file type detection, with
-					automatic indenting and settings
+					fájlfelismerés bekapcsolása, automatikus
+					identálással és beállításokkal
 ------------------------------------------------------------------------------
-*Q_gu*		GUI commands
+*Q_gu*		GUI parancsok
 
-|:gui|		:gui			UNIX: start the GUI
-|:gui|		:gui {fname} ..		idem, and edit {fname} ..
+|:gui|		:gui			UNIX: GUI indítása
+|:gui|		:gui {fname} ..		szintén, fájl {fname} szerkesztése
 
-|:menu|		:menu			list all menus
-|:menu|		:menu {mpath}		list menus starting with {mpath}
-|:menu|		:menu {mpath} {rhs}	add menu {mpath}, giving {rhs}
+|:menu|		:menu			menük listázása
+|:menu|		:menu {mpath}		{mpath}-al kezdődő menük listázása
+|:menu|		:menu {mpath} {rhs}	{mpath} menü hozzáadása, adott
+					{rhs}-hez
 |:menu|		:menu {pri} {mpath} {rhs}
-					idem, with priorities {pri}
+					szintén, {pri} prioritásokkal
 |:menu|		:menu ToolBar.{name} {rhs}
-					add toolbar item, giving {rhs}
-|:tmenu|	:tmenu {mpath} {text}	add tooltip to menu {mpath}
-|:unmenu|	:unmenu {mpath}		remove menu {mpath}
+					eszköztár-elem hozzáadása, adott
+					{rhs}-hez
+|:tmenu|	:tmenu {mpath} {text}	súgó (tooltip) hozzáadása {mpath}-hoz
+|:unmenu|	:unmenu {mpath}		{mpath} menü eltávolítása
 ------------------------------------------------------------------------------
-*Q_fo*		Folding
+*Q_fo*		Foldolás
 
-|'foldmethod'|	set foldmethod=manual	manual folding
-		set foldmethod=indent	folding by indent
-		set foldmethod=expr	folding by 'foldexpr'
-		set foldmethod=syntax	folding by syntax regions
-		set foldmethod=marker	folding by 'foldmarker'
+|'foldmethod'|	set foldmethod=manual	manuális foldolás
+		set foldmethod=indent	foldolás identálás alapján
+		set foldmethod=expr	foldolás 'foldexpr' alapján
+		set foldmethod=syntax	foldolás szintaxis régiók alapján
+		set foldmethod=marker	foldolás 'foldmarker' alapján
 
-|zf|		zf{motion}		operator: Define a fold manually
-|:fold|		:{range}fold		define a fold for {range} lines
-|zd|		zd			delete one fold under the cursor
-|zD|		zD			delete all folds under the cursor
+|zf|		zf{motion}		operátor: manuálisan definiál egy
+					foldot
+|:fold|		:{range}fold		{range} tartományhoz foldot rendel
+|zd|		zd			kurzor alatt lévő (csak egy) fold
+					törlése
+|zD|		zD			kurzor alatt lévő összes fold törlése
 
-|zo|		zo			open one fold under the cursor
-|zO|		zO			open all folds under the cursor
-|zc|		zc			close one fold under the cursor
-|zC|		zC			close all folds under the cursor
+|zo|		zo			kurzor alatt lévő (csak egy) fold
+					kinyitása
+|zO|		zO			kurzor alatt lévő összes fold kinyitása
+|zc|		zc			kurzor alatt lévő (csak egy) fold
+					bezárása
+|zC|		zC			kurzor alatt lévő öszes fold bezárása
 
-|zm|		zm			fold more: decrease 'foldlevel'
-|zM|		zM			close all folds: make 'foldlevel' zero
-|zr|		zr			reduce folding: increase 'foldlevel'
-|zR|		zR			open all folds: make 'foldlevel' max.
+|zm|		zm			még több fold: 'foldlevel' csökkentése
+|zM|		zM			összes fold bezárása: 'foldlevel': 0
+|zr|		zr			kevesebb fold: 'foldlevel' növelése
+|zR|		zR			összes fold kinyitása: 'foldlevel': max.
 
-|zn|		zn			fold none: reset 'foldenable'
-|zN|		zN			fold normal set 'foldenable'
-|zi|		zi			invert 'foldenable'
+|zn|		zn			nincs fold: 'foldenable'
+					visszaállítása
+|zN|		zN			normál fold 'foldenable' beállítása
+|zi|		zi			'foldenable' opció invertálása
 
  vim:tw=78:ts=8:noet:ft=help:norl:
