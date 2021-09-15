@@ -83,110 +83,110 @@ paranccsal ellenőrizheted:
 
 	:set compatible?
 
-If it responds with "nocompatible" you are doing well.  If the response is
-"compatible" you are in trouble.  You will have to find out why the option is
-still set.  Perhaps the file you wrote above is not found.  Use this command
-to find out: >
+Ha a válsz "nocompatible", akkor minden rendben történt.  "compatible" esetén
+baj történt, ezért ki kell deríteni, hogy a beállítás miért nem lépett érvénybe.
+still set. Talán a .vimrc fájl nem létezik, vagy csak rossz könyvtárban van.
+Ezzel a paranccsal kideríthető:
 
 	:scriptnames
 
-If your file is not in the list, check its location and name.  If it is in the
-list, there must be some other place where the 'compatible' option is switched
-back on.
+Ha a fájl nincs a listában, ellenőrizni kell az elérési utat és a fájlnevet.
+Amennyiben a fájl a listában van, egy másik helyről (fájlból) kapcsolódott be
+a 'nocompatible' opció.
 
-For more info see |vimrc| and |compatible-default|.
+További információkhoz olsvasd el |vimrc| és |compatible-default|.
 
-	Note:
-	This manual is about using Vim in the normal way.  There is an
-	alternative called "evim" (easy Vim).  This is still Vim, but used in
-	a way that resembles a click-and-type editor like Notepad.  It always
-	stays in Insert mode, thus it feels very different.  It is not
-	explained in the user manual, since it should be mostly
-	self-explanatory.  See |evim-keys| for details.
+	Megjegyzés:
+	A kézikönyv a Vim normális használatát fedi le. Létezik egy úgynevezett
+	"evim" mód (easy vim) mely ugyan vim, de a működése megegyezik az
+	álatalánosan elterjedt "kattints és írj" szövegszerkesztőkével, mint
+	például a notepad. Állandóan Insert módban van és ezért teljesen más
+	érzetet nyújt, ezért ebben a leírásban az "evim" szerkesztő figyelmen
+	kívül van hagyva (valamint a működése is egyértelmű). Lásd |evim-keys|
+	a részletekhez.
 
 ==============================================================================
-*01.3*	Using the Vim tutor				*tutor* *vimtutor*
+*01.3*	A Vimtutor használata				*tutor* *vimtutor*
 
-Instead of reading the text (boring!) you can use the vimtutor to learn your
-first Vim commands.  This is a 30-minute tutorial that teaches the most basic
-Vim functionality hands-on.
+Szöveg olvasása helyett (amely nagyon unalmas), a Vimtutort interaktívan meg-
+tanítja az alapvető Vim parancsokat 30 perc alatt.
 
-On Unix, if Vim has been properly installed, you can start it from the shell:
+Unix rendszereken, ha a Vim telepítése normálisan ment végbe, a Vimtutor az
+alábbi shell paranccsal indítható:
 >
 	vimtutor
 
-On MS-Windows you can find it in the Program/Vim menu.  Or execute
-vimtutor.bat in the $VIMRUNTIME directory.
+MS-Windows rendszereken a programok menüpont alatt találod, vagy futtasd a
+vimtutor.bat fájlt a $VIMRUNTIME könyvtárból.
 
-This will make a copy of the tutor file, so that you can edit it without
-the risk of damaging the original.
-   There are a few translated versions of the tutor.  To find out if yours is
-available, use the two-letter language code.  For French: >
+A tutor tartalmáról másolat készül, amit anélkül lehet szerkeszteni, hogy az
+eredeti fáj módosulna.
+   A Vimtutor számos nyelven elérhető, magyarul is. A vimtutor parancsot
+   követő (kétbetűs) nyelvkód paraméterrel hívhatjuk meg a fordított változatot.
+   Magyar nyelvhez a parancs a következő:
+>
+	vimtutor hu
 
-	vimtutor fr
+Unix rendszereken, ha jobban tetszik a GUI változat, akkor használd a
+"gvimtutor" parancsot, vagy "vimtutor -g"-t a vimtutor helyett.
 
-On Unix, if you prefer using the GUI version of Vim, use "gvimtutor" or
-"vimtutor -g" instead of "vimtutor".
-
-For OpenVMS, if Vim has been properly installed, you can start vimtutor from a
-VMS prompt with: >
-
+OpenVMS rendszereken és a Vim megfelelő telepítése esetén a Vimtutor a VMS
+promptból indítható így:
+>
 	@VIM:vimtutor
 
-Optionally add the two-letter language code as above.
+Mely természetesen kiegészíthető a nyelvi kóddal.
 
+Eltérő rendszereken ugyanez többletmunkát igányel:
 
-On other systems, you have to do a little work:
-
-1. Copy the tutor file.  You can do this with Vim (it knows where to find it):
+1. Másold le a tutor filet. Ezt Vimmel is elvégezheted, hiszen tudja, hogy hol
+kell keresnie:
 >
 	vim --clean -c 'e $VIMRUNTIME/tutor/tutor' -c 'w! TUTORCOPY' -c 'q'
 <
-   This will write the file "TUTORCOPY" in the current directory.  To use a
-translated version of the tutor, append the two-letter language code to the
-filename.  For French:
+   Ez létrehozza a "TUTORCOPY" fájlt jelenlegi könyvtárban. A fordított
+   változatot a nyelvi kód hozzáadásával írhatjuk. Magyarul például:
 >
-	vim --clean -c 'e $VIMRUNTIME/tutor/tutor.fr' -c 'w! TUTORCOPY' -c 'q'
+	vim --clean -c 'e $VIMRUNTIME/tutor/tutor.hu' -c 'w! TUTORCOPY' -c 'q'
 <
-2. Edit the copied file with Vim:
+2. Szerkeszt a másolt fájlt Vimben:
 >
 	vim --clean TUTORCOPY
 <
-   The --clean argument makes sure Vim is started with nice defaults.
+   A --clean argumentum biztosítja, hogy a Vim (egy előre meghatározott)
+   minimális konfigurációval induljon.
 
-3. Delete the copied file when you are finished with it:
+3. Töröld a másolt fájlt, ha végeztél:
 >
 	del TUTORCOPY
 <
 ==============================================================================
-*01.4*	Copyright					*manual-copyright*
+*01.4*	Jogi Információk				*manual-copyright*
 
-The Vim user manual and reference manual are Copyright (c) 1988-2003 by Bram
-Moolenaar.  This material may be distributed only subject to the terms and
-conditions set forth in the Open Publication License, v1.0 or later.  The
-latest version is presently available at:
+A Vim kézikönyv és Referencia szerzői jogai (1988-2003) Bram Moolenaart
+illetik. Az anyagot a Open Publication License v1.0 szerinti 4. pontja alapján
+szabad terjeszteni. A legújabb verzió megtekintehető itt:
 	     http://www.opencontent.org/openpub/
 
-People who contribute to the manuals must agree with the above copyright
-notice.
+Az anyagok egyéb szerkesztőinek is el kell fogadniuk a fent említett jogi
+információkat.
 							*frombook*
-Parts of the user manual come from the book "Vi IMproved - Vim" by Steve
-Oualline (published by New Riders Publishing, ISBN: 0735710015).  The Open
-Publication License applies to this book.  Only selected parts are included
-and these have been modified (e.g., by removing the pictures, updating the
-text for Vim 6.0 and later, fixing mistakes).  The omission of the |frombook|
-tag does not mean that the text does not come from the book.
+Az anyag egyes részei a Steve Oualline által írt "Vi IMproved - Vim" könyvből
+lett átvéve (ISBN: 0735710015). A fentebb említett Open Publication License
+természetesen erre a könyvre is vonatkozik. A könyből részletek vannak közölve,
+melyek módosításokon estek át (képek eltávolítása, információk frissítése Vim
+6.0-ás verzióról, hibák javítása). A |frombook| címke hiánya természetesen nem
+jelenti azt, hogy a közölt információk nem származhat(nak) az említett könyvből.
 
-Many thanks to Steve Oualline and New Riders for creating this book and
-publishing it under the OPL!  It has been a great help while writing the user
-manual.  Not only by providing literal text, but also by setting the tone and
-style.
+Külön köszönet illeti Steve Ouallinét és a New Riders kiadót, hogy létrejött ez
+a könyv, az OPL licensz alatt! A kézikönyv megírása során rengeteget segített,
+nem pusztán az információk közlésével, de a hangnem és stílus megtalálásában is.
 
-If you make money through selling the manuals, you are strongly encouraged to
-donate part of the profit to help AIDS victims in Uganda.  See |iccf|.
-
+Ha leírásokból bárminemű profitod származik, akkor kérjük, hogy egy részét
+ajánld fel Uganda AIDS áldozatainak megsegítésére. Lásd  |iccf|.
 ==============================================================================
 
-Next chapter: |usr_02.txt|  The first steps in Vim
+Kovetkező fejezet: |usr_02.txt|  Első lépések a Vimben
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Szerzői és jogi információk: lásd |manual-copyright|
+vim:tw=78:ts=8:noet:ft=help:norl:
