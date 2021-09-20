@@ -445,164 +445,178 @@ kurzorral a linkelt szavak egyikére, majd nyomj CTRL-]-t (taghez ugrás) és m�
 az adott résznél is vagy. (A Vim terminológia szerint a hyperlinkek tageknek
 minősülnek a Vimben). Tehát a CTRL-] a kurzor alatt lévő taghez ugrik.
     Néhány ugrás után talán már vissza is szeretnél navigálni. A CTRL-T-vel
-tudod végrehajtani (pop stack), ami visszalép az előző pozícióra.
-As you read the help text, you will notice some text enclosed in vertical bars
-(for example, |help|).  This indicates a hyperlink.  If you position the
-cursor anywhere between the bars and press CTRL-] (jump to tag), the help
-system takes you to the indicated subject.  (For reasons not discussed here,
-the Vim terminology for a hyperlink is tag.  So CTRL-] jumps to the location
-of the tag given by the word under the cursor.)
-   After a few jumps, you might want to go back.  CTRL-T (pop tag) takes you
-back to the preceding position.  CTRL-O (jump to older position) also works
-nicely here.
-   At the top of the help screen, there is the notation *help.txt*.  This name
-between "*" characters is used by the help system to define a tag (hyperlink
-destination).
-   See |29.1| for details about using tags.
+tudod végrehajtani (pop stack), ami visszalép az előző pozícióra. CTRL-O
+(ugrás egy régebbi pozícióra) szintén nagyon szépen működik.
+    A help fájlok első sorában található a jelölés (*help.txt*). A "*" közötti
+karakterek azt a szót definiálják, melyre a link mutat.
+    Lásd |29.1| a tag használat részleteiről.
 
-To get help on a given subject, use the following command: >
+A help parancs szintaktikája meghatározott tárgy esetén:
+>
+	:help {tárgy}
 
-	:help {subject}
-
-To get help on the "x" command, for example, enter the following: >
-
+Például az "x" parancs dokumentációjának lekérése:
+>
 	:help x
 
-To find out how to delete text, use this command: >
-
+Törlési parancsok:
+>
 	:help deleting
 
-To get a complete index of all Vim commands, use the following command: >
-
+A Vimben található összes parancs szójegyzékének megjelenítése:
+>
 	:help index
 
-When you need to get help for a control character command (for example,
-CTRL-A), you need to spell it with the prefix "CTRL-". >
-
+Ha olyan paranccsal kapcsolatban szeretnél segítséget kérni, melyhez egyéb
+billentyűk is használatosak (például CTRL-A), "CTRL-" prefixummal kell ellátni
+a keresés tárgyát:
+>
 	:help CTRL-A
 
-The Vim editor has many different modes.  By default, the help system displays
-the normal-mode commands.  For example, the following command displays help
-for the normal-mode CTRL-H command: >
-
+A Vimben számos módban adhatunk ki parancsokat, ha ezt nem jelöljük, mindig a
+normál módú parancs leírását kapjuk meg. Az alábbi parancs a CTRL-H nomrál
+módú működésére vonatkozik:
+>
 	:help CTRL-H
 
-To identify other modes, use a mode prefix.  If you want the help for the
-insert-mode version of a command, use "i_".  For CTRL-H this gives you the
-following command: >
-
+Normáltól eltérő mód esetén előtaggal jell jelölni a kívánt módot. Ha az
+Insert módú máködésre vagy kíváncsi, akkor "i_" prefixumot kell használni.
+CTRL-H esetében az alábbiak szerint módosul a parancs:
+>
 	:help i_CTRL-H
 
-When you start the Vim editor, you can use several command-line arguments.
-These all begin with a dash (-).  To find what the -t argument does, for
-example, use the command: >
-
+A Vim elindításánál használt argumentumok (ezek "-"-lel kezdődnek, mint például
+-t). Annak kiderítésére, hogy -t miképpen befolyásolja a működést, az alábbi
+parancs ad választ:
+>
 	:help -t
 
-The Vim editor has a number of options that enable you to configure and
-customize the editor.  If you want help for an option, you need to enclose it
-in single quotation marks.  To find out what the 'number' option does, for
-example, use the following command: >
-
+A Vim számtalan opciót nyújt a szerkesztő testreszabására. Ezeket az opciókat
+aposztrtófok közé kell zárni. Példa a 'number' opció keresésére:
+>
 	:help 'number'
 
-The table with all mode prefixes can be found below: |help-summary|.
+Az összes prefixumot tartalmazó táblázat itt érhető el: |help-summary|.
 
-Special keys are enclosed in angle brackets.  To find help on the up-arrow key
-in Insert mode, for instance, use this command: >
-
+A speciális billentyűket kisebb és nagyobb jelek közé kell zárni. Példa a nyíl
+billentyű keresésére Insert módban:
+>
 	:help i_<Up>
 
-If you see an error message that you don't understand, for example:
+Ha egy olyan hibaüzenetet látsz, melyet nem tudsz értelmezni, akkor így tudsz
+több információt szerezni a probláma okáról:
 
 	E37: No write since last change (use ! to override) ~
 
-You can use the error ID at the start to find help about it: >
-
+Azonosításhoz add át a hiba kódját paramétreként:
+>
 	:help E37
 
 
-Summary: 					*help-summary*  >
+Összegzés: 					*help-summary*  >
 
-1) Use Ctrl-D after typing a topic and let Vim show all available topics.
-   Or press Tab to complete: >
+1) A CTRL-D segítségével (a parancs néhány karaktere után) a Vim megjeleníti
+   az összes illeszkedő parancsot:
+   A Tab billentyű kiegészít: >
 	:help some<Tab>
-<   More information on how to use the help: >
+<  A Vim helpfájlainak értelmezése: >
 	:help helphelp
 
-2) Follow the links in bars to related help.  You can go from the detailed
-   help to the user documentation, which describes certain commands more from
-   a user perspective and less detailed.  E.g. after: >
+2) Kövesd a linkekeket, hogy többet megtudj az adott témakörről. A
+   dokumentációról átválthatsz a kézikönyvre, ami kevésbé részletes és a működést
+   inkább felhasználói szemszögből mutatja be:
+>
 	:help pattern.txt
-<   You can see the user guide topics |03.9| and |usr_27.txt| in the
-   introduction.
+<
+   Itt láthatod a felhasználói kézikönyv vonatkozó sorszámát |03.9| és a
+   |usr_27.txt| linket a bevezetőben.
 
-3) Options are enclosed in single apostrophes.  To go to the help topic for the
-   list option: >
+
+3) Az opciók aposztrófok közé vannak zárva.  Példa a 'list' opció segítségének
+   megtekintésére:
+   >
 	:help 'list'
-<   If you only know you are looking for a certain option, you can also do: >
+
+<   Amennyiben egészen biztosan tudod, hogy mit keresel, kereshetsz itt is: >
+
 	:help options.txt
-<   to open the help page which describes all option handling and then search
-   using regular expressions, e.g. textwidth.
-   Certain options have their own namespace, e.g.: >
+
+<   a fájl tartalmazza az összes parancs leírását, melyen RegExp keresést
+   végezhetsz, például textwidth.
+   Egyes opciók saját névtérrel rendelkeznek: >
+
 	:help cpo-<letter>
-<   for the corresponding flag of the 'cpoptions' settings, substitute <letter>
-   by a specific flag, e.g.: >
+
+<  a 'cpoptions' opciójának kereséséhez helyettesítsd be a betű helyére az
+  opció nevét. >
+<  példa a 'cpoptions' névterének a használatára: >
 	:help cpo-;
-<   And for the 'guioptions' flags: >
+<   Ugyanezen opció a  'guioptions' névtérben: >
 	:help go-<letter>
 
-4) Normal mode commands do not have a prefix. To go to the help page for the
-   "gt" command: >
+4) A Normál módú parancsokat nem kell prefixummal ellátni. A "gt" parancs
+   Normál módban: >
 	:help gt
 
-5) Insert mode commands start with i_.  Help for deleting a word: >
+5) Az Insert mód parancsaihoz i_ prefixumot kell használnunk.  Szó törlése
+   insert módban: >
 	:help i_CTRL-W
 
-6) Visual mode commands start with v_.  Help for jumping to the other side of
-   the Visual area: >
+6) A Visual mód parancs prefixuma a v_.  A kijelölés másik végéhez ugorhatunk
+   Visual módban: >
 	:help v_o
 
-7) Command line editing and arguments start with c_.  Help for using the
-   command argument %: >
+7) A Comman-line argumentumok prefixuma a c_.  % használata argumentumként: >
 	:help c_%
 
-8) Ex-commands always start with ":", so to go to the ":s" command help: >
+8) Ay Ex-parancsok minden esetben ":"-al kezdődnek. "s" parancs értelmezése Ex
+   módban: >
 	:help :s
 
-9) Commands specifically for debugging start with ">".  To go to the help
-   for the "cont" debug command: >
+9) A fejlesztő környezet (debug mód) egyes parancsai: ">".  "cont" megtekintése
+   debug módban: >
 	:help >cont
 
-10) Key combinations.  They usually start with a single letter indicating
-    the mode for which they can be used.  E.g.: >
+10) Billentyűkombinációk.  Általában a módokért csak egyetlen egy karakter a
+    felelős. Például: >
 	:help i_CTRL-X
-<    takes you to the family of CTRL-X commands for insert mode which can be
-    used to auto-complete different things.  Note, that certain keys will
-    always be written the same, e.g. Control will always be CTRL.
-    For normal mode commands there is no prefix and the topic is available at
-    :h CTRL-<Letter>. E.g.  >
-	:help CTRL-W
-<    In contrast >
-	:help c_CTRL-R
-<    will describe what the CTRL-R does when entering commands in the Command
-    line and >
-	:help v_CTRL-A
-<    talks about incrementing numbers in visual mode and >
-	:help g_CTRL-A
-<    talks about the "g<C-A>" command (e.g. you have to press "g" then
-    <CTRL-A>).  Here the "g" stands for the normal command "g" which always
-    expects a second key before doing something similar to the commands
-    starting with "z".
+<    megtekinthetjük a CTRL-X parancs-család Insert mód specifikus leírását,
+    az automatikus kiegészítéssel pedig egyéb dolgokat is tehetünk
 
-11) Regexp items always start with /.  So to get help for the "\+" quantifier
-    in Vim regexes: >
+    Megjegyzés:
+    Bizonyos dolgok azonban nem változnak, ilyen például a CTRL billentyű
+    jelölése. A CTRL mindig CTRL marad. Normál módú parancsok esetén
+    nincs prefixum, a CTRL- szót pedig a parancs billentyűje követi,
+    CTRL-<letter>, tehát: >
+	:help CTRL-W
+
+<    Ellentétben, >
+
+	:help c_CTRL-R
+
+<   leírja, hogy mit csinál CTRL-R Command line módban, és >
+
+	:help v_CTRL-A
+
+<    a vizuális módú inkrementációról beszél >
+
+	:help g_CTRL-A
+
+<   a "g<C-A>" parancs dokumentációja  (például, amikor "g" billentyűt ütsz
+   <CTRL-A> előtt. Itt a "g", mint Normál módú parancsként értelmezendő, "g"
+   sohasem áll önmagában, mindig vár egy másodlagos utasításra (hasonló a "z"
+   parancsokohoz). >
+
+
+11) A RegExp keresések / jellel kezdődnek. Példa az "\+" jelző Vim regexpbeni
+    kereséséhez >
 	:help /\+
-<    If you need to know everything about regular expressions, start reading
-    at: >
+
+<    Ha többet szeretél megtudni a reguláris kifejezéskről, kezdd az olvasást
+    itt: >
 	:help pattern.txt
 
-12) Registers always start with "quote". To find out about the special ":"
+12) A Regiszterek mindig "-el kezdődnek. To find out about the special ":"
     register: >
 	:help quote:
 
