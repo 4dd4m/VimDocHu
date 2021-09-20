@@ -362,80 +362,90 @@ A végeredmény az alábbi:
 Az "O" parancs (nagybetűs O) az aktuális sor fölé nyitja az új sor.
 
 
-USING A COUNT
+MENNYISÉG (COUNT) HASZNÁLATA
 
-Suppose you want to move up nine lines.  You can type "kkkkkkkkk" or you can
-enter the command "9k".  In fact, you can precede many commands with a number.
-Earlier in this chapter, for instance, you added three exclamation points to
-the end of a line by typing "a!!!<Esc>".  Another way to do this is to use the
-command "3a!<Esc>".  The count of 3 tells the command that follows to triple
-its effect.  Similarly, to delete three characters, use the command "3x".  The
-count always comes before the command it applies to.
+Tegyük fel, hogy fel szeretnél ugrani kilenc sort, amit megtehetsz így:
+"kkkkkkkkk", vagy elláthatod mennyiséggel a parancsot, például "9k". A parancsok
+jellemzően elláthatók ilyen mennyiségi jelzővel. Emlékezzünk vissza, néhány
+sorral feljebb a három felkiáltójeles példára, amit így hajtottunk végre:
+"a!!!<Esc>". Ennek egy rövidebb módja "3a!<Esc>". A mennyiségi jelzővel ellátott
+parancsokat a Vim megismétli (a bevitt értékkel). Ennek alapján, a három karak-
+tert törlő parancsot is legyszerűsíthettük volna: "3x". A mennyiségi jelző
+mindig megelőzi a pranacsot, melyre hatással van.
 
 ==============================================================================
-*02.7*	Getting out
+*02.7*	Kilépés
 
-To exit, use the "ZZ" command.  This command writes the file and exits.
+Kilépéshez használd a "ZZ" parancsot. A parancsi automatikusan menti a fájlt.
 
+	Megjegyzés:
 	Note:
-	Unlike many other editors, Vim does not automatically make a backup
-	file.  If you type "ZZ", your changes are committed and there's no
-	turning back.  You can configure the Vim editor to produce backup
-	files; see |07.4|.
+	A Vim más szövegszerkesztőkkel ellentétben nem készít biztonsági
+	másolatot. A "ZZ" parancs kiadása után nincs visszaút. A biztonsági
+	mentés beállításairól bővebben itt olvashatsz: |07.4|.
 
 
-DISCARDING CHANGES
+A VÁLTOZTATÁSOK ELDOBÁSA
 
-Sometimes you will make a sequence of changes and suddenly realize you were
-better off before you started.  Not to worry; Vim has a
-quit-and-throw-things-away command.  It is: >
-
+Sokszor kerülhetsz abba a helyzetbe, hogy a szerkesztés után rádöbbensz, jobb
+lenne az elejéről kezdeni a szerkesztést (mentetlenül bezárni a fájlt). Ne
+aggódj, a Vim képes erre ezzel a pranccsal:
+>
 	:q!
 
-Don't forget to press <Enter> to finish the command.
+Ne felejts el <Enter>-t ütni a parancs begépelése után.
 
-For those of you interested in the details, the three parts of this command
-are the colon (:), which enters Command-line mode; the q command, which tells
-the editor to quit; and the override command modifier (!).
-   The override command modifier is needed because Vim is reluctant to throw
-away changes.  If you were to just type ":q", Vim would display an error
-message and refuse to exit:
+Ha érdekelnek a részletek, az előbb említett kilépési parancs három részből áll.
+Az első rész a kettőspont ":", mely megnyitja a Command-line módot, a második
+rész a q parancs, mellyel kilép a szerkesztő, a harmadik és utolsó rész az
+úgynevezett "felülíró módosító" (!).
+    A felülíró módosítóra ebben az esetben szükség van, mivele Vim
+alapértelmezetten nem veti el a változtatásokat. Ha csak ennyit írtunk volna ":q",
+akkor egy hibaüzenet jelent volna meg:
 
 	E37: No write since last change (use ! to override) ~
 
-By specifying the override, you are in effect telling Vim, "I know that what
-I'm doing looks stupid, but I really want to do this."
+A módosító alkalmazásásval gyakorlatilag ezt mondjuk a szerkesztőnek: "Tudom
+amit csinálok badarságnak tűnhet, de ezt tényleg szeretném"
 
-If you want to continue editing with Vim: The ":e!" command reloads the
-original version of the file.
+Ha a szerkesztést a Vimben szeretnéd folytatni, akkor használd a ":e!" parancsot,
+mely betölti újra a fájlt a legutolsó mentett állapota szerint.
 
 ==============================================================================
-*02.8*	Finding help
+*02.8*	Seítség
 
-Everything you always wanted to know can be found in the Vim help files.
-Don't be afraid to ask!
+A Vim helpfájljai tartalmaznak mindent, melyre a használat során szükséged
+lehet (még többet is), ennek ellenére ne légy szégyenlős!
 
-If you know what you are looking for, it is usually easier to search for it
-using the help system, instead of using Google.  Because the subjects follow
-a certain style guide.
+Ha pontosan tudod, mit szeretnél, help fájlok rendszerint jobb lehetőségnek
+bizonyulnak, mint péládula a Google.
 
-Also the help has the advantage of belonging to your particular Vim version.
-You won't see help for commands added later.  These would not work for you.
+A beépített help fájlok rendelkeznek azzal az előnyös tulajdonsággal, hogy
+kifejezetten a Te Vim verziójáról szólnak. Későbbiekben a help parancsot nem
+láthatod, de itt az álalános formátuma:
 
-To get generic help use this command: >
-
+Általános segítség megnyitása:
+>
 	:help
 
-You could also use the first function key <F1>.  If your keyboard has a <Help>
-key it might work as well.
-   If you don't supply a subject, ":help" displays the general help window.
-The creators of Vim did something very clever (or very lazy) with the help
-system: They made the help window a normal editing window.  You can use all
-the normal Vim commands to move through the help information.  Therefore h, j,
-k, and l move left, down, up and right.
-   To get out of the help window, use the same command you use to get out of
-the editor: "ZZ".  This will only close the help window, not exit Vim.
+Használhatod a billentyűzeted <F1> billentyűjét, vagy a dedikált <Help>
+billentyűt (ha ez létezik).
+    A ":help" parancs argumentum nélkül az általános problémákra vonatkozó
+oldalt nyitja meg.
+A Vim készítői nagyon okosan (vagy szimplán csak lustaságból) a help rendszert
+úgy alakították ki, hogy az maga is a szerkesztőben nyíljon meg, így az összes
+tanult navigációs parancsot használhatod. Ezért a j fel, a k le, a h balra, az
+l jobbra mozog.
+    Az ablak bezárásához használhatod az előzőleg ismertetett "ZZ" parancsot.
+Ez csak bezárja az ablakot, de a Vimet nem.
 
+A pipe "|" karakterek közötti szavak linkeknek minősülnek (pldául |help|). Így
+könnyedén megnyithatjuk az adott szóhoz tartozó dokumentációt. Állj rá a
+kurzorral a linkelt szavak egyikére, majd nyomj CTRL-]-t (taghez ugrás) és már
+az adott résznél is vagy. (A Vim terminológia szerint a hyperlinkek tageknek
+minősülnek a Vimben). Tehát a CTRL-] a kurzor alatt lévő taghez ugrik.
+    Néhány ugrás után talán már vissza is szeretnél navigálni. A CTRL-T-vel
+tudod végrehajtani (pop stack), ami visszalép az előző pozícióra.
 As you read the help text, you will notice some text enclosed in vertical bars
 (for example, |help|).  This indicates a hyperlink.  If you position the
 cursor anywhere between the bars and press CTRL-] (jump to tag), the help
