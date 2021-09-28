@@ -620,114 +620,109 @@ Azonosításhoz add át a hiba kódját paramétreként:
     register: >
 	:help quote:
 
-13) Vim script is available at >
+13) A Vim scipt elérhető >
 	:help eval.txt
-<    Certain aspects of the language are available at :h expr-X where "X" is a
-    single letter. E.g.  >
+< A nyelv bizonyos aspektusai ebben a formában érhetők el :h expr-X ahol "X" egy
+szimpla karakter, például: >
 	:help expr-!
-<    will take you to the topic describing the "!" (Not) operator for Vim
-    script.
-    Also important is >
+<megjeleníti a "!" (Nem) operátor leírását a Vim scriptet illetően 
+    Továbbá még fontos lehet: >
 	:help function-list
-<    to find a short description of all functions available.  Help topics for
-    Vim script functions always include the "()", so: >
+<    az összes függvény rövid leírása. A Vim scriptekhez tartozó függvényekhez
+    minden esetben "()" kell tennünk a függvény neve után, tehát: >
 	:help append()
-<    talks about the append Vim script function rather than how to append text
-    in the current buffer.
+<    ami bemutatja, hogy hogyan használhatjuk a az append függvényt a Vim
+    scriptben (nem az aktuális bufferben). >
 
-14) Mappings are talked about in the help page :h |map.txt|. Use >
+14) A mappelésekről itt esik szó bővebben :h |map.txt|. >
 	:help mapmode-i
-<    to find out about the |:imap| command.  Also use :map-topic
-    to find out about certain subtopics particular for mappings.  e.g: >
+<    az |:imap| parancs dokumentációja. Kategórialapú keresés :map-topic,
+    mely listázza a az adott alkategória mappeléseit, pédlául: >
 	:help :map-local
-<    for buffer-local mappings or >
+<     a buffer lokális mapjei >
 	:help map-bar
-<    for how the '|' is handled in mappings.
+<     a '|' működését a mappekben >
 
-15) Command definitions are talked about :h command-topic, so use >
+15) Parancsdefiníciók :h command-topic, azaz >
 	:help command-bar
-<    to find out about the '!' argument for custom commands.
+<    '!' argumentum kezelése egyedi parancsokban >
 
-16) Window management commands always start with CTRL-W, so you find the
-    corresponding help at :h CTRL-W_letter.  E.g. >
+16) Az ablakkezelő parancsok mindig CTRL-W-vel kezdődnek, tehát az ablakspecifikus
+    segítség így érhető el :h CTRL-W_betű.  például: >
 	:help CTRL-W_p
-<    for moving the previous accessed window.  You can also access >
+<    ami az előző aktív ablakra vált, ha viszont egy tágabb témakörben
+    szerentél olvasni, akkor: >
 	:help windows.txt
-<    and read your way through if you are looking for window handling
-    commands.
+<    az összes ablakokkap kapcsolatos leírás. >
 
-17) Use |:helpgrep| to search in all help pages (and also of any installed
-    plugins).  See |:helpgrep| for how to use it.
-    To search for a topic: >
+17) A |:helpgrep| a helpfájlok tartalmára kereshetsz (beleértve az összes 
+    telepített kiegészítő helpfájlját).  Lásd |:helpgrep| a használatot illetően.
+    Témeakör keresése: >
 	:helpgrep topic
-<    This takes you to the first match.  To go to the next one: >
+<    A legelső találathoz visz, majd így léphetsz vissza a  következőre: >
 	:cnext
-<    All matches are available in the quickfix window which can be opened
-    with: >
+<    Az összes találat megtalálható a quickfix ablakban, melyet így nyithatsz
+    meg:  >
 	:copen
-<    Move around to the match you like and press Enter to jump to that help.
+<    A találatok között az  Enter billentyűvel ugorhatsz a szövegrészlethez.  >
 
-18) The user manual.  This describes help topics for beginners in a rather
-    friendly way.  Start at |usr_toc.txt| to find the table of content (as you
-    might have guessed): >
+18) A felhasználói kézikönyv. Stílusát tekintve felhasználóbarátabb, nem
+    tartalmaz annyi információt, mint a a dokumentáció. Kezdd itt |usr_toc.txt|, 
+    mellyel eléred a tartalomjegyzéket (nem meglepő módon): >
 	:help usr_toc.txt
-<    Skim over the contents to find interesting topics. The "Digraphs" and
-    "Entering special characters" items are in chapter 24, so to go to that
-    particular help page: >
+< Fuss át rajtuk, valószínű, hogy egyes témák érdekelhetnek. A "Digráfok"
+(Digraph) és a "Speciális karakterek beszúrása a 24. fejezetben található,
+amihez egyrész így is odanavigálhatsz: >
 	:help usr_24.txt
-<    Also if you want to access a certain chapter in the help, the chapter
-    number can be accessed directly like this: >
+<   Viszont, ha tudod a fejezetcímet, akkor nyugodtan használhatod: >
 	:help 10.1
-<    which goes to chapter 10.1 in |usr_10.txt| and talks about recording
-    macros.
+<   ami természetesen megnyitja a 10.1 fejezetet a |user_10.txt|fájlban (ami 
+ebben az esetben a makrók rögzítéséről tesz említést >
 
-19) Highlighting groups.  Always start with hl-groupname.  E.g. >
+19) Szövegkiemelés.  Mindig a hl-csoportnév szintaktikát követi. Például: >
 	:help hl-WarningMsg
-<    talks about the WarningMsg highlighting group.
+<    a WarningMsg csoportba tartozó kiemelésekről tájékoztat. >
 
-20) Syntax highlighting is namespaced to :syn-topic.  E.g. >
+20) A szintaxis-kiemelés névtere: syn-topic.  E.g. >
 	:help :syn-conceal
-<    talks about the conceal argument for the ":syn" command.
+<    a szintaxiskiemelések conceal argumentuma. >
 
-21) Quickfix commands usually start with :c while location list commands
-    usually start with :l
+21) A Quickfix parancsok :c paranccsal, míg a local-list :l utasítással érhetők el.
 
-22) Autocommand events can be found by their name: >
+22) Az Autocommand események az esemény nevéről lettek elnevezve. >
 	:help BufWinLeave
-<    To see all possible events: >
+<    Az összes lehetséges esemény: >
 	:help autocommand-events
 
-23) Command-line switches always start with "-".  So for the help of the -f
-    command switch of Vim use: >
+23) A parancssori kapcsolók "-"-el kezdődnek.  A helpfájlok megjelenítéséhez
+    használd az -f kapcsolót: >
 	:help -f
 
-24) Optional features always start with "+".  To find out about the
-    conceal feature use: >
+24) Az opcionális beállítások "+"-el kezdődnek.  Az elrejtés (conceal) leírásának
+    megjelenítése: >
 	:help +conceal
-
-25) Documentation for included filetype specific functionality is usually
-    available in the form ft-<filetype>-<functionality>.  So >
+<25) A fájlspecifikus beállítások a következő formában érhetőek el:
+    ft-<filetype>-<functionality>, theát: >
 	:help ft-c-syntax
-<    talks about the C syntax file and the option it provides.  Sometimes,
-    additional sections for omni completion >
+<    paranccsal a C fájlokhoz tartozó szintaxissal kapcsolatban találunk útmutatót. 
+    példa a php fájlok omni-kiegészítésére: >
 	:help ft-php-omni
-<    or filetype plugins >
+<    vagy a filetype beépülőre >
 	:help ft-tex-plugin
-<    are available.
 
-26) Error and Warning codes can be looked up directly in the help.  So >
+26) A hiba és figyelmeztető-kódok.  Tehát: >
 	:help E297
-<    takes you exactly to the description of the swap error message and >
+<    pontosan le fogja írni a hiba okát (jelen esetben swap fájl hiba) >
 	:help W10
-<    talks about the warning "Changing a readonly file".
-    Sometimes, however, those error codes are not described, but rather are
-    listed at the Vim command that usually causes this.  So: >
+<    figyelmeztető üzenetet kaphatjuk, ha írásvédett fájlt próbálunk szerkeszteni.
+    Esetenként nem található pontos hibaleírás, ekkor viszont a hibát kiváltó
+    kódrészletben a hibakód fel van tüntetve. >
 	:help E128
-<    takes you to the |:function| command
+<   a |:function| parancs által előidézhető hibakódok
 
 
 ==============================================================================
 
-Next chapter: |usr_03.txt|  Moving around
+Következő fejezet: |usr_03.txt|  Navigáció
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi indformációk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
