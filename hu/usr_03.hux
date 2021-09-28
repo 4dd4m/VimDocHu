@@ -1,70 +1,68 @@
 *usr_03.txt*	Vim verzió 8.2.  Frissítve: 2020 Sep 03
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		    Bram Moolenaar: Felhasználói Kézikönyv
 
-			     Moving around
+				  Navigáció
 
+Mielőtt beszúrnál, vagy törölnél, a kurzor a megfelelő helyre kell pozícionálni.
+Ehhez a Vim rengeteg parancsot biztosít. A fejezet ezek közül a legfontosabbakat
+mutatja be, a teljes listát itt találod |Q_lr|.
 
-Before you can insert or delete text the cursor has to be moved to the right
-place.  Vim has a large number of commands to position the cursor.  This
-chapter shows you how to use the most important ones.  You can find a list of
-these commands below |Q_lr|.
+|03.1|	Szavankénti mozdulatok
+|03.2|	Sor elejére/végére ugrás
+|03.3|	Karakterhez ugrás
+|03.4|	Zárójelek párjai
+|03.5|	Ugrás adott sorra
+|03.6|	Aktuális pozíció
+|03.7|	Görgetés
+|03.8|	Egyszerű keresések
+|03.9|	Egyszerű keresési minták
+|03.10|	Jelölők használatat
 
-|03.1|	Word movement
-|03.2|	Moving to the start or end of a line
-|03.3|	Moving to a character
-|03.4|	Matching a parenthesis
-|03.5|	Moving to a specific line
-|03.6|	Telling where you are
-|03.7|	Scrolling around
-|03.8|	Simple searches
-|03.9|	Simple search patterns
-|03.10|	Using marks
-
-     Next chapter: |usr_04.txt|  Making small changes
- Previous chapter: |usr_02.txt|  The first steps in Vim
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_04.txt|  Apró változtatások
+ Előző fejezet: |usr_02.txt|  Első lépések a Vimben
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*03.1*	Word movement
+*03.1*	Szavankénti mozdulatok
 
-To move the cursor forward one word, use the "w" command.  Like most Vim
-commands, you can use a numeric prefix to move past multiple words.  For
-example, "3w" moves three words.  This figure shows how it works (starting at
-the position marked with "x"):
+A "w" parancs egy szóval mozdítja előre a kurzort. Természetesen numerikus 
+értékkel prefixálva a művelet ismételhető, így egyszerre több szót is
+átugorhatunk. Például "3w" három szónyit mozdul előre irányban. Az alábbi ábra
+szemlélteti a működést (a kurzor kezdőpozíciója "x"):
 
 	This is a line with example text ~
 	  x-->-->->----------------->
 	   w  w  w    3w
 
-Notice that "w" moves to the start of the next word if it already is at the
-start of a word.
-   The "b" command moves backward to the start of the previous word:
+A "w" parancs a következő szó kezdetéhez ugrik.
+   A "b" paranccsal ugyanezt a mozdulatot végezhetjük el vissza irányban (a
+   kurzor itt is a szó elejéhez kerül):
 
 	This is a line with example text ~
 	<----<--<-<---------<--x
 	   b   b b    2b      b
 
-There is also the "e" command that moves to the next end of a word and "ge",
-which moves to the previous end of a word:
+Az "e" parancs a kovetkező szó végére ugrik, "ge" pedig az előző szó végéhez:
 
 	This is a line with example text ~
 	   <----<----x---->------------>
 	   2ge   ge     e       2e
 
-If you are at the last word of a line, the "w" command will take you to the
-first word in the next line.  Thus you can use this to move through a
-paragraph, much faster than using "l".  "b" does the same in the other
-direction.
+Amennyiben a sorban található utolsó  szón állsz, "w" parancs ebben az esetben
+a következő sor első szavára fog ugrani (hiszen ez a következő sző). Egy
+bekezdést sokkal könnyebb átugrani "w","b" parancsokkal, mint karakterenkénti
+"l" paranccsal.
 
-A word ends at a non-word character, such as a ".", "-" or ")".  To change
-what Vim considers to be a word, see the 'iskeyword' option.  If you try this
-out in the help directly, 'iskeyword' needs to be reset for the examples to
-work: >
+A szó végét a következő "nem szó karakter" jelenti, például ".", "-" vagy ")".
+A működést befolyásolhatjuk az 'iskeyword' beállítás megváltoztatásával.
+Amennyiben így teszel (a kézikönyv használata során), akkor a további példák
+nem fognak a leírtaknak megfelelően működni. >
 	:set iskeyword&
-It is also possible to move by white-space separated WORDs.  This is not a
-word in the normal sense, that's why the uppercase is used.  The commands for
-moving by WORDs are also uppercase, as this figure shows:
+
+Lehetőség van szöközönkénti SZÓ mozgásora. Ez nem a normál értelemben vett szó,
+ezért van nagy betűvel írva. Logikusan, az ilyen SZAVAKHOZ a parancs is nagy-
+betűs, melyet az alábbi ábtra mutat:
 
 	       ge      b	  w				e
 	       <-     <-	 --->			       --->
@@ -72,18 +70,18 @@ moving by WORDs are also uppercase, as this figure shows:
 	   <----- <-----	 -------------------->	       ----->
 	     gE      B			 W			 E
 
-With this mix of lowercase and uppercase commands, you can quickly move
-forward and backward through a paragraph.
+A parancsok megfelelő használata esetén a bekezdés bejárható pillanatok alatt
+mindkét irányban.
 
 ==============================================================================
-*03.2*	Moving to the start or end of a line
+*03.2*	Sor elejére/végére ugrás
 
-The "$" command moves the cursor to the end of a line.  If your keyboard has
-an <End> key it will do the same thing.
+A "$" parancs a kurzort a sor végére mozgatja. Ha a billentyűzeteden van
+<End> billentyű, azt is használhatod, a hatás ugyan az.
 
-The "^" command moves to the first non-blank character of the line.  The "0"
-command (zero) moves to the very first character of the line, and the <Home>
-key does the same thing.  In a picture ("." indicates a space):
+A "^" parancs a sorban található első nem üres karakterre viszi a kurzort. A
+"0" parancs figyelmen kívül hagyja a működést és a sor legelső karakterére
+ugrik akár csak a <Home> billentyű. Az ábrán "." szóköz karaktert jelöl:
 
 		  ^
 	     <-----------x
@@ -91,70 +89,72 @@ key does the same thing.  In a picture ("." indicates a space):
 	<----------------x   x-------------->
 		0		   $
 
-(the "....." indicates blanks here)
+(az "....." üres karaktereket jelölnek)
 
-   The "$" command takes a count, like most movement commands.  But moving to
-the end of the line several times doesn't make sense.  Therefore it causes the
-editor to move to the end of another line.  For example, "1$" moves you to
-the end of the first line (the one you're on), "2$" to the end of the next
-line, and so on.
-   The "0" command doesn't take a count argument, because the "0" would be
-part of the count.  Unexpectedly, using a count with "^" doesn't have any
-effect.
+   A "$" parancs prefixálható mennyiséggel a legtöbb paranccsal megegyezően. 
+A műveletnek nincs sok értelme, hiszen a sor végére ugrani több alkalommal 
+ugyanazt a pozíciót ereményezi. Ezért, ha mennyiséggel prefixáljuk a "$"
+parancsot, az mindig az aktuális sor végére fog ugrani. Tehát, "1$" az aktív
+sor (kurzor sora) végére ugrik, míg "2$" a következő sor végére visz és így
+tovább.
+
+   A "0" parancs nem prefixálható mennyiséggel, mivel a "0" karakter is 
+mennyiség részét képezni. Kivételesen a "^" parancs sem prefixálható, azaz
+semmilyen hatása nincs.
 
 ==============================================================================
-*03.3*	Moving to a character
+*03.3*	Karakterhez ugrás
 
-One of the most useful movement commands is the single-character search
-command.  The command "fx" searches forward in the line for the single
-character x.  Hint: "f" stands for "Find".
-   For example, you are at the beginning of the following line.  Suppose you
-want to go to the h of human.  Just execute the command "fh" and the cursor
-will be positioned over the h:
+Az egyik leghasznosabb parancs a soron belüli keresés. Az "fx" parancs előre
+irányban "x" karakterre ugrik. (Az "f" a "Find" igéből származtatható).
+   Például tegyük fel, hogy az alább ábrázolt sorban tartózkodsz és a "h" 
+betűre szeretnél ugrani a "human" szóban. Add ki az "fh" parancsot és a kurzor
+a "h" karakterre kerül.
 
 	To err is human.  To really foul up you need a computer. ~
 	---------->--------------->
 	    fh		 fy
 
-This also shows that the command "fy" moves to the end of the word really.
-   You can specify a count; therefore, you can go to the "l" of "foul" with
-"3fl":
+Az ábrán az is látható, hogy "fy" lényegében a szó végére ugrik.
+   Prefixálható mennyiséggel, így az "l" parancs esetében a kezdeti pozícióról
+a "3fl" parnaccsal a "foul" szóban található "l" karakterre ugrunk:
 
 	To err is human.  To really foul up you need a computer. ~
 		  --------------------->
 			   3fl
 
-The "F" command searches to the left:
+Az "F" parancs az ellenkező irányban keres, azaz visszafelé:
 
 	To err is human.  To really foul up you need a computer. ~
 		  <---------------------
 			    Fh
 
-The "tx" command works like the "fx" command, except it stops one character
-before the searched character.  Hint: "t" stands for "To".  The backward
-version of this command is "Tx".
+A "tx" parancs az "fx" parancshoz hasonlóan működik azzal a kivétellel, hogy a 
+keresés tárgyát képző karakter elé ugrik. A parancs inverz változata "Tx" amely
+vissza irányban keresi a karaktert. Ilyenkor a kurzor ismét a karakter elé ugrik
+oly módon, hogy a karakter és a kurzor pozíciója inversz lesz "tx"-hez képest.
+A kurzor a célkarakter elé ugrik (mindig a keresés irányából):
 
 	To err is human.  To really foul up you need a computer. ~
 		   <------------  ------------->
 			Th		tn
 
-These four commands can be repeated with ";".  "," repeats in the other
-direction.  The cursor is never moved to another line.  Not even when the
-sentence continues.
+Az előbb említett keresési parancsok megismételhetőek ";" billentyűt nyomva.  A
+"," vissza irányban ismétli meg a keresést. A kurzor soha nem lép át másik
+sorba (még akkor sem, ha a mondtad tovább folytatódik).
 
-Sometimes you will start a search, only to realize that you have typed the
-wrong command.  You type "f" to search backward, for example, only to realize
-that you really meant "F".  To abort a search, press <Esc>.  So "f<Esc>" is an
-aborted forward search and doesn't do anything.  Note: <Esc> cancels most
-operations, not just searches.
+Esetenként, miután már elkezdted írni a keresési parancsot, rájössz, hogy a 
+rossz paranccsal kezdted a keresést. Például "f"-et írtál "F" helyett. Nem
+kell befejezned a parancsot. A megszakításhoz nyomj <Esc> parancsot. Tehát
+"f<Esc>" egy megszakított keresés, nincs hatása semmire. <Esc> billentyű a
+legtöbb parancsot megszakítja, nem csak a keresést.
 
 ==============================================================================
-*03.4*	Matching a parenthesis
+*03.4*	Zárójelek párjai
 
-When writing a program you often end up with nested () constructs.  Then the
-"%" command is very handy: It moves to the matching paren.  If the cursor is
-on a "(" it will move to the matching ")".  If it's on a ")" it will move to
-the matching "(".
+Programok írása során szinte kivétel nélkül egymásba ágyazott zárójelekkel
+találkozhatunk. A "%" parancs nagyon hasznos: A zárój párjára ugrik. Ha a
+kurzor "(" karakteren áll, akkor a zárójel ")" párjára ugrik és fordítva.
 
 			    %
 			 <----->
@@ -162,35 +162,33 @@ the matching "(".
 		   <---------------->
 			    %
 
-This also works for [] and {} pairs.  (This can be defined with the
-'matchpairs' option.)
+A prancs [] és {} párokkal is működik. (a 'matchpairs' opcióval ezt
+módosíthatjuk).
 
-When the cursor is not on a useful character, "%" will search forward to find
-one.  Thus if the cursor is at the start of the line of the previous example,
-"%" will search forward and find the first "(".  Then it moves to its match:
+Ha a kurzor nem zárójelpárokon tartózkodik, akkor az aktív sor következő
+zárójelére ugrik (ha van), az azt következő végrehajtáskor pedig a párjára.
 
 		if (a == (b * c) / d) ~
 		---+---------------->
 			   %
 
 ==============================================================================
-*03.5*	Moving to a specific line
+*03.5*	Ugrás adott sorra
 
-If you are a C or C++ programmer, you are familiar with error messages such as
-the following:
+Ha C vagy C++ programozó vagy, akkor az alábbi üzenet ismerősnek tűnhet:
 
 	prog.c:33: j   undeclared (first use in this function) ~
 
-This tells you that you might want to fix something on line 33.  So how do you
-find line 33?  One way is to do "9999k" to go to the top of the file and "32j"
-to go down thirty-two lines.  It is not a good way, but it works.  A much
-better way of doing things is to use the "G" command.  With a count, this
-command positions you at the given line number.  For example, "33G" puts you
-on line 33.  (For a better way of going through a compiler's error list, see
-|usr_30.txt|, for information on the :make command.)
-   With no argument, "G" positions you at the end of the file.  A quick way to
-go to the start of a file use "gg".  "1G" will do the same, but is a tiny bit
-more typing.
+Ez gyakorlatilag azt mondja, hogy ki kell valamit javítanunk a 33. sorban.
+Hogyan csinálnád? Az egyik mód, hogy "9999k"-t ütsz, amivel (feltehetőleg) a
+legelső sorra kerülsz, majd ott kiadod a "32j" parancsot. Abszolút nem
+elegáns (viszont működik). Ennél jobb, ha a "G" prancsot használjuk.
+Prefixálva ahhoz a sorhoz kerülünk, amit prefixumként megadtunk. Tehát "33G" a
+33. sorba visz bennünket. (A fordító hibáinak feldolgozásához egy jobb
+módjához olvasd el |user_30.txt|, :make parancs).
+   Prefixum nélkül "G" a fájl legutolsó sorára ugrik. A fájl elejére gyorsan a
+"gg" paranccsal ugorhatunk. "1G" paranccsal szintén, de picivel nehezebben
+írható.
 
 	    |	first line of a file   ^
 	    |	text text text text    |
@@ -203,12 +201,12 @@ more typing.
 		text text text text    |
 		last line of a file    V
 
-Another way to move to a line is using the "%" command with a count.  For
-example "50%" moves you to halfway the file.  "90%" goes to near the end.
+A fájlban a "%" görgethetünk is, hiszen a fájl feléhez "50%", míg a fájl
+90%-hoz a "90%" paranccsal ugorhatunk. 
 
-The previous assumes that you want to move to a line in the file, no matter if
-it's currently visible or not.  What if you want to move to one of the lines
-you can see?  This figure shows the three commands you can use:
+Az előzőek azt feltételezték, hogy egy adott sorra kell ugranunk függetlenül
+attól, hogy látható-e vagy sem. Mi a teenő akkor, ha azokon a sorokon belül
+szeretnél mozogni, melyeket látsz? Az alábbi ábrán három új parancs látható:
 
 			+---------------------------+
 		H -->	| text sample text	    |
@@ -222,33 +220,30 @@ you can see?  This figure shows the three commands you can use:
 		L -->	| text sample text	    |
 			+---------------------------+
 
-Hints: "H" stands for Home, "M" for Middle and "L" for Last.  Alternatively,
-"H" for high, "M" for Middle and "L" for low.
+Így jegyezd meg: "H" - High, "M" - Mid, "L" - Low.
 
 ==============================================================================
-*03.6*	Telling where you are
+*03.6*	Aktuális pozíció
 
-To see where you are in a file, there are three ways:
+Három módszerrel derítheted ki az aktuális pozíciódat.
 
-1.  Use the CTRL-G command.  You get a message like this (assuming the 'ruler'
-    option is off):
+1.  A CTRL-G parancs üzenetet jelenít meg az állapotsoron (felételezve, hogy a
+    'ruler' opció nincs bekapcsolva):
 
 	"usr_03.txt" line 233 of 650 --35%-- col 45-52 ~
 
-    This shows the name of the file you are editing, the line number where the
-    cursor is, the total number of lines, the percentage of the way through
-    the file and the column of the cursor.
+    Ez mutatja a fájl nevét, az aktív sor számát, az összes sor számát, a
+    kurzor helyzetét %-ban, sor- és oszlopszámot.
+       Előfordulhat, hogy olykor osztott szám van feltüntetve. Például:
+    "col 2-9". Ez azt jelenti, hogy a kurzor a második karakteren áll, de az 
+    első karater egy tab, 8 karakternyi helyet elfoglalva. 
        Sometimes you will see a split column number.  For example, "col 2-9".
-    This indicates that the cursor is positioned on the second character, but
-    because character one is a tab, occupying eight spaces worth of columns,
-    the screen column is 9.
 
-2.  Set the 'number' option.  This will display a line number in front of
-    every line: >
+2.  Állítsd be a 'number' opciót, mely megjeleníti a sorok számát: >
 
 	:set number
 <
-    To switch this off again: >
+    Kikapcsolásához: >
 
 	:set nonumber
 <
