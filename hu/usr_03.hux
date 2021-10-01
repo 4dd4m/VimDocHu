@@ -19,8 +19,8 @@ mutatja be, a teljes listát itt találod |Q_lr|.
 |03.9|	Egyszerű keresési minták
 |03.10|	Jelölők használatat
 
-     Következő fejezet: |usr_04.txt|  Apró változtatások
- Előző fejezet: |usr_02.txt|  Első lépések a Vimben
+Következő fejezet: |usr_04.txt|  Apró változtatások
+Előző fejezet: |usr_02.txt|  Első lépések a Vimben
 Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
@@ -237,7 +237,6 @@ Három módszerrel derítheted ki az aktuális pozíciódat.
        Előfordulhat, hogy olykor osztott szám van feltüntetve. Például:
     "col 2-9". Ez azt jelenti, hogy a kurzor a második karakteren áll, de az 
     első karater egy tab, 8 karakternyi helyet elfoglalva. 
-       Sometimes you will see a split column number.  For example, "col 2-9".
 
 2.  Állítsd be a 'number' opciót, mely megjeleníti a sorok számát: >
 
@@ -247,31 +246,28 @@ Három módszerrel derítheted ki az aktuális pozíciódat.
 
 	:set nonumber
 <
-    Since 'number' is a boolean option, prepending "no" to its name has the
-    effect of switching it off.  A boolean option has only these two values,
-    it is either on or off.
-       Vim has many options.  Besides the boolean ones there are options with
-    a numerical value and string options.  You will see examples of this where
-    they are used.
+    A 'number' változó típusa boolean, a "no" prefixumot hozzáadva a beállítás
+    inaktívvá válik. A boolean típusnak két értéke lehet, jelen esetben on és
+    off.
+       A Vimnek számos opciója van. Boolean értékek mellett találkozhatunk a
+       klasszikus String és int típusokkal. A későbbiekben lesz példa ezekre.
 
-3.  Set the 'ruler' option.  This will display the cursor position in the
-    lower right corner of the Vim window: >
+3.  Állítsd be a 'ruler' opciót, mely megjeleníti a kurzor pozícióját a jobb 
+    alsó sarokban: >
 
 	:set ruler
 
-Using the 'ruler' option has the advantage that it doesn't take much room,
-thus there is more space for your text.
+A 'ruler' használata előnyös, mivel nem sok helyet foglal.
 
 ==============================================================================
-*03.7*	Scrolling around
+*03.7*	Görgetés
 
-The CTRL-U command scrolls down half a screen of text.  Think of looking
-through a viewing window at the text and moving this window up by half the
-height of the window.  Thus the window moves up over the text, which is
-backward in the file.  Don't worry if you have a little trouble remembering
-which end is up.  Most users have the same problem.
-   The CTRL-D command moves the viewing window down half a screen in the file,
-thus scrolls the text up half a screen.
+A CTRL-U parancs fél képernyőnyit gördít lefelé. Képzeld el, hogy az ablakot
+nézve a szöveg elmozdul felfelé fél képernyőnyit. Azaz az ablak mozog a szöveg
+fölött, mellyel visszafelé görgetsz. Ne aggódj, ha kissé bonyolultnak tűnik, a
+legtöbb felhasználónál problémát jelent a kezdetekkor.
+   A CTRL-D parancs fél képernyőnit gördít lefelé. (U, azaz Up és D, azaz
+   Down).
 
 				       +----------------+
 				       | some text	|
@@ -291,17 +287,18 @@ thus scrolls the text up half a screen.
 				       | example	|
 				       +----------------+
 
+Egyetlen egy sort a CTRL-E kombinációval (fel) és CTRL-Y (le) tudunk görgetni.
 To scroll one line at a time use CTRL-E (scroll up) and CTRL-Y (scroll down).
-Think of CTRL-E to give you one line Extra.  (If you use MS-Windows compatible
-key mappings CTRL-Y will redo a change instead of scroll.)
+Képzeld azt, hogy CTRL-E extra sort ad számunkra. (Ha MS Windows platformon
+használod a Vimet, akkor a CTRL-Y visszavonást produkál).
 
-To scroll forward by a whole screen (except for two lines) use CTRL-F.  To
-scroll backwards, use CTRL-B.  These should be easy to remember: F for
-Forwards and B for Backwards.
+Egy teljes képernyő előre irányban történő görgetése CTRL-F (két sor
+kivételével). Hátrafelé görgetéshez pedig CTRL-B. Ezt könnyű megjegyezni, F -
+Forward, B - Backward.
 
-A common issue is that after moving down many lines with "j" your cursor is at
-the bottom of the screen.  You would like to see the context of the line with
-the cursor.  That's done with the "zz" command.
+Gyakori probléma, hogy miután az utolsó sorok egyikébe navigáltál, szeretnéd
+látni a kurzor alatti sorokat. A "zz" parancs a képernyő közepére húzza az
+aktív sort.
 
 	+------------------+		 +------------------+
 	| earlier text	   |		 | earlier text	    |
@@ -313,264 +310,257 @@ the cursor.  That's done with the "zz" command.
 	| line with cursor |		 | later text	    |
 	+------------------+		 +------------------+
 
-The "zt" command puts the cursor line at the top, "zb" at the bottom.  There
-are a few more scrolling commands, see |Q_sc|.  To always keep a few lines of
-context around the cursor, use the 'scrolloff' option.
+A "zt" ugyanilyen módon a lépernyő tetejére, a "zb" pedig a képrenyő aljára
+helyezi az aktív sort. Ennél sokkal több görgető parancs létezik, olvasd el
+|Q_sc|. Ha meg szeretnéd akadályozni, hogy a kurzor "n" sorral megálljon a
+képernyő alja és teteje előtt, tanulmányozd a 'scrolloff' opciót.
 
 ==============================================================================
-*03.8*	Simple searches
+*03.8*	Egyszerű keresések
 
-To search for a string, use the "/string" command.  To find the word include,
-for example, use the command: >
+A "String" szó kereséséhez használd a "/String" parancsot. Az "include" szó
+kereséséhez pedig a /include parancsot. >
 
 	/include
 
-You will notice that when you type the "/" the cursor jumps to the last line
-of the Vim window, like with colon commands.  That is where you type the word.
-You can press the backspace key (backarrow or <BS>) to make corrections.  Use
-the <Left> and <Right> cursor keys when necessary.
-   Pressing <Enter> executes the command.
+Mihelyst leütöd a "/" billentyűt, a kurzor az utolsó sorba ugrik (ugyan úgy,
+mint a ":" parancsoknál). Ide írhatod a keresendő szót. Törléshez klasszikusan
+a <BS>, további korrekcióhoz a nyilak használhatóak. 
+    Az <Enter> billentyű elindítja a keresést.
 
-	Note:
-	The characters .*[]^%/\?~$ have special meanings.  If you want to use
-	them in a search you must put a \ in front of them.  See below.
+	Megjegyzés:
+	A .*[]^%/\?~$ karaktereknek speciális jelentésük van. Ha használni
+	akarod őket a keresés tárgyaként, akkor escapelni kell őket (egy \
+	karaktert eléjük rakni. Lásd alul.
 
-To find the next occurrence of the same string use the "n" command.  Use this
-to find the first #include after the cursor: >
+A következő találathoz az "n" betű használatával jutsz (a keresés után): >
 
 	/#include
 
-And then type "n" several times.  You will move to each #include in the text.
-You can also use a count if you know which match you want.  Thus "3n" finds
-the third match.  You can also use a count with "/": "4/the" goes to the
-fourth match of "the".
+Most üss még párszor "n" karaktert. A karakter a következő #include
+találatához fog ugrani. Mennyiséggel is prefixálhatod, például "3n". Ez a
+harmadik találathoz fog ugrnai. A keresési parancs "/" is prefixálható,
+"4/the" egyből a "the" szó negyedik találatához fog ugrani.
 
-The "?" command works like "/" but searches backwards: >
+A "?" parancs tökéletes ellentéte a "/" parancsnak, visszafelé keres: >
 
 	?word
 
-The "N" command repeats the last search the opposite direction.  Thus using
-"N" after a "/" command searches backwards, using "N" after "?" searches
-forwards.
+Az "N" parancs megismétli a keresést, amit a keresés irányához hűen megtart.
+Így, ha vissza irányban kerestél, az "N" parancs előre keres, ha előre irányba
+kerestél, akkor az "N" parancs vissza irányba fog keresni.
 
 
-IGNORING CASE
+BETŰÉRZÉKENYSÉG KIKAPCSOLÁSA
 
-Normally you have to type exactly what you want to find.  If you don't care
-about upper or lowercase in a word, set the 'ignorecase' option: >
+Normál esetben, a nagy- és kisbetűket úgy kell alkalmaznod a keresésben, ahogy
+a találatban szerepelnek (ügyelve a nagybetűkre). Ha nem számítanak a kis- és
+nagybetűk, kapcsold be az 'ignorecase' opciót: >
 
 	:set ignorecase
 
-If you now search for "word", it will also match "Word" and "WORD".  To match
-case again: >
+Ha ezután keresel a "word" szóra, az illeszkedni fog a "Word" és "WORD"
+szavakra is. A betűérzékenység bekapcsolása ismét: >
 
 	:set noignorecase
 
 
-HISTORY
+KERESÉSI ELŐZMÉNYEK
 
-Suppose you do three searches: >
+Tételezzük fel, hogy háromszor kerestél az alábbi szavakra: >
 
 	/one
 	/two
 	/three
 
-Now let's start searching by typing a simple "/" without pressing <Enter>.  If
-you press <Up> (the cursor key), Vim puts "/three" on the command line.
-Pressing <Enter> at this point searches for three.  If you do not press
-<Enter>, but press <Up> instead, Vim changes the prompt to "/two".  Another
-press of <Up> moves you to "/one".
-   You can also use the <Down> cursor key to move through the history of
-search commands in the other direction.
+Indítsuk keresést a "/" billentyűvel, a keresési mezőt pedig hagyjuk üresen.
+Ha most a <Up> (nyíl) billentyűt ütünk, akkor a Vim kitölti a mezőt a
+legutolsó keresésünk (/three) szövegével. <Enter> lenyomása után a keresés
+újraindul a /three stringre, ha viszont még egyszer <Up> billentyűt ütünk,
+akkor a Vim lecseréli a keresés szövegét az utolsó előtti kereséssel megegyező
+stringre /two. Újabb <Up> alkalmazásakor pedig /one-ra.
+   A <Down> (nyíllal) előre lapozhatunk a kereséseink között.
 
-If you know what a previously used pattern starts with, and you want to use it
-again, type that character before pressing <Up>.  With the previous example,
-you can type "/o<Up>" and Vim will put "/one" on the command line.
+Abban az esetben ha hasznosítani szeretnél egy keresést (tudod, hogy kerestél
+de ez a historyban már túl körülményes lenne visszalapozni, akkor üsd be az
+első pár karaktert a keresésből, majd nyomj <Up> billentyűt. Ha a keresés
+egyedi, azaz nem egyezik meg az előző kereséseinkkel, akkor a Vim kiegészíti.
+Az előző példa alapján, "/o<Up>" kiegészíti a keresést "/one"-ra.
 
-The commands starting with ":" also have a history.  That allows you to recall
-a previous command and execute it again.  These two histories are separate.
-
-
-SEARCHING FOR A WORD IN THE TEXT
-
-Suppose you see the word "TheLongFunctionName" in the text and you want to
-find the next occurrence of it.  You could type "/TheLongFunctionName", but
-that's a lot of typing.  And when you make a mistake Vim won't find it.
-   There is an easier way: Position the cursor on the word and use the "*"
-command.  Vim will grab the word under the cursor and use it as the search
-string.
-   The "#" command does the same in the other direction.  You can prepend a
-count: "3*" searches for the third occurrence of the word under the cursor.
+A ":"-al kezdődő parancsok historyja ugyanezen az elven működik. Így a
+futtatott keresések és parancsok könnyen előhívhatóvá válnak. A két history
+természetesen szeparált.
 
 
-SEARCHING FOR WHOLE WORDS
+SZÓ KERESÉSE A SZÖVEGBEN
 
-If you type "/the" it will also match "there".  To only find words that end
-in "the" use: >
+Tegyük fel, hogy meg kell találnod "TheLongFunctionName" második találatát.
+Időbe telik egy ilyen hosszúságú szó begépelése "/TheLongFunctionName".
+Ráadásul, ha hibát vétesz, akkor a Vim nem fogja megtalálni. A könnyebb
+módszer: állítsd rá a kurzort és üss "*" karaktert. A parancs egyszerűen fogja
+a kurzor alatt lévő szót és automatikusan keresést indít. 
+   A "#" parancs ugyanezt a keresést hátrafelé hajtja végre. Mindkét parancs
+   prefixálható mennyiséggel, mellyel az n. találatra érkezünk.
+
+
+KERESÉS TEÉJES SZAVAKRA
+
+Ha a keresésed "/the", az illeszkedni fog a "there" szóra is. A szavak végét a
+következő szintaxissal határozhatod meg: >
 
 	/the\>
 
-The "\>" item is a special marker that only matches at the end of a word.
-Similarly "\<" only matches at the beginning of a word.  Thus to search for
-the word "the" only: >
-
+A "\>" egy speciális határoló karakterpár, csak és kizárólag a szavak végére
+illeszkedik. Ennek mintájára, "\<" pedig a szavak elejére illeszkedik, ezért:
+>
 	/\<the\>
 
-This does not match "there" or "soothe".  Notice that the "*" and "#" commands
-use these start-of-word and end-of-word markers to only find whole words (you
-can use "g*" and "g#" to match partial words).
+Ez nem fog illeszkedni sem a "there", sem a "soothe" szavakra. A "*" és "#"
+parancs pontosan ezeket a határolókat használja fel arra, hogy teljes szavakat
+találjon. "g*" és "g#" parancsokat használhatod szótöredékek illesztésére.
 
+TALÁLATOK KIEMELÉSE
 
-HIGHLIGHTING MATCHES
-
-While editing a program you see a variable called "nr".  You want to check
-where it's used.  You could move the cursor to "nr" and use the "*" command
-and press "n" to go along all the matches.
-   There is another way.  Type this command: >
+Programot szerkesztesz, és látni szeretnéd az "nr" válotzó előfordulásait.
+"nr"-re viheted a kurzort, a "*" parancsot alkalmazva, majd "n"-el lépkedve.
+Itt egy másik módszer: >
 
 	:set hlsearch
 
-If you now search for "nr", Vim will highlight all matches.  That is a very
-good way to see where the variable is used, without the need to type commands.
-   To switch this off: >
+Ha most keresel az "nr" szóra, akkor a Vim az összes előfordulását ki fogja
+emelni. Nagyszerű módja a gyors áttekintésnek. Kikapcsolhatjuk: >
 
 	:set nohlsearch
 
-Then you need to switch it on again if you want to use it for the next search
-command.  If you only want to remove the highlighting, use this command: >
+A kikapcsolt állapot azt jelenti, ha látni szeretnéd a kiemelést a következő
+kiemelésnél, akkor be kell kapcsolnod újra. Amennyiben csak az aktuális
+keresés kiemelését szeretnéd eltávolítani, add ki ezt a parancsot: >
 
 	:nohlsearch
 
-This doesn't reset the option.  Instead, it disables the highlighting.  As
-soon as you execute a search command, the highlighting will be used again.
-Also for the "n" and "N" commands.
+Mivel a parancs ténylegesen nem kapcsolja ki a 'nohlsearch' opciót, így nem
+kell visszaállítani. Új keresésnél viszont újból alkalmazódik a kiemelés ("n"
+és "N" parancsoknál is).
 
 
-TUNING SEARCHES
+KERESÉSEK FINOMHANGOLÁSA
 
-There are a few options that change how searching works.  These are the
-essential ones:
+Léteznek olyan beállítások, melyek befolyásolják a keresés működését. Ezek az
+alapvetőek: >
 >
 	:set incsearch
 
-This makes Vim display the match for the string while you are still typing it.
-Use this to check if the right match will be found.  Then press <Enter> to
-really jump to that location.  Or type more to change the search string.
+Az opció már akkor elkezdei megjeleníteni a keresés tartalmát, amikor még rjuk
+a keresést. <Enter> billentyűvel ugorhatunk ténylegesen az első találatra,
+vagy tovább folytatjuk a keresés szerkesztését. >
 >
 	:set nowrapscan
 
-This stops the search at the end of the file.  Or, when you are searching
-backwards, it stops the search at the start of the file.  The 'wrapscan'
-option is on by default, thus searching wraps around the end of the file.
+Az opció megállítja a keresést a fájl végéhez érve. Ellentétes irányban pedig
+a fájl elejénél. A 'wrapscan' beállítás alapértelmezetten bekapcsolt állapotba
+van, ezért a keresés a fájl elejéről automatikusan folytatódik (a kurzorig).
 
 
 INTERMEZZO
 
-If you like one of the options mentioned before, and set it each time you use
-Vim, you can put the command in your Vim startup file.
-   Edit the file, as mentioned at |not-compatible|.  Or use this command to
-find out where it is: >
+Ha tetszenek az előbb említett beállítások, akkor tedd bele a .vimrc fájlba.
+   Szerkeszd a fájlt |not-compatibel| módban. Ha nincs meg a fájl, akkor ezzel
+   a paranccsal megnézheted az elérési útját. >
 
 	:scriptnames
 
-Edit the file, for example with: >
+Szerkeszd a fájlt például így: >
 
 	:edit ~/.vimrc
 
-Then add a line with the command to set the option, just like you typed it in
-Vim.  Example: >
+Adj hozzá egy új sort és írd be, mintha Vimbe írnád: >
 
 	Go:set hlsearch<Esc>
 
-"G" moves to the end of the file.  "o" starts a new line, where you type the
-":set" command.  You end insert mode with <Esc>.  Then write and close the
-file: >
-
+A "G" az utolsó sorra lép, az "o" új sort nyit a kurzor alatt, most jöhet a
+":set parancs_nev". Insert módból kilépés végül <Esc>. Mentsd a fájlt, és lépj
+ki: >
 	ZZ
 
-If you now start Vim again, the 'hlsearch' option will already be set.
+Ha újraindítod a Vimet, a 'hlsearch' opció már be lesz állítva.
 
 ==============================================================================
-*03.9*	Simple search patterns
+*03.9*	Egyszerű keresési minták
 
-The Vim editor uses regular expressions to specify what to search for.
-Regular expressions are an extremely powerful and compact way to specify a
-search pattern.  Unfortunately, this power comes at a price, because regular
-expressions are a bit tricky to specify.
-   In this section we mention only a few essential ones.  More about search
-patterns and commands can be found in chapter 27 |usr_27.txt|.  You can find
-the full explanation here: |pattern|.
+Keresésekben a Vim Reguláris Kifejezéseket használ (RegExp), mely egy hatékony
+leírónyelv keresési minták létrehozásához. Ennek azonban ára van, hiszen a
+reguláris kifejezések trükkös lehet.
+   A következő bekezdésben csak az alapvetőek szerepelnek. A keresési mintákat
+a  |usr_27.txt| fejezet tárgyalja.  A teljes leírást itt találod:  |pattern|.
 
+SOR KEZDETE ÉS VÉGE
 
-BEGINNING AND END OF A LINE
+A ^ karakter a sor kezdetére illeszkedik. Angol-US billentyűzetkiosztáson a
+6-os billentyűn találod. Az "include" szó illeszkedik önmagára, bárhol is
+legyen a sorban. A "^include" minta viszont csak akkor illeszkedik, ha az
+"include" szó a sor elején található.
+   A $ karakter jelöli a sor végét., ezért "was$" csak akkor illeszkedik, ha a
+   szó a sor végén található.
 
-The ^ character matches the beginning of a line.  On an English-US keyboard
-you find it above the 6.  The pattern "include" matches the word include
-anywhere on the line.  But the pattern "^include" matches the word include
-only if it is at the beginning of a line.
-   The $ character matches the end of a line.  Therefore, "was$" matches the
-word was only if it is at the end of a line.
-
-Let's mark the places where "/the" matches in this example line with "x"s:
+Jelöljük meg azokat a helyeket az alábbi mondatban, ahol szerepel a "the" szó:
 
 	the solder holding one of the chips melted and the ~
 	xxx			  xxx		       xxx
 
-Using "/the$" we find this match:
+"/the$" errefog illeszkedni:
 
 	the solder holding one of the chips melted and the ~
 						       xxx
 
-And with "/^the" we find this one:
+"/^the" pedig erre:
+
 	the solder holding one of the chips melted and the ~
 	xxx
 
-You can try searching with "/^the$"; it will only match a single line
-consisting entirely of "the".  White space does matter here, thus if a line
-contains a space after the word, like "the ", the pattern will not match.
+A "/^the$" csak akkor illeszkedik, a sorban csak a "the" szó szerepel. Üres
+karakterek nem szerepelhetnek, hiszen "the " és " the" egyikre sem
+illeszkedik.
 
 
-MATCHING ANY SINGLE CHARACTER
+EGYETLEN EGY KARAKTER ILLESZTÉSE
 
-The . (dot) character matches any existing character.  For example, the
-pattern "c.m" matches a string whose first character is a c, whose second
-character is anything, and whose third character is m.  Example:
+A . (pont) karakter bármilyen karakter helyettesíthet. Például, a minta "c.m"
+azokra a szavakra illeszkedik, melyeknek első betűje c, a második karakter
+bármi lehet, a harmadik pedig m. Például:
 
 	We use a computer that became the cummin winter. ~
 		 xxx		 xxx	  xxx
 
 
-MATCHING SPECIAL CHARACTERS
+SPECIÁLIS KARAKTEREK ILLESZTÉSE
 
-If you really want to match a dot, you must avoid its special meaning by
-putting a backslash before it.
-   If you search for "ter.", you will find these matches:
+Ha ténylegesen illeszteni szeretnéd a pont karaktert, akkor escapelned kell
+egy \ karakterrel.
+   A "ter." keresés illeszkedése:
 
 	We use a computer that became the cummin winter. ~
 		      xxxx			    xxxx
 
-Searching for "ter\." only finds the second match.
+"ter\." csak a második találatra fog illeszkedni.
 
 ==============================================================================
-*03.10*	Using marks
+*03.10*	Jelölők használata
 
-When you make a jump to a position with the "G" command, Vim remembers the
-position from before this jump.  This position is called a mark.  To go back
-where you came from, use this command: >
+Ha "G" paranccsal egy ugrást hajtasz végre, a Vim megjegyzi a kurzor
+kezdőpozícióját, melyet jelölőnek hívunk. Ahhoz, hogy ide visszalépj:  >
 
 	``
 
-This ` is a backtick or open single-quote character.
-   If you use the same command a second time you will jump back again.  That's
-because the "`" command is a jump itself, and the position from before this
-jump is remembered.
+Ez egy ` (backtick). Ha a parancsot másodjára is kiadod, akkor még visszább
+ugrik. A backtick funkciója egybként is ugrás, a pozíciót pedig jegyzi a Vim.
 
-Generally, every time you do a command that can move the cursor further than
-within the same line, this is called a jump.  This includes the search
-commands "/" and "n" (it doesn't matter how far away the match is).  But not
-the character searches with "fx" and "tx" or the word movements "w" and "e".
-   Also, "j" and "k" are not considered to be a jump, even when you use a
-count to make them move the cursor quite a long way away.
+Általában, minden alkalommal, amikor sort váltasz, ugrást (jump) hajtasz
+végre, beleértve a "/" és "n" parancsokat, nem számít, hogy a találatok milyen
+messze helyezkednek el egymástól. "fx" és "tx", valamint "w" és "e"
+hatókörüket tekintve soron belüli parancsok, így nem számítanak ugrásnak. "j"
+és "k" parancsok szintén nem, hiába használsz egy nagy számot, hogy minnél
+távolabb kerülj.
+
 
 The "``" command jumps back and forth, between two points.  The CTRL-O command
 jumps to older positions (Hint: O for older).  CTRL-I then jumps back to newer
