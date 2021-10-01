@@ -17,7 +17,7 @@ mutatja be, a teljes listát itt találod |Q_lr|.
 |03.7|	Görgetés
 |03.8|	Egyszerű keresések
 |03.9|	Egyszerű keresési minták
-|03.10|	Jelölők használatat
+|03.10|	Jelölők használata
 
 Következő fejezet: |usr_04.txt|  Apró változtatások
 Előző fejezet: |usr_02.txt|  Első lépések a Vimben
@@ -551,8 +551,9 @@ kezdőpozícióját, melyet jelölőnek hívunk. Ahhoz, hogy ide visszalépj:  >
 
 	``
 
-Ez egy ` (backtick). Ha a parancsot másodjára is kiadod, akkor még visszább
-ugrik. A backtick funkciója egybként is ugrás, a pozíciót pedig jegyzi a Vim.
+Ez egy ` (backtick). Ha a parancsot másodjára is kiadod, akkor még hátrébb
+ugrik. A backtick funkciója egybként is ugrás, a pozíciót pedig 
+jegyzi a Vim.
 
 Általában, minden alkalommal, amikor sort váltasz, ugrást (jump) hajtasz
 végre, beleértve a "/" és "n" parancsokat, nem számít, hogy a találatok milyen
@@ -562,20 +563,18 @@ hatókörüket tekintve soron belüli parancsok, így nem számítanak ugrásnak
 távolabb kerülj.
 
 
-The "``" command jumps back and forth, between two points.  The CTRL-O command
-jumps to older positions (Hint: O for older).  CTRL-I then jumps back to newer
-positions (Hint: for many common keyboard layouts, I is just next to O).
-Consider this sequence of commands: >
+A "``" parancs oda és vissza ugrik két pozíció között. A CTRL-O parancs
+régebbi pontokhoz ugrik. (O, azaz older). CTRL-I visszaugrik az újabb
+pozíciókhoz. Képzeld el az alábbi bevitelt: >
 
 	33G
 	/^The
 	CTRL-O
 
-You first jump to line 33, then search for a line that starts with "The".
-Then with CTRL-O you jump back to line 33.  Another CTRL-O takes you back to
-where you started.  If you now use CTRL-I you jump to line 33 again.  And
-to the match for "The" with another CTRL-I.
-
+Az alábbi példában először a 33. sorra ugrasz, majd ott idítasz egy keresést a
+"Tthe" szóra. CTRL-O visszavisz a 33. sorra. CTRL-O még egyszer visszavisz a
+kezdeti pozícióra. Ha most CTRL-I-t ütsz, akkor visszakerülsz a 33. sorra
+újra. Aztán a "The" találatra ismételt CTRL-I-vel.
 
 	     |	example text   ^	     |
 	33G  |	example text   |  CTRL-O     | CTRL-I
@@ -586,61 +585,65 @@ to the match for "The" with another CTRL-I.
 	     V	There you are  |	     V
 		example text
 
-	Note:
-	CTRL-I is the same as <Tab>.
+	Megjegyzés:
+	CTRL-I == <Tab>.
 
-The ":jumps" command gives a list of positions you jumped to.  The entry which
-you used last is marked with a ">".
+A ":jumps" parancs kilistázza a bejárható pozíciókat. A legutolsó használt
+pozíció ">" karakterrel van megjelölve.
 
 
-NAMED MARKS							*bookmark*
+NÉVVEL ELLÁTOTT JELÖLŐK					    *bookmark*
 
-Vim enables you to place your own marks in the text.  The command "ma" marks
-the place under the cursor as mark a.  You can place 26 marks (a through z) in
-your text.  You can't see them, it's just a position that Vim remembers.
-   To go to a mark, use the command `{mark}, where {mark} is the mark letter.
-Thus to move to the a mark:
+Saját magadnak is készíthetsz jeölőket a szövegben. Az "ma" parancs egy
+képzeletbeli jelölőt tesz a kurzor helyére "a" néven. Összesen 26 jelölő
+alkalmazható (a-tól z-ig). Vizuálisan nem látszanak, a Vim csak a pozíciójukat
+jegyzi.
+   Az ugrás jelölőhöz paranccsal  `{mark}, ahol {mark} a jelölő azonosítója.
+Ugrás "a" azonosítójú jelölőhöz:
 >
 	`a
 
-The command "'mark" (single quotation mark, or apostrophe) moves you to the
-beginning of the line containing the mark.  This differs from the "`mark"
-command, which also moves you to the marked column.
+A 'mark parancs (aposztróf), a megjelölt sor elejére viszi a kurzort. Az igen
+hasonló `mark parancs (backtick) nem csak a pontos sorra navigál, hanem
+pontosan arra az oszlopszámra is, ahová a jelölő le lett rakva.
 
-The marks can be very useful when working on two related parts in a file.
-Suppose you have some text near the start of the file you need to look at,
-while working on some text near the end of the file.
-   Move to the text at the start and place the s (start) mark there: >
+A jelölők megkönnyítik a munkát, ha fájl két külön pontján kell dolgozni.
+Tegyük fel, hogy a fájl elején és végén kell dolgoznod.
+   Csak menj a szóban forgó első részhez, majd rakj le egy jelölőt: >
 
 	ms
 
-Then move to the text you want to work on and put the e (end) mark there: >
+A másik részhez pedig egy másikat: >
 
 	me
 
-Now you can move around, and when you want to look at the start of the file,
-you use this to jump there: >
+Innentől kezdve szabadon mozoghatsz a fájlban, hiszen ha vissza kell térned,
+akkor csak oda kell ugornod:  >
 
 	's
 
-Then you can use '' to jump back to where you were, or 'e to jump to the text
-you were working on at the end.
-   There is nothing special about using s for start and e for end, they are
-just easy to remember.
+Visszaugrani pedig a kurzor eredeti pozíciójára '', vagy a másik jelölőhöz 'e.
+   Az említett példában az s és e karaktereknek nincs jeletősségük, egyszerűen
+csak egyszerű megjegyezni s start, e end.
 
-You can use this command to get a list of marks: >
+    Megjegyzés: A jelölők érvényben maradnak a szerkesztő bezárása után is.
+    Így ha olyan jelölőhöz ugrunk, melynek buffere nincs megnyitva,
+    automatikusan megnyitja az adott fájlt a szokásos módon (kurzor az adott
+    oszlop- és vagy sorszámra).
+
+A szerkesztőben használt összes jelölő listázása: >
 
 	:marks
 
-You will notice a few special marks.  These include:
+Feltűnhet pár érdekes jelölő, melyek:
 
-	'	The cursor position before doing a jump
-	"	The cursor position when last editing the file
-	[	Start of the last change
-	]	End of the last change
+	'	A kurzor pozíciója az ugrás előtt
+	"	A fájl utolsó szerkesztési pontja 
+	[	Utolsó szerkesztés kezdete
+	]	Utolsó szerkesztés vége
 
 ==============================================================================
 
-Next chapter: |usr_04.txt|  Making small changes
+Következő fejezet: |usr_04.txt| Kisebb változtatások
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
