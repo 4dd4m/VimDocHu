@@ -1,40 +1,40 @@
 *usr_04.txt*	Vim verzió 8.2.  Frissítve: 2021 Feb 22
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói Kézikönyv
 
-			     Making small changes
+			     Kisebb változtatások
 
 
-This chapter shows you several ways of making corrections and moving text
-around.  It teaches you the three basic ways to change text: operator-motion,
-Visual mode and text objects.
+Az alábbi fejezet bemutatja, hogy hogyan korrigálj és hogyan mozgasd a
+szöveget. Háromféleképpen tanítja meg a művelet elvégzését:
+operátor-tartomány, Visual mód, és szöveges objektumokkal.
 
-|04.1|	Operators and motions
-|04.2|	Changing text
-|04.3|	Repeating a change
-|04.4|	Visual mode
-|04.5|	Moving text
-|04.6|	Copying text
-|04.7|	Using the clipboard
-|04.8|	Text objects
-|04.9|	Replace mode
-|04.10|	Conclusion
+|04.1|	Operátorok és tartományok
+|04.2|	Szöveg cseréje
+|04.3|	Szerkesztés ismétlése
+|04.4|	Visual mód
+|04.5|	Szövegek mozgatása
+|04.6|	Szövegek másolása 
+|04.7|	Vágólap használata
+|04.8|	Szöveges Objektumok
+|04.9|	Replace mód
+|04.10|	Összefoglalás
 
-     Next chapter: |usr_05.txt|  Set your settings
- Previous chapter: |usr_03.txt|  Moving around
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_05.txt|  A beállításaid
+ Előző fejezet |usr_03.txt|  Navigáció
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*04.1*	Operators and motions
+*04.1*	Operátorok és tartományok
 
-In chapter 2 you learned the "x" command to delete a single character.  And
-using a count: "4x" deletes four characters.
-   The "dw" command deletes a word.  You may recognize the "w" command as the
-move word command.  In fact, the "d" command may be followed by any motion
-command, and it deletes from the current location to the place where the
-cursor winds up.
-   The "4w" command, for example, moves the cursor over four words.  The "d4w"
-command deletes four words.
+A második fejezetben megismerkedhettél az "x" paranccsal (karakter törlése),
+valamind a "4x" (négy karakter törlése parancsokkal).
+   A "dw" paracs kitörli az adott szót. Talán felismerted már, hogy a "w"
+parancs tartományt jelöl (a következő szóig). A "d" parancsot követheti
+bármely olyan parancs, amely tartományt jelöl (legyen az sor vége, sor
+kezdete, fájl eleje, fájl vége), minden esetben addig fog törölni, ahol a
+kurzor landol.
+   A "4w" parancs például előre lép 4 szót. A "d4w" parancs töröl négy szót.
 
 	To err is human. To really foul up you need a computer. ~
 			 ------------------>
@@ -42,10 +42,10 @@ command deletes four words.
 
 	To err is human. you need a computer. ~
 
-Vim only deletes up to the position where the motion takes the cursor.  That's
-because Vim knows that you probably don't want to delete the first character
-of a word.  If you use the "e" command to move to the end of a word, Vim
-guesses that you do want to include that last character:
+A Vim csak addig töröl, ameddig a kurzor mozdul. A Vim tudja, ha egy törlő
+parancshoz "e" tartományt használsz, akkor valószínűleg nem szeretnéd törölni
+a szó első részét, illetve, nem szeretnéd megtartani a szó utolsó karakterét
+sem:
 
 	To err is human. you need a computer. ~
 			-------->
@@ -53,13 +53,13 @@ guesses that you do want to include that last character:
 
 	To err is human. a computer. ~
 
-Whether the character under the cursor is included depends on the command you
-used to move to that character.  The reference manual calls this "exclusive"
-when the character isn't included and "inclusive" when it is.
+A kurzor alatt lévő karakter sorsát az dönti el, hogy milyen tartománnyal
+mozdítod el a kurzort. A dokumentáció "exkluzív" parancsnak tekinti azon
+parancsokat, ahol a tartomány végén (vagy kezdetén) lévő karakterek nem érintettek a művelet során  (nyilvánvalóan "inluzívnak", ha igen).
 
-The "$" command moves to the end of a line.  The "d$" command deletes from the
-cursor to the end of the line.  This is an inclusive motion, thus the last
-character of the line is included in the delete operation:
+A "$" parancs a sor végére helyezi a kurzort. A "d$" parancs a kurzor kezdeti
+pozíciójától a sor végéig töröl. Ez egy inkluzív művelet, azaz a sor végén
+lévő karakter is törlődik a parancs végrehajtásakor:
 
 	To err is human. a computer. ~
 		       ------------>
@@ -67,12 +67,13 @@ character of the line is included in the delete operation:
 
 	To err is human ~
 
-There is a pattern here: operator-motion.  You first type an operator command.
-For example, "d" is the delete operator.  Then you type a motion command like
-"4l" or "w".  This way you can operate on any text you can move over.
+A minta: operátor-tartomány. Először egy operátor parancsot kell begépelned,
+például a "d" törlő operátort, ezután következhet az operátor hatásköre, azaz
+a tartomány (például "4l" vagy "w"). Gyakorlatilag azokon a szövegrészleteken
+végezhetsz máveleteket, melyeken a kurzor képzeletben áthalad.
 
 ==============================================================================
-*04.2*	Changing text
+*04.2*	Szöveg cseréje
 
 Another operator is "c", change.  It acts just like the "d" operator, except
 it leaves you in Insert mode.  For example, "cw" changes a word.  Or more
