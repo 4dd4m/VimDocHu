@@ -75,6 +75,7 @@ végezhetsz máveleteket, melyeken a kurzor képzeletben áthalad.
 ==============================================================================
 *04.2*	Szöveg cseréje
 
+Másik
 Another operator is "c", change.  It acts just like the "d" operator, except
 it leaves you in Insert mode.  For example, "cw" changes a word.  Or more
 specifically, it deletes a word and then puts you in Insert mode.
