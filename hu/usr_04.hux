@@ -69,16 +69,16 @@ lévő karakter is törlődik a parancs végrehajtásakor:
 
 A minta: operátor-tartomány. Először egy operátor parancsot kell begépelned,
 például a "d" törlő operátort, ezután következhet az operátor hatásköre, azaz
-a tartomány (például "4l" vagy "w"). Gyakorlatilag azokon a szövegrészleteken
-végezhetsz máveleteket, melyeken a kurzor képzeletben áthalad.
+a tartomány (például "4l" vagy "w"). Röviden, azokon a szövegrészleteken
+végezhetsz műveleteket, melyeken a kurzor képzeletben áthalad.
 
 ==============================================================================
 *04.2*	Szöveg cseréje
 
-Másik
-Another operator is "c", change.  It acts just like the "d" operator, except
-it leaves you in Insert mode.  For example, "cw" changes a word.  Or more
-specifically, it deletes a word and then puts you in Insert mode.
+Ehhez a művelethez a "c" csere parancs tartozik. Ugyanúgy viselkedik, mint a
+"d" parancs azzal a különbséggel, hogy a Insert módra állítja a szerkesztőt.
+Például "cw" egy szót cserél. Illetve még pontosabban, kitörli a szót is a
+szerkesztőt Insert módra állítja. 
 
 	To err is human ~
 	   ------->
@@ -86,126 +86,120 @@ specifically, it deletes a word and then puts you in Insert mode.
 
 	To be human ~
 
-This "c2wbe<Esc>" contains these bits:
+A "c2wbe<Esc>" parancs részekre bontva:
 
-	c	the change operator
-	2w	move two words (they are deleted and Insert mode started)
-	be	insert this text
-	<Esc>	back to Normal mode
+	c	a csere operátor
+	2w	két szót előre (ezek ki lesznek törölve, majd Insert módra
+		váltás)
+	be	"be" bevitele
+	<Esc>	vissza Normál módba
 
-You will have noticed something strange: The space before "human" isn't
-deleted.  There is a saying that for every problem there is an answer that is
-simple, clear, and wrong.  That is the case with the example used here for the
-"cw" command.  The c operator works just like the d operator, with one
-exception: "cw".  It actually works like "ce", change to end of word.  Thus
-the space after the word isn't included.  This is an exception that dates back
-to the old Vi.  Since many people are used to it now, the inconsistency has
-remained in Vim.
-
-
-MORE CHANGES
-
-Like "dd" deletes a whole line, "cc" changes a whole line.  It keeps the
-existing indent (leading white space) though.
-
-Just like "d$" deletes until the end of the line, "c$" changes until the end
-of the line.  It's like doing "d$" to delete the text and then "a" to start
-Insert mode and append new text.
+Felfedezhettünk valami különlegeset: A szóköz a "human" szó elől nem lett
+törölve. A c operátor a "d" operátorhoz hasonlóan műküdik, kivéve a "cw"
+parancsot. Valójában "cw" parancs a "ce" paranccsal egyenértékű, mely a szó
+végéig töröl, azért a szó utáni szóköz nem képzi a tartomány részét. A Vi
+körszakból maradt vissza a mechanizmus, melyet annyi ember használt már, hogy
+a Vim is így lett implementálva.
 
 
-SHORTCUTS
+NAGYOBB TERJEDELMŰ CSERÉK
 
-Some operator-motion commands are used so often that they have been given a
-single-letter command:
+A "dd" parancs egy egész sort töröl, a "cc" egy egész sort cserél és megtartja
+a sor behúzását.
 
-	x  stands for  dl  (delete character under the cursor)
-	X  stands for  dh  (delete character left of the cursor)
-	D  stands for  d$  (delete to end of the line)
-	C  stands for  c$  (change to end of the line)
-	s  stands for  cl  (change one character)
-	S  stands for  cc  (change a whole line)
+Mint a "d$", mely a sor végéig töröl, "c$" a sor végéig cserél. Olyan, mintha
+"d$" törölnénk a sor végéig, majd "a" paranccsal hozzáfűzést kezdeményeznénk.
 
 
-WHERE TO PUT THE COUNT
+RÖVIDÍTÉSEK
 
-The commands "3dw" and "d3w" delete three words.  If you want to get really
-picky about things, the first command, "3dw", deletes one word three times;
-the command "d3w" deletes three words once.  This is a difference without a
-distinction.  You can actually put in two counts, however.  For example,
-"3d2w" deletes two words, repeated three times, for a total of six words.
+A gyakori operátor-tartomány parancsok egy karakteres parancsot kaptak:
+
+	x  azaz  dl  (kurzor alatt lévő karakter törlése)
+	X  azaz  dh  (kurzortól balra lévő karakter törlése)
+	D  azaz  d$  (törlés a sor végéig)
+	C  azaz  c$  (csere a sor végéig)
+	s  azaz  cl  (karakter cseréje)
+	S  azaz  cc  (teljes sor cseréje)
 
 
-REPLACING WITH ONE CHARACTER
+HOVÁ TEGYÜK A MENNYISÉGET
 
-The "r" command is not an operator.  It waits for you to type a character, and
-will replace the character under the cursor with it.  You could do the same
-with "cl" or with the "s" command, but with "r" you don't have to press <Esc>
-to get back out of insert mode.
+A "3dw" parancs és a "d3w" parancs három szót töröl. Ha nagyon pontosak
+akarunk lenni, akkor az első parancs "3dw" egy szót töröl háromszor; a "d3w"
+parancs egyszerre töröl három szót. Ha úgy kívánod, a mennyiséget
+elhelyezheted mindkét helyre. Például "3d2w" két szót töröl, háromszor, azaz
+összesen hat szót.
+
+
+EGYETLEN EGY KARAKTER CSERÉJE
+
+Az "r" parancs nem operátor. Arra vár, hogy begépeljünk egy karaktert, hogy a
+kurzor alatt lévőt felülírhassa. Ugyanezt megteheted a "cl" vagy az "s"
+parancsokkal, de az "r" parancs után nem kell <Esc> billentyűt ütni, hogy
+visszalépjünk Normál módba. 
 
 	there is somerhing grong here ~
 	rT	     rt    rw
 
 	There is something wrong here ~
 
-Using a count with "r" causes that many characters to be replaced with the
-same character.  Example:
+Mennyiséggel használva az "r" az összesg karaktert ugyanarra ga karakterre
+cseréli le. Például:
 
 	There is something wrong here ~
 			   5rx
 
 	There is something xxxxx here ~
 
-To replace a character with a line break use "r<Enter>".  This deletes one
-character and inserts a line break.  Using a count here only applies to the
-number of characters deleted: "4r<Enter>" replaces four characters with one
-line break.
+Karakter lecserélése sortörésre "r<Enter>". A mennyiség itt csak a törölt
+karakterek számát határozza meg. "4r<Enter>" négy karaktert cserél, de csak
+egy sortörést szúr be.
 
 ==============================================================================
-*04.3*	Repeating a change
+*04.3*	Szerkesztés ismétlése
 
-The "." command is one of the simplest yet powerful commands in Vim.  It
-repeats the last change.  For instance, suppose you are editing an HTML file
-and want to delete all the <B> tags.  You position the cursor on the first <
-and delete the <B> with the command "df>".  You then go to the < of the next
-</B> and delete it using the "." command.  The "." command executes the last
-change command (in this case, "df>").  To delete another tag, position the
-cursor on the < and use the "." command.
+Az "." parancs a legegyszerűbb, de leghasznosabb Vim parancsok közé tartozik.
+Megismétli a legutolsó szerkesztést. Például tegyük fel, hogy HTML fájlt
+szerkesztesz és ki szeretnéd törölni a <B> taget. Az első < jelre
+pozícionálod a kurzort, majd "df>" paranccsal megsemmisíted a taget, majd a
+következő < jelre állsz, melyen a "." parancsot kiadva megismétlődik az utolsó
+szerkesztésed "df>" és a tag eltűnik. 
 
 			      To <B>generate</B> a table of <B>contents ~
-	f<   find first <     --->
-	df>  delete to >	 -->
-	f<   find next <	   --------->
-	.    repeat df>			    --->
-	f<   find next <		       ------------->
-	.    repeat df>					    -->
+	f<   ugrás <     --->
+	df>  törlés eddig >     -->
+	f<   következő <	   --------->
+	.    df>ismétlése		    --->
+	f<   következő <		       ------------->
+	.    df> ismétlése				    -->
 
-The "." command works for all changes you make, except for "u" (undo), CTRL-R
-(redo) and commands that start with a colon (:).
+Az összes parancs megismételhető kivéve a visszavonást ("u"), CTRL-R (mégis)
+és minden command-line parancsot (":").
 
-Another example: You want to change the word "four" to "five".  It appears
-several times in your text.  You can do this quickly with this sequence of
-commands:
+Másik példa: Le szeretnéd cserlélni a "four" szót "five"-ra, mely többször is
+előfordul a szövegben. Ezekkel a prancsokkal gyorsan teljesítheted a
+feladatot:
 
-	/four<Enter>	find the first string "four"
-	cwfive<Esc>	change the word to "five"
-	n		find the next "four"
-	.		repeat the change to "five"
-	n		find the next "four"
-	.		repeat the change
-			etc.
+	/four<Enter>	"four" keresése
+	cwfive<Esc>	csere "five"-ra
+	n		következő "four" 
+	.		csere "five"-ra (ismétlés)
+	n		következő "four" 
+	.		csere "five"-ra (ismétlés)
+			stb.
 
 ==============================================================================
-*04.4*	Visual mode
+*04.4*	Visual mód
 
-To delete simple items the operator-motion changes work quite well.  But often
-it's not so easy to decide which command will move over the text you want to
-change.  Then you can use Visual mode.
+Egyszerű elemeket az operátor-tartomány kombinációval törölhetünk. Gyakran 
+viszont nem könnyű eldönteni, hogy az a adott parancs áthalad-e a kívánt 
+szövegrészleten. Ekkor a legegyszerűbb megoldás a Visual mód használata.
 
-You start Visual mode by pressing "v".  You move the cursor over the text you
-want to work on.  While you do this, the text is highlighted.  Finally type
-the operator command.
-   For example, to delete from the middle of one word to the middle of another
-word:
+A Visual módba "v" betű megnyomásával léphetünk be. Ha ebben a módban
+elmozdítjuk a a kurzort, akkor aktív szöveget kiemeli a szerkesztő és
+láthatóvá válik vizuálisan az a tartomány, amire operátor hatással lesz. 
+   Például törlés a szó közepétől egy másik szó közepéig:
 
 		This is an examination sample of visual mode ~
 			       ---------->
@@ -213,35 +207,34 @@ word:
 
 		This is an example of visual mode ~
 
-When doing this you don't really have to count how many times you have to
-press "l" to end up in the right position.  You can immediately see what text
-will be deleted when you press "d".
+Ezzel a módszerrel nincs szükség észben tartanunk, hogy hányszor kell "l"
+betűt gépelni, hiszen látjuk, hogy mi lesz kitörölve ha "d"-t ütünk.
 
-If at any time you decide you don't want to do anything with the highlighted
-text, just press <Esc> and Visual mode will stop without doing anything.
+Bármikor visszatérhetsz Normál módba <Esc> megnyomásával, ekkor a kijelölés
+megszűnik és a szerkesztő Normál módba vált át.
 
+SOROK KIJELÖLÉSE
 
-SELECTING LINES
+Ha teljes sorokon szeretnél műveletet végrehajtani, akkor válts át Visual
+módra "V". Az aktuális sor azonnal ki lesz jelölve anélkül, hogy a kurzort
+megmozdítanánk. Balra és jobbra mozdulva semmi sem történik. Felfelés és
+lefelé mozdulva viszont a kijelölés ki lesz terjesztve egész soronként.
+   Például, jelölj ki három sort "Vjj":
 
-If you want to work on whole lines, use "V" to start Visual mode.  You will
-see right away that the whole line is highlighted, without moving around.
-When you move left or right nothing changes.  When you move up or down the
-selection is extended whole lines at a time.
-   For example, select three lines with "Vjj":
-
-			  +------------------------+
-			  | text more text	   |
-		       >> | more text more text    | |
-	selected lines >> | text text text	   | | Vjj
-		       >> | text more		   | V
-			  | more text more	   |
-			  +------------------------+
+			      +------------------------+
+			      | text more text 	       |
+		           >> | more text more text    | |
+	kiválasztott sorok >> | text text text	       | | Vjj
+		           >> | text more              | V
+			      | more text more	       |
+			      +------------------------+
 
 
-SELECTING BLOCKS
+BLOKKOK KIJELÖLÉSE
 
-If you want to work on a rectangular block of characters, use CTRL-V to start
-Visual mode.  This is very useful when working on tables.
+Ha négyzet alapú karakterblokkokon szeretnél műveleteket végrehajtani, akkor a
+kijelölést a CTRL-V billentyűvel kezdheted el (Visual mód). Táblázatszerű
+adatstruktúrák esetében a leghasznosabb:
 
 		name		Q1	Q2	Q3
 		pierre		123	455	234
