@@ -10,88 +10,89 @@ indíthatod a Vimet az alapértelemezett beállításoktól eltérően, hogy hog
 bővítheted a Vim funkcionalitását beépülőkkel vagy hogyan definiálhatsz
 makrókat.
 
-|05.1|	The vimrc file
-|05.2|	The example vimrc file explained
-|05.3|	The defaults.vim file explained
-|05.4|	Simple mappings
-|05.5|	Adding a package
-|05.6|	Adding a plugin
-|05.7|	Adding a help file
+|05.1|	A vimrc fájl
+|05.2|	A példa vimrc fájl magyarázata
+|05.3|	defaults.vim fájl magyarázata
+|05.4|	Egyszerű mappek
+|05.5|	Csomag hozzáadása
+|05.6|	Beépülő hozzáadása
+|05.7|	Help fájl hozzáadása
 |05.8|	The option window
-|05.9|	Often used options
+|05.9|	Gyakran használt beállítások
 
-     Next chapter: |usr_06.txt|  Using syntax highlighting
- Previous chapter: |usr_04.txt|  Making small changes
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_06.txt|  Szintaxiskiemelés használata
+    Előző fejezet: |usr_04.txt|  Kisebb változtatások
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*05.1*	The vimrc file					*vimrc-intro*
+*05.1*	A vimrc fájl					*vimrc-intro*
 
-You probably got tired of typing commands that you use very often.  To start
-Vim with all your favorite option settings and mappings, you write them in
-what is called the vimrc file.  Vim executes the commands in this file when it
-starts up.
+Talán már belefáradtál abba, hogy minden egyes alkalommal parancsokat kell
+írnod a beállítások cseréjéhez. Gyűjtsd össze kedvenc beállításaid,
+mappingjeidet és írd őket egy úgynevezett vimrc fájlba. A szövegszerkesztő
+indításánál a fájl tartalmát képző parancsok automatikusan lefutnak.
 
-If you already have a vimrc file (e.g., when your sysadmin has one setup for
-you), you can edit it this way: >
+Ha már van vimrc fájlod (mert például az admin már létrehozott neked egyet),
+akkor így szerkesztheted >
 
 	:edit $MYVIMRC
 
-If you don't have a vimrc file yet, see |vimrc| to find out where you can
-create a vimrc file.  Also, the ":version" command mentions the name of the
-"user vimrc file" Vim looks for.
+Ha még nincs vimrc fájlod, akkor olvasd el a |vimrc| vonatkozó leírásait a
+fájl helyét illetően. A ":version" parancs említést tesz a fájlról "user vimrc
+file" néven.
 
-For Unix and Macintosh this file is always used and is recommended:
+Unix és Macintosh renszereken a fájl (ajánlott) elérési útja: 
 
 	~/.vimrc ~
 
-For MS-Windows you can use one of these:
+MS-Windows platformon az alábbiak használatosak:
 
 	$HOME/_vimrc ~
 	$VIM/_vimrc ~
 
-If you are creating the vimrc file for the first time, it is recommended to
-put this line at the top: >
+Ha még eddig nem rendelkeztél vimrc fájllal, akkor az első sorba másold be az
+alábbi parancsot: >
 
 	source $VIMRUNTIME/defaults.vim
 
-This initializes Vim for new users (as opposed to traditional Vi users). See
-|defaults.vim| for the details.
+A parancs új felhasználók számára inicializálja a Vimet (ellentétben a Vi
+userekkel). Részletesebben: |defaults.vim|.
 
-The vimrc file can contain all the commands that you type after a colon.  The
-simplest ones are for setting options.  For example, if you want Vim to always
-start with the 'incsearch' option on, add this line your vimrc file: >
+A vimrc fájlban ":" nélkül szerepelnek a parancsok, azaz minden olyan
+parancsot beírhatsz, amit egyébként a ":" után írnál. A beállító (set)
+parancsok a legegyszerűbbek. Például, ha szeretnéd indításnál bekapcsolni a
+'incsearch' opciót, akkor add hozzá a vimrc fájlodhoz: >
 
 	set incsearch
 
-For this new line to take effect you need to exit Vim and start it again.
-Later you will learn how to do this without exiting Vim.
+Mentés után a beállítás nem lép ervénybe, ehhez újra kell indítanod a Vimet.
+Későbbiekben lesz példa egy elgeánsabb megoldásra, melyhez nem kell
+újraindítania a szerkesztőt.
 
-This chapter only explains the most basic items.  For more information on how
-to write a Vim script file: |usr_41.txt|.
+Mivel ez a fejezet csak az alapokat hivatott elmagyarázni, ezért Vim script
+fájlokról itt tudhatsz meg többet: |usr_41.txt|.
 
 ==============================================================================
-*05.2*	The example vimrc file explained		*vimrc_example.vim*
+*05.2*	A példa vimrc fájl magyarázata			*vimrc_example.vim*
 
-In the first chapter was explained how the example vimrc (included in the
-Vim distribution) file can be used to make Vim startup in not-compatible mode
-(see |not-compatible|).  The file can be found here:
+Az első rész magyarázatot adott arra, hogy hogyan működik a példa vimrc fájl
+(ami a Vim disztribúcióval érkezik), amit not-compatible módban használhatunk
+(lásd |not-compatible|). A fájl itt található:
 
 	$VIMRUNTIME/vimrc_example.vim ~
 
-In this section we will explain the various commands used in this file.  This
-will give you hints about how to set up your own preferences.  Not everything
-will be explained though.  Use the ":help" command to find out more.
-
+Ebben a részben a fájl tartalmának (részleges) magyarázatával foglalkozunk. 
+A fájl egyes részeit felhasználva jó kiindulópontot teremthet saját vimrc fájlok
+létrehozásához. A ":help" paranccsal kiderítheted az el nem magyarázott
+részleteket.
 >
 	" Get the defaults that most users want.
 	source $VIMRUNTIME/defaults.vim
 
-This loads the "defaults.vim" file in the $VIMRUNTIME directory.  This sets up
-Vim for how most users like it.  If you are one of the few that don't, then
-comment out this line.  The commands are explained below:
-|defaults.vim-explained|
-
+A parancs betölti a "defaults.vim" fájlt a $VIMRUNTIME könyvtárból, mely
+megpróbálja konfigurálni a szerkesztőt a leggyakoribb beállításokkal. A nem
+tetsző beállításokat nyugodtan kommentté alakíthatod. A fájl tartalmának
+magyarázata |defaults-vim.explained|.
 >
 	if has("vms")
 	  set nobackup
@@ -102,110 +103,105 @@ comment out this line.  The commands are explained below:
 	  endif
 	endif
 
-This tells Vim to keep a backup copy of a file when overwriting it.  But not
-on the VMS system, since it keeps old versions of files already.  The backup
-file will have the same name as the original file with "~" added.  See |07.4|
+Ez arra utasítja a Vimet, hogy felülírás esetén tartson biztonsági másolatot.
+Kivéve VMS rendszered, hiszen erről a rendszer gondoskodik. A biztonsági
+másolat fájl neve és az  eredeti fájl neve ugyan az lesz, ha a "~" karaktert
+hozzáadjuk. Lásd |07.4|.
 
-This also sets the 'undofile' option, if available.  This will store the
-multi-level undo information in a file.  The result is that when you change a
-file, exit Vim, and then edit the file again, you can undo the changes made
-previously.  It's a very powerful and useful feature, at the cost of storing a
-file.  For more information see |undo-persistence|.
+A kód második fele bekapcsolja az 'undofile' opciót, ha elérhető, mely a
+visszavonások (multi-level) leírását tartalmazza. A beállítás bekapcsolásával
+akkor is képesek leszünk a szerkesztéseinket visszavonni, ha már túlvagyunk
+egy mentés-bezárás-megnyitás cikluson. Nagyszerű és hasznos beállítás,
+mindösszesen egy fájlt kell tárolnunk a merevlemezen. Bővebben |undo-persistance|.
 
-The "if" command is very useful to set options
-only when some condition is met.  More about that in |usr_41.txt|.
-
+Az "if" parancsot akkro használjuk a beállítások során, ha azt várjuk, hogy
+egy feltétel teljesüljön. Lásd |usr_41.txt|.
 >
 	if &t_Co > 2 || has("gui_running")
 	  set hlsearch
 	endif
 
-This switches on the 'hlsearch' option, telling Vim to highlight matches with
-the last used search pattern.
-
+Bekapcsolja a 'hlsearch' opciót, kiemeli az előző keresés összes találatát.
 >
 	augroup vimrcEx
 	  au!
 	  autocmd FileType text setlocal textwidth=78
 	augroup END
 
-This makes Vim break text to avoid lines getting longer than 78 characters.
-But only for files that have been detected to be plain text.  There are
-actually two parts here.  "autocmd FileType text" is an autocommand.  This
-defines that when the file type is set to "text" the following command is
-automatically executed.  "setlocal textwidth=78" sets the 'textwidth' option
-to 78, but only locally in one file.
+A fenti beállításcsoporttal korlátozhatjuk a sorain hosszát, mely nem lehet
+több, mint 78 karakter. De csak annál a fájloknál, ahol a fájltípus egyszerű
+szöveg. Igazság szerint a parancsnak két része van. "autocmd FileType text"
+egy autocommand, mely azt mondja: futtasd az alábbi parancsokat akkor, ha a
+fájltípus egyszerű szöveg. A második részben a lefuttatandó parancsok vannak
+definiálva: "setlocal textwidth=78" 78-ra állítja a 'textwidth' változót, de
+csak lokálisan, az aktuális bufferre nézve.
 
-The wrapper with "augroup vimrcEx" and "augroup END" makes it possible to
-delete the autocommand with the "au!" command.  See |:augroup|.
-
+A wrapper "augroup vimrcEx" és az "augroup END" teszi lehetővé, hogy ezen
+beállításokat menet közben kikapcsolhassuk az "au!" paranccsal. Lásd:
+|:augroup|.
 >
 	if has('syntax') && has('eval')
 	  packadd! matchit
 	endif
 
-This loads the "matchit" plugin if the required features are available.
-It makes the |%| command more powerful.  This is explained at
-|matchit-install|.
+Ez betölti a "matchit" plugint (mely a % parancsot egészíti ki), ha a feltételek
+teljesültek. A beépülő hozzáadása: |matchit-install|.
 
 
 ==============================================================================
-*05.3*	The defaults.vim file explained		*defaults.vim-explained*
+*05.3*	defaults.vim magyarázat                    *defaults.vim-explained*
 
-The |defaults.vim| file is loaded when the user has no vimrc file.  When you
-create a new vimrc file, add this line near the top to keep using it: >
+A |defaults.vim| akkor töltődik be, ha felhasználónak nics vimrc fájlja. Ha a
+továbbiakban is használni szeretnéd a beállításait, akkor a vimrc fájlodhoz
+add hozzá az alábbi sort: >
 
 	source $VIMRUNTIME/defaults.vim
 
-Or use the vimrc_example.vim file, as explained above.
+Vagy használd a fentebb említett vimrc_example.vim fájlt.
 
-The following explains what defaults.vim is doing.
-
+A kódrészlet elmagyarázza, hogy mit is csinál a defaults.vim.
 >
 	if exists('skip_defaults_vim')
 	  finish
 	endif
 
-Loading defaults.vim can be disabled with this command: >
-	let skip_defaults_vim = 1
-This has to be done in the system vimrc file.  See |system-vimrc|.  If you
-have a user vimrc this is not needed, since defaults.vim will not be loaded
-automatically.
+A defaults.vim betöltését letilthatjuk: >
 
+	let skip_defaults_vim = 1
+
+Ezt azonban a rendszerszintű vimrc fájban kell elhelyeznünk. Lásd
+|system-vimrc|. Ha már van user vimrc fájl, akkor ez szükségtelen, hiszen a 
+defaults.vim fájl nem lesz automatikusan betöltve.
 >
 	set nocompatible
 
-As mentioned in the first chapter, these manuals explain Vim working in an
-improved way, thus not completely Vi compatible.  Setting the 'compatible'
-option off, thus 'nocompatible' takes care of this.
-
+Az előző fejezetben már kitértünk arra, hogy ezek a leírások a Vim "fejlett"
+működését taglalják (nem a Vi kompatibilis módot). Nincs értelme a 'compatible'
+módot kikapcsolni, hiszen a 'nocompatible' erről gondoskodik.
 >
 	set backspace=indent,eol,start
 
-This specifies where in Insert mode the <BS> is allowed to delete the
-character in front of the cursor.  The three items, separated by commas, tell
-Vim to delete the white space at the start of the line, a line break and the
-character before where Insert mode started.  See 'backspace'.
+A beállítáa meghatározza, hogy a <BS> billentyű hol törölhet. A három
+vesszővel elválasztott opció a karakterek törlését engedélyezi behúzásoknál
+(sor eleji whitespace), sortöréseknél és Insert módban (klaszikus). Még több
+információ: 'backspace'.
 
 >
 	set history=200
 
-Keep 200 commands and 200 search patterns in the history.  Use another number
-if you want to remember fewer or more lines.  See 'history'.
-
+History számának meghatározása, mely kiterjed a parancsokra és a keresésekre.
+Tetszőlegesen szabályozható, ha többre, vagy kevesebbre van szükséged. Lásd
+'history'.
 >
 	set ruler
 
-Always display the current cursor position in the lower right corner of the
-Vim window.  See 'ruler'.
-
+A kurzor pozíciójának megjelenítése a jobb alsó sarokban. Lásd 'ruler'.
 >
 	set showcmd
 
-Display an incomplete command in the lower right corner of the Vim window,
-left of the ruler.  For example, when you type "2f", Vim is waiting for you to
-type the character to find and "2f" is displayed.  When you press "w" next,
-the "2fw" command is executed and the displayed "2f" is removed.
+A részleges parancsokat jeleníti meg a jobb alsó sarokban. Például "2f"
+részlet esetén a Vim egy karaktert vár, melyre ugorhat a parancs befejezése
+után. "w" billentyű esetén a parancs lefut ("2fw"), a "2f" pedig  eltűnik.
 
 	+-------------------------------------------------+
 	|text in the Vim window				  |
@@ -220,9 +216,8 @@ the "2fw" command is executed and the displayed "2f" is removed.
 >
 	set wildmenu
 
-Display completion matches in a status line.  That is when you type <Tab> and
-there is more than one match.  See 'wildmenu'.
-
+Az egyezéseket mutatja például automatikus kiegészítéseknél az állapotsoron
+(amikor <Tab> esetén több egyezés elehetséges). Lásd 'wildmenu'.
 >
 	set ttimeout
 	set ttimeoutlen=100
