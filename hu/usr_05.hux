@@ -1,13 +1,14 @@
 *usr_05.txt*	Vim verzió 8.2.  Frissítve: 2019 May 23
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		 Bram Moolenaar - Vim Felhasználói Kézikönyv
 
-			      Set your settings
+				A beállításaid
 
 
-Vim can be tuned to work like you want it to.  This chapter shows you how to
-make Vim start with options set to different values.  Add plugins to extend
-Vim's capabilities.  Or define your own macros.
+A Vim úgy működik, ahogy szeretnéd. Az alábbi fejezet bemutatja, hogy hogyan
+indíthatod a Vimet az alapértelemezett beállításoktól eltérően, hogy hogyan
+bővítheted a Vim funkcionalitását beépülőkkel vagy hogyan definiálhatsz
+makrókat.
 
 |05.1|	The vimrc file
 |05.2|	The example vimrc file explained
