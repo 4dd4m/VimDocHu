@@ -127,9 +127,9 @@ Alapvető szerkesztési feladatok ~
 |starting.txt|	vim indítása, argumentumai, inicializáció
 |editing.txt|	fájlok szerkesztése és írása
 |motion.txt|	navigációs parancsok
-|scroll.txt|	görgetás
+|scroll.txt|	görgetés
 |insert.txt|	insert and Replace mode
-|insert.txt|	beszúr és csere
+|insert.txt|	beszúrás és csere
 |undo.txt|	visszavonás és újra
 |repeat.txt|	parancsok ismétlése, Vim sxriptek, debuggolás
 |visual.txt|	a vizuális mód használata (szöveg kijelölése)
