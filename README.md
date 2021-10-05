@@ -3,7 +3,8 @@
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* A fordítás jelenleg usr_01.txt - usr_06.txt-ig kész (+- pár mondat)
+* A fordítás jelenleg usr_01.hux - usr_07.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_08.hux
 
 ## A jelenlegi fordítás használatba vétele
 * A hu könyvtárat másold be ide: $VIMRUNTIME/doc

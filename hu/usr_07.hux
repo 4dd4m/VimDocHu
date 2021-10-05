@@ -9,20 +9,20 @@ Nem számít, hogy mennyi fájllal kell dolgozz, az összeset szerkesztheted
 anélkül, hogy kilépnél a Vimből.Legyen szó akár fájlok közötti váltásról, akár
 szöveg másolásáról egy másik fájlba.
 
-|07.1|	Egy másik fájl szerkesztése
+|07.1|	Másik fájl szerkesztése
 |07.2|	Fájlok listája
 |07.3|	Fájlról fájlra ugrás
 |07.4|	Biztonsági mentések
 |07.5|	Szövegek másolása fájlok között
 |07.6|	Betekintés fájlokba
-|07.7|	Fájl átnevezése
+|07.7|	Fájlok átnevezése
 
 Következő fejezet: |usr_08.txt|  Splitek
     Előző fejezet: |usr_06.txt|  Szintaxiskiemelés használata
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*07.1*	Egy másik fájl szerkesztése
+*07.1*	Másik fájl szerkesztése
 
 Eddig minden egyes fáj szerkesztéséhez új Vimet kellett nyitnod. Egyszerűbb
 módszer: kezdd a szerkesztés a következő paranccsal: >
@@ -347,11 +347,10 @@ tudja, hogy milyen formátumban másoltad a szöveget (szó, blokk, teljes sor) 
 ennek megfelelően fogja beilleszteni.
 
 
-REGISZTEREK HASZNÁLARA
+REGISZTEREK HASZNÁLATA
 
-Ha több szövegrészletet szeretnél átmásolni egyik fájlból a másikba az sok
-időt vehet igénybe. Minden egyes kimásolt szöveg saját regiszterrel
-rendelkezik.
+Ha több szövegrészletet szeretnél átmásolni egyik fájlból a másikba, az sok
+időt vehet igénybe. Minden egyes kimásolt szöveg saját regiszterrel rendelkezik.
    A regiszter csak egy "hely", ahová a Vim szövegeket tud eltárolni. Itt most
 az a-z jelölésű regisztereket fogjuk használni (később újakat is látni fogunk).
 másoljuk ki a mondatot az f jelü regiszterbe (f, mint first, azaz első): >
@@ -378,106 +377,106 @@ illeszteni: >
 
 	"fp
 
-Again, the register specification "f comes before the "p" command.
-   You can put the registers in any order.  And the text stays in the register
-until you yank something else into it.  Thus you can put it as many times as
-you like.
+Ismételten, a regiszterspecifikáció jön először "f, aztán a parancs "p".
+   A regisztereket bármilyen sorrendben beillesztheted. Tartalma pedig addig
+nem változik, amíg valami mással felül nem írod (másolás). Tartalmuk ez idő
+alatt akárhányszor beilleszhető.
 
-When you delete text, you can also specify a register.  Use this to move
-several pieces of text around.  For example, to delete-a-word and write it in
-the w register: >
-
+Törlési műveletnél is regiszterbe teheted a szöveget. Ezzel a technikával
+gyorsan lehet mozgatni több tartományt. Például rakj egy szót a w regiszterbe:
+>
 	"wdaw
 
-Again, the register specification comes before the delete command "d".
 
 
-APPENDING TO A FILE
+HOZZÁFŰZÉS FÁJLOKHOZ
 
-When collecting lines of text into one file, you can use this command: >
+Az aktuális buffer tartalmát hozzáfűzheted más fájlokhoz: >
 
 	:write >> logfile
 
-This will write the text of the current file to the end of "logfile".  Thus it
-is appended.  This avoids that you have to copy the lines, edit the log file
-and put them there.  Thus you save two steps.  But you can only append to the
-end of a file.
-   To append only a few lines, select them in Visual mode before typing
-":write".  In chapter 10 you will learn other ways to select a range of lines.
+A aktív buffer tartalmát a "logfile"-hoz fűzzük. Így nem kell a már szokásos
+módon mindent kijelölnöd, megnyitni a másik fájlt, beilleszteni, menteni, és
+vissztérni. Két lépés meg tudunk spórolni, viszont hozzáfűzni csak a fájl
+végéhez lehet.
+   Ha csak pár sort szeretnél hozzáfűzni, akkor jelöld ki őket a ":write"
+parancs előtt.
+   A 10. fejezetben a sorok kiválasztására más technikákat is megtanulunk.
 
 ==============================================================================
-*07.6*	Viewing a file
+*07.6*	Betekintés fájlokba
 
-Sometimes you only want to see what a file contains, without the intention to
-ever write it back.  There is the risk that you type ":w" without thinking and
-overwrite the original file anyway.  To avoid this, edit the file read-only.
-   To start Vim in readonly mode, use this command: >
+Nem feltétlenül szeretnél minden fájlt szerkeszteni, amit megnyitsz a Vimben.
+Olykor csak a fájl tartalmára vagy kíváncsi, de nem szeretnéd megkockáztatni,
+hogy felülírod ":w"-vel akár gondolkodás nélkül, vagy valamilyen egyéb
+mappinggel. Ebben az esetben ha írásvédettként nyitod meg a fájlt, akkor nem
+tudsz kárt tenni benne.
+   Írásvédett mód indítása: >
 
 	vim -R file
 
-On Unix this command should do the same thing: >
+vagy Unix platformokon: >
 
 	view file
 
-You are now editing "file" in read-only mode.  When you try using ":w" you
-will get an error message and the file won't be written.
-   When you try to make a change to the file Vim will give you a warning:
+Ha mégis megpróbálnád írni a fájlt, akkor figyelmeztető üzenetet fogsz kapni:
 
 	W10: Warning: Changing a readonly file ~
 
+???
 The change will be done though.  This allows for formatting the file, for
 example, to be able to read it easily.
-   If you make changes to a file and forgot that it was read-only, you can
-still write it.  Add the ! to the write command to force writing.
+   Ha időközben elfelejtetted, hogy a fájl írásvédett, még mindig el tudod
+menteni. A megerősítéshez !-et kell hozzáadnod a mentési parancshoz.
 
-If you really want to forbid making changes in a file, do this: >
+Ha aboszolút meg szeretnéd akadályozni ezt is, akkor: >
 
 	vim -M file
 
-Now every attempt to change the text will fail.  The help files are like this,
-for example.  If you try to make a change you get this error message:
+A fájlon minden nemű változtatás hibát fog eredményezni. A help fájlok például
+ilyenek. A hibaüzenet:
 
 	E21: Cannot make changes, 'modifiable' is off ~
 
-You could use the -M argument to setup Vim to work in a viewer mode.  This is
-only voluntary though, since these commands will remove the protection: >
+Ha a Vimet -M argumentummal indítod, akkor csak olvasni tudod a fájlokat, noha
+ez teljesen önkéntes, két parancs kiadása után engedélyezheted az írást: >
 
 	:set modifiable
 	:set write
 
 ==============================================================================
-*07.7*	Changing the file name
+*07.7*	Fájlok átnevezése
 
-A clever way to start editing a new file is by using an existing file that
-contains most of what you need.  For example, you start writing a new program
-to move a file.  You know that you already have a program that copies a file,
-thus you start with: >
+Praktikus úgy új fájlt kezdeni, hogy olyat nyitunk meg, ami részben
+tartalmazza mindazokat, amiket szeretnénk. Például olyan programot írsz,
+melyekkel fájlokat tudsz másolni. Tudod, hogy az alábbi fájlból részleteket
+menthesz meg, ezért ezzel kezdesz: >
 
 	:edit copy.c
 
-You can delete the stuff you don't need.  Now you need to save the file under
-a new name.  The ":saveas" command can be used for this: >
+Ki kell törölnöd, amire nincs szükséged és el kell mentened egy új fájlnévre.
+A ":saveas" parancsot erre tudjuk használni: >
 
 	:saveas move.c
 
-Vim will write the file under the given name, and edit that file.  Thus the
-next time you do ":write", it will write "move.c".  "copy.c" remains
-unmodified.
-   When you want to change the name of the file you are editing, but don't
-want to write the file, you can use this command: >
+A Vim kiírja a buffer tartalmát a megadott névre. Következő alkalommal, ha
+mentesz, akkor a módosítások már az új, "move.c" fájlba íródnak, "copy.c"
+érintetlen marad.
+   Ha csak a fájlnevet szeretnéd megváltoztatni, de egyelőre még nem menteni,
+akkor: >
 
 	:file move.c
 
-Vim will mark the file as "not edited".  This means that Vim knows this is not
-the file you started editing.  When you try to write the file, you might get
-this message:
+A Vim "nem szerkesztett"-ként megjelöli a fájlt (not edited). Ez azt jelenti,
+hogy a Vim tudja, nem ezt a fájl töltötted be. Mentéskor megkaphatod az alábbi
+hibaüzenetet:
 
 	E13: File exists (use ! to override) ~
 
-This protects you from accidentally overwriting another file.
+Ez véd a véletlen felülírástól.
 
 ==============================================================================
 
-Next chapter: |usr_08.txt|  Splitting windows
+Következő fejezet: |usr_08.txt|  Splitek
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
