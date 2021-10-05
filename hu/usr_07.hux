@@ -1,199 +1,195 @@
 *usr_07.txt*	Vim verzió 8.2.  Frissítve: 2020 Mar 23
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim Felhasználói kézikönyv
 
-			  Editing more than one file
+			    Több fájl szerkesztése
 
 
-No matter how many files you have, you can edit them without leaving Vim.
-Define a list of files to work on and jump from one to the other.  Copy text
-from one file and put it in another one.
+Nem számít, hogy mennyi fájllal kell dolgozz, az összeset szerkesztheted
+anélkül, hogy kilépnél a Vimből.Legyen szó akár fájlok közötti váltásról, akár 
+szöveg másolásáról egy másik fájlba.
 
-|07.1|	Edit another file
-|07.2|	A list of files
-|07.3|	Jumping from file to file
-|07.4|	Backup files
-|07.5|	Copy text between files
-|07.6|	Viewing a file
-|07.7|	Changing the file name
+|07.1|	Egy másik fájl szerkesztése
+|07.2|	Fájlok listája
+|07.3|	Fájlról fájlra ugrás
+|07.4|	Biztonsági mentések
+|07.5|	Szövegek másolása fájlok között
+|07.6|	Betekintés fájlokba
+|07.7|	Fájl átnevezése
 
-     Next chapter: |usr_08.txt|  Splitting windows
- Previous chapter: |usr_06.txt|  Using syntax highlighting
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_08.txt|  Splitek
+    Előző fejezet: |usr_06.txt|  Szintaxiskiemelés használata
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*07.1*	Edit another file
+*07.1*	Egy másik fájl szerkesztése
 
-So far you had to start Vim for every file you wanted to edit.  There is a
-simpler way.  To start editing another file, use this command: >
+Eddig minden egyes fáj szerkesztéséhez új Vimet kellett nyitnod. Egyszerűbb
+módszer: kezdd a szerkesztés a következő paranccsal: >
 
 	:edit foo.txt
 
-You can use any file name instead of "foo.txt".  Vim will close the current
-file and open the new one.  If the current file has unsaved changes, however,
-Vim displays an error message and does not open the new file:
+A "foo.txt" fájlnév helyett használhatsz mást is. Az aktuális fájlt a Vim
+bezárja és az argumentumban szereplő fájlt megnyitja (ha létezik). Amennyiben
+az aktuális buffernek nem mentettük a módosításait, hibaüzenetet kapunk és az
+új fájl nem nyílik meg:
 
 	E37: No write since last change (use ! to override) ~
 
-	Note:
-	Vim puts an error ID at the start of each error message.  If you do
-	not understand the message or what caused it, look in the help system
-	for this ID.  In this case: >
+	Megjegyzés:
+	A Vim minden egyes hibaüzenet mellé egy hibakódot mellékel. Ha nem
+	érted, hogy mi váltotta ki a hibát, akkor a dokumentációból
+	megtudhatod: >
 
 		:help E37
 
-At this point, you have a number of alternatives.  You can write the file
-using this command: >
+Jelen pillanban számos opció közül választhatsz. Kiírhatod a fájlt: >
 
 	:write
 
-Or you can force Vim to discard your changes and edit the new file, using the
-force (!) character: >
+Eldobhatod az aktív fájl beállításait az (! karakterrel), így az új fájl
+megnyílik: >
 
 	:edit! foo.txt
 
-If you want to edit another file, but not write the changes in the current
-file yet, you can make it hidden: >
+Ha meg szeretnél nyitni egy másik fájlt, akkor elrejtheted az aktív buffert (a
+régi fájl tartalma nem lesz elmentve ezen a ponton): >
 
 	:hide edit foo.txt
 
-The text with changes is still there, but you can't see it.  This is further
-explained in section |22.4|: The buffer list.
+Az előző fájl még mindig elérhető a változtatásaival együtt. Ez részletesen el
+lesz magyarázva a |22.4| fejezetben (Bufferek listája).
 
 ==============================================================================
-*07.2*	A list of files
+*07.2*	Fájlok listája
 
-You can start Vim to edit a sequence of files.  For example: >
-
+Ahány fájlnevet adsz át a Vimnek, annyi fájlt nyit meg szerkesztésre. Páldául:
+>
 	vim one.c two.c three.c
 
-This command starts Vim and tells it that you will be editing three files.
-Vim displays just the first file.  After you have done your thing in this
-file, to edit the next file you use this command: >
+A parancs elindítja a Vimet és meghatározza a három szerkesztésre váró fájlt.
+Vizuálisan csak egy fájl jelenik meg. Ha elvégezted a szükséges
+szerkesztéseket, akkor a következőre léphetsz: >
 
 	:next
 
-If you have unsaved changes in the current file, you will get an error
-message and the ":next" will not work.  This is the same problem as with
-":edit" mentioned in the previous section.  To abandon the changes: >
+Ha a változtatásokat nem mentetted el az aktív bufferben, akkor a ":next"
+parancsot nem tudod használni, mivel hibaüzenetet fog dobni (akár fentebb az
+":edit" példa során). Következő fájlra lépés a változások eldobásával: >
 
 	:next!
 
-But mostly you want to save the changes and move on to the next file.  There
-is a special command for this: >
+Legtöbb esetben el szeretnéd menteni a munkádat és továbblépni, a két lépés
+egyszerre is elvégezhető: >
 
 	:wnext
 
-This does the same as using two separate commands: >
+Ugyan az, mintha két lépésben az alábbiakat futtatnád: >
 
 	:write
 	:next
 
 
-WHERE AM I?
+HOL VAGYOK?
 
-To see which file in the argument list you are editing, look in the window
-title.  It should show something like "(2 of 3)".  This means you are editing
-the second file out of three files.
-   If you want to see the list of files, use this command: >
+Az ablak címe elárulja, hogy az argumentumlistából melyik fájlt szerkeszted. A
+képernyő alján az állapotsoron valami olyasmit olvashatsz, hogy "(2 of 3)". Ez
+azt jelenti, hogy második fájlt szerkeszted a három közül.
+   Ha a fájlok listájára vagy kíváncsi: >
 
 	:args
 
-This is short for "arguments".  The output might look like this:
+Mely az "arguments" szó rövidítése. Kiemente pedig:
 
 	one.c [two.c] three.c ~
 
-These are the files you started Vim with.  The one you are currently editing,
-"two.c", is in square brackets.
+A vim induláskor ezeket a fájlokat töltötte be. Jelenleg a "two.c" fájlt
+láthatjuk az aktív bufferben. 
 
 
-MOVING TO OTHER ARGUMENTS
+VÁLTÁS A TÖBBI ARGUMENTUMRA
 
-To go back one file: >
+Előző fájl: >
 
 	:previous
 
-This is just like the ":next" command, except that it moves in the other
-direction.  Again, there is a shortcut command for when you want to write the
-file first: >
+A ":next" parancs ellentéte, visszafelé lép a fájllistában. Írás és
+visszalépés: >
 
 	:wprevious
 
-To move to the very last file in the list: >
+A fájllista legvégére ugrás: >
 
 	:last
 
-And to move back to the first one again: >
+A fájllista legelejére ugrás: >
 
 	:first
 
-There is no ":wlast" or ":wfirst" command though!
+Azonban ":wlast" és ":wfirst" parancs nem létezik!
 
-You can use a count for ":next" and ":previous".  To skip two files forward: >
+":next" és ":previous" parancsok prefixálhatóak. Két fájlt előre: >
 
 	:2next
 
 
-AUTOMATIC WRITING
+AUTOMATIKUS MENTÉS
 
-When moving around the files and making changes, you have to remember to use
-":write".  Otherwise you will get an error message.  If you are sure you
-always want to write modified files, you can tell Vim to automatically write
-them: >
+A fájlok szerkesztése és a navigációs elemek között észben kell tartani a
+mentést is ":write", különben hibaüzenettel találkozunk. Ha biztos vagy benne,
+hogy mindig menteni szeretnél, a folyamat automatizálható: >
 
 	:set autowrite
 
-When you are editing a file which you may not want to write, switch it off
-again: >
+Ha olyan fájlt szerkesztesz, amot nem szeretnél menteni, akkor előbb ki kell
+kapcsolnod: >
 
 	:set noautowrite
 
 
-EDITING ANOTHER LIST OF FILES
+MÁSIK FÁJJLISTA SZERKSZTÉSE
 
-You can redefine the list of files without the need to exit Vim and start it
-again.  Use this command to edit three other files: >
-
+Kilépés nélkül újradefiniálhatjuk a fájllistát, három másik fájl szerkesztése:
+>
 	:args five.c six.c seven.h
 
-Or use a wildcard, like it's used in the shell: >
+
+Helyettesítőkaraktereket ugyanúgy használhatsz, mintha shellben dolgoznál: >
 
 	:args *.txt
 
-Vim will take you to the first file in the list.  Again, if the current file
-has changes, you can either write the file first, or use ":args!" (with !
-added) to abandon the changes.
+Az első fájl kerül megnyitásra. A változtatásokat vagy mentjük, vagy eldobjuk
+(":args!"), mielőtt új fájlra lépünk.
 
 
-DID YOU EDIT THE LAST FILE?
+A LEGUTOLSÓ FÁJLT SZERKESZTETTED?
 							*arglist-quit*
-When you use a list of files, Vim assumes you want to edit them all.  To
-protect you from exiting too early, you will get this error when you didn't
-edit the last file in the list yet:
+Ha fájlok listájával dolgozol, akkor a Vim azt feltételezi, hogy szerkeszteni
+szeretnéd az összeset, így  ha idő előtt (az utolsó fájl szerkesztése előtt) be
+szeretnéd zárni a szerkesztőt, akkor az alábbi hibaüzenet fogad:
 
 	E173: 46 more files to edit ~
 
-If you really want to exit, just do it again.  Then it will work (but not when
-you did other commands in between).
+Ha tényleg ki szeretnél lépni, akkor kíséreld meg újra. 
 
 ==============================================================================
-*07.3*	Jumping from file to file
+*07.3*	Fájlról fájlra ugrás
 
-To quickly jump between two files, press CTRL-^ (on English-US keyboards the ^
-is above the 6 key).  Example: >
+Két fájl között a CTRL-^ billentyűkombinációval válthatunk. Például: >
 
 	:args one.c two.c three.c
 
-You are now in one.c. >
+Most one.c az aktív fájl.
 
 	:next
 
-Now you are in two.c.  Now use CTRL-^ to go back to one.c.  Another CTRL-^ and
-you are back in two.c.  Another CTRL-^ and you are in one.c again.  If you now
-do: >
+Most two.c. Most nyomhatsz CTRL-^-t, hogy visszatérj one.c-re. Újabb CTRL-^
+visszaléptet two.c-re. Majd CTRL-^ ismét one.c. Ha most lépsz a következő
+fájlra: >
 
 	:next
 
+Akkor az aktív fájl three.c lesz.
 You are in three.c.  Notice that the CTRL-^ command does not change the idea
 of where you are in the list of files.  Only commands like ":next" and
 ":previous" do that.
