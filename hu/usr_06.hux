@@ -1,86 +1,84 @@
-*usr_06.txt*	Vim verzió 8.2.  Frissítve: 2019 Jun 01
+*usr_06.txt*	Vim verzió" 8.2.  Frissítve: 2019 Jun 01
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim Felhasználói Kézikönyv
 
-			  Using syntax highlighting
+		       Szintakszis kiemelés használata
 
 
-Black and white text is boring.  With colors your file comes to life.  This
-not only looks nice, it also speeds up your work.  Change the colors used for
-the different sorts of text.  Print your text, with the colors you see on the
-screen.
+Unalmas a fekete-fehér szöveg. A színek életre keltik fájljaid. Nem csak
+szépen néz ki, de a munkát is felgyorsítja.
 
-|06.1|	Switching it on
-|06.2|	No or wrong colors?
-|06.3|	Different colors
-|06.4|	With colors or without colors
-|06.5|	Printing with colors
-|06.6|	Further reading
+|06.1|	Bekapcsolás
+|06.2|	Nincsenek, vagy rossz színek?
+|06.3|	Különböző színek
+|06.4|	Színekkel és anélkül
+|06.5|	Nyomtatás színekkel
+|06.6|	További irodalom
 
-     Next chapter: |usr_07.txt|  Editing more than one file
- Previous chapter: |usr_05.txt|  Set your settings
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_07.txt|  Több fájl szerkesztése
+    Előző fejezet: |usr_05.txt|  A beállításaid
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*06.1*	Switching it on
+*06.1*	Bekapcsolás
 
-It all starts with one simple command: >
+Az egész egy egyszerű pranaccsal kezdődik: >
 
 	:syntax enable
 
-That should work in most situations to get color in your files.  Vim will
-automagically detect the type of file and load the right syntax highlighting.
-Suddenly comments are blue, keywords brown and strings red.  This makes it
-easy to overview the file.  After a while you will find that black&white text
-slows you down!
+A legtöbb szituációban ez már színt visz a fájljaidba. A Vim felismeri a
+fájltípust és annak megfelelő kiemelést tölt be. Hirtelen a kommentek kékek, a
+kulcsszavak barnák, a stringek vörösek. Ez teszi áttekinthetővé a fájlt.
+Később észre fogod venni, hogy a pusztán fekete-fehér szöveg nagyon lelassít.
 
-If you always want to use syntax highlighting, put the ":syntax enable"
-command in your |vimrc| file.
+Ha konstans szeretnéd a funkciót használni akkor ":syntax enable" parancsot
+kell beírnod a  |vimrc| fájlodba.
 
-If you want syntax highlighting only when the terminal supports colors, you
-can put this in your |vimrc| file: >
+Ha csak akkor szeretnél szintaxiskiemelést használni, ha a terminálod
+támogatja a színeket, akkor ezt add hozzá a |vimrc| fájlodhoz: >
 
 	if &t_Co > 1
 	   syntax enable
 	endif
 
-If you want syntax highlighting only in the GUI version, put the ":syntax
-enable" command in your |gvimrc| file.
+Ha csak kizárólag a GUI verzióban szeretnél élni ezzel a lehetőséggel, akkor
+":syntax enable"-t kell betenned a |gvimrc| fájlba.
 
 ==============================================================================
-*06.2*	No or wrong colors?
+*06.2*	Nincsenek, vagy rossz színek?
 
+Számos oka lehet, ha nem látsz színeket:
 There can be a number of reasons why you don't see colors:
 
-- Your terminal does not support colors.
-	Vim will use bold, italic and underlined text, but this doesn't look
-	very nice.  You probably will want to try to get a terminal with
-	colors.  For Unix, I recommend the xterm from the XFree86 project:
-	|xfree-xterm|.
+- A terminálod nem támogatja a színes megjelenítést.
+	A Vim nem csak színesen, de a fékövér és dőlt karaktereket is képes
+	megjeleníteni, amely nem minden esetben produkál kellemes kinézetet.
+	Unix rendszeren az xterm terminált javaslom, ami az XFree86 projekt
+	része: |xfree-xterm|.
 
-- Your terminal does support colors, but Vim doesn't know this.
-	Make sure your $TERM setting is correct.  For example, when using an
-	xterm that supports colors: >
+- A terminálod nem támogatja a színes megjelenítést és a Vim errpl nem tud.
+	Győződj meg arról, hogy a $TERM beállításod helyes. Például, xterm
+	használata esetén: >
 
 		setenv TERM xterm-color
 <
-	or (depending on your shell): >
+	vagy (a shelledtől függően): >
 
 		TERM=xterm-color; export TERM
 
-<	The terminal name must match the terminal you are using.  If it
-	still doesn't work, have a look at |xterm-color|, which shows a few
-	ways to make Vim display colors (not only for an xterm).
+<        A terminál nevének meg kell egyezni az általad használttal. ha még
+	most sem működik, akkor olvasd el ezt |xterm-color|, amiben találsz
+	pár módszert arra, hogy hogyan lehet színeket megjeleníteni a Vimmel
+	(nem csak xterm terminálokhoz).
 
-- The file type is not recognized.
-	Vim doesn't know all file types, and sometimes it's near to impossible
-	to tell what language a file uses.  Try this command: >
+- A fájtípus felismerés sikertelen volt.
+	Az összes fájltípus ismerete szinte lehetetlen, ezért tájékoztatni
+	kell a Vimet, hogy milyen fájllal van dolga. A parancs: >
 
 		:set filetype
 <
-	If the result is "filetype=" then the problem is indeed that Vim
-	doesn't know what type of file this is.  You can set the type
-	manually: >
+	Ha a végeredmény "filetype=", akkor a Vim valóban nem ismeri az adott
+	fájlt. A fájltípust manuálisan kell beállítani: >
 
 		:set filetype=fortran
 
@@ -267,13 +265,13 @@ Instead of printing, you could also put the HTML file on a web server, and let
 others look at the colored text.
 
 ==============================================================================
-*06.6*	Further reading
+*06.6*	További Irodalom
 
-|usr_44.txt|  Your own syntax highlighted.
-|syntax|      All the details.
+|usr_44.txt|  A saját szintaxis kiemelésed
+|syntax|      Az összes részlet
 
 ==============================================================================
 
-Next chapter: |usr_07.txt|  Editing more than one file
+Következő fejezet: |usr_07.txt|  Több fájl szerkesztése
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

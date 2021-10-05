@@ -31,7 +31,7 @@ A Vim dokumentációja két fejezetből áll
 A fejezetekben használt jelölésről bővebben: |notation|
 
 
-NAVIGACIO
+NAVIGÁCIÓ
 
 A linkeket tartalmazó szövegrészek segítségevel gyorsan az adott szó, parancs,
 kifejezés pontos definíciójához ugorhatunk, mely egyben tájékoztat a parancs
@@ -50,7 +50,7 @@ A leírásban nem szereplő részek elérhetőek a ":help" parancs által. Lásd
 
 A "|", "*" karakterek a Vim |conceal| opciójával el vannak rejtve. Esetenként
 |hl-Ignore|-t hsználnak, mely a karaktert a háttér színével teszi megegyezővé.
-Az alábbi parancsokkal ezeket láthatóvá teheted:
+Az alábbi parancsokkal ezeket láthatóvá teheted: >
 
 	:set conceallevel=0
 	:hi link HelpBar Normal
@@ -79,14 +79,14 @@ Amiga: >
 
 
 Ha ezek után indítod a Vimet a 'compatible' opció ki lesz kapcsolva.  Ezzel a
-paranccsal ellenőrizheted:
+paranccsal ellenőrizheted: >
 
 	:set compatible?
 
 Ha a válsz "nocompatible", akkor minden rendben történt.  "compatible" esetén
 baj történt, ezért ki kell deríteni, hogy a beállítás miért nem lépett érvénybe.
 still set. Talán a .vimrc fájl nem létezik, vagy csak rossz könyvtárban van.
-Ezzel a paranccsal kideríthető:
+Ezzel a paranccsal kideríthető: >
 
 	:scriptnames
 

@@ -688,90 +688,98 @@ Ez nem változtatja meg a fájlt, csupán a szerkesztőben való megjelenésére
 hatással.
 
 
-WRAPPING MOVEMENT COMMANDS
+MOZGÁSI PARANCSOK WRAPPELÉSE
 
-Most commands for moving around will stop moving at the start and end of a
-line.  You can change that with the 'whichwrap' option.  This sets it to the
-default value: >
+A legtöbb elmozdulásért felelős parancs megáll a sor elejénél és a végénél. A
+'whichwrap' opcióval ezen változtathatunk. Az alapbeállítás: >
 
 	:set whichwrap=b,s
 
-This allows the <BS> key, when used in the first position of a line, to move
-the cursor to the end of the previous line.  And the <Space> key moves from
-the end of a line to the start of the next one.
+A "b" paraméter engedélyezi a <BS> billentyűt a sor legelső karakterén, így a
+kurzor az előző sor legvégére kerül. Az "s" paraméter a <Space> billentyűt
+engedélyezi a sor legutolsó karakterén, azaz a kurzor a következő sor elejére
+érkezik.
 
-To allow the cursor keys <Left> and <Right> to also wrap, use this command: >
+A nyilakat (<Left>,<Right>) is definiálhatjuk (Normál módban) az alábbiak szerint: >
 
 	:set whichwrap=b,s,<,>
 
-This is still only for Normal mode.  To let <Left> and <Right> do this in
-Insert mode as well: >
+
+Nyilak wrappelésének engedélyezése Insert módban ([,]): >
 
 	:set whichwrap=b,s,<,>,[,]
 
-There are a few other flags that can be added, see 'whichwrap'.
+További paraméterekről itt szerzhetsz tudomást, 'whichwrap'.
 
 
-VIEWING TABS
+TABOK MEGJELENÍTÉSE
 
-When there are tabs in a file, you cannot see where they are.  To make them
-visible: >
+A tabokat nem látható karakterek. Láthatóvá tételük: >
 
 	:set list
 
-Now every tab is displayed as ^I.  And a $ is displayed at the end of each
-line, so that you can spot trailing spaces that would otherwise go unnoticed.
-   A disadvantage is that this looks ugly when there are many Tabs in a file.
-If you have a color terminal, or are using the GUI, Vim can show the spaces
-and tabs as highlighted characters.  Use the 'listchars' option: >
+Most minden tabulátor ^I karakterként jelenik meg, a sorvégek $-el vannak
+jelölve. Nagyszerű trükk, ha a fájl üres karaktereit kell megtalálnod.
+   Az egyetlen hátránya a csúnya külalak, különösen akkor, ha a fájl sok tab
+karaktert tartalmaz. Ha a terminálod kezeli a színeket, vagy a Vimet a GUIn
+keresztül használod, akkor az üres karaktereket a vim ki tudja emelni a
+'listchar' opció segítségével: >
 
 	:set listchars=tab:>-,trail:-
 
-Now every tab will be displayed as ">---" (with more or less "-") and trailing
-white space as "-".  Looks a lot better, doesn't it?
+Melynek hatására minden tabulátor ">---"-ként jelenik meg (több, vagy kevesebb
+"-" karakterrel), a sorvégi üres karakterek pedig "-". Sokkal jobban néz ki,
+ugye?
 
 
-KEYWORDS
+KULCSSZAVAK
 
-The 'iskeyword' option specifies which characters can appear in a word: >
+Az 'iskeyword' beállítás paraméterei meghatározzák, hogy a szavak milyen
+(alfanumerikustól) eltérő karaktereket tartalmazhatnak: >
 
 	:set iskeyword
 <	  iskeyword=@,48-57,_,192-255 ~
 
-The "@" stands for all alphabetic letters.  "48-57" stands for ASCII
-characters 48 to 57, which are the numbers 0 to 9.  "192-255" are the
-printable latin characters.
-   Sometimes you will want to include a dash in keywords, so that commands
-like "w" consider "upper-case" to be one word.  You can do it like this: >
+A "@" jelenti az összes alfanumerikus karaktert. "48-57" az ASCII
+karakterekért felel (itt történetesen 0 és 9 között), a "192-255" pedig a
+nyomtatható latin karakterek.
+   Esetenként jól jönne, ha a Vim egy szónak tekintené azokat a szavakat,
+   melyek például kötőjelet tartalmaznak. Azaz a "w" parancs az "upper-case"
+   szóban nem állna meg a köőjelnél. Ezt így lehet megvalósítani: >
 
 	:set iskeyword+=-
 	:set iskeyword
 <	  iskeyword=@,48-57,_,192-255,- ~
 
-If you look at the new value, you will see that Vim has added a comma for you.
-   To remove a character use "-=".  For example, to remove the underscore: >
+A második kódrészlet alapján megállapíthatjuk, hogy a Vim egy vesszővel
+gazdagította a praméterlistát (illetve magával a "-" karakterrel). Az első sorban adjuk hozzá a kötőjelet, a
+második sor csak egy lista a változó paramétereiről. (+= az operátor).
+Eltávolítani az "-=" operátorral lehet. Például távolítsuk el az alsó
+össuekötőjelet: >
 
 	:set iskeyword-=_
 	:set iskeyword
 <	  iskeyword=@,48-57,192-255,- ~
 
-This time a comma is automatically deleted.
+Az iskeyword változó tehát egy vesszővel elválasztott lista, melyeket a Vim a
+szavak részének tekint.
 
 
-ROOM FOR MESSAGES
+ÜZENETEK
 
-When Vim starts there is one line at the bottom that is used for messages.
-When a message is long, it is either truncated, thus you can only see part of
-it, or the text scrolls and you have to press <Enter> to continue.
-   You can set the 'cmdheight' option to the number of lines used for
-messages.  Example: >
+Kezdőbeállítások szerint a kölünbféle üzenetek számára csak egyetlen sor van
+fenntartva. Ha az üzenet túl hosszú, akkor a Vim nem képes megjeleníteni az
+üzenet egészét, ezért csak egy része válik láthatóvá. 
+   A 'cmdheight' beállítással meghatározható az üzenetek számára lefoglalt
+sorok mennyisége. Például: >
 
 	:set cmdheight=3
 
-This does mean there is less room to edit text, thus it's a compromise.
+Így már az üzenetek kellemesen elférnek, viszont kevesebb helyünk marad a
+szövegszerkesztésre.
 
 ==============================================================================
 
-Next chapter: |usr_06.txt|  Using syntax highlighting
+Következő fejezet: |usr_06.txt|  Szintaxiskiemelés használata
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
