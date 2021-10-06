@@ -29,7 +29,7 @@ Az eddig betartott alapelvek:
 * Ha úgy érzed, más szavakkal tartalmasabb lenne az információ, fogalmazd át
 * Ha úgy érzed, a dokumentáció félreérthetően fogalmaz, fogalmazd át
 * Ha úgy érzed, hogy a dokumentáció túl szűkszavú, egészítsd ki
-* A Vimmel már egybeforrt idegen nyelvű szavakat (mint például: quckfix,
+* A Vimmel már egybeforrt idegen nyelvű szavakat (mint például: quickfix,
   jumplist, tag, command-line, Insert, Visual, Replace stb.) nem fordítjuk
 
 ## Nem fordítanál?
