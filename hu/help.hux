@@ -33,7 +33,7 @@ Specifikus segítség:	Ha tudod, hogy konkrétan mire szeretnél rákeresni,
 		      Vim argument		  -	   :help -r
 		      Opció			  '	   :help 'textwidth'
 		      Reguláris Kifejezés	  /	   :help /[
-		    A kontextusokról többet megtudhatsz itt:  |help-sumary|
+		    A kontextusokról többet megtudhatsz itt:  |help-summary|
 
 Keresés a manuálban:  Gépeld be a ":help word", majd üss CTRL-D-t, így
 		      láthatod, hogy milyen oldalak érhetők el "word" címszó
@@ -52,18 +52,18 @@ A Vim rövidítés a Vi IMprovedből származtatható. Nagy részét Bram Moolen
 BASIC:
 |quickref|	Áttekintés a leggyakrabban használt parancsokról
 |tutor|		30 perces interaktív kurzus kezdők számára
-|copying|	Licenszelési információk
+|copying|	Licensz
 |iccf|		Segíts Uganda szegény gyermekein
 |sponsor|	Szponzoráld a Vim fejlesztését, válj regisztrált taggá
 |www|		Vim az interneten
 |bugs|		Hogyan jelentsd az esetleges hibákat
 
 FELHASZNÁLÓI KÉZIKÖNYV: Ezek a fájlok elmagyarázzák, hogy hogyan kell
-megoldnai a szerkesztési folyamatokat.
+megoldani a szerkesztési folyamatokat.
 
 |usr_toc.txt|	Tartalomjegyzék
 
-Kezdő lpések ~
+Kezdő lépések ~
 |usr_01.txt|  A kézikönyvről
 |usr_02.txt|  Első lépések
 |usr_03.txt|  Navigáció
@@ -71,7 +71,7 @@ Kezdő lpések ~
 |usr_05.txt|  A beállításaid
 |usr_06.txt|  Szintaxis kiemelés használata
 |usr_07.txt|  Két, vagy több fájl szerkesztése
-|usr_08.txt|  Ablakok splitelése
+|usr_08.txt|  Splitek
 |usr_09.txt|  A GUI használata
 |usr_10.txt|  Nagy szerkesztések
 |usr_11.txt|  Helyreállítás összeomlás után
@@ -79,7 +79,7 @@ Kezdő lpések ~
 
 Szerkesztés hatékonyan ~
 |usr_20.txt|  Command-lineba gépelés gyorsan
-|usr_21.txt|  Interkció más programokkal
+|usr_21.txt|  Interakció más programokkal
 |usr_22.txt|  Fájlok keresése
 |usr_23.txt|  Más fájlok szerkesztése
 |usr_24.txt|  Gyors beillesztés
@@ -88,13 +88,13 @@ Szerkesztés hatékonyan ~
 |usr_27.txt|  Keresési parancsok és minták
 |usr_28.txt|  Folding
 |usr_29.txt|  Mozgás a kódbázisban
-|usr_30.txt|  Progarom szerkesztése
+|usr_30.txt|  Program szerkesztése
 |usr_31.txt|  A GUI kihasználása
 |usr_32.txt|  A visszavonás-fa
 
 A Vim beállításai~
-|usr_40.txt| Új parancsok készítése
-|usr_41.txt|  VimScript
+|usr_40.txt|  Új parancsok készítése
+|usr_41.txt|  VimSzkript
 |usr_42.txt|  Új menü hozzáadása
 |usr_43.txt|  Filetypes használata
 |usr_44.txt|  A saját szintaxis kiemelésed
@@ -104,7 +104,7 @@ A Vim futtatása~
 |usr_90.txt|  A Vim telepítése
 
 
-VIM DOKUMENTÁCIÓ: Ezek a fájlok elmagyarázzzák a Vim működését a
+VIM DOKUMENTÁCIÓ: Ezek a fájlok elmagyarázzák a Vim működését a
 		  legapróbb részletekig.			*reference_toc*
 
 Általános témakörök~
@@ -121,7 +121,7 @@ VIM DOKUMENTÁCIÓ: Ezek a fájlok elmagyarázzzák a Vim működését a
 |todo.txt|	ismert problémák, fejlesztési feladatok
 |develop.txt|	a Vim fejlesztése
 |debug.txt|	a Vim debug használata
-|uganda.txt|	vim felhasználási felételek, mi töreturnénik a pénzeddel
+|uganda.txt|	vim felhasználási feltételek, mi történik a pénzeddel
 
 Alapvető szerkesztési feladatok ~
 |starting.txt|	vim indítása, argumentumai, inicializáció
@@ -131,7 +131,7 @@ Alapvető szerkesztési feladatok ~
 |insert.txt|	insert and Replace mode
 |insert.txt|	beszúrás és csere
 |undo.txt|	visszavonás és újra
-|repeat.txt|	parancsok ismétlése, Vim sxriptek, debuggolás
+|repeat.txt|	parancsok ismétlése, Vim szkriptek, debuggolás
 |visual.txt|	a vizuális mód használata (szöveg kijelölése)
 |various.txt|	számos egyéb parancs
 |recover.txt|	recovering from a crash
@@ -147,24 +147,24 @@ Szerkesztés felsőfokon~
 |tabpage.txt|	parancsok a fülek használatához
 |spell.txt|	helyesírás ellenőrzés
 |diff.txt|	adott fájl különböző verzióinak szerkesztés
-|autocmd.txt|	eseményvezérelt parancsok
-|eval.txt|	kifejezések kiéreturnékelése, feltételes parancsok
+|autocmd.txt|	esemény vezérelt parancsok
+|eval.txt|	kifejezések kiértékelése, feltételes parancsok
 |channel.txt|	munkák, csatornák, kommunikáció
 |channel.txt|	jobs, Channels, inter-process communication
 |fold.txt|	kód folding
 
 Speciális helyzetek~
-|testing.txt|	A Vim (és VimScriptek) tesztelése
+|testing.txt|	A Vim (és VimSzkriptek tesztelése
 |print.txt|	nyomtatás
-|remote.txt|	A vim szyerver vagy kilensként
+|remote.txt|	A vim szerver vagy kliensként
 |term.txt|	különböző terminálok és egerek használata
 |terminal.txt|	terminálablakok támogatása
 |popup.txt|	felugró ablakok támogatása
 |vim9.txt|	Vim9 script használata
 
 Programnyelvek támogatása~
-|indent.txt|	automatikus behúzás C és más nyelvek szmára
-|syntax.txt|	szintaxiskiemelés
+|indent.txt|	automatikus behúzás C és más nyelvek számára
+|syntax.txt|	szintaxis kiemelés
 |textprop.txt|	szavak ellátása tulajdonságokkal (szintaxis kiemelés számára)
 |filetype.txt|	fájltípusfüggő beállítások
 |quickfix.txt|	parancsok a gyors szerkesztés-fordítás-javítás ciklushoz
@@ -179,7 +179,7 @@ Támogatott nyelvek~
 |hungarian.txt|   Magyar nyelv támogatása
 |mbyte.txt|	multibyte támogatás
 |mlang.txt|	nem Angol nyelvek támogatása
-|rileft.txt|	jobbról-balra töreturnénő szerkesztés
+|rileft.txt|	jobbról-balra történő szerkesztés
 |arabic.txt|	arab nyelvű támogatás
 |farsi.txt|	Farsi (perzsa) támogatás
 |hebrew.txt|	Héber nyelv támogatása
@@ -229,7 +229,7 @@ Gondolatok különböző rendszerekről~
 |os_win32.txt|	MS-Windows
 						*standard-plugin-list*
 Alapértelmezett beépülők~
-|pi_getscript.txt| Vim scriptek legfrissebb verziójának letöltése
+|pi_getscript.txt| Vim szkriptek legfrissebb verziójának letöltése
 |pi_gzip.txt|      Tömörített állományok írása és olvasása
 |pi_logipat.txt|   Logikai operátorok és minták
 |pi_netrw.txt|     Fájlok távoli írása és olvasása
