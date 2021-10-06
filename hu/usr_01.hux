@@ -5,7 +5,7 @@
 			      A kézikönyvről
 
 A fejezet röviden bemutatja a Vim működését. Elolvasásával a információt
-szerezhetünk a prancsok működéséről és feltételeiről.
+szerezhetünk a parancsok működéséről és feltételeiről.
 
 |01.1|	A két fejezet
 |01.2|	Vim telepítés
@@ -22,7 +22,7 @@ The Vim documentation consists of two parts:
 A Vim dokumentációja két fejezetből áll
 
 1. A felhasználói kézikönyv
-   Feladatorientált magyarázatok egyszerűtől a komplexig. Olvasható elejétől
+   eladatorientált magyarázatok egyszerűtől a komplexig. Olvasható elejétől
    a végéig (akárcsak egy könyv)
 
 2. Vim Referencia
