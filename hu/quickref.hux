@@ -1,16 +1,16 @@
 *quickref.txt*  Vim verzió 8.2.  Frissítve: 2021 Mar 29
 
 
-		  Bram Moolenaar: VIM REFERENCIA
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			    Referencia Áttekintés
 
 							 *quickref* *Contents*
  tag	  tárgy				tag	tárgy	~
 |Q_ct|	helpfájlok listája		|Q_re|	Parancsok ismétlése
-|Q_lr|	mozgás: Balra-jobbra		|Q_km|	Billentyűmappek
+|Q_lr|	mozgás: Balra-jobbra		|Q_km|	Billentyű-mappek
 |Q_ud|	mozgás: Fel-le			|Q_ab|	Rövidítések
-|Q_tm|	mozgás: Szöveges objektumok	|Q_op|	Beállíltások
+|Q_tm|	mozgás: Szöveges objektumok	|Q_op|	Beállítások
 |Q_pa|	mozgás: Keresési minták		|Q_ur|	Visszavonás / újra
 |Q_ma|	mozgás: Jelölők			|Q_et|	Külső parancsok
 |Q_vm|	mozgás: Egyebek			|Q_qf|	Quickfix parancsok
@@ -25,7 +25,7 @@
 |Q_cm|	változtatás: Másolás, mozgatás	|Q_ac|	Automatikus parancsok
 |Q_ch|	változtatás: Szöveg mozgatása	|Q_wi|	Több ablakos parancsok
 |Q_co|	változtatás: Komplex		|Q_bu|	Buffer lista parancsok
-|Q_vi|	Vizuális mód			|Q_sy|	Szintakszis kiemelésk
+|Q_vi|	Vizuális mód			|Q_sy|	Szintaxis kiemelés
 |Q_to|	Szöveges Objektumok		|Q_gu|	GUI parancsok
 					|Q_fo|	Folding
 
@@ -72,7 +72,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 			első nem üres karakterre
 |gg|	N  gg		ugrás az N. sorra (alapértelmezett: legelső sor), az
 			első nem üres karakterre
-|N%|	N  %		ugrás N |%|-nyit le. az N számot kötelező megadni,
+|N%|	N  %		ugrás N |%|-nyit le. Az N számot kötelező megadni,
 			különben a |%| parancsként értékelődik ki.
 |gk|	N  gk		fel N sort (különbözik "k"-tól sortörés esetén)
 |gj|	N  gj		le N sort (különbözik "j"-től sortörés esetén)
@@ -117,7 +117,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |/<CR>|	N  /<CR>	az utolsó keresés megismétlése előre irányban
 |?<CR>|	N  ?<CR>	az utolsó keresés megismétlése hátra irányban
 |n|	N  n		keresés ismétlése (azaz következő előfordulás)
-|N|	N  N		keresés ismétlése (azaz előző előforfulás)
+|N|	N  N		keresés ismétlése (azaz előző előfordulás)
 |star|	N  *		keresés előre (kurzor alatti szóra)
 |#|	N  #		keresés hátra (kurzor alatti szóra)
 |gstar|	N  g*		mint a  "*", a részleges illeszkedéseket is
@@ -136,7 +136,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 		    illeszkedik a szó végére	\>	\>
      illeszkedik a tartomány egy karakterére	[a-z]	\[a-z]
   illeszkedik ha a tartomány nem tartalmazza	[^a-z]	\[^a-z]
-	 egy azonosítókarakterre illeszkedik	\i	\i
+	 egy azonosító karakterre illeszkedik	\i	\i
 			 ugyanaz de nem szám	\I	\I
 		 matches a keyword character	\k	\k
 		         ugyanaz de nem szám	\K	\K
@@ -150,10 +150,10 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 			   illeszkedik <Tab>	\t	\t
 			    illeszkedik <CR>	\r	\r
 			    illeszkedik <BS>	\b	\b
-    az előző minta 0 vagy töbször fordul elő	*	\*
+    az előző minta 0 vagy többször fordul elő	*	\*
   az előző minta legalább egy- vagy többször	\+	\+
 	       az előző minta 0 vagy egyszer	\=	\=
-    az alőző minta min 2-szer de max. 5-ször    \{2,5}  \{2,5}
+    az előző minta min 2-szer de max. 5-ször    \{2,5}  \{2,5}
           két (vagy több) alternatíva (VAGY) 	\|	\|
 			       csoportosítás	\(\)	\(\)
 
@@ -185,8 +185,8 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 			elejére
 |`]|       `]		menj a legutolsó szerkesztett (vagy másolt) szöveg
 			végére
-|`<|       `<		menj az utóljára kijelölt szöveg elejéhez
-|`>|       `>		menj az utóljára kijelölt szöveg végéhez
+|`<|       `<		menj az utoljára kijelölt szöveg elejéhez
+|`>|       `>		menj az utoljára kijelölt szöveg végéhez
 |`.|       `.		menj a legutolsó szerkesztés pozíciójához
 |'|        '{a-zA-Z0-9[]'"<>.}
 			ugyan az, mint `, de a sor legelső nem üres karakterére
@@ -195,11 +195,11 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |CTRL-I|  N  CTRL-I	N. újabb pozíció a jump-listben
 |:ju|     :ju[mps]	jump-list megtekintése
 ------------------------------------------------------------------------------
-*Q_vm*		Egyéb navigációs parnacsok
+*Q_vm*		Egyéb navigációs parancsok
 
 |%|	   %	        "(", "[", "#else", "#endif" vagy komment párjához ugrás
 |H|	N  H		ugorj az N. sorhoz az ablakban (legelső nem üres
-	    krakter)
+	                karakter)
 |M|	   M		ugorj az ablak középső sorára (nem üres)
 |L|	N  L		ugorj az ablak N. alsó sorára (nem üres)
 
@@ -208,7 +208,7 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 ------------------------------------------------------------------------------
 *Q_ta*		Tagek (címkék)  használata
 ??? maybe later ???
-|:ta|      :ta[g][!] {tag}	ugroj taghez {tag}
+|:ta|      :ta[g][!] {tag}	ugorj taghez {tag}
 |:ta|      :[count]ta[g][!]	jump to [count]'th newer tag in tag list
 |CTRL-]|      CTRL-]		jump to the tag under cursor, unless changes
 				   have been made
@@ -241,9 +241,9 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |CTRL-Y|	N  CTRL-Y	N sort felfelé (1 sor)
 |CTRL-U|	N  CTRL-U	N sort felfelé (1/2 ablak)
 |CTRL-B|	N  CTRL-B	N sort hátra (képernyő)
-|z<CR>|		   z<CR> or zt	jelenlegi sor az ablak tetejére
-|z.|		   z.	 or zz	jelenlegi sor az ablak közepére
-|z-|		   z-	 or zb	jelenlegi sor az ablak aljára
+|z<CR>|		   z<CR> vagy	zt	jelenlegi sor az ablak tetejére
+|z.|		   z.	 vagy	zz	jelenlegi sor az ablak közepére
+|z-|		   z-	 vagy	zb	jelenlegi sor az ablak aljára
 
 Ezek a parancsok csak akkor működnek, ha 'wrap' nincs bekapcsolva:
 |zh|		N  zh		képernyő görgetése N karakterrel jobbra
@@ -271,18 +271,18 @@ Visual block módban:
 
 |insert-index|	Insert mód parancsok, betűrendben
 
-kilépés Insert módból:
+Kilépés Insert módból:
 |i_<Esc>|	<Esc>		  Insert mód vége, vissza Normal módba
 |i_CTRL-C|	CTRL-C		  mint <Esc>, de nem használ rövidítést
 |i_CTRL-O|	CTRL-O {command}  futtatja a {command} parancsot,  majd
 				  visszatér Insert módba
 
-mozgások:
+Mozgások:
 |i_<Up>|	cursor keys	  kurzor mozgatása le/fel/balra/jobbra
 |i_<S-Left>|	shift-left/right  egy szót balra/jobbra
 |i_<S-Up>|	shift-up/down	  egy képernyőnyit előre/hátra
 |i_<End>|	<End>		  kurzort a sor végére
-|i_<Home>|	<Home>		  kurort a sor első karakterére
+|i_<Home>|	<Home>		  kurzort a sor első karakterére
 ------------------------------------------------------------------------------
 *Q_ss*		Speciális billentyűk Insert módban
 
@@ -353,7 +353,7 @@ Insert vagy Command-line módban:
 |quote|	  "{char}	{char} azonosítójú regiszter használata a következő
 			művelethez (törlés, másolás, beillesztés)
 |:reg|	  :reg		megjeleníti az összes regiszter tartalmát
-|:reg|	  :reg {arg}	megjelíti {arg} regiszter tartalmát
+|:reg|	  :reg {arg}	megjeleníti {arg} regiszter tartalmát
 |y|	  N  y{motion}	szöveg másolása {motion} tartománnyal
 |v_y|	     {visual}y	kijelölt szöveg másolása
 |yy|	  N  yy		N sor másolása
@@ -389,7 +389,7 @@ Insert vagy Command-line módban:
 |v_b_C|	     {visual}C	Visual block módban: Az összes kijelölt sor cseréje a
 			sor végéig
 
-|~|	  N  ~		kis-nagybetűk megfordítása N karakteren kersztül
+|~|	  N  ~		kis-nagybetűk megfordítása N karakteren keresztül
 			(a soron belüli, kurzort N-hez helyezi)
 |v_~|	     {visual}~	kijelölt szövegrész kis- nagybetűinek megfordítása
 |v_u|	     {visual}u	kijelölt tartomány kisbetűssé alakítása
@@ -441,7 +441,7 @@ Insert vagy Command-line módban:
 			{motion} tartomány átadása az 'equalprg' által
 			beállított külső programnak. Ha nincs beállítva más
 			érték, akkor automatikus behúzás.
-|==|	   N  ==	N sor átadása az 'equalprg' áltlal beállított külső
+|==|	   N  ==	N sor átadása az 'equalprg' által beállított külső
 			programnak. Ha nincs beállítva érték, akkor
 			automatikus behúzás.
 |v_=|	   {visual}=	kijelölt sorok átadása 'equalprg'-nek
@@ -511,11 +511,11 @@ Insert vagy Command-line módban:
 |q|	      q{a-z}	begépelt karakterek rögzítése regiszterbe (felülír){a-z}
 |q|	      q{A-Z}	begépelt karakterek rögzítése regiszterbe (hozzáfűz)
 			{a-z}
-|q|	      q		rögzítés lállítása
+|q|	      q		rögzítés leállítása
 |@|	   N  @{a-z}	regiszter tartalmának futtatása {a-z} (N-szer)
 |@@|	   N  @@	az utolsó futtatott regiszter ismételt futtatás @{a-z}
 			(N-szer)
-|:@|	   :@{a-z}	regiszter tartalmának futtatása {a-z} Ex prancsként
+|:@|	   :@{a-z}	regiszter tartalmának futtatása {a-z} Ex parancsként
 |:@@|	   :@@		előző :@{a-z} ismétlése
 
 |:g|	   :[range]g[lobal]/{pattern}/[cmd]
@@ -579,14 +579,14 @@ Insert vagy Command-line módban:
 
 |:mkexrc|    :mk[exrc][!] [file]  az érvényben lévő mappek, rövidítések és
 				beállítások kiírása [file]-ba,
-				(alapélrtelmezett: ".exrc"; felülíráshoz
+				(alapértelmezett: ".exrc"; felülíráshoz
 				használj !-t)
 
 |:mkvimrc|   :mkv[imrc][!] [file] mint az ":mkexrc", alapértelmezett fájl:
 				".vimrc"
 
 |:mksession| :mks[ession][!] [file] mint az ":mkvimrc", tárolja a megnyitott
-				  fájlokat, ablakokat stb, hogy később tudjuk
+				  fájlokat, ablakokat stb., hogy később tudjuk
 				  folytatni a munkamenetet
 ------------------------------------------------------------------------------
 *Q_ab*		Rövidítések
@@ -597,7 +597,7 @@ Insert vagy Command-line módban:
 |:unabbreviate|	:una[bbreviate] {lhs}	   {lhs} rövidítésének eltávolítása
 |:noreabbrev|	:norea[bbrev] [lhs] [rhs]  mint ":ab", de nem remappolja [rhs]-t
 |:iabbrev|	:iab/:iunab/:inoreab	   mint ":ab", de csak Insert módban
-|:cabbrev|	:cab/:cunab/:cnoreab	   mint ":ab", de csak Comman-line
+|:cabbrev|	:cab/:cunab/:cnoreab	   mint ":ab", de csak Command-line
 					   módban
 |:abclear|	:abc[lear]		   az összes rövidítés eltávolítása
 |:cabclear|	:cabc[lear]		   az összes Command-line rövidítés
@@ -609,7 +609,7 @@ Insert vagy Command-line módban:
 
 ??? termcap? ???
 
-|:set|		:se[t]			  az összes módosított beálltás
+|:set|		:se[t]			  az összes módosított beállítás
 				          listázása
 |:set|		:se[t] all		  show all non-termcap options
 |:set|		:se[t] termcap		  show all termcap options
@@ -655,7 +655,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'arabic'	  'arab'    Arab nyelv alapértelmezett második nyelvként
 'arabicshape'	  'arshape' Arab karakterek formázása
 'autoindent'	  'ai'	    az új sor behúzása követi az előző sorét
-'autoread'	  'ar'	    fájl auto. beolvasása ha Vimen kívülről változott
+'autoread'	  'ar'	    fájl auto beolvasása ha Vimen kívülről változott
 'autowrite'	  'aw'	    fájl automatikus mentése változás esetén
 'autowriteall'	  'awa'     mint 'autowrite', több paranccsal kompatibilis
 'background'	  'bg'	    "dark" vagy "light", kiemeléshez használatos
@@ -666,7 +666,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'backupext'	  'bex'     biztonsági másolatnál használt kiegészítők
 'backupskip'	  'bsk'     biztonsági másolat kihagyása illeszkedő minta
 			    esetén
-'balloondelay'	  'bdlay'   értesítési időköz (mS)
+'balloondelay'	  'bdlay'   értesítési időköz (ms)
 'ballooneval'	  'beval'     switch on balloon evaluation in the GUI
 'balloonevalterm' 'bevalterm' switch on balloon evaluation in the terminal
 'balloonexpr'	  'bexpr'   expression to show in balloon
@@ -677,23 +677,23 @@ Az összes opció rövid magyarázata:		*option-list*
 'breakat'	  'brk'     sortörést okozó karakterek
 'breakindent'	  'bri'     tördelt sor örökli a behúzást
 'breakindentopt'  'briopt'  'breakindent' beállítása
-'browsedir'	  'bsdir'   böngészési alap. könyvtár
+'browsedir'	  'bsdir'   böngészési alapértelmezett könyvtár
 'bufhidden'	  'bh'	    teendők ha a buffer már nincs az ablakban
-'buflisted'	  'bl'	    teendők ha a buffer a bufferlistára kerül
+'buflisted'	  'bl'	    teendők ha a buffer a buffer-listára kerül
 'buftype'	  'bt'	    speciális buffer
 'casemap'	  'cmp'     kis- nagybetűs karakterek cseréjére vonatkozó
 			    beállítások
 'cdpath'	  'cd'	    könyvtárak listája, melyben a ":cd" parancs keres
 'cedit'			    command-line ablakot megnyitó billentyű
-'charconvert'	  'ccv'     kifejezések karater kódolás konvertálására
-'cindent'	  'cin'     C program-szerű identálás
+'charconvert'	  'ccv'     kifejezések karakter kódolás konvertálására
+'cindent'	  'cin'     C program-szerű indentálás
 'cinkeys'	  'cink'    'cindent' opcióban beállított karakterek listája
-'cinoptions'	  'cino'    identálás a 'cindent' beállítás esetén
-'cinwords'	  'cinw'    szavak, melyeknél a  'si' és 'cin' identál
+'cinoptions'	  'cino'    indentálás a 'cindent' beállítás esetén
+'cinwords'	  'cinw'    szavak, melyeknél a  'si' és 'cin' indentál
 'clipboard'	  'cb'	    vágólap használata névtelen regiszterként
 'cmdheight'	  'ch'	    command-line sormagassága
 'cmdwinheight'	  'cwh'     command-line ablak magassága
-'colorcolumn'	  'cc'	    oszlopok kiemlése
+'colorcolumn'	  'cc'	    oszlopok kiemelése
 'columns'	  'co'	    ablak oszlopainak a száma
 'comments'	  'com'     minták, melyek alapján a sor kommentként lesz
 			    kezelve
@@ -709,17 +709,17 @@ Az összes opció rövid magyarázata:		*option-list*
 'conceallevel'	  'cole'    helyettesítések ki- és bekapcsolása
 'confirm'	  'cf'	    kérdés a nem mentett, csak olvasható fájlok esetén
 'conskey'	  'consk'   billentyűk észlelés a konzolból (csak MS-DOS)
-'copyindent'	  'ci'	    az 'autoindent' az előző identálási struktúrát
+'copyindent'	  'ci'	    az 'autoindent' az előző indentálási struktúrát
 			    használja
 'cpoptions'	  'cpo'     flagek a Vi kompatibilis viselkedéséhez
 'cryptmethod'	  'cm'	    titkosítási metódus meghatározása
 'cscopepathcomp'  'cspc'    elérési út komponenseinek meghatározása
 'cscopeprg'       'csprg'   cscope-ot meghívó program
 'cscopequickfix'  'csqf'    quickfix ablak használata a cscope eredményeihez
-'cscoperelative'  'csre'    cscope.out használata prefixként
+'cscoperelative'  'csre'    cscope.out használata prefixumként
 'cscopetag'       'cst'     cscope használata tag parancsokhoz
 'cscopetagorder'  'csto'    ":cstag" keresési sorrendjének meghatározása
-'cscopeverbose'   'csverb'  üzenettel jelzia cscope adatbázis hozzáadását
+'cscopeverbose'   'csverb'  üzenettel jelzi a cscope adatbázis hozzáadását
 'cursorbind'	  'crb'     a kurzor összehangoltan mozog az ablakokban
 'cursorcolumn'	  'cuc'	    kurzor oszlopának kiemelése
 'cursorline'	  'cul'	    kurzor sorának kiemelése
@@ -730,7 +730,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'dictionary'	  'dict'    szótárfájlok a kiegészítéshez
 'diff'			    diff mód használata a jelenlegi ablakban
 'diffexpr'	  'dex'     diff fájlt előállító kifejezés
-'diffopt'	  'dip'     diff mód bállításai
+'diffopt'	  'dip'     diff mód beállításai
 'digraph'	  'dg'	    digrammák engedélyezése Insert módban
 'directory'	  'dir'     swap fájl elérési útjai
 'display'	  'dy'	    sorok megjelenítésének beállítási
@@ -747,13 +747,13 @@ Az összes opció rövid magyarázata:		*option-list*
 'esckeys'	  'ek'	    <F1>...<F12> billentyűk felismerése Insert módban
 'eventignore'	  'ei'	    figyelmen kívül hagyott autocommandok
 'expandtab'	  'et'	    szóközök használata <Tab> esetén
-'exrc'		  'ex'	    .vimrc és .exrc olvasása a jelennlegi könyvtárból
+'exrc'		  'ex'	    .vimrc és .exrc olvasása a jelenlegi könyvtárból
 'fileencoding'	  'fenc'    aktív buffer karakterkódolása
 'fileencodings'   'fencs'   karakterkódolás automatikus felismerés
-'fileformat'	  'ff'	    fájlformátum (<EOL> karakterek, dos, unix, mac)
+'fileformat'	  'ff'	    fájlformátum (<EOL> karakterek, dos, Unix, mac)
 'fileformats'	  'ffs'     'fileformat' értékeinek automatikus meghatározása
 'fileignorecase'  'fic'     betűtípus figyelmen kívül hagyása fájlnevek esetén
-'filetype'	  'ft'	    a fájl típusa (autocommanodknál)
+'filetype'	  'ft'	    a fájl típusa (autocommandoknál)
 'fillchars'	  'fcs'     speciális karakterek megjelenítésének karakterei
 'fixendofline'	  'fixeol'  a fájl utolsó sorában legyen <EOL>
 'fkmap'		  'fk'	    Farsi elavult opciója
@@ -802,21 +802,21 @@ Az összes opció rövid magyarázata:		*option-list*
 'imactivatefunc'  'imaf'    X input mód be/ki
 'imactivatekey'   'imak'    X input módot aktiváló billentyű
 'imcmdline'	  'imc'     beviteli mód (IM) aktivizálása command line módnál
-'imdisable'	  'imd'     beviteli mód (IM) tiltása monden módban
+'imdisable'	  'imd'     beviteli mód (IM) tiltása minden módban
 'iminsert'	  'imi'     :lmap vagy IM használata Insert módban
 'imsearch'	  'ims'     :lmap vagy IM használata keresési minta gépelésekor
 'imstatusfunc'    'imsf'    függvény, mi lekérdezi az X input method állapotát
 'imstyle'	  'imst'    beviteli mód stílusának a meghatározása
-'include'	  'inc'     minta az includeolt fájlok kereséséhez
-'includeexpr'	  'inex'    kifejezés, mely feldolgozza az '"clude" sort
+'include'	  'inc'     minta az beágyazott fájlok kereséséhez
+'includeexpr'	  'inex'    kifejezés, mely feldolgozza az "clude" sort
 'incsearch'	  'is'	    highlight match while typing search pattern
-'indentexpr'	  'inde'    kifejezés, mely az identálásról informál
-'indentkeys'	  'indk'    billentyű, mely 'indentexpr' értékkel identál
-'infercase'	  'inf'     a kulcsszókiegészítések betűérzékenységének állítása
+'indentexpr'	  'inde'    kifejezés, mely az indentálásról informál
+'indentkeys'	  'indk'    billentyű, mely 'indentexpr' értékkel indentál
+'infercase'	  'inf'     a kulcsszó-kiegészítések betűérzékenységének állítása
 'insertmode'	  'im'	    a fájl megnyitása Insert móddal
 'isfname'	  'isf'     fájlnevekben és elérési utakban engedélyezett karakterek
 'isident'	  'isi'     azonosítókban engedélyezett karakterek
-'iskeyword'	  'isk'     kulcsszavakban engedéyezett karaktererk
+'iskeyword'	  'isk'     kulcsszavakban engedélyezett karakterek
 'isprint'	  'isp'     nyomtatható karakterek
 'joinspaces'	  'js'	    join parancs, két szóköz a "." karakter után
 'key'			    titkosítási kulcs
@@ -832,8 +832,8 @@ Az összes opció rövid magyarázata:		*option-list*
 'linebreak'	  'lbr'     sor törése meghatározott karaktereket követően
 'lines'			    megjelenített sorok száma
 'linespace'	  'lsp'     betűközök mérete
-'lisp'			    automatikus identálás (Lisp)
-'lispwords'	  'lw'	    szavak, melyek a Lisp identálást befolyásolják
+'lisp'			    automatikus indentálás (Lisp)
+'lispwords'	  'lw'	    szavak, melyek a Lisp indentálást befolyásolják
 'list'			    <Tab> és <EOL> megjelenítése
 'listchars'	  'lcs'     'list' mód által megjelenített karakterek
 'loadplugins'	  'lpl'     beépülők betöltése indulásnál
@@ -842,7 +842,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'makeef'	  'mef'     ":make" hibafájljának a neve
 'makeencoding'	  'menc'    külső make/grep parancsok karakterkódolása
 'makeprg'	  'mp'	    ":make" parancsot használó program neve
-'matchpairs'	  'mps'     karakterpárok, melyekete a "%" keres
+'matchpairs'	  'mps'     karakterpárok, melyeket a "%" keres
 'matchtime'	  'mat'     késleltetés (0.1sec) a zárójelpárokra ugráskor
 'maxcombine'	  'mco'     kombinálható karakterek maximum száma
 'maxfuncdepth'	  'mfd'     felhasználói függvények maximális mélysége
@@ -851,7 +851,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'maxmempattern'   'mmp'     maximális memória (Kbyte) keresési mintákhoz
 'maxmemtot'	  'mmt'     maximális memória (Kbyte) összes buffer
 'menuitems'	  'mis'     menüelemek maximális száma
-'mkspellmem'	  'msm'     memóra, mielőtt az |:mkspell| tömöríti a fát
+'mkspellmem'	  'msm'     memória, mielőtt az |:mkspell| tömöríti a fát
 'modeline'	  'ml'	    fájl elején, végén lévő módsorok alkalmazása
 'modelineexpr'	  'mle'	    kifejezések beállításának lehetősége a módsorokból
 'modelines'	  'mls'     sorok száma módsorok keresésekor
@@ -863,8 +863,8 @@ Az összes opció rövid magyarázata:		*option-list*
 'mousehide'	  'mh'	    egér-kurzor elrejtése gépeléskor
 'mousemodel'	  'mousem'  egér jellegének megváltoztatása
 'mouseshape'	  'mouses'  egér-kurzor stílusa (módonként)
-'mousetime'	  'mouset'  duplakill közöt maximális idő
-'mzquantum'	  'mzq'     MzScheme szálak polljainak meximális időköze
+'mousetime'	  'mouset'  dupla-klikk között maximális idő
+'mzquantum'	  'mzq'     MzScheme szálak polljainak maximális időköze
 'mzschemedll'		    MzScheme dynamic library neve
 'mzschemegcdll'		    MzScheme dynamic library neve (GC)
 'nrformats'	  'nf'	    CTRL-A által felismert számformátumok
@@ -882,7 +882,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'patchmode'	  'pm'	    legrégebbi fájlverzió megtartása
 'path'		  'pa'	    "gf" keresési könyvtári
 'perldll'		    Perl dynamic library neve
-'preserveindent'  'pi'	    identálási struktóra megtartása újra-identálásnál
+'preserveindent'  'pi'	    indentálási struktúra megtartása újra-indentálásnál
 'previewheight'   'pvh'     előnézeti ablak magassága
 'previewpopup'    'pvp'     előnézet felugró ablakban
 'previewwindow'   'pvw'     azonosítja az előnézeti ablakot
@@ -912,17 +912,17 @@ Az összes opció rövid magyarázata:		*option-list*
 'renderoptions'	  'rop'	    Window szöveg renderelési beállítások
 'report'		    változott sorok jelentésének minimális határszáma
 'restorescreen'   'rs'	    Win32: képernyő-visszatöltés
-'revins'	  'ri'	    Insert mód szövegbeviteli irányának megfordírása
-'rightleft'	  'rl'	    ablakorientációk: jpbbról-balra
+'revins'	  'ri'	    Insert mód szövegbeviteli irányának megfordítása
+'rightleft'	  'rl'	    ablakorientációk: jobbról-balra
 'rightleftcmd'	  'rlc'     jobbról-balra irányt támogató parancsok
 'rubydll'		    Ruby dynamic library neve
-'ruler'		  'ru'	    kurzor soránk és oszlopának mutatása (állapotsor)
+'ruler'		  'ru'	    kurzor sorának és oszlopának mutatása (állapotsor)
 'rulerformat'	  'ruf'     'ruler' egyedi formátuma
 'runtimepath'	  'rtp'     futásidejű (runtime) könyvtárak mutatása
-'scroll'	  'scr'     sorok scrollozásának mennyisége (CTRL-U,CTRL-D)
-'scrollbind'	  'scb'     a scrollozás minden ablakra hatással van
+'scroll'	  'scr'     sorok görgetésének mennyisége (CTRL-U,CTRL-D)
+'scrollbind'	  'scb'     a görgetés minden ablakra hatással van
 'scrollfocus'	  'scf'     a görgő a kurzor alatti ablakot görgeti
-'scrolljump'	  'sj'	    scollozás minimális sorainak a száma
+'scrolljump'	  'sj'	    görgetés minimális sorainak a száma
 'scrolloff'	  'so'	    minimum sor a kurzor alatt és felett
 'scrollopt'	  'sbo'     'scrollbind' viselkedése
 'sections'	  'sect'    nroff makrók:  szekciók elválasztása
@@ -930,59 +930,59 @@ Az összes opció rövid magyarázata:		*option-list*
 'selection'	  'sel'     kiválasztási mód
 'selectmode'	  'slm'     Select mód preferálása Visual helyett
 'sessionoptions'  'ssop'    |:mksession| beállításai
-'shell'		  'sh'	    a shell neve, külső pranacsok használatához
-'shellcmdflag'	  'shcf'    shell opciók parancsfuttatásokhoz
+'shell'		  'sh'	    a shell neve, külső parancsok használatához
+'shellcmdflag'	  'shcf'    shell opciók parancs futtatásokhoz
 'shellpipe'	  'sp'	    ":make" parancs szövegek (hibafájlokban)
 'shellquote'	  'shq'     karakter a shell parancsok idézőjelezéséhez
-'shellredir'	  'srr'     szöveg a szűrőparancsok kiemenetéez (temp fájl)
+'shellredir'	  'srr'     szöveg a szűrőparancsok kimenetéhez (temp fájl)
 'shellslash'	  'ssl'     "/" használata shell-fájlnevekhez
 'shelltemp'	  'stmp'    használjon temp fájlokat a shell parancsokhoz
 'shelltype'	  'st'	    Amiga: shell használatának módja
 'shellxescape'	  'sxe'     karaktereke escapelése 'shellxquote'
 'shellxquote'	  'sxq'     mint a  'shellquote', de tartalmaz átirányítást
-'shiftround'	  'sr'	    identálás kerekításe a legközelebbi 'shiftwidth' értékre
-'shiftwidth'	  'sw'	    identálási szintekhez használt szóközök mennyisége
+'shiftround'	  'sr'	    indentálás kerekítése a legközelebbi 'shiftwidth' értékre
+'shiftwidth'	  'sw'	    indentálási szintekhez használt szóközök mennyisége
 'shortmess'	  'shm'     flagek listája, üzenetek hosszának redukálása
 'shortname'	  'sn'	    fájlnevek feltételezhetően be 8.3 karakteresek
 'showbreak'	  'sbr'     sortörést reprezentáló karakter
 'showcmd'	  'sc'	    parancsok (részleges) mutatása az állapotsorban
 'showfulltag'	  'sft'     a teljes tag mutatása kiegészítéseknél
-'showmatch'	  'sm'	    bevitt szögletes zárójel párjához ugrás bevielkor
-'showmode'	  'smd'     aktuális mód megjelenításe az állapotsoron
+'showmatch'	  'sm'	    bevitt szögletes zárójel párjához ugrás bevitelkor
+'showmode'	  'smd'     aktuális mód megjelenítése az állapotsoron
 'showtabline'	  'stal'    a fülsáv állapotának tárolása
-'sidescroll'	  'ss'	    hoizontálisan görgetett oszlopok minimális mennyisége
+'sidescroll'	  'ss'	    horizontálisan görgetett oszlopok minimális mennyisége
 'sidescrolloff'   'siso'    kurzortól balra-jobbra lévő minimális oszlopok száma
 'signcolumn'	  'scl'	    "sign" oszlop megjelenítése
 'smartcase'	  'scs'     betűérzékeny keresés ha a keresésben szerepel nagybetű
-'smartindent'	  'si'	    C programok automatikus identálása
+'smartindent'	  'si'	    C programok automatikus indentálása
 'smarttab'	  'sta'     'shiftwidth' használata <Tab> karakterhez
-'softtabstop'	  'sts'     szöközök használata <Tab> karakterhez szerkesztésben
+'softtabstop'	  'sts'     szóközök használata <Tab> karakterhez szerkesztésben
 'spell'			    helyesírás ellenőrzés engedélyezése
 'spellcapcheck'   'spc'     pattern to locate end of a sentence
 'spellfile'	  'spf'     fájl a |zg| és |zw| parancsok által szavak tárolásához
 'spelllang'	  'spl'     ellenőrzött nyelv(ek) listája
-'spelloptions'	  'spo'     nyelvi elenőrzés további opciói
+'spelloptions'	  'spo'     nyelvi ellenőrzés további opciói
 'spellsuggest'	  'sps'     módok a nyelvi javaslatok használatához
 'splitbelow'	  'sb'	    új splitek alulra rendezése
 'splitright'	  'spr'     új splitek jobbra rendezése
 'startofline'	  'sol'     parancsok, melyek a kurzort a sor első nem üres
-			    karakterére mozgátják
+			    karakterére mozgatják
 'statusline'	  'stl'     állapotsor egyedi formátuma
 'suffixes'	  'su'	    utótagok (suffix) ignorálása fájl keresésekor
-'suffixesadd'	  'sua'     utótagok (suffix) hozzáadása fájl kereésekor
+'suffixesadd'	  'sua'     utótagok (suffix) hozzáadása fájl keresésekor
 'swapfile'	  'swf'     swapfájl használata a bufferhez
 'swapsync'	  'sws'     swapfájl szinkronizálásának módja
 'switchbuf'	  'swb'     viselkedés bufferváltás esetén
-'synmaxcol'	  'smc'     maximális oszlopszám szintaxiselemekhez
+'synmaxcol'	  'smc'     maximális oszlopszám szintaxis elemekhez
 'syntax'	  'syn'     szintaxis az aktuális bufferhez
 'tabline'	  'tal'     konzol fülsávjának egyedi formátuma
 'tabpagemax'	  'tpm'     maximális fülek |-p|-hez és "tab all"-hoz
-'tabstop'	  'ts'	    szüközök mennyisége, melyet a <Tab> használ
+'tabstop'	  'ts'	    szóközök mennyisége, melyet a <Tab> használ
 'tagbsearch'	  'tbs'     bináris keresés használata tag fájlokban
 'tagcase'	  'tc'      betűérzékenység tag fájlban való kereséshez
 'tagfunc'	  'tfu'	    listázza az egyező tag találatokat
 'taglength'	  'tl'	    szignifikáns karakterek (tag)
-'tagrelative'	  'tr'	    tag fájlok fálnevei relatívak
+'tagrelative'	  'tr'	    tag fájlok fájlnevei relatívak
 'tags'		  'tag'     tag parancs által használt fájlok nevei
 'tagstack'	  'tgst'    tag hozzáadása a stackhez
 'tcldll'		    Tcl dynamic library neve
@@ -991,25 +991,25 @@ Az összes opció rövid magyarázata:		*option-list*
 'termencoding'	  'tenc'    terminál karakterkódolása
 'termguicolors'	  'tgc'     GUI színek használata a terminálhoz
 'termwinkey'	  'twk'	    Vim parancsot megelőző billentyű (terminálban)
-'termwinscroll'   'twsl'    maximális sor megtartása a terminálban (historz)
+'termwinscroll'   'twsl'    maximális sor megtartása a terminálban (history)
 'termwinsize'	  'tws'	    terminálablak mérete
 'termwintype'	  'twt'	    MS-Windows: pty típusa (terminálablak)
 'terse'			    bizonyos üzenetek rövidítése
 'textauto'	  'ta'	    elavult, használd ezt: 'fileformats'
 'textmode'	  'tx'	    elavult, használd ezt: 'fileformat'
 'textwidth'	  'tw'	    begépelhető maximális karakterek hossza
-'thesaurus'	  'tsr'     thesaurus fájlok listája (kulcsszókiegészítés)
+'thesaurus'	  'tsr'     thesaurus fájlok listája (kulcsszó-kiegészítés)
 'tildeop'	  'top'     "~" parancs operátorként viselkedik
 'timeout'	  'to'	    mappelések és billentyűkódok időkésleltetése
-'timeoutlen'	  'tm'	    időkésleltetés milliszekondumokban
+'timeoutlen'	  'tm'	    időkésleltetés (ms)
 'title'			    Vim állítja be az ablak címét
 'titlelen'		    ablakcím hossza, 'columns' (%) értéke
 'titleold'		    régi ablakcím, kilépés esetén visszaállítódik
-'titlestring'		    Vim ablak ablacíme (sring)
+'titlestring'		    Vim ablak ablak címe (string)
 'toolbar'	  'tb'	    GUI: eszköztár által megjelenített elemek
 'toolbariconsize' 'tbis'    eszköztár ikonjainak mérete (csak GTK 2 )
 'ttimeout'		    mappelések időkésleltetése
-'ttimeoutlen'	  'ttm'     billentyűkódok időkésleltetése milliszekondumban
+'ttimeoutlen'	  'ttm'     billentyűkódok időkésleltetése (ms)
 'ttybuiltin'	  'tbi'     beépített termcap használata külső termcap helyett
 'ttyfast'	  'tf'	    gyors terminál-kapcsolatot jelez
 'ttymouse'	  'ttym'    kódtípus generálása az egérhez
@@ -1018,16 +1018,16 @@ Az összes opció rövid magyarázata:		*option-list*
 'undodir'	  'udir'    visszavonás fájl (undo file) tárolásának helye
 'undofile'	  'udf'	    visszavonások tárolása (fájlnév)
 'undolevels'	  'ul'	    visszavonható szerkesztések maximális száma
-'undoreload'	  'ur'	    elmenthető sorok száma (vosszavonható) buffer betöltésnél
-'updatecount'	  'uc'	    swap fájl mentése karakterenkénk
-'updatetime'	  'ut'	    swap fájl mentése milliszekondumonként
+'undoreload'	  'ur'	    elmenthető sorok száma (visszavonható) buffer betöltésnél
+'updatecount'	  'uc'	    swap fájl mentése karakterének
+'updatetime'	  'ut'	    swap fájl mentése (ms)
 'varsofttabstop'  'vsts'    <Tab>-hoz használt szóközök listázása (szerkesztés
 			    közben)
-'vartabstop'	  'vts'	    több <Tab> karakter, váltöztatható szóközszámmal
-'verbose'	  'vbs'     informatív üzenetek megjelentítése
+'vartabstop'	  'vts'	    több <Tab> karakter, változtatható szóközszámmal
+'verbose'	  'vbs'     informatív üzenetek megjelenítése
 'verbosefile'	  'vfile'   üzenetek tárolásához használt fájl
-'viewdir'	  'vdir'    :mkview által látrehozott nézetek tárolása (fájl)
-'viewoptions'	  'vop'     :mkview nézetbeállításai
+'viewdir'	  'vdir'    :mkview által létrehozott nézetek tárolása (fájl)
+'viewoptions'	  'vop'     :mkview nézet beállításai
 'viminfo'	  'vi'	    .viminfo használata indulásnál és kilépésnél
 'viminfofile'	  'vif'	    viminfo fájlneve
 'virtualedit'	  've'	    mikor használjon virtuális szerkesztést
@@ -1038,14 +1038,14 @@ Az összes opció rövid magyarázata:		*option-list*
 'whichwrap'	  'ww'	    sorok közötti lépés meghatározott karakterek esetén
 'wildchar'	  'wc'	    command-line karakterek kiegészítései
 'wildcharm'	  'wcm'     mint 'wildchar', de mappelve is működik
-'wildignore'	  'wig'     minták ignorálása fájlnévkiegészítések esetén
-'wildignorecase'  'wic'     fájlnévkiegészítés nem betűérzékeny
+'wildignore'	  'wig'     minták ignorálása fájlnév-kiegészítések esetén
+'wildignorecase'  'wic'     fájlnév-kiegészítés nem betűérzékeny
 'wildmenu'	  'wmnu'    menü használata command-line kiegészítésekhez
 'wildmode'	  'wim'     'wildchar' command-line kiegészítés módjai
 'wildoptions'	  'wop'     command-line kiegészítésének módjai
 'winaltkeys'	  'wak'     windows rendszerek ALT billentyű kezelésének módjai
 'wincolor'	  'wcr'	    window-local kiemelés
-'window'	  'wi'	    CTRL-F és CTRL-B által gördítet sorok mennyisége
+'window'	  'wi'	    CTRL-F és CTRL-B által gördített sorok mennyisége
 'winheight'	  'wh'	    ablak maximális sormagassága
 'winfixheight'	  'wfh'     ablakmagasság megtartása nyitás/bezárás esetén
 'winfixwidth'	  'wfw'     ablakszélesség megtartása nyitás/bezárás esetén
@@ -1059,13 +1059,13 @@ Az összes opció rövid magyarázata:		*option-list*
 'write'			    mentés
 'writeany'	  'wa'	    mentéshez nem kell használni a "!" megerősítést
 'writebackup'	  'wb'	    biztonsági másolat készítése felülírás esetén
-'writedelay'	  'wd'	    karakterek között minimáls msec iőköz (debug)
+'writedelay'	  'wd'	    karakterek között minimális ms időköz (debug)
 ------------------------------------------------------------------------------
 *Q_ur*		Visszavonás/Mégis parancsok
 
 |u|       N  u		az utolsó N szerkesztést visszavonja
 |CTRL-R|  N  CTRL-R	az utolsó N visszavont szerkesztést mégis alkalmazza
-|U|          U		sor visszaállítása lapértelmezettre
+|U|          U		sor visszaállítása alapértelmezettre
 ------------------------------------------------------------------------------
 *Q_et*		Külső parancsok
 
@@ -1076,7 +1076,7 @@ Az összes opció rövid magyarázata:		*option-list*
 ------------------------------------------------------------------------------
 *Q_qf*		Quickfix parancsok
 
-|:cc|		:cc [nr]	hiba mutatása [nr] (alapértelezetten  az
+|:cc|		:cc [nr]	hiba mutatása [nr] (alapértelmezetten  az
 				előzőleg hívott argumentummal fut)
 |:cnext|	:cn		következő hiba mutatása
 |:cprevious|	:cp		előző hiba mutatása
@@ -1087,7 +1087,7 @@ Az összes opció rövid magyarázata:		*option-list*
 |:cgetexpr|	:cgete		mint a  :cexpr de nem ugrik az első hibához
 |:caddfile|	:caddf		hibák hozzáadása a jelenlegi quickfix listához
 				fájlból
-|:caddexpr|	:cad		hibák hozzáadása kifejezésból a jelenlegi
+|:caddexpr|	:cad		hibák hozzáadása kifejezésből a jelenlegi
 				quickfix listához
 |:cbuffer|	:cb		hibák beolvasása a buffer tartalmából
 |:cexpr|	:cex		hibák olvasása kifejezésből
@@ -1103,15 +1103,15 @@ Az összes opció rövid magyarázata:		*option-list*
 |CTRL-L|	   CTRL-L	törlés, ablakfrissítés
 |CTRL-G|	   CTRL-G	megnyitott fájl nevének mutatása (elérési úttal)
 				a kurzorpozícióban
-|ga|		   ga		kurzor alatt lévő karakter ascii kódjának
+|ga|		   ga		kurzor alatt lévő karakter ASCII kódjának
 				mutatása decimális, hex., és oktális érékekként
-|g8|		   g8		utf-8 kódolásnál: kurzor alatt lévő karakter
+|g8|		   g8		Utf-8 kódolásnál: kurzor alatt lévő karakter
 				bájtszekvenciájának mutatása (hex.)j
-|g_CTRL-G|	   g CTRL-G	sorszám, oszlopszám, karakterpozíció megjelenításe
+|g_CTRL-G|	   g CTRL-G	sorszám, oszlopszám, karakterpozíció megjelenítése
 |CTRL-C|	   CTRL-C	keresések esetén: keresés megszakítása
 |dos-CTRL-Break|   CTRL-Break	MS-Windows: keresések esetén: keresés megszakítása
 |<Del>|		   <Del>	N érték bevitelnél: utolsó karakter törlése
-|:version|	:ve[rsion]	verzióinformációk mutatása
+|:version|	:ve[rsion]	verzió-információk mutatása
 |:mode|		:mode N		képernyő-mód állítása: N (elavult)
 |:normal|	:norm[al][!] {commands}
 				Normál módú parancsok futtatása
@@ -1121,7 +1121,7 @@ Az összes opció rövid magyarázata:		*option-list*
 |:silent|	:silent[!] {command}	{command} futtatása üzenetablak nélkül
 |:confirm|	:confirm {command}	kilépés, írás, stb., kérdés mentetlen
 					fájl, valamit csak írható fájlok esetén
-|:browse|	:browse {command}	fájl megynyitás, írás, olvasás esetén
+|:browse|	:browse {command}	fájl megnyitás, írás, olvasás esetén
 					fájlkiválasztó menü
 ------------------------------------------------------------------------------
 *Q_ce*		Command-line szerkesztés
@@ -1138,7 +1138,7 @@ Az összes opció rövid magyarázata:		*option-list*
 |c_CTRL-B|	CTRL-B/CTRL-E	   kurzor a command-line elejére
 
 |c_<BS>|	<BS>		   kurzor előtti karakter törlése
-|c_<Del>|	<Del>		   kurzor alatti akrakter törlése
+|c_<Del>|	<Del>		   kurzor alatti karakter törlése
 |c_CTRL-W|	CTRL-W		   kurzor előtti szó törlése
 |c_CTRL-U|	CTRL-U		   összes bevitt karakter törlése
 
@@ -1147,7 +1147,7 @@ Az összes opció rövid magyarázata:		*option-list*
 |c_<S-Up>|	<S-Up>/<S-Down>	   böngészés a command-line historyban
 |c_CTRL-G|	CTRL-G		   következő egyezés ('incsearch' aktív)
 |c_CTRL-T|	CTRL-T		   előző egyezés ('incsearch' aktív)
-|:history|	:his[tory]	   comman-line előzmények mutatsa
+|:history|	:his[tory]	   command-line előzmények mutatása
 
 Kiegészítés kontextus alapján a command-lineban:
 
@@ -1155,13 +1155,13 @@ Kiegészítés kontextus alapján a command-lineban:
 				kiegészíti a kurzor előtt lévő mintát, majd az
 				elsőt mutatja, több találat esetén hangjelzést
 				ad és az elsőt mutatja, többi 'wildchar'
-				karakterek szűkítik a tatálatokat
+				karakterek szűkítik a találatokat
 |c_CTRL-D|	CTRL-D		kurzor előtt lévő minta összes egyezésének
 				mutatása
 ??? needs to be tested ???
 |c_CTRL-A|	CTRL-A		insert all names that match pattern in front
+				of cursor
 ??? endtest ???
-				   of cursor
 |c_CTRL-L|	CTRL-L		több találat esetén a leghosszabb közös részt
 				illeszti be
 |c_CTRL-N|	CTRL-N		'wildchar' után (több találat esetén az első
@@ -1200,14 +1200,14 @@ Kiegészítés kontextus alapján a command-lineban:
 
 |:_%|       %		jelenlegi fájlnév (csak ott, ahol az elvárt érték
 			fájlnév)
-|:_#|       #[num]	másik fájlnáv (előzőleg megnyitott fájl),  [num] (de
+|:_#|       #[num]	másik fájlnév (előzőleg megnyitott fájl),  [num] (de
 			csak ott, ahol fájlnév az elvárt érték)
 	Note: A következő hét értéket be kell gépelni (nem parancsként
 			értelmeződnek)
 |:<abuf>|   <abuf>	buffer sorszáma, autocommand használata esetén (de csak
 			ott, ahol fájlnév az elvárt érték)
 |:<afile>|  <afile>	fájl neve, autocommand használata esetén (de csak ott,
-			ahol féjlnév az elvárt érték)
+			ahol fájlnév az elvárt érték)
 |:<amatch>| <amatch>	a minta alapján egyező érték, autocommand használata
 			esetén (de csak ott, ahol fájlnév az elvárt érték)
 |:<cword>|  <cword>	kurzor alatt lévő szó (de csak ott, ahol a fájlnév az
@@ -1231,9 +1231,9 @@ Kiegészítés kontextus alapján a command-lineban:
 
 |-vim|	   vim [options]		Vim indítása üres bufferrel
 |-file|	   vim [options] {file} ..	egy (vagy több) fájl szerkesztése
-|--|	   vim [options] -		beolvasás standard bementeről (stdin)
+|--|	   vim [options] -		beolvasás standard bemenetéről (stdin)
 |-tag|	   vim [options] -t {tag}	edit the file associated with {tag}
-|-qf|	   vim [options] -q [fname]	szekresztés elkezdése QuickFix módban,
+|-qf|	   vim [options] -q [fname]	szerkesztés elkezdése QuickFix módban,
 					   az első hiba jelzése
 
 	A legfontosabb Vim argumentumok (a teljes listához lásd |startup-options|)
@@ -1245,7 +1245,7 @@ Kiegészítés kontextus alapján a command-lineban:
 			    követően
 |-+/|	+/{pat} {file} ..   a kurzor {pat} első találatához kerül
 |-v|	-v		    Vi mód, ex indítása Normal módban
-|-e|	-e		    Ex mód, Vim indítása Ex módan
+|-e|	-e		    Ex mód, Vim indítása Ex módban
 |-R|	-R		    Írásvédett mód , implies -n
 |-m|	-m		    a változtatás nem lehetséges (visszaállítja 'write'
 			    opció értékét)
@@ -1271,7 +1271,7 @@ Kiegészítés kontextus alapján a command-lineban:
 |-s|	-s {scriptin}	    olvassa be (indulás előtt) {scriptin} parancsokat
 			    fájlból
 |-w|	-w {scriptout}	    begépelt karakterek írása {scriptout}  fájlba
-			    (hozzáfűsés mód)
+			    (hozzáfűzés mód)
 |-W|	-W {scriptout}	    begépelt karakterek írása {scriptout} fájlba (felülír)
 |-T|	-T {terminal}	    terminál nevének beállítása
 |-d|	-d {device}	    Amiga: {device} megnyitása konzolhoz való
@@ -1283,8 +1283,8 @@ Kiegészítés kontextus alapján a command-lineban:
 |---|	--		    opciók vége, egyéb argumentumok fájlnevekként
 			    értelmeződnek
 |--help|    --help	    argumentumlista mutatása és kilépés
-|--version| --version	    verzióinformáaciók mutatása és kilépés
-|--|	-		    beolvasás standard bementeről (stdin)
+|--version| --version	    verzió-információk mutatása és kilépés
+|--|	-		    beolvasás standard bemenetről (stdin)
 ------------------------------------------------------------------------------
 *Q_ed*		Fájl szerkesztése
 
@@ -1304,7 +1304,7 @@ Kiegészítés kontextus alapján a command-lineban:
 |:file|    :f[ile] {name}	fájl átnevezése {name}-re
 |:files|   :files		alternatív fájlok listája
 ------------------------------------------------------------------------------
-*Q_fl*		Az arhumentumlista használata			|argument-list|
+*Q_fl*		Az argumentumlista használata			|argument-list|
 
 |:args|	   :ar[gs]		aktív fájl argumentumainak kiírása ("[]")
 |:all|	   :all  or :sall	argumentumlistában szereplő összes fájlhoz új
@@ -1369,7 +1369,7 @@ Kiegészítés kontextus alapján a command-lineban:
 
 |:rviminfo|	:rv[iminfo] [file]	viminfo beolvasása [file]-ból
 |:rviminfo|	:rv[iminfo]! [file]	szintén, felülírja a már létező
-					viminfót
+					Viminfót
 |:wviminfo|	:wv[iminfo] [file]	információ hozzáadása viminfo
 					[file]-hoz
 					fájlhoz
@@ -1382,11 +1382,11 @@ Kiegészítés kontextus alapján a command-lineban:
 					beállítást, {set-args} argumentumként
 					van átadva ":set"-nek.
 
-|autocommand|	Automatikus eseményvezérelt parancsfuttatás
+|autocommand|	Automatikus esemény vezérelt parancsfuttatás
 
 |:autocmd|	:au			  az összes autocommand listázása
 |:autocmd|	:au {event}		  {event} eseményhez tartozó
-					  autocommandok listázásáa
+					  autocommandok listázása
 |:autocmd|	:au {event} {pat}	  {event} eseményhez tartozó
 					  autocommandok listázása {pat} minta
 					  szerint
@@ -1422,14 +1422,14 @@ Kiegészítés kontextus alapján a command-lineban:
 					szerkesztése
 |CTRL-W_n|	CTRL-W n  or  :new	üres ablak nyitása
 |CTRL-W_q|	CTRL-W q  or  :q[uit]	kilépés szerkesztésből, ablak bezárása
-|CTRL-W_c|	CTRL-W c  or  :cl[ose]	aktuális buffer elrejtése, abak bezárása
+|CTRL-W_c|	CTRL-W c  or  :cl[ose]	aktuális buffer elrejtése, ablak bezárása
 |CTRL-W_c|	CTRL-W c  or  :cl[ose]	aktuális buffer elrejtése, ablak
 					bezárása
-|CTRL-W_o|	CTRL-W o  or  :on[ly]	csak az aktális ablak megjelenítése
+|CTRL-W_o|	CTRL-W o  or  :on[ly]	csak az aktuális ablak megjelenítése
 					(a többi bezárása)
 
 |CTRL-W_j|	CTRL-W j		kurzor mozgatása az alsó ablakba
-|CTRL-W_k|	CTRL-W k		korzor mozgatása a felső ablakba
+|CTRL-W_k|	CTRL-W k		kurzor mozgatása a felső ablakba
 |CTRL-W_CTRL-W|	CTRL-W CTRL-W		kurzor mozgatása az alsó ablakba (wrap)
 |CTRL-W_W|	CTRL-W W		kurzor mozgatása a felső ablakba (wrap)
 |CTRL-W_t|	CTRL-W t		kurzor mozgatása a legfelső ablakba
@@ -1437,7 +1437,7 @@ Kiegészítés kontextus alapján a command-lineban:
 |CTRL-W_p|	CTRL-W p		kurzor mozgatása a legutolsó aktív
 					ablakba
 
-|CTRL-W_r|	CTRL-W r		ablakok forgatása lefelés
+|CTRL-W_r|	CTRL-W r		ablakok forgatása lefelé
 |CTRL-W_R|	CTRL-W R		ablakok forgatása felfelé
 |CTRL-W_x|	CTRL-W x		jelenlegi ablak cseréje a következővel
 
@@ -1461,7 +1461,7 @@ Kiegészítés kontextus alapján a command-lineban:
 |:ball|		:ball	  or  :sball	az összes argumentum/buffer szerkesztése
 |:unhide|	:unhide   or  :sunhide	összes betöltött buffer szerkesztése
 
-|:badd|		:badd {fname}		{fname} hozzáadáa a listához
+|:badd|		:badd {fname}		{fname} hozzáadása a listához
 |:bunload|	:bunload[!] [N]		buffer [N] tartalmát felszabadítja a
 					memóriából
 |:bdelete|	:bdelete[!] [N]		buffer [N]  tartalmát felszabadítja és
@@ -1476,13 +1476,13 @@ Kiegészítés kontextus alapján a command-lineban:
 |:bprevious|	:[N]bprevious [N]  :[N]sbprevious [N]  az N előző bufferre lép
 |:bfirst|	:bfirst	           :sbfirst            az első bufferhez
 |:blast|	:blast	           :sblast             az utolsó bufferhez
-|:bmodified|	:[N]bmod [N]       :[N]sbmod [N]       az N módosítot
+|:bmodified|	:[N]bmod [N]       :[N]sbmod [N]       az N módosított
 						       bufferhez lép
 ------------------------------------------------------------------------------
-*Q_sy*		Szintaxiskiemelés
+*Q_sy*		Szintaxis kiemelés
 
-|:syn-on|	:syntax on		szinaxiskiemelés bekapcsolása
-|:syn-off|	:syntax off		szintaxiskiemelés kikapcsolása
+|:syn-on|	:syntax on		szintaxis kiemelés bekapcsolása
+|:syn-off|	:syntax off		szintaxis kiemelés kikapcsolása
 
 |:syn-keyword|	:syntax keyword {group-name} {keyword} ..
 					szintaxis kulcsszó hozzáadása
@@ -1492,8 +1492,8 @@ Kiegészítés kontextus alapján a command-lineban:
 					szintaxis régiót definiál
 |:syn-sync|	:syntax sync [ccomment | lines {N} | ...]
 					szintaxis szinkronizálásának módja
-|:syntax|	:syntax [list]		szintaxiselemek listázása
-|:syn-clear|	:syntax clear		szintaxiskiemelés eltávolítása
+|:syntax|	:syntax [list]		szintaxis elemek listázása
+|:syn-clear|	:syntax clear		szintaxis kiemelés eltávolítása
 
 |:highlight|	:highlight clear	kiemelés megszüntetése
 |:highlight|	:highlight {group-name} {key}={arg} ..
@@ -1501,10 +1501,10 @@ Kiegészítés kontextus alapján a command-lineban:
 					meghatározása
 
 |:filetype|	:filetype on		fájlfelismerés bekapcsolása
-					(szintaxiskiemelés nélkül)
+					(szintaxis kiemelés nélkül)
 |:filetype|	:filetype plugin indent on
 					fájlfelismerés bekapcsolása, automatikus
-					identálással és beállításokkal
+					indentálással és beállításokkal
 ------------------------------------------------------------------------------
 *Q_gu*		GUI parancsok
 
@@ -1526,7 +1526,7 @@ Kiegészítés kontextus alapján a command-lineban:
 *Q_fo*		Foldolás
 
 |'foldmethod'|	set foldmethod=manual	manuális foldolás
-		set foldmethod=indent	foldolás identálás alapján
+		set foldmethod=indent	foldolás indentálás alapján
 		set foldmethod=expr	foldolás 'foldexpr' alapján
 		set foldmethod=syntax	foldolás szintaxis régiók alapján
 		set foldmethod=marker	foldolás 'foldmarker' alapján
@@ -1543,7 +1543,7 @@ Kiegészítés kontextus alapján a command-lineban:
 |zO|		zO			kurzor alatt lévő összes fold kinyitása
 |zc|		zc			kurzor alatt lévő (csak egy) fold
 					bezárása
-|zC|		zC			kurzor alatt lévő öszes fold bezárása
+|zC|		zC			kurzor alatt lévő összes fold bezárása
 
 |zm|		zm			még több fold: 'foldlevel' csökkentése
 |zM|		zM			összes fold bezárása: 'foldlevel': 0
@@ -1555,4 +1555,4 @@ Kiegészítés kontextus alapján a command-lineban:
 |zN|		zN			normál fold 'foldenable' beállítása
 |zi|		zi			'foldenable' opció invertálása
 
- vim:tw=78:ts=8:noet:ft=help:norl:
+vim:tw=78:ts=8:noet:ft=help:norl:

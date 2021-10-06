@@ -5,9 +5,8 @@
 				   Splitek
 
 
-Display two different files above each other.  Or view two locations in the
-file at the same time.  See the difference between two files by putting them
-side by side.  All this is possible with split windows.
+Fájlok megjelenítése egymás fölött vagy mellett? Munka a fájl két teljesen különböző pontján? Diff megtekintése kényelmesen? Ez mind lehetséges a splitek
+használatával.
 
 |08.1|	Split létrehozása
 |08.2|	Split a window on another file
@@ -15,7 +14,7 @@ side by side.  All this is possible with split windows.
 |08.4|	Vertikális splitek
 |08.5|	Ablakok mozgatása
 |08.6|	Parancsok az összes ablakhoz
-|08.7|	vimdiff használata
+|08.7|	Vimdiff használata
 |08.8|	Egyebek
 |08.9|	fülsáv
 
@@ -24,14 +23,14 @@ Következő fejezet: |usr_09.txt|  A GUI használata
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*08.1*	Split a window
+*08.1*	Splitek
 
-The easiest way to open a new window is to use the following command: >
+Az aktív ablak splitelése ilyen egyszerű: >
 
 	:split
 
-This command splits the screen into two windows and leaves the cursor in the
-top one:
+A parancs kettéosztja a képernyőt két ablakra, a kurzort pedig a felsőben
+hagyja:
 
 	+----------------------------------+
 	|/* file one.c */		   |
@@ -44,49 +43,50 @@ top one:
 	|				   |
 	+----------------------------------+
 
-What you see here is two windows on the same file.  The line with "====" is
-the status line.  It displays information about the window above it.  (In
-practice the status line will be in reverse video.)
-   The two windows allow you to view two parts of the same file.  For example,
-you could make the top window show the variable declarations of a program, and
-the bottom one the code that uses these variables.
+Amit az ábrán látsz az két ablak, melyek ugyanarra a fájlra hivatkoznak. A
+"===" jelű sor jelenti az állapotsávot. Mindegyik állapotsáv a saját ablakáról
+jelenít meg különböző információkat. 
+???  (In practice the status line will be in reverse video.)
 
-The CTRL-W w command can be used to jump between the windows.  If you are in
-the top window, CTRL-W w jumps to the window below it.  If you are in the
-bottom window it will jump to the first window.  (CTRL-W CTRL-W does the same
-thing, in case you let go of the CTRL key a bit later.)
+   Két ablakkal gyakorlatilag egy második, egymástól független nézőpontot
+kapsz a fájlról. Például az egyik ablakban a fájl változó deklarációit
+vizsgálod, egyúttal a fájl alján pedig az értékadásokat.
+
+A CTRL-W w paranccsal lehet az ablakok között váltani. Ha a felső ablakban van
+a kurzor, akkor az alsó ablakra vált és fordítva (a CTRL-W CTRL-W kombináció
+ugyanezt eredményezi).
 
 
-CLOSE THE WINDOW
+ABLAK BEZÁRÁSA
 
-To close a window, use the command: >
+Az ablak bezárásához tartozó parancs: >
 
 	:close
 
-Actually, any command that quits editing a file works, like ":quit" and "ZZ".
-But ":close" prevents you from accidentally exiting Vim when you close the
-last window.
+Az igazat megvallva, bármely olyan parancs bezárja a fájlt, ami a fájl bezárná (":quit" vagy "ZZ"). A ":close" parancs viszont megakadályozza, hogy véletlenül bezárjuk a szerkesztőt az utolsó ablak bezárásakor.
 
 
-CLOSING ALL OTHER WINDOWS
+INAKTÍV SPLITEK BEZÁRÁSA
 
-If you have opened a whole bunch of windows, but now want to concentrate on
-one of them, this command will be useful: >
+Ha sok ablakot nyitottál meg, de hirtelen egyetlen egyre kell koncentrálnod,
+ez a parancs jól jöhet: >
 
 	:only
 
-This closes all windows, except for the current one.  If any of the other
-windows has changes, you will get an error message and that window won't be
-closed.
+Az aktív ablakon kívül minden más ablak bezáródik. Ha bármelyik ablakban van
+mentetlen változás, akkor hibaüzenet jelenik meg és az ablak nem fog
+bezáródni.
 
 ==============================================================================
-*08.2*	Split a window on another file
+*08.2*	Split létrehozása másik fájllal
 
-The following command opens a second window and starts editing the given file:
+A split parancsnak egy fájlnevet átadva argumentumként splitelhetjük az adott
+fájlt:
 >
 	:split two.c
 
-If you were editing one.c, then the result looks like this:
+Ha eddig a one.c fájlt szerkesztetted, akkor a végeredmény az alábbihoz
+hasonló lesz:
 
 	+----------------------------------+
 	|/* file two.c */		   |
@@ -99,77 +99,74 @@ If you were editing one.c, then the result looks like this:
 	|				   |
 	+----------------------------------+
 
-To open a window on a new, empty file, use this: >
+Üres split létrehozása (üres buffer): >
 
 	:new
 
-You can repeat the ":split" and ":new" commands to create as many windows as
-you like.
+A ":split" és ":new" parancsokat addig ismételheted, amíg jól esik, nincs
+korlát.
 
 ==============================================================================
-*08.3*	Window size
+*08.3*	Ablakméret
 
-The ":split" command can take a number argument.  If specified, this will be
-the height of the new window.  For example, the following opens a new window
-three lines high and starts editing the file alpha.c: >
+A ":split" parancs prefixálható. Érték esetén ez fogja meghatározni az ablak
+magasságát. Például, az alábbi parancs új splitet hoz létre alpha.c számára,
+mely három sor magas lesz: >
 
 	:3split alpha.c
 
-For existing windows you can change the size in several ways.  When you have a
-working mouse, it is easy: Move the mouse pointer to the status line that
-separates two windows, and drag it up or down.
+A létező ablakok magasságának megváltoztatására több technika létezik. Ha
+engedélyezve van az egérhasználat, egyszerű dolgunk van: ragadjuk meg az
+állapotsort, mellyel kényelmesen beállíthatjuk a kívánt méretet.
 
-To increase the size of a window: >
+Az ablak méretének növelése paranccsal: >
 
 	CTRL-W +
 
-To decrease it: >
+Csökkentése: >
 
 	CTRL-W -
 
-Both of these commands take a count and increase or decrease the window size
-by that many lines.  Thus "4 CTRL-W +" make the window four lines higher.
+A felesleges billentyűhasználat érdekében a parancsok prefixálhatóak (sorok száma). Így "4 CTRL-W +" négy sorral fogja az ablakunkat megnövelni növekményesen.
 
-To set the window height to a specified number of lines: >
+Az abszolút értéket így állíthatjuk be: >
 
 	{height}CTRL-W _
 
-That's: a number {height}, CTRL-W and then an underscore (the - key with Shift
-on English-US keyboards).
-   To make a window as high as it can be, use the CTRL-W _ command without a
-count.
+Ami: egy szám {height}, CTRL-W majd alsó-összekötőjel (magyar kiosztáson a
+shift -).
+   A maximális magassághoz szimplán ne adjunk prefixumot a parancsnak: CTRL-W _.
 
 
-USING THE MOUSE
+AZ EGÉR HASZNÁLATA
 
-In Vim you can do many things very quickly from the keyboard.  Unfortunately,
-the window resizing commands require quite a bit of typing.  In this case,
-using the mouse is faster.  Position the mouse pointer on a status line.  Now
-press the left mouse button and drag.  The status line will move, thus making
-the window on one side higher and the other smaller.
+Egészen elképesztő dolgokat tudunk véghez vinni a billentyűzet segítségével,
+azonban az ablakméretet beállító funkciók gépelés igényesek. Egérrel sokkal
+kényelmesebb, csak fogjuk meg az egérrel az állapotsort és állítsuk be a
+kívánt méretet.
 
 
-OPTIONS
+OPCIÓK
 
-The 'winheight' option can be set to a minimal desired height of a window and
-'winminheight' to a hard minimum height.
-   Likewise, there is 'winwidth' for the minimal desired width and
-'winminwidth' for the hard minimum width.
-   The 'equalalways' option, when set, makes Vim equalize the windows sizes
-when a window is closed or opened.
+A 'winheight' változóval beállítható az ablak kívánt mérete és a
+'winminheight' opcióval pedig az abszolút méretet tudjuk beállítani, amelytől
+már nem lehet kisebb egy ablak.
+   Logikusan, a 'winwidth' változó az ablak kívánt szélességéért, a
+'winminwidth' változó pedig  az abszolút legkisebb szélességéért felel.
+   Ha az 'equalalways' be van állítva, akkor új ablak nyitása és zárása esetén
+az összes ablak egyforma méretű lesz.
 
 ==============================================================================
-*08.4*	Vertical splits
+*08.4*	Vertikális splitek
 
-The ":split" command creates the new window above the current one.  To make
-the window appear at the left side, use: >
+A ":split" parancs az aktív ablak fölé nyitja az új ablakot. Ha az ablakot a bal oldalon szeretnéd elhelyezni, akkor: >
 
 	:vsplit
 
-or: >
+Vagy: >
 	:vsplit two.c
 
-The result looks something like this:
+A végeredmény hasonló lesz:
 
 	+--------------------------------------+
 	|/* file two.c */   |/* file one.c */  |
@@ -180,44 +177,41 @@ The result looks something like this:
 	|				       |
 	+--------------------------------------+
 
-Actually, the | lines in the middle will be in reverse video.  This is called
-the vertical separator.  It separates the two windows left and right of it.
+Az ablak közepén lévő "|" sávot nevezzük elválasztónak. Elválasztja a két
+ablakot egymástól.
 
-There is also the ":vnew" command, to open a vertically split window on a new,
-empty file.  Another way to do this: >
+Vertikális split létrehozása üres bufferrel ":vnew", a parancs rövidítés
+nélkül: >
 
 	:vertical new
 
-The ":vertical" command can be inserted before another command that splits a
-window.  This will cause that command to split the window vertically instead
-of horizontally.  (If the command doesn't split a window, it works
-unmodified.)
+A ":vertical" parancs beilleszthető minden olyan parancs elé, ami split
+létrehozásáért felelős. Ez csak annyit tesz, hogy a split vertikálisan nyílik
+meg horizontális helyett. 
 
 
-MOVING BETWEEN WINDOWS
+VÁLTÁS AZ ABLAKOK KÖZÖTT
 
-Since you can split windows horizontally and vertically as much as you like,
-you can create almost any layout of windows.  Then you can use these commands
-to move between them:
+A korlátlan splitek száma mellett tetszőleges elrendezést is beállíthatsz.
+Navigációra a következő parancsokat használjuk:
 
-	CTRL-W h	move to the window on the left
-	CTRL-W j	move to the window below
-	CTRL-W k	move to the window above
-	CTRL-W l	move to the window on the right
+	CTRL-W h	mozgás egy ablakkal balra
+	CTRL-W j	mozgás egy ablakkal lefelé
+	CTRL-W k	mozgás egy ablakkal felfelé
+	CTRL-W l	mozgás egy ablakkal jobbra
 
-	CTRL-W t	move to the TOP window
-	CTRL-W b	move to the BOTTOM window
+	CTRL-W t	mozgás a legfelső ablakban
+	CTRL-W b	mozgás a legalsó ablakba
 
-You will notice the same letters as used for moving the cursor.  And the
-cursor keys can also be used, if you like.
-   More commands to move to other windows: |Q_wi|.
+Észrevetted? Az ablakok közti navigációk is a h,j,k,l billentyűkel használják,
+a különbség csak egy CTRL-W.
+   Még több navigációval kapcsolatos parancs: |Q_wi|.
 
 ==============================================================================
-*08.5*	Moving windows
+*08.5*	Ablakok mozgatása
 
-You have split a few windows, but now they are in the wrong place.  Then you
-need a command to move the window somewhere else.  For example, you have three
-windows like this:
+Nyitottál pár splitet, de el kell rendezned őket, hiszen rossz helyen vannak.
+Az alapértelmezett három splites elrendezés valahogyan így néz ki:
 
 	+----------------------------------+
 	|/* file two.c */		   |
@@ -234,16 +228,16 @@ windows like this:
 	|				   |
 	+----------------------------------+
 
-Clearly the last one should be at the top.  Go to that window (using CTRL-W w)
-and then type this command: >
+Nyilvánvaló, hogy pontosan az az ablak helyezkedik el legalul, aminek a
+legtetején kellene lennie. Az ablak mozgatásához először aktívvá kell tenni
+(CTRL-W w), azaz belelépünk, majd elmozdítjuk: >
 
 	CTRL-W K
 
-This uses the uppercase letter K.  What happens is that the window is moved to
-the very top.  You will notice that K is again used for moving upwards.
-   When you have vertical splits, CTRL-W K will move the current window to the
-top and make it occupy the full width of the Vim window.  If this is your
-layout:
+A parancs végén nagy "K" van. Logikusan, K ismét a felfelé történő
+elmozdulásért felel.
+   Vertikális splitek esetén, CTRL-W K felfelé mozgatja az ablakot, teljes
+   szélességet adva az ablaknak. Ha eddig így nézett ki a képernyőd:
 
 	+-------------------------------------------+
 	|/* two.c */  |/* three.c */  |/* one.c */  |
@@ -256,7 +250,7 @@ layout:
 	|					    |
 	+-------------------------------------------+
 
-Then using CTRL-W K in the middle window (three.c) will result in:
+Akkor CTRL-W K használata után így fog:
 
 	+-------------------------------------------+
 	|/* three.c */				    |
@@ -269,53 +263,54 @@ Then using CTRL-W K in the middle window (three.c) will result in:
 	|					    |
 	+-------------------------------------------+
 
-The other three similar commands (you can probably guess these now):
+A három másik mozgatásért felelős parancs (melyet már minden bizonnyal
+kitaláltál):
 
-	CTRL-W H	move window to the far left
-	CTRL-W J	move window to the bottom
-	CTRL-W L	move window to the far right
+	CTRL-W H	ablak mozgatása balra
+	CTRL-W J	ablak mozgatása alulra
+	CTRL-W L	ablak mozgatása jobbra 
 
 ==============================================================================
-*08.6*	Commands for all windows
+*08.6*	Parancsok az összes ablak számára
 
-When you have several windows open and you want to quit Vim, you can close
-each window separately.  A quicker way is using this command: >
+Ha több ablak meg van nyitva a Vimben és ki szeretnél lépni a szerkesztőből,
+akkor bezárogathatod egyesével, vagy a gyorsabb megoldást alkalmazod: >
 
 	:qall
 
-This stands for "quit all".  If any of the windows contain changes, Vim will
-not exit.  The cursor will automatically be positioned in a window with
-changes.  You can then either use ":write" to save the changes, or ":quit!" to
-throw them away.
+A parancs teljes formája ":quit all". Ha bármelyik ablak tartalma megváltozik
+(nem mentett), akkor a Vim nem fog kilépni. A kurzor automatikusan arra az
+ablakra pozícionál, ahol változások történtek. Menteni a ":write", kilépni a
+":quit!" paranccsal tudsz.
 
-If you know there are windows with changes, and you want to save all these
-changes, use this command: >
+Ha pontosan tudod, hogy több ablakban is történt változás, akkor az összes
+ablakot elmentheted egyszerre: >
 
 	:wall
 
-This stands for "write all".  But actually, it only writes files with
-changes.  Vim knows it doesn't make sense to write files that were not
-changed.
-   And then there is the combination of ":qall" and ":wall": the "write and
-quit all" command: >
+A parancs teljes alakja "write all". Valójában, csak azokat a fájlokat menti,
+amelyikben van menteni való, hiszen egy változatlan fájlt nincs értelme
+menteni.
+   A kombinált parancsok pedig ":qall" és ":wall", azaz "write all - quit all"
+parancs: >
 
 	:wqall
 
-This writes all modified files and quits Vim.
-   Finally, there is a command that quits Vim and throws away all changes: >
+A parancs menti a mentetlent és ki is lép.
+   Végül, a parancs mely kilép mentés nélkül: >
 
 	:qall!
 
-Be careful, there is no way to undo this command!
+Óvatosan, a hatás irreverzibilis!
 
 
-OPENING A WINDOW FOR ALL ARGUMENTS
+ABLAK NYITÁSA AZ ÖSSZES ARGUMENTUM SZÁMÁRA
 
-To make Vim open a window for each file, start it with the "-o" argument: >
-
+Ahhoz, hogy a Vim minden fájlhoz ablakot nyisson, add át az "-o" argumentumot:
+>
 	vim -o one.txt two.txt three.txt
 
-This results in:
+Az eredmény:
 
 	+-------------------------------+
 	|file one.txt			|
@@ -330,23 +325,24 @@ This results in:
 	|				|
 	+-------------------------------+
 
-The "-O" argument is used to get vertically split windows.
-   When Vim is already running, the ":all" command opens a window for each
-file in the argument list.  ":vertical all" does it with vertical splits.
+Az "-O" argumentummal pedig az ablakok vertikálisan nyílnak meg.
+   Ha a Vim már fut, akkor az ":all" parancs az összes argumentumban szereplő
+fájlnak ablakit nyit. Vertikális megfelelője ":vertical all".
 
 ==============================================================================
-*08.7*	Viewing differences with vimdiff
+*08.7*	Vimdiff használata
 
-There is a special way to start Vim, which shows the differences between two
-files.  Let's take a file "main.c" and insert a few characters in one line.
-Write this file with the 'backup' option set, so that the backup file
-"main.c~" will contain the previous version of the file.
-   Type this command in a shell (not in Vim): >
+Létezik a Vim indításának egy speciális módja, ami két fájl között
+különbségeket mutatja meg. Nyissunk meg egy fájl, "main.c"-t, az egyik sorát
+változtassuk meg. Mentsd el a fájlt úgy, hogy bekapcsolod előtte a 'backup'
+opciót, így a fájlról készül egy biztonsági mentés "main.c~" néven, ami a fájl
+előző verzióját fogja tartalmazni. 
+   Írd be az alábbi parancsot a terminálba (ne a Vimbe): >
 
 	vimdiff main.c~ main.c
 
-Vim will start, with two windows side by side.  You will only see the line
-in which you added characters, and a few lines above and below it.
+A Vim egyből két ablakkal indul. Csak azt a sort fogod látni, amit
+megváltoztattál és még pár sort fölötte és alatta. 
 
 	 VV		      VV
 	+-----------------------------------------+
@@ -354,9 +350,9 @@ in which you added characters, and a few lines above and below it.
 	|  text		     |	text		  |
 	|  text		     |	text		  |
 	|  text		     |	text		  |
-	|  text		     |	changed text	  |  <- changed line
+	|  text		     |	changed text	  |  <- változás
 	|  text		     |	text		  |
-	|  text		     |	------------------|  <- deleted line
+	|  text		     |	------------------|  <- törölt sor
 	|  text		     |	text		  |
 	|  text		     |	text		  |
 	|  text		     |	text		  |
@@ -367,160 +363,149 @@ in which you added characters, and a few lines above and below it.
 	|					  |
 	+-----------------------------------------+
 
-(This picture doesn't show the highlighting, use the vimdiff command for a
-better look.)
+(Sajnos az ábrán nem érzékelhető, de a Vimben színezetten jelenik meg.)
 
-The lines that were not modified have been collapsed into one line.  This is
-called a closed fold.  They are indicated in the picture with "<- fold".  Thus
-the single fold line at the top stands for 123 text lines.  These lines are
-equal in both files.
-   The line marked with "<- changed line" is highlighted, and the inserted
-text is displayed with another color.  This clearly shows what the difference
-is between the two files.
-   The line that was deleted is displayed with "---" in the main.c window.
-See the "<- deleted line" marker in the picture.  These characters are not
-really there.  They just fill up main.c, so that it displays the same number
-of lines as the other window.
+Azon sorok, melyek nem estek át változáson, a Vim nem jeleníti meg. Ezt hívjuk
+zárt foldnak. Az ábrán ezt "<- fold" jelöléssel látható. Az ábrán szereplő
+első sor gyakorlatilag a fájl érintetlen legelső 123 sora. Ezen sorok mindkét
+fájlban egyenlőek.
+   A "<- változás" jelölővel ellátott sor ki van emelve, a beírt karakterek
+más színnel vannak kiemelve. Gyakorlatilag azonnal észre lehet venni, hogy
+mely karaktereket adtuk hozzá, azaz a két fájl mely részei térnek el
+egymástól.
+   A törölt sorok "---" vannak megjelölve a main.c ablakban. Az ábrán ez "<-
+törölt sor". Ezek a karakterek nincsenek ott. Szerepük csupán annyi, hogy a fájl sorait szinkronban tartsák.
 
 
-THE FOLD COLUMN
+A FOLD OSZLOP
 
-Each window has a column on the left with a slightly different background.  In
-the picture above these are indicated with "VV".  You notice there is a plus
-character there, in front of each closed fold.  Move the mouse pointer to that
-plus and click the left button.  The fold will open, and you can see the text
-that it contains.
-   The fold column contains a minus sign for an open fold.  If you click on
-this -, the fold will close.
-   Obviously, this only works when you have a working mouse.  You can also use
-"zo" to open a fold and "zc" to close it.
+Minden egyes ablak bal szélének a színe egy picivel másabb. Az ábrán ez "VV" van jelölve. Vedd észre a plusz karaktert minden zárt állapotú fold előtt. Ha az egérrel odakattintasz, akkor a fold kinyílik és láthatóvá válik a tartalma.
+   A fold oszlopban egy - jel található, ha a fold nyitott állapotban van. Ha
+erre kattintasz, akkor a fold bezáródik. 
+   Értelemszerűen, ez csak akkor működik, ha az egér engedélyezve van. Ennek
+hiányában  "zo" a fold megnyitása, "zc" pedig a fold bezárása.
 
 
-DIFFING IN VIM
+DIFFELÉS A VIMBEN
 
-Another way to start in diff mode can be done from inside Vim.  Edit the
-"main.c" file, then make a split and show the differences: >
+A diff módot nem csak shellből indíthatjuk el. Szerkeszd a "main.c" fájlt,
+majd jelenítsd meg a fájl előző verzióját: >
 
 	:edit main.c
 	:vertical diffsplit main.c~
 
-The ":vertical" command is used to make the window split vertically.  If you
-omit this, you will get a horizontal split.
+A ":vertical" parancs csak az ablakok elhelyezéséért felel. Ha ezt lehagyod,
+akkor az ablakok horizontálisan jelennek meg. 
 
-If you have a patch or diff file, you can use the third way to start diff
-mode.  First edit the file to which the patch applies.  Then tell Vim the name
-of the patch file: >
+Ha van patch fájlod, akkor egy harmadik diff mód is elérhető. Ha van patch
+vagy diff fájlod, akkor szerkeszd azt a fájlt, amire a patch vonatkozik. Majd
+add meg a Vimnek a patch fájlt: >
 
 	:edit main.c
 	:vertical diffpatch main.c.diff
 
-WARNING: The patch file must contain only one patch, for the file you are
-editing.  Otherwise you will get a lot of error messages, and some files might
-be patched unexpectedly.
-   The patching will only be done to the copy of the file in Vim.  The file on
-your harddisk will remain unmodified (until you decide to write the file).
+FIGYELEM: A patch fájl csak egy patchet tartalmazhat, különben rengeteg
+hibaüzenetet fogsz kapni és a végeredmény lehet, hogy nem az elvárt lesz.  A patchelési folyamat a Vim bufferében zajlik le, az eredeti fájl érintetlen marad, amíg nem mented azt.
 
 
-SCROLL BINDING
+GÖRGETÉSI SZINKRONIZÁCIÓ
 
-When the files have more changes, you can scroll in the usual way.  Vim will
-try to keep both the windows start at the same position, so you can easily see
-the differences side by side.
-   When you don't want this for a moment, use this command: >
+Ha a fájl több pontján is változás van, akkor a már megszokott módokon
+görgethetsz, a Vim megpróbálja szinkronban tartani a két ablakot. 
+   Ha a funkcióra nincs szükséged, kikapcsolhatod: >
 
 	:set noscrollbind
 
 
-JUMPING TO CHANGES
+UGRÁS A KÜLÖNBSÉGEKRE
 
-When you have disabled folding in some way, it may be difficult to find the
-changes.  Use this command to jump forward to the next change: >
+Ha a foldolás le van tiltva, a változások megtalálása nehézkes lehet. A
+navigációs parancsok, melyeket használhatsz (előre irányban): >
 
 	]c
 
-To go the other way use: >
+És vissza: >
 
 	[c
 
-Prepended a count to jump further away.
+Prefixummal az n. változáshoz ugorhatsz.
 
 
-REMOVING CHANGES
+VÁLTOZTATÁSOK ELTÁVOLÍTÁSA
 
-You can move text from one window to the other.  This either removes
-differences or adds new ones.  Vim doesn't keep the highlighting updated in
-all situations.  To update it use this command: >
+???Tesztelni innen
+A szöveget átmozgathatod egyik ablakból a másikba. Ez eltávolítja a változtatást, vagy éppen hozzáad. Mivel a Vim nem nézi folyamatosan a
+szöveget, azért meg kell parancsolni, hogy frissítse a nézetet: >
 
 	:diffupdate
 
-To remove a difference, you can move the text in a highlighted block from one
-window to another.  Take the "main.c" and "main.c~" example above.  Move the
-cursor to the left window, on the line that was deleted in the other window.
-Now type this command: >
+A változásokat egyik ablakból át tudod mozgatni a másikba.  Vegyük a "main.c" és a "main.c~" fájlt példaképpen. Állj a kurzorral a bal oldali ablakba. 
+A művelethez állj a bal oldali ablakban egy olyan pontra, ahol a jobb oldali
+fájlból hiányzik valami. Add ki a parancsot: >
 
 	dp
 
-The change will be removed by putting the text of the current window in the
-other window.  "dp" stands for "diff put".
-   You can also do it the other way around.  Move the cursor to the right
-window, to the line where "changed" was inserted.  Now type this command: >
+A változás el lesz távolítva, a szöveg át lesz helyezve a bal oldalról a jobb
+oldalra. "dp" rövidítése "diff put".
+   A másik irányba is elvégezheted ezt természetesen. Vidd a kurzor a jobb
+ablak azon pontjára, ahol a sor változott, majd add ki a parancsot: >
 
 	do
 
-The change will now be removed by getting the text from the other window.
-Since there are no changes left now, Vim puts all text in a closed fold.
-"do" stands for "diff obtain".  "dg" would have been better, but that already
-has a different meaning ("dgg" deletes from the cursor until the first line).
-
-For details about diff mode, see |vimdiff|.
-
-==============================================================================
-*08.8*	Various
-
-The 'laststatus' option can be used to specify when the last window has a
-statusline:
-
-	0	never
-	1	only when there are split windows (the default)
-	2	always
-
-Many commands that edit another file have a variant that splits the window.
-For Command-line commands this is done by prepending an "s".  For example:
-":tag" jumps to a tag, ":stag" splits the window and jumps to a
-tag.
-   For Normal mode commands a CTRL-W is prepended.  CTRL-^ jumps to the
-alternate file, CTRL-W CTRL-^ splits the window and edits the alternate file.
-
-The 'splitbelow' option can be set to make a new window appear below the
-current window.  The 'splitright' option can be set to make a vertically split
-window appear right of the current window.
-
-When splitting a window you can prepend a modifier command to tell where the
-window is to appear:
-
-	:leftabove {cmd}	left or above the current window
-	:aboveleft {cmd}	idem
-	:rightbelow {cmd}	right or below the current window
-	:belowright {cmd}	idem
-	:topleft {cmd}		at the top or left of the Vim window
-	:botright {cmd}		at the bottom or right of the Vim window
-
+A változás el lesz távolítva oly módon, hogy a másik ablakból a változás
+átmásolódik az aktív ablakba. Mivel nincs több változás, a Vim automatikuson
+foldolja a fájlt. "do" rövidítése "diff obtain".
+???Tesztelni eddig
+A Diff módokról bővebben: |vimdiff|.
 
 ==============================================================================
-*08.9*	Tab pages
+*08.8*	Egyebek
 
-You will have noticed that windows never overlap.  That means you quickly run
-out of screen space.  The solution for this is called Tab pages.
+A 'laststatus' változóval beállíthatjuk, hogy az utolsó ablaknak legyen-e állapotsora:
 
-Assume you are editing "thisfile".  To create a new tab page use this command: >
+	0	soha
+	1	csak splitek esetén (alapértelmezett)
+	2	mindig
+
+A parancsok nagy részének, melyekkel fájlokat lehet szerkeszteni, létezik
+split vonatkozású "testvér parancsa". Command-line parancsok esetében például
+"s" prefixumot megadva:
+":tag" ugrás taghez, ":stag" ablak split létrehozása és ugrás taghez.
+   Normál módú parancsoknál a mechanizmus hasonló, itt CTRL-W paranccsal kell
+kezdenünk a parancsot. CTRL-^ az előző fájlhoz nyitja meg, CTRL-W CTRL-^ splitet
+hoz létre és az előző fájlt nyitja meg. Könnyű megjegyezni, hiszen CTRL-W
+szerves része a splittel kapcsolatos műveleteknek.
+
+A 'splitbelow' opció beállításával a splitek nem az aktív ablak fölött, hanem
+az aktív ablak alatt fognak megjelenni. Hasonlóan a 'splitright' opció az
+aktív ablaktól jobbra nyitja  a splitet.
+
+Ha nem szeretnéd (félig) a véletlenre bízni a új split helyét, akkor a
+parancsok előtt meghatározhatod, hogy a split pontosan hová kerüljön:
+
+	:leftabove {cmd}	balra, vagy az aktív fölé
+	:aboveleft {cmd}	ugyanaz
+	:rightbelow {cmd}	jobbra, vagy aktív alá
+	:belowright {cmd}	ugyanaz
+	:topleft {cmd}		tetejére, vagy balra
+	:botright {cmd}		aljára, vagy jobbra
+
+
+==============================================================================
+*08.9*	Fülek
+
+Az ablakok sohasem fedik egymást, ennek hátránya, hogy a az ablakunk gyorsan
+megtelik. Megoldást jelenthet a füles elrendezés.
+
+Tételezzük fel, hogy "thisfile"-t szerkeszted. Fül létrehozása új fájllal: >
 
 	:tabedit thatfile
 
-This will edit the file "thatfile" in a window that occupies the whole Vim
-window.  And you will notice a bar at the top with the two file names:
+Ez megnyitja "thatfile"-t szerkesztésre, ami az ablak teljes felületét
+használni fogja. Az ablak tetejére fülsáv kerül a két megnyitott fájl nevével:
 
 	+----------------------------------+
-	| thisfile | /thatfile/ __________X|    (thatfile is bold)
+	| thisfile | /thatfile/ __________X|    (thatfile félkövér)
 	|/* thatfile */			   |
 	|that				   |
 	|that				   |
@@ -530,14 +515,15 @@ window.  And you will notice a bar at the top with the two file names:
 	|				   |
 	+----------------------------------+
 
-You now have two tab pages.  The first one has a window for "thisfile" and the
-second one a window for "thatfile".  It's like two pages that are on top of
-each other, with a tab sticking out of each page showing the file name.
+Két fülünk van (minden értelemben). Az első fülön "thisfile" található saját
+ablakával, a második pedig "thatfile" (szintén saját ablakával). A modern
+böngészőkben alkalmazott füles elrendezés a legpontosabb asszociáció, mely
+mentén el tudjuk képzelni az elrendezést. 
 
-Now use the mouse to click on "thisfile" in the top line.  The result is
+Most kattints "thisfile"-ra a fülsávon, az eredmény:
 
 	+----------------------------------+
-	| /thisfile/ | thatfile __________X|    (thisfile is bold)
+	| /thisfile/ | thatfile __________X|    (thisfile félkövér)
 	|/* thisfile */			   |
 	|this				   |
 	|this				   |
@@ -547,19 +533,18 @@ Now use the mouse to click on "thisfile" in the top line.  The result is
 	|				   |
 	+----------------------------------+
 
-Thus you can switch between tab pages by clicking on the label in the top
-line.  If you don't have a mouse or don't want to use it, you can use the "gt"
-command.  Mnemonic: Goto Tab.
+A fülek között az egérrel válthatunk. Ha nincs egered, vagy csak nem szeretnéd
+használni, akkor a "gt" paranccsal tudsz váltani a fülek között. 
 
-Now let's create another tab page with the command: >
+Hozzunk létre egy új fület az alábbi paranccsal: >
 
 	:tab split
 
-This makes a new tab page with one window that is editing the same buffer as
-the window we were in:
+Ezzel létrejön egy új fül, a bufferbe pedig az a fájl fog betöltődni amit
+éppen elhagytunk:
 
 	+-------------------------------------+
-	| thisfile | /thisfile/ | thatfile __X|   (thisfile is bold)
+	| thisfile | /thisfile/ | thatfile __X|   (thisfile félkövér)
 	|/* thisfile */			      |
 	|this				      |
 	|this				      |
@@ -569,33 +554,30 @@ the window we were in:
 	|				      |
 	+-------------------------------------+
 
-You can put ":tab" before any Ex command that opens a window.  The window will
-be opened in a new tab page.  Another example: >
+A ":tab" parancs használható minden olyan parancs előtt, amely ablakot nyit
+meg. Például: >
 
 	:tab help gt
 
-Will show the help text for "gt" in a new tab page.
+Új fülön nyitja meg a "gt" dokumentációját.
 
-A few more things you can do with tab pages:
+Pár dolog, amit még a fülekkel művelhetünk:
 
-- click with the mouse in the space after the last label
-	The next tab page will be selected, like with "gt".
+- ha az utolsó fül utáni üres részre kattintunk, az mindig a következő fülre
+  vált
 
-- click with the mouse on the "X" in the top right corner
-	The current tab page will be closed.  Unless there are unsaved
-	changes in the current tab page.
+- a képernyő jobb felső sarkában lévő "X" rákattintva a fül bezáródik (ha nem
+  volt változás)
 
-- double click with the mouse in the top line
-	A new tab page will be created.
+- a fülsávon dupla klikkelve új fül nyílik meg
 
-- the "tabonly" command
-	Closes all tab pages except the current one.  Unless there are unsaved
-	changes in other tab pages.
+- a "tabonly" parancs bezárja az összes inaktív fület (azokat melyeken nincs
+  változás)
 
-For more information about tab pages see |tab-page|.
+Több információ a fülekről: |tab-page|.
 
 ==============================================================================
 
-Next chapter: |usr_09.txt|  Using the GUI
+Következő fejezet: |usr_09.txt|  A GUI használata
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
