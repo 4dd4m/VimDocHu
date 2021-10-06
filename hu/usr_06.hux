@@ -2,7 +2,7 @@
 
 		  Bram Moolenaar: Vim Felhasználói Kézikönyv
 
-		       Szintakszis kiemelés használata
+		       Szintaksziskiemelés használata
 
 
 Unalmas a fekete-fehér szöveg. A színek életre keltik fájljaid. Nem csak
@@ -97,7 +97,7 @@ There can be a number of reasons why you don't see colors:
 	új fájltípusokról: |new-filetype|.
 
 - Nincs kiemelés az adott fájltípushoz.
-	Megpróbálkozhatsz egy másik fájltípus kiemelésének (manuális) 
+	Megpróbálkozhatsz egy másik fájltípus kiemelésének (manuális)
 	alkalmazásával. Ha ez nem elég jó, hozd létre a saját szintaxis-fájlodat,
 	lásd: |mysyntaxfile|.
 
@@ -127,7 +127,7 @@ Ha a színek rosszak:
 	beolvasva. Csak annyi, amennyit az ablakban látni lehet. Ezzel
 	rengeteg időt lehet spórolni, esetenként a színek kárára. Az
 	ideiglenes megoldás: üss CTRL-L-t, vagy görgess hátra aztán újból
-	előre. 
+	előre.
 	A probléma valódi megoldása |:syn-sync|. Egyes szintaxis fájloknál van
 	mód az alkalmazott tartomány bővítésére, ez azonban a szintaxis help
 	fájljából derül ki. Például |tex.vim| a TeX szintakszishoz.

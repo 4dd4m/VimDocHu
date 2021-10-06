@@ -1,6 +1,6 @@
 *usr_02.txt*	Vim verzió 8.2.  Frissítve: 2021 Apr 24
 
-		  Bram Moolenaar: VIM felhasználió kézikönyv
+		  Bram Moolenaar: Vim felhasználió kézikönyv
 
 			    Első lépések a Vimben
 
@@ -19,9 +19,9 @@ parancsokat, hiszen a további fejezetek alpját képezik.
 |02.7|	Kilépés
 |02.8|	Segítség
 
-     Következő fejezet: |usr_03.txt|  Navigáció
- Előző fejezet: |usr_01.txt|  A kézikönyvről
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_03.txt|  Navigáció
+    Előző fejezet: |usr_01.txt|  A kézikönyvről
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *02.1*	Vim indítása a legelső alkalommal
@@ -567,7 +567,7 @@ Azonosításhoz add át a hiba kódját paramétreként:
 
 5) Az Insert mód parancsaihoz i_ prefixumot kell használnunk.  Szó törlése
    insert módban: >
-   
+
 	:help i_CTRL-W
 
 6) A Visual mód parancs prefixuma a v_.  A kijelölés másik végéhez ugorhatunk
@@ -581,7 +581,7 @@ Azonosításhoz add át a hiba kódját paramétreként:
 
 8) Ay Ex-parancsok minden esetben ":"-al kezdődnek. "s" parancs értelmezése Ex
    módban: >
-   
+
 	:help :s
 
 9) A fejlesztő környezet (debug mód) egyes parancsai: ">".  "cont" megtekintése
@@ -647,7 +647,7 @@ szimpla karakter, például: >
 
 	:help expr-!
 
-<megjeleníti a "!" (Nem) operátor leírását a Vim scriptet illetően 
+<megjeleníti a "!" (Nem) operátor leírását a Vim scriptet illetően
     Továbbá még fontos lehet: >
 
 	:help function-list
@@ -690,10 +690,10 @@ szimpla karakter, például: >
     szerentél olvasni, akkor: >
 
 	:help windows.txt
-	
+
 <    az összes ablakokkap kapcsolatos leírás. >
 
-17) A |:helpgrep| a helpfájlok tartalmára kereshetsz (beleértve az összes 
+17) A |:helpgrep| a helpfájlok tartalmára kereshetsz (beleértve az összes
     telepített kiegészítő helpfájlját).  Lásd |:helpgrep| a használatot illetően.
     Témeakör keresése: >
 
@@ -702,7 +702,7 @@ szimpla karakter, például: >
 <    A legelső találathoz visz, majd így léphetsz vissza a  következőre: >
 
 	:cnext
-	
+
 <    Az összes találat megtalálható a quickfix ablakban, melyet így nyithatsz
     meg:  >
 
@@ -711,7 +711,7 @@ szimpla karakter, például: >
 <    A találatok között az  Enter billentyűvel ugorhatsz a szövegrészlethez.  >
 
 18) A felhasználói kézikönyv. Stílusát tekintve felhasználóbarátabb, nem
-    tartalmaz annyi információt, mint a a dokumentáció. Kezdd itt |usr_toc.txt|, 
+    tartalmaz annyi információt, mint a a dokumentáció. Kezdd itt |usr_toc.txt|,
     mellyel eléred a tartalomjegyzéket (nem meglepő módon): >
 
 	:help usr_toc.txt
@@ -721,18 +721,18 @@ szimpla karakter, például: >
 amihez egyrész így is odanavigálhatsz: >
 
 	:help usr_24.txt
-	
+
 <   Viszont, ha tudod a fejezetcímet, akkor nyugodtan használhatod: >
 
 	:help 10.1
 
-<   ami természetesen megnyitja a 10.1 fejezetet a |user_10.txt|fájlban (ami 
+<   ami természetesen megnyitja a 10.1 fejezetet a |user_10.txt|fájlban (ami
 ebben az esetben a makrók rögzítéséről tesz említést >
 
 19) Szövegkiemelés.  Mindig a hl-csoportnév szintaktikát követi. Például: >
 
 	:help hl-WarningMsg
-	
+
 <    a WarningMsg csoportba tartozó kiemelésekről tájékoztat. >
 
 20) A szintaxis-kiemelés névtere: syn-topic.  E.g. >
@@ -760,17 +760,17 @@ ebben az esetben a makrók rögzítéséről tesz említést >
     megjelenítése: >
 
 	:help +conceal
-	
+
 <25) A fájlspecifikus beállítások a következő formában érhetőek el:
     ft-<filetype>-<functionality>, theát: >
-    
+
 	:help ft-c-syntax
 
-<    paranccsal a C fájlokhoz tartozó szintaxissal kapcsolatban találunk útmutatót. 
+<    paranccsal a C fájlokhoz tartozó szintaxissal kapcsolatban találunk útmutatót.
     példa a php fájlok omni-kiegészítésére: >
 
 	:help ft-php-omni
-	
+
 <    vagy a filetype beépülőre >
 
 	:help ft-tex-plugin
@@ -782,11 +782,11 @@ ebben az esetben a makrók rögzítéséről tesz említést >
 <    pontosan le fogja írni a hiba okát (jelen esetben swap fájl hiba) >
 
 	:help W10
-	
+
 <    figyelmeztető üzenetet kaphatjuk, ha írásvédett fájlt próbálunk szerkeszteni.
     Esetenként nem található pontos hibaleírás, ekkor viszont a hibát kiváltó
     kódrészletben a hibakód fel van tüntetve. >
-    
+
 	:help E128
 
 <   a |:function| parancs által előidézett hibakódok

@@ -41,7 +41,7 @@ Ha még nincs vimrc fájlod, akkor olvasd el a |vimrc| vonatkozó leírásait a
 fájl helyét illetően. A ":version" parancs említést tesz a fájlról "user vimrc
 file" néven.
 
-Unix és Macintosh renszereken a fájl (ajánlott) elérési útja: 
+Unix és Macintosh renszereken a fájl (ajánlott) elérési útja:
 
 	~/.vimrc ~
 
@@ -81,7 +81,7 @@ Az első rész magyarázatot adott arra, hogy hogyan működik a példa vimrc f�
 
 	$VIMRUNTIME/vimrc_example.vim ~
 
-Ebben a részben a fájl tartalmának (részleges) magyarázatával foglalkozunk. 
+Ebben a részben a fájl tartalmának (részleges) magyarázatával foglalkozunk.
 A fájl egyes részeit felhasználva jó kiindulópontot teremthet saját vimrc fájlok
 létrehozásához. A ":help" paranccsal kiderítheted az el nem magyarázott
 részleteket.
@@ -170,7 +170,7 @@ A defaults.vim betöltését letilthatjuk: >
 	let skip_defaults_vim = 1
 
 Ezt azonban a rendszerszintű vimrc fájban kell elhelyeznünk. Lásd
-|system-vimrc|. Ha már van user vimrc fájl, akkor ez szükségtelen, hiszen a 
+|system-vimrc|. Ha már van user vimrc fájl, akkor ez szükségtelen, hiszen a
 defaults.vim fájl nem lesz automatikusan betöltve.
 >
 	set nocompatible
@@ -245,11 +245,11 @@ A nullával kezdődő számokat a Vim nem kezeli oktálisként. Lás: 'nrformats
 Egy mappet definiál. Ezekről többet tudhatsz meg a későbbi fejezetekben. A "Q"
 parancshoz rendeli a "gq" formázási operátort. Vim 5.0 verziójáig ez volt az
 alapértelmezett működés. Egyébként "Q" belépne Ex módba, de erre most nincs
-szükségünk. 
+szükségünk.
 >
 	inoremap <C-U> <C-G>u<C-U>
 
-CTRL-U Insert módban a teljes sor tartalmát törli.  ??? Use CTRL-G u to first 
+CTRL-U Insert módban a teljes sor tartalmát törli.  ??? Use CTRL-G u to first
 break undo, so that you can undo CTRL-U after inserting a
 line break.  Revert with ":iunmap <C-U>".
 
@@ -339,7 +339,7 @@ Tételezzük fel, hogy egy adott szó kapcsos-zárójelek közé kell zárnod (a
 	csinálni. (beírja szó szerint, hogy F5 és Esc). Ezekre figyelj oda.
 
 Bontsuk szét az alábbi parancsot:
-    <F5>	Az F5 billentyű fogje elindítani a parancsot. 
+    <F5>	Az F5 billentyű fogje elindítani a parancsot.
 
     i{<Esc>	{ karakter beszúrása.  Az <Esc> kilép Insert módból.
 
@@ -358,7 +358,7 @@ meg, hogy mit írunk felül. Érdemes olyan funkciót felülírni, melyet egyál
 nem használunk.
    A parancsok mappelhetőek backslashel is, egy új réteget biztosítva, hiszen
 el fog jönni az a pont, amikor már egy billentyű nem lesz elég a definícióhoz.
-Rendezést tekintve lehetünk következetesek: \p () (parentheses) közé záráshoz, 
+Rendezést tekintve lehetünk következetesek: \p () (parentheses) közé záráshoz,
 \c {} (curly braces) közé záráshoz. Páldául: >
 
 	:map \p i(<Esc>ea)<Esc>
@@ -535,7 +535,7 @@ nevet: >
 
 A "_" karakterrel elválaszthatod a fájlípust és a nevet, ami bármi lehet. Ha
 "otherstuff.vim" fájlnév esetén a fájl nem fog betöltődni (a stuff
-fájltípushoz, a z otherstuffhoz viszont igen). 
+fájltípushoz, a z otherstuffhoz viszont igen).
 
 MS-DOS rendszereken nem használhatunk túlságosan hosszú fájlneveket (több mint
 6 karakter). Extra könyvtárak létrehozásával megkerülhetjük a problémát: >
@@ -549,7 +549,7 @@ Az általánosított filetype nevek: >
 	ftplugin/<filetype>_<name>.vim
 	ftplugin/<filetype>/<name>.vim
 
-A <name> tetszőleges lehet. 
+A <name> tetszőleges lehet.
 Példák a "stuff" filetípusra Unix rendszeren: >
 
 	~/.vim/ftplugin/stuff.vim
@@ -631,7 +631,7 @@ megnyomásával a tárgyra ugorhatunk, <Enter> újbóli megnyomásával pedig
 vissza (vagy CTRL-O).
 
 A beállításokat itt meg tudjuk változtatni. Például menjünk a "display"
-opcióra. Majd válasszuk ki a sorból az alábbit: 
+opcióra. Majd válasszuk ki a sorból az alábbit:
 
 	set wrap	nowrap ~
 
@@ -679,7 +679,7 @@ tördelni. Tördelés kikapcsolása: >
 
 	:set nowrap
 
-A Vim automatikusan odascrollozik a szöveghez (horizontálisan), ha az a nem 
+A Vim automatikusan odascrollozik a szöveghez (horizontálisan), ha az a nem
 látható tartományban van. Tíz karakter görgetése oldalra: >
 
 	:set sidescroll=10
@@ -769,7 +769,7 @@ szavak részének tekint.
 
 Kezdőbeállítások szerint a kölünbféle üzenetek számára csak egyetlen sor van
 fenntartva. Ha az üzenet túl hosszú, akkor a Vim nem képes megjeleníteni az
-üzenet egészét, ezért csak egy része válik láthatóvá. 
+üzenet egészét, ezért csak egy része válik láthatóvá.
    A 'cmdheight' beállítással meghatározható az üzenetek számára lefoglalt
 sorok mennyisége. Például: >
 

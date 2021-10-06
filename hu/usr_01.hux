@@ -1,10 +1,10 @@
 *usr_01.txt*	Vim verzió 8.2.  Frissítve: 2019 Nov 21
 
-		     Bram Moolenaar: VIM felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      A kézikönyvről
+				A kézikönyvről
 
-A fejezet röviden bemutatja a Vim működését. Elolvasásával a információt
+A fejezet röviden bemutatja a Vim működését. Elolvasásával információt
 szerezhetünk a prancsok működéséről és feltételeiről.
 
 |01.1|	A két fejezet
@@ -13,7 +13,7 @@ szerezhetünk a prancsok működéséről és feltételeiről.
 |01.4|	Jogi információk
 
 Következő fejezet: |usr_02.txt|  Első lépések a Vim szerkesztőben
-Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *01.1*	A két fejezet
@@ -59,7 +59,7 @@ Az alábbi parancsokkal ezeket láthatóvá teheted: >
 ==============================================================================
 *01.2*	Vim telepítés
 
-A leírás feltételezi, hogy a Vim megfelelően volt telepítve. Ha ez nem így
+A leírás feltételezi, hogy a Vim megfelelően lett telepítve. Ha ez nem így
 van, esetleg a Vim nem megfelelően működik (fájlok nem találhatóak, a GUI
 elemei hiányosak stb), először olvasd el a telepítésről szóló fejezetet:
 |usr_90.txt|.
