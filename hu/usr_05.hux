@@ -6,7 +6,7 @@
 
 
 A Vim úgy működik, ahogy szeretnéd. Az alábbi fejezet bemutatja, hogy hogyan
-indíthatod a Vimet az alapértelemezett beállításoktól eltérően, hogy hogyan
+indíthatod a Vimet az alapértelmezett beállításoktól eltérően, hogy hogyan
 bővítheted a Vim funkcionalitását beépülőkkel vagy hogyan definiálhatsz
 makrókat.
 
@@ -20,7 +20,7 @@ makrókat.
 |05.8|	A beállítások ablak
 |05.9|	Gyakran használt beállítások
 
-Következő fejezet: |usr_06.txt|  Szintaxiskiemelés használata
+Következő fejezet: |usr_06.txt|  Szintaxis kiemelés használata
     Előző fejezet: |usr_04.txt|  Kisebb változtatások
   Tartalomjegyzék: |usr_toc.txt|
 
@@ -41,7 +41,7 @@ Ha még nincs vimrc fájlod, akkor olvasd el a |vimrc| vonatkozó leírásait a
 fájl helyét illetően. A ":version" parancs említést tesz a fájlról "user vimrc
 file" néven.
 
-Unix és Macintosh renszereken a fájl (ajánlott) elérési útja: 
+Unix és Macintosh rendszereken a fájl (ajánlott) elérési útja:
 
 	~/.vimrc ~
 
@@ -65,8 +65,8 @@ parancsok a legegyszerűbbek. Például, ha szeretnéd indításnál bekapcsolni
 
 	set incsearch
 
-Mentés után a beállítás nem lép ervénybe, ehhez újra kell indítanod a Vimet.
-Későbbiekben lesz példa egy elgeánsabb megoldásra, melyhez nem kell
+Mentés után a beállítás nem lép érvénybe, ehhez újra kell indítanod a Vimet.
+Későbbiekben lesz példa egy elegánsabb megoldásra, melyhez nem kell
 újraindítania a szerkesztőt.
 
 Mivel ez a fejezet csak az alapokat hivatott elmagyarázni, ezért Vim script
@@ -81,7 +81,7 @@ Az első rész magyarázatot adott arra, hogy hogyan működik a példa vimrc f�
 
 	$VIMRUNTIME/vimrc_example.vim ~
 
-Ebben a részben a fájl tartalmának (részleges) magyarázatával foglalkozunk. 
+Ebben a részben a fájl tartalmának (részleges) magyarázatával foglalkozunk.
 A fájl egyes részeit felhasználva jó kiindulópontot teremthet saját vimrc fájlok
 létrehozásához. A ":help" paranccsal kiderítheted az el nem magyarázott
 részleteket.
@@ -110,11 +110,11 @@ hozzáadjuk. Lásd |07.4|.
 
 A kód második fele bekapcsolja az 'undofile' opciót, ha elérhető, mely a
 visszavonások (multi-level) leírását tartalmazza. A beállítás bekapcsolásával
-akkor is képesek leszünk a szerkesztéseinket visszavonni, ha már túlvagyunk
+akkor is képesek leszünk a szerkesztéseinket visszavonni, ha már túl vagyunk
 egy mentés-bezárás-megnyitás cikluson. Nagyszerű és hasznos beállítás,
 mindösszesen egy fájlt kell tárolnunk a merevlemezen. Bővebben |undo-persistance|.
 
-Az "if" parancsot akkro használjuk a beállítások során, ha azt várjuk, hogy
+Az "if" parancsot akkor használjuk a beállítások során, ha azt várjuk, hogy
 egy feltétel teljesüljön. Lásd |usr_41.txt|.
 >
 	if &t_Co > 2 || has("gui_running")
@@ -128,7 +128,7 @@ Bekapcsolja a 'hlsearch' opciót, kiemeli az előző keresés összes találatá
 	  autocmd FileType text setlocal textwidth=78
 	augroup END
 
-A fenti beállításcsoporttal korlátozhatjuk a sorain hosszát, mely nem lehet
+A fenti beállítás csoporttal korlátozhatjuk a sorain hosszát, mely nem lehet
 több, mint 78 karakter. De csak annál a fájloknál, ahol a fájltípus egyszerű
 szöveg. Igazság szerint a parancsnak két része van. "autocmd FileType text"
 egy autocommand, mely azt mondja: futtasd az alábbi parancsokat akkor, ha a
@@ -151,7 +151,7 @@ teljesültek. A beépülő hozzáadása: |matchit-install|.
 ==============================================================================
 *05.3*	defaults.vim magyarázat                    *defaults.vim-explained*
 
-A |defaults.vim| akkor töltődik be, ha felhasználónak nics vimrc fájlja. Ha a
+A |defaults.vim| akkor töltődik be, ha felhasználónak nincs vimrc fájlja. Ha a
 továbbiakban is használni szeretnéd a beállításait, akkor a vimrc fájlodhoz
 add hozzá az alábbi sort: >
 
@@ -169,8 +169,8 @@ A defaults.vim betöltését letilthatjuk: >
 
 	let skip_defaults_vim = 1
 
-Ezt azonban a rendszerszintű vimrc fájban kell elhelyeznünk. Lásd
-|system-vimrc|. Ha már van user vimrc fájl, akkor ez szükségtelen, hiszen a 
+Ezt azonban a rendszerszintű vimrc fájlban kell elhelyeznünk. Lásd
+|system-vimrc|. Ha már van user vimrc fájl, akkor ez szükségtelen, hiszen a
 defaults.vim fájl nem lesz automatikusan betöltve.
 >
 	set nocompatible
@@ -181,9 +181,9 @@ módot kikapcsolni, hiszen a 'nocompatible' erről gondoskodik.
 >
 	set backspace=indent,eol,start
 
-A beállítáa meghatározza, hogy a <BS> billentyű hol törölhet. A három
+A beállítás meghatározza, hogy a <BS> billentyű hol törölhet. A három
 vesszővel elválasztott opció a karakterek törlését engedélyezi behúzásoknál
-(sor eleji whitespace), sortöréseknél és Insert módban (klaszikus). Még több
+(sor eleji whitespace), sortöréseknél és Insert módban (klasszikus). Még több
 információ: 'backspace'.
 
 >
@@ -217,7 +217,7 @@ után. "w" billentyű esetén a parancs lefut ("2fw"), a "2f" pedig  eltűnik.
 	set wildmenu
 
 Az egyezéseket mutatja például automatikus kiegészítéseknél az állapotsoron
-(amikor <Tab> esetén több egyezés elehetséges). Lásd 'wildmenu'.
+(amikor <Tab> esetén több egyezés lehetséges). Lásd 'wildmenu'.
 >
 	set ttimeout
 	set ttimeoutlen=100
@@ -238,18 +238,18 @@ Egyezések kiemelése a keresés írásával párhuzamosan. Lásd 'incsearch'.
 >
 	set nrformats-=octal
 
-A nullával kezdődő számokat a Vim nem kezeli oktálisként. Lás: 'nrformats'.
+A nullával kezdődő számokat a Vim nem kezeli oktálisként. Lásd: 'nrformats'.
 >
 	map Q gq
 
 Egy mappet definiál. Ezekről többet tudhatsz meg a későbbi fejezetekben. A "Q"
 parancshoz rendeli a "gq" formázási operátort. Vim 5.0 verziójáig ez volt az
 alapértelmezett működés. Egyébként "Q" belépne Ex módba, de erre most nincs
-szükségünk. 
+szükségünk.
 >
 	inoremap <C-U> <C-G>u<C-U>
 
-CTRL-U Insert módban a teljes sor tartalmát törli.  ??? Use CTRL-G u to first 
+CTRL-U Insert módban a teljes sor tartalmát törli.  ??? Use CTRL-G u to first
 break undo, so that you can undo CTRL-U after inserting a
 line break.  Revert with ":iunmap <C-U>".
 
@@ -269,7 +269,7 @@ sem többek annál, mintha a parancsot részenként és manuálisan futtatnánk.
 >
 	syntax on
 
-Szintaxiskiemelés használata. Lásd |syntax|.
+Szintaxis kiemelés használata. Lásd |syntax|.
 
 							*vimrc-filetype*  >
 	filetype plugin indent on
@@ -280,7 +280,7 @@ Három nagyszerű funkció bekapcsolása:
    "main.c" fájlt szerkeszted, a Vim észreveszi, hogy egy ".c" kiterjesztésű
    fájlról beszélünk. Ha olyan fájlt szerkesztesz, ami "#/bin/sh" sorral
    kezdődik, akkor a Vim "sh" fájlnak fogja tekinteni. A filetype felismerésre
-   támaszkodik a szintaxiskiemelés, és az alábbi két beállítás. Lásd |filetypes|.
+   támaszkodik a szintaxis kiemelés, és az alábbi két beállítás. Lásd |filetypes|.
 
 2. Filetype beépülők használata
    Ahány fájltípus, annyi beállítás. Nem minden esetben válik előnyünkre, ha
@@ -307,7 +307,7 @@ Másik parancs. A definíció szerint bármilyen (*) fájl betöltése után
 program ellenőrzi a '" jelölő meglétét (legutolsó szerkesztési pont). Ha létezik
 az adott jelölő, akkor a kurzort arra a pontra állítja. A backslashek a sorok
 elején a parancs folytatását jelzik, így elkerülhetjük, hogy egy sor nagyon
-hosszúvá váljon. Lásd |line-continuation|. A techinka kzárólag a Vim script
+hosszúvá váljon. Lásd |line-continuation|. A techinka kizárólag a Vim script
 fájljaiban működik, command-line módban nem.
 >
 	command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
@@ -328,24 +328,24 @@ compatible).  See 'langremap'.
 Egy (vagy több) parancsnak a billentyűhöz rendelését mappelésnek hívjuk.
 Tételezzük fel, hogy egy adott szó kapcsos-zárójelek közé kell zárnod (amount
 - {amount} ). A ":map" paranccsal tudathatod a Vimmel, hogy ezt a funkciót az
-  F5 billentyűvels szeretnéd elérni. A parancs a következő: >
+  F5 billentyűvel szeretnéd elérni. A parancs a következő: >
 
 	:map <F5> i{<Esc>ea}<Esc>
 <
 	Megjegyzés:
 	A parancs definíciójánál a billentyűket úgy kell beírni, ahogyan azt
 	fent látod. Tehát az F5 billentyűt <F5> ként, az Esc billentyűt <Esc>
-	ként. Ha elhagyod a <> jeleket, akkor a prancs teljesen mást fog
+	ként. Ha elhagyod a <> jeleket, akkor a parancs teljesen mást fog
 	csinálni. (beírja szó szerint, hogy F5 és Esc). Ezekre figyelj oda.
 
 Bontsuk szét az alábbi parancsot:
-    <F5>	Az F5 billentyű fogje elindítani a parancsot. 
+    <F5>	Az F5 billentyű fogja elindítani a parancsot.
 
     i{<Esc>	{ karakter beszúrása.  Az <Esc> kilép Insert módból.
 
     e		Ugrás a szó végéhez.
 
-    a}<Esc>	Hozzáfűzés } karkter, kilépés Insert módból.
+    a}<Esc>	Hozzáfűzés } karakter, kilépés Insert módból.
 
 A parancs definiálása után bármikor meghívhatod a parancsot (sourceolás vagy
 újraindítással érvényesíteni kell a változtatásokat). F5 megnyomásával a
@@ -358,8 +358,8 @@ meg, hogy mit írunk felül. Érdemes olyan funkciót felülírni, melyet egyál
 nem használunk.
    A parancsok mappelhetőek backslashel is, egy új réteget biztosítva, hiszen
 el fog jönni az a pont, amikor már egy billentyű nem lesz elég a definícióhoz.
-Rendezést tekintve lehetünk következetesek: \p () (parentheses) közé záráshoz, 
-\c {} (curly braces) közé záráshoz. Páldául: >
+Rendezést tekintve lehetünk következetesek: \p () (parentheses) közé záráshoz,
+\c {} (curly braces) közé záráshoz. Például: >
 
 	:map \p i(<Esc>ea)<Esc>
 	:map \c i{<Esc>ea}<Esc>
@@ -368,7 +368,7 @@ A parancsban szereplő \ és p gyorsan kell gépeljük egymás után, a Vim inne
 fogja tudni, hogy egy parancsot képeznek.
 
 A ":map" parancs (argumentumok nélkül) listázza az aktív mappeket (a kiegészítők
-mapjeivel eggyütt). Legalább a Normál módúakat. Még több a mappelésekről: |40.1|.
+mapjeivel együtt). Legalább a Normál módúakat. Még több a mappelésekről: |40.1|.
 
 ==============================================================================
 *05.5*	Csomag hozzáadása			*add-package* *matchit-install*
@@ -377,11 +377,11 @@ A csomagok tulajdonképpen fájlok, melyeket hozzáadhatsz a Vimhez. Két fajtá
 létezik: opcionális és indításnál automatikusan betöltött.
 
 Az alapértelmezett Vim disztribúció tartalmaz néhány opcionálisan használható
-csomagot. Példáult a matchit beépülő. A beépülő kiterjeszti a % parancsot, így
+csomagot. Például a matchit beépülő. A beépülő kiterjeszti a % parancsot, így
 a parancs nem csak a zárójeleket képes kezelni, hanem a HTML tageket,
-if/else/endif vezérlési szerkezeteket a Vim scriptekben. Nagyon hasznos, bár
+if/else/endif vezérlési szerkezeteket a Vim szkriptekben. Nagyon hasznos, bár
 visszafelé nem kompatibilis (ez az oka annak, hogy alapértelmezetten nincs
-engeléyezve).
+engedélyezve).
 
 A matchit használatához először add hozzá az alábbi sort a vimrchez: >
 	packadd! matchit
@@ -390,19 +390,19 @@ A matchit használatához először add hozzá az alábbi sort a vimrchez: >
 	:help matchit
 
 Ez azért működik, mert amikor a `:packadd`  betöltötte a plugint, akkor
-hozzáaadta a csomag elérési útját a 'runtimepath' változóhoz, így a Vim azt
+hozzáadta a csomag elérési útját a 'runtimepath' változóhoz, így a Vim azt
 meg tudta találni.
 
-Az Interneten számos helyen találhatsz csomagokat, beépölőket. Általában
+Az Interneten számos helyen találhatsz csomagokat, beépülőket. Általában
 tömörített állományként, vagy kódbázis (repository) formában találkozhatsz
 velük. Tömörített állomány esetében a teendő a  következő:
-	1. készíts egy könyvtárat a csomagnak: >
+	1. Készíts egy könyvtárat a csomagnak: >
 
 		mkdir -p ~/.vim/pack/fancy
 
 <	   "fancy" helyett a név akármi lehet ami tetszik. Természetesen olyan
 	    nevet érdemes használni, mely leírja a csomag működését.
-	2. csomagold ki a tömörített állományt a könyvtárba.  Az alábbi
+	2. Csomagold ki a tömörített állományt a könyvtárba.  Az alábbi
 	feltételezi azt, hogy a csomag állományának gyökere "start": >
 
 	   	cd ~/.vim/pack/fancy
@@ -419,17 +419,17 @@ Több információ a csomagokról: |packages|.
 ==============================================================================
 *05.6*	Beépülő hozzáadása				*add-plugin* *plugin*
 
-Beépülőkkel bővíthejük a Vim funkcionalitását. A beépülők csak egyszerű Vim
+Beépülőkkel bővíthetjük a Vim funkcionalitását. A beépülők csak egyszerű Vim
 script fájlok, melyek automatikusan betöltődnek induláskor. Beépülő
-hozzáadásához csak be kell másolni a scriptfájlt a plugin könyvtárba. {Ez
+hozzáadásához csak be kell másolni a szkriptfájlt a plugin könyvtárba. {Ez
 azonban csak akkor elérhető, ha a Vim az |+eval| flaggel lett lefordítva}
 
 A beépülőknek két csoportja van:
 
-    globális beépülő: Hatásköre minden fájlra kiterjed
-  filetype beépülő: Hatása csak bizonyos fájltípusokra terjed ki.
+Globális beépülő: Hatásköre minden fájlra kiterjed
+Filetype beépülő: Hatása csak bizonyos fájltípusokra terjed ki.
 
-Először a globális beépülőket fogjuk megviszgálni, aztán a filetype
+Először a globális beépülőket fogjuk megvizsgálni, aztán a filetype
 belépülőket |add-filetype-plugin|.
 
 
@@ -445,7 +445,7 @@ valamint |load-pugins|.
 Globális kiegészítők hozzáadásával az extra funkciók feltétel nélkül
 rendelkezésre állnak a Vim használata során. Globális beépülők telepítésének a
 menete:
-1. Másold le a beépülő konyvtárát
+1. Másold le a beépülő könyvtárát
 2. Másold be a megfelelő helyre
 
 
@@ -456,12 +456,12 @@ Hol találhatsz beépülőt?
   $VIMRUNTIME/plugin könyvtárban
 - Más beépülők a Vimmel érkeznek. Őket itt találod: $VIMRUNTIME/macros,
   valamint az alkönyvtárakat $VIM/vimfiles/pack/dist/opt/.
-- La0etöltés az internetről. Egy nagyobb kollekció: http://www.vim.org.
+- Letöltés az internetről. Egy nagyobb kollekció: http://www.vim.org.
 - A Vim |maillist| olvasása során.
 - Magad is létrehozhatsz egyet, lásd |write-plugin|.
 
 A beépülők érkezhetnek vimball állományként: |vimball|,
-de képesek lehetnek akár önmaguk frisítésére is, lásd |getscirpt|.
+de képesek lehetnek akár önmaguk frissítésére is, lásd |getscirpt|.
 Some plugins can be updated automatically, see |getscript|.
 
 
@@ -503,9 +503,9 @@ kapcsolhatod be őket: >
 
 Ennyi! Lásd |vimrc-filetype|.
 
-Ha hiányzik az adott fájtípushoz tartozó fájl, vagy esetleg jobbat találtál,
+Ha hiányzik az adott fájltípushoz tartozó fájl, vagy esetleg jobbat találtál,
 hozzáadhatod. Két lépésben:
-1. Másold le a beépülő konyvtárát
+1. Másold le a beépülő könyvtárát
 2. Másold be a megfelelő helyre
 
 
@@ -514,11 +514,11 @@ FILETYPE PLUGIN BESZERZÉSE
 A globális beépülőkkel megegyező helyen találhatod őket. Ha a fájlnévben van
 utalás a kiterjesztésre, akkor tudod, hogy az a filetype plugin fájlja és nem
 globális beépülő.
-    A $VIMRUNTIME/macros könyvtárban található scriptek globálisak, a filetype
+    A $VIMRUNTIME/macros könyvtárban található szkriptek globálisak, a filetype
     pluginok a $VIMRUNTIME/ftplugin könyvtárban találhatóak.
 
 
-FILETYPE PLUINOK HASZNÁLATA				*ftplugin-name*
+FILETYPE PLUGINOK HASZNÁLATA				*ftplugin-name*
 
 Filetype plugin hozzáadásához csak másold be a fájlt a megfelelő könyvtárba. A
 könyvtár neve a fent már említettekkel megegyező, de az utolsó rész
@@ -533,9 +533,9 @@ nevet: >
 
 	mv thefile ~/.vim/ftplugin/stuff_too.vim
 
-A "_" karakterrel elválaszthatod a fájlípust és a nevet, ami bármi lehet. Ha
+A "_" karakterrel elválaszthatod a fájltípust és a nevet, ami bármi lehet. Ha
 "otherstuff.vim" fájlnév esetén a fájl nem fog betöltődni (a stuff
-fájltípushoz, a z otherstuffhoz viszont igen). 
+fájltípushoz, az otherstuffhoz viszont igen).
 
 MS-DOS rendszereken nem használhatunk túlságosan hosszú fájlneveket (több mint
 6 karakter). Extra könyvtárak létrehozásával megkerülhetjük a problémát: >
@@ -549,8 +549,8 @@ Az általánosított filetype nevek: >
 	ftplugin/<filetype>_<name>.vim
 	ftplugin/<filetype>/<name>.vim
 
-A <name> tetszőleges lehet. 
-Példák a "stuff" filetípusra Unix rendszeren: >
+A <name> tetszőleges lehet.
+Példák a "stuff" fájltípusra:
 
 	~/.vim/ftplugin/stuff.vim
 	~/.vim/ftplugin/stuff_def.vim
@@ -558,19 +558,19 @@ Példák a "stuff" filetípusra Unix rendszeren: >
 
 A <filetype> rész a fájltípus meghatározására szolgál (amihez be fog töltődni
 a belépülő). A beállítások a fájltípusra vonatkoznak, tehát hiába van több
-fájl megnyitva, más fájtípusok figyelmen kívül lesznek hagyva. Ha egy
+fájl megnyitva, más fájltípusok figyelmen kívül lesznek hagyva. Ha egy
 fájltípushoz több fájl tartozik, a <name> résszel tudunk különbséget tenni
 közöttük. Megjegyzés: az összes fájlnak ".vim"-el kell végződjön.
 
 
 További irodalom:
-|filetype-plugins|	Filetype pluginok dokumentéciója, információk arról,
+|filetype-plugins|	Filetype pluginok dokumentációja, információk arról,
 			hogy hogyan kerülhetjük el a mappelési problémákat.
 |load-plugins|		Mikor töltődnek be a beépülők indítás során.
 |ftplugin-overrule|	Globális beépülők működésének felülírása.
 |write-plugin|		Hogyan írjunk beépülőt.
 |plugin-details|	Még több tudnivaló a beépülők működéséről, mit tegyünk
-			ha aplugin nem működik.
+			ha a plugin nem működik.
 |new-filetype|		Új fájltípus detektálása.
 
 ==============================================================================
@@ -607,7 +607,7 @@ Most már használhatod: >
 
 	:help doit
 
-parancs megkeresi "doit" helpfájljait. Ha az alábbi parancsot futtatva látsz
+A parancs megkeresi "doit" helpfájljait. Ha az alábbi parancsot futtatva látsz
 bejegyzést a telepített helpfájlról, akkor minden jól sikerült: >
 
 	:help local-additions
@@ -620,18 +620,18 @@ Lokális helpfájlok létrehozása: |write-local-help|.
 ==============================================================================
 *05.8*	A beállítások ablak
 
-Ha egy beállítást keresel megkeresheted az |options|-ben, de itt eg ymásik
+Ha egy beállítást keresel megkeresheted az |options|-ben, de itt egy másik
 módszer: >
 
 	:options
 
 A beállítások listájával új ablakot nyit, az opciókat egy rövid sorban
-összefoglalja. Az opciók tárgyak szerint csoportosítotak. Az <Enter>
+összefoglalja. Az opciók tárgyak szerint csoportosítottak. Az <Enter>
 megnyomásával a tárgyra ugorhatunk, <Enter> újbóli megnyomásával pedig
 vissza (vagy CTRL-O).
 
 A beállításokat itt meg tudjuk változtatni. Például menjünk a "display"
-opcióra. Majd válasszuk ki a sorból az alábbit: 
+opcióra. Majd válasszuk ki a sorból az alábbit:
 
 	set wrap	nowrap ~
 
@@ -651,16 +651,16 @@ feljebb erre a sorra:
 	set so=0 ~
 
 "$" segítségével állj rá a 0 karakterre. Cseréld ki ötre "r5" végül <Enter>
-billentyűvel alklamazd. Ha most mozgatod a kurzort, akkor a görgetés hamarabb
+billentyűvel alkalmazd. Ha most mozgatod a kurzort, akkor a görgetés hamarabb
 kezdődik mielőtt elérnéd az ablak alját, vagy tetejét. Ezt csinálja a
 'scrolloff' opció. Görgetési offset.
 
 ==============================================================================
 *05.9*	Gyakran használt beállítások
 
-Elképesztően sok beállítás látezik, javarészüket talán sohasem fogod
+Elképesztően sok beállítás létezik, javarészüket talán sohasem fogod
 használni. Itt összegyűjtöttük a leghasznosabbakat. Ne feledd, a ":help"
-paranccsal további információkat tuhatsz meg a beállításokról (a beállítást
+paranccsal további információkat tudhatsz meg a beállításokról (a beállítást
 aposztrófok közé kell zárni). Például: >
 
 	:help 'wrap'
@@ -679,7 +679,7 @@ tördelni. Tördelés kikapcsolása: >
 
 	:set nowrap
 
-A Vim automatikusan odascrollozik a szöveghez (horizontálisan), ha az a nem 
+A Vim automatikusan oda scrollozik a szöveghez (horizontálisan), ha az a nem
 látható tartományban van. Tíz karakter görgetése oldalra: >
 
 	:set sidescroll=10
@@ -709,7 +709,7 @@ Nyilak wrappelésének engedélyezése Insert módban ([,]): >
 
 	:set whichwrap=b,s,<,>,[,]
 
-További paraméterekről itt szerzhetsz tudomást, 'whichwrap'.
+További paraméterekről itt szerezhetsz tudomást, 'whichwrap'.
 
 
 TABOK MEGJELENÍTÉSE
@@ -745,17 +745,17 @@ karakterekért felel (itt történetesen 0 és 9 között), a "192-255" pedig a
 nyomtatható latin karakterek.
    Esetenként jól jönne, ha a Vim egy szónak tekintené azokat a szavakat,
    melyek például kötőjelet tartalmaznak. Azaz a "w" parancs az "upper-case"
-   szóban nem állna meg a köőjelnél. Ezt így lehet megvalósítani: >
+   szóban nem állna meg a kötőjelnél. Ezt így lehet megvalósítani: >
 
 	:set iskeyword+=-
 	:set iskeyword
 <	  iskeyword=@,48-57,_,192-255,- ~
 
 A második kódrészlet alapján megállapíthatjuk, hogy a Vim egy vesszővel
-gazdagította a praméterlistát (illetve magával a "-" karakterrel). Az első sorban adjuk hozzá a kötőjelet, a
+gazdagította a paraméterlistát (illetve magával a "-" karakterrel). Az első sorban adjuk hozzá a kötőjelet, a
 második sor csak egy lista a változó paramétereiről. (+= az operátor).
 Eltávolítani az "-=" operátorral lehet. Például távolítsuk el az alsó
-össuekötőjelet: >
+összekötőjelet: >
 
 	:set iskeyword-=_
 	:set iskeyword
@@ -767,9 +767,9 @@ szavak részének tekint.
 
 ÜZENETEK
 
-Kezdőbeállítások szerint a kölünbféle üzenetek számára csak egyetlen sor van
+Kezdőbeállítások szerint a különbféle üzenetek számára csak egyetlen sor van
 fenntartva. Ha az üzenet túl hosszú, akkor a Vim nem képes megjeleníteni az
-üzenet egészét, ezért csak egy része válik láthatóvá. 
+üzenet egészét, ezért csak egy része válik láthatóvá.
    A 'cmdheight' beállítással meghatározható az üzenetek számára lefoglalt
 sorok mennyisége. Például: >
 
@@ -780,6 +780,6 @@ szövegszerkesztésre.
 
 ==============================================================================
 
-Következő fejezet: |usr_06.txt|  Szintaxiskiemelés használata
+Következő fejezet: |usr_06.txt|  Szintaxis kiemelés használata
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

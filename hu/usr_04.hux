@@ -14,22 +14,22 @@ operátor-tartomány, Visual mód, és szöveges objektumokkal.
 |04.3|	Szerkesztés ismétlése
 |04.4|	Visual mód
 |04.5|	Szöveg mozgatása
-|04.6|	Szöveg másolása 
+|04.6|	Szöveg másolása
 |04.7|	Vágólap használata
 |04.8|	Szöveg-objektumok
 |04.9|	Replace mód
 |04.10|	Összefoglalás
 
-     Következő fejezet: |usr_05.txt|  A beállításaid
- Előző fejezet |usr_03.txt|  Navigáció
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_05.txt|  A beállításaid
+    Előző fejezet: |usr_03.txt|  Navigáció
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *04.1*	Operátorok és tartományok
 
 A második fejezetben megismerkedhettél az "x" paranccsal (karakter törlése),
-valamind a "4x" (négy karakter törlése parancsokkal).
-   A "dw" paracs kitörli az adott szót. Talán felismerted már, hogy a "w"
+valamint a "4x" (négy karakter törlése parancsokkal).
+   A "dw" parancs kitörli az adott szót. Talán felismerted már, hogy a "w"
 parancs tartományt jelöl (a következő szóig). A "d" parancsot követheti
 bármely olyan parancs, amely tartományt jelöl (legyen az sor vége, sor
 kezdete, fájl eleje, fájl vége), minden esetben addig fog törölni, ahol a
@@ -55,7 +55,8 @@ sem:
 
 A kurzor alatt lévő karakter sorsát az dönti el, hogy milyen tartománnyal
 mozdítod el a kurzort. A dokumentáció "exkluzív" parancsnak tekinti azon
-parancsokat, ahol a tartomány végén (vagy kezdetén) lévő karakterek nem érintettek a művelet során  (nyilvánvalóan "inluzívnak", ha igen).
+parancsokat, ahol a tartomány végén (vagy kezdetén) lévő karakterek nem 
+érintettek a művelet során  (nyilvánvalóan "inkluzívnak", ha igen).
 
 A "$" parancs a sor végére helyezi a kurzort. A "d$" parancs a kurzor kezdeti
 pozíciójától a sor végéig töröl. Ez egy inkluzív művelet, azaz a sor végén
@@ -78,7 +79,7 @@ végezhetsz műveleteket, melyeken a kurzor képzeletben áthalad.
 Ehhez a művelethez a "c" csere parancs tartozik. Ugyanúgy viselkedik, mint a
 "d" parancs azzal a különbséggel, hogy a Insert módra állítja a szerkesztőt.
 Például "cw" egy szót cserél. Illetve még pontosabban, kitörli a szót is a
-szerkesztőt Insert módra állítja. 
+szerkesztőt Insert módra állítja.
 
 	To err is human ~
 	   ------->
@@ -95,7 +96,7 @@ A "c2wbe<Esc>" parancs részekre bontva:
 	<Esc>	vissza Normál módba
 
 Felfedezhettünk valami különlegeset: A szóköz a "human" szó elől nem lett
-törölve. A c operátor a "d" operátorhoz hasonlóan műküdik, kivéve a "cw"
+törölve. A c operátor a "d" operátorhoz hasonlóan működik, kivéve a "cw"
 parancsot. Valójában "cw" parancs a "ce" paranccsal egyenértékű, mely a szó
 végéig töröl, azért a szó utáni szóköz nem képzi a tartomány részét. A Vi
 körszakból maradt vissza a mechanizmus, melyet annyi ember használt már, hogy
@@ -137,14 +138,14 @@ EGYETLEN EGY KARAKTER CSERÉJE
 Az "r" parancs nem operátor. Arra vár, hogy begépeljünk egy karaktert, hogy a
 kurzor alatt lévőt felülírhassa. Ugyanezt megteheted a "cl" vagy az "s"
 parancsokkal, de az "r" parancs után nem kell <Esc> billentyűt ütni, hogy
-visszalépjünk Normál módba. 
+visszalépjünk Normál módba.
 
 	there is somerhing grong here ~
 	rT	     rt    rw
 
 	There is something wrong here ~
 
-Mennyiséggel használva az "r" az összesg karaktert ugyanarra ga karakterre
+Mennyiséggel használva az "r" az összes karaktert ugyanarra a karakterre
 cseréli le. Például:
 
 	There is something wrong here ~
@@ -164,7 +165,7 @@ Megismétli a legutolsó szerkesztést. Például tegyük fel, hogy HTML fájlt
 szerkesztesz és ki szeretnéd törölni a <B> taget. Az első < jelre
 pozícionálod a kurzort, majd "df>" paranccsal megsemmisíted a taget, majd a
 következő < jelre állsz, melyen a "." parancsot kiadva megismétlődik az utolsó
-szerkesztésed "df>" és a tag eltűnik. 
+szerkesztésed "df>" és a tag eltűnik.
 
 			      To <B>generate</B> a table of <B>contents ~
 	f<   ugrás <     --->
@@ -177,28 +178,28 @@ szerkesztésed "df>" és a tag eltűnik.
 Az összes parancs megismételhető kivéve a visszavonást ("u"), CTRL-R (mégis)
 és minden command-line parancsot (":").
 
-Másik példa: Le szeretnéd cserlélni a "four" szót "five"-ra, mely többször is
-előfordul a szövegben. Ezekkel a prancsokkal gyorsan teljesítheted a
+Másik példa: Le szeretnéd cserélni a "four" szót "five"-ra, mely többször is
+előfordul a szövegben. Ezekkel a parancsokkal gyorsan teljesítheted a
 feladatot:
 
 	/four<Enter>	"four" keresése
 	cwfive<Esc>	csere "five"-ra
-	n		következő "four" 
+	n		következő "four"
 	.		csere "five"-ra (ismétlés)
-	n		következő "four" 
+	n		következő "four"
 	.		csere "five"-ra (ismétlés)
 			stb.
 
 ==============================================================================
 *04.4*	Visual mód
 
-Egyszerű elemeket az operátor-tartomány kombinációval törölhetünk. Gyakran 
-viszont nem könnyű eldönteni, hogy az a adott parancs áthalad-e a kívánt 
+Egyszerű elemeket az operátor-tartomány kombinációval törölhetünk. Gyakran
+viszont nem könnyű eldönteni, hogy az a adott parancs áthalad-e a kívánt
 szövegrészleten. Ekkor a legegyszerűbb megoldás a Visual mód használata.
 
 A Visual módba "v" betű megnyomásával léphetünk be. Ha ebben a módban
-elmozdítjuk a a kurzort, akkor aktív szöveget kiemeli a szerkesztő és
-láthatóvá válik vizuálisan az a tartomány, amire operátor hatással lesz. 
+elmozdítjuk a kurzort, akkor aktív szöveget kiemeli a szerkesztő és
+láthatóvá válik vizuálisan az a tartomány, amire operátor hatással lesz.
    Például törlés a szó közepétől egy másik szó közepéig:
 
 		This is an examination sample of visual mode ~
@@ -217,7 +218,7 @@ SOROK KIJELÖLÉSE
 
 Ha teljes sorokon szeretnél műveletet végrehajtani, akkor válts át Visual
 módra "V". Az aktuális sor azonnal ki lesz jelölve anélkül, hogy a kurzort
-megmozdítanánk. Balra és jobbra mozdulva semmi sem történik. Felfelés és
+megmozdítanánk. Balra és jobbra mozdulva semmi sem történik. Felfelé és
 lefelé mozdulva viszont a kijelölés ki lesz terjesztve egész soronként.
    Például, jelölj ki három sort "Vjj":
 
@@ -243,7 +244,7 @@ adatstruktúrák esetében a leghasznosabb:
 
 A középső "Q2" oszlop törléséhez állítsd a kurzort a "Q" betűre a "Q2"-ben.
 Nyomj CTRL-V-t a blokk kijelöléséhez. Mozdulj el lefelé "3j", majd jelöld ki
-az toszlopot ("w"). Ha mindent jól tcsinálál, akkort a kijelölés tartalmazni
+az oszlopot ("w"). Ha mindent jól csináltál, akkor a kijelölés tartalmazni
  fogja az utolsó sor első karaktereit. "h" billentyűvel ezt meg tudod
  szüntetni, majd "d" parancs törli a teljes oszlopot.
 
@@ -252,7 +253,7 @@ MOZGÁS A MÁSIK OLDALRA
 
 Ha a kijelölés során módosítani szeretnéd a kezdő (vagy vég-) pontokat, akkor
 "o" paranccsal tudod a kijelölés határait bejárni. ("o", azaz other). Így
-könnyedén igazíthatjuk a kijelölés tartományát anélkül, hogy újrakezdenénk a kijelölést. 
+könnyedén igazíthatjuk a kijelölés tartományát anélkül, hogy újrakezdenénk a kijelölést.
 
 A blokk kijelölésnek négy sarka van. "o" csak a bal átló mentén vált (bal
 felső és jobb alsó sarok), "O" billentyű azonban a soron belül váltja a
@@ -264,8 +265,8 @@ kurzor alá vagy fölé új sort nyit).
 ==============================================================================
 *04.5*	Szöveg mozgatása
 
-A "d", "x" és más egyéb törlő parancsok a szöveget elmetnik. A "p" (put)
-paranccsal beilleszthetővé válnak a törlés után. 
+A "d", "x" és más egyéb törlő parancsok a szöveget elmentik. A "p" (put)
+paranccsal beilleszthetővé válnak a törlés után.
    Vessünk egy pillantás a működésre. Elsőként, törölj egy teljes sort a "dd"
 paranccsal, aztán állítsd a kurzort arra a sorra, ahová be szeretnéd másolni
 (a beillesztett sor az aktív sor alá kerül).
@@ -291,7 +292,8 @@ illeszti be az adott szöveget.
 
 MÉG TÖBB A BEILLESZTÉSRŐL
 
-A "P" parancs a kurzor elé illeszt be (ha a tartomány kevesebb, mint egy sor). Teljes sor törlése esetén a kurzor fölé. 
+A "P" parancs a kurzor elé illeszt be (ha a tartomány kevesebb, mint egy sor). 
+Teljes sor törlése esetén a kurzor fölé.
 
 A beillesztést tetszőleges alkalommal beillesztheted (amíg egy másik törlő
 parancs felül nem írja az aktuális regiszter tartalmát).
@@ -302,12 +304,11 @@ illeszt be a törölt sorból.
 
 KÉT KARAKTER CSERÉJE
 
-Gépelés során az agyad gyakran előrébb jár az ujjaidhoz képest (vagy
-fordítva?). Az eredmény egy typo, például "teh" a "the" helyett. A Vim
-megkönnyíti az ilyen jellegű hibák korrigálását. Állítsd a kurzort az e betűre
-a "teh" szóban és futtasd az xp parancsot.Működése: az "x" törli az e
-karaktert, melyet tárol a regiszterben, "p" parancs pedig a kurzor után
-beilleszti a regiszter tartalmát.
+Gépelés során az agyad gyakran előrébb jár az ujjaidhoz képest (vagy fordítva?).
+Az eredmény egy typo, például "teh" a "the" helyett. A Vim megkönnyíti az ilyen
+jellegű hibák korrigálását. Állítsd a kurzort az e betűre a "teh" szóban és 
+futtasd az xp parancsot. Működése: az "x" törli az e karaktert, melyet tárol a 
+regiszterben, "p" parancs pedig a kurzor után beilleszti a regiszter tartalmát.
 
 	teh     th     the ~
 	 x       p
@@ -315,15 +316,16 @@ beilleszti a regiszter tartalmát.
 ==============================================================================
 *04.6*	Szöveg másolása
 
-A másoláshotsz kitörölhetsz valamit, amit aztán "u" paranccsal vissza tudsz
+A másoláshoz kitörölhetsz valamit, amit aztán "u" paranccsal vissza tudsz
 vonni, az eredmény pedig a regiszter tartalma, ami másolhatóvá válik. Van
 ennél egy könnyebb módszer: a másolás (yanking). Az "y" operátor szöveget
-másol a regiszterbe (amit ugyanúgy másolhatunk, mintha töröltük volna). 
-   A Vim yakingként hivatkozik a másolásra. A "c" betű már le volt foglalva a
-csere operátor számára, de az "y" még szabad volt. Egyébként, a parancs memorizálásában is segít "y", azaz "yank". 
+másol a regiszterbe (amit ugyanúgy másolhatunk, mintha töröltük volna).
+   A Vim yankingként hivatkozik a másolásra. A "c" betű már le volt foglalva a
+csere operátor számára, de az "y" még szabad volt. Egyébként, a parancs 
+memorizálásában is segít "y", azaz "yank".
 
 Az "y" egy operátor, tehát használhatjuk ebben a formában: "yw" egy szó
-másolására, mennyiséggel prefixálható. "y2w" két szót másol. Péládul:
+másolására, mennyiséggel prefixálható. "y2w" két szót másol. Például:
 
 	let sqr = LongVariable * ~
 		 -------------->
@@ -338,7 +340,7 @@ Vedd észre, hogy a "yw" a szó utáni szóközt is tartalmazza. Ha nem szeretn�
 szóközt, akkor "ye" (a szó végéig).
 
 A "yy" egy teljes sort másol, hasonlóan a "dd"-hez, ami egy teljes sort töröl.
-Meglepően, "D" a korzortól a sor végéig töröl, de "Y" "yy"-ként működik (egy
+Meglepően, "D" a kurzortól a sor végéig töröl, de "Y" "yy"-ként működik (egy
 teljes sort másol). Figyelj oda erre az inkonzisztenciára. Kurzortól a sor
 végéig való másoláshoz a "y$" parancs használatos.
 
@@ -352,7 +354,7 @@ végéig való másoláshoz a "y$" parancs használatos.
 
 Ha a Vim GUI verzióját használod, akkor a másolást megtalálhatod a
 "Szerkesztés" menüben. Jelölj ki egy szöveget, majd kattints a
-Szerkesztés/Másolás menüpontjára, amit más programokban is beilleszhetsz (nem
+Szerkesztés/Másolás menüpontjára, amit más programokban is beilleszthetsz (nem
 csak a Vimben).
 
 A vágólap tartalmat (melynek forrása egy külső program), a
@@ -360,10 +362,10 @@ Szerkesztés/Beillesztés menüpontjával tudod beilleszteni. Ez működik Norm�
 Insert módban. A Visual módban a kijelölt szöveget felülírja a bemásolt
 tartalom.
 
-A "Kivágás" menüpont törli a szöveget, mielőtt a vágólapra helyezné. a
-"Másolás", "Kivágás" és "Beillesztés" parancsok elérhetőek a környezeti
-menüből (ha a menü engedélyezett és be van állítva). Ha van eszköztárad,
-ezeket a funkciókat ott is megtalálhatod.
+A "Kivágás" menüpont törli a szöveget, mielőtt a vágólapra helyezné. A
+"Másolás", "Kivágás" és "Beillesztés" parancsok elérhetőek a környezeti menüből
+(ha a menü engedélyezett és be van állítva). Ha van eszköztárad, ezeket a 
+funkciókat ott is megtalálhatod.
 
 Ha nem a GUI szerkesztőt használod (vagy ha nem vagy a menüs használat híve),
 akkor kiindulópont teljesen más. Használhatod a "y" és "p" parancsokat, de "*
@@ -391,15 +393,15 @@ szó elejére, hogy kiadhasd a "dw" parancsot. Az egyszerűbb módszer: "daw".
 	this is some text. ~
 
 A "d" a "daw" parancsban egy törlő operátor. "aw" pedig egy szöveg-objektum.
-Jelentése: "A word" (A szót). Ezért "daw" "töröli A szót". Pontosaban
-fogalmazva a szöközöket is a szó előtt és után (ha a szó a sor végén van,
+Jelentése: "A word" (A szót). Ezért "daw" "töröli A szót". Pontosabban
+fogalmazva a szóközöket is a szó előtt és után (ha a szó a sor végén van,
 akkor csak előtte).
 
 Harmadik módszer a szöveg-objektumok használata. Az operátor-tartomány és a
-Visual módot már tisztáztuk. Ehhez mos hozzáadjuk a szöveg-objektumokat. 
-   Nagyon hasonlóan működik az operátor-tartománykhoz képest, de ahelyett,
+Visual módot már tisztáztuk. Ehhez mos hozzáadjuk a szöveg-objektumokat.
+   Nagyon hasonlóan működik az operátor-tartományokhoz képest, de ahelyett,
 hogy kurzor pozíciójához viszonyított tartományhoz végeznénk műveletet, teljes
-egészében a szöveg az objektum. Lényegtelen, hogy a mávelet előtt hol
+egészében a szöveg az objektum. Lényegtelen, hogy a művelet előtt hol
 tartózkodott a kurzor.
 
 Teljes mondat cseréje "cis" (Change In Sentence), legyen az alábbi:
@@ -408,7 +410,7 @@ Teljes mondat cseréje "cis" (Change In Sentence), legyen az alábbi:
 	is an example.  Just ~
 	some text. ~
 
-Vidd a kurort az "is an" szavak egyikére, majd "cis":
+Vidd a kurzort az "is an" szavak egyikére, majd "cis":
 
 	Hello there.    Just ~
 	some text. ~
@@ -424,12 +426,12 @@ Sentence - A mondatot) objektum.
 Az "as" objektum törli a mondat utáni szóközöket, az "is" viszont nem. Ha
 törölni szeretnéd a teljes mondatot, akkor logikus, ha a szóközöket is törlöd
 vele egyetemben, ezért a "das" a legmegfelelőbb választás. Ha csak cserélni
-szeretnéd a szóközök megtartásával, akkor perdig "cis".
+szeretnéd a szóközök megtartásával, akkor pedig "cis".
 
 A szöveg-objektumok Visual módban is használhatóak, a kijelölés részévé teszi
 az adott objektumot, de nem lép ki a Visual módból, így egymás után
-alkalmazhatóak az objektumok. Páldául lépj be Visual módba "v", majd jelölj ki
-egy teljes modatot "as". Most ismételd meg "as"-t még egy mondat
+alkalmazhatóak az objektumok. Például lépj be Visual módba "v", majd jelölj ki
+egy teljes mondatot "as". Most ismételd meg "as"-t még egy mondat
 kijelöléséhez. Végezetül válassz egy operátort, ami egy műveletet végez az
 adott kijelölésen.
 
@@ -439,7 +441,7 @@ A szöveg-objektumokról egy egészen hosszú lista található itt:
 ==============================================================================
 *04.9*	Csere mód
 
-Az "R" parancs hatására a Vim csere módra vált. A beglpelt karakterek
+Az "R" parancs hatására a Vim csere módra vált. A begépelt karakterek
 lecserélik a kurzor alatt lévő karaktereket, mindaddig, amíg <Esc>
 billentyűvel ki nem lépsz csere módból.
    A példában a "text" szó "t" karakterénél lépünk csere módba:
@@ -450,24 +452,24 @@ billentyűvel ki nem lépsz csere módból.
 	This is interesting. ~
 
 Ha figyelmes vagy, észrevehetted, hogy a művelet 5 karaktert cserélt le 12-re.
-Az "R" parancs automatikusan meghosszíbítja a sort, ha a lecserélendő
+Az "R" parancs automatikusan meghosszabbítja a sort, ha a lecserélendő
 karakterek elfogytak, nem kezd új sort.
 
-Insert és Replace mód között az <Insert> billentyűvel tudsz váltanni.
+Insert és Replace mód között az <Insert> billentyűvel tudsz váltani.
 
 Ha <BS> (backspace) billentyűvel korrigáltál, akkor a régi szöveget a program
-otthagyja. 
+otthagyja.
 
 ==============================================================================
 *04.10*	Összefoglalás
 
 Az operátorok, mozgási parancsok és a szöveg-objektumok rengeteg kombinációt
 rejtenek. Most, hogy ismered a működésüket, használhatsz N operátort, M
-tartománnyal, ami már N * M prancs!
+tartománnyal, ami már N * M parancs!
 
 Az operátorok listáját itt találod: |operator|.
 
-Páldául, a törlésre megannyi opció létezik. Itt vannak a leggyakoriabbak:
+Például, a törlésre megannyi opció létezik. Itt vannak a leggyakoribbak:
 
 x	törlés a kurzor alatt (azaz "dl")
 X	törlés a kurzor előtt (azaz "dh")
@@ -479,7 +481,7 @@ daw	kurzor alatt lévő szó (inkluzív)
 dG	törlés fájl végéig
 dgg	törlés elejéig
 
-Ha a "d" helyett "c" parancsot használsz, akkor a működés éretelemszerűen
+Ha a "d" helyett "c" parancsot használsz, akkor a működés értelemszerűen
 változik. Ha "y"-t akkor úgyszintén, és így tovább.
 
 

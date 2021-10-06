@@ -2,7 +2,7 @@
 
 		  Bram Moolenaar: Vim Felhasználói Kézikönyv
 
-		       Szintakszis kiemelés használata
+		       Szintaxis kiemelés használata
 
 
 Unalmas a fekete-fehér szöveg. A színek életre keltik fájljaid. Nem csak
@@ -22,7 +22,7 @@ Következő fejezet: |usr_07.txt|  Több fájl szerkesztése
 ==============================================================================
 *06.1*	Bekapcsolás
 
-Az egész egy egyszerű pranaccsal kezdődik: >
+Az egész egy egyszerű paranccsal kezdődik: >
 
 	:syntax enable
 
@@ -34,7 +34,7 @@ Később észre fogod venni, hogy a pusztán fekete-fehér szöveg nagyon lelass
 Ha konstans szeretnéd a funkciót használni akkor ":syntax enable" parancsot
 kell beírnod a  |vimrc| fájlodba.
 
-Ha csak akkor szeretnél szintaxiskiemelést használni, ha a terminálod
+Ha csak akkor szeretnél szintaxis kiemelést használni, ha a terminálod
 támogatja a színeket, akkor ezt add hozzá a |vimrc| fájlodhoz: >
 
 	if &t_Co > 1
@@ -56,7 +56,7 @@ There can be a number of reasons why you don't see colors:
 	Unix rendszeren az xterm terminált javaslom, ami az XFree86 projekt
 	része: |xfree-xterm|.
 
-- A terminálod nem támogatja a színes megjelenítést és a Vim errpl nem tud.
+- A terminálod nem támogatja a színes megjelenítést és a Vim erről nem tud.
 	Győződj meg arról, hogy a $TERM beállításod helyes. Például, xterm
 	használata esetén: >
 
@@ -66,12 +66,12 @@ There can be a number of reasons why you don't see colors:
 
 		TERM=xterm-color; export TERM
 
-<        A terminál nevének meg kell egyezni az általad használttal. ha még
+<        A terminál nevének meg kell egyezni az általad használttal. Ha még
 	most sem működik, akkor olvasd el ezt |xterm-color|, amiben találsz
 	pár módszert arra, hogy hogyan lehet színeket megjeleníteni a Vimmel
 	(nem csak xterm terminálokhoz).
 
-- A fájtípus felismerés sikertelen volt.
+- A fájltípus felismerés sikertelen volt.
 	Az összes fájltípus ismerete szinte lehetetlen, ezért tájékoztatni
 	kell a Vimet, hogy milyen fájllal van dolga. A parancs: >
 
@@ -82,187 +82,190 @@ There can be a number of reasons why you don't see colors:
 
 		:set filetype=fortran
 
-<	To see which types are available, look in the directory
-	$VIMRUNTIME/syntax.  For the GUI you can use the Syntax menu.
-	Setting the filetype can also be done with a |modeline|, so that the
-	file will be highlighted each time you edit it.  For example, this
-	line can be used in a Makefile (put it near the start or end of the
-	file): >
+<        Az elérhető típusok megtekintéséhez tekintsd meg a $VIMRUNTIME/syntax
+	könyvtár tartalmát. GUI üzemmódban elérhető a Syntax menü. A fájltípus
+	beállítása |modeline|-al is lehetséges, így a minden egyes
+	szerkesztésnél alkalmazva lesz a beállítás. Például az alábbi sort
+	kell elhelyeznünk a fájl elejére, vagy végére: >
 
 		# vim: syntax=make
 
-<	You might know how to detect the file type yourself.  Often the file
-	name extension (after the dot) can be used.
-	See |new-filetype| for how to tell Vim to detect that file type.
+<        Talán már ismered a módszert, mellyel manuálisan is meghatározhatod a
+	fájltípust. Ennek egyik módja a fájl kiterjesztésének megadása
+	(általában a fájlnév utolsó "." mögötti rész). Ha olyan fájllal
+	találkoztál, amit a Vim tényleg nem ismer, itt tudhatsz meg többet az
+	új fájltípusokról: |new-filetype|.
 
-- There is no highlighting for your file type.
-	You could try using a similar file type by manually setting it as
-	mentioned above.  If that isn't good enough, you can write your own
-	syntax file, see |mysyntaxfile|.
+- Nincs kiemelés az adott fájltípushoz.
+	Megpróbálkozhatsz egy másik fájltípus kiemelésének (manuális)
+	alkalmazásával. Ha ez nem elég jó, hozd létre a saját szintaxis-fájlodat,
+	lásd: |mysyntaxfile|.
 
+Ha a színek rosszak:
 
-Or the colors could be wrong:
-
-- The colored text is very hard to read.
-	Vim guesses the background color that you are using.  If it is black
-	(or another dark color) it will use light colors for text.  If it is
-	white (or another light color) it will use dark colors for text.  If
-	Vim guessed wrong the text will be hard to read.  To solve this, set
-	the 'background' option.  For a dark background: >
+- A színes szöveg olvasása általában nehézkesebb.
+	A Vim megpróbálja kitalálni az érvényben lévő háttér színét. Ha ez
+	fekete (vagy egyéb sötét szín), akkor a szöveg színét világosra
+	cseréli. Ha a hattér fehér (vagy egyéb világos szín), akkor pedig
+	sötétre. Ha a Vim tévedett és rosszul tippelt, akkor a szöveg szinte
+	olvashatatlanná válik. A probléma megoldására manuálisan kell
+	beállítanunk a háttér színét a 'background' változóval: >
 
 		:set background=dark
 
-<	And for a light background: >
+<	Világos színhez: >
 
 		:set background=light
 
-<	Make sure you put this _before_ the ":syntax enable" command,
-	otherwise the colors will already have been set.  You could do
-	":syntax reset" after setting 'background' to make Vim set the default
-	colors again.
+<        A sornak mindenképpen a ":syntax enable" parancs __elé__ kell kerüljön,
+	különben addigra a háttérszín már beállításra került. A ":syntax
+	reset" parancsot használhatod a 'background' beállítása után, így a
+	Vim újból beállítja az alapértelmezett színeket.
 
-- The colors are wrong when scrolling bottom to top.
-	Vim doesn't read the whole file to parse the text.  It starts parsing
-	wherever you are viewing the file.  That saves a lot of time, but
-	sometimes the colors are wrong.  A simple fix is hitting CTRL-L.  Or
-	scroll back a bit and then forward again.
-	For a real fix, see |:syn-sync|.  Some syntax files have a way to make
-	it look further back, see the help for the specific syntax file.  For
-	example, |tex.vim| for the TeX syntax.
+- A színek rosszal felfelé görgetésnél
+	A szerkesztőben megnyitott fájlok nincsenek teljes egészében
+	beolvasva. Csak annyi, amennyit az ablakban látni lehet. Ezzel
+	rengeteg időt lehet spórolni, esetenként a színek kárára. Az
+	ideiglenes megoldás: üss CTRL-L-t, vagy görgess hátra aztán újból
+	előre.
+	A probléma valódi megoldása |:syn-sync|. Egyes szintaxis fájloknál van
+	mód az alkalmazott tartomány bővítésére, ez azonban a szintaxis help
+	fájljából derül ki. Például |tex.vim| a TeX szintaxishoz.
 
 ==============================================================================
-*06.3*	Different colors				*:syn-default-override*
+*06.3*	Eltérő színek				*:syn-default-override*
 
-If you don't like the default colors, you can select another color scheme.  In
-the GUI use the Edit/Color Scheme menu.  You can also type the command: >
+Ha nem tetszenek az alapértelmezett színek, akkor megváltoztathatod. GUI módban
+a Szerkesztés/Színséma menüpont alatt, vagy ezzel a paranccsal: >
 
 	:colorscheme evening
 
-"evening" is the name of the color scheme.  There are several others you might
-want to try out.  Look in the directory $VIMRUNTIME/colors.
+"evening" a színséma neve. Létezik több is, próbáld ki őket. Látogasd meg a
+$VIMRUNTIME/colors könyvtárat.
 
-When you found the color scheme that you like, add the ":colorscheme" command
-to your |vimrc| file.
+Ha megtaláltad a legszebbet, akkor hozzáadhatod a |vimrc| fájlodhoz:
+":colorscheme".
 
-You could also write your own color scheme.  This is how you do it:
+Létrehozhatod a saját színsémádat is. Így csináld:
 
-1. Select a color scheme that comes close.  Copy this file to your own Vim
-   directory.  For Unix, this should work: >
+1. Válassz egy olyan színsémát, ami a legközelebb áll az elképzeléseidhez.
+   Másold be ezt a fájlt a saját Vim könyvtáradba. Unixon ez működni fog: >
 
 	!mkdir ~/.vim/colors
 	!cp $VIMRUNTIME/colors/morning.vim ~/.vim/colors/mine.vim
 <
-   This is done from Vim, because it knows the value of $VIMRUNTIME.
+   Ennyi elég a Vim számára, hiszen ismeri a $VIMRUNTIME könyvtárat.
 
-2. Edit the color scheme file.  These entries are useful:
+2. Szerkeszd a színséma fájl. Az alábbi bejegyzések hasznosak:
 
-	term		attributes in a B&W terminal
-	cterm		attributes in a color terminal
-	ctermfg		foreground color in a color terminal
-	ctermbg		background color in a color terminal
-	gui		attributes in the GUI
-	guifg		foreground color in the GUI
-	guibg		background color in the GUI
+	term		Fekete-fehér terminál tulajdonságai
+	cterm		Színes terminál tulajdonságai
+	ctermfg		betűk alapszíne (színes terminál)
+	ctermbg		háttér színe (színes terminál)
+	gui		GUI tulajdonságai
+	guifg		GUI betűk alapszíne
+	guibg		GUI háttér színe
 
-   For example, to make comments green: >
+       Például a kommentek zölddé tételére: >
 
 	:highlight Comment ctermfg=green guifg=green
 <
-   Attributes you can use for "cterm" and "gui" are "bold" and "underline".
-   If you want both, use "bold,underline".  For details see the |:highlight|
-   command.
+   Az egyéb alkalmazható stílusok a "cterm" és a "gui" számára a "bold"
+   (félkövér) és "underline" (aláhúzott). Ha mindkettőt szeretnéd, akkor a
+   meghatározás "bold,underline". Részletekért olvasd el a |:highlight|
+   parancsot.
 
-3. Tell Vim to always use your color scheme.  Put this line in your |vimrc|: >
+3. Színséma alkalmazása minden alkalommal. Másold be a |vimrc|be: >
 
 	colorscheme mine
 
-If you want to see what the most often used color combinations look like, use
-this command: >
+A leggyakrabban használt színsémák megtekintéséhez futtasd: >
 
 	:runtime syntax/colortest.vim
 
-You will see text in various color combinations.  You can check which ones are
-readable and look nice.
+Így könnyedén dönthetsz az olvashatóságról és kinézetről.
 
 ==============================================================================
-*06.4*	With colors or without colors
+*06.4*	Színekkel vagy anélkül
 
-Displaying text in color takes a lot of effort.  If you find the displaying
-too slow, you might want to disable syntax highlighting for a moment: >
+A színes szövegek megjelenítése sok erőforrást igényel. Ha lassúnak találod a
+megjelenést, akkor érdemes egy próbát tenni színek nélkül: >
 
 	:syntax clear
 
-When editing another file (or the same one) the colors will come back.
+Új fájl szerkesztésekor a színek vissza fognak térni.
 
-If you want to stop highlighting completely use: >
+Ha teljesen meg szeretnéd szüntetni a kijelölést: >
 
 	:syntax off
 
-This will completely disable syntax highlighting and remove it immediately for
-all buffers.  See |:syntax-off| for more details.
+A parancs azonnal megszünteti a kiemelést (az összes bufferben). Lásd
+|:syntax-off|.
 
 							*:syn-manual*
-If you want syntax highlighting only for specific files, use this: >
+Ha az adott fájlra egy eltérő kiemelést szeretnél betölteni: >
 
 	:syntax manual
 
-This will enable the syntax highlighting, but not switch it on automatically
-when starting to edit a buffer.  To switch highlighting on for the current
-buffer, set the 'syntax' option: >
+A parancs csak átállítja a kiemelést (azaz a új buffer betöltésekor a régi
+kiemelés alkalmazódik).
+
+A szintaxis kiemelés bekapcsolása az aktuális bufferben, lásd 'syntax': >
 
 	:set syntax=ON
 <
 ==============================================================================
-*06.5*	Printing with colors				*syntax-printing*
+*06.5*	Nyomtatás színekkel				*syntax-printing*
 
-In the MS-Windows version you can print the current file with this command: >
+MS-Windows platformon a nyomtatás megkezdéséhez az alábbi parancs áll
+rendelkezésre: >
 
 	:hardcopy
 
-You will get the usual printer dialog, where you can select the printer and a
-few settings.  If you have a color printer, the paper output should look the
-same as what you see inside Vim.  But when you use a dark background the
-colors will be adjusted to look good on white paper.
+A felbukkanó ablakban kiválaszthatod a nyomtatót, illetve egyéb alapvető
+nyomtatási beállításokat. Ha színes nyomtatód van, akkor a nyomatnak ugyanúgy
+kell kinézni, mint a Vimben. Ha sötét hátteret használsz, akkor a Vim
+korrigálni fog, hogy papíron jól nézzen ki.
 
-There are several options that change the way Vim prints:
+A nyomtatási beállításokat számos változó befolyásolhatja:
 	'printdevice'
 	'printheader'
 	'printfont'
 	'printoptions'
 
-To print only a range of lines,  use Visual mode to select the lines and then
-type the command: >
+Tartományok nyomtatásához végezd el a kijelölés Visual módban, majd add ki a
+parancsot: >
 
 	v100j:hardcopy
 
-"v" starts Visual mode.  "100j" moves a hundred lines down, they will be
-highlighted.  Then ":hardcopy" will print those lines.  You can use other
-commands to move in Visual mode, of course.
+"v" Visual módra vált. "100j" száz sort jelöl ki lefelé. Végül ":hardcopy"
+kinyomtatja a kijelölést. Természetesen más mozdulatokkal is kijelölhettük
+volna a szöveget. A 100 sor csak egy példa volt.
 
-This also works on Unix, if you have a PostScript printer.  Otherwise, you
-will have to do a bit more work.  You need to convert the text to HTML first,
-and then print it from a web browser.
+A módszer csak akkor működik, ha PostScript nyomtatód van. Más esetben a
+művelet egy kicsit több munkát igényel: át kell konvertálnod a szöveget HTML
+formátumba, és a böngészőből kezdeményezni a nyomtatást.
 
-Convert the current file to HTML with this command: >
+Konvertálás HTML formátumba: >
 
 	:TOhtml
 
-In case that doesn't work: >
+Ha ez nem működik: >
 
 	:source $VIMRUNTIME/syntax/2html.vim
 
-You will see it crunching away, this can take quite a while for a large file.
-Some time later another window shows the HTML code.  Now write this somewhere
-(doesn't matter where, you throw it away later):
+Nagy fájloknál hosszú ideig is eltarthat a konvertálás. A kód egy új ablakban
+fog megjelenni. Ezt mentsd el valahová (nem számít hová, hiszen nem lesz rá
+szükség):
 >
 	:write main.c.html
 
-Open this file in your favorite browser and print it from there.  If all goes
-well, the output should look exactly as it does in Vim.  See |2html.vim| for
-details.  Don't forget to delete the HTML file when you are done with it.
+Nyisd meg a fájlt a böngészőben és nyomtasd ki onnan. Ha minden rendben
+történt, akkor a szövegnek ugyanúgy kell kinéznie, ahogy azt a Vimben látod.
+Lásd |2html.vim|. Ne felejtsd el törölni az ideiglenes fájlt.
 
-Instead of printing, you could also put the HTML file on a web server, and let
-others look at the colored text.
+Nyomtatás helyett töltsd fel a fájlt egy webszerverre, ott is színesen fog
+megjelenni.
 
 ==============================================================================
 *06.6*	További Irodalom

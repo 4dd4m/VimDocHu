@@ -1,8 +1,8 @@
 *usr_01.txt*	Vim verzió 8.2.  Frissítve: 2019 Nov 21
 
-		     Bram Moolenaar: VIM felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      A kézikönyvről
+				A kézikönyvről
 
 A fejezet röviden bemutatja a Vim működését. Elolvasásával a információt
 szerezhetünk a parancsok működéséről és feltételeiről.
@@ -13,7 +13,7 @@ szerezhetünk a parancsok működéséről és feltételeiről.
 |01.4|	Jogi információk
 
 Következő fejezet: |usr_02.txt|  Első lépések a Vim szerkesztőben
-Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *01.1*	A két fejezet
@@ -22,7 +22,7 @@ The Vim documentation consists of two parts:
 A Vim dokumentációja két fejezetből áll
 
 1. A felhasználói kézikönyv
-   eladatorientált magyarázatok egyszerűtől a komplexig. Olvasható elejétől
+   feladatorientált magyarázatok egyszerűtől a komplexig. Olvasható elejétől
    a végéig (akárcsak egy könyv)
 
 2. Vim Referencia
@@ -33,7 +33,7 @@ A fejezetekben használt jelölésről bővebben: |notation|
 
 NAVIGÁCIÓ
 
-A linkeket tartalmazó szövegrészek segítségevel gyorsan az adott szó, parancs,
+A linkeket tartalmazó szövegrészek segítségével gyorsan az adott szó, parancs,
 kifejezés pontos definíciójához ugorhatunk, mely egyben tájékoztat a parancs
 által használt argumentumokról és opciókról. Használd az alábbi két parancsot:
 
@@ -41,15 +41,15 @@ kifejezés pontos definíciójához ugorhatunk, mely egyben tájékoztat a paran
 	CTRL-O  pedig vissza (ismételhető).
 
 Egyes linkeket cső karakterek ölelik körül, így: |bars|. A "|" karakterek el
-vannak rejtve, lásd alul. Egy opciót, beállítást így: 'number', a prancsok
+vannak rejtve, lásd alul. Egy opciót, beállítást így: 'number', a parancsok
 idézőjelekkel vannak ellátva, például ":write". Ezen kívül, bármely szóra rá
-lehet keresni. Próbáld ki. Pizícionáld a kurzort a kívánt szó fölé és nyomj
+lehet keresni. Próbáld ki. Pozícionáld a kurzort a kívánt szó fölé és nyomj
 CTRL-]-t.
 
 A leírásban nem szereplő részek elérhetőek a ":help" parancs által. Lásd |help.txt|.
 
 A "|", "*" karakterek a Vim |conceal| opciójával el vannak rejtve. Esetenként
-|hl-Ignore|-t hsználnak, mely a karaktert a háttér színével teszi megegyezővé.
+|hl-Ignore|-t használnak, mely a karaktert a háttér színével teszi megegyezővé.
 Az alábbi parancsokkal ezeket láthatóvá teheted: >
 
 	:set conceallevel=0
@@ -59,9 +59,9 @@ Az alábbi parancsokkal ezeket láthatóvá teheted: >
 ==============================================================================
 *01.2*	Vim telepítés
 
-A leírás feltételezi, hogy a Vim megfelelően volt telepítve. Ha ez nem így
+A leírás feltételezi, hogy a Vim megfelelően lett telepítve. Ha ez nem így
 van, esetleg a Vim nem megfelelően működik (fájlok nem találhatóak, a GUI
-elemei hiányosak stb), először olvasd el a telepítésről szóló fejezetet:
+elemei hiányosak stb.), először olvasd el a telepítésről szóló fejezetet:
 |usr_90.txt|.
 							*not-compatible*
 A kézikönyv feltételezi, hogy a Vimet a Vi-kompatibilitás opció kikapcsolásával
@@ -85,7 +85,7 @@ paranccsal ellenőrizheted: >
 
 Ha a válsz "nocompatible", akkor minden rendben történt.  "compatible" esetén
 baj történt, ezért ki kell deríteni, hogy a beállítás miért nem lépett érvénybe.
-still set. Talán a .vimrc fájl nem létezik, vagy csak rossz könyvtárban van.
+Talán a .vimrc fájl nem létezik, vagy csak rossz könyvtárban van.
 Ezzel a paranccsal kideríthető: >
 
 	:scriptnames
@@ -94,16 +94,16 @@ Ha a fájl nincs a listában, ellenőrizni kell az elérési utat és a fájlnev
 Amennyiben a fájl a listában van, egy másik helyről (fájlból) kapcsolódott be
 a 'nocompatible' opció.
 
-További információkhoz olsvasd el |vimrc| és |compatible-default|.
+További információkhoz olvasd el |vimrc| és |compatible-default|.
 
 	Megjegyzés:
 	A kézikönyv a Vim normális használatát fedi le. Létezik egy úgynevezett
 	"evim" mód (easy vim) mely ugyan vim, de a működése megegyezik az
-	álatalánosan elterjedt "kattints és írj" szövegszerkesztőkével, mint
-	például a notepad. Állandóan Insert módban van és ezért teljesen más
-	érzetet nyújt, ezért ebben a leírásban az "evim" szerkesztő figyelmen
-	kívül van hagyva (valamint a működése is egyértelmű). Lásd |evim-keys|
-	a részletekhez.
+	általánosan elterjedt "kattints és írj" szövegszerkesztők működésével,
+	mint például a notepad. Állandóan Insert módban van és ezért teljesen 
+	más érzetet nyújt, ezért ebben a leírásban az "evim" szerkesztő 
+	figyelmen kívül van hagyva (valamint a működése is egyértelmű). Lásd
+	|evim-keys| a részletekhez.
 
 ==============================================================================
 *01.3*	A Vimtutor használata				*tutor* *vimtutor*
@@ -137,7 +137,7 @@ promptból indítható így:
 
 Mely természetesen kiegészíthető a nyelvi kóddal.
 
-Eltérő rendszereken ugyanez többletmunkát igányel:
+Eltérő rendszereken ugyanez többletmunkát igényel:
 
 1. Másold le a tutor filet. Ezt Vimmel is elvégezheted, hiszen tudja, hogy hol
 kell keresnie:
@@ -165,7 +165,7 @@ kell keresnie:
 
 A Vim kézikönyv és Referencia szerzői jogai (1988-2003) Bram Moolenaart
 illetik. Az anyagot a Open Publication License v1.0 szerinti 4. pontja alapján
-szabad terjeszteni. A legújabb verzió megtekintehető itt:
+szabad terjeszteni. A legújabb verzió megtekinthető itt:
 	     http://www.opencontent.org/openpub/
 
 Az anyagok egyéb szerkesztőinek is el kell fogadniuk a fent említett jogi
@@ -173,7 +173,7 @@ információkat.
 							*frombook*
 Az anyag egyes részei a Steve Oualline által írt "Vi IMproved - Vim" könyvből
 lett átvéve (ISBN: 0735710015). A fentebb említett Open Publication License
-természetesen erre a könyvre is vonatkozik. A könyből részletek vannak közölve,
+természetesen erre a könyvre is vonatkozik. A könyvből részletek vannak közölve,
 melyek módosításokon estek át (képek eltávolítása, információk frissítése Vim
 6.0-ás verzióról, hibák javítása). A |frombook| címke hiánya természetesen nem
 jelenti azt, hogy a közölt információk nem származhat(nak) az említett könyvből.
@@ -186,7 +186,7 @@ Ha leírásokból bárminemű profitod származik, akkor kérjük, hogy egy rés
 ajánld fel Uganda AIDS áldozatainak megsegítésére. Lásd  |iccf|.
 ==============================================================================
 
-Kovetkező fejezet: |usr_02.txt|  Első lépések a Vimben
+Következő fejezet: |usr_02.txt|  Első lépések a Vimben
 
 Szerzői és jogi információk: lásd |manual-copyright|
 vim:tw=78:ts=8:noet:ft=help:norl:

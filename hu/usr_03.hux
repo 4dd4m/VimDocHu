@@ -1,6 +1,6 @@
 *usr_03.txt*	Vim verzió 8.2.  Frissítve: 2020 Sep 03
 
-		    Bram Moolenaar: Felhasználói Kézikönyv
+		    Bram Moolenaar: Vim Felhasználói Kézikönyv
 
 				  Navigáció
 
@@ -20,13 +20,13 @@ mutatja be, a teljes listát itt találod |Q_lr|.
 |03.10|	Jelölők használata
 
 Következő fejezet: |usr_04.txt|  Apró változtatások
-Előző fejezet: |usr_02.txt|  Első lépések a Vimben
-Tartalomjegyzék: |usr_toc.txt|
+    Előző fejezet: |usr_02.txt|  Első lépések a Vimben
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *03.1*	Szavankénti mozdulatok
 
-A "w" parancs egy szóval mozdítja előre a kurzort. Természetesen numerikus 
+A "w" parancs egy szóval mozdítja előre a kurzort. Természetesen numerikus
 értékkel prefixálva a művelet ismételhető, így egyszerre több szót is
 átugorhatunk. Például "3w" három szónyit mozdul előre irányban. Az alábbi ábra
 szemlélteti a működést (a kurzor kezdőpozíciója "x"):
@@ -43,7 +43,7 @@ A "w" parancs a következő szó kezdetéhez ugrik.
 	<----<--<-<---------<--x
 	   b   b b    2b      b
 
-Az "e" parancs a kovetkező szó végére ugrik, "ge" pedig az előző szó végéhez:
+Az "e" parancs a következő szó végére ugrik, "ge" pedig az előző szó végéhez:
 
 	This is a line with example text ~
 	   <----<----x---->------------>
@@ -60,9 +60,9 @@ Amennyiben így teszel (a kézikönyv használata során), akkor a további pél
 nem fognak a leírtaknak megfelelően működni. >
 	:set iskeyword&
 
-Lehetőség van szöközönkénti SZÓ mozgásora. Ez nem a normál értelemben vett szó,
+Lehetőség van szóközönkénti SZÓ mozgásokra. Ez nem a normál értelemben vett szó,
 ezért van nagy betűvel írva. Logikusan, az ilyen SZAVAKHOZ a parancs is nagy-
-betűs, melyet az alábbi ábtra mutat:
+betűs, melyet az alábbi ábra mutat:
 
 	       ge      b	  w				e
 	       <-     <-	 --->			       --->
@@ -91,14 +91,14 @@ ugrik akár csak a <Home> billentyű. Az ábrán "." szóköz karaktert jelöl:
 
 (az "....." üres karaktereket jelölnek)
 
-   A "$" parancs prefixálható mennyiséggel a legtöbb paranccsal megegyezően. 
-A műveletnek nincs sok értelme, hiszen a sor végére ugrani több alkalommal 
-ugyanazt a pozíciót ereményezi. Ezért, ha mennyiséggel prefixáljuk a "$"
+   A "$" parancs prefixálható mennyiséggel a legtöbb paranccsal megegyezően.
+A műveletnek nincs sok értelme, hiszen a sor végére ugrani több alkalommal
+ugyanazt a pozíciót eredményezi. Ezért, ha mennyiséggel prefixáljuk a "$"
 parancsot, az mindig az aktuális sor végére fog ugrani. Tehát, "1$" az aktív
 sor (kurzor sora) végére ugrik, míg "2$" a következő sor végére visz és így
 tovább.
 
-   A "0" parancs nem prefixálható mennyiséggel, mivel a "0" karakter is 
+   A "0" parancs nem prefixálható mennyiséggel, mivel a "0" karakter is
 mennyiség részét képezni. Kivételesen a "^" parancs sem prefixálható, azaz
 semmilyen hatása nincs.
 
@@ -107,7 +107,7 @@ semmilyen hatása nincs.
 
 Az egyik leghasznosabb parancs a soron belüli keresés. Az "fx" parancs előre
 irányban "x" karakterre ugrik. (Az "f" a "Find" igéből származtatható).
-   Például tegyük fel, hogy az alább ábrázolt sorban tartózkodsz és a "h" 
+   Például tegyük fel, hogy az alább ábrázolt sorban tartózkodsz és a "h"
 betűre szeretnél ugrani a "human" szóban. Add ki az "fh" parancsot és a kurzor
 a "h" karakterre kerül.
 
@@ -117,7 +117,7 @@ a "h" karakterre kerül.
 
 Az ábrán az is látható, hogy "fy" lényegében a szó végére ugrik.
    Prefixálható mennyiséggel, így az "l" parancs esetében a kezdeti pozícióról
-a "3fl" parnaccsal a "foul" szóban található "l" karakterre ugrunk:
+a "3fl" paranccsal a "foul" szóban található "l" karakterre ugrunk:
 
 	To err is human.  To really foul up you need a computer. ~
 		  --------------------->
@@ -129,10 +129,10 @@ Az "F" parancs az ellenkező irányban keres, azaz visszafelé:
 		  <---------------------
 			    Fh
 
-A "tx" parancs az "fx" parancshoz hasonlóan működik azzal a kivétellel, hogy a 
+A "tx" parancs az "fx" parancshoz hasonlóan működik azzal a kivétellel, hogy a
 keresés tárgyát képző karakter elé ugrik. A parancs inverz változata "Tx" amely
 vissza irányban keresi a karaktert. Ilyenkor a kurzor ismét a karakter elé ugrik
-oly módon, hogy a karakter és a kurzor pozíciója inversz lesz "tx"-hez képest.
+oly módon, hogy a karakter és a kurzor pozíciója inverz lesz "tx"-hez képest.
 A kurzor a célkarakter elé ugrik (mindig a keresés irányából):
 
 	To err is human.  To really foul up you need a computer. ~
@@ -143,7 +143,7 @@ Az előbb említett keresési parancsok megismételhetőek ";" billentyűt nyomv
 "," vissza irányban ismétli meg a keresést. A kurzor soha nem lép át másik
 sorba (még akkor sem, ha a mondtad tovább folytatódik).
 
-Esetenként, miután már elkezdted írni a keresési parancsot, rájössz, hogy a 
+Esetenként, miután már elkezdted írni a keresési parancsot, rájössz, hogy a
 rossz paranccsal kezdted a keresést. Például "f"-et írtál "F" helyett. Nem
 kell befejezned a parancsot. A megszakításhoz nyomj <Esc> parancsot. Tehát
 "f<Esc>" egy megszakított keresés, nincs hatása semmire. <Esc> billentyű a
@@ -153,7 +153,7 @@ legtöbb parancsot megszakítja, nem csak a keresést.
 *03.4*	Zárójelek párjai
 
 Programok írása során szinte kivétel nélkül egymásba ágyazott zárójelekkel
-találkozhatunk. A "%" parancs nagyon hasznos: A zárój párjára ugrik. Ha a
+találkozhatunk. A "%" parancs nagyon hasznos: A zárójel párjára ugrik. Ha a
 kurzor "(" karakteren áll, akkor a zárójel ")" párjára ugrik és fordítva.
 
 			    %
@@ -162,7 +162,7 @@ kurzor "(" karakteren áll, akkor a zárójel ")" párjára ugrik és fordítva.
 		   <---------------->
 			    %
 
-A prancs [] és {} párokkal is működik. (a 'matchpairs' opcióval ezt
+A parancs [] és {} párokkal is működik. (a 'matchpairs' opcióval ezt
 módosíthatjuk).
 
 Ha a kurzor nem zárójelpárokon tartózkodik, akkor az aktív sor következő
@@ -182,7 +182,7 @@ Ha C vagy C++ programozó vagy, akkor az alábbi üzenet ismerősnek tűnhet:
 Ez gyakorlatilag azt mondja, hogy ki kell valamit javítanunk a 33. sorban.
 Hogyan csinálnád? Az egyik mód, hogy "9999k"-t ütsz, amivel (feltehetőleg) a
 legelső sorra kerülsz, majd ott kiadod a "32j" parancsot. Abszolút nem
-elegáns (viszont működik). Ennél jobb, ha a "G" prancsot használjuk.
+elegáns (viszont működik). Ennél jobb, ha a "G" parancsot használjuk.
 Prefixálva ahhoz a sorhoz kerülünk, amit prefixumként megadtunk. Tehát "33G" a
 33. sorba visz bennünket. (A fordító hibáinak feldolgozásához egy jobb
 módjához olvasd el |user_30.txt|, :make parancs).
@@ -202,10 +202,10 @@ módjához olvasd el |user_30.txt|, :make parancs).
 		last line of a file    V
 
 A fájlban a "%" görgethetünk is, hiszen a fájl feléhez "50%", míg a fájl
-90%-hoz a "90%" paranccsal ugorhatunk. 
+90%-hoz a "90%" paranccsal ugorhatunk.
 
 Az előzőek azt feltételezték, hogy egy adott sorra kell ugranunk függetlenül
-attól, hogy látható-e vagy sem. Mi a teenő akkor, ha azokon a sorokon belül
+attól, hogy látható-e vagy sem. Mi a teendő akkor, ha azokon a sorokon belül
 szeretnél mozogni, melyeket látsz? Az alábbi ábrán három új parancs látható:
 
 			+---------------------------+
@@ -227,7 +227,7 @@ szeretnél mozogni, melyeket látsz? Az alábbi ábrán három új parancs láth
 
 Három módszerrel derítheted ki az aktuális pozíciódat.
 
-1.  A CTRL-G parancs üzenetet jelenít meg az állapotsoron (felételezve, hogy a
+1.  A CTRL-G parancs üzenetet jelenít meg az állapotsoron (feltételezve, hogy a
     'ruler' opció nincs bekapcsolva):
 
 	"usr_03.txt" line 233 of 650 --35%-- col 45-52 ~
@@ -235,8 +235,8 @@ Három módszerrel derítheted ki az aktuális pozíciódat.
     Ez mutatja a fájl nevét, az aktív sor számát, az összes sor számát, a
     kurzor helyzetét %-ban, sor- és oszlopszámot.
        Előfordulhat, hogy olykor osztott szám van feltüntetve. Például:
-    "col 2-9". Ez azt jelenti, hogy a kurzor a második karakteren áll, de az 
-    első karater egy tab, 8 karakternyi helyet elfoglalva. 
+    "col 2-9". Ez azt jelenti, hogy a kurzor a második karakteren áll, de az
+    első karakter egy tab, 8 karakternyi helyet elfoglalva.
 
 2.  Állítsd be a 'number' opciót, mely megjeleníti a sorok számát: >
 
@@ -252,7 +252,7 @@ Három módszerrel derítheted ki az aktuális pozíciódat.
        A Vimnek számos opciója van. Boolean értékek mellett találkozhatunk a
        klasszikus String és int típusokkal. A későbbiekben lesz példa ezekre.
 
-3.  Állítsd be a 'ruler' opciót, mely megjeleníti a kurzor pozícióját a jobb 
+3.  Állítsd be a 'ruler' opciót, mely megjeleníti a kurzor pozícióját a jobb
     alsó sarokban: >
 
 	:set ruler
@@ -266,7 +266,7 @@ A CTRL-U parancs fél képernyőnyit gördít lefelé. Képzeld el, hogy az abla
 nézve a szöveg elmozdul felfelé fél képernyőnyit. Azaz az ablak mozog a szöveg
 fölött, mellyel visszafelé görgetsz. Ne aggódj, ha kissé bonyolultnak tűnik, a
 legtöbb felhasználónál problémát jelent a kezdetekkor.
-   A CTRL-D parancs fél képernyőnit gördít lefelé. (U, azaz Up és D, azaz
+   A CTRL-D parancs fél képernyőnyit gördít lefelé. (U, azaz Up és D, azaz
    Down).
 
 				       +----------------+
@@ -310,7 +310,7 @@ aktív sort.
 	| line with cursor |		 | later text	    |
 	+------------------+		 +------------------+
 
-A "zt" ugyanilyen módon a lépernyő tetejére, a "zb" pedig a képrenyő aljára
+A "zt" ugyanilyen módon a lépernyő tetejére, a "zb" pedig a képernyő aljára
 helyezi az aktív sort. Ennél sokkal több görgető parancs létezik, olvasd el
 |Q_sc|. Ha meg szeretnéd akadályozni, hogy a kurzor "n" sorral megálljon a
 képernyő alja és teteje előtt, tanulmányozd a 'scrolloff' opciót.
@@ -325,7 +325,7 @@ kereséséhez pedig a /include parancsot. >
 
 Mihelyst leütöd a "/" billentyűt, a kurzor az utolsó sorba ugrik (ugyan úgy,
 mint a ":" parancsoknál). Ide írhatod a keresendő szót. Törléshez klasszikusan
-a <BS>, további korrekcióhoz a nyilak használhatóak. 
+a <BS>, további korrekcióhoz a nyilak használhatóak.
     Az <Enter> billentyű elindítja a keresést.
 
 	Megjegyzés:
@@ -339,7 +339,7 @@ A következő találathoz az "n" betű használatával jutsz (a keresés után):
 
 Most üss még párszor "n" karaktert. A karakter a következő #include
 találatához fog ugrani. Mennyiséggel is prefixálhatod, például "3n". Ez a
-harmadik találathoz fog ugrnai. A keresési parancs "/" is prefixálható,
+harmadik találathoz fog ugrani. A keresési parancs "/" is prefixálható,
 "4/the" egyből a "the" szó negyedik találatához fog ugrani.
 
 A "?" parancs tökéletes ellentéte a "/" parancsnak, visszafelé keres: >
@@ -398,12 +398,12 @@ Tegyük fel, hogy meg kell találnod "TheLongFunctionName" második találatát.
 Időbe telik egy ilyen hosszúságú szó begépelése "/TheLongFunctionName".
 Ráadásul, ha hibát vétesz, akkor a Vim nem fogja megtalálni. A könnyebb
 módszer: állítsd rá a kurzort és üss "*" karaktert. A parancs egyszerűen fogja
-a kurzor alatt lévő szót és automatikusan keresést indít. 
+a kurzor alatt lévő szót és automatikusan keresést indít.
    A "#" parancs ugyanezt a keresést hátrafelé hajtja végre. Mindkét parancs
    prefixálható mennyiséggel, mellyel az n. találatra érkezünk.
 
 
-KERESÉS TEÉJES SZAVAKRA
+KERESÉS TELJES SZAVAKRA
 
 Ha a keresésed "/the", az illeszkedni fog a "there" szóra is. A szavak végét a
 következő szintaxissal határozhatod meg: >
@@ -421,7 +421,7 @@ találjon. "g*" és "g#" parancsokat használhatod szótöredékek illesztésér
 
 TALÁLATOK KIEMELÉSE
 
-Programot szerkesztesz, és látni szeretnéd az "nr" válotzó előfordulásait.
+Programot szerkesztesz, és látni szeretnéd az "nr" változó előfordulásait.
 "nr"-re viheted a kurzort, a "*" parancsot alkalmazva, majd "n"-el lépkedve.
 Itt egy másik módszer: >
 
@@ -450,7 +450,7 @@ alapvetőek: >
 >
 	:set incsearch
 
-Az opció már akkor elkezdei megjeleníteni a keresés tartalmát, amikor még rjuk
+Az opció már akkor elkezdeni megjeleníteni a keresés tartalmát, amikor még írjuk
 a keresést. <Enter> billentyűvel ugorhatunk ténylegesen az első találatra,
 vagy tovább folytatjuk a keresés szerkesztését. >
 >
@@ -464,7 +464,7 @@ van, ezért a keresés a fájl elejéről automatikusan folytatódik (a kurzorig
 INTERMEZZO
 
 Ha tetszenek az előbb említett beállítások, akkor tedd bele a .vimrc fájlba.
-   Szerkeszd a fájlt |not-compatibel| módban. Ha nincs meg a fájl, akkor ezzel
+   Szerkeszd a fájlt |not-compatible| módban. Ha nincs meg a fájl, akkor ezzel
    a paranccsal megnézheted az elérési útját. >
 
 	:scriptnames
@@ -507,7 +507,7 @@ Jelöljük meg azokat a helyeket az alábbi mondatban, ahol szerepel a "the" sz�
 	the solder holding one of the chips melted and the ~
 	xxx			  xxx		       xxx
 
-"/the$" errefog illeszkedni:
+"/the$" erre fog illeszkedni:
 
 	the solder holding one of the chips melted and the ~
 						       xxx
@@ -547,19 +547,19 @@ egy \ karakterrel.
 *03.10*	Jelölők használata
 
 Ha "G" paranccsal egy ugrást hajtasz végre, a Vim megjegyzi a kurzor
-kezdőpozícióját, melyet jelölőnek hívunk. Ahhoz, hogy ide visszalépj:  >
+kezdő pozícióját, melyet jelölőnek hívunk. Ahhoz, hogy ide visszalépj:  >
 
 	``
 
 Ez egy ` (backtick). Ha a parancsot másodjára is kiadod, akkor még hátrébb
-ugrik. A backtick funkciója egybként is ugrás, a pozíciót pedig 
+ugrik. A backtick funkciója egyébként is ugrás, a pozíciót pedig
 jegyzi a Vim.
 
 Általában, minden alkalommal, amikor sort váltasz, ugrást (jump) hajtasz
 végre, beleértve a "/" és "n" parancsokat, nem számít, hogy a találatok milyen
 messze helyezkednek el egymástól. "fx" és "tx", valamint "w" és "e"
 hatókörüket tekintve soron belüli parancsok, így nem számítanak ugrásnak. "j"
-és "k" parancsok szintén nem, hiába használsz egy nagy számot, hogy minnél
+és "k" parancsok szintén nem, hiába használsz egy nagy számot, hogy minél
 távolabb kerülj.
 
 
@@ -571,7 +571,7 @@ pozíciókhoz. Képzeld el az alábbi bevitelt: >
 	/^The
 	CTRL-O
 
-Az alábbi példában először a 33. sorra ugrasz, majd ott idítasz egy keresést a
+Az alábbi példában először a 33. sorra ugrasz, majd ott indítasz egy keresést a
 "Tthe" szóra. CTRL-O visszavisz a 33. sorra. CTRL-O még egyszer visszavisz a
 kezdeti pozícióra. Ha most CTRL-I-t ütsz, akkor visszakerülsz a 33. sorra
 újra. Aztán a "The" találatra ismételt CTRL-I-vel.
@@ -594,7 +594,7 @@ pozíció ">" karakterrel van megjelölve.
 
 NÉVVEL ELLÁTOTT JELÖLŐK					    *bookmark*
 
-Saját magadnak is készíthetsz jeölőket a szövegben. Az "ma" parancs egy
+Saját magadnak is készíthetsz jelölőket a szövegben. Az "ma" parancs egy
 képzeletbeli jelölőt tesz a kurzor helyére "a" néven. Összesen 26 jelölő
 alkalmazható (a-tól z-ig). Vizuálisan nem látszanak, a Vim csak a pozíciójukat
 jegyzi.
@@ -623,7 +623,7 @@ akkor csak oda kell ugornod:  >
 	's
 
 Visszaugrani pedig a kurzor eredeti pozíciójára '', vagy a másik jelölőhöz 'e.
-   Az említett példában az s és e karaktereknek nincs jeletősségük, egyszerűen
+   Az említett példában az s és e karaktereknek nincs jelentőségük, egyszerűen
 csak egyszerű megjegyezni s start, e end.
 
     Megjegyzés: A jelölők érvényben maradnak a szerkesztő bezárása után is.
@@ -638,7 +638,7 @@ A szerkesztőben használt összes jelölő listázása: >
 Feltűnhet pár érdekes jelölő, melyek:
 
 	'	A kurzor pozíciója az ugrás előtt
-	"	A fájl utolsó szerkesztési pontja 
+	"	A fájl utolsó szerkesztési pontja
 	[	Utolsó szerkesztés kezdete
 	]	Utolsó szerkesztés vége
 

@@ -1,27 +1,27 @@
 *usr_08.txt*	Vim verzió 8.2.  Frissítve: 2021 May 20
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      Splitting windows
+				   Splitek
 
 
 Display two different files above each other.  Or view two locations in the
 file at the same time.  See the difference between two files by putting them
 side by side.  All this is possible with split windows.
 
-|08.1|	Split a window
+|08.1|	Split létrehozása
 |08.2|	Split a window on another file
-|08.3|	Window size
-|08.4|	Vertical splits
-|08.5|	Moving windows
-|08.6|	Commands for all windows
-|08.7|	Viewing differences with vimdiff
-|08.8|	Various
-|08.9|	Tab pages
+|08.3|	Ablakméret
+|08.4|	Vertikális splitek
+|08.5|	Ablakok mozgatása
+|08.6|	Parancsok az összes ablakhoz
+|08.7|	vimdiff használata
+|08.8|	Egyebek
+|08.9|	fülsáv
 
-     Next chapter: |usr_09.txt|  Using the GUI
- Previous chapter: |usr_07.txt|  Editing more than one file
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_09.txt|  A GUI használata
+    Előző fejezet: |usr_07.txt|  Több fájl szerkesztése
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *08.1*	Split a window
