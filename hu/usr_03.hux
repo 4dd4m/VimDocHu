@@ -1,6 +1,6 @@
 *usr_03.txt*	Vim verzió 8.2.  Frissítve: 2020 Sep 03
 
-		    Bram Moolenaar: Felhasználói Kézikönyv
+		    Bram Moolenaar: Vim Felhasználói Kézikönyv
 
 				  Navigáció
 
@@ -20,13 +20,13 @@ mutatja be, a teljes listát itt találod |Q_lr|.
 |03.10|	Jelölők használata
 
 Következő fejezet: |usr_04.txt|  Apró változtatások
-Előző fejezet: |usr_02.txt|  Első lépések a Vimben
-Tartalomjegyzék: |usr_toc.txt|
+    Előző fejezet: |usr_02.txt|  Első lépések a Vimben
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *03.1*	Szavankénti mozdulatok
 
-A "w" parancs egy szóval mozdítja előre a kurzort. Természetesen numerikus 
+A "w" parancs egy szóval mozdítja előre a kurzort. Természetesen numerikus
 értékkel prefixálva a művelet ismételhető, így egyszerre több szót is
 átugorhatunk. Például "3w" három szónyit mozdul előre irányban. Az alábbi ábra
 szemlélteti a működést (a kurzor kezdőpozíciója "x"):
@@ -91,14 +91,14 @@ ugrik akár csak a <Home> billentyű. Az ábrán "." szóköz karaktert jelöl:
 
 (az "....." üres karaktereket jelölnek)
 
-   A "$" parancs prefixálható mennyiséggel a legtöbb paranccsal megegyezően. 
-A műveletnek nincs sok értelme, hiszen a sor végére ugrani több alkalommal 
+   A "$" parancs prefixálható mennyiséggel a legtöbb paranccsal megegyezően.
+A műveletnek nincs sok értelme, hiszen a sor végére ugrani több alkalommal
 ugyanazt a pozíciót ereményezi. Ezért, ha mennyiséggel prefixáljuk a "$"
 parancsot, az mindig az aktuális sor végére fog ugrani. Tehát, "1$" az aktív
 sor (kurzor sora) végére ugrik, míg "2$" a következő sor végére visz és így
 tovább.
 
-   A "0" parancs nem prefixálható mennyiséggel, mivel a "0" karakter is 
+   A "0" parancs nem prefixálható mennyiséggel, mivel a "0" karakter is
 mennyiség részét képezni. Kivételesen a "^" parancs sem prefixálható, azaz
 semmilyen hatása nincs.
 
@@ -107,7 +107,7 @@ semmilyen hatása nincs.
 
 Az egyik leghasznosabb parancs a soron belüli keresés. Az "fx" parancs előre
 irányban "x" karakterre ugrik. (Az "f" a "Find" igéből származtatható).
-   Például tegyük fel, hogy az alább ábrázolt sorban tartózkodsz és a "h" 
+   Például tegyük fel, hogy az alább ábrázolt sorban tartózkodsz és a "h"
 betűre szeretnél ugrani a "human" szóban. Add ki az "fh" parancsot és a kurzor
 a "h" karakterre kerül.
 
@@ -129,7 +129,7 @@ Az "F" parancs az ellenkező irányban keres, azaz visszafelé:
 		  <---------------------
 			    Fh
 
-A "tx" parancs az "fx" parancshoz hasonlóan működik azzal a kivétellel, hogy a 
+A "tx" parancs az "fx" parancshoz hasonlóan működik azzal a kivétellel, hogy a
 keresés tárgyát képző karakter elé ugrik. A parancs inverz változata "Tx" amely
 vissza irányban keresi a karaktert. Ilyenkor a kurzor ismét a karakter elé ugrik
 oly módon, hogy a karakter és a kurzor pozíciója inversz lesz "tx"-hez képest.
@@ -143,7 +143,7 @@ Az előbb említett keresési parancsok megismételhetőek ";" billentyűt nyomv
 "," vissza irányban ismétli meg a keresést. A kurzor soha nem lép át másik
 sorba (még akkor sem, ha a mondtad tovább folytatódik).
 
-Esetenként, miután már elkezdted írni a keresési parancsot, rájössz, hogy a 
+Esetenként, miután már elkezdted írni a keresési parancsot, rájössz, hogy a
 rossz paranccsal kezdted a keresést. Például "f"-et írtál "F" helyett. Nem
 kell befejezned a parancsot. A megszakításhoz nyomj <Esc> parancsot. Tehát
 "f<Esc>" egy megszakított keresés, nincs hatása semmire. <Esc> billentyű a
@@ -202,7 +202,7 @@ módjához olvasd el |user_30.txt|, :make parancs).
 		last line of a file    V
 
 A fájlban a "%" görgethetünk is, hiszen a fájl feléhez "50%", míg a fájl
-90%-hoz a "90%" paranccsal ugorhatunk. 
+90%-hoz a "90%" paranccsal ugorhatunk.
 
 Az előzőek azt feltételezték, hogy egy adott sorra kell ugranunk függetlenül
 attól, hogy látható-e vagy sem. Mi a teenő akkor, ha azokon a sorokon belül
@@ -235,8 +235,8 @@ Három módszerrel derítheted ki az aktuális pozíciódat.
     Ez mutatja a fájl nevét, az aktív sor számát, az összes sor számát, a
     kurzor helyzetét %-ban, sor- és oszlopszámot.
        Előfordulhat, hogy olykor osztott szám van feltüntetve. Például:
-    "col 2-9". Ez azt jelenti, hogy a kurzor a második karakteren áll, de az 
-    első karater egy tab, 8 karakternyi helyet elfoglalva. 
+    "col 2-9". Ez azt jelenti, hogy a kurzor a második karakteren áll, de az
+    első karater egy tab, 8 karakternyi helyet elfoglalva.
 
 2.  Állítsd be a 'number' opciót, mely megjeleníti a sorok számát: >
 
@@ -252,7 +252,7 @@ Három módszerrel derítheted ki az aktuális pozíciódat.
        A Vimnek számos opciója van. Boolean értékek mellett találkozhatunk a
        klasszikus String és int típusokkal. A későbbiekben lesz példa ezekre.
 
-3.  Állítsd be a 'ruler' opciót, mely megjeleníti a kurzor pozícióját a jobb 
+3.  Állítsd be a 'ruler' opciót, mely megjeleníti a kurzor pozícióját a jobb
     alsó sarokban: >
 
 	:set ruler
@@ -325,7 +325,7 @@ kereséséhez pedig a /include parancsot. >
 
 Mihelyst leütöd a "/" billentyűt, a kurzor az utolsó sorba ugrik (ugyan úgy,
 mint a ":" parancsoknál). Ide írhatod a keresendő szót. Törléshez klasszikusan
-a <BS>, további korrekcióhoz a nyilak használhatóak. 
+a <BS>, további korrekcióhoz a nyilak használhatóak.
     Az <Enter> billentyű elindítja a keresést.
 
 	Megjegyzés:
@@ -398,7 +398,7 @@ Tegyük fel, hogy meg kell találnod "TheLongFunctionName" második találatát.
 Időbe telik egy ilyen hosszúságú szó begépelése "/TheLongFunctionName".
 Ráadásul, ha hibát vétesz, akkor a Vim nem fogja megtalálni. A könnyebb
 módszer: állítsd rá a kurzort és üss "*" karaktert. A parancs egyszerűen fogja
-a kurzor alatt lévő szót és automatikusan keresést indít. 
+a kurzor alatt lévő szót és automatikusan keresést indít.
    A "#" parancs ugyanezt a keresést hátrafelé hajtja végre. Mindkét parancs
    prefixálható mennyiséggel, mellyel az n. találatra érkezünk.
 
@@ -552,7 +552,7 @@ kezdőpozícióját, melyet jelölőnek hívunk. Ahhoz, hogy ide visszalépj:  >
 	``
 
 Ez egy ` (backtick). Ha a parancsot másodjára is kiadod, akkor még hátrébb
-ugrik. A backtick funkciója egybként is ugrás, a pozíciót pedig 
+ugrik. A backtick funkciója egybként is ugrás, a pozíciót pedig
 jegyzi a Vim.
 
 Általában, minden alkalommal, amikor sort váltasz, ugrást (jump) hajtasz
@@ -638,7 +638,7 @@ A szerkesztőben használt összes jelölő listázása: >
 Feltűnhet pár érdekes jelölő, melyek:
 
 	'	A kurzor pozíciója az ugrás előtt
-	"	A fájl utolsó szerkesztési pontja 
+	"	A fájl utolsó szerkesztési pontja
 	[	Utolsó szerkesztés kezdete
 	]	Utolsó szerkesztés vége
 

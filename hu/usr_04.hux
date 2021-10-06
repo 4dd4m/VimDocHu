@@ -14,15 +14,15 @@ operátor-tartomány, Visual mód, és szöveges objektumokkal.
 |04.3|	Szerkesztés ismétlése
 |04.4|	Visual mód
 |04.5|	Szöveg mozgatása
-|04.6|	Szöveg másolása 
+|04.6|	Szöveg másolása
 |04.7|	Vágólap használata
 |04.8|	Szöveg-objektumok
 |04.9|	Replace mód
 |04.10|	Összefoglalás
 
-     Következő fejezet: |usr_05.txt|  A beállításaid
- Előző fejezet |usr_03.txt|  Navigáció
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_05.txt|  A beállításaid
+    Előző fejezet: |usr_03.txt|  Navigáció
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *04.1*	Operátorok és tartományok
@@ -78,7 +78,7 @@ végezhetsz műveleteket, melyeken a kurzor képzeletben áthalad.
 Ehhez a művelethez a "c" csere parancs tartozik. Ugyanúgy viselkedik, mint a
 "d" parancs azzal a különbséggel, hogy a Insert módra állítja a szerkesztőt.
 Például "cw" egy szót cserél. Illetve még pontosabban, kitörli a szót is a
-szerkesztőt Insert módra állítja. 
+szerkesztőt Insert módra állítja.
 
 	To err is human ~
 	   ------->
@@ -137,7 +137,7 @@ EGYETLEN EGY KARAKTER CSERÉJE
 Az "r" parancs nem operátor. Arra vár, hogy begépeljünk egy karaktert, hogy a
 kurzor alatt lévőt felülírhassa. Ugyanezt megteheted a "cl" vagy az "s"
 parancsokkal, de az "r" parancs után nem kell <Esc> billentyűt ütni, hogy
-visszalépjünk Normál módba. 
+visszalépjünk Normál módba.
 
 	there is somerhing grong here ~
 	rT	     rt    rw
@@ -164,7 +164,7 @@ Megismétli a legutolsó szerkesztést. Például tegyük fel, hogy HTML fájlt
 szerkesztesz és ki szeretnéd törölni a <B> taget. Az első < jelre
 pozícionálod a kurzort, majd "df>" paranccsal megsemmisíted a taget, majd a
 következő < jelre állsz, melyen a "." parancsot kiadva megismétlődik az utolsó
-szerkesztésed "df>" és a tag eltűnik. 
+szerkesztésed "df>" és a tag eltűnik.
 
 			      To <B>generate</B> a table of <B>contents ~
 	f<   ugrás <     --->
@@ -183,22 +183,22 @@ feladatot:
 
 	/four<Enter>	"four" keresése
 	cwfive<Esc>	csere "five"-ra
-	n		következő "four" 
+	n		következő "four"
 	.		csere "five"-ra (ismétlés)
-	n		következő "four" 
+	n		következő "four"
 	.		csere "five"-ra (ismétlés)
 			stb.
 
 ==============================================================================
 *04.4*	Visual mód
 
-Egyszerű elemeket az operátor-tartomány kombinációval törölhetünk. Gyakran 
-viszont nem könnyű eldönteni, hogy az a adott parancs áthalad-e a kívánt 
+Egyszerű elemeket az operátor-tartomány kombinációval törölhetünk. Gyakran
+viszont nem könnyű eldönteni, hogy az a adott parancs áthalad-e a kívánt
 szövegrészleten. Ekkor a legegyszerűbb megoldás a Visual mód használata.
 
 A Visual módba "v" betű megnyomásával léphetünk be. Ha ebben a módban
 elmozdítjuk a a kurzort, akkor aktív szöveget kiemeli a szerkesztő és
-láthatóvá válik vizuálisan az a tartomány, amire operátor hatással lesz. 
+láthatóvá válik vizuálisan az a tartomány, amire operátor hatással lesz.
    Például törlés a szó közepétől egy másik szó közepéig:
 
 		This is an examination sample of visual mode ~
@@ -252,7 +252,7 @@ MOZGÁS A MÁSIK OLDALRA
 
 Ha a kijelölés során módosítani szeretnéd a kezdő (vagy vég-) pontokat, akkor
 "o" paranccsal tudod a kijelölés határait bejárni. ("o", azaz other). Így
-könnyedén igazíthatjuk a kijelölés tartományát anélkül, hogy újrakezdenénk a kijelölést. 
+könnyedén igazíthatjuk a kijelölés tartományát anélkül, hogy újrakezdenénk a kijelölést.
 
 A blokk kijelölésnek négy sarka van. "o" csak a bal átló mentén vált (bal
 felső és jobb alsó sarok), "O" billentyű azonban a soron belül váltja a
@@ -265,7 +265,7 @@ kurzor alá vagy fölé új sort nyit).
 *04.5*	Szöveg mozgatása
 
 A "d", "x" és más egyéb törlő parancsok a szöveget elmetnik. A "p" (put)
-paranccsal beilleszthetővé válnak a törlés után. 
+paranccsal beilleszthetővé válnak a törlés után.
    Vessünk egy pillantás a működésre. Elsőként, törölj egy teljes sort a "dd"
 paranccsal, aztán állítsd a kurzort arra a sorra, ahová be szeretnéd másolni
 (a beillesztett sor az aktív sor alá kerül).
@@ -291,7 +291,7 @@ illeszti be az adott szöveget.
 
 MÉG TÖBB A BEILLESZTÉSRŐL
 
-A "P" parancs a kurzor elé illeszt be (ha a tartomány kevesebb, mint egy sor). Teljes sor törlése esetén a kurzor fölé. 
+A "P" parancs a kurzor elé illeszt be (ha a tartomány kevesebb, mint egy sor). Teljes sor törlése esetén a kurzor fölé.
 
 A beillesztést tetszőleges alkalommal beillesztheted (amíg egy másik törlő
 parancs felül nem írja az aktuális regiszter tartalmát).
@@ -318,9 +318,9 @@ beilleszti a regiszter tartalmát.
 A másoláshotsz kitörölhetsz valamit, amit aztán "u" paranccsal vissza tudsz
 vonni, az eredmény pedig a regiszter tartalma, ami másolhatóvá válik. Van
 ennél egy könnyebb módszer: a másolás (yanking). Az "y" operátor szöveget
-másol a regiszterbe (amit ugyanúgy másolhatunk, mintha töröltük volna). 
+másol a regiszterbe (amit ugyanúgy másolhatunk, mintha töröltük volna).
    A Vim yakingként hivatkozik a másolásra. A "c" betű már le volt foglalva a
-csere operátor számára, de az "y" még szabad volt. Egyébként, a parancs memorizálásában is segít "y", azaz "yank". 
+csere operátor számára, de az "y" még szabad volt. Egyébként, a parancs memorizálásában is segít "y", azaz "yank".
 
 Az "y" egy operátor, tehát használhatjuk ebben a formában: "yw" egy szó
 másolására, mennyiséggel prefixálható. "y2w" két szót másol. Péládul:
@@ -396,7 +396,7 @@ fogalmazva a szöközöket is a szó előtt és után (ha a szó a sor végén v
 akkor csak előtte).
 
 Harmadik módszer a szöveg-objektumok használata. Az operátor-tartomány és a
-Visual módot már tisztáztuk. Ehhez mos hozzáadjuk a szöveg-objektumokat. 
+Visual módot már tisztáztuk. Ehhez mos hozzáadjuk a szöveg-objektumokat.
    Nagyon hasonlóan működik az operátor-tartománykhoz képest, de ahelyett,
 hogy kurzor pozíciójához viszonyított tartományhoz végeznénk műveletet, teljes
 egészében a szöveg az objektum. Lényegtelen, hogy a mávelet előtt hol
@@ -456,7 +456,7 @@ karakterek elfogytak, nem kezd új sort.
 Insert és Replace mód között az <Insert> billentyűvel tudsz váltanni.
 
 Ha <BS> (backspace) billentyűvel korrigáltál, akkor a régi szöveget a program
-otthagyja. 
+otthagyja.
 
 ==============================================================================
 *04.10*	Összefoglalás
