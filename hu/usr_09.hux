@@ -1,8 +1,8 @@
 *usr_09.txt*	Vim verzió 8.2.  Frissítve: 2017 Aug 11
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-				Using the GUI
+			       A GUI használata
 
 
 Vim works in an ordinary terminal, while gVim has a Graphical User Interface
@@ -15,9 +15,9 @@ that the GUI offers.
 |09.3|	The clipboard
 |09.4|	Select mode
 
-     Next chapter: |usr_10.txt|  Making big changes
- Previous chapter: |usr_08.txt|  Splitting windows
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_10.txt|  Nagyobb változtatások
+    Előző fejezet: |usr_08.txt|  Splitek
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *09.1*	Parts of the GUI
@@ -285,6 +285,6 @@ You can tune the way Select mode works with the 'selectmode' option.
 
 ==============================================================================
 
-Next chapter: |usr_10.txt|  Making big changes
+Következő fejezet: |usr_10.txt|  Nagyobb változtatások
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
