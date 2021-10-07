@@ -49,7 +49,7 @@ A tilde (~) azokat a sorokat jelöli, amelyek a fájlnak nem képezik részét. 
 szavakkal, ha a Vim megjelenítette a teljes fájlt, ilyen szimbólummal tölti ki
 az üres sorokat, ha a fájl tartalma véget ért.  A képernyő legalsó sora az
 állapotsor, ebben a sorban található a fájlnév, illetve információ arról, ha új
-fájlt mi hoztuk létre. Az állapotsor üzenetei csak ideiglenes, a frissebb
+fájlt mi hoztuk létre. Az állapotsor üzenetei csak ideiglenesek, a frissebb
 információk felülírják a régi üzeneteket.
 
 
@@ -95,7 +95,8 @@ szerkesztő ablakában ezt láthatod:
 
 MILYEN MÓDBAN VAGYOK?
 
-Ezt bármikor leellenőrizheted ezzel a paranccsal:
+Ezt bármikor leellenőrizheted ezzel a paranccsal, ami megjeleníti az érvényben
+lévő módot az állapotsoron:
 >
 	:set showmode
 

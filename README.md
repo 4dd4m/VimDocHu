@@ -3,8 +3,8 @@
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_07.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_08.hux
+* A fordítás jelenleg usr_01.hux - usr_09.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_10.hux
 
 ## A jelenlegi fordítás használatba vétele
 * A hu könyvtárat másold be ide: $VIMRUNTIME/doc
@@ -12,13 +12,6 @@
 * futtasd ':helptags $VIMRUNTIME/doc' a Vimből
 * a .vimrchez add hozzá ':helplang=hu,en'
 
-## Ha valami nem tiszta
-Egyikünk sem ismeri a Vimet 100%-os pontossággal. A fordítás célja az összes
-létező helpfájl lefordítása. Ezért garantáltan lesznek olyan szituációk, melyek
-során tesztelni kell a szóban forgó funkcionalitást.
-Ha ezek ellenére sem tiszta valami, akkor jelöld meg a kérdéses rész '???'
-karakterekkel (ne fordítsd le, vagy ha igen, hagyd meg az angol szöveget is),
-hogy könnyedén felderíthető legyen.
 
 ## Fordítanál?
 Az eddig betartott alapelvek:
@@ -36,6 +29,20 @@ Az eddig betartott alapelvek:
 Ebben az esetben az alábbiakban segíthetsz:
 * Lefordított szövegek helyesírási hibáinak ellenőrzése
 * Lefordított szövegek nyelvhelyességének ellenőrzése
+* Hibásan tördelt szövegek javítása
+* (help) szintaxis kijavítása
 
+## Ha valami nem tiszta
+Egyikünk sem ismeri a Vimet 100%-os pontossággal. A fordítás célja az összes
+létező helpfájl lefordítása. Ezért garantáltan lesznek olyan szituációk, melyek
+során tesztelni kell a szóban forgó funkcionalitást.
+Ha ezek ellenére sem tiszta valami, akkor jelöld meg a kérdéses rész '???'
+karakterekkel (ne fordítsd le, vagy ha igen, hagyd meg az angol szöveget is),
+hogy könnyedén felderíthető legyen.
+
+## Szerkezet
+* hu/ kézikönyv fájljai
+* orig/ eredeti fájlok, diffeléshez, karbantartáshoz
+* A manual fájljai még nincsenek átemelve
 
 vim: tw=80 filetype=markdown syntax=markdown

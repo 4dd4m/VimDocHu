@@ -1,290 +1,284 @@
 *usr_09.txt*	Vim verzió 8.2.  Frissítve: 2017 Aug 11
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-				Using the GUI
+			       A GUI használata
 
 
-Vim works in an ordinary terminal, while gVim has a Graphical User Interface
-(GUI).  It can do the same things and a few more.  The GUI offers menus, a
-toolbar, scrollbars and other items.  This chapter is about these extra things
-that the GUI offers.
+Bár a Vim terminálos üzemmódra íródott elsősorban, a gVim részeként futtatható
+Grafikus módban is (GUI) amely legalább arra képes, mint a terminálos verzió,
+talán még egy picit többre is. A GUI verzióban megtalálhatjuk a szokásos
+vezérlőelemeket, menük, eszköztárak, görgetősávok stb. A fejezet azokról az
+extra funkciókról, melyeket a GUI ajánl.
 
-|09.1|	Parts of the GUI
-|09.2|	Using the mouse
-|09.3|	The clipboard
-|09.4|	Select mode
+|09.1|	A GUI részei
+|09.2|	Egérhasználat
+|09.3|	Vágólap
+|09.4|	Kiválasztás
 
-     Next chapter: |usr_10.txt|  Making big changes
- Previous chapter: |usr_08.txt|  Splitting windows
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_10.txt|  Nagyobb változtatások
+    Előző fejezet: |usr_08.txt|  Splitek
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*09.1*	Parts of the GUI
+*09.1*	A GUI részei
 
-You might have an icon on your desktop that starts gvim.  Otherwise, one of
-these commands should do it: >
+A szerkesztőt indíthatod az asztalról, azonban ha nem rendelkezel parancsikonnal,
+akkor terminálból: >
 
 	gvim file.txt
 	vim -g file.txt
 
-If this doesn't work you don't have a version of Vim with GUI support.  You
-will have to install one first.
-   Vim will open a window and display "file.txt" in it.  What the window looks
-like depends on the version of Vim.  It should resemble the following picture
-(for as far as this can be shown in ASCII!).
+Ha ez nem működik, akkor nincs GUI verió nincs telepítve, így telepítened
+kell.
+   Egy új ablakot fogsz látni, benne a "file.txt" tartalmával. Az ablak
+kinézete függ a verziószámtól, de mindenképpen hasonlóan kell kinézzen
+(amennyire ezt ASCII szövegen keresztül be lehet mutatni):
 
 	+----------------------------------------------------+
-	| file.txt + (~/dir) - VIM			   X |	<- window title
+	| file.txt + (~/dir) - VIM			   X |	<- címsor
 	+----------------------------------------------------+
-	| File	Edit  Tools  Syntax  Buffers  Window  Help   |	<- menubar
+	| File	Edit  Tools  Syntax  Buffers  Window  Help   |	<- menü
 	+----------------------------------------------------+
-	| aaa  bbb  ccc  ddd  eee  fff	ggg  hhh  iii  jjj   |	<- toolbar
+	| aaa  bbb  ccc  ddd  eee  fff	ggg  hhh  iii  jjj   |	<- eszköztár
 	| aaa  bbb  ccc  ddd  eee  fff	ggg  hhh  iii  jjj   |
 	+----------------------------------------------------+
 	| file text					 | ^ |
 	| ~						 | # |
-	| ~						 | # |	<- scrollbar
+	| ~						 | # |	<- görgetősáv
 	| ~						 | # |
 	| ~						 | # |
 	| ~						 | # |
 	|						 | V |
 	+----------------------------------------------------+
 
-The largest space is occupied by the file text.  This shows the file in the
-same way as in a terminal.  With some different colors and another font
-perhaps.
+Az ablak legnagyobb területét természetesen a forrás foglalja el, ami ugyanúgy
+jelenik meg, mint a terminálban. Apróbb kólönbségek lehetnek a színekben és a
+betűtípusban.
 
 
-THE WINDOW TITLE
+A CÍMSOR
 
-At the very top is the window title.  This is drawn by your window system.
-Vim will set the title to show the name of the current file.  First comes the
-name of the file.  Then some special characters and the directory of the file
-in parens.  These special characters can be present:
+Az ablak tetején helyezkedik el a címsor. Ezt a rendszered rajzolja. A
+címsorban a megnyitott fájl nevét láthatjuk. Zárójelben, jobb szélről láthatjuk
+az elérési utat, a kettő között elhelyezkedő speciális karakterek jelentése:
 
-	-	The file cannot be modified (e.g., a help file)
-	+	The file contains changes
-	=	The file is read-only
-	=+	The file is read-only, contains changes anyway
+	-	Írásvédett fájl (például a help file)
+	+	Módosított fájl
+	=	A fájl csak olvasható
+	=+	A fájl csak olvasható, de tartalmaz módosításokat
 
-If nothing is shown you have an ordinary, unchanged file.
-
-
-THE MENUBAR
-
-You know how menus work, right?  Vim has the usual items, plus a few more.
-Browse them to get an idea of what you can use them for.  A relevant submenu
-is Edit/Global Settings.  You will find these entries:
-
-	Toggle Toolbar		make the toolbar appear/disappear
-	Toggle Bottom Scrollbar	make a scrollbar appear/disappear at the bottom
-	Toggle Left Scrollbar	make a scrollbar appear/disappear at the left
-	Toggle Right Scrollbar	make a scrollbar appear/disappear at the right
-
-On most systems you can tear-off the menus.  Select the top item of the menu,
-the one that looks like a dashed line.  You will get a separate window with
-the items of the menu.  It will hang around until you close the window.
+A jelölés hiánya eseten csak egy egyszerű mezei fájllal van dolgod.
 
 
-THE TOOLBAR
+A MENÜSOR
 
-This contains icons for the most often used actions.  Hopefully the icons are
-self-explanatory.  There are tooltips to get an extra hint (move the mouse
-pointer to the icon without clicking and don't move it for a second).
+Tudod, hogy hogyan működnek a menük, ugye? Teljesen szokásos, plussz egy-két
+extra elem. Nyisd meg őket, így egyből tudni fogod, hogy mire valók. A
+releváns almenü a Szerkesztés/Globális beállítások. Ezekben az alábbiakat
+találhatod:
 
-The "Edit/Global Settings/Toggle Toolbar" menu item can be used to make the
-toolbar disappear.  If you never want a toolbar, use this command in your
-vimrc file: >
+	Eszköztár       Be/Ki   az eszköztár elrejtése/megjelenítése
+	Alsó görgetősáv Be/Ki	alsó görgetősáv elrejtése/megjelenítése
+	Bal  görgetősáv Be/Ki   bal  görgetősáv elrejtése/megjelenítése
+	Jobb görgetősáv Be/Ki   jobb görgetősáv elrejtése/megjelenítése
+
+A legtöbb rendszeren a menüt lebegővé teheted (undocking). Ragadd meg a
+szaggatott vonalat és válaszd le a menüsort az ablakról. Amíg be nem zárod,
+tartani fogja a pozícióját.
+
+
+AZ ESZKÖZTÁR
+
+Ikonokkal tűzdelt, a leggyakoribb funkciók kiszolgálására szolgál. Remélem az
+ikonok magukért beszélnek. A tooltipek röviden bemutatják a funkciót (vidd az
+ikonok fölé az egeret, majd pihentesd egy picit).
+
+A "Szerkesztés/Általános beállítások/Eszköztár Be/ki"-vel lehet az eszköztárat
+elrejteni. Ha egyszerűen és gyorsan véget szeretnél vetni az eszköztárnak: >
 
 	:set guioptions-=T
 
-This removes the 'T' flag from the 'guioptions' option.  Other parts of the
-GUI can also be enabled or disabled with this option.  See the help for it.
+Soha nem fogod többé látni. 
+A parancs eltávolítja a 'T' flaget a 'guioptions'-ből. A GUI egyéb részeit és
+képes kiiktatni. Pillants bele az opció leírásába.
 
+A GÖRGETŐSÁVOK
 
-THE SCROLLBARS
+Alapértelmezett esetben csak egy sávot láthatsz a képernyő jobb szélén.
+Nyilvánvaló a feladata. Minden split saját görgetősávval rendelkezik. 
+   A horizontális görgetősávot a "Szerkesztés/Általános beállítások/Vízszintes
+görgetősáv Be/Ki" opciójával lehet megjeleníteni. Nagyon hasznos diff módban,
+vagy ha a 'wrap' opció nincs megfelelően beállítva (erről később).
 
-By default there is one scrollbar on the right.  It does the obvious thing.
-When you split the window, each window will get its own scrollbar.
-   You can make a horizontal scrollbar appear with the menu item
-Edit/Global Settings/Toggle Bottom Scrollbar.  This is useful in diff mode, or
-when the 'wrap' option has been reset (more about that later).
-
-When there are vertically split windows, only the windows on the right side
-will have a scrollbar.  However, when you move the cursor to a window on the
-left, it will be this one that the scrollbar controls.  This takes a bit of
-time to get used to.
-   When you work with vertically split windows, consider adding a scrollbar on
-the left.  This can be done with a menu item, or with the 'guioptions' option:
+Vertikális splitek esetén csak az ablak jobb oldalán található görgetősáv. A
+görgetősáv követi a kurzor fókuszát, azaz ha a bal oldalsó ablakban van a
+kurzor, akkor azt fogja görgetni. Ehhez hozzá kell szokni.
+   Érdemes a bal oldalhoz is görgetősávot rendelni, ha vertikális splitben
+dolgozol a menü segítségével, vagy a 'guioptions' módosításával:
 >
 	:set guioptions+=l
 
-This adds the 'l' flag to 'guioptions'.
+Ez az 'l' flaget adja hozzá a 'guioptions'-hoz.
 
 ==============================================================================
-*09.2*	Using the mouse
+*09.2*	Az egér használata
 
-Standards are wonderful.  In Microsoft Windows, you can use the mouse to
-select text in a standard manner.  The X Window system also has a standard
-system for using the mouse.  Unfortunately, these two standards are not the
-same.
-   Fortunately, you can customize Vim.  You can make the behavior of the mouse
-work like an X Window system mouse or a Microsoft Windows mouse.  The following
-command makes the mouse behave like an X Window mouse: >
+A szabványok gyönyörűek... Windowsban az egérrel ki lehet jelölni a szöveget.
+Az X ablakrendszernek is megvannak a maga szabványai, de sajnos a két szabvány
+nem azonos. 
+   Szerencsére, a Vim testreszabható. Az egér viselkedését mindkét rendszerhez
+hozzá lehet igazítani. Az alábbi parancs az X ablakrendszerhez igazítja az
+egér működését: >
 
 	:behave xterm
 
-The following command makes the mouse work like a Microsoft Windows mouse: >
+A következővel pedig a Windowsos környezetben használhatjuk kellemesebben: >
 
 	:behave mswin
 
-The default behavior of the mouse on UNIX systems is xterm.  The default
-behavior on a Microsoft Windows system is selected during the installation
-process.  For details about what the two behaviors are, see |:behave|.  Here
-follows a summary.
+Az egér alapértelmezett működése UNIX rendszereken az xterm. Windows
+rendszeren ez a telepítés pillanatában dől el. Ha kíváncsi vagy a
+különbségekre, itt egy rövid összefoglalót találsz: |:behave|.
 
 
-XTERM MOUSE BEHAVIOR
+XTERM EGÉR MECHANIZMUS
 
-Left mouse click		position the cursor
-Left mouse drag			select text in Visual mode
-Middle mouse click		paste text from the clipboard
-Right mouse click		extend the selected text until the mouse
-				pointer
-
-
-MSWIN MOUSE BEHAVIOR
-
-Left mouse click		position the cursor
-Left mouse drag			select text in Select mode (see |09.4|)
-Left mouse click, with Shift	extend the selected text until the mouse
-				pointer
-Middle mouse click		paste text from the clipboard
-Right mouse click		display a pop-up menu
+Bal egér klikk 		a kurzor pozíciója
+Bal egér vonszolás	szöveg kijelölés Visual módban
+Középső klikk	        beillesztés a vágólapról
+Jobb egér klikk	        kijelölés kibővítése a kurzor pozíciójáig
 
 
-The mouse can be further tuned.  Check out these options if you want to change
-the way how the mouse works:
+MSWIN EGÉR MECHANIZMUS
 
-	'mouse'			in which mode the mouse is used by Vim
-	'mousemodel'		what effect a mouse click has
-	'mousetime'		time between clicks for a double-click
-	'mousehide'		hide the mouse while typing
-	'selectmode'		whether the mouse starts Visual or Select mode
+Bal egér klikk                  kurzor pozíciója
+Bal egér vonszolás              Szöveg kijelölése Select módban (lásd |09.4|)
+bal egér klikk, shifttel	kijelölés kibővítése a kurzor pozíciójáig
+Middle mouse click		beillesztés a vágólapról
+Right mouse click		környezeti menü
+
+
+Még további beállítások várnak rád az alábbiak szerint:
+
+	'mouse'		az egér módja, melyet a Vim használ
+	'mousemodel'	a kattintásoknak milyen hatásuk van
+	'mousetime'	duplaklikk időköze
+	'mousehide'	kurzor elrejtése gépelés közben
+	'selectmode'	kezdeményezhet-e az egér Visual vagy Select módot
 
 ==============================================================================
-*09.3*	The clipboard
+*09.3*	A vágólap
 
-In section |04.7| the basic use of the clipboard was explained.  There is one
-essential thing to explain about X-windows: There are actually two places to
-exchange text between programs.  MS-Windows doesn't have this.
+A |04.7| fejezetben már olvashattunk az alapszintű vágólap használatról. Az X
+ablakkezelő rendszerről azonban tudnunk kell, hogy programok egymással két
+helyen cserélhetnek szöveget. A Windowson ilyen nincs.
 
-In X-Windows there is the "current selection".  This is the text that is
-currently highlighted.  In Vim this is the Visual area (this assumes you are
-using the default option settings).  You can paste this selection in another
-application without any further action.
-   For example, in this text select a few words with the mouse.  Vim will
-switch to Visual mode and highlight the text.  Now start another gvim, without
-a file name argument, so that it displays an empty window.  Click the middle
-mouse button.  The selected text will be inserted.
+A X rendszerben létezik egy úgynevezett "jelenlegi kiválasztás". Ez az a
+szöveg ami adott pillanatban ki van jelölve a kurzor által. Vimben ez a Visual
+terület (feléve, hogy az egeret az alapbeállítások szerint használod). A
+kiválasztott szöveget bármelyik programba átmásolhatod gond nélkül. 
+   Például itt és most, jelöld ki a következő mondatot: A Vim átvált Visual
+módra a szöveg kijelöléséhez. Most indítsd el egy másik gvimet, fájlnév
+nélkül, hogy üres ablakot láss. Kattints a középső egérgombra (görgő-klikk),
+ami beilleszti a szöveget.
 
-The "current selection" will only remain valid until some other text is
-selected.  After doing the paste in the other gvim, now select some characters
-in that window.  You will notice that the words that were previously selected
-in the other gvim window are displayed differently.  This means that it no
-longer is the current selection.
+A "jelenlegi kiválasztás" csak addig marad érvényben, amíg valami mást ki nem
+jelölsz. Most jelölj ki abban az ablakban pár szót, ahová beillesztetted a
+szöveget. A régi kijelölés színe meg fog változni, jelezve, hogy a kijelölés
+már nincs a vágólapon. 
 
-You don't need to select text with the mouse, using the keyboard commands for
-Visual mode works just as well.
-
-
-THE REAL CLIPBOARD
-
-Now for the other place with which text can be exchanged.  We call this the
-"real clipboard", to avoid confusion.  Often both the "current selection" and
-the "real clipboard" are called clipboard, you'll have to get used to that.
-   To put text on the real clipboard, select a few different words in one of
-the gvims you have running.  Then use the Edit/Copy menu entry.  Now the text
-has been copied to the real clipboard.  You can't see this, unless you have
-some application that shows the clipboard contents (e.g., KDE's Klipper).
-   Now select the other gvim, position the cursor somewhere and use the
-Edit/Paste menu.  You will see the text from the real clipboard is inserted.
+Nem szükséges egérrel kijelölni a szöveget, a példa a vágólap mechanizmusára
+fókuszált, amit billentyűzettel is ki lehet jelölni, a hatás ugyan az.
 
 
-USING BOTH
+A VALÓS VÁGÓLAP
 
-This use of both the "current selection" and the "real clipboard" might sound
-a bit confusing.  But it is very useful.  Let's show this with an example.
-Use one gvim with a text file and perform these actions:
-
--  Select two words in Visual mode.
--  Use the Edit/Copy menu to get these words onto the clipboard.
--  Select one other word in Visual mode.
--  Use the Edit/Paste menu item.  What will happen is that the single selected
-   word is replaced with the two words from the clipboard.
--  Move the mouse pointer somewhere else and click the middle button.  You
-   will see that the word you just overwrote with the clipboard is inserted
-   here.
-
-If you use the "current selection" and the "real clipboard" with care, you can
-do a lot of useful editing with them.
+Most következzen a másik hely, ahol a szöveg lecserélődhet. Ezt hívjuk "valós 
+vágólapnak", a félreértések elkerülése végett. Gyakori, hogy nem tesznek
+különbséget a kettő között és mindkettőt csak egyszerűen "vágólapként"
+említik. Ehhez hozzá kell szoknod.
+   A valós vágólapra a menüsor "Szerkesztés/Másolás" tudsz hozzárendelni,
+miután kiválasztottad a szöveget valamelyik gvim ablakban. Ezt csak akkor
+látod, ha van rá valamilyen speciális programod (például Klipper).
+   Válts át egy másik gvim ablakba, majd a "Szerkesztés/Beillesztés"
+   menüponttal illeszd be a szöveget a valós vágólapról.
 
 
-USING THE KEYBOARD
+MINDKETTŐ HASZNÁLATA
 
-If you don't like using the mouse, you can access the current selection and
-the real clipboard with two registers.  The "* register is for the current
-selection.
-   To make text become the current selection, use Visual mode.  For example,
-to select a whole line just press "V".
-   To insert the current selection before the cursor: >
+A "jelenlegi kiválasztás" és a "valós vágólap" szimultán használata zavarónak
+tűnhet. Nagyon is hasznos. Demonstráljuk egy példán keresztül. Az egyik
+gvimben nyiss meg egy fájlt és végezd el az alábbi lépéseket:
+
+- Válassz ki két szót Visual módban
+- Válaszd a "Szerkesztés/Másolás" menüpontot
+- Válassz ki egyetlen egy szót Visual módban
+- Válaszd a "Szerkesztés/Beillesztés" menüpontot. Gyakorlatilag lecseréltél
+  egy szót a vágólap tartalmával immár kettőre
+- Most vidd az egeret máshová és kattints a görgővel. Mint láthatod, a szó,
+  melyet felülírtál, ide került
+
+Ha a "jelenlegi kiválasztás" és a "valós vágólap" témaköre érdekel, rengeteg
+hasznos dolgot lehet velük végezni.
+
+
+A BILLENTYŰZET HASZNÁLATA
+
+Ha nem szereted az egeret használni, a két vágólap tartalmát regisztereken
+keresztül tudod elérni. A "* regiszterben a "jelenlegi kiválasztás" foglal
+helyet.
+   Hogy hogyan lehet egy szövegrészlet jelenlegi kiválasztás? Használj Visual
+módot. Például ha teljes sort szeretnél kijelölni, akkor nyomj "V"-t.
+   Beillesztéshez kurzor elé: >
 
 	"*P
 
-Notice the uppercase "P".  The lowercase "p" puts the text after the cursor.
+A nagybetű számít. "P" a kurzor elé illeszt, "p" pedig a kurzor után.
 
-The "+ register is used for the real clipboard.  For example, to copy the text
-from the cursor position until the end of the line to the clipboard: >
+A "+ regiszterben található a valós vágólap tartalma. Például, másoláshoz
+jelöl ki valamit, mondjuk a kurzortól a sor végéig: >
 
 	"+y$
 
-Remember, "y" is yank, which is Vim's copy command.
-   To insert the contents of the real clipboard before the cursor: >
+A másolás "y", azaz "yank".
+   Beillesztéséhez pedig (kurzor elé): >
 
 	"+P
 
-It's the same as for the current selection, but uses the plus (+) register
-instead of the star (*) register.
+
+Minden parancs teljesen ugyan az. Az egyedüli differencia a vágólap címzésében
+van az egyik a plussz (+), a másik a csillag (*) regisztert használja.
 
 ==============================================================================
-*09.4*	Select mode
+*09.4*	Módváltás
 
-And now something that is used more often on MS-Windows than on X-Windows.
-But both can do it.  You already know about Visual mode.  Select mode is like
-Visual mode, because it is also used to select text.  But there is an obvious
-difference: When typing text, the selected text is deleted and the typed text
-replaces it.
+És most jöjjön egy olyan dolog, amely sokkalta gyakoribb MS-Windows rendszeren,
+mint X-en, de mindkét rendszer képes rá. A Visual módot már ismered. A Select
+mód, ami szintúgy képes szövegek kijelölésére, de van egy nyilvánvaló különbség 
+a kettő között (Visual és Select): Gépelés esetén a kijelölt szöveg eltűnik és 
+a helyén azok a karakterek jelennek meg, amelyeket begépelünk.
 
-To start working with Select mode, you must first enable it (for MS-Windows
-it is probably already enabled, but you can do this anyway): >
+A Select módot engedélyezni kell először (talán MS-Windows rendszeren már
+engedélyezve van, de azért nem ár): >
 
 	:set selectmode+=mouse
 
-Now use the mouse to select some text.  It is highlighted like in Visual mode.
-Now press a letter.  The selected text is deleted, and the single letter
-replaces it.  You are in Insert mode now, thus you can continue typing.
+Most az egér segítségével jelölj ki valamit. Teljesen olyan, mintha Visual
+módban lennél. Most üss egy karaktert. A kiválasztott szöveg eltűnt, ami hátra
+maradt nem más, mint az a betű, melyet leütöttél. Innentől kezdve Insert
+módban vagy, folytathatod a gépelést.
 
-Since typing normal text causes the selected text to be deleted, you can not
-use the normal movement commands "hjkl", "w", etc.  Instead, use the shifted
-function keys.  <S-Left> (shifted cursor left key) moves the cursor left.  The
-selected text is changed like in Visual mode.  The other shifted cursor keys
-do what you expect.  <S-End> and <S-Home> also work.
+Ha Select módban igazítani szeretnél a kijelölésen, akkor a klasszikus "hjkl"
+billentyűk hasznavehetetlenné válnak (billentyűleütésre a szöveg eltűnik) stb.
+Ehelyett, a nyilakkal tudsz navigálni shift billentyűvel, <S-Left> (shift és
+nyilak). A szöveg ugyanúgy változik, mintha Visual módban lennél. <S-End> és
+<S-Homr> szinték használható.
 
-You can tune the way Select mode works with the 'selectmode' option.
+A Select mód még részletesebben beállítható a 'selectmode' opcióval.
 
 ==============================================================================
 
-Next chapter: |usr_10.txt|  Making big changes
+Következő fejezet: |usr_10.txt|  Nagyobb változtatások
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
