@@ -18,7 +18,6 @@ Következő fejezet: |usr_02.txt|  Első lépések a Vim szerkesztőben
 ==============================================================================
 *01.1*	A két fejezet
 
-The Vim documentation consists of two parts:
 A Vim dokumentációja két fejezetből áll
 
 1. A felhasználói kézikönyv
@@ -46,7 +45,8 @@ idézőjelekkel vannak ellátva, például ":write". Ezen kívül, bármely szó
 lehet keresni. Próbáld ki. Pozícionáld a kurzort a kívánt szó fölé és nyomj
 CTRL-]-t.
 
-A leírásban nem szereplő részek elérhetőek a ":help" parancs által. Lásd |help.txt|.
+A leírásban nem szereplő részek elérhetőek a ":help" parancs által. Lásd
+|help.txt|.
 
 A "|", "*" karakterek a Vim |conceal| opciójával el vannak rejtve. Esetenként
 |hl-Ignore|-t használnak, mely a karaktert a háttér színével teszi megegyezővé.
@@ -63,12 +63,13 @@ A leírás feltételezi, hogy a Vim megfelelően lett telepítve. Ha ez nem így
 van, esetleg a Vim nem megfelelően működik (fájlok nem találhatóak, a GUI
 elemei hiányosak stb.), először olvasd el a telepítésről szóló fejezetet:
 |usr_90.txt|.
+
 							*not-compatible*
-A kézikönyv feltételezi, hogy a Vimet a Vi-kompatibilitás opció kikapcsolásával
-futtatjuk. A legtöbb parancsnál ez nem számít, viszont léteznek olyan
-parancsok, melyeknél ez az opció nagyon fontos, például többszintes
-visszavonás. Kezdetben elég, ha a példa vimrc fájlt lemásolod. Ehhez az alábbi
-parancsokat futtasd:
+A kézikönyv feltételezi, hogy a Vimet a Vi-kompatibilitás opció
+kikapcsolásával futtatjuk. A legtöbb parancsnál ez nem számít, viszont
+léteznek olyan parancsok, melyeknél ez az opció nagyon fontos, például
+többszintes visszavonás. Kezdetben elég, ha a példa vimrc fájlt lemásolod.
+Ehhez az alábbi parancsokat futtasd:
 
 Unix: >
 	:!cp -i $VIMRUNTIME/vimrc_example.vim ~/.vimrc
@@ -84,8 +85,8 @@ paranccsal ellenőrizheted: >
 	:set compatible?
 
 Ha a válsz "nocompatible", akkor minden rendben történt.  "compatible" esetén
-baj történt, ezért ki kell deríteni, hogy a beállítás miért nem lépett érvénybe.
-Talán a .vimrc fájl nem létezik, vagy csak rossz könyvtárban van.
+baj történt, ezért ki kell deríteni, hogy a beállítás miért nem lépett
+érvénybe.  Talán a .vimrc fájl nem létezik, vagy csak rossz könyvtárban van.
 Ezzel a paranccsal kideríthető: >
 
 	:scriptnames
@@ -97,19 +98,19 @@ a 'nocompatible' opció.
 További információkhoz olvasd el |vimrc| és |compatible-default|.
 
 	Megjegyzés:
-	A kézikönyv a Vim normális használatát fedi le. Létezik egy úgynevezett
-	"evim" mód (easy vim) mely ugyan vim, de a működése megegyezik az
-	általánosan elterjedt "kattints és írj" szövegszerkesztők működésével,
-	mint például a notepad. Állandóan Insert módban van és ezért teljesen 
-	más érzetet nyújt, ezért ebben a leírásban az "evim" szerkesztő 
-	figyelmen kívül van hagyva (valamint a működése is egyértelmű). Lásd
-	|evim-keys| a részletekhez.
+	A kézikönyv a Vim normális használatát fedi le. Létezik egy
+	úgynevezett "evim" mód (easy vim) mely ugyan vim, de a működése
+	megegyezik az általánosan elterjedt "kattints és írj"
+	szövegszerkesztők működésével, mint például a notepad. Állandóan
+	Insert módban van és ezért teljesen más érzetet nyújt, ezért ebben a
+	leírásban az "evim" szerkesztő figyelmen kívül van hagyva (valamint a
+	működése is egyértelmű). Lásd |evim-keys| a részletekhez.
 
 ==============================================================================
 *01.3*	A Vimtutor használata				*tutor* *vimtutor*
 
-Szöveg olvasása helyett (amely nagyon unalmas), a Vimtutort interaktívan meg-
-tanítja az alapvető Vim parancsokat 30 perc alatt.
+Szöveg olvasása helyett (amely nagyon unalmas), a Vimtutort interaktívan
+megtanítja az alapvető Vim parancsokat 30 perc alatt.
 
 Unix rendszereken, ha a Vim telepítése normálisan ment végbe, a Vimtutor az
 alábbi shell paranccsal indítható:
@@ -122,8 +123,8 @@ vimtutor.bat fájlt a $VIMRUNTIME könyvtárból.
 A tutor tartalmáról másolat készül, amit anélkül lehet szerkeszteni, hogy az
 eredeti fáj módosulna.
    A Vimtutor számos nyelven elérhető, magyarul is. A vimtutor parancsot
-   követő (kétbetűs) nyelvkód paraméterrel hívhatjuk meg a fordított változatot.
-   Magyar nyelvhez a parancs a következő:
+   követő (kétbetűs) nyelvkód paraméterrel hívhatjuk meg a fordított
+   változatot.  Magyar nyelvhez a parancs a következő:
 >
 	vimtutor hu
 
@@ -166,6 +167,7 @@ kell keresnie:
 A Vim kézikönyv és Referencia szerzői jogai (1988-2003) Bram Moolenaart
 illetik. Az anyagot a Open Publication License v1.0 szerinti 4. pontja alapján
 szabad terjeszteni. A legújabb verzió megtekinthető itt:
+
 	     http://www.opencontent.org/openpub/
 
 Az anyagok egyéb szerkesztőinek is el kell fogadniuk a fent említett jogi
@@ -173,14 +175,16 @@ információkat.
 							*frombook*
 Az anyag egyes részei a Steve Oualline által írt "Vi IMproved - Vim" könyvből
 lett átvéve (ISBN: 0735710015). A fentebb említett Open Publication License
-természetesen erre a könyvre is vonatkozik. A könyvből részletek vannak közölve,
-melyek módosításokon estek át (képek eltávolítása, információk frissítése Vim
-6.0-ás verzióról, hibák javítása). A |frombook| címke hiánya természetesen nem
-jelenti azt, hogy a közölt információk nem származhat(nak) az említett könyvből.
+természetesen erre a könyvre is vonatkozik. A könyvből részletek vannak
+közölve, melyek módosításokon estek át (képek eltávolítása, információk
+frissítése Vim 6.0-ás verzióról, hibák javítása). A |frombook| címke hiánya
+természetesen nem jelenti azt, hogy a közölt információk nem származhat(nak)
+az említett könyvből.
 
-Külön köszönet illeti Steve Ouallinét és a New Riders kiadót, hogy létrejött ez
-a könyv, az OPL licensz alatt! A kézikönyv megírása során rengeteget segített,
-nem pusztán az információk közlésével, de a hangnem és stílus megtalálásában is.
+Külön köszönet illeti Steve Ouallinét és a New Riders kiadót, hogy létrejött
+ez a könyv, az OPL licensz alatt! A kézikönyv megírása során rengeteget
+segített, nem pusztán az információk közlésével, de a hangnem és stílus
+megtalálásában is.
 
 Ha leírásokból bárminemű profitod származik, akkor kérjük, hogy egy részét
 ajánld fel Uganda AIDS áldozatainak megsegítésére. Lásd  |iccf|.

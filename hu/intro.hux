@@ -17,11 +17,11 @@ Bevezetés a VIM használatába				*ref* *reference*
 ==============================================================================
 1. Bevezetés						*intro*
 
-A Vim egy rövidítés, jelentése: Vi IMproved. Kezdetben Vi IMitationt jelen-
-tett, de a számos fejlesztés hatására a névcsere elengedhetetlenné vált. A Vim
-egy szövegszerkesztő, mely örökölte a Unixos "Vi" szinte összes funkcióját és
-megannyi mást is. Nagyon hasznos programok, valamint szöveges állományok szer-
-kesztésére.
+A Vim egy rövidítés, jelentése: Vi IMproved. Kezdetben Vi IMitationt
+jelentett, de a számos fejlesztés hatására a névcsere elengedhetetlenné vált.
+A Vim egy szövegszerkesztő, mely örökölte a Unixos "Vi" szinte összes
+funkcióját és megannyi mást is. Nagyon hasznos programok, valamint szöveges
+állományok szerkesztésére.
     Az összes parancs kiadható a billentyűzet segítségével, így az ujjainknak
 nem kell elhagyniuk a billentyűzetet. Egér támogatás, GUI görgetősávokkal is
 rendelkezésre áll azok számára, akik igényt tartanak rá (lásd |gui.txt|).
@@ -37,9 +37,10 @@ ugorhatunk, vissza pedig a CTRL-T-vel.
 
 A Vi és Vim közötti különbségekről bővebben itt |vi_diff.txt|.
 
-A dokumentáció a futtató környezetetek között nem tesz különbséget, a használ-
-atot egységesen írja le. Környezetek és terminálok között azonban apró különb-
-ségekben eltérhetnek. Ezen kívül, léteznek rendszerspecifikus dokumentációk
+A dokumentáció a futtató környezetetek között nem tesz különbséget, a
+használatot egységesen írja le. Környezetek és terminálok között azonban apró
+különbségekben eltérhetnek. Ezen kívül, léteznek rendszerspecifikus
+dokumentációk
 (lásd |sys-file-list|).
 
 							*pronounce*
@@ -47,9 +48,9 @@ A Vim szót úgy ejtjük, ahogy leírjuk, nem betűzzük (vé-i-em). Az első v 
 pedig minden esetben nagy kezdőbetű, hiszen tulajdonnévről beszélünk.
 
 A dokumentáció leírja az összes parancs és opció használatát. Nem egy bevezető
-kezdőknek, ezért teljesen természetes, hogy olykor-olykor egy kissé bonyolult-
-tá válik. Teljesen kezdők rendelkezésére áll |tutor|. A Vim használatát a
-|usr_toc| dokumentum mutatja be.
+kezdőknek, ezért teljesen természetes, hogy olykor-olykor egy kissé
+bonyolulttá válik. Teljesen kezdők rendelkezésére áll |tutor|. A Vim
+használatát a |usr_toc| dokumentum mutatja be.
 
 							*book* *books*
 Nyomtatott könyvek rendszerint szentelnek fejezeteket a kezdők számára, míg
@@ -62,9 +63,9 @@ könyvekről készült lista itt megtekinthető, a teljesség igénye nélkül:
 2. Internetes források					*internet*
 
 			*www* *WWW*  *faq* *FAQ* *distribution* *download*
-A Vim weboldalain tájékozódhatunk a legfrissebb információkról. Szintén ugyan-
-itt szerezhetjük be a legfrissebb verziót. A FAQ a Gyakran Ismételt Kérdések
-listája. Ha problémáid adódnak, érdemes átolvasnod.
+A Vim weboldalain tájékozódhatunk a legfrissebb információkról. Szintén
+ugyanitt szerezhetjük be a legfrissebb verziót. A FAQ a Gyakran Ismételt
+Kérdések listája. Ha problémáid adódnak, érdemes átolvasnod.
 
 	Vim honlapja:	  https://www.vim.org/
 	Vim GYIK:	  https://vimhelp.org/vim_faq.txt.html
@@ -72,8 +73,8 @@ listája. Ha problémáid adódnak, érdemes átolvasnod.
 
 
 Kérdések és válaszok: https://vi.stackexchange.com/
-"Vi and Vim Stack Exchange egy kérdezz-felek weboldal a vi és Vim család fel-
-használói számára.
+"Vi and Vim Stack Exchange egy kérdezz-felek weboldal a vi és Vim család
+felhasználói számára.
 
 
 Usenet hírcsoport, beszélgetések a Vimről:		*news* *usenet*
@@ -88,11 +89,11 @@ Levelező listák:
 <vim@vim.org>					*vim-use* *vim_use*
 	Eszmecserék a legfrissebb Vim használatáról: Hasznos mappek, kérdések,
 	válaszok (hol szerezhető be egy specifikus verzió) stb. Elég sokan
-	fel vannak íratkozva és válaszolnak is akár kezdők számára is. Ha kér-
-	désed van, ne habozz.
+	fel vannak íratkozva és válaszolnak is akár kezdők számára is. Ha
+	kérdésed van, ne habozz.
 <vim-dev@vim.org>				*vim-dev* *vim_dev* *vimdev*
-	A szerkesztőt érintő változtatásokról szóló levelezőlista, új funkciók
-	, portolás, javítások, béta teszt verziók, stb.
+	A szerkesztőt érintő változtatásokról szóló levelezőlista, új
+	funkciók, portolás, javítások, béta teszt verziók, stb.
 <vim-announce@vim.org>				*vim-announce* *vim_announce*
 	Új verziók bejelentése (tesztverziók is), portolás új rendszerekre.
 	(csak olvasható).
@@ -102,7 +103,7 @@ Levelező listák:
 
 Legfrissebb információkért lásd http://www.vim.org/maillist.php.
 
-NOTE:
+MEGJEGYZÉS:
 - Az archivált levelezőlista bárki számára elérhető a Google csoportokon. Ha
   kérdésed van, először keress választ itt.
 - Csak úgy tudsz üzenetet küldeni a listákra, ha felíratkozol!
@@ -114,8 +115,8 @@ NOTE:
 						*subscribe-maillist*
 Ha csatlakozni szeretnél, küldj üzenetet ide:
 	<vim-subscribe@vim.org>
-Győződj meg arról, hogy levél feladója helyesen van kitöltve. A szerver továb-
-bi üzenetben értesít a csatlakozás pontos menetéről.
+Győződj meg arról, hogy levél feladója helyesen van kitöltve. A szerver
+további üzenetben értesít a csatlakozás pontos menetéről.
 
 						*maillist-archive*
 További információk a levelező listáról, archívum:
@@ -138,10 +139,11 @@ Pontosan írd le a problémát. Minden megválaszolt emaillel kevesebb idő jut 
 vim fejlesztésére! Írd le, hogy a hiba hogyan reprodukálható és próbáld meg
 melyik beállítás vagy egyéb dolog okozhatja a problémát.
 
-Lehetőleg indítsd a Vimet ezzel a paranccsal:
-Preferably start Vim with: >
+Lehetőleg indítsd a Vimet ezzel a paranccsal: >
+
 	vim --clean -u reproduce.vim
-ahol a reproduce.vim egy szkriptet tartalmaz, ami reprodukálja a problémát. Ha
+
+Ahol a reproduce.vim egy szkriptet tartalmaz, ami reprodukálja a problémát. Ha
 lehetőséged van rá, próbáld reprodukálni a problémát egyéb rendszereken,
 (lehet a probléma csak kizárólag egy platformot érint?).
 
@@ -168,24 +170,25 @@ javítást, íratkozz fel a vim-dev levelező listára és tedd fel a kérdésed
 							*year-2000* *Y2K*
 A Vimben nincs összetett dátumkezelés, így a 2000-es éveket (továbbiakban Y2K)
 érintő probléma miatt nem kell aggódni. Az idő nyomonkövetésére az 1970 Január
-1. óta eltelt másodpercek számát alkalmazza (fájl és swap fájl közötti 
-megkülönböztetés gyanánt). Figyelmeztető üzenetnél többet a probléma nem okozhat.
+1. óta eltelt másodpercek számát alkalmazza (fájl és swap fájl közötti
+megkülönböztetés gyanánt). Figyelmeztető üzenetnél többet a probléma nem
+okozhat.
 
 Lesz viszont a 2038 évet érintő probléma, ekkor a másodpercek száma már nem
-lesz ábrázolható 32 bites egész számon. Messzire menő következtetéseket nem éri
-meg levonni, a megoldás nagyban függ a majdani fordítótól, könyvtáraktól és
-operációs rendszerektől (timet_t, ctime()). time_t a swapfájlban négy bájton
-tárolódik, bár ez csak a nyomtatásra van kihatással, soha nem fogja befolyásolni
-a szöveges fájlok szerkesztési munkafolyamatait.
+lesz ábrázolható 32 bites egész számon. Messzire menő következtetéseket nem
+éri meg levonni, a megoldás nagyban függ a majdani fordítótól, könyvtáraktól
+és operációs rendszerektől (timet_t, ctime()). time_t a swapfájlban négy
+bájton tárolódik, bár ez csak a nyomtatásra van kihatással, soha nem fogja
+befolyásolni a szöveges fájlok szerkesztési munkafolyamatait.
 
 A vim strftime() függvénye közvetlenül hívja a rendszer strftime() függvényét.
 A localtime() függvény a rendszer time() hívja meg. A getftime() a stat()
 függvény által visszaadott időt használja. Ha a rendszered megfelel a 2000-es
 évek elvárásainak, akkor a Vim is.
 
-A felhasználó írhat olyan szkripteket, melyek külső programot használnak és így
-belefuthat a Y2K problémába, viszont az ily' módon meghívott külső eszközök
-nem tekinthetőek a Vim részeként.
+A felhasználó írhat olyan szkripteket, melyek külső programot használnak és
+így belefuthat a Y2K problémába, viszont az ily' módon meghívott külső
+eszközök nem tekinthetőek a Vim részeként.
 
 ==============================================================================
 3. Alkotók				*credits* *author* *Bram* *Moolenaar*
@@ -199,7 +202,7 @@ A dokumentáció egyes részei a Vi leírását képezték, szerzőik:
 
 A Vim szövegszerkesztő a Stevie (és más szoftverek) megoldásaiból építkezett,
 munkájuk azonban felhasználásra kerültek a szövegszerkesztő fejlesztése során.
-Mások javításokat küldtek, javaslatokat és visszajelzéseket a jó és rossz 
+Mások javításokat küldtek, javaslatokat és visszajelzéseket a jó és rossz
 dolgokról.
 
 A Vim soha nem vált volna a segítségük nélkül azzá, ami.
@@ -273,19 +276,21 @@ A Vim soha nem vált volna a segítségük nélkül azzá, ami.
 				segítségnyújtás, stb.
 	Yegappan Lakshmanan	quickfix funkciók
 
-Szeretném megköszönni mindannyiuknak az elküldött hibajelentéseket és 
-javaslataikért. A lista túl hosszú lenne mindannyiukat megemlíteni. Az ötleteik
-nélkül a Vim ma nem tartana itt: Ők tartják életben a Vimet!
+Szeretném megköszönni mindannyiuknak az elküldött hibajelentéseket és
+javaslataikért. A lista túl hosszú lenne mindannyiukat megemlíteni. Az
+ötleteik nélkül a Vim ma nem tartana itt: Ők tartják életben a Vimet!
 *love* *peace* *friendship* *gross-national-happiness*
 
 
 A dokumentációban hivatkozásokat találhatunk a Vi egyéb verzióira:
 							*Vi* *vi*
 Vi	Az "eredeti", (amennyiben nincs külön hivatkozás verziószámra), az a
-	verzió, amely megjelent a Sun OS 4.x.-ben. ":version" parancs 
-	eredménye: "Version 3.7, 6/7/85". Esetenként más verziók is megemlítésre
-	kerülhetnek. Kizárólag Unix alatt fut. Forráskódját BSD-style licensz
-	védi. További információk:
+	verzió, amely megjelent a Sun OS 4.x.-ben. ":version" parancs
+	eredménye: "Version 3.7, 6/7/85". Esetenként más verziók is
+	megemlítésre kerülhetnek. Kizárólag Unix alatt fut. Forráskódját
+	BSD-style licensz védi. 
+
+	További információk:
 		http://ex-vi.sourceforge.net/
 							*Posix*
 Posix	Az IEEE standard 1003.2 (ismertebb nevén "Posix"), a Vi működési
@@ -300,14 +305,14 @@ Nvi	Az "új" Vi. A BSD 4.4 és a FreeBSD alapértelmezett szövegszerkesztője.
 	kódja szabadon letölthető.
 							*Elvis*
 Elvis   A következő Vi klón, szerzője: Steve Kirkendall. Kompakt, de nem
-	annyira flexibilis, mint a Vim. Fejlesztése megállt. Elvis él!
-	A forráskód szabadon letölthető.
+	annyira flexibilis, mint a Vim. Fejlesztése megállt. Elvis él!  A
+	forráskód szabadon letölthető.
 							*Neovim*
 Neovim  Vim klón. 2014-ben indult útjára, de más irányt vett. A Githubhoz
 	nagyon kötődik, sokkal több függősége van ami miatt komplexebb,
 	hordozhatósága limitáltabb. A kódbázis részei refaktoráláson estek át,
-	ami már nem kompatibilis a Vimmel. Támogatja a távoli grafikus inter-
-	fészt és egyéb szkriptnyelvek.
+	ami már nem kompatibilis a Vimmel. Támogatja a távoli grafikus
+	interfészt és egyéb szkriptnyelvek.
 
 ==============================================================================
 4. Jelölések						*notation*
@@ -316,10 +321,9 @@ A jelölések megkönnyítik a dokumentáció olvasását, azok a parancsok, ami
 valamilyen módon csoportosítva vannak, nem képezik a parancsok részét. Például
 [],{},<> és CTRL-X.
 
-Megjegyzés:
-Az összes karakter képezheti parancs részét. Olykor a [], {} és <> karakterek
-is részei annak, amit be kell írnod. A kontextus alapján könnyen megkülönböz-
-tethetőek.
+Megjegyzés: Az összes karakter képezheti parancs részét. Olykor a [], {} és <>
+karakterek is részei annak, amit be kell írnod. A kontextus alapján könnyen
+megkülönböztethetőek.
 
 
 []		A szögletes zárójel közötti karakterek opcionálisak.
@@ -327,20 +331,21 @@ tethetőek.
 						    *count* *[count]*
 [count]		A parancsot megelőző opcionális iterátor, ennyiszer hajtódik
 		végre a parancs. Hiánya esetén értéke automatikusan: 1.
+
 		Megjegyzés:
 		A dokumentáció definícióiban nincs megemlítve a [count]
 		explicit módon, a parancs leírása azonban tartalmazhatja. Erre
-		azért volt szükség, hogy a parancsok keresése egyszerűbb legyen
-		Ha a 'showcmd' be van állítva a (részleges) [count] értéket
-		az ablak jobb alsó sarkában nyomon követhetjük. A <Del>
-		billentyűvel az utolsó szám törölhető (|N<Del>|).
+		azért volt szükség, hogy a parancsok keresése egyszerűbb
+		legyen Ha a 'showcmd' be van állítva a (részleges) [count]
+		értéket az ablak jobb alsó sarkában nyomon követhetjük. A
+		<Del> billentyűvel az utolsó szám törölhető (|N<Del>|).
 
 							*[quotex]*
 ["x]		Opcionális regiszterhivatkozás szövegek tárolására. Lásd:
-		|registers|. Az x egy szimpla karakter 'a' és 'z', 'A'
-		és 'Z' között, esetenként '"'. Ha a szerkesztés a put parancs-
-		ot érinti (beillesztés), akkor lehet '0' és '9' között, '%',
-		'#' vagy egyéb. A nagy- és kisbetűs regiszterek ugyanarra a
+		|registers|. Az x egy szimpla karakter 'a' és 'z', 'A' és 'Z'
+		között, esetenként '"'. Ha a szerkesztés a put parancsot
+		érinti (beillesztés), akkor lehet '0' és '9' között, '%', '#'
+		vagy egyéb. A nagy- és kisbetűs regiszterek ugyanarra a
 		regiszterre hivatkoznak. A kisbetűs regiszter felülírja a régi
 		értékét. A nagybetűs regiszter pedig hozzáfűz a regiszter
 		tartalmához. '"x" vagy '""' hivatkozások hiányában a szöveg a
@@ -354,16 +359,18 @@ tethetőek.
 
 							*{char1-char2}*
 {char1-char2}	Szimpla karaktertartomány char1-től char2-ig. Például {a-z},
-		mint kisbetűs karaktertartomány, {a-zA-Z0-9}, mint alfanumerikus
-		karatercsoportok.
+		mint kisbetűs karaktertartomány, {a-zA-Z0-9}, mint
+		alfanumerikus karatercsoportok.
 
 						*{motion}* *movement*
 {motion}	A parancs, mely a kurzort mozgatja. Bővebben: |motion.txt|.
+
 		Például:
 			w		ugrás a következő szó elejére
 			b		ugrás a kurzor alatti szó elejére
 			4j		négy sort le
 			/Az<Cr>		Az "Az" következő előfordulása
+
 		Elmozdulást az operátor parancsok (|operator|) után használjuk, a
 		parancs "hatóköreként".
 		- Ha az elmozdulás és az operátor is el van látva számmal,
@@ -375,24 +382,24 @@ tethetőek.
 		  mindegyik terminál támogatja.
 		- ???The ":omap" command can be used to map characters while an
 		  operator is pending.
-		- Az Ex parancs használható a kurzor mozgatására.  Függvényhí-
-		  vásokkal komplexebb mozgások is végezhetőek de csak és
-		  kizárólag karakterenkénti mozgás, nem számít, hogy milyen ":"
-		  parancsot használtunk. Ez azt jelenti, hogy lehetetlen
-		  elérnünk a sortöréseket (amíg be nem kapcsoljuk a
+		- Az Ex parancs használható a kurzor mozgatására.
+		  Függvényhívásokkal komplexebb mozgások is végezhetőek de
+		  csak és kizárólag karakterenkénti mozgás, nem számít, hogy
+		  milyen ":" parancsot használtunk. Ez azt jelenti, hogy
+		  lehetetlen elérnünk a sortöréseket (amíg be nem kapcsoljuk a
 		  'virtualedit' opciót).
-		  Ha az Ex parancs megváltoztatja a szöveget, mielőtt az ope-
-		  rátor lefutna vagy mielőtt egy másik bufferre ugrana, akkor
-		  az eredmény kiszámíthatatlan lesz.
-		  A szöveg előre irányban megváltoztatható. A bufferváltás
-		  lehetséges, ha az aktuális buffer rendelkezik tartalommal.
+		  Ha az Ex parancs megváltoztatja a szöveget, mielőtt az
+		  operátor lefutna vagy mielőtt egy másik bufferre ugrana,
+		  akkor az eredmény kiszámíthatatlan lesz.  A szöveg előre
+		  irányban megváltoztatható. A bufferváltás lehetséges, ha az
+		  aktuális buffer rendelkezik tartalommal.
 
 							*{Visual}*
-{Visual}	A kiválasztott terület. "v", "V" vagy CTRL-V parancsot követő-
-		en mozgás parancsok segítségével a kijelölt szöveg végpontja
-		megváltoztatható. Ha egy parancsot (|operator|) vizuális tartománnyal
-		látunk el, akkor a parancs hatóköre a kijelölt rész lesz.
-		Lásd |Visual-mode|.
+{Visual}	A kiválasztott terület. "v", "V" vagy CTRL-V parancsot
+		követően mozgás parancsok segítségével a kijelölt szöveg
+		végpontja megváltoztatható. Ha egy parancsot (|operator|)
+		vizuális tartománnyal látunk el, akkor a parancs hatóköre a
+		kijelölt rész lesz.  Lásd |Visual-mode|.
 
 							*<character>*
 <character>	Lehet egy speciális karakter, opcionális módosítókkal, vagy
@@ -408,8 +415,8 @@ CTRL-{char}	{char} leütése lenyomva tartott CTRL billentyű mellett. Nincs
 		más kódot produkálnak, ezeket ne használjuk.
 
 							*'option'*
-'option'	Opció vagy paraméter, melyeknek értéket adhatunk szimpla idé-
-		zőjelek közé vannak zárva. Lásd |Options|.
+'option'	Opció vagy paraméter, melyeknek értéket adhatunk szimpla
+		idézőjelek közé vannak zárva. Lásd |Options|.
 
 							*quotecommandquote*
 "command"	Hivatkozás egy parancsra.
@@ -481,20 +488,20 @@ jelölés		jelentés	    egyenértékű	decimális   érték	~
 <t_xx>		key with "xx" entry in termcap
 -----------------------------------------------------------------------
 
-Note: A shift-kurzor, súgó, visszavonás nem minden terminálon érhetőek el.
-Amiga rendszeren a shift + F10 CSI kódot produkál, amely már szerepelhet egy
-másik kontextusban.
+Megjegyzés: A shift-kurzor, súgó, visszavonás nem minden terminálon érhetőek
+el.  Amiga rendszeren a shift + F10 CSI kódot produkál, amely már szerepelhet
+egy másik kontextusban.
 
-Note: A del billentyűnek két kódja lehet. A 127 decimális ASCII minden esetben
-támogatott. Előfordulhat, hogy a del billentyű más értéket küld, ekkor a
-termcap entry "kD" értéke lesz a mérvadó. Mindkét érték hatása azonos. Lásd:
+Megjegyzés: A del billentyűnek két kódja lehet. A 127 decimális ASCII minden
+esetben támogatott. Előfordulhat, hogy a del billentyű más értéket küld, ekkor
+a termcap entry "kD" értéke lesz a mérvadó. Mindkét érték hatása azonos. Lásd:
 |:fixdel|.
 
-Note: ???The keypad keys are used in the same way as the corresponding "normal"
-keys.  For example, <kHome> has the same effect as <Home>.  If a keypad key
-sends the same raw key code as its non-keypad equivalent, it will be
-recognized as the non-keypad code.  For example, when <kHome> sends the same
-code as <Home>, when pressing <kHome> Vim will think <Home> was pressed.
+Megjegyzés: ???The keypad keys are used in the same way as the corresponding
+"normal" keys.  For example, <kHome> has the same effect as <Home>.  If a
+keypad key sends the same raw key code as its non-keypad equivalent, it will
+be recognized as the non-keypad code.  For example, when <kHome> sends the
+same code as <Home>, when pressing <kHome> Vim will think <Home> was pressed.
 Mapping <kHome> will not work then.
 
 								*<>*
@@ -517,25 +524,28 @@ részét is (mint a ":map" parancsnál), a szabály:
 	   <M-A>		Alt- A  ('A' with bit 8 set)
 	   <t_kd>		"kd" termcap bejegyzés (kurzor le)
     Bár kombinációt definiálhatunk így is: <M-{char}>, ahol {char} multibyte
-    karakter, a Vim valószínűleg nem fogja tudni beazonosítani a byte szekven-
-    ciát.
+    karakter, a Vim valószínűleg nem fogja tudni beazonosítani a byte
+    szekvenciát.
 
-Ha a teljes <> jelölést szeretnéd használni a Vimben, akkor a '<' flaget el kell
-távolítani a 'cpoptions'-ból. (ha a 'compatible' nincs beállítva, akkor ezt
-már nem kell megtenni).
+Ha a teljes <> jelölést szeretnéd használni a Vimben, akkor a '<' flaget el
+kell távolítani a 'cpoptions'-ból. (ha a 'compatible' nincs beállítva, akkor
+ezt már nem kell megtenni).
 
 	:set cpo-=<
 
 A <> jelölést <lt> segítségével escapeli kell, ha a szimbólumokat, mint
-szöveges karaktert szeretnénk használni. Visszaperjellel is escapelhetünk,
-de csak akkor ha a 'cpoptions' nem tartalmazza a 'B' flaget.
+szöveges karaktert szeretnénk használni. Visszaperjellel is escapelhetünk, de
+csak akkor ha a 'cpoptions' nem tartalmazza a 'B' flaget.
 
-Például CTRL-H mappelése a következő hat karakterre: "<Home>"
+Például CTRL-H mappelése a következő hat karakterre: "<Home>" >
+
 	:imap <C-H> \<Home>
 	:imap <C-H> <lt>Home>
+
 A második sorban bemutatott példa minden esetben működik. A '>' azért nincs
 escapelve, mert az első escapelt '<' miatt nem utasításként fog kiértékelődni.
 "<lt>" használata remapekben: >
+
 	:map <C-L> <lt>lt>
 
 Remappeléskben, rövidítésekben (abbreviations) és menü parancsokban a példák
@@ -551,8 +561,8 @@ A Vimnek hét ALAP módja van:
 					*Normal* *Normal-mode* *command-mode*
 Normál mód		Normál módban érvényesek a normál módú parancsok. A
 			szerkesztő indításával a Vim automatikusan normál
-			módba kerül. (Az 'insertmode' beállításával ez felül-
-			bírálható. Parancsmódként is hivatkozhatunk rá.
+			módba kerül. (Az 'insertmode' beállításával ez
+			felülbírálható. Parancsmódként is hivatkozhatunk rá.
 
 Vizuális mód		Gyakorlatilag ugyan az, mint a normál mód. A kurzor
 			mozgatásával szövegrészt jelölhetünk ki. Ha a
@@ -574,14 +584,14 @@ Beszúrás mód		Beszúrás módban a leütött karakter megjelenik a kép-
 			Ha a 'showmode' be van kapcsolva, akkor "-- INSERT --"
 			üzenet jelenik meg a képernyő alján.
 
-Paranacs mód		Azaz command-line módban (vagy Cmdline mód, command mód)
+Paranacs mód		Azaz command-line módban (vagy Cmdline-mód, command-mód)
 			egy sornyi szöveget írhatunk be az ablak alján előtűnő
 			sávban. A prompt meghatározza a művelet jellegét:
 			Ex parancsok ":", keresés "?" és "/", szűrőparancsok
 			"!". |Cmdline-mode|.
 
-Ex mód			Ugyan az, mint a parancs mód, viszont a parancs végre-
-			hajtása után nem vált vissza normál módra, azaz
+Ex mód			Ugyan az, mint a parancs mód, viszont a parancs
+			végrehajtása után nem vált vissza normál módra, azaz
 			maradunk továbbra is Ex módban. Parancsok limitált
 			szerkesztése. |Ex-mode|.
 
@@ -617,8 +627,8 @@ Beszúró Normál mód	A módot insert módban aktiválhatjuk CTRL-O leütésév
 			üzenet jelenik meg a képernyő alján.
 
 Terminál Normál mód	Normál mód használata terminál módban. Nem lehetséges
-			a szerkesztés. Beszúró parancsok átváltják a szerkesztőt
-			munkafolyamat módra (terminal-job mode).
+			a szerkesztés. Beszúró parancsok átváltják a
+			szerkesztőt munkafolyamat módra (terminal-job mode).
 
 Beszúró Vizuális mód	Insert Visual Mode. Akkor vált szerkesztő erre a módra,
 			ha insert módban CTRL-O megnyomásával aktiváljuk a
@@ -632,8 +642,8 @@ Beszúró Vizuális mód	Insert Visual Mode. Akkor vált szerkesztő erre a mód
 Beszúró Kiválasztó mód	Insert Select Mode. Aktivizálódik, ha beszúró módból
 			aktiváljuk a kiválasztó módot. Például, egérrel, vagy
 			<S-Right> billentyűvel. Ha a kiválasztó (Select) mód
-			véget ér, a Vim visszatér beszúró (Insert) módba.
-			Ha a 'showmode' be van kapcsolva, akkor:
+			véget ér, a Vim visszatér beszúró (Insert) módba.  Ha
+			a 'showmode' be van kapcsolva, akkor:
 			"-- (insert) SELECT --" üzenet jelenik meg a képernyő
 			alján.
 ==============================================================================
@@ -663,25 +673,31 @@ Ex		 :vi	  --	  --	 --	    --	      --
 
 *1 Normál módból Insert módba váltás történhet az alábbi parancsokkal:
    "i", "I", "a","A", "o", "O", "c", "C", "s" or S".
+
 *2 Vizuális mód váltása normál módra történhet minden olyan paranccsal, ami
-   nem elmozdulás (ezek a parancsok lefutásával normál módba kerülünk), illetve
-   "v","V" vagy CTRL-V billentyűkkel (lásd |v_v|), amik csak visszatérnek
-   normál módba, mindenféle mellékhatás nélkül.
+   nem elmozdulás (ezek a parancsok lefutásával normál módba kerülünk),
+   illetve "v","V" vagy CTRL-V billentyűkkel (lásd |v_v|), amik csak
+   visszatérnek normál módba, mindenféle mellékhatás nélkül.
+
 *3 Parancs módból (command-line) átváltás Normál módra:
    - A parancsok futtatásával (<CR> vagy <NL> billentyű)
    - Az egész sor törlésével (CTRL-U), melyet egy utolsó <BS> követ.
    - CTRL-C vagy <Esc> leütésével, ami kilép a parancs lefutása nélkül.
+
    Legutolsó esetben, ha az <Esc> karakter definiálva a 'wildchar' opcióban
    ebben az esetben <Esc> elindítja az automatikus kiegészítést, mely figyel-
    men kívül hagyható egy újabb <Esc> leütésével.
+
 *4 Normál módból Kiválasztó (Select) m ódba:
    - szöveg kijelölése egérrel (ha a 'selectmode' opció tartalma "mouse)
    - Shift billentyűt tartva ha nem nyomtatható paranccsal mozgatjuk a kurzort
      ('selectmode' opció tartalma "key" kell, hogy legyen)
    - "v", "V" vagy CTRL-V ('selectmode' tartalma "cmd")
    - "gh", "gH", vagy "g CTRL-H" (lásd |g_CTRL-H|).
+
 *5 Kiválasztó módból (Select mode) Normál módba, nem nyomtatható paranccsal
    való elmozdulás alkalmazásával (Shift billentyűt nem kell használni).
+
 *6 Kiválasztó (Select) módból Normál módba, nyomtatható karakter beütésével.
    A kijelölés törlődik, helyen a beütött karakter jelenik meg.
 
@@ -773,8 +789,8 @@ Ha a legutolsó sor nem fér bele az ablakba, a Vim ezt '@' karakterrel jelöli
 
 Ha a "lastline" flaget tartalmazza a 'display' opció, a '@' karakter nem válik
 láthatóvá az ablak bal oldalán. Ha a legutolsó sor nem fér el teljesen, akkor
-a sor csak részlegesen lesz megjelenítve és a sor utolsó három karaktere "@@@"-
-re vált, valahogy így:
+a sor csak részlegesen lesz megjelenítve és a sor utolsó három karaktere
+"@@@"re vált, valahogy így:
 
 	+-----------------------+
 	|first line		|
@@ -789,8 +805,8 @@ Speciális karakterrel nincs jelölve az eset, így tudjuk az adott sor minden
 részét szerkeszteni.
 
 Ha a '@' karaktert beállíthatjuk a 'highlight' opcióban, így az ilyen típusú
-speciális karakterek ( '@' és '~') ki lesznek emelve. Így könnyebben megkülön-
-böztethetjük a Vim jelölését a valós karakterektől
+speciális karakterek ( '@' és '~') ki lesznek emelve. Így könnyebben
+megkülönböztethetjük a Vim jelölését a valós karakterektől
 
 A 'showbreak' opcióval mi magunk meghatározhatjuk az első oszlopban helyet
 foglaló jelölőt.
@@ -805,12 +821,12 @@ szerkesztésére is adott a lehetőség. A hátrány viszont, hogy a nem látjuk
 hosszabb sorokat teljes terjedelmében. A 'sidescroll' opció beállításával
 meghatározhatjuk azt a minimális oszlopszámot, melyet az ablak gördül.
 
-Az összes normál ASCII karakter megjelenik a képernyőn. A <Tab> helyettesí-
-tődik a meghatározott karakterszámmal. Egyéb nem nyomtatható karakterek
-helyettesítve lesznek "^{char}"-al, ahol {char} a nem nyomtatható karakter +
-hozzáadott 64. Ezért karakter 7 (csengő) "^G" karakterként jelenik meg.
-Karakterek 127 és 160 között le lesznek cserélve "~{char}"-ra, ahol {char}
-a karakter - 64. A karakterek egynél több pozíciót is elfoglalhatnak a
+Az összes normál ASCII karakter megjelenik a képernyőn. A <Tab>
+helyettesítődik a meghatározott karakterszámmal. Egyéb nem nyomtatható
+karakterek helyettesítve lesznek "^{char}"-al, ahol {char} a nem nyomtatható
+karakter + hozzáadott 64. Ezért karakter 7 (csengő) "^G" karakterként jelenik
+meg.  Karakterek 127 és 160 között le lesznek cserélve "~{char}"-ra, ahol
+{char} a karakter - 64. A karakterek egynél több pozíciót is elfoglalhatnak a
 képernyőn. A kurzor csak a legelső karakterre pozícionálható.
 
 Ha a 'number' opciót beállítjuk, akkor minden sor előtt meg fog jelenni a sor
@@ -826,9 +842,9 @@ karaktereket.
 Command-line módba a buffer tartalma nem frissül mindaddig, amíg el nem
 hagyjuk a command-line módot.
 
-Az ablak utolsó sorában státusz és egyéb üzenetek jelennek meg. A státusz-
-üzenetek csak akkor jelennek meg, ha az alábbi opciók valamelyike be van
-állítva:
+Az ablak utolsó sorában státusz és egyéb üzenetek jelennek meg. A
+státuszüzenetek csak akkor jelennek meg, ha az alábbi opciók valamelyike be
+van állítva:
 
 státusz üzenet			opció	     alaplért.	Unix alapért.	~
 aktuális  mód			'showmode'	be	    be
@@ -845,8 +861,8 @@ Hiba esetén a Vim hibaüzenettel tájékoztat, melyet legalább egy másodperci
 mutat.
 
 Bizonyos parancsok tájékoztatást adnak, hogy a parancs futtatása hány sort
-érintett. A határértéket a 'report' opció változtatásával szabályozhatjuk.
-Az alapbeállítás szerint üzenetet akkor kapunk, ha a szerkesztésink kettő vagy
+érintett. A határértéket a 'report' opció változtatásával szabályozhatjuk.  Az
+alapbeállítás szerint üzenetet akkor kapunk, ha a szerkesztésink kettő vagy
 több sort érintett.
 
 Amigán a Vim CLI módban fut. A címsor tartalma: Vim + fájlnév. Az ablakméret
@@ -900,8 +916,8 @@ Sorok közötti különbségek:
 			hosszabb sorokat tördelheti a Vim, vagy csonkolhatja.
 
   képernyő-sorok	Azok a képernyő sorok, melyeket a Vim használ.
-			Beleértve az ablakokat elválasztó keretet és állapot-
-			sorokat. Hosszuk a képernyő maximális hosszával
+			Beleértve az ablakokat elválasztó keretet és
+			állapotsorokat. Hosszuk a képernyő maximális hosszával
 			egyezhet meg. Ha a command line túl rövidnek bizonyul,
 			sortörés lesz alkalmazva, valamint görgetősáv.
 

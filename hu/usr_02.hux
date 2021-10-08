@@ -48,8 +48,8 @@ ablakon kívül mást nem fogunk látni (hiszen a fájlnak nincs tartalma):
 A tilde (~) azokat a sorokat jelöli, amelyek a fájlnak nem képezik részét. Más
 szavakkal, ha a Vim megjelenítette a teljes fájlt, ilyen szimbólummal tölti ki
 az üres sorokat, ha a fájl tartalma véget ért.  A képernyő legalsó sora az
-állapotsor, ebben a sorban található a fájlnév, illetve információ arról, ha új
-fájlt mi hoztuk létre. Az állapotsor üzenetei csak ideiglenesek, a frissebb
+állapotsor, ebben a sorban található a fájlnév, illetve információ arról, ha
+új fájlt mi hoztuk létre. Az állapotsor üzenetei csak ideiglenesek, a frissebb
 információk felülírják a régi üzeneteket.
 
 
@@ -61,9 +61,10 @@ A vim parancs használatával egy új fájlt hozunk létre:
 >
 >
 a szerkesztés a kiadott parancsablakban történik (ami lehet terminál, vagy
-MS-Windows esetén Parancssor). A gvim egy új ablakot hoz létre a szerkesztéshez,
-a fájl ugyanúgy néz ki mindkét esetben, de a gvim további extra funkciókkal van
-felvértezve (mint például a menüsor). Későbbi fejezetekben erről bővebben.
+MS-Windows esetén Parancssor). A gvim egy új ablakot hoz létre a
+szerkesztéshez, a fájl ugyanúgy néz ki mindkét esetben, de a gvim további
+extra funkciókkal van felvértezve (mint például a menüsor). Későbbi
+fejezetekben erről bővebben.
 
 ==============================================================================
 *02.2*	Szöveg beszúrása
@@ -72,6 +73,7 @@ A Vim modális szerkesztő. Ez azt jelenti, hogy a program másképpen viselkedi
 attól függően, hogy milyen módban vagyunk. Az alapvető két módot Normál és
 Insert módnak hívjuk. Normál módban a begépelt karakterek parancsként
 értelmeződnek. Insert módban a begépelt karakterek a képernyőre kerülnek.
+
     A Vim indulásakor a szerkesztő Normál módban van (alapértelmezetten).
 Insert módba az "i" (i, azaz "i"nsert) megnyomásával kerülhetünk, ezután
 elkezdhetjük a szövegbevitelt. Ne aggódj, ha hibát vétesz, ezeket később ki
@@ -114,17 +116,18 @@ felirattal jelzi az érvényben lévő módot.
 	|-- INSERT --				|
 	+---------------------------------------+
 
+???
 If you press <Esc> to go back to Normal mode the last line will be made blank.
 
 
 A BAJOK MEGELŐZÉSE
 
-A kezdő Vim felhasználók gyakorta összezavarodnak, mert elfelejtik, hogy milyen
-módban vannak, vagy esetlegesen olyan billentyűt ütnek le, mellyel módot
-váltanak. Normál módba a legegyszerűbben (függetlenül attól, hogy milyen
-módban vagyunk) az <Esc> megnyomásával kerülhetünk vissza (ezt akár néha egynél
-többször is meg kell ismételjük). A Vim hangjelzést ad, ha már Normál módban
-vagy.
+A kezdő Vim felhasználók gyakorta összezavarodnak, mert elfelejtik, hogy
+milyen módban vannak, vagy esetlegesen olyan billentyűt ütnek le, mellyel
+módot váltanak. Normál módba a legegyszerűbben (függetlenül attól, hogy milyen
+módban vagyunk) az <Esc> megnyomásával kerülhetünk vissza (ezt akár néha
+egynél többször is meg kell ismételjük). A Vim hangjelzést ad, ha már Normál
+módban vagy.
 
 ==============================================================================
 *02.3*	Navigáció
@@ -139,18 +142,19 @@ léptetni a kurzort:
 
 Első ránézésre olyan érzésünk lehet, mintha ezeket a billentyűket teljesen
 véletlenszerű módon osztották volna ki. Végül is, hogy néz az ki, hogy az l
-billentyű mozdul jobbra? Viszont erre nyomós érveink vannak: A kurzor mozgatása
-az egyik leggyakoribb művelet szövegszerkesztési munkálataink során, ezek
-pedig a kezdő soron helyezkednek el a jobb kezednél. Azaz már eleve adott, hogy
-ezeket a navigációs műveleteket tudjuk leggyorsabban kiadni (feltéve persze,
-ha gépírás alkalmazásával mind a tíz ujjunkat igénybe vesszük a gépelés során).
+billentyű mozdul jobbra? Viszont erre nyomós érveink vannak: A kurzor
+mozgatása az egyik leggyakoribb művelet szövegszerkesztési munkálataink során,
+ezek pedig a kezdő soron helyezkednek el a jobb kezednél. Azaz már eleve
+adott, hogy ezeket a navigációs műveleteket tudjuk leggyorsabban kiadni
+(feltéve persze, ha gépírás alkalmazásával mind a tíz ujjunkat igénybe vesszük
+a gépelés során).
 
 	Megjegyzés:
-	A kurzort a nyilak segítségével is léptethetjük. Ha ezzel a lehetőséggel
-	élsz, akkor a szerkesztési sebességedet nagyban csökkented, hiszen a
-	jobb kezednek el kell hagyni a kezdősort, majd pedig vissza kell
-	térnie. Ez akár óránként több százszor is megtörténhet, ami
-	szignifikáns időmennyiséget tehet ki.
+	A kurzort a nyilak segítségével is léptethetjük. Ha ezzel a
+	lehetőséggel élsz, akkor a szerkesztési sebességedet nagyban
+	csökkented, hiszen a jobb kezednek el kell hagyni a kezdősort, majd
+	pedig vissza kell térnie. Ez akár óránként több százszor is
+	megtörténhet, ami szignifikáns időmennyiséget tehet ki.
 	    Abban az esetben, ha a billentyűzetről hiányoznak a nyilak, a hjkl
 	módszer kiválóan alkalmazható keresgélés nélkül.
 
@@ -226,8 +230,8 @@ eggyel feljebb mozdulnak, hogy kitöltsék a keletkezett űrt:
 
 SORTÖRÉS TÖRLÉSE
 
-A Vimben sorokat egyesíthetsz ("J" azaz: join, ami nem tesz mást, mint törli a két sor
-között elhelyezkedő új sor karaktert.
+A Vimben sorokat egyesíthetsz ("J" azaz: join, ami nem tesz mást, mint törli a
+két sor között elhelyezkedő új sor karaktert.
    Tételezzük fel, hogy az alábbi két sor van a szerkesztőnkben:
 
 	A young intelligent ~
@@ -240,8 +244,8 @@ Vigyük az első sorra a kurzort és üssünk "J" billentyűt:
 ==============================================================================
 *02.5*	Vissza és mégis
 
-Tételezzük fel, hogy túl sok karaktert töröltünk. Nos, beírhatjuk őket újra, de
-ennél létezik egy lényegesen egyszerűbb módszer. Az "u" parancs (Undo)
+Tételezzük fel, hogy túl sok karaktert töröltünk. Nos, beírhatjuk őket újra,
+de ennél létezik egy lényegesen egyszerűbb módszer. Az "u" parancs (Undo)
 visszavonja a legutolsó szerkesztést. Vizsgáljuk meg közelebbről: "dd"
 alkalmazásával töröltünk egy sort, az "u" parancs visszahozza.
     Másik példa: vidd a kurzort a sor elején lévő A karakterre:
@@ -282,16 +286,16 @@ A következő "u" visszaállítja az u karaktert és így tovább:
 MÉGIS
 
 Ha túl sok szerkesztést vonsz vissza, akkor CTRL-R megnyomásával a visszavont
-szerkesztést mégis újraalkalmazhatod, magyarul a visszavonásnak a visszavonása.
-Hogy lássuk működés közben, üss kétszer CTRL-R-t. Az "A" karakter és a követő
-szóköz eltűnik:
+szerkesztést mégis újraalkalmazhatod, magyarul a visszavonásnak a
+visszavonása.  Hogy lássuk működés közben, üss kétszer CTRL-R-t. Az "A"
+karakter és a követő szóköz eltűnik:
 
 	young intelligent turtle ~
 
-A visszavonásnak létezik egy speciális módja, az "U" (sor visszavonás) parancs.
-Az "U" parancs visszavonja a kurzor alatt lévő sor összes szerkesztését.
-Kétszeri bevitelkor "UU", csak az egyik értelmeződik, míg a másik érvényét
-veszti.
+A visszavonásnak létezik egy speciális módja, az "U" (sor visszavonás)
+parancs.  Az "U" parancs visszavonja a kurzor alatt lévő sor összes
+szerkesztését.  Kétszeri bevitelkor "UU", csak az egyik értelmeződik, míg a
+másik érvényét veszti.
 
 	A very intelligent turtle ~
 	  xxxx				Törli: very
@@ -366,13 +370,13 @@ Az "O" parancs (nagybetűs O) az aktuális sor fölé nyitja az új sor.
 MENNYISÉG (COUNT) HASZNÁLATA
 
 Tegyük fel, hogy fel szeretnél ugrani kilenc sort, amit megtehetsz így:
-"kkkkkkkkk", vagy elláthatod mennyiséggel a parancsot, például "9k". A parancsok
-jellemzően elláthatók ilyen mennyiségi jelzővel. Emlékezzünk vissza, néhány
-sorral feljebb a három felkiáltójeles példára, amit így hajtottunk végre:
-"a!!!<Esc>". Ennek egy rövidebb módja "3a!<Esc>". A mennyiségi jelzővel ellátott
-parancsokat a Vim megismétli (a bevitt értékkel). Ennek alapján, a három karak-
-tert törlő parancsot is leegyszerűsíthettük volna: "3x". A mennyiségi jelző
-mindig megelőzi a parancsot, melyre hatással van.
+"kkkkkkkkk", vagy elláthatod mennyiséggel a parancsot, például "9k". A
+parancsok jellemzően elláthatók ilyen mennyiségi jelzővel. Emlékezzünk vissza,
+néhány sorral feljebb a három felkiáltójeles példára, amit így hajtottunk
+végre: "a!!!<Esc>". Ennek egy rövidebb módja "3a!<Esc>". A mennyiségi jelzővel
+ellátott parancsokat a Vim megismétli (a bevitt értékkel). Ennek alapján, a
+három karak- tert törlő parancsot is leegyszerűsíthettük volna: "3x". A
+mennyiségi jelző mindig megelőzi a parancsot, melyre hatással van.
 
 ==============================================================================
 *02.7*	Kilépés
@@ -380,7 +384,6 @@ mindig megelőzi a parancsot, melyre hatással van.
 Kilépéshez használd a "ZZ" parancsot. A parancsi automatikusan menti a fájlt.
 
 	Megjegyzés:
-	Note:
 	A Vim más szövegszerkesztőkkel ellentétben nem készít biztonsági
 	másolatot. A "ZZ" parancs kiadása után nincs visszaút. A biztonsági
 	mentés beállításairól bővebben itt olvashatsz: |07.4|.
@@ -396,21 +399,21 @@ aggódj, a Vim képes erre ezzel a paranccsal:
 
 Ne felejts el <Enter>-t ütni a parancs begépelése után.
 
-Ha érdekelnek a részletek, az előbb említett kilépési parancs három részből áll.
-Az első rész a kettőspont ":", mely megnyitja a Command-line módot, a második
-rész a q parancs, mellyel kilép a szerkesztő, a harmadik és utolsó rész az
-úgynevezett "felülíró módosító" (!).
+Ha érdekelnek a részletek, az előbb említett kilépési parancs három részből
+áll.  Az első rész a kettőspont ":", mely megnyitja a Command-line módot, a
+második rész a q parancs, mellyel kilép a szerkesztő, a harmadik és utolsó
+rész az úgynevezett "felülíró módosító" (!).
     A felülíró módosítóra ebben az esetben szükség van, mivel Vim
-alapértelmezetten nem veti el a változtatásokat. Ha csak ennyit írtunk volna ":q",
-akkor egy hibaüzenet jelent volna meg:
+alapértelmezetten nem veti el a változtatásokat. Ha csak ennyit írtunk volna
+":q", akkor egy hibaüzenet jelent volna meg:
 
 	E37: No write since last change (use ! to override) ~
 
 A módosító alkalmazásával gyakorlatilag ezt mondjuk a szerkesztőnek: "Tudom
 amit csinálok badarságnak tűnhet, de ezt tényleg szeretném"
 
-Ha a szerkesztést a Vimben szeretnéd folytatni, akkor használd a ":e!" parancsot,
-mely betölti újra a fájlt a legutolsó mentett állapota szerint.
+Ha a szerkesztést a Vimben szeretnéd folytatni, akkor használd a ":e!"
+parancsot, mely betölti újra a fájlt a legutolsó mentett állapota szerint.
 
 ==============================================================================
 *02.8*	Segítség
@@ -440,8 +443,8 @@ l jobbra mozog.
     Az ablak bezárásához használhatod az előzőleg ismertetett "ZZ" parancsot.
 Ez csak bezárja az ablakot, de a Vimet nem.
 
-A pipe "|" karakterek közötti szavak linkeknek minősülnek (például |help|). Így
-könnyedén megnyithatjuk az adott szóhoz tartozó dokumentációt. Állj rá a
+A pipe "|" karakterek közötti szavak linkeknek minősülnek (például |help|).
+Így könnyedén megnyithatjuk az adott szóhoz tartozó dokumentációt. Állj rá a
 kurzorral a linkelt szavak egyikére, majd nyomj CTRL-]-t (taghez ugrás) és már
 az adott résznél is vagy. (A Vim terminológia szerint a hyperlinkek tageknek
 minősülnek a Vimben). Tehát a CTRL-] a kurzor alatt lévő taghez ugrik.
@@ -486,9 +489,9 @@ CTRL-H esetében az alábbiak szerint módosul a parancs:
 >
 	:help i_CTRL-H
 
-A Vim elindításánál használt argumentumok (ezek "-"-lel kezdődnek, mint például
--t). Annak kiderítésére, hogy -t miképpen befolyásolja a működést, az alábbi
-parancs ad választ:
+A Vim elindításánál használt argumentumok (ezek "-"-lel kezdődnek, mint
+például -t). Annak kiderítésére, hogy -t miképpen befolyásolja a működést, az
+alábbi parancs ad választ:
 >
 	:help -t
 
@@ -527,8 +530,8 @@ Azonosításhoz add át a hiba kódját paraméterként:
 	:help helphelp
 
 2) Kövesd a linkeket, hogy többet megtudj az adott témakörről. A
-   dokumentációról átválthatsz a kézikönyvre, ami kevésbé részletes és a működést
-   inkább felhasználói szemszögből mutatja be:
+   dokumentációról átválthatsz a kézikönyvre, ami kevésbé részletes és a
+   működést inkább felhasználói szemszögből mutatja be:
 >
 	:help pattern.txt
 <
@@ -600,9 +603,9 @@ Azonosításhoz add át a hiba kódját paraméterként:
 
     Megjegyzés:
     Bizonyos dolgok azonban nem változnak, ilyen például a CTRL billentyű
-    jelölése. A CTRL mindig CTRL marad. Normál módú parancsok esetén
-    nincs prefixum, a CTRL- szót pedig a parancs billentyűje követi,
-    CTRL-<letter>, tehát: >
+    jelölése. A CTRL mindig CTRL marad. Normál módú parancsok esetén nincs
+    prefixum, a CTRL- szót pedig a parancs billentyűje követi, CTRL-<letter>,
+    tehát: >
 
 	:help CTRL-W
 
@@ -643,18 +646,19 @@ Azonosításhoz add át a hiba kódját paraméterként:
 
 	:help eval.txt
 
-< A nyelv bizonyos aspektusai ebben a formában érhetők el :h expr-X ahol "X" egy
-szimpla karakter, például: >
+< A nyelv bizonyos aspektusai ebben a formában érhetők el :h expr-X ahol "X"
+egy szimpla karakter, például: >
 
 	:help expr-!
 
-<megjeleníti a "!" (Nem) operátor leírását a Vim szkriptet illetően
+<megjeleníti a "!" (Nem) operátor leírását a Vim szkriptet illetően.
+
     Továbbá még fontos lehet: >
 
 	:help function-list
 
-<    az összes függvény rövid leírása. A Vim szkriptekhez tartozó függvényekhez
-    minden esetben "()" kell tennünk a függvény neve után, tehát: >
+<    az összes függvény rövid leírása. A Vim szkriptekhez tartozó
+    függvényekhez minden esetben "()" kell tennünk a függvény neve után, tehát: >
 
 	:help append()
 
@@ -682,13 +686,13 @@ szimpla karakter, például: >
 
 <    '!' argumentum kezelése egyedi parancsokban >
 
-16) Az ablakkezelő parancsok mindig CTRL-W-vel kezdődnek, tehát az ablakspecifikus
-    segítség így érhető el :h CTRL-W_betű.  Például: >
+16) Az ablakkezelő parancsok mindig CTRL-W-vel kezdődnek, tehát az
+    ablakspecifikus segítség így érhető el :h CTRL-W_betű.  Például: >
 
 	:help CTRL-W_p
 
-<    ami az előző aktív ablakra vált, ha viszont egy tágabb témakörben szeretnél
-    olvasni, akkor: >
+<    ami az előző aktív ablakra vált, ha viszont egy tágabb témakörben
+    szeretnél olvasni, akkor: >
 
 	:help windows.txt
 
@@ -718,8 +722,8 @@ szimpla karakter, például: >
 	:help usr_toc.txt
 
 < Fuss át rajtuk, valószínű, hogy egyes témák érdekelhetnek. A "Digráfok"
-(Digraph) és a "Speciális karakterek beszúrása a 24. fejezetben található,
-amihez egyrész így is odanavigálhatsz: >
+ (Digraph) és a "Speciális karakterek beszúrása a 24. fejezetben található,
+ amihez egyrész így is odanavigálhatsz: >
 
 	:help usr_24.txt
 
@@ -727,8 +731,8 @@ amihez egyrész így is odanavigálhatsz: >
 
 	:help 10.1
 
-<   ami természetesen megnyitja a 10.1 fejezetet a |user_10.txt|fájlban (ami
-ebben az esetben a makrók rögzítéséről tesz említést >
+<   ami természetesen megnyitja a 10.1 fejezetet a |user_10.txt| fájlban
+(makrók rögzítése). >
 
 19) Szövegkiemelés.  Mindig a hl-csoportnév szintaktikát követi. Például: >
 
@@ -742,7 +746,8 @@ ebben az esetben a makrók rögzítéséről tesz említést >
 
 <    a szintaxis kiemelések conceal argumentuma. >
 
-21) A Quickfix parancsok :c paranccsal, míg a local-list :l utasítással érhetők el.
+21) A Quickfix parancsok :c paranccsal, míg a local-list :l utasítással
+    érhetők el.
 
 22) Az Autocommand események az esemény nevéről lettek elnevezve. >
 
@@ -757,8 +762,8 @@ ebben az esetben a makrók rögzítéséről tesz említést >
 
 	:help -f
 
-24) Az opcionális beállítások "+"-el kezdődnek.  Az elrejtés (conceal) leírásának
-    megjelenítése: >
+24) Az opcionális beállítások "+"-el kezdődnek.  Az elrejtés (conceal)
+    leírásának megjelenítése: >
 
 	:help +conceal
 
@@ -767,8 +772,8 @@ ebben az esetben a makrók rögzítéséről tesz említést >
 
 	:help ft-c-syntax
 
-<    paranccsal a C fájlokhoz tartozó szintaxissal kapcsolatban találunk útmutatót.
-    Példa a php fájlok omni-kiegészítésére: >
+<    paranccsal a C fájlokhoz tartozó szintaxissal kapcsolatban találunk
+    útmutatót.  Példa a php fájlok omni-kiegészítésére: >
 
 	:help ft-php-omni
 
@@ -784,9 +789,9 @@ ebben az esetben a makrók rögzítéséről tesz említést >
 
 	:help W10
 
-<    figyelmeztető üzenetet kaphatjuk, ha írásvédett fájlt próbálunk szerkeszteni.
-    Esetenként nem található pontos hibaleírás, ekkor viszont a hibát kiváltó
-    kódrészletben a hibakód fel van tüntetve. >
+<    figyelmeztető üzenetet kaphatjuk, ha írásvédett fájlt próbálunk
+    szerkeszteni.  Esetenként nem található pontos hibaleírás, ekkor viszont a
+    hibát kiváltó kódrészletben a hibakód fel van tüntetve. >
 
 	:help E128
 
