@@ -1,346 +1,355 @@
 *usr_10.txt*	Vim verzió 8.2.  Frissítve: 2019 Nov 22
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			     Making big changes
+			    Nagyobb változtatások
 
 
-In chapter 4 several ways to make small changes were explained.  This chapter
-goes into making changes that are repeated or can affect a large amount of
-text.  The Visual mode allows doing various things with blocks of text.  Use
-an external program to do really complicated things.
+A 4. fejezetben eddig a kisebb változtatásokról esett szó. Ebben a fejezetben
+olyan változtatásokról lesz szó, melyek ismételhetőek vagy a fájl jelentős
+részét megváltoztatják. Visual blokk módban számos dolgot tehetünk a
+szöveggel. Külső programokkal pedig egészen bonyolult műveleteket végezhetünk.
 
-|10.1|	Record and playback commands
-|10.2|	Substitution
-|10.3|	Command ranges
-|10.4|	The global command
-|10.5|	Visual block mode
-|10.6|	Reading and writing part of a file
-|10.7|	Formatting text
-|10.8|	Changing case
-|10.9|	Using an external program
+|10.1|	Parancsok felvétele és visszajátszása
+|10.2|	Helyettesítés
+|10.3|	Parancs-tartományok
+|10.4|	A global parancs
+|10.5|	Visual blokk mód
+|10.6|	Fájl részeinek olvasása, írása
+|10.7|	Szöveg formázása
+|10.8|	Kis- nagybetű váltása
+|10.9|	Külső programok használata
 
-     Next chapter: |usr_11.txt|  Recovering from a crash
- Previous chapter: |usr_09.txt|  Using the GUI
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_11.txt|  Helyreállítása
+    Előző fejezet: |usr_09.txt|  A GUI használata
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*10.1*	Record and playback commands
+*10.1*	Parancsok felvétele és visszajátszása
 
-The "." command repeats the preceding change.  But what if you want to do
-something more complex than a single change?  That's where command recording
-comes in.  There are three steps:
+A "." parancs megismétli az utolsó szerkesztést. De mi van akkor, ha többre
+van szükséged, mint egyszerű változtatás? Itt jön be parancsok felvétele,
+három lépésben:
 
-1. The "q{register}" command starts recording keystrokes into the register
-   named {register}.  The register name must be between a and z.
-2. Type your commands.
-3. To finish recording, press q (without any extra character).
+1. A "q{register}" parancs elkezdi rögzíteni a kiadott parancsokat a {register}
+   nevű regiszterbe. A regiszter csak a-z karakter lehet.
+2. Add ki a parancsaidat.
+3. A felvétel befejezéséhez nyomj q billentyűt (Normál módban).
 
-You can now execute the macro by typing the command "@{register}".
+A makró futtatásához írd be az alábbi parancsot "@{register}".
 
-Take a look at how to use these commands in practice.  You have a list of
-filenames that look like this:
+
+Egy példával demonstrálható, hogy hogyan működik ez élesben. A programunkba
+fájlokat kell importáljunk:
 
 	stdio.h ~
 	fcntl.h ~
 	unistd.h ~
 	stdlib.h ~
 
-And what you want is the following:
+A végeredmények így kell kinéznie:
 
 	#include "stdio.h" ~
 	#include "fcntl.h" ~
 	#include "unistd.h" ~
 	#include "stdlib.h" ~
 
-You start by moving to the first character of the first line.  Next you
-execute the following commands:
+A bal felső sarokba viszed a kurzort, a stdio.h s betűjére. A parancsok pedig:
 
-	qa			Start recording a macro in register a.
-	^			Move to the beginning of the line.
-	i#include "<Esc>	Insert the string #include " at the beginning
-				of the line.
-	$			Move to the end of the line.
-	a"<Esc>			Append the character double quotation mark (")
-				to the end of the line.
-	j			Go to the next line.
-	q			Stop recording the macro.
+	qa			Elkezdjük a makró rögzítését az a jelű
+	^			regiszterbe.
+	i#include "<Esc>	Beírjuk azt, hogy:  #include " a sor elejére.
+	$			A sor végére ugrunk.
+	a"<Esc>			Hozzáfűzzük az idézőjelet (") a sor végére.
+	j			A következő sorra ugrunk.
+	0			A sor elejére ugrunk.
+	q			Leállítjuk a makró rögzítését.
 
-Now that you have done the work once, you can repeat the change by typing the
-command "@a" three times.
-   The "@a" command can be preceded by a count, which will cause the macro to
-be executed that number of times.  In this case you would type: >
+A munka elvégezve. Futtassuk a makrót a "@a" parancs kiadásával.
+   A makróhívások prefixálhatóak, így az fenti hívást így ismételhetjük meg
+háromszor egy lépésben: >
 
 	3@a
 
 
-MOVE AND EXECUTE
+MOZGÁS ÉS FUTTATÁS
 
-You might have the lines you want to change in various places.  Just move the
-cursor to each location and use the "@a" command.  If you have done that once,
-you can do it again with "@@".  That's a bit easier to type.  If you now
-execute register b with "@b", the next "@@" will use register b.
-   If you compare the playback method with using ".", there are several
-differences.  First of all, "." can only repeat one change.  As seen in the
-example above, "@a" can do several changes, and move around as well.
-Secondly, "." can only remember the last change.  Executing a register allows
-you to make any changes and then still use "@a" to replay the recorded
-commands.  Finally, you can use 26 different registers.  Thus you can remember
-26 different command sequences to execute.
-
-
-USING REGISTERS
-
-The registers used for recording are the same ones you used for yank and
-delete commands.  This allows you to mix recording with other commands to
-manipulate the registers.
-   Suppose you have recorded a few commands in register n.  When you execute
-this with "@n" you notice you did something wrong.  You could try recording
-again, but perhaps you will make another mistake.  Instead, use this trick:
-
-	G			Go to the end of the file.
-	o<Esc>			Create an empty line.
-	"np			Put the text from the n register.  You now see
-				the commands you typed as text in the file.
-	{edits}			Change the commands that were wrong.  This is
-				just like editing text.
-	0			Go to the start of the line.
-	"ny$			Yank the corrected commands into the n
-				register.
-	dd			Delete the scratch line.
-
-Now you can execute the corrected commands with "@n".  (If your recorded
-commands include line breaks, adjust the last two items in the example to
-include all the lines.)
+A szerencse forgandó, lesznek olyan szituációk, amikor a makrókat nem egy
+helyen kell futtatnod, hanem szanaszét szórva a fájlban. Ugorj a következő
+helyre és futtasd a makrót újra a "@a" paranccsal. Ha egyszer már futtattad a
+makrók, akkor elérhetővé válik a "@@" makróhivatkozás, mely legutolsó
+futtatott makrót hívja meg. Gépelni is sokkal kellemesebb. Ha a b jelű makrót
+futtatod "@b", "@@" a b jelű makrót fogja hívni.
+   Ha össze szeretnénk hasonlítani a makrókat és a "." parancsot, akkor a
+különbség számottevő. Először is, "." parancs csak egy szerkesztés tud
+ismételni, "@a"-val pedig számos apró lépést alkalmaztunk. "." csak Insert
+parancs alatti szerkesztéseinket ismétli meg ("@a" során Normál módból
+váltottunk Insert módba, aztán vissza Normál, vissza Insert és Normál).
+   Ráadásul, összesen 26 regiszter áll rendelkezésünkre ("." csak egy, mely
+állandóan felülíródik).
 
 
-APPENDING TO A REGISTER
+REGISZTEREK HASZNÁLATA
 
-So far we have used a lowercase letter for the register name.  To append to a
-register, use an uppercase letter.
-   Suppose you have recorded a command to change a word to register c.  It
-works properly, but you would like to add a search for the next word to
-change.  This can be done with: >
+A regiszterekkel tudjuk rögzíteni a parancsainkat, akár csak a törlés vagy
+másolás parancsok (a különbség csak a regiszter azonosítója). Ezen tulajdonság
+még magasabb szintű manipulációt tesz lehetővé.
+   Tegyük fel, hogy rögzítettél már valamit az n jelű regiszterbe. Futtatáskor
+kiderül, hogy valami baj történt. Megpróbálhatod újra rögzíteni a szekvenciát,
+de semmi garancia nincs arra, hogy hiba nélkül tudod rögzíteni. Csináld így:
+
+	G			Fájl végére ugrás
+	o<Esc>			Üres sor kurzor alá
+	"np			Szöveg másolása n regiszterből.  Láthatóvá
+				válnak a makrót tartalmazó parancsok.
+	{rögzített parancsok}   Javítsd ki a parancsot. Mintha szöveget
+				szerkesztenél.
+	0			Sor elejére ugrás
+	"ny$			A helyes parancs visszamásolása az n jelű
+				regiszterbe.
+	dd			Ideiglenes sor törlése.
+
+Most már futtathatod a korrigált "@n" makrót. Ha olyan parancsot rögzítettél,
+amely sortörést tartalmaz, akkor az utolsó két lépést értelemszerűen egészítsd
+ki, hogy az összes sort tartalmazza).
+
+
+HOZZÁFŰZÉS A REGISZTERHEZ
+
+Eddig csak kisbetűs regisztereket használtunk. Hozzáfűzéshez használj
+nagybetűs regiszter azonosítót.
+   Tegyük fel, hogy felvettél valamit a c regiszterbe, amivel változtatsz egy
+szót. Remekül működik, de hozzá szeretnéd adni, hogy keresse meg a következő
+szót. Semmi akadály: >
 
 	qC/word<Enter>q
 
-You start with "qC", which records to the c register and appends.  Thus
-writing to an uppercase register name means to append to the register with
-the same letter, but lowercase.
+A "qC" paranccsal nyitsz, mely hozzá fog fűzni a c jelű regiszterhez. A
+nagybetű regiszterazonosító mindig a kisbetűshöz fűz hozzá (C -> c).
 
-This works both with recording and with yank and delete commands.  For
-example, you want to collect a sequence of lines into the a register.  Yank
-the first line with: >
+Ez működik másolás és törlés rögzítése esetében is. Például tegyük fel, hogy
+össze szeretnél gyűjteni adott sorokat az "a regiszterbe, hogy aztán egyszerre
+bemásolhasd őket. Az első sort másold be így: >
 
 	"aY
 
-Now move to the second line, and type: >
+A másodiktól kezdve pedig így: >
 
-	"AY
+	    "AY
 
-Repeat this command for all lines.  The a register now contains all those
-lines, in the order you yanked them.
+Ismételd amíg jól esik. Az "a jelű regiszter tartalmazni fogja a kimásolt
+sorokat pontosan abban a sorrendben, ahogy kimásoltad őket.
 
 ==============================================================================
-*10.2*	Substitution						*find-replace*
+*10.2*	Csere						*find-replace*
 
-The ":substitute" command enables you to perform string replacements on a
-whole range of lines.  The general form of this command is as follows: >
+A ":substitute" paranccsal cserélhetsz szöveget, akár több soron, vagy az
+egész fájlon keresztül. A parancs általános alakja: >
 
 	:[range]substitute/from/to/[flags]
 
-This command changes the "from" string to the "to" string in the lines
-specified with [range].  For example, you can change "Professor" to "Teacher"
-in all lines with the following command: >
-
+A parancs lecseréli az összes [range] tartományban lévő "from" szót a "to" szóra.
+Például, lecseréled az összes "Professor" szót "Teacher"-re az összes sorban:
+>
 	:%substitute/Professor/Teacher/
 <
-	Note:
-	The ":substitute" command is almost never spelled out completely.
-	Most of the time, people use the abbreviated version ":s".  From here
-	on the abbreviation will be used.
+	Megjegyzés:
+	A ":substitute" parancsot szinte kivétel nélkül sohasem írjuk ki
+	teljes alakban. Az esetek nagy százalékában az emberek csak ":s"-ként
+	rövidítik. Ezentúl a kézikönyv is így fog a cserére hivatkozni.
 
-The "%" before the command specifies the command works on all lines.  Without
-a range, ":s" only works on the current line.  More about ranges in the next
-section |10.3|.
+A "%" a csere parancs előtt jelenti azt, hogy a csere az összes sorra érvényes
+lesz (teljes fájlon át). "%" nélkül ":s" csak az aktív sorban cserél. A
+tartományokról bővebben a 1. "%" nélkül ":s" csak az aktív sorban cserél. A
+tartományokról bővebben a |10.3| fejezetben.
 
-By default, the ":substitute" command changes only the first occurrence on
-each line.  For example, the preceding command changes the line:
+Alapértelmezés szerint a ":substitute" parancs csak az első előfordulást
+cseréli le. Például, az előző parancs az alábbit eredményezi, ha a sorban
+egynél több előfordulás van:
+
 
 	Professor Smith criticized Professor Johnson today. ~
 
-to:
+Erre:
 
 	Teacher Smith criticized Professor Johnson today. ~
 
-To change every occurrence on the line, you need to add the g (global) flag.
-The command: >
+Ahhoz, hogy az összes előfordulást lecseréld, add a g (global) flaget a
+parancs végéhez: >
 
 	:%s/Professor/Teacher/g
 
-results in (starting with the original line):
+Eredmény (a 171. sorban szereplő példa alapján):
 
 	Teacher Smith criticized Teacher Johnson today. ~
 
-Other flags include p (print), which causes the ":substitute" command to print
-out the last line it changes.  The c (confirm) flag tells ":substitute" to ask
-you for confirmation before it performs each substitution.  Enter the
-following: >
+Egyéb flagek, többek között a p (print), melynek hatására a ":substitute"
+kiírja az utolsó sort, melyben cserélt. A c (confirm) flag arra utasítja a
+":substitute" parancsot, hogy megerősítést kérjen minden csere előtt. Írd be
+az alábbit: >
 
 	:%s/Professor/Teacher/c
 
-Vim finds the first occurrence of "Professor" and displays the text it is
-about to change.  You get the following prompt: >
+Mihelyst a vim megtalálja a "Professor" előfordulását, udvariasan, de végképp
+sem tolakodóan megkérdez, hogy mit tegyek. Valahogy így: >
 
 	replace with Teacher (y/n/a/q/l/^E/^Y)?
 
-At this point, you must enter one of the following answers:
+A válaszok pedig lehetnek:
 
-	y		Yes; make this change.
-	n		No; skip this match.
-	a		All; make this change and all remaining ones without
-			further confirmation.
-	q		Quit; don't make any more changes.
-	l		Last; make this change and then quit.
-	CTRL-E		Scroll the text one line up.
-	CTRL-Y		Scroll the text one line down.
+	y		Igen; cseréld le.
+	n		Ne; hagyjuk ki.
+	a		Az összesen; cseréld le ezt, és minden továbbit kérdés
+			nélkül.
+	q		Kilépés; ne változtass többet.
+	l		Utolsó; még ezt cseréld le és lépj ki.
+	CTRL-E		Görgetés egy sorral feljebb.
+	CTRL-Y		Görgetés egy sorral lejjebb.
 
 
-The "from" part of the substitute command is actually a pattern.  The same
-kind as used for the search command.  For example, this command only
-substitutes "the" when it appears at the start of a line: >
+A "from" része a csere parancsnak (azaz amit keresünk) valójában egy minta.
+Ugyanezen a mintán alapul a keresés is. Például, az alábbi parancs csak akkor
+cserél, ha "the" szó a sor legelején található: >
 
 	:s/^the/these/
 
-If you are substituting with a "from" or "to" part that includes a slash, you
-need to put a backslash before it.  A simpler way is to use another character
-instead of the slash.  A plus, for example: >
+Ha a "from" vagy a "to" mezők per jelet tartalmaznak akkor  visszaperjellel
+escapelni kell. Egyszerűbb azonban, ha perjel helyett egy másik karaktert
+használunk. Például "+" karaktert:
+
+???  Teszt
+A simpler way is to use another character instead of the slash.  A plus, for 
+example: >
 
 	:s+one/two+one or two+
 
 ==============================================================================
-*10.3*	Command ranges
+*10.3*	Tartományok
 
-The ":substitute" command, and many other : commands, can be applied to a
-selection of lines.  This is called a range.
-   The simple form of a range is {number},{number}.  For example: >
+A ":substitute" parancs, mint megannyi más ":" parancs, alkalmazhatóak
+meghatározott sorokra. Ezt hívjuk tartományoknak.
+   A legegyszerűbb tartomány a {number},{number}. Például: >
 
 	:1,5s/this/that/g
 
-Executes the substitute command on the lines 1 to 5.  Line 5 is included.
-The range is always placed before the command.
+Futtatja a csere parancsot az első öt soron (beleértve 1., valamint az 5.
+sort is). A tartomány mindig a parancs elé kerül.
 
-A single number can be used to address one specific line: >
+Egyetlen egy számmal a csere csak az adott számú sorban hajtódik végre: >
 
 	:54s/President/Fool/
 
-Some commands work on the whole file when you do not specify a range.  To make
-them work on the current line the "." address is used.  The ":write" command
-works like that.  Without a range, it writes the whole file.  To make it write
-only the current line into a file: >
+Néhány parancs a teljes fájlon hajtódik végre, ha nem határozol meg
+tartományt. Ahhoz, hogy a parancs az aktuális sorban fusson, alkalmazhatod a
+"." tartományt. A ":write" parancs így működik. Tartomány nélkül a fájl összes
+sora kiíródik, viszont ha csak az aktuális sort szeretnéd kiírni:  >
 
 	:.write otherfile
 
-The first line always has number one.  How about the last line?  The "$"
-character is used for this.  For example, to substitute in the lines from the
-cursor to the end: >
+A fájl első sora tartományok meghatározásánál mindig számmal szerepel. De mi
+can az utolsó sorral? A "$" karaktert használjuk erre a célra. Például, csere
+az aktív sortól a fájl végéig. >
 
 	:.,$s/yes/no/
 
-The "%" range that we used before, is actually a short way to say "1,$", from
-the first to the last line.
+A "%" tartomány gyakorlatilag csak egy rövidítése a "1,$" tartománynak.
 
 
-USING A PATTERN IN A RANGE
+MINTÁK HASZNÁLATA A TARTOMÁNYOKBAN
 
-Suppose you are editing a chapter in a book, and want to replace all
-occurrences of "grey" with "gray".  But only in this chapter, not in the next
-one.  You know that only chapter boundaries have the word "Chapter" in the
-first column.  This command will work then: >
+Tegyük fel, hogy egy könyv fejezetét írod és ki szeretnél cserélni minden
+"grey" szót a "gray" szóra, de csak ebben a fejezetben, a következőben nem.
+Tudod, hogy a "Chapter" szó csak a fejezetek címében a sor elején szerepelhet, 
+így fel tudod használni a tartomány pontos megállapításához. A feladat
+megoldása: >
 
 	:?^Chapter?,/^Chapter/s=grey=gray=g
 
-You can see a search pattern is used twice.  The first "?^Chapter?" finds the
-line above the current position that matches this pattern.  Thus the ?pattern?
-range is used to search backwards.  Similarly, "/^Chapter/" is used to search
-forward for the start of the next chapter.
-   To avoid confusion with the slashes, the "=" character was used in the
-substitute command here.  A slash or another character would have worked as
-well.
+A keresési mintát kétszer láthatod. Az első "?^Chapter?" találja meg a
+kurzortól felfelé elhelyezkedő sorokot egészen az előző Chapterig. A ?minta? 
+tehát az adott pozíciótól visszafelé keres. Hasonlóan a "/^Chapter/" minta
+pedig előre irányban találja meg a következő Chaptert.
+   A káosz elkerülése érdekében a perjelek helyett itt "=" jel szerepel. A
+perjel is működőképes, de jelen esetben túl zajos.
 
 
-ADD AND SUBTRACT
+BŐVÍTÉS ÉS SZŰKÍTÉS
 
-There is a slight error in the above command: If the title of the next chapter
-had included "grey" it would be replaced as well.  Maybe that's what you
-wanted, but what if you didn't?  Then you can specify an offset.
-   To search for a pattern and then use the line above it: >
-
+A keresési parancsunkkal már csak az az egy baj van, hogy ha a következő
+fejezet címében szerepel a "grey" szó, akkor a keresés azt is kigyomlálja.
+Talán ezt akarod, de mi van ha nem? Ha nem, akkor offszetelned kell a
+tartományt.
+   Szőkítsük le a tartományt egy sorral (a következő Chapter szó fölötti sor):
+   >
 	/Chapter/-1
 
-You can use any number instead of the 1.  To address the second line below the
-match: >
+Az egész számok halmazába tartozó bármely számot használhattuk volna 1 helyett.
+Így pedig bővíthetjük a tartományt (következő Chapter alatti második sorig): >
 
 	/Chapter/+2
 
-The offsets can also be used with the other items in a range.  Look at this
-one: >
+Nevesített tartományokat is offszetelhetünk. Nézzük: >
 
 	:.+3,$-5
 
-This specifies the range that starts three lines below the cursor and ends
-five lines before the last line in the file.
+A tartomány három sorral a kurzor alatt kezdődik és a fájl vége előtt öt
+sorral ér véget. 
 
 
-USING MARKS
+JELÖLŐK HASZNÁLATA
 
-Instead of figuring out the line numbers of certain positions, remembering them
-and typing them in a range, you can use marks.
-   Place the marks as mentioned in chapter 3.  For example, use "mt" to mark
-the top of an area and "mb" to mark the bottom.  Then you can use this range
-to specify the lines between the marks (including the lines with the marks): >
+Ahelyett, hogy azon töprengenél, hogy hogyan adj meg egy komplex tartományt,
+használj jelölőket. Gyorsabb.
+   Rakd le a jelölőid a 3. fejezetben leírtak szerint. Például, "mt"
+jelöléssel a tartomány tetejét (top), "mb"-vel pedig az alját (bottom). Ezt
+így hasznosíthatod (a jelölők sora még a tartományhoz tartozik): >
 
 	:'t,'b
 
 
-VISUAL MODE AND RANGES
+VISUAL MÓD ÉS A TARTOMÁNYOK
 
-You can select text with Visual mode.  If you then press ":" to start a colon
-command, you will see this: >
-
+Tartományokat Visual módban egyszerűen, könnyen és gyorsan megadhatunk.
+Részben erre is való a mód. Jelöljünk ki valamit, hogy nyomjunk egy ":" a
+command-line módba lépéshez, melybe azonnal az alábbi érdekességet láthatjuk:
+>
 	:'<,'>
 
-Now you can type the command and it will be applied to the range of lines that
-was visually selected.
+A működés teljesen normális. Ezek a karakterek a vizuális tartomány elejét és
+végét jelentik. A parancsaidat ugyanúgy folytathatod, viszont az összes művelet 
+a kijelölt tartományon lesz elvégezve.
 
-	Note:
-	When using Visual mode to select part of a line, or using CTRL-V to
-	select a block of text, the colon commands will still apply to whole
-	lines.  This might change in a future version of Vim.
+	Megjegyzés:
+	Visual módban a CTRL-V-vel jelölhetünk ki szövegblokkokat, azonban a
+	leírtakkal ellentétben a művelet végrehajtódik minden olyan sor
+	egészén, amelynek a blokk megelőzőleg a részét képezte. Ez változhat a
+	későbbi Vim verziók során.
 
-The '< and '> are actually marks, placed at the start and end of the Visual
-selection.  The marks remain at their position until another Visual selection
-is made.  Thus you can use the "'<" command to jump to position where the
-Visual area started.  And you can mix the marks with other items: >
-
+A '< és '> nem mások mint jelölők, melyeket a Vim a vizuális kijelölés elejére
+és végére helyez. A jelölők addig maradnak érvényben, amíg egy másik Visual
+módú kijelöléssel ki nem jelölünk valamit. Ebből az következik, hogy
+újrahasznosíthatóak. Azaz, a pozíciójukhoz ugorhatsz "'<" (a ' csak a sor
+számát jelöli), de fel is használhatod őket további tartományok definiáláshoz.
+>
 	:'>,$
 
-This addresses the lines from the end of the Visual area to the end of the
-file.
+Az alábbi címzéssel  a az utolsó vizuális kijelöléstől a fájl végéig tartó
+tartományt hozunk létre.
 
 
-A NUMBER OF LINES
+A SOROK SZÁMA
 
-When you know how many lines you want to change, you can type the number and
-then ":".  For example, when you type "5:", you will get: >
+Ha pontosan tudod, hogy mennyi sorban szeretnél dolgozni, az aktív sorhoz
+hozzáfűzheted számformátumban:  >
 
 	:.,.+4
 
-Now you can type the command you want to use.  It will use the range "."
-(current line) until ".+4" (four lines down).  Thus it spans five lines.
+
+A végére pedig jöhet a parancs. Az így képzett művelet az aktív sor "." és az
+azt követő négy sor ".+4" (azaz összesen ötre) értendő.
 
 ==============================================================================
-*10.4*	The global command
+*10.4*	A global parancs
 
 The ":global" command is one of the more powerful features of Vim.  It allows
 you to find a match for a pattern and execute a command there.  The general
