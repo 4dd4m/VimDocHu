@@ -1,23 +1,24 @@
 *usr_11.txt*	Vim verzió 8.2.  Frissítve: 2020 Oct 25
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			   Recovering from a crash
+				Helyreállítás
 
 
-Did your computer crash?  And you just spent hours editing?  Don't panic!  Vim
-stores enough information to be able to restore most of your work.  This
-chapter shows you how to get your work back and explains how the swap file is
-used.
+Összeomlott a rendszered? Becsapott a villám? És mindezt órákon át tartó
+szerkesztés közben? Csak semmi pánik! A Vim elég információt tárol, hogy a
+munka nagy része meg legyen mentve. A fejezet azt tárgyalja, hogy hogyan
+szerezheted vissza a lehető legtöbbet az elvesztett munkádból, valamit hol
+találod a swapfájlt.
 
-|11.1|	Basic recovery
-|11.2|	Where is the swap file?
-|11.3|	Crashed or not?
-|11.4|	Further reading
+|11.1|	Alapvető helyreállítás
+|11.2|	Hol val a swapfájl?
+|11.3|	Összeomlott vagy sem?
+|11.4|	További irodalom
 
-     Next chapter: |usr_12.txt|  Clever tricks
- Previous chapter: |usr_10.txt|  Making big changes
-Table of contents: |usr_toc.txt|
+Következő fejezet: |usr_12.txt|  Tippek, trükkök
+    Előző fejezet: |usr_10.txt|  Nagy változtatások
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *11.1*	Basic recovery
@@ -313,6 +314,6 @@ For programmatic access to the swap file, see |swapinfo()|.
 
 ==============================================================================
 
-Next chapter: |usr_12.txt|  Clever tricks
+Következő fejezet: |usr_12.txt|  Tippek, Trükkök
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

@@ -1,12 +1,13 @@
 # VimDocHu
-* Ongoing Translation of the Vim reference &amp; help files
+* Ongoing Hungarian Translation of the Vim reference &amp; help files
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_09.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_10.hux
+* A fordítás jelenleg usr_01.hux - usr_10.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_11.hux
 
 ## A jelenlegi fordítás használatba vétele
+* rendelkezz megfelelő jogosultságokkal az alábbi mappákban
 * A hu könyvtárat másold be ide: $VIMRUNTIME/doc
 * töröld a régi tagfájlokat (tags,tags-hu): $VIMRUNTIME/doc
 * futtasd ':helptags $VIMRUNTIME/doc' a Vimből
@@ -43,6 +44,8 @@ hogy könnyedén felderíthető legyen.
 ## Szerkezet
 * hu/ kézikönyv fájljai
 * orig/ eredeti fájlok, diffeléshez, karbantartáshoz
+
+## Egyebek
 * A manual fájljai még nincsenek átemelve
 
 vim: tw=80 filetype=markdown syntax=markdown

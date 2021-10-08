@@ -351,160 +351,174 @@ azt követő négy sor ".+4" (azaz összesen ötre) értendő.
 ==============================================================================
 *10.4*	A global parancs
 
-The ":global" command is one of the more powerful features of Vim.  It allows
-you to find a match for a pattern and execute a command there.  The general
-form is: >
+A ":global" parancs az egyik leghatékonyabb parancs a Vimben. Keresési minta
+meghatározása után lefuttathatjuk az általunk meghatározott parancsot,
+egyszerre. Általános alakja: >
 
 	:[range]global/{pattern}/{command}
 
-This is similar to the ":substitute" command.  But, instead of replacing the
-matched text with other text, the command {command} is executed.
+Ez nagyon hasonló a ":substitute" parancshoz, de ahelyett, hogy cserét
+végeznénk el, lefuttatjuk a {command} parancsot.
 
-	Note:
-	The command executed for ":global" must be one that starts with a
-	colon.  Normal mode commands can not be used directly.  The |:normal|
-	command can do this for you.
+	Megjegyzés:
+	A ":global" parancs által csak olyan parancsokat tudunk futtatni,
+	melyek ":"-al kezdődnek (tehát Normal módú parancsokat futtatására
+	nincs lehetőség), legalábbis direkt módon. A Normal módú parancsokat a
+	|:normal| parancsok keresztül érheted el.
 
-Suppose you want to change "foobar" to "barfoo", but only in C++ style
-comments.  These comments start with "//".  Use this command: >
+Tegyük fel, hogy le át szeretnéd alakítani az összes "foobar" szót
+"barfoo"-ra, de csak C++ típusú kommentekben. A kommentek minden esetben "//"
+jellel kezdődnek. A parancs: >
 
 	:g+//+s/foobar/barfoo/g
 
-This starts with ":g".  That is short for ":global", just like ":s" is short
-for ":substitute".  Then the pattern, enclosed in plus characters.  Since the
-pattern we are looking for contains a slash, this uses the plus character to
-separate the pattern.  Next comes the substitute command that changes "foobar"
-into "barfoo".
-   The default range for the global command is the whole file.  Thus no range
-was specified in this example.  This is different from ":substitute", which
-works on one line without a range.
-   The command isn't perfect, since it also matches lines where "//" appears
-halfway through a line, and the substitution will also take place before the
-"//".
+Az első ":g" rész a ":global" rövid alakja, mint ":s" esetében a ":substitute".
+A minta "+" karakterek közé van zárva, erre azért van szükség, mert
+perjelekre keresünk. A következő a substitute parancs, ami lecseréli
+"foobart"-t "barfoo"-ra.
+   A global alapértelmezett tartománya az teljes fájl, noha nem adtunk meg
+explicit tartományt. A ":substitute" parancsnak át kell adnunk egy tartományt,
+amit ha nem teszünk meg, a csere csak egy sorban lesz végrehajtva. Ez lényeges
+különbség. 
+   A parancs nem tökéletes, hiszen a "//" jelek akár a sorok közepén is
+előfordulhatnak, a csere pedig érintené a komment jelek előtti "foobar"-okat
+is.
 
-Just like with ":substitute", any pattern can be used.  When you learn more
-complicated patterns later, you can use them here.
+A ":substitute" parancshoz hasonlóan, itt is akármilyen tartományt
+megadhattunk volna. Később meg fogsz ismerni sokkal bonyolultabb mintákat és
+tovább tökéletesítheted a jelenlegi példát.
 
 ==============================================================================
-*10.5*	Visual block mode
+*10.5*	Visual blokk mód
 
-With CTRL-V you can start selection of a rectangular area of text.  There are
-a few commands that do something special with the text block.
+A CTRL-V egy egészen más kijelölési módot ajánl, amivel talán még nem is
+találkoztál. Négyzetes területet tudsz kijelölni. Létezik pár manipulációs 
+parancs, melyekkel konkrétan erre a kijelölési módra születtek.
 
-There is something special about using the "$" command in Visual block mode.
-When the last motion command used was "$", all lines in the Visual selection
-will extend until the end of the line, also when the line with the cursor is
-shorter.  This remains effective until you use a motion command that moves the
-cursor horizontally.  Thus using "j" keeps it, "h" stops it.
+A "$" parancs Visual blokk mód használatakor különösen viselkedik, az összes
+sor kijelölése ki lesz terjesztve a sor végéig, még azoké is, melyek
+rövidebbek.  A kijelölés addig marad aktív, amíg horizontális irányban el nem
+kezdesz mozogni visszafelé. "j" megtartja, "h" megszünteti (a kijelölés
+átalakul valódi négyzetes kijelölésre, és a sorok nagy részének megszűnik a
+sor végéig tartó kijelölése).
 
 
-INSERTING TEXT
+SZÖVEG BEILLESZTÉSE
 
-The command  "I{string}<Esc>" inserts the text {string} in each line, just
-left of the visual block.  You start by pressing CTRL-V to enter visual block
-mode.  Now you move the cursor to define your block.  Next you type I to enter
-Insert mode, followed by the text to insert.  As you type, the text appears on
-the first line only.
-   After you press <Esc> to end the insert, the text will magically be
-inserted in the rest of the lines contained in the visual selection.  Example:
+Az "I{String}<Esc>" beilleszteti a {String}et a blokk elé. Normál módban "I"
+hasonlóan működik, ott a sor elejére illeszt. Nyomj CTRL-V-t és jelölj ki egy
+blokkot a kurzor segítségével. Most üss I karaktert, Insert módba kerülsz, a
+szerkesztő pedig várja a {String}et. A beírt szöveget csak a kijelölésed első
+sorában fogod látni, de ha elhagyod az Insert módot, akkor érteni fogod a
+technika lényegét.
+   Térj vissza Normal módba <Esc>, erre a beírt szöveg a blokk kijelölés
+összes sora előtt megjelenik. Például:
 
 	include one ~
 	include two ~
 	include three ~
 	include four ~
 
-Move the cursor to the "o" of "one" and press CTRL-V.  Move it down with "3j"
-to "four".  You now have a block selection that spans four lines.  Now type: >
+Vidd a kurzort a "one" szó "o" betűjére, majd nyomj CTRL-V-t. Mozogj lejjebb
+három sorral "3j" a "four" szóig. A blokk kijelölésed négy soros. Most
+varázsolj: >
 
 	Imain.<Esc>
 
-The result:
+Eredmény:
 
 	include main.one ~
 	include main.two ~
 	include main.three ~
 	include main.four ~
 
-If the block spans short lines that do not extend into the block, the text is
-not inserted in that line.  For example, make a Visual block selection that
-includes the word "long" in the first and last line of this text, and thus has
-no text selected in the second line:
+Ha a köztes sorok nem érintik a kijelölést, akkor abba a sorba semmi nem kerül
+beillesztésre. Vizsgáljuk meg. Az alábbi példában jelölj ki egy blokkot úgy,
+hogy az alsó és felső "long" szavak ki legyenek jelölve. Láthatóvá válik, hogy
+a középső sor nem érinti a kijelölést, ezért oda semmi sem lesz beillesztve.
+Tégy egy próbát:
 
 	This is a long line ~
 	short ~
 	Any other long line ~
 
-		  ^^^^ selected block
+		  ^^^^ a kijelölt blokk
 
-Now use the command "Ivery <Esc>".  The result is:
+Most pedig futtasd a "Ivery <Esc>" parancsot. Ha minden tökéletesen ment
+végbe:
 
 	This is a very long line ~
 	short ~
 	Any other very long line ~
 
-In the short line no text was inserted.
+A rövid sorba nem került semmi.
 
-If the string you insert contains a newline, the "I" acts just like a Normal
-insert command and affects only the first line of the block.
+Ha a beszúrás során alkalmazol újsor karaktert, akkor a beillesztés egyszerű,
+Normal módú biellesztésként megy végbe és csak az első sorra hat (a kijelölés
+többi sorába nem kerül semmi).
 
-The "A" command works the same way, except that it appends after the right
-side of the block.  And it does insert text in a short line.  Thus you can
-make a choice whether you do or don't want to append text to a short line.
-   There is one special case for "A": Select a Visual block and then use "$"
-to make the block extend to the end of each line.  Using "A" now will append
-the text to the end of each line.
-   Using the same example from above, and then typing "$A XXX<Esc>, you get
-this result:
+Az "A" parancs ugyanúgy működik, csak a blokk jobb oldalára illeszt be, illetve
+a rövidebb sorokba is beszúr (a blokk kijelölés folytatásaként). A két parancs
+(I és A blokk módban) azért így lett tervezve, hogy eldönthessük, szeretnénk-e
+beilleszteni a rövidebb sorokba. 
+   "A"-nak egy speciális esete van: ha a blokk meghatározásakor "$" parancsot
+használunk (kijelölés a sor végéig), akkor az összes sor végére fűz.
+   A fenti példát felhasználva, válts át Visual módra, majd futtasd a 
+"$A XXX<Esc> parancsot:
 
 	This is a long line XXX ~
 	short XXX ~
 	Any other long line XXX ~
 
-This really requires using the "$" command.  Vim remembers that it was used.
-Making the same selection by moving the cursor to the end of the longest line
-with other movement commands will not have the same result.
+A technika "$" használata nélkül nem működik. A Vim megjegyzi, ha "$"-t
+használunk. Ha ugyanezt a hatást próbáljuk elérni, de a kijelölés során más
+egyéb navigációs paranccsal kerülünk a sor végére (például "100l"), azonos
+parancs mellett ($A XXX<Esc>) más eredményt fogunk tapasztalni. A kijelölés
+során a kurzor kezdeti pozíciója nem számít, hiszen a lényeg a "$"-al való
+ugráson van.
 
 
-CHANGING TEXT
+SZÖVEG VÁLTOZTATÁSA
 
-The Visual block "c" command deletes the block and then throws you into Insert
-mode to enable you to type in a string.  The string will be inserted in each
-line in the block.
-   Starting with the same selection of the "long" words as above, then typing
-"c_LONG_<Esc>", you get this:
+A Visual blokk mód "c" (change) parancsa kitörli a kijelölt blokkot és Insert 
+módra vált, amivel szövegbevitelt kezdeményezhetünk. A beírt szöveg megjelenik a
+kijelölés összes sorában.
+   Jelöljük ki ismét a "long" szavakat, de most parancsunk legyen
+"c_LONG_<Esc>", ezt kapjuk:
 
 	This is a _LONG_ line ~
 	short ~
 	Any other _LONG_ line ~
 
-Just like with "I" the short line is not changed.  Also, you can't enter a
-newline in the new text.
+A parancs "I"-hez hasonlóan működik, ugyanis a rövidebb sorokat nem
+változtatja. Sortörés a bevitel során nem alkalmazható. 
 
-The "C" command deletes text from the left edge of the block to the end of
-line.  It then puts you in Insert mode so that you can type in a string,
-which is added to the end of each line.
-   Starting with the same text again, and typing "Cnew text<Esc>" you get:
+A "C" parancs a kijelölés bal szélétől a sor végéig töröl és Insert módra
+vált. A bevitt szöveg csak a kijelölésben szereplő sorokra érvényes, a
+rövidebb sorokat nem egészíti ki. "C" működése normál módban teljesen
+megegyezik, azonban a szerkesztés tárgya egyetlen egy sor.
+   Még mindig ugyanazon példánál maradva gépeljünk "Cnew text<Esc>":
 
 	This is a new text ~
 	short ~
 	Any other new text ~
 
-Notice that, even though only the "long" word was selected, the text after it
-is deleted as well.  Thus only the location of the left edge of the visual
-block really matters.
-   Again, short lines that do not reach into the block are excluded.
+Meg kell jegyezzük, hogy hiába csak a "long" szavak voltak kijelölve, a "long"
+szavak utáni rész is ki lett törölve. Tehát, csak a kijelölés bal széle
+számít.
+   A rövidebb sorok, melyek nem érnek bele a blokkba, érintetlenül maradnak.
 
-Other commands that change the characters in the block:
+Egyéb parancsok, melyek megváltoztathatják a karaktereket a blokkban:
 
-	~	swap case	(a -> A and A -> a)
-	U	make uppercase  (a -> A and A -> A)
-	u	make lowercase  (a -> a and A -> a)
+	~	kis- nagybetű csere	(a -> A and A -> a)
+	U	nagybetűre csere        (a -> A and A -> A)
+	u	kisbetűre csere         (a -> a and A -> a)
 
 
-FILLING WITH A CHARACTER
+KITÖLTÉS KARAKTEREKKEL
 
-To fill the whole block with one character, use the "r" command.  Again,
-starting with the same example text from above, and then typing "rx":
+A blokk kitöltéséhez használd az "r" parancsot. A példa mondat ugyan az, a
+parancs viszont "rx":
 
 	This is a xxxx line ~
 	short ~
@@ -512,65 +526,66 @@ starting with the same example text from above, and then typing "rx":
 
 
 	Note:
+	???Teszt
+	A sorok végén túli karaktereket is érinteni szeretnéd, akkor nézd át a
+	'virtualedit' beállításait a 25. fejezetben.
 	If you want to include characters beyond the end of the line in the
 	block, check out the 'virtualedit' feature in chapter 25.
 
 
-SHIFTING
+BEHÚZÁS
 
-The command ">" shifts the selected text to the right one shift amount,
-inserting whitespace.  The starting point for this shift is the left edge of
-the visual block.
-   With the same example again, ">" gives this result:
+A ">" behúzza a szöveget egy 'shiftwidth' értékkel, üres karaktereket beszúrva.
+A behúzás kezdőpontja a blokk bal széle.
+   Jelöld ki ismét a "long" szavakat, majd húzd be őket ">" paranccsal:
 
 	This is a	  long line ~
 	short ~
 	Any other	  long line ~
 
-The shift amount is specified with the 'shiftwidth' option.  To change it to
-use 4 spaces: >
+A behúzás értékének megváltoztatásához állítsd át a 'shiftwidth' értékét négy
+szóköznyire: >
 
 	:set shiftwidth=4
 
-The "<" command removes one shift amount of whitespace at the left
-edge of the block.  This command is limited by the amount of text that is
-there; so if there is less than a shift amount of whitespace available, it
-removes what it can.
+A "<" visszaállítja a behúzást a blokk bal szélétől számítva. Ha behúzás
+értékétől kevesebb üres karakter áll a blokk bal széle előtt, akkor a behúzás
+az összes üres karaktert eltávolítja.
 
 
-JOINING LINES
+SOROK ÖSSZEKAPCSOLÁSA
 
-The "J" command joins all selected lines together into one line.  Thus it
-removes the line breaks.  Actually, the line break, leading white space and
-trailing white space is replaced by one space.  Two spaces are used after a
-line ending (that can be changed with the 'joinspaces' option).
-   Let's use the example that we got so familiar with now.  The result of
-using the "J" command:
+A "J" parancs az aktív sort az alatta lévővel összekapcsolja, így eltávolítja
+a sortörést. Gyakorlatilag a sortörést, a következő sor üres karaktereit és az
+aktív sor végén lévő üres karaktereket egy szóközre cseréli. A sorok vége után
+két szóközt illeszt be, amit a 'joinspaces' opcióval állítani lehet.
+   Kezdjük a már jól megismert példával. A "J" parancs eredménye:
 
 	This is a long line short Any other long line ~
 
-The "J" command doesn't require a blockwise selection.  It works with "v" and
-"V" selection in exactly the same way.
+A "J" parancshoz nem szükséges blokk kijelölés. Visual és Visual Line módban
+is ugyanúgy működik.
 
-If you don't want the white space to be changed, use the "gJ" command.
+Ha azt szeretnéd, hogy a program megtartsa a szóközöket és egyéb üres
+karaktereket, akkor használd a "gJ" parancsot.
 
 ==============================================================================
-*10.6*	Reading and writing part of a file
+*10.6*	Fájl részének olvasása írása
 
-When you are writing an e-mail message, you may want to include another file.
-This can be done with the ":read {filename}" command.  The text of the file is
-put below the cursor line.
-   Starting with this text:
+Ha e-mailt írsz, akkor jól jöhet, ha egy fájlt tartalmát be tudod illeszteni.
+Ez a ":read {filename}" paranccsal oldható meg. A fájl tartalma a kurzor alá
+ágyazódik. 
+   Kiindulópontunk:
 
 	Hi John, ~
 	Here is the diff that fixes the bug: ~
 	Bye, Pierre. ~
 
-Move the cursor to the second line and type: >
+Vidd a kurzor a második sorra és ágyazd be a fájlt:
 
 	:read patch
 
-The file named "patch" will be inserted, with this result:
+A "patch" fájl tartalma megjelenik:
 
 	Hi John, ~
 	Here is the diff that fixes the bug: ~
@@ -580,159 +595,161 @@ The file named "patch" will be inserted, with this result:
 	>	for (i = 0; i < length; ++i) ~
 	Bye, Pierre. ~
 
-The ":read" command accepts a range.  The file will be put below the last line
-number of this range.  Thus ":$r patch" appends the file "patch" at the end of
-the file.
-   What if you want to read the file above the first line?  This can be done
-with the line number zero.  This line doesn't really exist, you will get an
-error message when using it with most commands.  But this command is allowed:
+A ":read" parancs kezeli a tartományokat. 
+The ":read" command accepts a range. A megadott tartomány alá kerül a fájl
+tartalma. Ezért ":$r patch" a fájl végére illeszti be a tartalmat. 
+   Mi van akkor, ha a fájl legelejére szeretnél beágyazni? Tartományként a 0.
+sort kell használnunk. A sor valójában nem létezik, a legtöbb parancs
+hibaüzenettel megszakad, de kivételesen ennél a parancsnál használható:
 >
 	:0read patch
 
-The file "patch" will be put above the first line of the file.
+A "patch" fájl a az első sor fölé kerül.
 
 
-WRITING A RANGE OF LINES
+SOROK MENTÉSE
 
-To write a range of lines to a file, the ":write" command can be used.
-Without a range it writes the whole file.  With a range only the specified
-lines are written: >
+Sorok mentéséhez is alkalmazhatjuk a  ":write" parancsot. Tartomány nélkül a
+teljes fájl kiíródik. Tartományokkal viszont értelemszerűen az érintett sorok
+írodnak ki: >
 
 	:.,$write tempo
 
-This writes the lines from the cursor until the end of the file into the file
-"tempo".  If this file already exists you will get an error message.  Vim
-protects you from accidentally overwriting an existing file.  If you know what
-you are doing and want to overwrite the file, append !: >
+A parancs az aktív sortól a fájl végég terjedő sorokat írja ki a "temp"
+fájlba. Ha a fájl már létezik, hibaüzenetet kapunk. A Vim megvéd a véletlen
+felülírásoktól. Ha tudod mit csinálsz és ezt akarod egyébként is, akkor "!"
+karaktert hozzá kell fűzz a parancs végéhez: >
 
 	:.,$write! tempo
 
-CAREFUL: The ! must follow the ":write" command immediately, without white
-space.  Otherwise it becomes a filter command, which is explained later in
-this chapter.
+ÓVATOSAN: A ! jelnek a parancs után kell következnie, szóközök nélkül,
+egyébként szűrőparancsként értelmeződik, melyeket a későbbi fejezetekben
+megismersz.
 
 
-APPENDING TO A FILE
+HOZZÁFŰZÉS FÁJLHOZ
 
-In the first section of this chapter was explained how to collect a number of
-lines into a register.  The same can be done to collect lines in a file.
-Write the first line with this command: >
+A fejezet előző részében részletesen be lett mutatva, hogy hogyan tudunk
+sorokat összegyűjteni a regiszterek segítségével. Ha a feladat úgy kívánja, a
+sorokat fájlokba is kiírhatjuk. Az első parancs legyen ez: >
 
 	:.write collection
 
-Now move the cursor to the second line you want to collect, and type this: >
+Most menj arra a sorra, amit ki szeretnél írni és a második parancstól kezdve
+az utasítás: >
 
 	:.write >>collection
 
-The ">>" tells Vim the "collection" file is not to be written as a new file,
-but the line must be appended at the end.   You can repeat this as many times
-as you like.
+A ">>" arra utasítja a Vimet, hogy ne írja felül a fájlt, hanem a tartomány
+részét képző szöveget fűzze hozzá a fájlhoz. A parancs tetszőleges számban
+ismételhető.
 
 ==============================================================================
-*10.7*	Formatting text
+*10.7*	Szövegek formázása
 
-When you are typing plain text, it's nice if the length of each line is
-automatically trimmed to fit in the window.  To make this happen while
-inserting text, set the 'textwidth' option: >
+Ha egyszerű szöveggel dolgozol, szép, ha minden sorod elfér az ablakban. Hogy
+ez valóra váljon, állítsd be a 'textwidth' opciót az alábbiak szerint: >
 
 	:set textwidth=72
 
-You might remember that in the example vimrc file this command was used for
-every text file.  Thus if you are using that vimrc file, you were already
-using it.  To check the current value of 'textwidth': >
+Talán emlékszel, hogy a példa vimrc fájl használta ezt a beállítást az összes
+fájlhoz. Ezért ha még mindig a példa vimrc fájlt használod, akkor a 'textwidth'
+opció már be van állítva, melyet így ellenőrizhetsz: >
 
 	:set textwidth
 
-Now lines will be broken to take only up to 72 characters.  But when you
-insert text halfway through a line, or when you delete a few words, the lines
-will get too long or too short.  Vim doesn't automatically reformat the text.
-   To tell Vim to format the current paragraph: >
+A sorokat így a Vim töredezi, hogy beleférjenek a 72 karakteres határba.
+Viszont, ha csak félig töltesz ki egy sort, illetve ha törölsz egy-két szót,
+akkor a sor vagy túl hosszú, vagy túl rövid lesz. A Vim nem formázza
+(automatikusan) a szöveget, azért a munka ránk hárul: >
 
 	gqap
 
-This starts with the "gq" command, which is an operator.  Following is "ap",
-the text object that stands for "a paragraph".  A paragraph is separated from
-the next paragraph by an empty line.
+A parancs a "gq" operátorral kezdődik. Majd jön a tartomány "ap" (a
+paragraph). Két bekezdést egy üres sor választ el egymástól.
 
-	Note:
-	A blank line, which contains white space, does NOT separate
-	paragraphs.  This is hard to notice!
+	Megjegyzés:
+	Azok a sorok melyek üres karaktereket tartalmaznak, NEM választják el
+	a bekezdéseket egymástól. Nehéz észrevenni!
 
-Instead of "ap" you could use any motion or text object.  If your paragraphs
-are properly separated, you can use this command to format the whole file: >
+A "ap" helyett használható bármely más tartomány, vagy szöveg-objektum. Ha a
+bekezdéseit megfelelően el vannak választva, akkor ezzel a paranccsal az egész
+fájlt beigazíthatod: >
 
 	gggqG
 
-"gg" takes you to the first line, "gq" is the format operator and "G" the
-motion that jumps to the last line.
+"gg" a fájl elejére ugrik, "gq" a formázási operátor, tartományként pedig
+"G"-t használunk (fájl vége).
 
-In case your paragraphs aren't clearly defined, you can format just the lines
-you manually select.  Move the cursor to the first line you want to format.
-Start with the command "gqj".  This formats the current line and the one below
-it.  If the first line was short, words from the next line will be appended.
-If it was too long, words will be moved to the next line.  The cursor moves to
-the second line.  Now you can use "." to repeat the command.  Keep doing this
-until you are at the end of the text you want to format.
+Abban az esetben, ha a bekezdések nem jól formázottak, vagy csak egy sort
+szeretnél manuálisat formázni, akkor menj a formázandó sorra. Kezdd a "gqj"
+paranccsal. Ez az aktív és az az alatti sort fogja formázni. Ha az aktív sor
+túl rövid volt, akkor szavak kerülnek át az aktív sorba és fordítva, majd a
+kurzor egy sorral lejjebb kerül.  A "." paranccsal ismételhető. Ismételd addig,
+amíg a fájl szöveg végére nem érsz.
 
 ==============================================================================
-*10.8*	Changing case
+*10.8*	Kis- nagybetűk cseréje
 
-You have text with section headers in lowercase.  You want to make the word
-"section" all uppercase.  Do this with the "gU" operator.  Start with the
-cursor in the first column: >
+A szövegben már megvannak a fejléceid, melyek előtt a "section" szó található,
+viszont kisbetűs az összes. Át szeretnéd őket alakítani nagybetűssé. Erről
+gondoskodik a "gU" operátor. A kurzort helyezd a legelső oszlopba:  >
 
 			     gUw
 <	section header	    ---->      SECTION header
 
-The "gu" operator does exactly the opposite: >
+A "gu" operátor ennek az ellentéte (kisbetűssé alakít): >
 
 			     guw
 <	SECTION header	    ---->      section header
 
-You can also use "g~" to swap case.  All these are operators, thus they work
-with any motion command, with text objects and in Visual mode.
-   To make an operator work on lines you double it.  The delete operator is
-"d", thus to delete a line you use "dd".  Similarly, "gugu" makes a whole line
-lowercase.  This can be shortened to "guu".  "gUgU" is shortened to "gUU" and
-"g~g~" to "g~~".  Example: >
+Ha meg szeretnéd fordítani a kis- egy nagybetűket: "g~". Az összes említett
+parancs operátor bármely elmozdulással, szöveg-objektummal és Visual módban.
+Ha az operátorokat egy teljes sorra szeretnéd alkalmazni, akkor duplázd meg
+őket. A "d" operátorból így lesz "dd" (teljes sor törlése). Hasonlóképpen,
+"gugu" (röviden guu) az egész sort kisbetűssé, "gUgU" (gUU) az egész sort
+nagybetűssé alakítja, a "g~g~" (g~~) az egész sorban váltja a karaktereket.
+Például: >
 
 				g~~
 <	Some GIRLS have Fun    ---->   sOME girls HAVE fUN ~
 
 ==============================================================================
-*10.9*	Using an external program
+*10.9*	Külső programok használata
 
-Vim has a very powerful set of commands, it can do anything.  But there may
-still be something that an external command can do better or faster.
-   The command "!{motion}{program}" takes a block of text and filters it
-through an external program.  In other words, it runs the system command
-represented by {program}, giving it the block of text represented by {motion}
-as input.  The output of this command then replaces the selected block.
-   Because this summarizes badly if you are unfamiliar with UNIX filters, take
-a look at an example.  The sort command sorts a file.  If you execute the
-following command, the unsorted file input.txt will be sorted and written to
-output.txt.  (This works on both UNIX and Microsoft Windows.) >
+A Vim parancsok nagyszerűek, bármire képesek. Azonban akadhatnak olyan dolgok,
+melyekre egy külső parancs sokkal optimálisabb és gyorsabb.
+   A parancs: "!{motion}{program}" egy blokknyi szöveget küld a külső program
+számára. Más szavakkal, rendszerszintű programot futtat, melynek neve {program}
+(shell parancsok), a {motion} pedig meghatározza az elküldendő szöveg
+tartományát. A program kimenete felülírja  a kijelölt blokk helyét.
+   Ez egyébként egy elég gyatra megfogalmazás, ha nem vagy tisztában a UNIX
+filterekkel. Nézzünk egy példát. A "sort" parancs sorba rendezi a fájl sorait.
+Ha a "sort" parancsot futtatsz egy rendezetlen input.txt nevű fájlon, akkor a
+"sort" program sorba rendezi a fájl tartalmát, majd kiírja ouput.txt fájlnéven.
+(Ez UNIXON és MS-Windowson is működik). >
 
 	sort <input.txt >output.txt
 
-Now do the same thing in Vim.  You want to sort lines 1 through 5 of a file.
-You start by putting the cursor on line 1.  Next you execute the following
-command: >
+Most csináljuk meg ez Vimben is. Az első és az ötödik sorban szeretnéd 
+végrehajtani a rendezést. Vidd a kurzort az első sorra. Futtasd az alábbit: >
 
 	!5G
 
-The "!" tells Vim that you are performing a filter operation.  The Vim editor
-expects a motion command to follow, indicating which part of the file to
-filter.  The "5G" command tells Vim to go to line 5, so it now knows that it
-is to filter lines 1 (the current line) through 5.
-   In anticipation of the filtering, the cursor drops to the bottom of the
-screen and a ! prompt displays.  You can now type in the name of the filter
-program, in this case "sort".  Therefore, your full command is as follows: >
+A "!" parancs jelzi, hogy itt egy külső programot fogunk meghívni. A Vim
+feltételezi, hogy az általunk megadott mozgással át tudja adni a tartományt a
+külső program számára. Az "5G" paranccsal a kurzor az 5. sorra ugrik (így
+tartományunk 1.-5. sor lesz).
+   A kurzor a command-lineba kerül, melyen a ! prompt látható (mivel !5G
+esetén nem adtuk meg a külső program nevét, csak a tartományt definiáltuk). A 
+Vim arra vár, hogy beírjuk a külső program nevét (esetünkben a "sort"). A
+teljes parancs pedig így néz ki: >
 
 	!5Gsort<Enter>
 
-The result is that the sort program is run on the first 5 lines.  The output
-of the program replaces these lines.
+
+A sort parancs lefutott az általunk küldött 5 soron, a kimenete pedig felülírta
+a régi tartományt.
 
 	line 55			      line 11
 	line 33			      line 22
@@ -741,94 +758,96 @@ of the program replaces these lines.
 	line 44			      line 55
 	last line		      last line
 
-The "!!" command filters the current line through a filter.  In Unix the "date"
-command prints the current time and date.  "!!date<Enter>" replaces the current
-line with the output of "date".  This is useful to add a timestamp to a file.
+A "!!" parancs az aktuális sort küldi el egy külső programnak (ilyenkor 
+promptként ":.!" látható ). Unix rendszeren a "date" parancs kiírja a dátumot
+és az időt. "!!date<Enter>" pedig lecseréli az aktuális sort a "date" program
+kimenetére. Hasznos, ha dátumot és időt szeretnél beszúrni a fájlba.
+
+HA NEM MŰKÖDIK
+
+A terminálban add ki a "date" parancsot, a kimenet hasonló lesz:
+
+	2021. okt. 8., péntek, 11:29:40 UTC~
+
+Ha nem látsz semmit, vagy hibaüzenetet kapsz, akkor az bizony probléma.
+Sajnos számos oka lehet. Az is lehet, hogy a rendszerszintű beállításaid
+nincsenek rendben, végső esetben nézz körül az alábbiakban:
+
+	'shell'		alapértelmezett shell beállítás
+	'shellcmdflag'	shell számára átadott argumentumok
+	'shellquote'	shell idézőjelek típusa
+	'shellxquote'	idézőjelek típusa shellben és átirányításokban
+	'shelltype'	shellfajta (csak Amigán)
+	'shellslash'	perjelek használata "\" helyett (csak MS-Windows stb.)
+	'shellredir'	shell kimenetének átirányító karakterei
+
+Unix rendszereken a hibalehetőség mérsékelt, hiszen, általában két shell áll
+rendelkezésre: az "sh" és a "csh". A Vim megnézi a 'shell' opció részleteit és
+a shell paramétereit ennek megfelelően próbálja beállítani. 
+   MS-Windowson számos shell létezik, így előfordulhat, hogy nem működik és
+külön be kell állítanod. Böngészd át a helpfájlokat ez ügyben.
 
 
-WHEN IT DOESN'T WORK
+PARANCSKIMENET OLVASÁSA
 
-Starting a shell, sending it text and capturing the output requires that Vim
-knows how the shell works exactly.  When you have problems with filtering,
-check the values of these options:
+Az aktuális könyvtár listájának beolvasása:
 
-	'shell'		specifies the program that Vim uses to execute
-			external programs.
-	'shellcmdflag'	argument to pass a command to the shell
-	'shellquote'	quote to be used around the command
-	'shellxquote'	quote to be used around the command and redirection
-	'shelltype'	kind of shell (only for the Amiga)
-	'shellslash'	use forward slashes in the command (only for
-			MS-Windows and alikes)
-	'shellredir'	string used to write the command output into a file
-
-On Unix this is hardly ever a problem, because there are two kinds of shells:
-"sh" like and "csh" like.  Vim checks the 'shell' option and sets related
-options automatically, depending on whether it sees "csh" somewhere in
-'shell'.
-   On MS-Windows, however, there are many different shells and you might have
-to tune the options to make filtering work.  Check the help for the options
-for more information.
-
-
-READING COMMAND OUTPUT
-
-To read the contents of the current directory into the file, use this:
-
-on Unix: >
+Unixon: >
 	:read !ls
-on MS-Windows: >
+MS-Windowson: >
 	:read !dir
 
-The output of the "ls" or "dir" command is captured and inserted in the text,
-below the cursor.  This is similar to reading a file, except that the "!" is
-used to tell Vim that a command follows.
-   The command may have arguments.  And a range can be used to tell where Vim
-should put the lines: >
+Az "ls" vagy "dir" parancs kimenetét a Vim elkapja és beilleszti szövegként a
+kurzor alá, hasonlóan a fájlok olvasásához, viszont itt "!" után a Vim egy
+parancsot vár.
+   A programnak argumentumok is átadhatóak, valamint tartomány az új tartalom
+helyzetére vonatkozóan: >
 
 	:0read !date -u
 
-This inserts the current time and date in UTC format at the top of the file.
-(Well, if you have a date command that accepts the "-u" argument.)  Note the
-difference with using "!!date": that replaced a line, while ":read !date" will
-insert a line.
+A parancs a fájl elejére beilleszti a date program kimenetét UTC formátumban.
+(Amennyiben a date parancsot hívható "-u" argumentummal). Megjegyzés: "!!date"
+lecseréli az aktuális sor, ":read !date" csak egyszerűen hozzáfűz a fájlhoz.
 
 
 WRITING TEXT TO A COMMAND
 
-The Unix command "wc" counts words.  To count the words in the current file: >
+Unix rendszeren a "wc" parancs szavakat számol (word count). A fájl szavainak
+számlálásához: >
 
 	:write !wc
 
-This is the same write command as before, but instead of a file name the "!"
-character is used and the name of an external command.  The written text will
-be passed to the specified command as its standard input.  The output could
-look like this:
+Ez ugyanaz a write parancs amit eddig használtunk, itt viszont fájlnév helyett
+a "!" karakter jelző a külső hívást, melyet a program neve követ. Az írott
+szöveg át lesz adva a program standard bemenetére. A kimenet pedig hasonlítani
+fog ehhez:
 
        4      47     249 ~
 
-The "wc" command isn't verbose.  This means you have 4 lines, 47 words and 249
-characters.
+A "wc" parancs elég szűkszavú. A kimenet azt jelenti, hogy a fájl: 4 soros, 47
+szót tartalmaz és 249 karakterből áll.
 
-Watch out for this mistake: >
+Ne ess bele az alábbi hibába: >
 
 	:write! wc
 
+Ez kiírja a "wc" fájlt, megerősítéssel. A szóköz itt fontos.
 This will write the file "wc" in the current directory, with force.  White
 space is important here!
 
 
-REDRAWING THE SCREEN
+A KÉPERNYŐ ÚJRARAJZOLÁSA
 
-If the external command produced an error message, the display may have been
-messed up.  Vim is very efficient and only redraws those parts of the screen
-that it knows need redrawing.  But it can't know about what another program
-has written.  To tell Vim to redraw the screen: >
+Ha külső program hibába ütközött és hibaüzenetet kaptál, a kinézet
+megváltozhat. A Vim nagyon hatékony az újrarajzolást illetően. A képernyő azon
+részei frissülnek, melyeknek feltétlenül szükségesek. A Vimnek azonban nincsen
+tudomása a külső programok által okozott esetleges hibákról. A képernyő
+újrarajzolása: >
 
 	CTRL-L
 
 ==============================================================================
 
-Next chapter: |usr_11.txt|  Recovering from a crash
+Következő fejezet: |usr_11.txt|  Helyreállítás
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
