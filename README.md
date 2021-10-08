@@ -7,8 +7,8 @@
 * Folyamatban: usr_12.hux
 
 
-                                    Folyamat
- [====================                                                       ]
+Folyamat:
+ [####################-------------------------------------------------------]
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal az alábbi mappákban
