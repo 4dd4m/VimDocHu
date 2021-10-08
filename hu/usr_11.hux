@@ -8,8 +8,8 @@
 Összeomlott a rendszered? Becsapott a villám? És mindezt órákon át tartó
 szerkesztés közben? Csak semmi pánik! A Vim elég információt tárol, hogy a
 munka nagy része meg legyen mentve. A fejezet azt tárgyalja, hogy hogyan
-szerezheted vissza a lehető legtöbbet az elvesztett munkádból, valamit hol
-találod a swapfájlt.
+szerezheted vissza a lehető legtöbbet az elvesztett munkádból, valamint, hogy
+hol találod a swapfájlt.
 
 |11.1|	Alapvető helyreállítás
 |11.2|	Hol val a swapfájl?
@@ -21,17 +21,18 @@ Következő fejezet: |usr_12.txt|  Tippek, trükkök
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*11.1*	Basic recovery
+*11.1*	Alapvető helyreállítás
 
-In most cases recovering a file is quite simple, assuming you know which file
-you were editing (and the harddisk is still working).  Start Vim on the file,
-with the "-r" argument added: >
+A legtöbb esetben a helyreállítás egyszerű, hiszen nyilvánvalóan tudod, hogy
+melyik fájlt szerkesztetted a hiba beálltakor. Ha nem a merevlemezed
+hibásodott meg, akkor  szerencsés vagy. Indítsd el a Vimet az "-" argumentum
+hozzáadásával: >
 
 	vim -r help.txt
 
-Vim will read the swap file (used to store text you were editing) and may read
-bits and pieces of the original file.  If Vim recovered your changes you will
-see these messages (with different file names, of course):
+A Vim beolvassa a swapfájlt (ezt használja a munkád ideiglenes tárolására), ha
+lehetséges, akkor még részleteket is az elveszett fájlból. Ha a folyamat
+sikeres, erről egy üzenetet kapsz (különböző fájlnevekkel természetesen):
 
 	Using swap file ".help.txt.swp" ~
 	Original file "~/vim/runtime/doc/help.txt" ~
@@ -40,60 +41,65 @@ see these messages (with different file names, of course):
 	and run diff with the original file to check for changes) ~
 	You may want to delete the .swp file now. ~
 
-To be on the safe side, write this file under another name: >
+A fájlt mentsd el más fájlnévvel: >
 
 	:write help.txt.recovered
 
-Compare the file with the original file to check if you ended up with what you
-expected.  Vimdiff is very useful for this |08.7|.  For example: >
+A fájlt végül hasonlítsd össze az eredeti fájllal, hogy kiderüljön, azt
+kaptad-e, amit vártál. A Vimdiff nagyon hatékony módszer erre |08.7|. Például: >
 
 	:write help.txt.recovered
 	:edit #
 	:diffsp help.txt
 
-Watch out for the original file to contain a more recent version (you saved
-the file just before the computer crashed).  And check that no lines are
-missing (something went wrong that Vim could not recover).
-   If Vim produces warning messages when recovering, read them carefully.
-This is rare though.
+Vigyázz, mert az eredeti fájl tartalmazhatja a legfrissebb változásokat (ez az
+a fájl, amit az összeomlás előtt éppen elmentettél). Ellenőrizd, hogy  minden
+sor megvan-e (vannak helyzetek, amit a Vim sem tud kijavítani).
+   Ha figyelmeztető üzenetet kapsz, akkor  olvasd el őket figyelmesen. Ez
+ritka egyébként.
 
-If the recovery resulted in text that is exactly the same as the file
-contents, you will get this message:
+Ha a visszaállítás teljesen sikerült, a swap ls az eredeti fájl ugyanaz, ezt a
+figyelmeztető üzenetet kapod:
 
 	Using swap file ".help.txt.swp" ~
 	Original file "~/vim/runtime/doc/help.txt" ~
 	Recovery completed. Buffer contents equals file contents. ~
 	You may want to delete the .swp file now. ~
 
-This usually happens if you already recovered your changes, or you wrote the
-file after making changes.  It is safe to delete the swap file now.
+Ez általában akkor fordul elő, ha már helyreállítottad egyszer a fájlt, vagy
+ha legutolsó mentés után már nem változtattál a fájlon. Nyugodt szívvel
+törölheted a swapfájlt.
 
-It is normal that the last few changes can not be recovered.  Vim flushes the
-changes to disk when you don't type for about four seconds, or after typing
-about two hundred characters.  This is set with the 'updatetime' and
-'updatecount' options.  Thus when Vim didn't get a chance to save itself when
-the system went down, the changes after the last flush will be lost.
+Normális jelenség, ha a fájl nagy része helyreállítódott, kivéve egy két apró
+változást. A Vim rögzíti a munkát (flush) a merevlemezre (nem magára a
+szerkesztett fájlra ír) körülbelül négy másodpercenként, ha nem írsz semmit,
+vagy körülbelül 200 leütés után. A két említett beállításért egyébként az
+'updatetime' és a 'updatecount' felel. Így, ha a Vimnek nem volt esélye a
+flushel menteni a munkánkat, akkor csak a legutolsó flush és az összeomlás
+között szerkesztésink vesznek el.
 
-If you were editing without a file name, give an empty string as argument: >
+Abban az esetben sincs probléma, ha egy olyan bufferrel dolgoztál, ami még nem
+volt elmentve. Adj át egy üres stringet argumentumként: >
 
 	vim -r ""
 
-You must be in the right directory, otherwise Vim can't find the swap file.
+Arra figyelned kell hogy a megfelelő könyvtárban tartózkodj, ellenkező esetben
+a Vim nem fogja megtalálni a swapfájl.
 
 ==============================================================================
-*11.2*	Where is the swap file?
+*11.2*	Hol van a swapfájl?
 
-Vim can store the swap file in several places.  Normally it is in the same
-directory as the original file.  To find it, change to the directory of the
-file, and use: >
+Számos helyen. Normál esetben a fájllal megegyező könyvtárban. Megtalálásához
+látogass el a fájl könyvtárába, és indítsd el a Vimet szimplán csak az -r
+argumentummal: >
 
 	vim -r
 
-Vim will list the swap files that it can find.  It will also look in other
-directories where the swap file for files in the current directory may be
-located.  It will not find swap files in any other directories though, it
-doesn't search the directory tree.
-   The output could look like this:
+Az elérhető swapfájlokat lista formájában böngészheted. Ezen kívül még
+megvizsgálja a szokásos futásidejű könyvtárakat, személyes beállításokat, stb.
+A nem releváns könyvtárakat nem vizsgálja, nem képes rekurzívan bejárni az
+almappákat.
+   A kimenet kinézhet például így:
 
 	Swap files found: ~
 	   In current directory: ~
@@ -110,44 +116,41 @@ doesn't search the directory tree.
 	   In directory /tmp: ~
 	      -- none -- ~
 
-If there are several swap files that look like they may be the one you want to
-use, a list is given of these swap files and you are requested to enter the
-number of the one you want to use.  Carefully look at the dates to decide
-which one you want to use.
-   In case you don't know which one to use, just try them one by one and check
-the resulting files if they are what you expected.
+Abban az esetben, ha egy fájlhoz több swapfájl is tartozik, akkor ki kell
+választanod, hogy melyiket szeretnéd. Érdemes a dátumra fokozott figyelmet
+fordítani.
+   Ha nincs ötleted hogy melyik a legmegfelelőbb, akkor próbáld ki az összeset
+egyesével és válaszd a legmegfelelőbbet.
 
 
-USING A SPECIFIC SWAP FILE
+SPECIFIKUS SWAPFÁJL HASZNÁLATA
 
-If you know which swap file needs to be used, you can recover by giving the
-swap file name.  Vim will then find out the name of the original file from
-the swap file.
+Ha pontosan tudod, hogy melyik swapfájlból szeretnél dolgozni, akkor add át az
+-r argumentum után. A Vim megpróbálja kiolvasni az eredeti fájl nevét.
 
-Example: >
+Példa: >
 	vim -r .help.txt.swo
 
-This is also handy when the swap file is in another directory than expected.
-Vim recognizes files with the pattern *.s[uvw][a-z] as swap files.
+Nagyon jól jöhet, ha a swapfájlod egy eltérő könyvtárban van. A Vim felismeri
+a *.s[uvw][a-z] mintát swapfájlként.
 
-If this still does not work, see what file names Vim reports and rename the
-files accordingly.  Check the 'directory' option to see where Vim may have
-put the swap file.
+Ha ez sem működik, akkor nézd meg, hogy milyen fájlokat jelentett a Vim és
+nevezd át őket értelemszerűen. Pillants bele a 'directory' változóba, mert
+lehet teljesen más helyre val elmentve, mint ahogy azt gondoltad.
 
-	Note:
-	Vim tries to find the swap file by searching the directories in the
-	'dir' option, looking for files that match "filename.sw?".  If
-	wildcard expansion doesn't work (e.g., when the 'shell' option is
-	invalid), Vim does a desperate try to find the file "filename.swp".
-	If that fails too, you will have to give the name of the swapfile
-	itself to be able to recover the file.
+	Megjegyzés:
+	Nézd végig a 'dir' opcióban leírt elérési utakat. Keress valami
+	hasonlót: "filename.sw?". Bár a Vim ezeket a könyvtárakat végigjárja
+	és minden tűvé tesz, hogy megtalálja a filename.swp fájlt, olyan
+	problémákat nem tud megoldani, ha például a 'shell' érvénytelen (és
+	emiatt nem működik a metakarakterek értelmezése). 
 
 ==============================================================================
-*11.3*	Crashed or not?					*ATTENTION* *E325*
+*11.3*	Összeomlott vagy sem?					*ATTENTION* *E325*
 
-Vim tries to protect you from doing stupid things.  Suppose you innocently
-start editing a file, expecting the contents of the file to show up.  Instead,
-Vim produces a very long message:
+A szerkesztő próbál megmenteni a butaságoktól. Tegyük fel, hogy ártalmatlanul
+megnyitsz egy fájl megkezdve a szerkesztést és a fájl tartalmát várod amit
+helyett egy elég hosszú hibaüzenetet kapsz:
 
 		E325: ATTENTION ~
 	Found a swap file by the name ".main.c.swp" ~
@@ -170,147 +173,139 @@ Vim produces a very long message:
 	    If you did this already, delete the swap file ".main.c.swp" ~
 	    to avoid this message. ~
 
-You get this message, because, when starting to edit a file, Vim checks if a
-swap file already exists for that file.  If there is one, there must be
-something wrong.  It may be one of these two situations.
+Az üzenetet azért kaptad, mert az általad szerkeszteni kívánt fájlról már
+létezik biztonsági másolat. Feltételezvén, hogy valami balul sült el és az
+eredmény nem biztos, hogy a megszokott lesz. Két dolog történhetett.
 
-1. Another edit session is active on this file.  Look in the message for the
-   line with "process ID".  It might look like this:
+1. Egy másik szerkesztési folyamat már aktív ezen a fájlon (meg van nyitva egy
+   másik szerkesztőben, ami nem csak Vim lehet. Ha az üzenet tartalmazza a
+   "process ID"-t, akkor ez történt. A hibaüzenet egyébként így néz ki:
 
 		process ID: 12559 (still running) ~
 
-   The text "(still running)" indicates that the process editing this file
-   runs on the same computer.  When working on a non-Unix system you will not
-   get this extra hint.  When editing a file over a network, you may not see
-   the hint, because the process might be running on another computer.  In
-   those two cases you must find out what the situation is yourself.
-      If there is another Vim editing the same file, continuing to edit will
-   result in two versions of the same file.  The one that is written last will
-   overwrite the other one, resulting in loss of changes.  You better quit
-   this Vim.
+   A "still running" arra utal, hogy a másik szerkesztési folyamat a saját
+   gépünkön fut. Unix rendszereken ez luxusnak számít, más rendszerek nem
+   ennyire pontosak. Ha a fájlt hálózaton keresztül szerkeszted, akkor az
+   üzenet nem jelenik meg, hiszen a másik szerkesztési folyamat nem a saját
+   gépen fut. Ezért saját magadnak kell kideríteni a hiba okát. 
+      Ha a fájlt két Vimben van megnyitva (és folytatod a szerkesztést), akkor 
+   a fájlról két verzió készül. Így az utoljára kiírt fájl felül fogja írni a
+   másikat (potenciális adatvesztés). Ezért a legjobb, ha kilépsz mindkettőből
+   és manuális javítasz.
 
-2. The swap file might be the result from a previous crash of Vim or the
-   computer.  Check the dates mentioned in the message.  If the date of the
-   swap file is newer than the file you were editing, and this line appears:
+2. A swapfájl egy előző összeomlott Vim- vagy rendszer mellékterméke.
+   Ellenőrizd az üzenetekben szereplő dátumot. Ha a swapfájlon szereplő dátum
+   frissebb, mint az eredeti fájlon, akkor következő üzenetet látod:
 
 		modified: YES ~
 
-   Then you very likely have a crashed edit session that is worth recovering.
-      If the date of the file is newer than the date of the swap file, then
-   either it was changed after the crash (perhaps you recovered it earlier,
-   but didn't delete the swap file?), or else the file was saved before the
-   crash but after the last write of the swap file (then you're lucky: you
-   don't even need that old swap file).  Vim will warn you for this with this
-   extra line:
+   Így nagy valószínűséggel a szerkesztési folyamat összeomlott, ezért megéri
+   helyreállítani. 
+      Ha a dátum az eredeti fájlon frissebb, akkor ez összeomlás előtt már nem
+   változott (ebben az esetben szerencsés vagy és nincs szükséged a
+   swapfájlra. He ezek ellenére a régebbi swapfájlt választanád, akkor
+   figyelmeztető üzenetet fogsz kapni:
 
       NEWER than swap file! ~
 
 
-NOTE that in the following situation Vim knows the swap file is not useful and
-will automatically delete it:
-- The file is a valid swap file (Magic number is correct).
-- The flag that the file was modified is not set.
-- The process is not running.
+MEGJEGYZÉS: A Vim az alábbi szituációkban tudja, hogy nincs szükséged a
+swapfájlra (amit automatikusan töröl):
+- A fájl érvényes swapfájl (Magic number korrekt).
+- Ha a modified flag nincs beállítva
+- Ha a folyamat nem fut
 
-You can programmatically deal with this situation with the |FileChangedShell|
-autocommand event.
+Az eseményeket szisztematikusan kezelheted a |FileChangedShell| autocommand
+eseménykezelővel.
 
 
-UNREADABLE SWAP FILE ~
+OLVASHATATLAN SWAPFÁJL~
 
-Sometimes the line
+Néha ez...
 
 	[cannot be read] ~
 
-will appear under the name of the swap file.  This can be good or bad,
-depending on circumstances.
 
-It is good if a previous editing session crashed without having made any
-changes to the file.  Then a directory listing of the swap file will show
-that it has zero bytes.  You may delete it and proceed.
+a sor jelenik meg a swapfájl helyén. Ez jelenthet jót és rosszat is, a
+körülményektől függ.
 
-It is slightly bad if you don't have read permission for the swap file.  You
-may want to view the file read-only, or quit.  On multi-user systems, if you
-yourself did the last changes under a different login name, a logout
-followed by a login under that other name might cure the "read error".  Or
-else you might want to find out who last edited (or is editing) the file and
-have a talk with them.
+Jót jelent, ha az előző szerkesztési folyamat úgy omlott össze, hogy a fájl
+már nem tartalmazott módosítást. Könyvtárnézetben (shell) láthatjuk, hogy a
+tartalma  0 byte. Törölheted.
 
-It is very bad if it means there is a physical read error on the disk
-containing the swap file.  Fortunately, this almost never happens.
-You may want to view the file read-only at first (if you can), to see the
-extent of the changes that were "forgotten".  If you are the one in charge of
-that file, be prepared to redo your last changes.
+Kevésbé jó, ha nem rendelkezel a swapfájlhoz megfelelő írási- és olvasási
+jogosultságokkal. Megtekintheted csak olvasható módban, vagy kiléphetsz.
+Többfelhasználós rendszeren, ha mi írtuk a fájlt utoljára különböző
+felhasználónévvel, megpróbálhatunk bejelentkezni egy olyan felhasználóval,
+akinek van írási jogosultsága. Végső esetben ki kell deríteni, hogy ki
+szerkesztette (vagy szerkeszti) a fájlt és tárgyalni velük.
+
+Nagyon rossz abban az esetben, ha a swapfájl fizikailag olvashatatlanná válik.
+Szerencsére, ennek az esélye igen csekély. Megtekintheted a fájlt csak
+olvasható módban (ha szeretnéd) ezáltal információt szerezve az "elfeledett"
+szerkesztésekről. Ha tiéd a fájl, akkor légy kész a visszavonásokra.
 
 
-WHAT TO DO?					*swap-exists-choices*
+MIA TEENDŐ?					*swap-exists-choices*
 
-If dialogs are supported you will be asked to select one of six choices:
+Ha a párbeszédablakok támogatják, akkor hat lehetőség közül lehet választani:
 
   Swap file ".main.c.swp" already exists! ~
   [O]pen Read-Only, (E)dit anyway, (R)ecover, (Q)uit, (A)bort, (D)elete it: ~
 
-O  Open the file readonly.  Use this when you just want to view the file and
-   don't need to recover it.  You might want to use this when you know someone
-   else is editing the file, but you just want to look in it and not make
-   changes.
+O  Fájl megnyitása csak olvasható módban. Általában csak betekintéshez
+   használjuk és nem akarjuk a fájlt visszaállítani.
 
-E  Edit the file anyway.  Use this with caution!  If the file is being edited
-   in another Vim, you might end up with two versions of the file.  Vim will
-   try to warn you when this happens, but better be safe than sorry.
+E  Szerkesztés mindenképp. Ezzel csak óvatosan! Ha egy másik Vimben is meg van
+   nyitva a fájl, akkor két verzióval lesz dolgod. A szerkesztő megpróbál
+   figyelmeztetni, de tudod: jobb félni, mint megijedni.
 
-R  Recover the file from the swap file.  Use this if you know that the swap
-   file contains changes that you want to recover.
+R  Helyreállítás a swapfájlból. 
 
-Q  Quit.  This avoids starting to edit the file.  Use this if there is another
-   Vim editing the same file.
-      When you just started Vim, this will exit Vim.  When starting Vim with
-   files in several windows, Vim quits only if there is a swap file for the
-   first one.  When using an edit command, the file will not be loaded and you
-   are taken back to the previously edited file.
+Q  Kilpés. A szerkesztés megszakítása. Ha a fájl már nyitva van egy másik
+   Vimben, akkor ezt kell választanod. 
+      Ha csak éppen elindítottad a szerkesztőt, akkor  kilép. Több fájl
+   megnyitása esetén, a Vim csak akkor lép ki, ha swapfájlt talál az első fájlhoz.
+   Az "edit" parancs használata esetén a fájl nem kerül betöltésre és
+   visszakerülsz az előző fájlra.
 
-A  Abort.  Like Quit, but also abort further commands.  This is useful when
-   loading a script that edits several files, such as a session with multiple
-   windows.
+A  Mégse.  Mint a kilpés, de megszakít egyéb dolgokat is. Akkor hasznos, ha
+   olyan szkriptet töltünk be, ami több fájlon végez módosítást egyszerre
+   (például session).
 
-D  Delete the swap file.  Use this when you are sure you no longer need it.
-   For example, when it doesn't contain changes, or when the file itself is
-   newer than the swap file.
-      On Unix this choice is only offered when the process that created the
-   swap file does not appear to be running.
+D  Swapfájl törlése. Ha már nincs többé szükséged a swapfájlra. Például, ha
+nem tartalmaz újabb változást, vagy ha a fájl maga újabb, mint a swapfájl.
+      Unix rendszereket csak akkor lehet ezt az opciót választani, ha a
+      folyamat, mely létrehozta a swapfájlt, nem fut.
 
-If you do not get the dialog (you are running a version of Vim that does not
-support it), you will have to do it manually.  To recover the file, use this
-command: >
+Ha nem kaptál párbeszédablakot (egyes Vim verziók ezt nem támogatják), akkor
+ezt manuálisan kel elvégezned. A helyreállításhoz használd ezt a parancsot: >
 
 	:recover
 
+A Vim nem képes a swapfájlok detektálására 100%-os biztonsággal. Ezek azok az
+esetek, amikor egy másik szerkesztési folyamat a swapfájlt áthelyezi, mert úgy
+van konfigurálva vagy path eltérő (platformok és rendszerek között). Ezért ne
+támaszkodj arra, hogy a Vim megment.
 
-Vim cannot always detect that a swap file already exists for a file.  This is
-the case when the other edit session puts the swap files in another directory
-or when the path name for the file is different when editing it on different
-machines.  Therefore, don't rely on Vim always warning you.
+Az üzenet elrejtéséhez add az 'A' flaget a 'shortmess' opcióhoz, bár nem
+biztos, hogy bölcs döntés.
 
-If you really don't want to see this message, you can add the 'A' flag to the
-'shortmess' option.  But it's very unusual that you need this.
-
-For remarks about encryption and the swap file, see |:recover-crypt|.
-For programmatic access to the swap file, see |swapinfo()|.
+Swapfájl és titkosítása, lásd: |:recover-crypt|. 
+A swapfájl különböző elérési módjai, lásd: |swapinfo()|.
 
 ==============================================================================
-*11.4*	Further reading
+*11.4*	További irodalom
 
-|swap-file|	An explanation about where the swap file will be created and
-		what its name is.
-|:preserve|	Manually flushing the swap file to disk.
-|:swapname|	See the name of the swap file for the current file.
-'updatecount'	Number of key strokes after which the swap file is flushed to
-		disk.
-'updatetime'	Timeout after which the swap file is flushed to disk.
-'swapsync'	Whether the disk is synced when the swap file is flushed.
-'directory'	List of directory names where to store the swap file.
-'maxmem'	Limit for memory usage before writing text to the swap file.
-'maxmemtot'	Same, but for all files in total.
+|swap-file|	Információk a swapfájl helyéről és nevéről
+|:preserve|	Szerkesztésink manuális flushelése a swapfájlba
+|:swapname|	swapfájl neve
+'updatecount'	Leütésszám (swap - flush)
+'updatetime'	Időköz (swap - flush)
+'swapsync'	Lemez szinkronizáció  (swap - flush)
+'directory'	Swapfájlokat fogadó elérési utak
+'maxmem'	Maximális memória swap flush előtt
+'maxmemtot'	Szintén, de az összes fájlhoz
 
 ==============================================================================
 

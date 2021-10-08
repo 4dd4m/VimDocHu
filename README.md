@@ -3,8 +3,12 @@
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_10.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_11.hux
+* A fordítás jelenleg usr_01.hux - usr_12.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_12.hux
+
+
+                                    Folyamat
+ [====================                                                       ]
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal az alábbi mappákban
@@ -21,10 +25,11 @@ Az eddig betartott alapelvek:
 * A fordítás során a magyarosság prioritást élvez a szó szerinti fordításokkal
   szemben
 * Ha úgy érzed, más szavakkal tartalmasabb lenne az információ, fogalmazd át
-* Ha úgy érzed, a dokumentáció félreérthetően fogalmaz, fogalmazd át
+* Ha úgy érzed, a dokumentáció félreérthetően fogalmaz, pontosítsd
 * Ha úgy érzed, hogy a dokumentáció túl szűkszavú, egészítsd ki
-* A Vimmel már egybeforrt idegen nyelvű szavakat (mint például: quickfix,
-  jumplist, tag, command-line, Insert, Visual, Replace stb.) nem fordítjuk
+* Nem fordítjuk a Vimmel már egybeforrt idegen nyelvű szavakat mint például:
+    * quickfix, jumplist, tag, command-line, Insert, Visual, 
+    * Replace, shell, autocommand, conceal, fold stb.
 
 ## Nem fordítanál?
 Ebben az esetben az alábbiakban segíthetsz:
