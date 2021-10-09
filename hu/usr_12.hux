@@ -1,6 +1,6 @@
-*usr_12.txt*	Vim verzió 8.2.  Last change: 2021 Apr 19
+*usr_12.txt*	For Vim version 8.2.  Last change: 2021 Apr 19
 
-		  Bram Moolenaar: Vim felhasználói kézikonyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			       Tippek, Trükkök
 
@@ -15,10 +15,10 @@ commands introduced in the previous chapters and a few more.
 |12.4|	Fordított sorrend
 |12.5|	Szavak számolása
 |12.6|	Help fájlok keresése
-|12.7|	Üres krakkterek levágása
-|12.8|	Mi használja az adoot szót?
+|12.7|	Üres karakterek levágása
+|12.8|	Mi használja az adott szót?
 
-Következő fejezet: |usr_20.txt|  Comman-line parancsok gépelése gyorsan
+Következő fejezet: |usr_20.txt|  Command-line parancsok gépelése gyorsan
     Előző fejezet: |usr_11.txt|  Helyreállítás
   Tartalomjegyzés: |usr_toc.txt|
 

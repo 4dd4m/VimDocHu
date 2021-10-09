@@ -1,4 +1,4 @@
-*usr_01.txt*	Vim verzió 8.2.  Frissítve: 2019 Nov 21
+*usr_01.txt*	For Vim version 8.2.  Last change: 2019 Nov 21
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -69,7 +69,7 @@ A kézikönyv feltételezi, hogy a Vimet a Vi-kompatibilitás opció
 kikapcsolásával futtatjuk. A legtöbb parancsnál ez nem számít, viszont
 léteznek olyan parancsok, melyeknél ez az opció nagyon fontos, például
 többszintes visszavonás. Kezdetben elég, ha a példa vimrc fájlt lemásolod.
-Ehhez az alábbi parancsokat futtasd:
+    Ehhez az alábbi parancsokat futtasd:
 
 Unix: >
 	:!cp -i $VIMRUNTIME/vimrc_example.vim ~/.vimrc
@@ -110,7 +110,7 @@ További információkhoz olvasd el |vimrc| és |compatible-default|.
 *01.3*	A Vimtutor használata				*tutor* *vimtutor*
 
 Szöveg olvasása helyett (amely nagyon unalmas), a Vimtutort interaktívan
-megtanítja az alapvető Vim parancsokat 30 perc alatt.
+		megtanítja az alapvető Vim parancsokat 30 perc alatt.
 
 Unix rendszereken, ha a Vim telepítése normálisan ment végbe, a Vimtutor az
 alábbi shell paranccsal indítható:
