@@ -20,118 +20,129 @@ commands introduced in the previous chapters and a few more.
 
 Következő fejezet: |usr_20.txt|  Command-line parancsok gépelése gyorsan
     Előző fejezet: |usr_11.txt|  Helyreállítás
-  Tartalomjegyzés: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *12.1*	Szavak cseréje
 
-The substitute command can be used to replace all occurrences of a word with
-another word: >
+A substitute (csere) parancs lecseréli az összes egyező szót: >
 
 	:%s/four/4/g
 
-The "%" range means to replace in all lines.  The "g" flag at the end causes
-all words in a line to be replaced.
-   This will not do the right thing if your file also contains "thirtyfour".
-It would be replaced with "thirty4".  To avoid this, use the "\<" item to
-match the start of a word: >
+A "%" tartomány, a teljes fájlra kiterjed. A "g" flag a végén pedig a sorban
+szereplő összes előfordulást lecseréli. 
+   A parancs nem hibátlan, hiszen ha a fájl tartalmazza például a "thirtyfour"
+szót, akkor a parancs futtatása után "thirty4" lesz az eredmény. Hogy elkerüld
+a problematikát, és ne érjen meglepetés "\<" karakterekkel illeszthetsz a szó
+elejére: >
 
 	:%s/\<four/4/g
 
-Obviously, this still goes wrong on "fourteen".  Use "\>" to match the end of
-a word: >
+Ha szereted a meglepetéseket, akkor itt van még egy: "fourteen". A mintánk nem
+illesztett a szó végére, hiába a "four" karakter valóban szókezdet. A szavak
+végét "\>" karakterekkel illesztheted: >
 
 	:%s/\<four\>/4/g
 
-If you are programming, you might want to replace "four" in comments, but not
-in the code.  Since this is difficult to specify, add the "c" flag to have the
-substitute command prompt you for each replacement: >
+Ha programozó vagy, akkor például sokszor csak a kommentekben kell valamit
+lecserélned anélkül, hogy a kódhoz hozzányúlnál. A nem teljesen egyértelmű,
+vagy veszélyesnek tűnő cseréknél kérj megerősítést a "c" flaggel és minden
+csere előtt validálnod kell a műveletet: >
 
 
 	:%s/\<four\>/4/gc
 
 
-REPLACING IN SEVERAL FILES
+CSERÉK TÖBB FÁJLBAN
 
-Suppose you want to replace a word in more than one file.  You could edit each
-file and type the command manually.  It's a lot faster to use record and
-playback.
-   Let's assume you have a directory with C++ files, all ending in ".cpp".
-There is a function called "GetResp" that you want to rename to "GetAnswer".
+Tegyük fel, hogy egy adott stringet kell lecseréled, viszont a String több
+fájlban is szerepel. Megnyithatod őket egyesével és manuálisan elvégezheted a
+keresés. Ez végképp nem elegáns. Egyszerűbb, ha rögzíted és visszajátszod.
+   Azt is feltételezzük, hogy van egy könyvtárnyi C++ fájlod, melyek .cpp
+kiterjesztéssel végződnek. Mindegyikben van egy "GetResp" függvény, de át
+szeretnéd nevezni "GetAnswer"-re. 
 
-	vim *.cpp		Start Vim, defining the argument list to
-				contain all the C++ files.  You are now in the
-				first file.
-	qq			Start recording into the q register
+	vim *.cpp		Indítsd el a Vimet, argumentumként add át az
+				összes C++ fájlt. Az első fájlban vagy.
+	qq			Kezdd el a rögzítést a q regiszterbe.
 	:%s/\<GetResp\>/GetAnswer/g
-				Do the replacements in the first file.
-	:wnext			Write this file and move to the next one.
-	q			Stop recording.
-	@q			Execute the q register.  This will replay the
-				substitution and ":wnext".  You can verify
-				that this doesn't produce an error message.
-	999@q			Execute the q register on the remaining files.
+				Végezd el a cserét az első fájlban.
+	:wnext			Mentsd a fájlt és lépj a következőre.
+	q			Állítsd le a felvételt
+	@q			Futtasd a @q regisztert.  Ez mind a cserét,
+				mind a fájlváltást is ":wnext" elvégzi.
+				Győződj meg arról, hogy nem kaptál
+				hibaüzenete.
+	999@q			Futtasd a többi fájlon is.
 
-At the last file you will get an error message, because ":wnext" cannot move
-to the next file.  This stops the execution, and everything is done.
+Az utolsó fájlon kötelezően hibaüzenetet kell kapj (ha tényleg 999 fájlra
+hívtad meg a parancsot, de az argumentumlistában kevesebb szerepel, a fájlok
+elfogynak, a ":wnext" pedig nem tud mire továbblépni). Hibaüzenet hatására a
+futtatás azonnal leáll.
 
-	Note:
-	When playing back a recorded sequence, an error stops the execution.
-	Therefore, make sure you don't get an error message when recording.
+	Megjegyzés:
+	Ha a hibaüzenet nem az utolsó fájlnál jelentkezik, hanem előtte, akkor
+	az azt jelenti, hogy a maradék fájlokon nem futott le a makró.
 
-There is one catch: If one of the .cpp files does not contain the word
-"GetResp", you will get an error and replacing will stop.  To avoid this, add
-the "e" flag to the substitute command: >
+A bökkenő: az egyik fájl nem tartalmazza a "GetResp" függvényt, hibaüzenetet
+kapsz és a művelet megszakad. Add hozzá az "e" flaget a csere parancshoz: >
 
 	:%s/\<GetResp\>/GetAnswer/ge
 
-The "e" flag tells ":substitute" that not finding a match is not an error.
+Az "e" flag azt jelenti: hogy a csere nem fog hibát dobni, ha egyáltalán nem
+talált egyezést
 
 ==============================================================================
-*12.2*	Change "Last, First" to "First Last"
+*12.2*	"Last, First" cseréje erre "First Last"
 
-You have a list of names in this form:
+Van pár név a listádon:
 
 	Doe, John ~
 	Smith, Peter ~
 
-You want to change that to:
+Meg szeretnéd cserélni őket:
 
 	John Doe ~
 	Peter Smith ~
 
-This can be done with just one command: >
+Ez egyetlen egy paranccsal megoldható:
 
 	:%s/\([^,]*\), \(.*\)/\2 \1/
 
-Let's break this down in parts.  Obviously it starts with a substitute
-command.  The "%" is the line range, which stands for the whole file.  Thus
-the substitution is done in every line in the file.
-   The arguments for the substitute command are "/from/to/".  The slashes
-separate the "from" pattern and the "to" string.  This is what the "from"
-pattern contains:
+Szedjük darabokra. Az utasítás keresés "s" paranccsal kezdődik, mely előtt a
+"%" tartomány található (fájl összes sora), azaz a teljes fájlban cserélünk.
+   Két argumentumot adunk át a parancsnak, amit le szeretnénk cserélni és
+amire cserélni szeretnénk "/from/to/". A "from" és "to" perjelekkel van
+tagolva. A "from" az alábbi mintát tartalmazza:
 							\([^,]*\), \(.*\) ~
 
-	The first part between \( \) matches "Last"	\(     \)
-	    match anything but a comma			  [^,]
-	    any number of times				      *
-	matches ", " literally					 ,
-	The second part between \( \) matches "First"		   \(  \)
-	    any character					     .
-	    any number of times					      *
+   A  \( \) közötti rész illeszkedik a  "Last"-ra,	\(     \)
+	    mely a számok és a vessző kivételével	  [^,]
+	    bármire, bármennyiszer illeszkedik		      *
+	szó szerint ", "-re illeszkedik				 ,
+   A  \( \) közötti rész illeszkedik a  "First"-re,	       	   \(  \)
+	    bármely karakter					     .
+	    bármennyiszer					      *
 
-In the "to" part we have "\2" and "\1".  These are called backreferences.
-They refer to the text matched by the "\( \)" parts in the pattern.  "\2"
-refers to the text matched by the second "\( \)", which is the "First" name.
-"\1" refers to the first "\( \)", which is the "Last" name.
-   You can use up to nine backreferences in the "to" part of a substitute
-command.  "\0" stands for the whole matched pattern.  There are a few more
-special items in a substitute command, see |sub-replace-special|.
+A "to" részben a "\2" és "\1" karaktereket láthatjuk. Ezeket hivatkozásoknak
+hívjuk. Arra a szövegrészletre hivatkozik, melyet az első "\( \)"-ra
+illeszkedett. "\2" pedig a második "\( \)" által illeszkedett szövegre
+hivatkozik.  Azaz, ha John Doet vesszük alapul, akkor "\1" a Johnra "\2" pedig
+Doera hivatkozik. A helyettesítésben jól látható, hogy a hivatkozások meg
+vannak fordítva "\2 \1". Escapelés nélkül a kifejezés így nézne ki: > 
+
+
+	:%s/([^,]*), (.*)/\2 \1/
+
+
+A keresés kilenc hivatkozást képes egyszerre kezelni. A "\0" a teljes
+illeszkedést jelenti, egyben. A csere parancs még több speciális elemet
+tartalmaz, lásd |sub-replace-special|.
 
 ==============================================================================
-*12.3*	Sort a list
+*12.3*	Lista rendezése
 
-In a Makefile you often have a list of files.  For example:
+A Makefájlok többnyire fájllistákat rejtenek. Például:
 
 	OBJS = \ ~
 		version.o \ ~
@@ -143,7 +154,7 @@ In a Makefile you often have a list of files.  For example:
 		patch.o \ ~
 		backup.o ~
 
-To sort this list, filter the text through the external sort command: >
+A fájllista tartományát adjuk át a sort parancsnak rendezésre: >
 
 	/^OBJS
 	j
