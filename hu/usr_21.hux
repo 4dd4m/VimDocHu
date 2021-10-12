@@ -1,42 +1,43 @@
 *usr_21.txt*	For Vim version 8.2.  Last change: 2019 Apr 25
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			   Go away and come back
+			   Visszatérés adott pontra
 
 
-This chapter goes into mixing the use of other programs with Vim.  Either by
-executing program from inside Vim or by leaving Vim and coming back later.
-Furthermore, this is about the ways to remember the state of Vim and restore
-it later.
+Az alábbi fejezetben a szerkesztő és egyéb külsős programok interakcióját
+tárgyaljuk, legyen az akár parancs futtatása Vimből vagy a szerkesztő bezárása
+és a munkamenet folytatása adott pontról. Továbbá, hogyan tárolhatjuk el a
+szerkesztő állapotát és hogyan állíthatjuk azt vissza később.
 
-|21.1|	Suspend and resume
-|21.2|	Executing shell commands
-|21.3|	Remembering information; viminfo
-|21.4|	Sessions
-|21.5|	Views
-|21.6|	Modelines
+|21.1|	Felfüggesztés és folytatás
+|21.2|	Shell parancsok futtatása
+|21.3|	Információk tárolása; viminfo
+|21.4|	Munkamenetek
+|21.5|	Nézetek
+|21.6|	Módsorok
 
-     Következő fejezet: |usr_22.txt|  Finding the file to edit
- Előző fejezet: |usr_20.txt|  Typing command-line commands quickly
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_22.txt|  Finding the file to edit
+    Előző fejezet: |usr_20.txt|  Typing command-line commands quickly
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*21.1*	Suspend and resume
+*21.1*	Felfüggesztés és folytatás
 
-Like most Unix programs Vim can be suspended by pressing CTRL-Z.  This stops
-Vim and takes you back to the shell it was started in.  You can then do any
-other commands until you are bored with them.  Then bring back Vim with the
-"fg" command. >
+Ahogyan a legtöbb Unixos programot, a Vimet is fel lehet függeszteni
+CTRL-Z-vel. A parancs megállítja a szerkesztőt is visszakerülünk abban a
+shellbe, ahonnan indultunk, ahol azt csinálhatod amit szeretnél addig, amíg
+meg nem unod. Az "fg" (foreground) paranccsal a szerkesztőt visszahozhatjuk
+előtérbe. >
 
 	CTRL-Z
 	{any sequence of shell commands}
 	fg
 
-You are right back where you left Vim, nothing has changed.
-   In case pressing CTRL-Z doesn't work, you can also use ":suspend".
-Don't forget to bring Vim back to the foreground, you would lose any changes
-that you made!
+Arról a pontról folytathatod a munkamenetet, ahol abbahagytad.
+   Ha a CTRL-Z nem működne, a ":suspend" parancs garantáltan fog.
+Ne felejtsd el a szerkesztőt az előtérbe hozni, különben az összes
+változtatásod el fog veszni.
 
 Only Unix has support for this.  On other systems Vim will start a shell for
 you.  This also has the functionality of being able to execute shell commands.
