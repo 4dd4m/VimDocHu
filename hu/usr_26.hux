@@ -1,6 +1,6 @@
 *usr_26.txt*	For Vim version 8.2.  Last change: 2006 Apr 24
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 				  Repeating
 
@@ -14,9 +14,9 @@ will be explained.
 |26.3|	Making a change in many files
 |26.4|	Using Vim from a shell script
 
-     Next chapter: |usr_27.txt|  Search commands and patterns
- Previous chapter: |usr_25.txt|  Editing formatted text
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_27.txt|  Search commands and patterns
+ Előző fejezet: |usr_25.txt|  Editing formatted text
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *26.1*	Repeating with Visual mode
@@ -216,6 +216,6 @@ start all over, use the "-W" argument.  It overwrites any existing file.
 
 ==============================================================================
 
-Next chapter: |usr_27.txt|  Search commands and patterns
+Következő fejezet: |usr_27.txt|  Search commands and patterns
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

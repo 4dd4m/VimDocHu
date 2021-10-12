@@ -1,6 +1,6 @@
 *usr_27.txt*	For Vim version 8.2.  Last change: 2019 Jul 14
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			 Search commands and patterns
 
@@ -19,9 +19,9 @@ A detailed specification can be found here: |pattern|
 |27.8|	Matching a line break
 |27.9|	Examples
 
-     Next chapter: |usr_28.txt|  Folding
- Previous chapter: |usr_26.txt|  Repeating
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_28.txt|  Folding
+ Előző fejezet: |usr_26.txt|  Repeating
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *27.1*	Ignoring case
@@ -558,6 +558,6 @@ and "\w" for "[0-9A-Za-z_]".
 
 ==============================================================================
 
-Next chapter: |usr_28.txt|  Folding
+Következő fejezet: |usr_28.txt|  Folding
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

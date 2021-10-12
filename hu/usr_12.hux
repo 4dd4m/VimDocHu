@@ -5,9 +5,10 @@
 			       Tippek, Trükkök
 
 
-By combining several commands you can make Vim do nearly everything.  In this
-chapter a number of useful combinations will be presented.  This uses the
-commands introduced in the previous chapters and a few more.
+A parancsok kombinálásával a Vim szinte bármit képes elvégezni. Ebben a
+fejezetben számos példát fogunk látni a beépített parancsok és külső programok 
+kombinációjára. Az előző fejezetben ismertetett parancsok újra felhasználjuk,
+illetve ki is egészítjük.
 
 |12.1|	Szavak cseréje
 |12.2|	Csere "Last, First" erre "First Last"
@@ -120,7 +121,7 @@ tagolva. A "from" az alábbi mintát tartalmazza:
 	    mely a számok és a vessző kivételével	  [^,]
 	    bármire, bármennyiszer illeszkedik		      *
 	szó szerint ", "-re illeszkedik				 ,
-   A  \( \) közötti rész illeszkedik a  "First"-re,	       	   \(  \)
+   A  \( \) közötti rész illeszkedik a  "First"-re,		   \(  \)
 	    bármely karakter					     .
 	    bármennyiszer					      *
 
@@ -154,17 +155,22 @@ A Makefájlok többnyire fájllistákat rejtenek. Például:
 		patch.o \ ~
 		backup.o ~
 
-A fájllista tartományát adjuk át a sort parancsnak rendezésre: >
+A fájllista tartományát adjuk át a "sort" parancsnak rendezésre: >
 
 	/^OBJS
 	j
 	:.,/^$/-1!sort
 
-This goes to the first line, where "OBJS" is the first thing in the line.
-Then it goes one line down and filters the lines until the next empty line.
-You could also select the lines in Visual mode and then use "!sort".  That's
-easier to type, but more work when there are many lines.
-   The result is this:
+A parancs arra a sorra ugrik, ahol "OBJS" karakterek a sor elején találhatóak.
+Egy sorral lejjebb ugrunk. Majd a "sort" parancsnak átadjuk az aktuális
+tartományként az aktuális sort ".", és a következő üres sorig tartó
+tartományt.  A tartomány végét a minta definiálja /^$/, mely megkeresi a
+következő üres sort.  Ha a parancsot "-1" nélkül hajtjuk végre, akkor az üres
+sort is átadná a "sort" parancsnak.
+    Visual módú kijelöléseket is átadhatunk a "!sort" parancsnak. Rövid
+tartalmak kezelésére megfelelő, nagyobb területeknél a parancs módszer
+gyorsabb.
+    Az eredmény:
 
 	OBJS = \ ~
 		backup.o ~
@@ -177,190 +183,201 @@ easier to type, but more work when there are many lines.
 		version.o \ ~
 
 
-Notice that a backslash at the end of each line is used to indicate the line
-continues.  After sorting, this is wrong!  The "backup.o" line that was at
-the end didn't have a backslash.  Now that it sorts to another place, it
-must have a backslash.
-   The simplest solution is to add the backslash with "A \<Esc>".  You can
-keep the backslash in the last line, if you make sure an empty line comes
-after it.  That way you don't have this problem again.
+Ezzel viszont hibát generáltunk. A sor végi "\" azt jelzi, hogy a sor
+értelmezése folytatódik, ez "backup.o" fájl után a rendezés miatt megszakadt. 
+"backup.o" fájl a lista alján volt eredetileg (ahová a "\" karaktert nem
+kötelező kitenni).
+   A legegyszerűbb korrekció ha mi magunk adjuk hozzá "A \<Esc>" paranccsal.
+Ha ügyelünk rá, hogy a felsorolás utáni sor üres marad, mindegyik sorban
+kitehetjük a "\" jelet, így a probléma soha többé nem fog jelentkezni.
 
 ==============================================================================
-*12.4*	Reverse line order
+*12.4*	Fordított sorrend.
 
-The |:global| command can be combined with the |:move| command to move all the
-lines before the first line, resulting in a reversed file.  The command is: >
+A |:global| és a |:move| parancsokat kombinálhatjuk, hogy az összes sort a
+fájl elejére mozgassuk, így a fájl sorai fordított sorrendben rendeződnek. A
+parancs: >
 
 	:global/^/move 0
 
-Abbreviated: >
+Rövidítve: >
 
 	:g/^/m 0
 
-The "^" regular expression matches the beginning of the line (even if the line
-is blank).  The |:move| command moves the matching line to after the imaginary
-zeroth line, so the current matching line becomes the first line of the file.
-As the |:global| command is not confused by the changing line numbering,
-|:global| proceeds to match all remaining lines of the file and puts each as
-the first.
+A "^" egyszerű RegExp meta karakter, mely illeszkedik a sor elejére (akkor is,
+ha a sor üres). A |:move| parancs pedig másolja a sort a képzeletbeli 0.
+sorba, ezért mindig az aktuális illeszkedő sor kerül a fájlt tetejére. A
+|:global| parancsot ne tévesszük össze az ugyancsak hasonló global "G"
+paranccsal (mellyel sort váltunk), |:global| itt tartományt jelöl (a fájl
+összes sora).
 
-This also works on a range of lines.  First move to above the first line and
-mark it with "mt".  Then move the cursor to the last line in the range and
-type: >
+A technika alkalmazható kisebb tartományra. Jelöljük ki a tartományt. Vigyük a
+kurzort a rendezni kíván tartomány részét képző felső sorába, "k"-val lépjünk
+eggyel feljebb és jelöljük meg a sort "mt" (top). Menjünk a tartomány részét
+képző utolsó sorba és futtassuk:
 
 	:'t+1,.g/^/m 't
 
 ==============================================================================
-*12.5*	Count words
+*12.5*	Szavak számolása
 
-Sometimes you have to write a text with a maximum number of words.  Vim can
-count the words for you.
-   When the whole file is what you want to count the words in, use this
-command: >
+Ha megadott hosszúságú szöveget kell gépelned a Vim nyomon tudja követni az
+aktuális szavak számát. 
+   Szavak számolása az egész fájlban: >
 
 	g CTRL-G
 
-Do not type a space after the g, this is just used here to make the command
-easy to read.
-   The output looks like this:
+Ne üss szóközt a g után, a szóközt csak a tagolás miatt tartalmazza a példa. 
+   A kimenet pedig:
 
 	Col 1 of 0; Line 141 of 157; Word 748 of 774; Byte 4489 of 4976 ~
 
-You can see on which word you are (748), and the total number of words in the
-file (774).
+Mely alapján a kurzor a 748. szón tartózkodik, a teljes szavak száma a fájlban
+pedig 774.
 
-When the text is only part of a file, you could move to the start of the text,
-type "g CTRL-G", move to the end of the text, type "g CTRL-G" again, and then
-use your brain to compute the difference in the word position.  That's a good
-exercise, but there is an easier way.  With Visual mode, select the text you
-want to count words in.  Then type g CTRL-G.  The result:
+Ha a fájlnak csak egy részére vagy kíváncsi, akkor menj a kurzorral a kezdeti
+pontodhoz és üss "g CTRL-G"-t, menj a végponthoz: "g CTRL-G", az utolsó
+parancs kimenetét le kell vonnod az elsőből és megkapod, hogy a kérdéses rész
+mennyi szóból áll. Jó gyakorlat, de nem hatékony. Visual módban jelöld ki a
+szöveget, majd "g CTRL-G". Az eredmény:
 
 	Selected 5 of 293 Lines; 70 of 1884 Words; 359 of 10928 Bytes ~
 
-For other ways to count words, lines and other items, see |count-items|.
+Szavak számolásának egyéb módszerei és más számolással kapcsolatos elemek
+(sorok, egyebek) lásd |count-items|.
 
 ==============================================================================
-*12.6*	Find a man page					*find-manpage*
+*12.6*	Man oldalak keresése				*find-manpage*
 
-While editing a shell script or C program, you are using a command or function
-that you want to find the man page for (this is on Unix).  Let's first use a
-simple way: Move the cursor to the word you want to find help on and press >
+Shell szkriptek vagy C programok szerkesztésekor egy adott függvényhez vagy
+parancshoz sokszor meg szeretnénk nyitni a manuált (Unixon). Nézzük a
+legegyszerűbb megoldást. Vidd a kurzort a szó fölé, melynek manuálját meg
+szeretnéd nyitni és üss: >
 
 	K
 
-Vim will run the external "man" program on the word.  If the man page is
-found, it is displayed.  This uses the normal pager to scroll through the text
-(mostly the "more" program).  When you get to the end pressing <Enter> will
-get you back into Vim.
+A Vim futtatja a "man" parancsot, argumentumként pedig a kurzor alatti szó
+kerül átadásra. Találat esetén a dokumentáció megjelenik az alapértelmezett
+pager programmal (többnyire a "more"), biztosítva a görgetést. Az olvasást
+befejezvén "q" vagy <Enter> billentyűkkel térhetünk vissza a szerkesztőbe.
 
-A disadvantage is that you can't see the man page and the text you are working
-on at the same time.  There is a trick to make the man page appear in a Vim
-window.  First, load the man filetype plugin: >
+Ha így nyitjuk meg a man oldalakat, akkor azzal a hátránnyal kell
+szembesüljünk, hogy látjuk ugyan a dokumentációt, viszont a forráskódunkat
+nem. A következő trükkel a Vim ablakába tölthetjük be a manuált. Először,
+engedélyezzük a filetype beépülőt: >
 
 	:runtime! ftplugin/man.vim
 
-Put this command in your vimrc file if you intend to do this often.  Now you
-can use the ":Man" command to open a window on a man page: >
+Érdemes a parancsot a vimrcben tartani, ha sokszor keresgélünk a leírásokban.
+A beépülő elérhetővé teszi számunkra a ":Man" használatát a command-lineban: >
 
 	:Man csh
 
-You can scroll around and the text is highlighted.  This allows you to find
-the help you were looking for.  Use CTRL-W w to jump to the window with the
-text you were working on.
-   To find a man page in a specific section, put the section number first.
-For example, to look in section 3 for "echo": >
-
+Splitben nyílik meg a dokumentáció, így a részletek azonnal másolhatóvá
+válnak, navigációhoz a megszokott görgetési parancsok, kereséshez a / parancs
+használható. Az alapértelmezett split-navigációval válthatunk az ablakok
+között (CTRL-W w).
+   Ha a manuált egy meghatározott bekezdésnél szeretnéd megnyitni, akkor tedd a
+bekezdés számát a parancs elé. Például az "echo" megnyitása a 3. bekezdésnél.
+>
 	:Man 3 echo
 
-To jump to another man page, which is in the text with the typical form
-"word(1)", press CTRL-] on it.  Further ":Man" commands will use the same
-window.
 
-To display a man page for the word under the cursor, use this: >
+Ha a megnyitott splitben a manuált olvasva egy újabb manuálra szeretnénk
+ugrani, akkor vigyük oda a kurzort és nyomjunk CTRL-] rajta (ezek tipikusan
+ilyen formában szerepelnek "word(1)"). További ":Man" parancsok ugyanabban az
+ablakban fognak megjelenni.
+
+A kurzor alatt lévő szó dokumentációjának elérése: >
 
 	\K
 
-(If you redefined the <Leader>, use it instead of the backslash).
-For example, you want to know the return value of "strstr()" while editing
-this line:
+(Ha lecserélted a <Leader> billentyűdet, akkor használd azt a backslash
+helyett).
+Például azt szeretnéd megtudni, hogy mi a "strstr()" visszatérési értéke,
+miközben az alábbi sort szerkeszted:
 
 	if ( strstr (input, "aap") == ) ~
 
-Move the cursor to somewhere on "strstr" and type "\K".  A window will open
-to display the man page for strstr().
+Vidd a kurzort az "strstr" szóra és gépelj "\K". Az strstr() dokumentációja új
+ablakban fog megnyílni.
 
 ==============================================================================
-*12.7*	Trim blanks
+*12.7*	Sorvégi üres karakterek törlése
 
-Some people find spaces and tabs at the end of a line useless, wasteful, and
-ugly.  To remove whitespace at the end of every line, execute the following
-command: >
+Egyes emberek csúnyának, hasznavehetetlennek és pocsékolásnak tartják a sor
+végi üres karaktereket (szóköz, tab stb.). Az ilyen jellegű karaktereket
+eltávolíthatod az összes sor végéről így: >
 
 	:%s/\s\+$//
 
-The line range "%" is used, thus this works on the whole file.  The pattern
-that the ":substitute" command matches with is "\s\+$".  This finds white
-space characters (\s), 1 or more of them (\+), before the end-of-line ($).
-Later will be explained how you write patterns like this, see |usr_27.txt|.
-   The "to" part of the substitute command is empty: "//".  Thus it replaces
-with nothing, effectively deleting the matched white space.
+Tartományként a "%"-ot használtuk, ami a teljes fájlra kiterjed. A
+":substitute" parancs a "\s\+$" keresésre illeszt, ami megtalálja az összes
+szóköz karaktert (\s), egy- vagy több alkalommal (\+), a sor vége előtt ($). A
+|usr_27.txt| fejezetben át fogjuk venni az ilyen kereséshez hasonló meta
+karaktereket.
+   Az említett karakterek lecserélésre kerülnek a semmivel "//". Azaz az üres
+karakterek kitörlődnek.
 
-Another wasteful use of spaces is placing them before a tab.  Often these can
-be deleted without changing the amount of white space.  But not always!
-Therefore, you can best do this manually.  Use this search command: >
-
+A szóközök pazarlásának másik módja, ha a tabulátorok előtt használjuk.
+Gyakran lecserélhetjük őket anélkül, hogy ez az üres karakterek számának
+csökkenését eredményezné. De nem mindig! Ezért, a műveletet manuálisan
+ajánlott elvégezni. A parancs pedig: >
+    
 	/
-
-You cannot see Frissítve but there is a space before a tab in this command.  Thus
-it's "/<Space><Tab>".   Now use "x" to delete the space and check that the
-amount of white space doesn't change.  You might have to insert a tab if it
-does change.  Type "n" to find the next match.  Repeat this until no more
-matches can be found.
+    
+Sajnos nem láthatod, hogy parancsban szóköz és tabulátor karakterek
+szerepelnek, azaz: /<Space><Tab>. Próbáld meg törölni az üres karakterek az
+"x" segítségével és figyeld az esetleges változást. Próbálj meg egy tabot
+beilleszteni, ha nem tapasztalsz változást. A következő találathoz az "n"
+paranccsal léphetsz. Ismételd addig, amíg az összeset ki nem javítod.
 
 ==============================================================================
-*12.8*	Find where a word is used
+*12.8*	Szavak előfordulási helyei
 
-If you are a UNIX user, you can use a combination of Vim and the grep command
-to edit all the files that contain a given word.  This is extremely useful if
-you are working on a program and want to view or edit all the files that
-contain a specific variable.
-   For example, suppose you want to edit all the C program files that contain
-the word "frame_counter".  To do this you use the command: >
+Ha UNIX felhasználó vagy, akkor a Vim és grep parancsok együttes használatával
+a szavakat az összes fájlban szerkesztheted egyszerre. Roppant hasznos
+projekteben, illetve több fájlt átölelő programokban, így azonnal
+megnyithatjuk azokat a fájlokat, melyben szerepel a keresésünk tárgya.
+   Például, szerkeszteni szeretnéd az összes C forrásfájlod, melyben szerepel a 
+"frame_counter" szó. Megvalósítása: >
 
 	vim `grep -l frame_counter *.c`
 
-Let's look at this command in detail.  The grep command searches through a set
-of files for a given word.  Because the -l argument is specified, the command
-will only list the files containing the word and not print the matching lines.
-The word it is searching for is "frame_counter".  Actually, this can be any
-regular expression.  (Note: What grep uses for regular expressions is not
-exactly the same as what Vim uses.)
-   The entire command is enclosed in backticks (`).  This tells the UNIX shell
-to run this command and pretend that the results were typed on the command
-line.  So what happens is that the grep command is run and produces a list of
-files, these files are put on the Vim command line.  This results in Vim
-editing the file list that is the output of grep.  You can then use commands
-like ":next" and ":first" to browse through the files.
+Nézzünk be a színfalak mögé. A grep parancs keresést hajt végre az általunk
+átadott szóra (frame_counter) és fájlokban (*.c). Az -l argumentum pedig azért
+felelős, hogy a grep fájl találat esetén csak a fájlok nevével térjen vissza
+(és ne listázza ki a konkrét sorokat a fájlokból). A grep parancs képes
+értelmezni a RegExp mintákat is. (Megjegyzés: A grep és Vim hasonló, de mégis
+különböző RegExp szintaktikával rendelkeznek.)
+   Az egész parancs backtick (`) közé van zárva. Ez azt mondja a UNIX
+shellnek, hogy futtassa a programot, de az eredményt ne írja ki a képernyőre,
+hanem tegyen úgy, mintha a program végeredményét mi magunk írtuk volna be. 
+Szóval a grep parancs visszatér a fájllistával, melyek a vimnek átad
+argumentumként, így csak azok a fájlok nyílnak meg a szerkesztőben, melyekben
+szerepelt a "frame_counter" szó. A fájlok közötti navigációhoz pedig az alábbi
+parancsok használhatóak: :next, :previous, :first, :last.
 
 
-FINDING EACH LINE
+AZ ÖSSZES SOR MEGTALÁLÁSA
 
-The above command only finds the files in which the word is found.  You still
-have to find the word within the files.
-   Vim has a built-in command that you can use to search a set of files for a
-given string.  If you want to find all occurrences of "error_string" in all C
-program files, for example, enter the following command: >
+Az imént említett parancs csak a fájlok listájával tér vissza, melyben a szó
+megtalálható. Ahhoz, hogy a sorokat is megkapjuk, újabb keresést kell
+végrehajtanunk.
+   A Vimben található :grep parancs segítségével végezhetjük keresésünket több
+fájlon. Ha az "error_string" összes előfordulását meg szeretnénk találni az
+összes C fájlban, akkor adjuk ki az alábbi parancsot: >
 
 	:grep error_string *.c
 
-This causes Vim to search for the string "error_string" in all the specified
-files (*.c).  The editor will now open the first file where a match is found
-and position the cursor on the first matching line.  To go to the next
-matching line (no matter in what file it is), use the ":cnext" command.  To go
-to the previous match, use the ":cprev" command.  Use ":clist" to see all the
-matches and where they are.
-   The ":grep" command uses the external commands grep (on Unix) or findstr
-(on Windows).  You can change this by setting the option 'grepprg'.
+A szerkesztő az "error_string"-et az összes fájlban keresni fogja (*.c). Az
+első találatot tartalmazó fájlt megnyílik és a kurzort a találat sorára helyezi.
+A következő előfordulásra a ":cnext" paranccsal ugorhatunk (nem számít, hogy
+melyik fájlban található), ":cprev" paranccsal pedig vissza. Az összes
+előfordulás megtekintése a ":clist" paranccsal lehetséges.
+   A ":grep" parancs a shell grep programját használja (UNIX), Windows esetében
+pedig a findstr programot. A 'grepprg' változóval módosítható az
+alapértelmezett program.
 
 ==============================================================================
 

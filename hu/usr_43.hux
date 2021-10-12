@@ -1,6 +1,6 @@
 *usr_43.txt*	For Vim version 8.2.  Last change: 2015 Oct 23
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			       Using filetypes
 
@@ -13,9 +13,9 @@ how to do it automatically.
 |43.1|	Plugins for a filetype
 |43.2|	Adding a filetype
 
-     Next chapter: |usr_44.txt|  Your own syntax highlighted
- Previous chapter: |usr_42.txt|  Add new menus
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_44.txt|  Your own syntax highlighted
+ Előző fejezet: |usr_42.txt|  Add new menus
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *43.1*	Plugins for a filetype				*filetype-plugin*
@@ -174,6 +174,6 @@ and sources a script or executes a function to check the contents of the file.
 
 ==============================================================================
 
-Next chapter: |usr_44.txt|  Your own syntax highlighted
+Következő fejezet: |usr_44.txt|  Your own syntax highlighted
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

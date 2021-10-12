@@ -1,6 +1,6 @@
 *usr_42.txt*	For Vim version 8.2.  Last change: 2008 May 05
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			      Add new menus
 
@@ -14,9 +14,9 @@ accessible.  This is for mouse-happy users only.
 |42.3|	Various
 |42.4|	Toolbar and popup menus
 
-     Next chapter: |usr_43.txt|  Using filetypes
- Previous chapter: |usr_41.txt|  Write a Vim script
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_43.txt|  Using filetypes
+ Előző fejezet: |usr_41.txt|  Write a Vim script
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *42.1*	Introduction
@@ -361,6 +361,6 @@ is...
 
 ==============================================================================
 
-Next chapter: |usr_43.txt|  Using filetypes
+Következő fejezet: |usr_43.txt|  Using filetypes
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

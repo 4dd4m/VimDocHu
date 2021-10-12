@@ -1,6 +1,6 @@
 *usr_23.txt*	For Vim version 8.2.  Last change: 2020 Dec 19
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			     Editing other files
 
@@ -16,9 +16,9 @@ edited as well.
 |23.4|	Binary files
 |23.5|	Compressed files
 
-     Next chapter: |usr_24.txt|  Inserting quickly
- Previous chapter: |usr_22.txt|  Finding the file to edit
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_24.txt|  Inserting quickly
+ Előző fejezet: |usr_22.txt|  Finding the file to edit
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *23.1*	DOS, Mac and Unix files
@@ -340,6 +340,6 @@ decompression.  You might need to install the programs first.
 
 ==============================================================================
 
-Next chapter: |usr_24.txt|  Inserting quickly
+Következő fejezet: |usr_24.txt|  Inserting quickly
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

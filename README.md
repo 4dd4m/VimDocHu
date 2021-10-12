@@ -4,7 +4,7 @@
 
 ## Állapot
 * A fordítás jelenleg usr_01.hux - usr_12.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_12.hux
+* Folyamatban: usr_20.hux
 
 
 Folyamat:
@@ -49,6 +49,9 @@ hogy könnyedén felderíthető legyen.
 ## Szerkezet
 * hu/ kézikönyv fájljai
 * orig/ eredeti fájlok, diffeléshez, karbantartáshoz
+
+## Bugok
+* helpgrep magyarul nem működik
 
 ## Egyebek
 * A manual fájljai még nincsenek átemelve

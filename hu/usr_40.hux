@@ -1,6 +1,6 @@
 *usr_40.txt*	For Vim version 8.2.  Last change: 2020 Sep 02
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			      Make new commands
 
@@ -13,9 +13,9 @@ Autocommands make it possible to execute commands automatically.
 |40.2|	Defining command-line commands
 |40.3|	Autocommands
 
-     Next chapter: |usr_41.txt|  Write a Vim script
- Previous chapter: |usr_32.txt|  The undo tree
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_41.txt|  Write a Vim script
+ Előző fejezet: |usr_32.txt|  The undo tree
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *40.1*	Key mapping
@@ -652,6 +652,6 @@ To set it back to the normal behavior, make 'eventignore' empty: >
 
 ==============================================================================
 
-Next chapter: |usr_41.txt|  Write a Vim script
+Következő fejezet: |usr_41.txt|  Write a Vim script
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

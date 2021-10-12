@@ -1,6 +1,6 @@
 *usr_31.txt*	For Vim version 8.2.  Last change: 2020 Jul 28
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			      Exploiting the GUI
 
@@ -15,9 +15,9 @@ between alternatives.  Use keyboard shortcuts to access menu items quickly.
 |31.4|	Vim window position and size
 |31.5|	Various
 
-     Next chapter: |usr_32.txt|  The undo tree
- Previous chapter: |usr_30.txt|  Editing programs
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_32.txt|  The undo tree
+ Előző fejezet: |usr_30.txt|  Editing programs
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *31.1*	The file browser
@@ -267,6 +267,6 @@ another font size, for example.
 
 ==============================================================================
 
-Next chapter: |usr_32.txt|  The undo tree
+Következő fejezet: |usr_32.txt|  The undo tree
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

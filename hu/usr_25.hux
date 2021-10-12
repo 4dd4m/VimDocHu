@@ -1,6 +1,6 @@
 *usr_25.txt*	For Vim version 8.2.  Last change: 2016 Mar 28
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			     Editing formatted text
 
@@ -15,9 +15,9 @@ Vim also has useful features for editing single-line paragraphs and tables.
 |25.4|	Dealing with long lines
 |25.5|	Editing tables
 
-     Next chapter: |usr_26.txt|  Repeating
- Previous chapter: |usr_24.txt|  Inserting quickly
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_26.txt|  Repeating
+ Előző fejezet: |usr_24.txt|  Inserting quickly
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *25.1*	Breaking lines
@@ -578,6 +578,6 @@ The "gR" command uses Virtual Replace mode.  This preserves the layout:
 
 ==============================================================================
 
-Next chapter: |usr_26.txt|  Repeating
+Következő fejezet: |usr_26.txt|  Repeating
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

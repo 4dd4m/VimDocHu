@@ -1,6 +1,6 @@
 *usr_41.txt*	 For Vim version 8.2.  Last change: 2021 Aug 08
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			      Write a Vim script
 
@@ -26,9 +26,9 @@ script.  There are a lot of them, thus this is a long chapter.
 |41.15|	Writing library scripts
 |41.16|	Distributing Vim scripts
 
-     Next chapter: |usr_42.txt|  Add new menus
- Previous chapter: |usr_40.txt|  Make new commands
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_42.txt|  Add new menus
+ Előző fejezet: |usr_40.txt|  Make new commands
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *41.1*	Introduction				*vim-script-intro* *script*
@@ -2777,6 +2777,6 @@ It's good if you add a line to allow automatic updating.  See |glvs-plugins|.
 
 ==============================================================================
 
-Next chapter: |usr_42.txt|  Add new menus
+Következő fejezet: |usr_42.txt|  Add new menus
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

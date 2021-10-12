@@ -1,6 +1,6 @@
 *usr_21.txt*	For Vim version 8.2.  Last change: 2019 Apr 25
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 			   Go away and come back
 
@@ -17,9 +17,9 @@ it later.
 |21.5|	Views
 |21.6|	Modelines
 
-     Next chapter: |usr_22.txt|  Finding the file to edit
- Previous chapter: |usr_20.txt|  Typing command-line commands quickly
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_22.txt|  Finding the file to edit
+ Előző fejezet: |usr_20.txt|  Typing command-line commands quickly
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *21.1*	Suspend and resume
@@ -497,6 +497,6 @@ For more details see |modeline|.
 
 ==============================================================================
 
-Next chapter: |usr_22.txt|  Finding the file to edit
+Következő fejezet: |usr_22.txt|  Finding the file to edit
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

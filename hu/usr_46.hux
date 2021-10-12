@@ -1,6 +1,6 @@
 *usr_46.txt*	For Vim version 8.2.  Last change: 2020 Jun 14
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 		       Write plugins using Vim9 script
 
@@ -14,9 +14,9 @@ modules, import and export items and keep the rest local.
 |46.3|	Functions and types
 |46.?|	Using a Vim9 script from legacy script
 
-     Next chapter: |usr_90.txt|  Installing Vim
- Previous chapter: |usr_45.txt|  Select your language (locale)
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_90.txt|  Installing Vim
+ Előző fejezet: |usr_45.txt|  Select your language (locale)
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *46.1*	Introduction				*vim9-script-intro*
@@ -187,6 +187,6 @@ will have to make sure to use a unique name for these global items. Example: >
 
 ==============================================================================
 
-Next chapter: |usr_90.txt|  Installing Vim
+Következő fejezet: |usr_90.txt|  Installing Vim
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

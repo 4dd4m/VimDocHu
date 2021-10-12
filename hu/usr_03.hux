@@ -310,7 +310,7 @@ aktív sort.
 	| line with cursor |		 | later text	    |
 	+------------------+		 +------------------+
 
-A "zt" ugyanilyen módon a lépernyő tetejére, a "zb" pedig a képernyő aljára
+A "zt" ugyanilyen módon a képernyő tetejére, a "zb" pedig a képernyő aljára
 helyezi az aktív sort. Ennél sokkal több görgető parancs létezik, olvasd el
 |Q_sc|. Ha meg szeretnéd akadályozni, hogy a kurzor "n" sorral megálljon a
 képernyő alja és teteje előtt, tanulmányozd a 'scrolloff' opciót.

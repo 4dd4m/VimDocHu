@@ -1,6 +1,6 @@
 *usr_28.txt*	For Vim version 8.2.  Last change: 2008 Jun 14
 
-		     VIM USER MANUAL - by Bram Moolenaar
+		     Bram Moolenaar: Vim felhasználói kézikönyv
 
 				   Folding
 
@@ -20,9 +20,9 @@ This chapter explains the different ways this can be done.
 |28.9|	Folding unchanged lines
 |28.10|	Which fold method to use?
 
-     Next chapter: |usr_29.txt|  Moving through programs
- Previous chapter: |usr_27.txt|  Search commands and patterns
-Table of contents: |usr_toc.txt|
+     Következő fejezet: |usr_29.txt|  Moving through programs
+ Előző fejezet: |usr_27.txt|  Search commands and patterns
+Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *28.1*	What is folding?
@@ -421,6 +421,6 @@ the defined folds.  Then you can delete or add folds manually.
 
 ==============================================================================
 
-Next chapter: |usr_29.txt|  Moving through programs
+Következő fejezet: |usr_29.txt|  Moving through programs
 
-Copyright: see |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
+Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
