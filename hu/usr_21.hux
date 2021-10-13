@@ -17,8 +17,8 @@ szerkesztő állapotát és hogyan állíthatjuk azt vissza később.
 |21.5|	Nézetek
 |21.6|	Módsorok
 
-Következő fejezet: |usr_22.txt|  Finding the file to edit
-    Előző fejezet: |usr_20.txt|  Typing command-line commands quickly
+Következő fejezet: |usr_22.txt|  Fájlok keresése
+    Előző fejezet: |usr_20.txt|  Command-line parancsok gyors gépelése
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
@@ -39,161 +39,168 @@ Arról a pontról folytathatod a munkamenetet, ahol abbahagytad.
 Ne felejtsd el a szerkesztőt az előtérbe hozni, különben az összes
 változtatásod el fog veszni.
 
-Only Unix has support for this.  On other systems Vim will start a shell for
-you.  This also has the functionality of being able to execute shell commands.
-But it's a new shell, not the one that you started Vim from.
-   When you are running the GUI you can't go back to the shell where Vim was
-started.  CTRL-Z will minimize the Vim window instead.
+Ez csak Unix rendszereken működik. A többi rendszeren a Vim külön shell indít
+számodra. A mechanizmus lehetővé teszi számunkra, hogy shell parancsokat
+futtassunk, de új shellben, nem onnan ahonnan indítottuk a Vimet. 
+   Ha a szerkesztő GUI felületét futtatod, akkor nincs lehetőség a shellbe
+visszatérni. CTRL-Z ebben az esetben minimalizálja az ablakot.
 
 ==============================================================================
-*21.2*	Executing shell commands
+*21.2*	Shell parancsok futtatása
 
-To execute a single shell command from Vim use ":!{command}".  For example, to
-see a directory listing: >
+A parancsok futtatásának általános alakja: ":!{command}. Például, a könyvtár
+listázása: >
 
 	:!ls
 	:!dir
 
-The first one is for Unix, the second one for MS-Windows.
-   Vim will execute the program.  When it ends you will get a prompt to hit
-<Enter>.  This allows you to have a look at the output from the command before
-returning to the text you were editing.
-   The "!" is also used in other places where a program is run.  Let's take
-a look at an overview:
+Az első sor Unix, a második MS-Windows platformon működik.
+   Ha a program lefutott, akkor <Enter> billentyűvel térhetsz vissza a
+szerkesztőbe, így megnézheted a program kimenetét, mielőtt végleg eltűnne.
+   A "!" több helyen is szerepelhet (de egyszerre csak egy helyen), ahol a
+programot hívjuk. Tekintsük át:
 
-	:!{program}		execute {program}
-	:r !{program}		execute {program} and read its output
-	:w !{program}		execute {program} and send text to its input
-	:[range]!{program}	filter text through {program}
+	:!{program}		{program} futtatása és  
+	:r !{program}		{program} futtatása és kimenetének olvasása
+	:w !{program}		{program} futtatása, szöveg küldése a bementére
+	:[range]!{program}	tartomány feldolgozás {program}-mal
 
-Notice that the presence of a range before "!{program}" makes a big
-difference.  Without it executes the program normally, with the range a number
-of text lines is filtered through the program.
+Figyeld meg, hogy hogyan helyezkedik el a [range] a "!{program}" előtt,
+hatalmas különbség. Nélküle a program csak szimplán lefut (anélkül, hogy
+átadtunk volna bármit is a parancsnak), tartománnyal viszont a hivatkozott
+részt átadja a program bementére.
 
-Executing a whole row of programs this way is possible.  But a shell is much
-better at it.  You can start a new shell this way: >
+Így egy sor parancsot is futtathatunk, viszont a shell sokkal eredményesebb
+ebben. Új shellt indítása: >
 
 	:shell
 
-This is similar to using CTRL-Z to suspend Vim.  The difference is that a new
-shell is started.
+Ez nagyon hasonló a CTRL-Z-s felfüggesztéshez. Itt azonban új shell nyílik
+meg.
 
-When using the GUI the shell will be using the Vim window for its input and
-output.  Since Vim is not a terminal emulator, this will not work perfectly.
-If you have trouble, try toggling the 'guipty' option.  If this still doesn't
-work well enough, start a new terminal to run the shell in.  For example with:
+Ha GUI üzemmódban indítottuk el a szerkesztőt, a Vim ablakát kezelő shell
+dolgozza fel a kimenetet és a bemenetet egyaránt. A Vim nem terminál emulátor,
+ezért nem biztos, hogy az összes shell interakció hibamentesen lefut. Problémák
+esetén érdemes kipróbálni a 'guipty' opciót. Ha így sem megy, akkor indíts egy
+új terminált és futtasd shellben. Például:
 >
 	:!xterm&
 
 ==============================================================================
-*21.3*	Remembering information; viminfo
+*21.3*	Információk tárolása; viminfo
 
-After editing for a while you will have text in registers, marks in various
-files, a command line history filled with carefully crafted commands.  When
-you exit Vim all of this is lost.  But you can get it back!
+Szerkesztéseid során a Vim sok adatot tárol az adott környezetről, ilyenek
+például a regiszterek, jelölők, fájlok, command-line history, gondosan
+megszerkesztett parancsok stb. Az összes törlődik a szerkesztő bezárásával, de
+visszaszerezheted!
 
-The viminfo file is designed to store status information:
+A viminfo fájl állapot-információk tárolására létrehozott fájl:
+	
+	Command-line, keresés history
+	regiszterek tartalma
+	Jelölők
+	Bufferlista
+	Globális változók
 
-	Command-line and Search pattern history
-	Text in registers
-	Marks for various files
-	The buffer list
-	Global variables
+A viminfo fájlba ezek az információk minden alkalommal kiíródnak, ha bezárjuk
+a szerkesztőt. Indításkor, a fájlt megnyitja és visszatölti az elmentett
+adatokat.
 
-Each time you exit Vim it will store this information in a file, the viminfo
-file.  When Vim starts again, the viminfo file is read and the information
-restored.
-
-The 'viminfo' option is set by default to restore a limited number of items.
-You might want to set it to remember more information.  This is done through
-the following command: >
+A 'viminfo' alapértelmezetten csak korlátozott információt tárol. Be tudjuk
+állítani, hogy jelenleginél több információt mentsen a munkamenetről, ezzel a
+paranccsal: >
 
 	:set viminfo=string
+	:set viminfo=!,'100,<50,s10,h
 
-The string specifies what to save.  The syntax of this string is an option
-character followed by an argument.  The option/argument pairs are separated by
-commas.
-   Take a look at how you can build up your own viminfo string.  First, the '
-option is used to specify how many files for which you save marks (a-z).  Pick
-a nice even number for this option (1000, for instance).  Your command now
-looks like this: >
-
+A változó tartalma azt határozza meg, hogy mi legyen elmentve. A változóban
+szereplő értékek szintaxisa:vesszővel elválasztott beállító_karakter-argumentum. 
+   Nézzük meg, hogy hogyan állíthatjuk be kedvünkre. Elsőként a ' karaktert
+láthatjuk beállításként, mely meghatározza, hogy mennyi fájlként tároljuk a
+jelelőket (a-z) visszamenőlegesen. Válassz egy szép kerek számot (például
+1000-et). Ha ezt módosítani szeretnéd, akkor add át a viminfo változónak így:
+>
 	:set viminfo='1000
 
-The f option controls whether global marks (A-Z and 0-9) are stored.  If this
-option is 0, none are stored.  If it is 1 or you do not specify an f option,
-the marks are stored.  You want this feature, so now you have this: >
+Az f beállító-karakter a globális jelölők tárolásáért felel (A-Z és 0-9). Ha
+ez az opció 0, akkor a Vim egyáltalán nem tárolja a helyzetüket (egy szimpla
+munkamenetben természetesen igen). Ha az érték 1, vagy meghatározatlan, akkor
+a jelölők pozíciója eltárolódik. Így kapcsolhatod be: >
 
 	:set viminfo='1000,f1
 
-The < option controls how many lines are saved for each of the registers.  By
-default, all the lines are saved.  If 0, nothing is saved.  To avoid adding
-thousands of lines to your viminfo file (which might never get used and makes
-starting Vim slower) you use a maximum of 500 lines: >
+Az < beállító-karakter a regiszterekben tárolt sorok számát határozza meg.
+Alapértelmezettként az összes sor el van mentve. Nem szerencsés több 1000 sort
+tárolni a regiszterenként, mely lassíthatja a Vim indulását. Ha nem szeretnéd
+még csak az esélyt sem megadni az ilyen jellegű malőrökre, korlátozd le a
+beállítást (500 relevánsnak tűnhet). Ha az érték 0, a regiszterek törlődnek új
+munkamenet esetén. Beállítása: >
 
 	:set viminfo='1000,f1,<500
 <
-Other options you might want to use:
-	:	number of lines to save from the command line history
-	@	number of lines to save from the input line history
-	/	number of lines to save from the search history
-	r	removable media, for which no marks will be stored (can be
-		used several times)
-	!	global variables that start with an uppercase letter and
-		don't contain lowercase letters
-	h	disable 'hlsearch' highlighting when starting
-	%	the buffer list (only restored when starting Vim without file
-		arguments)
-	c	convert the text using 'encoding'
-	n	name used for the viminfo file (must be the last option)
+Egyéb opciók, melyek beállíthatóak:
+	:	command-line history mérete (sorok száma)
+	@	input-line history mérete (sorok száma)
+	/	keresés history mérete (sorok száma)
+	r	a nem tárolandó jelölők meghatározása
+	!	nagybetűs GLOBÁLIS_VÁLTOZÓK, melyek nem tartalmaznak kisbetűt
+	h	'hlsearch' letiltása a szerkesztő indításánál
+	%	csak a bufferlista (csak akkor olvasódik be, ha a Vimet
+	 	argumentum nélkül indítjuk.
+	c	szöveg átkódolása 'encoding'-ra
+	n	a viminfo fájl neve (az utolsóként KELL szerepeljen)
 
-See the 'viminfo' option and |viminfo-file| for more information.
+A 'viminfo' és a |viminfo-file| lapokon még többet megtudhatsz.
 
-When you run Vim multiple times, the last one exiting will store its
-information.  This may cause information that previously exiting Vims stored
-to be lost.  Each item can be remembered only once.
+Ha egyszerre több példányban fut a szerkesztő, akkor az utoljára bezárt
+példány adataival frissül a viminfo fájl. Figyeljünk az adatvesztésre, mely az
+utolsó előtti példányok bezárásánál jelentkezik (felülírás). Ezek az
+információk csak egyszer menthetők.
 
 
-GETTING BACK TO WHERE YOU STOPPED VIM
+MUNKAMENET FOLYTATÁSA
 
-You are halfway editing a file and it's time to leave for holidays.  You exit
-Vim and go enjoy yourselves, forgetting all about your work.  After a couple
-of weeks you start Vim, and type:
+Félig készen vagyunk, azonban itt az idő, hogy hosszabb szünetet tartsunk, egy
+nyaralás Thaiföldön. A kilépéssel együtt felejted el a kódolást és a Vimet pár
+hétre. Pár hét után, hazatérve az első parancsunk: >
 >
 	'0
 
-And you are right back where you left Vim.  So you can get on with your work.
-   Vim creates a mark each time you exit Vim.  The last one is '0.  The
-position that '0 pointed to is made '1.  And '1 is made to '2, and so forth.
-Mark '9 is lost.
-   The |:marks| command is useful to find out where '0 to '9 will take you.
+És pontosan ott vagy, ahol abbahagytad a munkát, így már befejezheted a
+projektet. 
+   Minden egyes kilépésedkor egy jelölő készül. Az utolsó '0. A következő pont
+   a '1, majd '2,'3,'4 stb. A '9 pont után nem található semmi, így ha egy
+munkamenet túlhaladja a '9-es pontot, akkor örökké elveszik.
+   A |:marks| paranccsal kiderítheted, hogy hová mutatnak a jelölők, nem kell
+végigpróbálgatnod az összeset.
 
 
-GETTING BACK TO SOME FILE
+VISSZATÉRÉS FÁJLOKHOZ
 
-If you want to go back to a file that you edited recently, but not when
-exiting Vim, there is a slightly more complicated way.  You can see a list of
-files by typing the command: >
+Ha a munkamenet megszakítása nélkül szeretnél visszatérni egy adott fájlhoz,
+akkor a feladat egy picit nehezebb. Az alábbi parancs kiadásával egy listát
+kapsz (a fájlt nem tudod interaktívan megnyitni, a fájlnév előtt lévő
+azonosítóval hivatkozhatsz rá, például az :edit parancs használatánál, lásd
+alább): >
 
 	:oldfiles
 <	1: ~/.viminfo ~
 	2: ~/text/resume.txt ~
 	3: /tmp/draft ~
 
-Now you would like to edit the second file, which is in the list preceded by
-"2:".  You type: >
+A 2. sorszámú fájl szerkesztéséhez a parancs az alábbi: >
 
 	:e #<2
 
-Instead of ":e" you can use any command that has a file name argument, the
-"#<2" item works in the same place as "%" (current file name) and "#"
-(alternate file name).  So you can also split the window to edit the third
-file: >
+Az ":e" parancs helyett bármely más fájlnév argumentumot kezelő parancs
+használható. A ":e #<2" az |:oldfiles| lista azonosítója, különös forma
+(hivatkozás a fájlra), érvényes, olyan, mintha például azt írtuk volna: ":e %" 
+(aktuális fájl), vagy ":e #" előző fájl.  >
 
-	:split #<3
+	:split #<2
 
-That #<123 thing is a bit complicated when you just want to edit a file.
-Fortunately there is a simpler way: >
+A #<123 rész bonyolult, ha a fájlt csak szerkeszteni szeretnéd. Szerencsére
+könnyebben is megoldható: >
 
 	:browse oldfiles
 <	1: ~/.viminfo ~
@@ -201,116 +208,117 @@ Fortunately there is a simpler way: >
 	3: /tmp/draft ~
 	-- More --
 
-You get the same list of files as with |:oldfiles|.  If you want to edit
-"resume.txt" first press "q" to stop the listing.  You will get a prompt:
+A kimenet kísértetiesen hasonlít az |:oldfiles| parancs kimenetére. Ha
+meggondoltad magad és nem szeretnéd a régi fájlt megnyitni, "q" paranccsal
+kiléphetsz. A lista alján pedig láthatod a promptot:
 
 	Type number and <Enter> (empty cancels): ~
 
-Type "2" and press <Enter> to edit the second file.
+Üss "2" és nyomj <Enter>-t a második fájl szerkesztéséhez.
 
-More info at |:oldfiles|, |v:oldfiles| and |c_#<|.
+Több információ itt: |:oldfiles|, |v:oldfiles| és |c_#<|.
 
 
-MOVE INFO FROM ONE VIM TO ANOTHER
+VIMBŐL VIMBE
 
-You can use the ":wviminfo" and ":rviminfo" commands to save and restore the
-information while still running Vim.  This is useful for exchanging register
-contents between two instances of Vim, for example.  In the first Vim do: >
+A |:wviminfo| és a |:rviminfo| parancsokkal manuális menthetjük a viminfo
+fájlt. A parancs képes két futásban lévő Vim példány közötti információ cserére
+(például regiszterek tartalmának mentése és visszaolvasása egy másik
+példányból). Például, az első Vimben: >
 
 	:wviminfo! ~/tmp/viminfo
 
-And in the second Vim do: >
+Majd a másodikban: >
 
 	:rviminfo! ~/tmp/viminfo
 
-Obviously, the "w" stands for "write" and the "r" for "read".
-   The ! character is used by ":wviminfo" to forcefully overwrite an existing
-file.  When it is omitted, and the file exists, the information is merged into
-the file.
-   The ! character used for ":rviminfo" means that all the information is
-used, this may overwrite existing information.  Without the ! only information
-that wasn't set is used.
-   These commands can also be used to store info and use it again later.  You
-could make a directory full of viminfo files, each containing info for a
-different purpose.
+Nyilvánvalóan, a "w" a mentés rövidítése (write), az "r" pedig a betöltésé
+(read). 
+   A ! karakter használatával a ":wviminfo" kényszerítetten felülírhatjuk. Ha
+elhagyjuk a "!" karaktert, akkor a tartalmat összefésüli. 
+   A ! karakter az ":rviminfo" esetében az összes információt jelenti, mely
+felülírja a régit. A "!" parancs nélkül csak azokat az információkat tölti be
+a szerkesztő, melyek a Vim példányában nem voltak beállítva.
+   Az említett két paranccsal rengeteg információt lehet tárolni és
+újrahasznosítani, egy könyvtárnyi viminfo fájlt létrehozhatunk más és más
+célokra.
 
 ==============================================================================
-*21.4*	Sessions
+*21.4*	Munkamenetek
 
-Suppose you are editing along, and it is the end of the day.  You want to quit
-work and pick up where you left off the next day.  You can do this by saving
-your editing session and restoring it the next day.
-   A Vim session contains all the information about what you are editing.
-This includes things such as the file list, window layout, global variables,
-options and other information.  (Exactly what is remembered is controlled by
-the 'sessionoptions' option, described below.)
-   The following command creates a session file: >
+Egész nap dolgoztál, lejárt a munkaidőd, jó lenne holnap ugyaninnen folytatni.
+A munkamenet elmentésével ez valóra válik. 
+   A munkamenetek az összes információt tartalmazzák melyekre szükséged van,
+fájllisták, ablak elrendezések, globális változók, opciók, egyéb információk.
+(A 'sessionoptions' beállítás tartalmazza a pontos paramétereket.)
+   Új munkamenet létrehozása:  >
 
 	:mksession vimbook.vim
 
-Later if you want to restore this session, you can use this command: >
+A visszaállításhoz pedig csak egyszerűen be kell olvasnod: >
 
 	:source vimbook.vim
 
-If you want to start Vim and restore a specific session, you can use the
-following command: >
+Ha egy bizonyos munkamenetet szeretnél visszaállítani (mert többel is
+rendelkezel), akkor: >
 
 	vim -S vimbook.vim
 
-This tells Vim to read a specific file on startup.  The 'S' stands for
-session (actually, you can source any Vim script with -S, thus it might as
-well stand for "source").
+A parancs hatására a Vim lefuttatja az argumentumként átadott fájlt (-S,
+source). Nem csak munkamenet fájlokat, lényegében bármilyen Vim szkript fájlt.
 
-The windows that were open are restored, with the same position and size as
-before.  Mappings and option values are like before.
-   What exactly is restored depends on the 'sessionoptions' option.  The
-default value is:
-"blank,buffers,curdir,folds,help,options,tabpages,winsize,terminal".
+A rendszer visszaállítja az ablakokat, ugyanolyan mérettel és elrendezéssel.
+Billentyűmappek és opciók szintén (a munkamenetben változtatott opciók, melyek
+még nincsenek kiírva a vimrc fájlokba).
+   Tekintsük át a 'sessionoptions' lehetőségeit. Az alapértelmezett érték: >
 
-	blank		keep empty windows
-	buffers		all buffers, not only the ones in a window
-	curdir		the current directory
-	folds		folds, also manually created ones
-	help		the help window
-	options		all options and mappings
-	tabpages	all tab pages
-	winsize		window sizes
-	terminal	include terminal windows
+     "blank,buffers,curdir,folds,help,options,tabpages,winsize,terminal".
+<
+	blank		üres ablakok megtartása
+	buffers		összes buffer (nem csak az ablakban lévők)
+	curdir		az aktív könyvtár
+	folds		foldok, a manuálisan létrehozottak is
+	help		help ablak
+	options		összes opció és mapping
+	tabpages	összes fül
+	winsize		ablakméretek
+	terminal	terminálablakok
 
-Change this to your liking.  To also restore the size of the Vim window, for
-example, use: >
+Szabd testre. A Következő beállítás a Vim ablak méretét is visszaállítja: >
 
 	:set sessionoptions+=resize
 
 
-SESSION HERE, SESSION THERE
+MUNKAMENET ITT, MUNKAMENET OTT
 
-The obvious way to use sessions is when working on different projects.
-Suppose you store your session files in the directory "~/.vim".  You are
-currently working on the "secret" project and have to switch to the "boring"
-project: >
+A legtriviálisabb oka a munkamenetek használatának, ha egyszerre több
+projekten is dolgozol. Tételezzük, fel, hogy munkamenet-fájljaidat a "~/.vim"
+könyvtárban tárolod. Éppen a maszek melódat (secret) végzed, miközben látod a 
+főnöködet közeledni, ezért át kell válts a "boring" projektre: >
 
 	:wall
 	:mksession! ~/.vim/secret.vim
 	:source ~/.vim/boring.vim
 
-This first uses ":wall" to write all modified files.  Then the current session
-is saved, using ":mksession!".  This overwrites the previous session.  The
-next time you load the secret session you can continue where you were at this
-point.  And finally you load the new "boring" session.
+A ":wall" parancs gondoskodik, hogy az összes módosított fájlod mentve legyen
+(write all), az aktív munkamenetet a ":mksession!" paranccsal mentjük el. A
+régi munkamenet természetesen felülíródik. Legközelebb, ha ezt a munkamenetet
+visszatöltöd, akkor ugyaninnen folytathatod. Végül betöltjük a "boring"
+munkamenetet.
 
-If you open help windows, split and close various windows, and generally mess
-up the window layout, you can go back to the last saved session: >
+Ha gyakran nyitsz új spliteket, dokumentációt, könnyű tönkretenni az ablakok
+elrendezését. A munkamenetet bármikor újra beolvashatod (a fájlok nem fognak
+változni, azokat nem érinti a munkamenet, a forrásfájlok mindig utolsó mentési
+állapota töltődik be): >
 
 	:source ~/.vim/boring.vim
 
-Thus you have complete control over whether you want to continue next time
-where you are now, by saving the current setup in a session, or keep the
-session file as a starting point.
-   Another way of using sessions is to create a window layout that you like to
-use, and save this in a session.  Then you can go back to this layout whenever
-you want.
-   For example, this is a nice layout to use:
+Ezért teljes irányítást kapsz, használhatod a munkamenetet az "innen
+folytatom" típusú munkához, de betöltőfájlként is használhatod:
+   Állítsd be az ablakaid elrendezését a neked legjobban tetszőre és készíts 
+róla egy munkamenetet. A munkamenet betöltésekor az ablakok elrendezése
+visszaállítódik.
+   Például ez álmaid elrendezése:
 
 	+----------------------------------------+
 	|		   VIM - main help file  |
@@ -328,176 +336,175 @@ you want.
 	|					 |
 	+----------------------------------------+
 
-This has a help window at the top, so that you can read this text.  The narrow
-vertical window on the left contains a file explorer.  This is a Vim plugin
-that lists the contents of a directory.  You can select files to edit there.
-More about this in the next chapter.
-   Create this from a just started Vim with: >
+Dokumentáció az ablak tetején splitben, balra a fájlböngésző (mely lehet egy
+beépülő is) a fájlok gyors eléréséhez, jobbra pedig a forrás.
+   A Vim indítását követően ezt így hozhatod létre: >
 
 	:help
 	CTRL-W w
 	:vertical split ~/
 
-You can resize the windows a bit to your liking.  Then save the session with:
+Méretezd át az ablakokat ízlésed szerint, majd ments a munkamenetet:
 >
 	:mksession ~/.vim/mine.vim
 
-Now you can start Vim with this layout: >
+
+Betöltéshez indítsd a Vimet: >
 
 	vim -S ~/.vim/mine.vim
 
-Hint: To open a file you see listed in the explorer window in the empty
-window, move the cursor to the filename and press "O".  Double clicking with
-the mouse will also do this.
+
+Vagy Vimből: >
+
+	:so mine
+
+Tipp: Fájlböngészőben található fájlok megnyitásához az "O" parancs
+használható (dupla klikk is működik).
 
 
-UNIX AND MS-WINDOWS
+UNIX ÉS  MS-WINDOWS
 
-Some people have to do work on MS-Windows systems one day and on Unix another
-day.  If you are one of them, consider adding "slash" and "unix" to
-'sessionoptions'.  The session files will then be written in a format that can
-be used on both systems.  This is the command to put in your vimrc file: >
+Az sem okoz fejfájást, ha napi szinten mindkét platformon kénytelen vagy
+dolgozni. Add hozzá a "slash" és a "unix" paramétereket a 'sessionoptions'
+opcióhoz. Így a viminfo fájl oly módon íródik ki, hogy azt mindkét rendszer
+tudja majd írni és olvasni is. Természetesen véglegesítsük vimrc fájlban:
 
 	:set sessionoptions+=unix,slash
 
-Vim will use the Unix format then, because the MS-Windows Vim can read and
-write Unix files, but Unix Vim can't read MS-Windows format session files.
-Similarly, MS-Windows Vim understands file names with / to separate names, but
-Unix Vim doesn't understand \.
+Így a Unix formátum lesz a mérvadó, hiszen az MS-Windows tudja olvasni a Unix
+formátumot, de ezt fordítva nem igaz. A fájlnevekkel hasonló a helyzet. A
+Windowsos Vim tudja értelmezni az elérési utakban található / karaktert, de a
+Unix számára ismeretlen a \ használata.
 
 
-SESSIONS AND VIMINFO
+MUNKAMENETEK ÉS VIMINFO
 
-Sessions store many things, but not the position of marks, contents of
-registers and the command line history.  You need to use the viminfo feature
-for these things.
-   In most situations you will want to use sessions separately from viminfo.
-This can be used to switch to another session, but keep the command line
-history.  And yank text into registers in one session, and paste it back in
-another session.
-   You might prefer to keep the info with the session.  You will have to do
-this yourself then.  Example: >
-
+A munkamenetek számos paraméter mellett viszont a jelölők helyzetét, a
+regiszterek tartalmát ás a command-line historyt nem tárolják. Ezek
+kivételével a viminfo fájlra vagyunk kénytelenek támaszkodni.
+   A legtöbb esetben a munkameneteket és viminfót szeparáltan kell
+használnunk. Így munkamenetek váltásánál a keresési és command-line historyn
+nem cserélődik le. A regiszterek tartalma nem íródik felül a viminfo által. 
+   Ha ellentétes véleményen vagy, akkor ezt magadnak kell elvégezni. Például:
+   >
 	:mksession! ~/.vim/secret.vim
 	:wviminfo! ~/.vim/secret.viminfo
 
-And to restore this again: >
+Visszaállítása pedig: >
 
 	:source ~/.vim/secret.vim
 	:rviminfo! ~/.vim/secret.viminfo
 
 ==============================================================================
-*21.5*	Views
+*21.5*	Nézetek
 
-A session stores the looks of the whole of Vim.  When you want to store the
-properties for one window only, use a view.
-   The use of a view is for when you want to edit a file in a specific way.
-For example, you have line numbers enabled with the 'number' option and
-defined a few folds.  Just like with sessions, you can remember this view on
-the file and restore it later.  Actually, when you store a session, it stores
-the view of each window.
-   There are two basic ways to use views.  The first is to let Vim pick a name
-for the view file.  You can restore the view when you later edit the same
-file.  To store the view for the current window: >
+A munkamenetek a Vim ablakot, mint egészet definiálják. Ha csak egyetlen egy
+ablak tulajdonságait kell megváltoztatod, akkor használt nézeteket.
+   A nézetek akkor tesznek jó szolgálatot, ha a fájlt specifikus módon
+szeretnénk szerkeszteni. Például, sorok számának megjelenítése a 'number'
+opcióval, valamint néhány foldot létrehoztunk és bezártunk, de meg szeretnénk
+tartani őket.  A munkamenetekhez hasonlóan ezt ablakszinten is meg lehet
+tenni, elmenthetjük a jelenlegi állapotot, melyet később visszaállíthatunk. A
+session tulajdonképpen az összes ablak nézetét tárolja.
+   Két módon használhatjuk a nézeteket. Az első módszer szerint a Vim maga
+dönt a nézet nevéről. Ezt a típusú nézetet a fájl megnyitásakor automatikusan
+betöltheted. Az aktív ablak nézetének tárolása: >
 
 	:mkview
 
-Vim will decide where to store the view.  When you later edit the same file
-you get the view back with this command: >
-
+A Vim gondoskodik a fájl helyéről. Később, ha vissza kell töltened a nézetet:
+>
 	:loadview
 
-That's easy, isn't it?
-   Now you want to view the file without the 'number' option on, or with all
-folds open, you can set the options to make the window look that way.  Then
-store this view with: >
+Könnyű, ugye?
+   Most egy olyan nézetet szeretnél, ahol a sorszámok ('number') ki vannak
+kapcsolva, az összes fold nyitva van. Hozd létre a kívánt nézetet és mentsd el
+így: >
 
 	:mkview 1
 
-Obviously, you can get this back with: >
+Természetesen így kapid vissza: >
 
 	:loadview 1
 
-Now you can switch between the two views on the file by using ":loadview" with
-and without the "1" argument.
-   You can store up to ten views for the same file this way, one unnumbered
-and nine numbered 1 to 9.
+A két fájl nézete között most a ":loadview" parancs meghívásával argumentum
+nélkül, illetve ":loadview 1"-el való meghívásával válthatunk.
+   Egy fájlnévhez 10 nézet párosítható, egy névtelen és kilenc paraméterezett
+1 - 9.
 
+NÉVVEL ELLÁTOTT NÉZETEK
 
-A VIEW WITH A NAME
-
-The second basic way to use views is by storing the view in a file with a name
-you choose.  This view can be loaded while editing another file.  Vim will
-then switch to editing the file specified in the view.  Thus you can use this
-to quickly switch to editing another file, with all its options set as you
-saved them.
-   For example, to save the view of the current file: >
+Nézetek második tárolási módja, ha a nézetet egy tetszőleges névvel ellátott
+fájlba mentjük el. A nézetet szerkesztés közben betölthetjük, így a nézet
+lecserélődik. Kiváló módszer a gyors nézetváltásra. 
+   Példa a nézet létrehozására: >
 
 	:mkview ~/.vim/main.vim
 
-You can restore it with: >
+És visszatöltésére: >
 
 	:source ~/.vim/main.vim
 
 ==============================================================================
-*21.6*	Modelines
+*21.6*	Módsorok
 
-When editing a specific file, you might set options specifically for that
-file.  Typing these commands each time is boring.  Using a session or view for
-editing a file doesn't work when sharing the file between several people.
-   The solution for this situation is adding a modeline to the file.  This is
-a line of text that tells Vim the values of options, to be used in this file
-only.
-   A typical example is a C program where you make indents by a multiple of 4
-spaces.  This requires setting the 'shiftwidth' option to 4.  This modeline
-will do that:
+Lehetőség van a beállításokat meghatározni fájlszinten. Minden egyes
+alkalommal értékes időt veszíthetünk, ha mindent újra be kell gépelnünk. A
+munkamenetek és nézetek nem működnek, ha a fájllal több felhasználó is
+dolgozik. 
+Hogy mindenkinél egységes jelen a megjelenés, módsorokat kell  
+alkalmaznunk.  Ez voltaképpen csak egyetlen egy sor a fájlban, mely alapján a
+Vim konfigurálja az adott fájl megjelenítését.
+   Tipikus példa C programok esetében a behúzások alkalmazása, melyek mérete a 4
+többszöröseivel felelhet meg. Ehhez be kell állítanunk a 'shiftwidth' opciót
+4-re. Az alábbi módsor ugyanezt teszi:
 
 	/* vim:set shiftwidth=4: */ ~
 
-Put this line as one of the first or last five lines in the file.  When
-editing the file, you will notice that 'shiftwidth' will have been set to
-four.  When editing another file, it's set back to the default value of eight.
-   For some files the modeline fits well in the header, thus it can be put at
-the top of the file.  For text files and other files where the modeline gets
-in the way of the normal contents, put it at the end of the file.
+Másold be a sort a fájlod első, vagy utolsó 5 sorába. Ha ezek után újra
+megnyitod a fájlt, látni fogod a shiftwidth hatását. Más fájl szerkesztésénél
+a szerkesztőben beállított értékek szerint történik a szerkesztés
+(alapértelmezett érték 8).
+   Egyes fájlokban nem jelent problémát a módsor fájl eleji használata, ha
+útban van, akkor nyugodtan tedd a fájl végére.
 
-The 'modelines' option specifies how many lines at the start and end of the
-file are inspected for containing a modeline.  To inspect ten lines: >
+A 'modelines' opció meghatározza, hogy mennyi soron keresztül keresse a Vim a
+módsort. Ha tíz soron keresztül szeretnéd értelmezni, akkor módosítsd az
+alapértelmezett beállítást: >
 
 	:set modelines=10
 
-The 'modeline' option can be used to switch this off.  Do this when you are
-working as root on Unix or Administrator on MS-Windows, or when you don't
-trust the files you are editing: >
+A 'modeline' opciót ki tudjuk kapcsolni. Tedd ezt, ha rootként dolgozol Unix
+rendszeren, vagy adminisztrátori jogosultságokkal kell futtatni valamit
+Windowson, illetve ha szimplán nem bízol a fájl eredetében: >
 
 	:set nomodeline
 
-Use this format for the modeline:
+A módsor általános alakja:
 
 	any-text vim:set {option}={value} ... : any-text ~
 
-The "any-text" indicates that you can put any text before and after the part
-that Vim will use.  This allows making it look like a comment, like what was
-done above with /* and */.
-   The " vim:" part is what makes Vim recognize this line.  There must be
-white space before "vim", or "vim" must be at the start of the line.  Thus
-using something like "gvim:" will not work.
-   The part between the colons is a ":set" command.  It works the same way as
-typing the ":set" command, except that you need to insert a backslash before a
-colon (otherwise it would be seen as the end of the modeline).
+Az "any-text" azt jelenti, hogy oda bármilyen tartalmat elhelyezhetsz, nem
+lesz hatása a módsorra. Ezzel a trükkel kommentként is feltüntethetjük a
+fájljainkban, /* */.
+   A " vim:" szövegrészlet az, ami miatt a Vim felismeri a módsor
+definícióját (a szóközre figyeljünk). Kivétel, ha a "vim" szó a sor legelején 
+található, ebben az esetben elhagyható a szóköz. 
+   A ":" karakterek az opciók között a ":set" parancsot reprezentálják,
+egyenértékű azzal, mintha a szerkesztőbe gépeltük volna, hogy ":set".
 
-Another example:
+Második példa:
 
 	// vim:set textwidth=72 dir=c\:\tmp:  use c:\tmp here ~
 
-There is an extra backslash before the first colon, so that it's included in
-the ":set" command.  The text after the second colon is ignored, thus a remark
-can be placed there.
+Egy extra backslash található második ":" után (dir=c\:\tmp), ez az átadott
+dir paraméter része, ezért ki kell escapelnünk (ellenkező esetben az opció
+végét jelentené).
 
-For more details see |modeline|.
+Még több információ: |modeline|.
 
 ==============================================================================
 
-Következő fejezet: |usr_22.txt|  Finding the file to edit
+Következő fejezet: |usr_22.txt|  Fájlok keresése
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

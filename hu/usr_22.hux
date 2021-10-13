@@ -1,26 +1,25 @@
 *usr_22.txt*	For Vim version 8.2.  Last change: 2020 Mar 28
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			   Finding the file to edit
+			       Fájlok keresése
 
 
-Files can be found everywhere.  So how do you find them?  Vim offers various
-ways to browse the directory tree.  There are commands to jump to a file that
-is mentioned in another.  And Vim remembers which files have been edited
-before.
+A fájlok mindenhol ott vannak. Szóval hogyan találjuk őket meg? A
+könyvtárszerkezet böngészésére több módszer is létezik. Akár közvetlenül
+fájlból fájlba, szimplán fájlnév alapján, a előzményeket pedig bízd a Vimre.
 
-|22.1|	The file browser
-|22.2|	The current directory
-|22.3|	Finding a file
-|22.4|	The buffer list
+|22.1|	A fájlböngésző
+|22.2|	Aktív könyvtár
+|22.3|	Fájlok keresése
+|22.4|	A bufferlista
 
-     Következő fejezet: |usr_23.txt|  Editing other files
- Előző fejezet: |usr_21.txt|  Go away and come back
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_23.txt|  Egyéb fájlok szerkesztése
+    Előző fejezet: |usr_21.txt|  Visszatérés adott pontra
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*22.1*	The file browser
+*22.1*	A fájlböngésző
 
 Vim has a plugin that makes it possible to edit a directory.  Try this: >
 
