@@ -11,7 +11,7 @@
 		    elvész.
 
    Tárgyhoz ugrás:  Állítsd rá a kurzort egy tárgyra (például |bars|) és üss
-		    CTRL-] (angol kiosztáson).
+		    CTRL-] (angol kiosztáson vagy egérrel).
 
 	  Egérrel:  Engedélyezd az egeret a következő paranccsal: ":set mouse=a"
 		    (xtermben, vagy GUIban), majd dupla klikkelj a kiemelt
@@ -245,7 +245,7 @@ HELYI KIEGÉSZÍTÉS				*local-additions*
 ------------------------------------------------------------------------------
 *bars*		Bars example
 
-Gratulálok, sikerült idetalálnod a CTRL-] (CTRL-ú) vagy dupla egérklikk
+Gratulálok, sikerült idetalálnod a CTRL-] vagy dupla egérklikk
 segítségével. Vissza tudsz lépni az előző pontra a CTRL-T,CTRL-O, g<RightMouse>
 vagy <C-RightMouse> segítségével.
 
@@ -253,7 +253,7 @@ Megjegyzés: a tageket | karakterek határolják, viszont, ha a kiemelés
 engedélyezve van, akkor ezeket nem lehet látni. Így egyszerűbb olvasni a
 dokumentációt.
 
-Egyébként, a CTRL-] (CTRL-ú) bármikor használhatod, nem csak a kiemelt szavakon,
+Egyébként, a CTRL-] bármikor használhatod, nem csak a kiemelt szavakon,
 ha tartozik a szóhoz helpfájl, a Vim megnyitja.
 
 ------------------------------------------------------------------------------
