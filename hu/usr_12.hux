@@ -128,8 +128,8 @@ tagolva. A "from" az alábbi mintát tartalmazza:
 A "to" részben a "\2" és "\1" karaktereket láthatjuk. Ezeket hivatkozásoknak
 hívjuk. Arra a szövegrészletre hivatkozik, melyet az első "\( \)"-ra
 illeszkedett. "\2" pedig a második "\( \)" által illeszkedett szövegre
-hivatkozik.  Azaz, ha John Doet vesszük alapul, akkor "\1" a Johnra "\2" pedig
-Doera hivatkozik. A helyettesítésben jól látható, hogy a hivatkozások meg
+hivatkozik.  Azaz, ha John Doet vesszük alapul, akkor "\1" a Doe,-ra "\2" pedig
+Johnra hivatkozik. A helyettesítésben jól látható, hogy a hivatkozások meg
 vannak fordítva "\2 \1". Escapelés nélkül a kifejezés így nézne ki: > 
 
 

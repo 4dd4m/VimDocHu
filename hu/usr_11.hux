@@ -12,7 +12,7 @@ szerezheted vissza a lehető legtöbbet az elvesztett munkádból, valamint, hog
 hol találod a swapfájlt.
 
 |11.1|	Alapvető helyreállítás
-|11.2|	Hol val a swapfájl?
+|11.2|	Hol van a swapfájl?
 |11.3|	Összeomlott vagy sem?
 |11.4|	További irodalom
 
@@ -67,13 +67,13 @@ figyelmeztető üzenetet kapod:
 	You may want to delete the .swp file now. ~
 
 Ez általában akkor fordul elő, ha már helyreállítottad egyszer a fájlt, vagy
-ha legutolsó mentés után már nem változtattál a fájlon. Nyugodt szívvel
+ha a legutolsó mentés után már nem változtattál a fájlon. Nyugodt szívvel
 törölheted a swapfájlt.
 
 Normális jelenség, ha a fájl nagy része helyreállítódott, kivéve egy két apró
 változást. A Vim rögzíti a munkát (flush) a merevlemezre (nem magára a
 szerkesztett fájlra ír) körülbelül négy másodpercenként, ha nem írsz semmit,
-vagy körülbelül 200 leütés után. A két említett beállításért egyébként az
+akkor körülbelül 200 leütésenként. A két említett beállításért egyébként az
 'updatetime' és a 'updatecount' felel. Így, ha a Vimnek nem volt esélye a
 flushel menteni a munkánkat, akkor csak a legutolsó flush és az összeomlás
 között szerkesztésink vesznek el.
@@ -136,7 +136,7 @@ a *.s[uvw][a-z] mintát swapfájlként.
 
 Ha ez sem működik, akkor nézd meg, hogy milyen fájlokat jelentett a Vim és
 nevezd át őket értelemszerűen. Pillants bele a 'directory' változóba, mert
-lehet teljesen más helyre val elmentve, mint ahogy azt gondoltad.
+lehet teljesen más helyre van elmentve, mint ahogy azt gondoltad.
 
 	Megjegyzés:
 	Nézd végig a 'dir' opcióban leírt elérési utakat. Keress valami
@@ -149,7 +149,7 @@ lehet teljesen más helyre val elmentve, mint ahogy azt gondoltad.
 *11.3*	Összeomlott vagy sem?					*ATTENTION* *E325*
 
 A szerkesztő próbál megmenteni a butaságoktól. Tegyük fel, hogy ártalmatlanul
-megnyitsz egy fájl megkezdve a szerkesztést és a fájl tartalmát várod amit
+megnyitsz egy fájl, megkezdve a szerkesztést és a fájl tartalmát várod ami
 helyett egy elég hosszú hibaüzenetet kapsz:
 
 		E325: ATTENTION ~
