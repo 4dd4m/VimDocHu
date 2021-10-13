@@ -21,12 +21,12 @@ Következő fejezet: |usr_23.txt|  Egyéb fájlok szerkesztése
 ==============================================================================
 *22.1*	A fájlböngésző
 
-Vim has a plugin that makes it possible to edit a directory.  Try this: >
+A Vimben van beépített fájlböngésző. Próbáld ki: >
 
 	:edit .
 
-Through the magic of autocommands and Vim scripts, the window will be filled
-with the contents of the directory.  It looks like this:
+Vim szkriptek és autocommandok sokasága stabilan végzi a munkáját, egy
+csapással a fájlkezelőben találhatjuk magunkat. Így néz ki:
 
 " ============================================================================ ~
 " Netrw Directory Listing                                        (netrw v109) ~
@@ -44,132 +44,132 @@ eval.txt~ ~
 filetype.txt~ ~
 help.txt.info ~
 
-You can see these items:
+Az ábrán látható elemek:
 
-1.  The name of the browsing tool and its version number
-2.  The name of the browsing directory
-3.  The method of sorting (may be by name, time, or size)
-4.  How names are to be sorted (directories first, then *.h files,
-    *.c files, etc)
-5.  How to get help (use the <F1> key), and an abbreviated listing
-    of available commands
-6.  A listing of files, including "../", which allows one to list
-    the parent directory.
+    1.  A fájlböngésző neve, verziószáma
+    2.  A könyvtár neve
+    3.  A rendezés metódusa (név, idő, méret)
+    4.  Nevek rendezése (könyvtárak előre, majd *.h fájlok,
+	*.c fájlok, stb.)
+    5.  Kézikönyv (<F1> billentyű), és egy rövidített lista az
+	elérhető parancsokról
+    6.  A fájlok listája, beleértve "../", mely egy könyvtárral
+	feljebb vált
 
-If you have syntax highlighting enabled, the different parts are highlighted
-so as to make it easier to spot them.
+Ha a szintaxis kiemelés engedélyezve van, akkor a részek szépen elkülönülnek
+egymástól.
 
-You can use Normal mode Vim commands to move around in the text.  For example,
-move the cursor atop a file and press <Enter>; you will then be editing that
-file.  To go back to the browser use ":edit ." again, or use ":Explore".
-CTRL-O also works.
+A listát a Normal módú parancsokkal járhatod be. Például, vidd a kurzort a
+legfelső fájlra és üss <Enter>-t; és már szerkeszted is  a fájlt. A böngészőt
+az ":edit ." paranccsal újból visszahozhatod (vagy az :Explore paranccsal,
+esetleg CTRL-O). A művelet a szerkesztett fájlt az előző fájlként fogja 
+kezelni, melynek megnyitása CTRL-^. 
 
-Try using <Enter> while the cursor is atop a directory name.  The result is
-that the file browser moves into that directory and displays the items found
-there.  Pressing <Enter> on the first directory "../" moves you one level
-higher.  Pressing "-" does the same thing, without the need to move to the
-"../" item first.
+Próbálj megnyitni egy könyvtárat az <Enter> billentyűvel. A fájlböngésző
+megnyitja a kijelölt könyvtárat és listázza a tartalmát. Ha a legeslegfelső
+"../" soron ütjük az <Enter> billentyűt, akkor visszaléphetünk a szülő
+könyvtárba (azaz egy szinttel feljebb). A "-" ugyanezt a funkciót látja el,
+anélkül, hogy a lista tetejére kellene navigálnunk.
 
-You can press <F1> to get help on the things you can do in the netrw file
-browser.  This is what you get: >
+Most üss <F1> billentyűt a kézikönyvhöz, hogy lásd, mire képes a netrw
+beépülő. Ezt kell látnod:
+ >
+  
 
-    9. Directory Browsing	 netrw-browse   netrw-dir   netrw-list   netrw-help
+9. Fájlböngésző	 netrw-browse   netrw-dir   netrw-list   netrw-help
 
-    MAPS								 netrw-maps
-     	 <F1>.............Help.......................................|netrw-help|
-     	 <cr>.............Browsing...................................|netrw-cr|
-     	 <del>............Deleting Files or Directories..............|netrw-delete|
-     	 -................Going Up...................................|netrw--|
-     	 a................Hiding Files or Directories................|netrw-a|
-     	 mb...............Bookmarking a Directory....................|netrw-mb|
-     	 gb...............Changing to a Bookmarked Directory.........|netrw-gb|
-     	 cd...............Make Browsing Directory The Current Dir....|netrw-c|
-     	 d................Make A New Directory.......................|netrw-d|
-     	 D................Deleting Files or Directories..............|netrw-D|
-     	 <c-h>............Edit File/Directory Hiding List............|netrw-ctrl-h|
-     	 i................Change Listing Style.......................|netrw-i|
-     	 <c-l>............Refreshing the Listing.....................|netrw-ctrl-l|
-     	 o................Browsing with a Horizontal Split...........|netrw-o|
-     	 p................Use Preview Window.........................|netrw-p|
-     	 P................Edit in Previous Window....................|netrw-p|
-     	 q................Listing Bookmarks and History..............|netrw-qb|
-     	 r................Reversing Sorting Order....................|netrw-r|
-<    	(etc)
+MAPPEK								netrw-maps
+     <F1>........Segítség.......................................|netrw-help|
+     <cr>........Böngészés......................................|netrw-cr|
+     <del>.......Fájlok és könyvtárak törlése...................|netrw-delete|
+     -...........Váltás fel.....................................|netrw--|
+     a...........Fájlok és könyvtárak elrejtése.................|netrw-a|
+     mb..........Könyvtárak könyvjelzőzése......................|netrw-mb|
+     gb..........Könyvjelzőhöz lépés............................|netrw-gb|
+     cd..........Könyvtár aktív könyvtárként....................|netrw-c|
+     d...........Új könyvtár létrehozása........................|netrw-d|
+     D...........Fájlok és könyvtárak törlése...................|netrw-D|
+     <c-h>.......Fájlok és könyvtárak elrejtésének módja........|netrw-ctrl-h|
+     i...........Megjelenítési mód váltása......................|netrw-i|
+     <c-l>.......Lista frissítése...............................|netrw-ctrl-l|
+     o...........Böngészés horizontális splitben................|netrw-o|
+     p...........A Betekintési ablak............................|netrw-p|
+     P...........Szerkesztés az előző ablakban..................|netrw-p|
+     q...........Könyvjelzők és history listázása...............|netrw-qb|
+     r...........Fordított sorrend..............................|netrw-r|
+    	(stb)
 
-The <F1> key thus brings you to a netrw directory browsing contents help page.
-It's a regular help page; use the usual |CTRL-]| to jump to tagged help items
-and |CTRL-O| to jump back.
+Az <F1> billentyű listázza a beépülő dokumentációját, mely a megszokott help
+fájlok formáját követi. |CTRL-]| billentyűvel ugorhatunk a jelölt elemekre,
+|CTRL-O|-val pedig vissza.
 
-To select files for display and editing: (with the cursor is atop a filename)
+Fájlok szerkesztése, vagy megjelenítése: (kurzor az adott fájlnéven)
 
-	<enter>		Open the file in the current window.	   |netrw-cr|
-	o		Horizontally split window and display file |netrw-o|
-	v		Vertically split window and display file   |netrw-v|
-	p		Use the |preview-window| 		   |netrw-p|
-	P		Edit in the previous window		   |netrw-P|
-	t		Open file in a new tab			   |netrw-t|
+	  <Enter>	Fájl megnyitása (aktív ablakban)	   |netrw-cr|
+	    o		Szerkesztés horizontális splitben	   |netrw-o|
+	    v		Szerkesztés vertikális splitben		   |netrw-v|
+	    p		Betekintés a fájlba (|preview-window|)	   |netrw-p|
+	    P		Szerkesztés az előző ablakban		   |netrw-P|
+	    t		Fájl megnyitása új fülön		   |netrw-t|
 
-The following normal-mode commands may be used to control the browser display:
+Az alábbi Normal módú parancsokkal az ablak megjelenítési beállításit
+változtathatjuk meg:
 
-	i		Controls listing style (thin, long, wide, and tree).
-			The long listing includes size and date information.
-	s		Repeatedly pressing s will change the way the files
-			are sorted; one may sort on name, modification time,
-			or size.
-	r		Reverse the sorting order.
+	i		A lista stílusa (vékony, hosszú, széles és fa)
+			A hosszú tartalmazza a méretet és a dátumot
+	s		Rendezés megváltoztatása (név, módosítás, méret)
+	r		Fordított sorrend
 
-As a sampling of extra normal-mode commands:
+Még több Normal módú parancs:
 
-	cd		Change Vim's notion of the current directory to be
-			the same as the browser directory.  (see
-			|g:netrw_keepdir| to control this, too)
-	R		Rename the file or directory under the cursor; a
-			prompt will be issued for the new name.
-	D		Delete the file or directory under the cursor; a
-			confirmation request will be issued.
-	mb gb		Make bookmark/goto bookmark
+	cd		A Vim aktív könyvtárának megváltoztatása (a
+			fájlböngésző aktuális elérési útjára). A
+			|g:netrw_keepdir| befolyással lehet a működésre.
+	R		Fájl átnevezése
+	D		Könyvtár vagy fájl törlése (megerősítő üzenettel)
+	mb gb		mb: könyvjelző létrehozás, gb: könyvjelzőhöz ugrás
 
 
-One may also use command mode; again, just a sampling:
+Egyéb normál módú parancsok:
 
-	:Explore [directory]	Browse specified/current directory
-	:NetrwSettings		A comprehensive list of your current netrw
-				settings with help linkage.
-
-The netrw browser is not limited to just your local machine; one may use
-urls such as:    (that trailing / is important)
+	:Explore [directory]	[directory] Könyvtár listázása
+	:NetrwSettings		Egy teljes lista a Netrwt érintő beállításokról,
+				a vonatkozó dokumentáció linkjeivel
+				
+A netrwt nem csak a helyi fájlok szerkesztéséhez használhatod; távoli címek
+kezelésére is képes:	(a cím végén lévő / karakter fontos)
 
 	:Explore ftp://somehost/path/to/dir/
 	:e scp://somehost/path/to/dir/
 
-See |netrw-browse| for more.
+Lásd: |netrw-browse|.
 
 ==============================================================================
-*22.2*	The current directory
+*22.2*	Az aktív könyvtár
 
-Just like the shell, Vim has the concept of a current directory.  Suppose you
-are in your home directory and want to edit several files in a directory
-"VeryLongFileName".  You could do: >
+Mint azt a shell esetén már megszokhattuk, a Vimben is létezik az aktív
+könyvtár fogalma.  Tegyük fel, hogy a könyvtáradban vagy szerkesztened kell
+"VeryLongFileName" könyvtárban bizonyos fájlokat. Csinálhatod így:
 
 	:edit VeryLongFileName/file1.txt
 	:edit VeryLongFileName/file2.txt
 	:edit VeryLongFileName/file3.txt
 
-To avoid much of the typing, do this: >
+Ha nem szeretnél sokat gépelni, akkor viszont így: >
 
-	:cd VeryLongFileName
-	:edit file1.txt
+	:cd VeryLongFileName	 vagy	    :Very<Tab><Enter>
+	:edit file1.txt			    :argadd file*<Tab><Enter>
 	:edit file2.txt
 	:edit file3.txt
 
-The ":cd" command changes the current directory.  You can see what the current
-directory is with the ":pwd" command: >
+A ":cd" parancs átváltja az aktív könyvtárat, melyről meggyőződhetsz az
+alábbiképpen: >
 
 	:pwd
 	/home/Bram/VeryLongFileName
 
-Vim remembers the last directory that you used.  Use "cd -" to go back to it.
-Example: >
+A Vim tudja, hogy honnan érkeztél, ezért bármikor kiadhatod a "cd -"
+parancsot, amely egy könyvtárral feljebb fog váltani. Például: >
 
 	:pwd
 	/home/Bram/VeryLongFileName
@@ -184,12 +184,12 @@ Example: >
 	/etc
 
 
-WINDOW LOCAL DIRECTORY
+AZ ABLAK LOKÁLIS KÖNYVTÁRA
 
-When you split a window, both windows use the same current directory.  When
-you want to edit a number of files somewhere else in the new window, you can
-make it use a different directory, without changing the current directory in
-the other window.  This is called a local directory. >
+Splitelés után mindkét ablak ugyanarra a könyvtárra fog mutatni. Lokális
+könyvtárra kell váltanod (mely csak az adott ablakra vonatkozik), ha egy másik
+könyvtárban szeretnél fájlokat szerkeszteni anélkül, hogy az inaktív
+ablakaidnak az aktív könyvtára megváltozzon. >
 
 	:pwd
 	/home/Bram/VeryLongFileName
@@ -201,79 +201,77 @@ the other window.  This is called a local directory. >
 	:pwd
 	/home/Bram/VeryLongFileName
 
-So long as no `:lcd` command has been used, all windows share the same current
-directory.  Doing a `:cd` command in one window will also change the current
-directory of the other window.
-   For a window where `:lcd` has been used a different current directory is
-remembered.  Using `:cd` or `:lcd` in other windows will not change it.
-   When using a `:cd` command in a window that uses a different current
-directory, it will go back to using the shared directory.
+Amíg az `:lcd` parancsot használod, a többi ablak könyvtára nem fog
+megváltozni, ha bármelyik ablakban kiadod a `:cd` parancsot, az hatással
+lesz az összes ablakra (kivéve azokat az ablakokat, melyekben kiadtuk az `:lcd`
+parancsot.
+   Ha abban az ablakban, amely előzőleg rendelkezett lokális könyvtárral,
+kiadjuk a `:cd` parancsot, akkor az aktív könyvtár átvált globálisra, és frissíti
+a többi ablak könyvtárát is
 
 
-TAB LOCAL DIRECTORY
+FÜLEK LOKÁLIS KÖNYVTÁRA
 
-When you open a new tab page, it uses the directory of the window in the
-previous tab page from which the new tab page was opened. You can change the
-directory of the current tab page using the `:tcd` command. All the windows in
-a tab page share this directory except for windows with a window-local
-directory. Any new windows opened in this tab page will use this directory as
-the current working directory. Using a `:cd` command in a tab page will not
-change the working directory of tab pages which have a tab local directory.
-When the global working directory is changed using the `:cd` command in a tab
-page, it will also change the current tab page working directory.
-
+Ha új fület nyitsz, akkor az aktív könyvár öröklődik a szülő ablaktól. A fülek
+lokális könyvtárát a `:tcd` paranccsal határozhatjuk meg. Az adott fül alatt
+elhelyezkedő ablakok öröklik a fül könyvtárát, kivéve azokat az ablakokat,
+melyek már rendelkeznek lokális könyvtárral. Az újonnan nyíló ablakok
+természetesen a fül könyvtárát öröklik. A füleken végzett `:cd` parancs nem
+hajt végre könyvtárváltást azokon a füleken, melyek már rendelkeznek `:tcd`
+könyvtárral. Ha a fül globális munkakönyvtárát megváltoztatjuk a `:cd` paranccsal, 
+az hatással lesz az összes fülre.
 
 ==============================================================================
-*22.3*	Finding a file
+*22.3*	Fájlok keresése
 
-You are editing a C program that contains this line:
+Egy C program forráskódját szerkeszted:
 
 	#include "inits.h" ~
 
-You want to see what is in that "inits.h" file.  Move the cursor on the name
-of the file and type: >
+Szeretnéd látni, hogy mi van az "inits.h" fájlban. Vidd rá a kurzort és
+gépelj: >
 
 	gf
 
-Vim will find the file and edit it.
-   What if the file is not in the current directory?  Vim will use the 'path'
-option to find the file.  This option is a list of directory names where to
-look for your file.
-   Suppose you have your include files located in "c:/prog/include".  This
-command will add it to the 'path' option: >
+A Vim megkeresi a fájlt, és megnyitja.
+   Mi történik akkor, ha a fájl nem az aktív könyvtár része? Ebben az esetben
+a 'path' opció bevonásával történik a keresés. Az opció számos könyvtárat
+tartalmaz, melyben a Vim keres.
+   Tegyük fel, hogy a beágyazott fájl itt található "c:/prog/include/". Ezt a
+könyvtárat hozzá kell adnunk a 'path'-hoz: >
 
 	:set path+=c:/prog/include
 
-This directory is an absolute path.  No matter where you are, it will be the
-same place.  What if you have located files in a subdirectory, below where the
-file is?  Then you can specify a relative path name.  This starts with a dot:
+A könyvtár abszolút. Nem számít, hogy éppen hol vagy, ugyanarra mutat. Lehet
+egy olyan fájlt beágyazni, mely a c:/prog/include/ alkönyvtáraiban van? Ebben
+az esetben relatív elérést kell megadnunk, mely "." karakterrel kezdődik:
 >
 	:set path+=./proto
 
-This tells Vim to look in the directory "proto", below the directory where the
-file in which you use "gf" is.  Thus using "gf" on "inits.h" will make Vim
-look for "proto/inits.h", starting in the directory of the file.
-   Without the "./", thus "proto", Vim would look in the "proto" directory
-below the current directory.  And the current directory might not be where the
-file that you are editing is located.
+Ez arra utasítja a Vimet, hogy keressen a "proto" könyvtárban, annak a
+könyvtárnak az alkönyvtáraiban, ahol a "gf" parancs megtalálta a fájlt. Ezért
+a "gf" parancs az "inits.h" fájlon keresést végez a "proto/inits.h" elérési
+úttal és a include könyvtárban is.
+   A "./" nélkül a Vim kizárólag csak a "proto" könyvtárban keresne. És fájl
+nem biztos, hogy az aktív könyvtár részét képezi.
 
-The 'path' option allows specifying the directories where to search for files
-in many more ways.  See the help on the 'path' option.
-   The 'isfname' option is used to decide which characters are included in the
-file name, and which ones are not (e.g., the " character in the example
-above).
 
-When you know the file name, but it's not to be found in the file, you can
-type it: >
+
+A 'path' opcióval hozzáadhatjuk a kereséshez tartozó elérési utakat. Nézd meg
+a 'path' opció dokumentációját. 
+   Az 'isfname' opció segítségével határozzuk meg, hogy mely karaktereket
+tekintjük a fájlnév részének (például a feljebb említett " karakter).
+
+Ha tudod a fájl nevét, de nem találod sehol, akkor keresd meg ezzel a
+paranccsal: >
 
 	:find inits.h
 
-Vim will then use the 'path' option to try and locate the file.  This is the
-same as the ":edit" command, except for the use of 'path'.
+A 'path' opcióban található elérési utakon elkezdődik a keresés. Ha van
+találat, akkor ugyan az, mintha az ":edit" parancsot hívtuk volna meg. 
 
-To open the found file in a new window use CTRL-W f instead of "gf", or use
-":sfind" instead of ":find".
-
+A fájlt új ablakban a CTRL-W f paranccsal nyithatod meg (a "gf" helyett), vagy
+használd az ":sfind" (split find) parancsot a ":find" helyett:
 
 A nice way to directly start Vim to edit a file somewhere in the 'path': >
 
