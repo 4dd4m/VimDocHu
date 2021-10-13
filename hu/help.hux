@@ -11,7 +11,7 @@
 		    elvész.
 
    Tárgyhoz ugrás:  Állítsd rá a kurzort egy tárgyra (például |bars|) és üss
-		    CTRL-] (magyar kiosztáson CTRL-ú).
+		    CTRL-] (angol kiosztáson).
 
 	  Egérrel:  Engedélyezd az egeret a következő paranccsal: ":set mouse=a"
 		    (xtermben, vagy GUIban), majd dupla klikkelj a kiemelt
@@ -33,7 +33,8 @@ Specifikus segítség:	Ha tudod, hogy konkrétan mire szeretnél rákeresni,
 		      Vim argument		  -	   :help -r
 		      Opció			  '	   :help 'textwidth'
 		      Reguláris Kifejezés	  /	   :help /[
-		    A kontextusokról többet megtudhatsz itt:  |help-summary|
+
+		      A kontextusokról többet megtudhatsz itt:  |help-summary|
 
 Keresés a manuálban:  Gépeld be a ":help word", majd üss CTRL-D-t, így
 		      láthatod, hogy milyen oldalak érhetők el "word" címszó
