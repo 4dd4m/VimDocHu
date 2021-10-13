@@ -5,10 +5,12 @@
 ## Állapot
 * A fordítás jelenleg usr_01.hux - usr_21.hux-ig kész (+- pár mondat)
 * Folyamatban: usr_22.hux
+* A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
+  azonban pontosításra szorul
 
 
 Folyamat:
- [####################-------------------------------------------------------]
+ [#############################----------------------------------------------]
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal az alábbi mappákban
