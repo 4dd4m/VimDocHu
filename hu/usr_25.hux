@@ -1,53 +1,56 @@
 *usr_25.txt*	For Vim version 8.2.  Last change: 2016 Mar 28
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			     Editing formatted text
+		       Formázott szövegek szerkesztése
 
 
-Text hardly ever comes in one sentence per line.  This chapter is about
-breaking sentences to make them fit on a page and other formatting.
-Vim also has useful features for editing single-line paragraphs and tables.
+A szövegek nem csak mondatonként érkeznek. A fejezet arról szól, hogy hogyan
+igazítsuk mondatainkat egy adott tartományhoz, illetve egyéb formázási
+szerkesztéseket tárgyal. Bemutatja a Vim egysoros bekezdések és táblázatok
+formázási lehetőségeit.
 
-|25.1|	Breaking lines
-|25.2|	Aligning text
-|25.3|	Indents and tabs
-|25.4|	Dealing with long lines
-|25.5|	Editing tables
+|25.1|	Sortörések
+|25.2|	Igazítás
+|25.3|	Behúzások és tabulátorok
+|25.4|	Munka hosszú sorokkal
+|25.5|	Táblázatok szerkesztése
 
-     Következő fejezet: |usr_26.txt|  Repeating
- Előző fejezet: |usr_24.txt|  Inserting quickly
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_26.txt|  Ismétlés
+    Előző fejezet: |usr_24.txt|  Beszúrás gyorsan
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*25.1*	Breaking lines
+*25.1*	Sortörések
 
-Vim has a number of functions that make dealing with text easier.  By default,
-the editor does not perform automatic line breaks.  In other words, you have
-to press <Enter> yourself.  This is useful when you are writing programs where
-you want to decide where the line ends.  It is not so good when you are
-creating documentation and want the text to be at most 70 character wide.
-   If you set the 'textwidth' option, Vim automatically inserts line breaks.
-Suppose, for example, that you want a very narrow column of only 30
-characters.  You need to execute the following command: >
+A Vim számos funkciójával megkönnyíti a szöveggel való munkát.
+Alapértelmezetten a szerkesztő nem tördeli a hosszú sorokat, azaz erről az
+<Enter> billentyű segítségével neked kell gondoskodnod. Ha programokat írunk
+ez optimális hiszen mi magunk dönthetjük, hogy hol érjen véget a sor.
+Dokumentációk szerkesztésekor ez ellenkezőleg hat, ha éppen a soronkénti
+karakterek számát le szeretnénk rövidíteni például 70 karakterre.
+   Ha beállítod a 'textwidth' opciók, akkor a Vim automatikusan kezeli a
+sortöréseket. Tegyük fel, hogy csak egy szűk, 30 karakteres oszlopba szeretnél
+írni. Ezt beállíthatod így: >
 
 	:set textwidth=30
 
-Now you start typing (ruler added):
+Kezdj el írni (a vonalzó csak szemléltetés):
 
 		 1	   2	     3
 	12345678901234567890123456789012345
 	I taught programming for a whi ~
 
-If you type "l" next, this makes the line longer than the 30-character limit.
-When Vim sees this, it inserts a line break and you get the following:
+Ha ebben az esetben begépeled az "l"karaktert, akkor meghaladod a 'textwidth'
+opció által meghatározott soronkénti karaktermennyiséget. A Vim ezt látja,
+ezért automatikusan beszúrja számodra a sortörést, mely után ezt látod:
 
 		 1	   2	     3
 	12345678901234567890123456789012345
 	I taught programming for a ~
 	whil ~
 
-Continuing on, you can type in the rest of the paragraph:
+Tovább folytatva a bekezdést:
 
 		 1	   2	     3
 	12345678901234567890123456789012345
@@ -57,19 +60,21 @@ Continuing on, you can type in the rest of the paragraph:
 	because my homework was too ~
 	hard. True story. ~
 
-You do not have to type newlines; Vim puts them in automatically.
+Egyik sor végére sem kellett sortörést beszúrnunk. A szerkesztő ezt
+automatikusan megtette helyettünk:
 
-	Note:
-	The 'wrap' option makes Vim display lines with a line break, but this
-	doesn't insert a line break in the file.
+	Megjegyzés:
+	A 'wrap' opció bekapcsolásával a Vim megjeleníti a sortöréseket,
+	azonban ez csak vizuális, az eredeti fájlban nincsenek sortörések.
 
 
-REFORMATTING
+ÚJRAFORMÁZÁS
 
-The Vim editor is not a word processor.  In a word processor, if you delete
-something at the beginning of the paragraph, the line breaks are reworked.  In
-Vim they are not; so if you delete the word "programming" from the first line,
-all you get is a short line:
+A Vim nem "szövegszerkesztő" (az angol különbséget tesz a "text editor" és
+"text processor" között). A mai elterjedt szövegszerkesztőkben, ha a bekezdés
+elején törölsz valamit, akkor az a sortörést újra-feldolgozását eredményezi. A 
+Vim másképpen működik. Például, ha kitörlöd a "programming" szót az első
+sorból, akkor egy rövidebb  sort kapsz:
 
 		 1	   2	     3
 	12345678901234567890123456789012345
@@ -79,15 +84,13 @@ all you get is a short line:
 	because my homework was too ~
 	hard. True story. ~
 
-This does not look good.  To get the paragraph into shape you use the "gq"
-operator.
-   Let's first use this with a Visual selection.  Starting from the first
-line, type: >
+Nem néz ki jól. Újraformázhatod a bekezdést a "gq" operátorral.
+   Használjuk visual módot a kijelöléshez. Az első sorban van a kurzor: >
 
 	v4jgq
 
-"v" to start Visual mode, "4j" to move to the end of the paragraph and then
-the "gq" operator.  The result is:
+"v" Visual módra vált, "4j" négy sort jelöl ki lefelé és végül "gq" operátor.
+A végeredmény:
 
 		 1	   2	     3
 	12345678901234567890123456789012345
@@ -97,53 +100,52 @@ the "gq" operator.  The result is:
 	homework was too hard. True ~
 	story. ~
 
-Note: there is a way to do automatic formatting for specific types of text
-layouts, see |auto-format|.
+Megjegyzés: a szövegeket automatikusan formázhatjuk: |auto-format|.
 
-Since "gq" is an operator, you can use one of the three ways to select the
-text it works on: With Visual mode, with a movement and with a text object.
-   The example above could also be done with "gq4j".  That's less typing, but
-you have to know the line count.  A more useful motion command is "}".  This
-moves to the end of a paragraph.  Thus "gq}" formats from the cursor to the
-end of the current paragraph.
-   A very useful text object to use with "gq" is the paragraph.  Try this: >
+Mivel "gq" egy operátor, ezért háromféleképpen használhatod: Visual módban,
+elmozdulással a szöveg-objektumon.
+   Az fenti példában használhattunk volna "gq4j" parancsot is. Kevesebb
+gépeléssel jár, viszont ismernünk kell a pontos tartományt (sorok számában). 
+Sokkal optimálisabb a "}" használata, mely a bekezdés végére ugrik. Ezért
+"gq}" a kurzortól a bekezdés végig formáz. 
+   Rendkívül hasznos szövegobjektum az "ap", próbáld ki: >
 
 	gqap
 
-"ap" stands for "a-paragraph".  This formats the text of one paragraph
-(separated by empty lines).  Also the part before the cursor.
-   If you have your paragraphs separated by empty lines, you can format the
-whole file by typing this: >
+Az "ap" jelentése (a bekezdést). Ez csak az adott mondatot formázza, melyben a
+kurzor akárhol tartózkodhat, a bekezdésben több sortörés is szerepelhet.
+   Ha a bekezdéseid üres sorral elválasztottak, akkor az egész fájlt
+formázhatod: >
 
 	gggqG
 
-"gg" to move to the first line, "gqG" to format until the last line.
-   Warning: If your paragraphs are not properly separated, they will be joined
-together.  A common mistake is to have a line with a space or tab.  That's a
-blank line, but not an empty line.
+A "gg" parancs az első sorra ugrik, a "gqG" pedig formáz az utolsó sorig. 
+   Figyelem: Ha a bekezdéseid nincsenek megfelelően elválasztva (üres sorok
+által), akkor egyesítve lesznek. Gyakori hiba, hogy a sor csak egy szóközt,
+vagy tabot tartalmaz, mely első nem nyilvánvaló.
 
-Vim is able to format more than just plain text.  See |fo-table| for how to
-change this.  See the 'joinspaces' option to change the number of spaces used
-after a full stop.
-   It is possible to use an external program for formatting.  This is useful
-if your text can't be properly formatted with Vim's builtin command.  See the
-'formatprg' option.
+A Vim egyszerű szövegek formázásánál többre képes. Lásd |fo-table| . A sorok
+egyesítésénél használt szóközök mennyiségét a 'joinspaces' paranccsal
+állíthatod.
+   A fájlban lévő szöveget külső paranccsal is formázhatod, ha a Vimbe épített
+parancsokkal nem sikerül a megfelelő eredményt elérned ('formatprg').
 
 ==============================================================================
-*25.2*	Aligning text
+*25.2*	Szöveg igazítása
 
-To center a range of lines, use the following command: >
+Középre igazításhoz: >
 
 	:{range}center [width]
 
-{range} is the usual command-line range.  [width] is an optional line width to
-use for centering.  If [width] is not specified, it defaults to the value of
-'textwidth'.  (If 'textwidth' is 0, the default is 80.)
-   For example: >
+{range} a command-lineban meghatározott tartományra utal. a  [width] egy nem
+kötelező érték, mely a sor hosszát jelenti karakterekben (alapértelmezett
+értéke 'textwidth'). Ha a 'textwidth' értéke 0, akkor a width alapértelmezett
+értéke 80 lesz.
+   Például: >
 
 	:1,5center 40
 
-results in the following:
+A kimenet:
 
        I taught for a while. One ~
        time, I was stopped by the ~
@@ -152,13 +154,13 @@ results in the following:
 		 story. ~
 
 
-RIGHT ALIGNMENT
+JOBBRA IGAZÍTÁS
 
-Similarly, the ":right" command right-justifies the text: >
+Hasonlóan, a ":right" parancs jobbra igazítja a szöveget: >
 
 	:1,5right 37
 
-gives this result:
+A kimenete pedig:
 
 	    I taught for a while. One ~
 	   time, I was stopped by the ~
@@ -166,22 +168,21 @@ gives this result:
 	  homework was too hard. True ~
 			       story. ~
 
-LEFT ALIGNMENT
+BALRA IGAZÍTÁS
 
-Finally there is this command: >
+Nem meglepő módon: >
 
 	:{range}left [margin]
 
-Unlike ":center" and ":right", however, the argument to ":left" is not the
-length of the line.  Instead it is the left margin.  If it is omitted, the
-text will be put against the left side of the screen (using a zero margin
-would do the same).  If it is 5, the text will be indented 5 spaces.  For
-example, use these commands: >
+A ":center" és a ":right" parancsokkal ellentétben, a ":left" argumentuma nem
+a sorok hossza, hanem a bal margó. Ha ezt nem határozzuk meg, akkor a szöveg
+teljesen a képernyő széléhez igazodik. Ha ez érték 5, akkor a szöveg 5
+szóközzel lesz behúzva. Példa parancsok: >
 
 	:1left 5
 	:2,5left
 
-This results in the following:
+Az eredmény pedig az alábbi:
 
 	     I taught for a while. One ~
 	time, I was stopped by the ~
@@ -190,29 +191,31 @@ This results in the following:
 	story. ~
 
 
-JUSTIFYING TEXT
+SORKIZÁRT SZÖVEG
 
-Vim has no built-in way of justifying text.  However, there is a neat macro
-package that does the job.  To use this package, execute the following
-command: >
+A Vim nem rendelkezik olyan beépülővel, ami sorkizárná a szöveget. Egy okos
+makró el tudja végezni helyettünk a munkát. A csomag használatához futtasd: >
 
 	:packadd justify
 
-Or put this line in your |vimrc|: >
+Vagy másold be a |vimrc| fájlodba: >
 
 	packadd! justify
 
-This Vim script file defines a new visual command "_j".  To justify a block of
-text, highlight the text in Visual mode and then execute "_j".
+A parancs elérhetővé tesz egy új Visual módú parancsot "_j". Jelöld ki a
+kívánt szöveget Visual módban, majd futtasd a makrót "_j".
+   Olvad el makró utasításait. Hogy odatalálj, használd a "gf" parancsot az
+alábbi elérési úton:
    Look in the file for more explanations.  To go there, do "gf" on this name:
 $VIMRUNTIME/pack/dist/opt/justify/plugin/justify.vim.
 
-An alternative is to filter the text through an external program.  Example: >
+Alternatív megoldásként dolgozzuk fel a szöveget egy külső programmal,
+például: >
 
 	:%!fmt
 
 ==============================================================================
-*25.3*	Indents and tabs
+*25.3*	Behúzások és tabulátorok
 
 Indents can be used to make text stand out from the rest.  The example texts
 in this manual, for example, are indented by eight spaces or a tab.  You would
