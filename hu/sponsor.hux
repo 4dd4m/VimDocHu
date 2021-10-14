@@ -1,201 +1,209 @@
 *sponsor.txt*   For Vim version 8.2.   Last change: 2021 Jul 07
 
 
-		  VIM REFERENCE MANUAL    by Bram Moolenaar
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 
 
-SPONSOR VIM DEVELOPMENT						*sponsor*
+TÁMOGASD A VIM FEJLESZTÉSÉT					*sponsor*
 
-Fixing bugs and adding new features takes a lot of time and effort.  To show
-your appreciation for the work and motivate Bram and others to continue
-working on Vim please send a donation.
+A hibajavítások, új funkciók rengeteg időt és energiát felemésztenek. Hálád
+jeléül, valamint Bram és a többiek  motiválásához kérlek támogasd a Vim
+fejlesztését.
 
-Since Bram does not need the money it will be used to help children in Uganda,
-see |uganda|.  Donations increase Bram's motivation to keep working on Vim!
+Bramnek nincs szüksége a pénzedre, ezért a teljes összeget az Ugandai gyermekek
+megsegítésére fordítjuk (|uganda|). Az adományok növelik Bram motivációját!
 
-For the most recent information about sponsoring look on the Vim web site:
+A szponzoráció legfrissebb részleteiről itt tájékozódhatsz:
 
 	http://www.vim.org/sponsor/
 
-More explanations can be found in the |sponsor-faq|.
+További magyarázatok: |sponsor-faq|.
 
 
-REGISTERED VIM USER						*register*
+REGISZTRÁLT VIM FELHASZNÁLÓ					*register*
 
-You can become a registered Vim user by sending at least 10 euro.  This works
-similar to sponsoring Vim, see |sponsor| above.  Registration was made
-possible for the situation where your boss or bookkeeper may be willing to
-register software, but does not like the terms "sponsoring" and "donation".
+Regisztrált felhasználóvá válhatsz, ha legalább 10 eurót küldesz, mely a
+szponzorációhoz hasonlóan működik |sponsor|. A Regisztráció szó teszi
+elkerülhetővé azokat a helyzeteket, amikor a főnököd például megengedné
+regisztrálni az adott szoftvert, de egyáltalán nem hajlandó forrást
+biztosítani "szponzoráció", vagy éppen "adakozás" címszó alatt.
 
-More explanations can be found in the |register-faq|.
-
-
-VOTE FOR FEATURES					*vote-for-features*
-
-To give registered Vim users and sponsors an advantage over lurkers they can
-vote for the items Bram should work on.  How does this voting work?
-
-1.  You send at least 10 euro.  See below for ways to transfer money
-    |send-money|.
-
-2.  You will be e-mailed a registration key.  Enter this key on your account
-    page on the Vim website.  You can easily create an account if you don't
-    have one yet.
-
-3.  You can enter your votes on the voting page.  There is a link to that page
-    on your account page after entering a registration key.  Your votes will
-    be counted for two years.
-
-4.  The voting results appear on the results page, which is visible for
-    everybody:  http://www.vim.org/sponsor/vote_results.php
-
-Additionally, once you have sent 100 euro or more in total, your name appears
-in the "Vim hall of honour":   http://www.vim.org/sponsor/hall_of_honour.php
-But only if you enable this on your account page.
+További magyarázatok: |register-faq|.
 
 
-HOW TO SEND MONEY						*send-money*
+SZAVAZÁS FUNKCIÓKÉRT					*vote-for-features*
 
-Credit card	Through PayPal, see the PayPal site for information:
+A regisztrált és szponzor felhasználók abban az előnyben részesülnek a mezei
+felhasználókkal szemben, hogy szavazati joguk van: egy megadott listából
+választhatnak, melyet Bram tesz közzé. A nyertes funkció prioritást fog
+élvezni a fejlesztés során. Hogyan működik?
+
+1.  Legalább 10 eurót kell küldened. Az átutalási módok: |send-money|.
+
+2.  E-mailben megkapod a regisztrációs kulcsot, melyet meg kell adj a Vim
+    weboldalán. Ha még nincs felhasználói fiókod, akkor egyszerűen
+    létrehozhatsz egyet.
+
+3.  Ezek után beléphetsz a szavazást tartalmazó oldalra. A linket a
+    profilodban találhatod meg, mely akkor jelenik meg, ha beírtad a 
+    regisztrációs kulcsot. Szavazataid két évig érvényesek.
+
+4.  A szavazás eredményeit külön lapon láthatod, mely mindenki számára
+    nyilvános:  http://www.vim.org/sponsor/vote_results.php
+
+Ha több, mint 100 eurót küldesz egyszerre, akkor a neved megjelenhet a "VIM
+hall of honor" oldalán: http://www.vim.org/sponsor/hall_of_honour.php
+Csak abban az esetben, ha ezt külön engedélyezed.
+
+
+HOGYAN KÜLDJ PÉNZT						*send-money*
+
+Bankkártya	PayPalon keresztül, a PayPal oldalán további információt
+		találsz a folyamatról:
 			https://www.paypal.com/en_US/mrb/pal=XAC62PML3GF8Q
-		The e-mail address for sending sponsorship money is:
+		Az e-mail cím, melyre a szponzorációt küldheted:
 			donate@vim.org
-		The e-mail address for Vim registration is:
+		Az e-mail cím, melyre a Vim regisztrációdat küldheted:
 			register@vim.org
-		Using Euro is preferred, other currencies are also accepted.
-		In Euro countries a bank transfer is preferred, this has lower
-		costs.
+		Preferált valuta: Euro, de minden más elfogadható.
+		Az eurozónában a banki átutalásnak vannak a legalacsonyabb
+		költségei.
 
-Other methods	See |iccf-donations|.
-		Include "Vim sponsor" or "Vim registration" in the comment of
-		your money transfer.  Send me an e-mail that mentions the
-		amount you transferred if you want to vote for features and
-		show others you are a registered Vim user or sponsor.
-
-
-QUESTIONS AND ANSWERS				*sponsor-faq* *register-faq*
-
-Why should I give money?
-
-If you do not show your appreciation for Vim then Bram will be less motivated
-to fix bugs and add new features.  He will do something else instead.
+Egyéb módszerek	Lásd |iccf-donations|.
+		Az átutalási megjegyzésnél tüntesd fel: "Vim sponsor" vagy
+		"Vim registration". Küldj egy e-mailt, amiben tájékoztatsz,
+		hogy milyen összeget küldtél, hogy igényt tartasz-e a
+		szavazati jogodra, végül, hogy megmutathatjuk-e mások számára
+		a státuszod (regisztrált, vagy szponzor).
 
 
-How much money should I send?
+KÉRDÉSEK ÉS VÁLASZOK				*sponsor-faq* *register-faq*
 
-That is up to you.  The more you give, the more children will be helped.
-An indication for individuals that use Vim at home: 10 Euro per year.  For
-professional use: 30 Euro per year per person.  Send at least 10 euro to be
-able to vote for features.
+Miért küldjek pénzt?
 
-
-What do I get in return?
-
-Each registered Vim user and sponsor who donates at least 10 euro will be able
-to vote for new features.  These votes will give priority to the work on Vim.
-The votes are valid for two years.  The more money you send the more your
-votes count |votes-counted|.
-
-If you send 100 Euro or more in total you will be mentioned on the "Vim hall
-of honour" page on the Vim web site.  But only if you enable this on your
-account page.  You can also select whether the amount will be visible.
+Ha nem fejezed ki háládat, akkor Bram kevésbé lesz motivált a Vimet illetően 
+és valami másba kezd.
 
 
-How do I become a Vim sponsor or registered Vim user?
+Mennyit küldjek?
 
-Send money, as explained above |send-money| and include your e-mail address.
-When the money has been received you will receive a unique registration key.
-This key can be used on the Vim website to activate voting on your Vim
-account.  You will then get an extra page where you can vote for features and
-choose whether others will be able to see that you donated.  There is a link
-to this page on your "My Account" page.
-
-
-What is the difference between sponsoring and registering?
-
-It has a different name.  Use the term "registration" if your boss doesn't
-like "sponsoring" or "donation".  The benefits are the same.
+Ez teljesen tőled függ. Minél többet annál többet segítesz a gyerekeken. Az
+alábbi összegek csak irányadóak, egyáltalán nem szükséges a betartásuk:
+    - Otthoni felhasználók:		10 euro / év
+    - Professzionális felhasználók:	30 euro / év
+    - Szavazati jog, regisztráció:	10 euro / év
+      
 
 
-How can I send money?
+Mit kapok cserébe?
 
-See |send-money|.  Check the web site for the most recent information:
+Minden regisztrált felhasználó és szponzor szavazati jogot kap, ha 10 vagy
+több eurót küld. A szavazatok a szerkesztőn végzett munkafolyamatok előnyben
+részesítéséhez vannak felhasználva. A szavazatok két évig érvényesek. Minél
+több pénzt küldesz, szavazatodnak annál nagyobb súlya lesz |votes-counted|.
+
+Ha több, mint 100 eurót küldesz, akkor felkerülhetsz a "Vim hall of honor"
+oldalára, mely a Vim weboldalán található, de csak ha ehhez te is
+hozzájárulsz. Azt is kiválaszthatod, hogy az általad küldött összeg
+megjelenjen-e.
+
+
+Hogyan válhatok szopnzorrá vagy regisztrált felhasználóvá?
+
+Küldd el a pénzt, ahogy az a |send-money| részben részletezve van. Az átutalás
+beérkezésekor megkapod az regisztrációs kulcsodat. A kulccsal aktiválhatod a
+szavazati jogodat. Továbbá megjelenik a szavazati oldal. A linkeket a "My
+Account" oldalon találod.
+
+
+
+Mi a különbség a szponzor és a regisztrál felhasználó között?
+
+Csak a megfogalmazás más. Használd a regisztrációt, ha a főnököd nem szereti a
+"szponzoráció" vagy "adomány" szavakat. Az előnyök ugyanazok.
+
+
+Hogyan küldhetem el a pénzt?
+
+A |send-money| cikkben részletezve van.  A részletek itt találod:
 http://www.vim.org/sponsor/
 
 
-Why don't you use the SourceForge donation system?
+Miért nem a SourceForge adománygyűjtő részét használod?
 
-SourceForge takes 5% of the donations for themselves.  If you want to support
-SourceForge you can send money to them directly.
-
-
-I cannot afford to send money, may I still use Vim?
-
-Yes.
+A SourceForge 5%-ot megtart a befolyt összegből. Ha támogatni szeretnéd a
+SourceForgeot, akkor a pénzt küldd el egyenesen nekik.
 
 
-I did not register Vim, can I use all available features?
+Nem tehet meg, hogy pénzt küldjek. Így is használhatom a Vimet?
 
-Yes.
-
-
-I noticed a bug, do I need to register before I can report it?
-
-No, suggestions for improving Vim can always be given.  For improvements use
-the developer |maillist|, for reporting bugs see |bugs|.
+Igen.
 
 
-How are my votes counted?				*votes-counted*
+Nem regisztráltam a példányomat, használhatom az összes funkcióját?
 
-You may vote when you send 10 euro or more.  You can enter up to ten votes.
-You can select the same item several times to give it more points.  You can
-also enter three counter votes, these count as negative points.
-
-When you send 30 euro or more the points are doubled.  Above 100 euro they
-count four times, above 300 euro they count six times, above 1000 euro ten
-times.
+Igen.
 
 
-Can I change my votes?
+Hibát fedeztem fel a szoftverben. Kell regisztrálnom, mielőtt jelenthetem?
 
-You can change your votes any time you like, up to two years after you
-sent money.  The points will be counted right away.
-
-
-Can I add an item to vote on?
-
-Not directly.  You can suggest items to vote on to Bram.  He will consider
-fitting your item into the list.
+Nem. Javaslatok a Vim fejlesztésével kapcsolatban mindig adhatóak. A
+tanácsokhoz a fejlesztői levelezőlistát használjuk |maillist|, hibák jelentése
+|bugs|.
 
 
-How about Charityware?
+Hogyan számolódnak a szavazataim?			*votes-counted*
 
-Currently the Vim donations go to |uganda| anyway.  Thus it doesn't matter if
-you sponsor Vim or ICCF.  Except that Vim sponsoring will allow you to vote
-for features.
+Szavazhatsz, ha több, mint 10 eurót küldesz. Tíz szavazatod lehet. Ugyanarra
+az elemre többször is szavazhatsz. Három ellenszavazattal is rendelkezel,
+ezeket a rendszer levonja.
 
-
-I donated $$$, now please add feature XYZ!
-
-There is no direct relation between your donation and the work Bram does.
-Otherwise you would be paying for work and we would have to pay tax over the
-donation.  If you want to hire Bram for specific work, contact him directly,
-don't use the donation system.
+Ha 30, vagy annál több küldesz, akkor a szavazataid száma megduplázódik. 100
+euró fölött 40 szavazat, 300 euró fölött 60, 1000 euró felett pedig 100
+szavazatod kapsz.
 
 
-Are the donations tax deductible?
+Megváltoztathatom a szavazataimat?
 
-That depends on your country.  The donations to help the children in |Uganda|
-are tax deductible in Holland, Germany, Canada and in the USA.  See the ICCF
-website http://iccf-holland.org/donate.html.  You must send an e-mail to Bram
-to let him know that the donation is done because of the use of Vim.
+A szavazataidat bármikor megváltoztathatod a két év során.
 
 
-Can you send me a bill?
+Hozzáadhatok opciókat a szavazáshoz?
 
-No, because there is no relation between the money you send and the work that
-is done.  But a receipt is possible.
+Nem egészen. Javasolhatod Bramnek, erről természetesen ő dönt, hogy a listára
+kerülhet-e.
+
+
+Charityware?
+
+Jelenleg a Vim adományai |uganda|-t támogatják, így végső soron teljesen
+mindegy, hogy Vim szponzor vagy, vagy az ICCF-nek küldöd a pénzed. Kivéve
+természetesen a szavazást.
+
+
+Befizettem $$$$, most kérlek add hozzá X funkciót!
+
+Nincs közvetlen kapcsolat Bram és az adományok között. Máskülönben munkadíjat
+fizetnél, nekünk pedig adód kellene fizetni az adományok után. Ha fel
+szeretnéd bérelni Bramet egy munkára, lépj vele kapcsolatba, ne az
+adományrendszeren keresztül üzenj.
+
+
+Az adakozások leírhatóak az adóból?
+
+Attól függ, melyik országban élsz. Az adományokat Hollandiában igen,
+Németországban és az Államokban is. Látogass el az ICCF  weboldalára: 
+http://iccf-holland.org/donate.html  
+
+Erről küldj Bramnek egy e-mailt, tudasd, hogy a Vimmel kapcsolatban küldted az
+adományod.
+
+
+Tudsz számlát küldeni?
+
+Afásat? Nem, mert a pénz és az elvégzett munka között nincs kapcsolat.  De egy 
+blokkot igen.
 
 
 
