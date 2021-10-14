@@ -1,397 +1,392 @@
 *usr_24.txt*	For Vim version 8.2.  Last change: 2018 Mar 18
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			     Inserting quickly
+			     Beszúrás gyorsan
 
 
-When entering text, Vim offers various ways to reduce the number of keystrokes
-and avoid typing mistakes.  Use Insert mode completion to repeat previously
-typed words.  Abbreviate long words to short ones.  Type characters that
-aren't on your keyboard.
+A szövegek beszúrásnak folyamatát számos billentyűkombináció igyekszik
+lerövidíteni és ezzel minimalizálni a hibalehetőségeket. Egészítsd ki a
+félkész szavakat, rövidíts le szavakat. Gépelj olyan karaktereket, melyek nem
+szerepelnek a billentyűzeteden.
 
-|24.1|	Making corrections
-|24.2|	Showing matches
-|24.3|	Completion
-|24.4|	Repeating an insert
-|24.5|	Copying from another line
-|24.6|	Inserting a register
-|24.7|	Abbreviations
-|24.8|	Entering special characters
-|24.9|	Digraphs
-|24.10|	Normal mode commands
+|24.1|	Korrekciók
+|24.2|	Egyezések mutatás
+|24.3|	Kiegészítés
+|24.4|	Szerkesztés ismétlése
+|24.5|	Másolás másik sorból
+|24.6|	Regiszter tartalmának beszúrása
+|24.7|	Rövidítések
+|24.8|	Speciális karakterek
+|24.9|	Digrammák
+|24.10|	Normal módú parancsok
 
-     Következő fejezet: |usr_25.txt|  Editing formatted text
- Előző fejezet: |usr_23.txt|  Editing other files
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_25.txt|  Editing formatted text
+    Előző fejezet: |usr_23.txt|  Editing other files
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*24.1*	Making corrections
+*24.1*	Korrekciót
 
-The <BS> key was already mentioned.  It deletes the character just before the
-cursor.  The <Del> key does the same for the character under (after) the
-cursor.
-   When you typed a whole word wrong, use CTRL-W:
+A <BS> billentyű funkcióját már ismerjük.  Egy karakter töröl a kurzor előtt.
+A <Del> billentyű pedig egy karaktert töröl a kurzor után (alatt).
+   Ha egy egész szót újra szeretnél gépelni, akkor CTRL-W
 
 	The horse had fallen to the sky ~
 				       CTRL-W
 	The horse had fallen to the ~
 
-If you really messed up a line and want to start over, use CTRL-U to delete
-it.  This keeps the text after the cursor and the indent.  Only the text from
-the first non-blank to the cursor is deleted.  With the cursor on the "f" of
-"fallen" in the next line pressing CTRL-U does this:
+Ha valamit nagyon nem úgy szerettél volna, akkor a CTRL-U paranccsal az egész
+sort törölheted. Ez megtartja a kurzor utáni karaktereket, illetve a sor eleji
+behúzást. A sor első nem üres karakterétől a kurzorig töröl. Ha a kurzorunk a
+"fallen" szó "f" betűjén áll, akkor ez történik:
 
 	The horse had fallen to the ~
 		      CTRL-U
 	fallen to the ~
 
-When you spot a mistake a few words back, you need to move the cursor there to
-correct it.  For example, you typed this:
+Ha pár szóval hátrébb fedezted fel a hibát, akkor a kurzorral vissza kell
+menned arra a pontra. Például, ezt gépelted:
 
 	The horse had follen to the ground ~
 
-You need to change "follen" to "fallen".  With the cursor at the end, you
-would type this to correct it: >
+A "follen" szót ki kell cserélned "fallenre". A sor végén álló kurzorral így
+korrigálhatod a problémát: >
 
 					<Esc>4blraA
 
-<	get out of Insert mode		<Esc>
-	four words back			     4b
-	move on top of the "o"		       l
-	replace with "a"			ra
-	restart Insert mode			  A
+<	kilépés insert módból		<Esc>
+	négy szót hátra			     4b
+	"o"-ra ugrás			       l
+	csere "a"-ra				ra
+	vissza Insert módba			  A
 
-Another way to do this: >
+Másik módszer: >
 
 		<C-Left><C-Left><C-Left><C-Left><Right><Del>a<End>
 
-<	four words back		     <C-Left><C-Left><C-Left><C-Left>
-	move on top of the "o"			<Right>
-	delete the "o"				       <Del>
-	insert an "a"					    a
-	go to end of the line				     <End>
+<	négy szót hátra		     <C-Left><C-Left><C-Left><C-Left>
+	"o"-ra ugrás				<Right>
+	"o" törlése					<Del>
+	"a" beszúrása					    a
+	sor végére ugrás				    <End>
 
-This uses special keys to move around, while remaining in Insert mode.  This
-resembles what you would do in a modeless editor.  It's easier to remember,
-but takes more time (you have to move your hand from the letters to the cursor
-keys, and the <End> key is hard to press without looking at the keyboard).
-   These special keys are most useful when writing a mapping that doesn't
-leave Insert mode.  The extra typing doesn't matter then.
-   An overview of the keys you can use in Insert mode:
+Az utóbbi módszer speciális billentyűt használ a korrigáláshoz, az első pedig
+végig Insert módban marad. Ez kellőképpen szemlélteti a nem-modális
+szerkesztő munkamenetét. Könnyebb megjegyezni, do sokkal tovább tart
+végrehajtani (kezeidet a kurzorbillentyűkhöz viszed, az <End> billentyűért
+pedig valószínűleg le kell pillantanod. 
+   Ezeket speciális billentyűk arra jók, hogy segítségükkel olyan mappeket
+hozzunk létre, ami nem hagyja el az Insert módot. Így pedig az extra gépelés
+nem számít.
+   Áttekintés az Insert módban használható billentyűkről:
 
-	<C-Home>	to start of the file
-	<PageUp>	a whole screenful up
-	<Home>		to start of line
-	<S-Left>	one word left
-	<C-Left>	one word left
-	<S-Right>	one word right
-	<C-Right>	one word right
-	<End>		to end of the line
-	<PageDown>	a whole screenful down
-	<C-End>		to end of the file
+	<C-Home>	fájl kezdetéhez ugrás
+	<PageUp>	teljes képernyőt fel
+	<Home>		sor kezdetéhez ugrás
+	<S-Left>	egy szót balra
+	<C-Left>	egy szót balra
+	<S-Right>	egy szót jobbra
+	<C-Right>	egy szót balra
+	<End>		sor végéhez ugrás
+	<PageDown>	egy teljes képernyőt le
+	<C-End>		fájl végéhez ugrás
 
-There are a few more, see |ins-special-special|.
+Ennél több létezik,  |ins-special-special|.
 
 ==============================================================================
-*24.2*	Showing matches
+*24.2*	Egyezések mutatása
 
-When you type a ) it would be nice to see with which ( it matches.  To make
-Vim do that use this command: >
+Ha ) karaktert gépelsz, akkor jó lenne látni a párját (. Ehhez add ki az
+alábbi parancsot: >
 
 	:set showmatch
 
-When you now type a text like "(example)", as soon as you type the ) Vim will
-briefly move the cursor to the matching (, keep it there for half a second,
-and move back to where you were typing.
-   In case there is no matching (, Vim will beep.  Then you know that you
-might have forgotten the ( somewhere, or typed a ) too many.
-   The match will also be shown for [] and {} pairs.  You don't have to wait
-with typing the next character, as soon as Vim sees it the cursor will move
-back and inserting continues as before.
-   You can change the time Vim waits with the 'matchtime' option.  For
-example, to make Vim wait one and a half second: >
+Szövegbevitelkor például a "(example)" gépelésénél, rögtön miután ) karaktert
+gépelsz, a Vim egy pillanatra felvillantja a párját, melyhez odaugrik, aztán
+vissza a kurzor eredeti helyére. 
+   Ha nem találja meg a zárókarakter párját ( ( ), akkor hangjelzést ad. Így
+tudod, hogy elfelejtettél valamit, vagy túl sokat gépeltél.
+   Az ellenőrzés a [] és a {} párokra is kiterjed. Nem kell megvárnod, amíg az
+ellenőrzés fut, gépelhetsz tovább.
+   A várakozási időt itt beállíthatod 'matchtime'. Például, másfél másodperces
+időköz. >
 
 	:set matchtime=15
 
-The time is specified in tenths of a second.
+Az egység 0.1s.
 
 ==============================================================================
-*24.3*	Completion
+*24.3*	Kiegészítés
 
-Vim can automatically complete words on insertion.  You type the first part of
-a word, press CTRL-P, and Vim guesses the rest.
-   Suppose, for example, that you are creating a C program and want to type in
-the following:
+A Vim képes a begépelt szavak kiegészítésére. A szó első részét begépeled,
+nyomj CTRL-P-t és a Vim megpróbálja kiegészíteni.
+   Tegyük fel, hogy C program szerkesztésekor ezt szeretnéd beírni:
 
 	total = ch_array[0] + ch_array[1] + ch_array[2]; ~
 
-You start by entering the following:
+Eddig beírsz mindent:
 
 	total = ch_array[0] + ch_ ~
 
-At this point, you tell Vim to complete the word using the command CTRL-P.
-Vim searches for a word that starts with what's in front of the cursor.  In
-this case, it is "ch_", which matches with the word ch_array.  So typing
-CTRL-P gives you the following:
+Itt azt mondod a Vimnek, hogy próbálja kiegészíteni a szót. CTRL-P-t nyomva a
+szerkesztő ellenőrzi a fájlt és olyan szavak után néz, melyek az aktuális
+szavunk karaktereivel kezdődnek. Ebben az esetben a "ch_" megtalálható a
+"ch_array" szóban, azért a parancs után a következőket látod: 
 
 	total = ch_array[0] + ch_array ~
 
-After a little more typing, you get this (ending in a space):
+Még kicsivel többet gépelsz és ide jutsz (a sor végén szóköz található):
 
-	total = ch_array[0] + ch_array[1] +  ~
+	total = ch_array[0] + ch_array[1] + ~
 
-If you now type CTRL-P Vim will search again for a word that completes the
-word before the cursor.  Since there is nothing in front of the cursor, it
-finds the first word backwards, which is "ch_array".  Typing CTRL-P again
-gives you the next word that matches, in this case "total".  A third CTRL-P
-searches further back.  If there is nothing else, it causes the editor to run
-out of words, so it returns to the original text, which is nothing.  A fourth
-CTRL-P causes the editor to start over again with "ch_array".
+Ha most nyomsz CTRL-P-t, akkor a olyan szavak után néz, melyek kiegészíthetnék
+a kurzort. Mivel még nem gépeltünk semmit (üres karakter), ezért a Vim elkezd
+visszafelé keresni teljes szavak után, az első szót megtalálja visszafelé
+"ch_array". CTRL-P újbóli megnyitása a következő egyező szóra egészít ki, ami
+a "total". A harmadik CTRL-P billentyűparancsra még hátrébb lép a listában. Ha
+elfogynak a szavak, akkor a szerkesztő visszatér az eredeti szóhoz. És így
+tovább.
 
-To search forward, use CTRL-N.  Since the search wraps around the end of the
-file, CTRL-N and CTRL-P will find the same matches, but in a different
-sequence.  Hint: CTRL-N is Next-match and CTRL-P is Previous-match.
-
-The Vim editor goes through a lot of effort to find words to complete.  By
-default, it searches the following places:
-
-	1. Current file
-	2. Files in other windows
-	3. Other loaded files (hidden buffers)
-	4. Files which are not loaded (inactive buffers)
-	5. Tag files
-	6. All files #included by the current file
+Az előre kereséshez nyomj CTRL-N-t. A mechanizmus teljesen ugyan az, az irány
+kivételével. A keresés újrakezdődik a fájl elejétől, így gyakorlatilag a lista
+ugyanazokat az elemeket tartalmazza, csak fordított sorrendben.
 
 
-OPTIONS
+A Vim hatalmas erőfeszítést tesz, hogy ki tudja egészíteni a szavainkat.
+Alapértelmezett beállításokkal az alábbi helyeken keres:
 
-You can customize the search order with the 'complete' option.
-
-The 'ignorecase' option is used.  When it is set, case differences are ignored
-when searching for matches.
-
-A special option for completion is 'infercase'.  This is useful to find
-matches while ignoring case ('ignorecase' must be set) but still using the
-case of the word typed so far.  Thus if you type "For" and Vim finds a match
-"fortunately", it will result in "Fortunately".
+	1. Az aktív fájlban
+	2. A többi ablakban megnyitott fájlokon
+	3. Egyéb betöltött fájlokon (rejtett buffer)
+	4. Olyan fájlokban, melyek nincsenek betöltve (inaktív buffer)
+	5. Tag fájlokban
+	6. Az összes fájlban #include-olt fájlban.
 
 
-COMPLETING SPECIFIC ITEMS
+BEÁLLÍTÁSOK
 
-If you know what you are looking for, you can use these commands to complete
-with a certain type of item:
+A keresési sorrendet a 'complete' opcióban megváltoztathatod.
 
-	CTRL-X CTRL-F		file names
-	CTRL-X CTRL-L		whole lines
-	CTRL-X CTRL-D		macro definitions (also in included files)
-	CTRL-X CTRL-I		current and included files
-	CTRL-X CTRL-K		words from a dictionary
-	CTRL-X CTRL-T		words from a thesaurus
-	CTRL-X CTRL-]		tags
-	CTRL-X CTRL-V		Vim command line
+Az 'ignorecase' hatással van a kiegészítésre, ami ha be van állítva, akkor a
+program nem tesz különbséget nagy- és kisbetű között.
 
-After each of them CTRL-N can be used to find the next match, CTRL-P to find
-the previous match.
-   More information for each of these commands here: |ins-completion|.
+A kiegészítés speciális beállítása a 'infercase'. Ez hasznos az ilyen jellegű
+kereséseknél ('ignorecase' opció bekapcsolt állapotában kell, hogy legyen),
+dinamikusan kezeli a nagy- és kisbetűket. Például, ha "For"-t gépelsz, akkor a
+Vim megtalálja a "fortunately" szót, de "Fortunately"-ként lesz kiegészítve.
 
 
-COMPLETING FILE NAMES
+SPECIÁLIS ELEMEK KIEGÉSZÍTÉSE
 
-Let's take CTRL-X CTRL-F as an example.  This will find file names.  It scans
-the current directory for files and displays each one that matches the word in
-front of the cursor.
-   Suppose, for example, that you have the following files in the current
-directory:
+Ha tisztában vagy a keresés jellegével, akkor ezeket a parancsokat
+használhatod:
+
+	CTRL-X CTRL-F		fájlnevek
+	CTRL-X CTRL-L		teljes sorok
+	CTRL-X CTRL-D		makró definíciók (az #includeolt fájlokban is)
+	CTRL-X CTRL-I		aktív és #includeolt fájlok
+	CTRL-X CTRL-K		szavak szótár alapján
+	CTRL-X CTRL-T		Thesaurus szavak
+	CTRL-X CTRL-]		tagek
+	CTRL-X CTRL-V		Vim command-line
+
+Az összes parancs esetén megegyezik a navigáció: CTRL-N a következő találatra,
+ CTRL-P pedig az előzőre ugrik.
+   A parancsokról további részleteket olvashatsz: |ins-completion|.
+
+
+FÁJLNEVEK KIEGÉSZÍTÉSE
+
+Vegyük például a CTRL-X CTRL-F kombinációt. Ez fájlnevekre keres. Végigjárja a
+munkakönyvtárat és az összes egyezést megjeleníti a kurzor előtt.
+   Tegyük fel, hogy munkakönyvtáradban az alábbi fájlok találhatóak:
 
 	main.c  sub_count.c  sub_done.c  sub_exit.c
 
-Now enter Insert mode and start typing:
+Válts Insert módra és kezdd el gépelni:
 
 	The exit code is in the file sub ~
 
-At this point, you enter the command CTRL-X CTRL-F.  Vim now completes the
-current word "sub" by looking at the files in the current directory.  The
-first match is sub_count.c.  This is not the one you want, so you match the
-next file by typing CTRL-N.  This match is sub_done.c.  Typing CTRL-N again
-takes you to sub_exit.c.  The results:
+Ezen a ponton ad ki a CTRL-X CTRL-F parancsot. Keresés kezdődik a
+munkakönyvtárban olyan fájlok után, melyek "sub" karakterekkel kezdődnek. Az
+első találat a "sub_count.c" fájl. Nem ezt a fájlt szeretted volna, ezért
+lépsz a következőre CTRL-N. A következő találat a "dub_done.c". Egy újabb
+CTRL-N végül "sub_exit.c"-n landol. Az eredmény:
 
 	The exit code is in the file sub_exit.c ~
 
-If the file name starts with / (Unix) or C:\ (MS-Windows) you can find all
-files in the file system.  For example, type "/u" and CTRL-X CTRL-F.  This
-will match "/usr" (this is on Unix):
+Nem számít, hogy milyen formátumú az elérési út, kezdődhet / jellel (Unix),
+vagy C:\-vel (MS-Windows), a fájlrendszeren minden egyes fájl megtalálható.
+Például, "/u" szó CTRL-X CTRL-F-el "/usr" szóra egészít (csak Unixon):
 
 	the file is found in /usr/ ~
 
-If you now press CTRL-N you go back to "/u".  Instead, to accept the "/usr/"
-and go one directory level deeper, use CTRL-X CTRL-F again:
+CTRL-N visszatér az eredeti szóra "/u". CTRL-X CTRL-F-el elfogadhatod a
+"/usr/" kiegészítést és az alkönyvtárba léphetsz (ez nincs hatással az
+munkakönyvtáradra, elérési utak esetén a Vim képes akármilyen mélységig
+kiegészíteni).
 
 	the file is found in /usr/X11R6/ ~
 
-The results depend on what is found in your file system, of course.  The
-matches are sorted alphabetically.
+Az eredmény csak attól függ, hogy mi található a fájlrendszereden. Az
+egyezések betűrend alapján rendezettek.
 
 
-COMPLETING IN SOURCE CODE
+FORRÁSKÓD KIEGÉSZÍTÉSE
 
-Source code files are well structured.  That makes it possible to do
-completion in an intelligent way.  In Vim this is called Omni completion.  In
-some other editors it's called intellisense, but that is a trademark.
+A forráskódok jól struktúráltak, ezáltal a kiegészítésnek egy intelligensebb
+változatát teszi lehetővé. Ez a Vimben Omni kiegészítésnek hívjuk. Más
+szerkesztőkben pedig intellisensenek, ami ráadásul jogvédett.
 
-The key to Omni completion is CTRL-X CTRL-O.  Obviously the O stands for Omni
-here, so that you can remember it easier.  Let's use an example for editing C
-source:
+Az Omni kiegészítés kombinációja a CTRL-X CTRL-O. Az O ebben a kontextusban
+"Omni"-t jelent, így könnyebb megjegyezni. Szemléljük meg a működését:
 
 	{ ~
 	    struct foo *p; ~
 	    p-> ~
 
-The cursor is after "p->".  Now type CTRL-X CTRL-O.  Vim will offer you a list
-of alternatives, which are the items that "struct foo" contains.  That is
-quite different from using CTRL-P, which would complete any word, while only
-members of "struct foo" are valid here.
+Kurzorunk a "p->" karakterek után áll. CTRL-X CTRL-O. Számos alternatíva közül
+választhatsz, melyeket a "struct foo" tartalmaz. Ez picit különbözik a CTRL-P
+működésétől, ami bármely szóra egészítene, itt csak "struct foo" tagjai
+érvényesek.
 
-For Omni completion to work you may need to do some setup.  At least make sure
-filetype plugins are enabled.  Your vimrc file should contain a line like
-this: >
+Az Omni kiegészítés beállításához be kell állítanunk pár dolgot. Győződj meg
+arról, hogy a filetype plugin használata engedélyezve van. Ha a vimrc fájlod
+tartalmazza ezt: >
 	filetype plugin on
-Or: >
+vagy ezt a sort: >
 	filetype plugin indent on
 
-For C code you need to create a tags file and set the 'tags' option.  That is
-explained |ft-c-omni|.  For other filetypes you may need to do something
-similar, look below |compl-omni-filetypes|.  It only works for specific
-filetypes.  Check the value of the 'omnifunc' option to find out if it would
-work.
+Akkor minden rendben. C kódokhoz készítenünk kell egy tag fájlt a 'tags'
+opcióval. Részletesen  |ft-c-omni|. Egyéb fájltípusokhoz valami hasonlót kell
+csinálnod |compl-omni-filetypes|. Nem működik minden fájltípusnál. Az
+'omnifunc' opció értékének ellenőrzésével kiderítheted, hogy mely fájltípusokkal
+működik.
 
 ==============================================================================
-*24.4*	Repeating an insert
+*24.4*	Szerkesztés ismétlése
 
-If you press CTRL-A, the editor inserts the text you typed the last time you
-were in Insert mode.
-   Assume, for example, that you have a file that begins with the following:
+Ha CTRL-A-t ütsz (Insert módban), akkor az utolsó szerkesztésed (Insert mód) 
+szövegét automatikusan beilleszti a program.
+   Például, van egy fájlod, ami így kezdődik:
 
 	"file.h" ~
 	/* Main program begins */ ~
 
-You edit this file by inserting "#include " at the beginning of the first
-line:
+A szerkesztéseddel az "#include "-ot hozzáadod a sor elejére:
 
 	#include "file.h" ~
 	/* Main program begins */ ~
 
-You go down to the beginning of the next line using the commands "j^".  You
-now start to insert a new "#include" line.  So you type: >
+A következő sor elejére ugrasz "j^", Insert módra váltasz, ahová ismét beírsz
+egy "#include"-ot, de immáron így: >
 
 	i CTRL-A
 
-The result is as follows:
+Mely ezt eredményezi:
 
 	#include "file.h" ~
 	#include /* Main program begins */ ~
 
-The "#include " was inserted because CTRL-A inserts the text of the previous
-insert.  Now you type  "main.h"<Enter>  to finish the line:
-
+Az "#include " azért került be a bufferbe, mert CTRL-A megismételte az előző
+szerkesztésedet. Már csak annyit dolgod van, hogy beírod a fájlnevet
+"main.h"<Enter>:
 
 	#include "file.h" ~
 	#include "main.h" ~
 	/* Main program begins */ ~
 
-The CTRL-@ command does a CTRL-A and then exits Insert mode.  That's a quick
-way of doing exactly the same insertion again.
+A CTRL-@ parancs ugyan az, mint a CTRL-A, csak ki is lép Insert módból.
+Repetitív beillesztések ellenszere.
 
 ==============================================================================
-*24.5*	Copying from another line
+*24.5*	Másolás másik sorból
 
-The CTRL-Y command inserts the character above the cursor.  This is useful
-when you are duplicating a previous line.  For example, you have this line of
-C code:
+A CTRL-Y parancs (Insert módban) a kurzor fölötti karaktert gépeli.
+Csodálatos, ha például az új sor nagy része megegyezik a fentebbivel. Például,
+van egy sorod C-ben:
 
 	b_array[i]->s_next = a_array[i]->s_next; ~
 
-Now you need to type the same line, but with "s_prev" instead of "s_next".
-Start the new line, and press CTRL-Y 14 times, until you are at the "n" of
-"next":
+A következő sorod javarészt meg fog egyezni ("s_prev" helyett "s_next").
+Indíts egy új sort és támaszkodj rá a CTRL-Y billentyűre (14-szer), amíg a
+második "_" karakterhez érsz:
 
 	b_array[i]->s_next = a_array[i]->s_next; ~
 	b_array[i]->s_ ~
 
-Now you type "prev":
+Beírod a különböző szót:
 
 	b_array[i]->s_next = a_array[i]->s_next; ~
 	b_array[i]->s_prev ~
 
-Continue pressing CTRL-Y until the following "next":
+CTRL-Y-vel kiegészíted a sor a "next"-ig:
 
 	b_array[i]->s_next = a_array[i]->s_next; ~
 	b_array[i]->s_prev = a_array[i]->s_ ~
 
-Now type "prev;" to finish it off.
+Most pedig az utolsó "prev;".
 
-The CTRL-E command acts like CTRL-Y except it inserts the character below the
-cursor.
+A parancs inverze a CTRL-E, ami kurzor alatti lévő karaktert gépeli be.
 
 ==============================================================================
-*24.6*	Inserting a register
+*24.6*	Regiszter tartalmának beszúrása
 
-The command CTRL-R {register} inserts the contents of the register.  This is
-useful to avoid having to type a long word.  For example, you need to type
-this:
+A CTRL-R {register} parancs a hivatkozott regiszter tartalmát illeszti be.
+Kiválóan felhasználható hosszú szavak gépelésére. Például, ezt kell
+kialakítanod a forráskódban:
 
 	r = VeryLongFunction(a) + VeryLongFunction(b) + VeryLongFunction(c) ~
 
-The function name is defined in a different file.  Edit that file and move the
-cursor on top of the function name there, and yank it into register v: >
+A függvény nevét egy másik fájl definiálja. Szerkeszd a definíciót, a függvény
+nevét pedig másold be egy általad választott regiszterbe, mondjuk v: >
 
 	"vyiw
 
-"v is the register specification, "yiw" is yank-inner-word.  Now edit the file
-where the new line is to be inserted, and type the first letters:
+"v a regiszterazonosító, "yiw" pedig kimásolja a szót (yank-inner-word). Most
+menj arra a helyre, ahová be szeretnéd illeszteni. Kezdd el a sort:
 
 	r = ~
 
-Now use CTRL-R v to insert the function name:
+A függvény nevét illeszd be a CTRL-R v-vel:
 
 	r = VeryLongFunction ~
 
-You continue to type the characters in between the function name, and use
-CTRL-R v two times more.
-   You could have done the same with completion.  Using a register is useful
-when there are many words that start with the same characters.
+A függvények közötti " + " részt kézzel kell megoldanunk, de további két
+alkalommal a CTRL-R v használható.
+   Mezei kiegészítéssel is megoldhattuk volna a feladatot. A regiszterek akkor
+remekelnek, ha sok azonos betűkkel kezdődő elemünk van.
 
-If the register contains characters such as <BS> or other special characters,
-they are interpreted as if they had been typed from the keyboard.  If you do
-not want this to happen (you really want the <BS> to be inserted in the text),
-use the command CTRL-R CTRL-R {register}.
+A regiszterek speciális karakterei (<BS> stb.) a képernyőre íródnak, mintha
+begépeltük volna őket. Ha ezt nem szeretnéd és a <BS> karaktereket szövegként
+szeretnéd beilleszteni, akkor CTRL-R CTRL-R {register}.
 
 ==============================================================================
-*24.7*	Abbreviations
+*24.7*	Rövidítések
 
-An abbreviation is a short word that takes the place of a long one.  For
-example, "ad" stands for "advertisement".  Vim enables you to type an
-abbreviation and then will automatically expand it for you.
-   To tell Vim to expand "ad" into "advertisement" every time you insert it,
-use the following command: >
+A rövidítésekkel hosszú szavak rövidíthetünk, elgépeléseket korrigálhatunk.
+Például, az "ad" szót gépeléskor automatikusan kiegészíti a szerkesztő
+"advertisement"-re.
+  Hogy ezt definiáljuk insert módban, adjuk ki a parancsot: >
 
 	:iabbrev ad advertisement
 
-Now, when you type "ad", the whole word "advertisement" will be inserted into
-the text.  This is triggered by typing a character that can't be part of a
-word, for example a space:
+Most, ha "ad"-ot gépelsz, a szó "advertisement"-re átváltozik, amikor az első
+olyan karaktert gépeled be, amely a szavakban nem szerepelhet:
 
-	What Is Entered		What You See
+	Amit beírsz		Amit látsz
 	I saw the a		I saw the a ~
 	I saw the ad		I saw the ad ~
 	I saw the ad<Space>	I saw the advertisement<Space> ~
 
-The expansion doesn't happen when typing just "ad".  That allows you to type a
-word like "add", which will not get expanded.  Only whole words are checked
-for abbreviations.
+A kibontás nem történik meg még akkor sem, ha az "ad" szót begépeljük. Így
+gépelhetünk egy teljesen más szót is ("add"), a rövidítés nem lesz kibontva.
+The expansion doesn't happen when typing just "ad". A rövidítések ellenőrzése
+teljes szavak alapján történik.
 
 
-ABBREVIATING SEVERAL WORDS
+TÖBB SZÓ RÖVIDÍTÉSE
 
 It is possible to define an abbreviation that results in multiple words.  For
 example, to define "JB" as "Jack Benny", use the following command: >
