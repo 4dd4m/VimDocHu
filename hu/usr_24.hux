@@ -17,12 +17,12 @@ szerepelnek a billentyűzeteden.
 |24.5|	Másolás másik sorból
 |24.6|	Regiszter tartalmának beszúrása
 |24.7|	Rövidítések
-|24.8|	Speciális karakterek
+|24.8|	Speciális karakterek bevitele
 |24.9|	Digrammák
 |24.10|	Normal módú parancsok
 
-Következő fejezet: |usr_25.txt|  Editing formatted text
-    Előző fejezet: |usr_23.txt|  Editing other files
+Következő fejezet: |usr_25.txt|  Formázott szövegek szerkesztése
+    Előző fejezet: |usr_23.txt|  Egyéb fájlok szerkesztése
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
@@ -388,43 +388,46 @@ teljes szavak alapján történik.
 
 TÖBB SZÓ RÖVIDÍTÉSE
 
-It is possible to define an abbreviation that results in multiple words.  For
-example, to define "JB" as "Jack Benny", use the following command: >
+Akár egynél több szóban végződő rövidítéseket is definiálhatunk. Például,
+meghatározhatjuk, hogy "JB" karakterek "Jack Benny"-t eredményezzenek kibontás
+után: >
 
 	:iabbrev JB Jack Benny
 
-As a programmer, I use two rather unusual abbreviations: >
+Programozóként, két szokatlan rövidítést használok: >
 
 	:iabbrev #b /****************************************
 	:iabbrev #e <Space>****************************************/
+??? Pontosítani
+Ezek a többsoros kommentek írását könnyítik meg. A komment a #b rövidítéssel
+kezdődik, mely kirajzolja az első sort. A komment beírását követően a #e
+rövidítés pedig lezárja a kommentet.
+   Az #e rövidítés üres karakterrel kezdődik. A Vim figyelmen kívül hagyja az
+üres karaktereket a rövidítés és a kibontott értékek között, ezért a szóköz
+karaktert itt <space>-ként van megadva. Használhatjuk a billentyűzet speciális
+karaktereit is, például: <Tab>,<Left>,<Right>,<Enter> stb.
 
-These are used for creating boxed comments.  The comment starts with #b, which
-draws the top line.  I then type the comment text and use #e to draw the
-bottom line.
-   Notice that the #e abbreviation begins with a space.  In other words, the
-first two characters are space-star.  Usually Vim ignores spaces between the
-abbreviation and the expansion.  To avoid that problem, I spell space as seven
-characters: <, S, p, a, c, e, >.
-
-	Note:
-	":iabbrev" is a long word to type.  ":iab" works just as well.
-	That's abbreviating the abbreviate command!
+	`:iabbrev pf public function(){<Left><Left><Left>`
+???
+	Megjegyzés:
+	Az ":iabbrev" parancs hosszú, rövid megfelelője a ":iab". Ez a
+	rövidítés parancsnak a rövidítése.
 
 
-FIXING TYPING MISTAKES
+GÉPELÉSI HIBÁK JAVÍTÁSA
 
-It's very common to make the same typing mistake every time.  For example,
-typing "teh" instead of "the".  You can fix this with an abbreviation: >
+Elég gyakran ugyanazokat a gépelési hibákat követjük el. Például, "the" szót
+rendszeresen "teh"-nek írjuk. Rövidítéssel a probléma eliminálható: >
 
 	:abbreviate teh the
 
-You can add a whole list of these.  Add one each time you discover a common
-mistake.
+Készíthetsz róluk akár egy teljes listát is, melyet frissíthetsz minden egyes
+gyakori hiba felfedezésekor.
 
 
-LISTING ABBREVIATIONS
+RÖVIDÍTÉSEK LISTÁZÁSA
 
-The ":abbreviate" command lists the abbreviations:
+Az ":abbreviate" parancs kilistázza a rövidítéseket:
 
 	:abbreviate
 	i  #e		  ****************************************/
@@ -433,169 +436,192 @@ The ":abbreviate" command lists the abbreviations:
 	i  ad		 advertisement
 	!  teh		 the
 
-The "i" in the first column indicates Insert mode.  These abbreviations are
-only active in Insert mode.  Other possible characters are:
+Az "i" karakter az első oszlopban az Insert módra utal. Ezek a rövidítések
+csak Insert módban működnek. A további változatok:
 
-	c	Command-line mode			:cabbrev
-	!	both Insert and Command-line mode	:abbreviate
+	c	Command-line mód			:cabbrev
+	!	Insert és Command-line mód		:abbreviate
 
-Since abbreviations are not often useful in Command-line mode, you will mostly
-use the ":iabbrev" command.  That avoids, for example, that "ad" gets expanded
-when typing a command like: >
+A rövidítések használata command-line módban nem túl gyakori, ezért az esetek
+többségében az ":iabbrev" parancsot fogod használni. Ráadásul, elkerülhetőek
+azok az helyzetek, amikor a command-line-ban kibontásra kerülne egy rövidítés.
+Például, ha a fájlnevünk "ad" karakterekkel kezdődik, az ":iabbrev" parancs
+megakadályozza a kibontást: >
 
 	:edit ad
 
+Tegyük fel, hogy létrehozod az alábbi rövidítést:
 
-DELETING ABBREVIATIONS
+	`:ab h  hogy`
 
-To get rid of an abbreviation, use the ":unabbreviate" command.  Suppose you
-have the following abbreviation: >
+Ez ütközni fog a "help" rövidített alakjával, így minden egyes alkalommal, mikor
+a help-fájlokkal dolgozol, a ":h",  ":hogy "-ra vált.
 
+RÖVIDÍTÉSEK TÖRLÉSE
+
+Rövidítéseinket az ":unabbreviate" paranccsal törölhetjük. Ha az alábbi
+rövidítést definiáltuk: >
+	
 	:abbreviate @f fresh
 
-You can remove it with this command: >
+Akkor ezt így távolíthatjuk el: >
 
 	:unabbreviate @f
 
-While you type this, you will notice that @f is expanded to "fresh".  Don't
-worry about this, Vim understands it anyway (except when you have an
-abbreviation for "fresh", but that's very unlikely).
-   To remove all the abbreviations: >
+Az "@f" karaktereket a Vim azonnal kibontja "fresh"-re, ahogy beírod őket.
+Emiatt ne aggódj, a Vim érteni fogja (hacsak nem definiáltál a "fresh" szóhoz
+is egy másik rövidítés, de ez nem valószínű).
+   Az összes rövidítés eltávolítása: >
 
 	:abclear
 
-":unabbreviate" and ":abclear" also come in the variants for Insert mode
-(":iunabbreviate and ":iabclear") and Command-line mode (":cunabbreviate" and
-":cabclear").
+Az "unabbreviate" és az ":abclear" parancsoknak van Insert módú megfelelője
+(":iunabbreviate" és ":iabclear") és command-line megfelelője is
+(":cunabbreviate").
 
 
-REMAPPING ABBREVIATIONS
+RÖVIDÍTÉSEK MAPPELÉSE
 
-There is one thing to watch out for when defining an abbreviation: The
-resulting string should not be mapped.  For example: >
+Csupán egyetlen egy dologra kell figyelnünk rövidítések létrehozásakor: A
+kibontott String ne tartozzon mapphez. Például:  >
 
 	:abbreviate @a adder
 	:imap dd disk-door
 
-When you now type @a, you will get "adisk-doorer".  That's not what you want.
-To avoid this, use the ":noreabbrev" command.  It does the same as
-":abbreviate", but avoids that the resulting string is used for mappings: >
+Ha most @a-t gépelsz, akkor a képernyőn "adisk-doorer" jelenik meg. Nem ezt
+szeretted volna. A ":noreabbrev" parancsot használata (mely ":abbreviate"
+parancs kiegészített változata) megakadályozza, hogy a rövidítésben szereplő
+karakterek további mappeket hívjanak meg.  >
 
 	:noreabbrev @a adder
 
-Fortunately, it's unlikely that the result of an abbreviation is mapped.
+Szerencsére nem gyakori jelenség, de okozhat meglepetéseket.
 
 ==============================================================================
-*24.8*	Entering special characters
+*24.8*	Speciális karakterek bevitele
 
-The CTRL-V command is used to insert the next character literally.  In other
-words, any special meaning the character has, it will be ignored.  For
-example: >
-
+A CTRL-V parancs beilleszti a következő karaktert szó szerint. Más szavakkal,
+ha a karakternek van speciális jelentése, akkor az figyelmen kívül lesz
+hagyva. >
 	CTRL-V <Esc>
 
-Inserts an escape character.  Thus you don't leave Insert mode.  (Don't type
-the space after CTRL-V, it's only to make this easier to read).
+A parancs beszúrja az Esc karaktert (ahelyett, hogy elhagyná az Insert módot).
+A szóközt ne gépel be a CTRL-V után, csak a parancs tagolása miatt szerepel a
+parancsban: CTRL-V<Esc>).
 
-	Note:
-	On MS-Windows CTRL-V is used to paste text.  Use CTRL-Q instead of
-	CTRL-V.  On Unix, on the other hand, CTRL-Q does not work on some
-	terminals, because it has a special meaning.
+Vimrc szerkesztésénél már hasznát is vehetjük, ahová az alábbi billentyűket
+szeretnénk rögzíteni:
 
-You can also use the command CTRL-V {digits} to insert a character with the
-decimal number {digits}.  For example, the character number 127 is the <Del>
-character (but not necessarily the <Del> key!).  To insert <Del> type: >
+	`<Left><Left><Left><Left><Left>`
+
+Insert módban ezt így vihetjük be gyorsan:
+
+	`CTRL-V<Left>CTRL-V<Left>CTRL-V<Left>CTRL-V<Left>CTRL-V<Left>`
+ 
+	Megjegyzés:
+	MS-Windows platformon a CTRL-V a vágólap tartalmának beillesztésére
+	használják. Használj CTRL-Q-t a CTRL-V helyett. Unixon CTRL-Q egyes
+	terminálokon nem működik, hiszen terminál-specifikus funkciója lehet.
+
+A karakterek beilleszthetőek decimális számuk alapján is (CTRL-V {digits}).
+Például, a <Del> karaktert reprezentálja a 127-es szám (de nem feltétlenül a
+<Del> billentyűt!). <Del> beszúrása: >
 
 	CTRL-V 127
-
-You can enter characters up to 255 this way.  When you type fewer than two
-digits, a non-digit will terminate the command.  To avoid the need of typing a
-non-digit, prepend one or two zeros to make three digits.
-   All the next commands insert a <Tab> and then a dot:
+ 
+A módszerrel 255 karakter vihető be. Ha kétszámjegyű kell beszúrnunk, akkor az
+első nem szám karakter futtatja a parancsot, így szükségtelen 0 karakterrel
+háromjegyűre bővíteni a kódot.
+   Az alábbi parancsok mindegyike <Tab>-ot és egy pontot szúr be:
 
 	CTRL-V 9.
 	CTRL-V 09.
 	CTRL-V 009.
 
-To enter a character in hexadecimal, use an "x" after the CTRL-V: >
+Karakterek hexadecimális beszúrásánál a kódot "x" karakter előzi meg: >
 
 	CTRL-V x7f
 
-This also goes up to character 255 (CTRL-V xff).  You can use "o" to type a
-character as an octal number and two more methods allow you to type up to
-a 16 bit and a 32 bit number (e.g., for a Unicode character): >
+A paranccsal 255 karakter szúrható be ismételten (CTRL-V xff). Az "o"
+prefixummal oktális számokat tudunk bevinni, illetve két további módszerrel
+pedig 16 és 32 bites számot (például Unicode karakterhez): >
 
 	CTRL-V o123
 	CTRL-V u1234
 	CTRL-V U12345678
 
 ==============================================================================
-*24.9*	Digraphs
+*24.9*	Digrammák
 
-Some characters are not on the keyboard.  For example, the copyright character
-(©).  To type these characters in Vim, you use digraphs, where two characters
-represent one.  To enter a ©, for example, you press three keys: >
+Néha olyan karaktert szeretnénk beszúrni, amely egyáltalán nem szerepel a
+billentyűzetünkön. Ilyen például a copyright karakter (©). Az ilyen típusú
+karakterek gépeléséhez a digrammákat használjuk. A digrammák olyan
+két-három karakterből álló azonosítók, melyek egy speciális karakterre
+hivatkoznak. >
 
 	CTRL-K Co
 
-To find out what digraphs are available, use the following command: >
+Az összes digramma listázása: >
 
 	:digraphs
 
-Vim will display the digraph table.  Here are three lines of it:
+Három sor a példa a parancs kimenetéből:
 
   AC ~_ 159  NS |  160  !I ¡  161  Ct ¢  162  Pd £  163  Cu ¤  164  Ye ¥  165 ~
   BB ¦  166  SE §  167  ': ¨  168  Co ©  169  -a ª  170  << «  171  NO ¬  172 ~
   -- ­  173  Rg ®  174  'm ¯  175  DG °  176  +- ±  177  2S ²  178  3S ³  179 ~
 
-This shows, for example, that the digraph you get by typing CTRL-K Pd is the
-character (£).  This is character number 163 (decimal).
-   Pd is short for Pound.  Most digraphs are selected to give you a hint about
-the character they will produce.  If you look through the list you will
-understand the logic.
-   You can exchange the first and second character, if there is no digraph for
-that combination.  Thus CTRL-K dP also works.  Since there is no digraph for
-"dP" Vim will also search for a "Pd" digraph.
+Melynek alapján megállapíthatjuk, hogy CTRL-K Pd kombinációk a £ karakterre
+hivatkoznak, melynek elérhető decimális változata a 163.
+   A Pd a font rövidítése (PounD), a legtöbb digramma azonosítója úgy lett
+meghatározva, hogy utaljon a speciális karakterre. Ha belepillantasz a
+táblázatba, akkor felfedezheted a logikát.
+   A digramma azonosítójának első és második karaktere felcserélhető abban az
+esetben, ha az így kapott azonosító nem foglalt. Ezért CTRL-K dP szintén
+működik (mivel a "dP" azonosítóhoz nem tartozik semmi, ezért a Vim a "Pd"
+azonosítót is keresi).
 
-	Note:
-	The digraphs depend on the character set that Vim assumes you are
-	using.  Always use ":digraphs" to find out which digraphs are currently
-	available.
+	Megjegyzés:
+	A digrammák azonosítóit a nyelvi beállításaid befolyásolják, ezért
+	mindig érdemes megtekinteni a listát mielőtt használjuk őket.
 
-You can define your own digraphs.  Example: >
+A saját digrammáidat is definiálhatod. Például: >
 
 	:digraph a" ä
 
-This defines that CTRL-K a" inserts an ä character.  You can also specify the
-character with a decimal number.  This defines the same digraph: >
+Ez definiálja az a" azonosítójú digrammát, melynek kimenete ä lesz. Decimális
+szám alapján is történhet a definíció, az alábbi például ugyan azt a digrammát
+definiálja: >
 
 	:digraph a" 228
 
-More information about digraphs here: |digraphs|
-   Another way to insert special characters is with a keymap.  More about that
-here: |45.5|
+A digrammákról még több információ: |digraphs|.
+   A speciális karakterek bevitelére létezik még egy módszer: keymap. Erről
+többet itt |45.5|.
 
 ==============================================================================
-*24.10*	Normal mode commands
+*24.10*	Normal módú parancsok
 
-Insert mode offers a limited number of commands.  In Normal mode you have many
-more.  When you want to use one, you usually leave Insert mode with <Esc>,
-execute the Normal mode command, and re-enter Insert mode with "i" or "a".
-   There is a quicker way.  With CTRL-O {command} you can execute any Normal
-mode command from Insert mode.  For example, to delete from the cursor to the
-end of the line: >
+Az Insert módban csak limitált számú parancsot használhatunk. Normál módban a
+többszöröse is elérhető. Használatukhoz azonban gyakran ell kell hagynod az
+Insert módot <Esc> billentyűvel, lefuttatni a Normal módú parancsot, majd
+visszatérni Insert módba az "i", "a", "A", "I" stb. billentyűkkel.
+   A gyorsabb módszer: CTRL-O {command} képes futtatni bármilyen Normal módú
+parancsot Insert módban. Például, törlés a kurzortól a sor végéig: >
 
 	CTRL-O D
 
-You can execute only one Normal mode command this way.  But you can specify a
-register or a count.  A more complicated example: >
+Csak és kizárólag Normal módú parancsok futtathatóak ilyen módon. A
+mennyiségek és a regiszterek használata azonban engedélyezett,például egy
+kicsit bonyolultabb műveletre: >
 
 	CTRL-O "g3dw
 
-This deletes up to the third word into register g.
+A parancs törli és a "g" azonosítójú regiszterben tárolja a kurzort követő
+három szót.
 
 ==============================================================================
 
-Következő fejezet: |usr_25.txt|  Editing formatted text
+Következő fejezet: |usr_25.txt|  Formázott szövegek szerkesztése
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
