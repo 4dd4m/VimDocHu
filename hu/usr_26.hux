@@ -1,33 +1,32 @@
 *usr_26.txt*	For Vim version 8.2.  Last change: 2006 Apr 24
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-				  Repeating
+				   Ismétlés
 
 
-An editing task is hardly ever unstructured.  A change often needs to be made
-several times.  In this chapter a number of useful ways to repeat a change
-will be explained.
+A szerkesztés sokszor repetitív, melyek újra és újra elvégzünk. Ebben a
+fejezetben az ismétlési módokról és használatukról lesz szó.
 
-|26.1|	Repeating with Visual mode
-|26.2|	Add and subtract
-|26.3|	Making a change in many files
-|26.4|	Using Vim from a shell script
+|26.1|	Ismétlés Visual módban
+|26.2|	Hozzáadás és kivonás
+|26.3|	Szerkesztések több fájlon
+|26.4|	Vim használata shell-szkripttel
 
-     Következő fejezet: |usr_27.txt|  Search commands and patterns
- Előző fejezet: |usr_25.txt|  Editing formatted text
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_27.txt|  Keresési parancsok és minták
+    Előző fejezet: |usr_25.txt|  Formázott szöveg szerkesztése
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*26.1*	Repeating with Visual mode
+*26.1*	Ismétlés Visual módban
 
-Visual mode is very handy for making a change in any sequence of lines.  You
-can see the highlighted text, thus you can check if the correct lines are
-changed.  But making the selection takes some typing.  The "gv" command
-selects the same area again.  This allows you to do another operation on the
-same text.
-   Suppose you have some lines where you want to change "2001" to "2002" and
-"2000" to "2001":
+A Visual módban többsoros szerkesztéseket alkalmazunk. A kijelölt szöveget
+láthatod, így egyszerű megállapítani, hogy a szerkesztés a fájl mely részeit
+változtatja meg. A kijelölés extra gépeléssel jár. A "gv" parancs kiválasztja
+a legutóbbi kijelölt területet újra, így viszonylag rövid idő alatt több
+parancsot is futtathatunk a kijelölésen.
+   Tegyük fel, hogy példában ki szeretnél cserélni az évszámokat, a "2001"-et
+   "2002"-re, a "2000" pedig "2002"-re:
 
 	The financial results for 2001 are better ~
 	than for 2000.  The income increased by 50%, ~
@@ -35,26 +34,28 @@ same text.
 			2000		2001 ~
 	income		45,403		66,234 ~
 
-First change "2001" to "2002".  Select the lines in Visual mode, and use: >
+Az első csere "2001"-"2002". Jelöld ki a területet Visual módban és cseréld le
+őket: >
 
 	:s/2001/2002/g
 
-Now use "gv" to reselect the same text.  It doesn't matter where the cursor
-is.  Then use ":s/2000/2001/g" to make the second change.
-   Obviously, you can repeat these changes several times.
+Most választ ki a területet újra "gv" és cseréld le a maradékot
+":s/2000/2001/g".
+   A technika ismételhetősége nyilvánvaló.
 
 ==============================================================================
-*26.2*	Add and subtract
+*26.2*	Hozzáadás és kivonás
 
-When repeating the change of one number into another, you often have a fixed
-offset.  In the example above, one was added to each year.  Instead of typing
-a substitute command for each year that appears, the CTRL-A command can be
-used.
-   Using the same text as above, search for a year: >
+Ha két számot kell változtatni, akkor általában meg adva az offset (azaz, hogy
+mennyivel kell növelni, vagy csökkenteni az adott számot). A fenti példában
+mindegyik évhez hozzáadtunk egyet. Most keresés helyett végezzünk egy
+pontosabb keresést, amely csak az évszámokat jelöli ki, majd használjuk a
+CTRL-A parancsot.
+   A fenti példára alapozva, keressük meg az évszámokat: >
 
 	/19[0-9][0-9]\|20[0-9][0-9]
 
-Now press CTRL-A.  The year will be increased by one:
+Most nyomj CTRL-A-t. Az évszámok eggyel nőnek:
 
 	The financial results for 2002 are better ~
 	than for 2000.  The income increased by 50%, ~
