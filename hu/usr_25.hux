@@ -217,157 +217,158 @@ például: >
 ==============================================================================
 *25.3*	Behúzások és tabulátorok
 
-Indents can be used to make text stand out from the rest.  The example texts
-in this manual, for example, are indented by eight spaces or a tab.  You would
-normally enter this by typing a tab at the start of each line.  Take this
-text:
+A behúzással készített szövegek kitűnnek a többi közül. A kézikönyv példái 8
+szóközzel beljebb vannak húzva. Ezt úgy hozhatod létre, hogy minden egyes sor
+elejére nyolc szóközt szúrsz be:
+
 	the first line ~
 	the second line ~
 
-This is entered by typing a tab, some text, <Enter>, tab and more text.
-   The 'autoindent' option inserts indents automatically: >
+A fenti két sor tabulátor felhasználásával íródott. A sor végén <Enter>, újra
+egy tabulátor és a második sor.
+   Ha bekapcsolod az 'autoindent' funkciót, akkor a szöveg behúzása
+   automatikus: >
 
 	:set autoindent
 
-When a new line is started it gets the same indent as the previous line.  In
-the above example, the tab after the <Enter> is not needed anymore.
+A behúzás öröklődik, így az újonnan megkezdett sornak is ugyanannyi lesz a
+behúzás, mint az előző sornak. Így az előző példában nem kell tab billentyűt
+ütnünk az <Enter> után.
 
 
-INCREASING INDENT
+BEHÚZÁS NÖVELÉSE
 
-To increase the amount of indent in a line, use the ">" operator.  Often this
-is used as ">>", which adds indent to the current line.
-   The amount of indent added is specified with the 'shiftwidth' option.  The
-default value is 8.  To make ">>" insert four spaces worth of indent, for
-example, type this: >
+A behúzás mértékének növeléséhez az ">" operátort használjuk. Gyakran
+">>"-ként használjuk, amely az aktív sor behúzását növeli.
+   Az értéket a 'shiftwidth' opció értéke határozza meg. Az alapértelmezett
+érték 8 szóköz. Ahhoz, hogy ">>" csak négy karaktert húzzon be, állítsd át a
+'shiftwidth' értékét: >
 
 	:set shiftwidth=4
 
-When used on the second line of the example text, this is what you get:
+Ha ezt a második soron alkalmazzuk, akkor így néz ki a példánk:
 
 	the first line ~
 	    the second line ~
 
-"4>>" will increase the indent of four lines.
+"4>>" négyszer alkalmazza a ">" operátort, azaz a behúzást.
 
 
 TABSTOP
 
-If you want to make indents a multiple of 4, you set 'shiftwidth' to 4.  But
-when pressing a <Tab> you still get 8 spaces worth of indent.  To change this,
-set the 'softtabstop' option: >
+Ha a behúzások értékének a 4 többszöröseit szeretnéd beállítani, akkor
+módosítsd a 'shiftwidth' opciót 4-re. <Tab> billentyű viszont még mindig 8 
+szóközt fog beszúrni. Állítsd a 'softtabstop' értékén: >
 
 	:set softtabstop=4
 
-This will make the <Tab> key insert 4 spaces worth of indent.  If there are
-already four spaces, a <Tab> character is used (saving seven characters in the
-file).  (If you always want spaces and no tab characters, set the 'expandtab'
-option.)
+Ezzel a <Tab> négy karakternyi szóközzel húz be. Ha már 4 szóköz a behúzásban,
+akkor <Tab> karakterre cserélni (megspórolva ezzel 7 karakternyi helyet a
+fájlban). Ha állandóan <Tab> karaktereket szeretnél, akkor engedélyezd az
+'expandtab' opciót.
 
-	Note:
-	You could set the 'tabstop' option to 4.  However, if you edit the
-	file another time, with 'tabstop' set to the default value of 8, it
-	will look wrong.  In other programs and when printing the indent will
-	also be wrong.  Therefore it is recommended to keep 'tabstop' at eight
-	all the time.  That's the standard value everywhere.
+	Megjegyzés:
+	Beállíthatod a 'tabstop'-ot 4-re. Viszont, ha egy másik fájlt
+	szerkesztesz, amiben a 'tabstop' alapértelmezetten 8-ra van állítva,
+	akkor rosszul fog kinézni. Más programban és nyomtatásban a behúzások
+	nem lesznek megfelelőek. Ezért ajánlott a 'tabstop' értékét 8
+	karakteren tartani állandóan.
 
 
-CHANGING TABS
+TABOK CSERÉJE
 
-You edit a file which was written with a tabstop of 3.  In Vim it looks ugly,
-because it uses the normal tabstop value of 8.  You can fix this by setting
-'tabstop' to 3.  But you have to do this every time you edit this file.
-   Vim can change the use of tabstops in your file.  First, set 'tabstop' to
-make the indents look good, then use the ":retab" command: >
+Olyan fájlt szerkesztesz, ami 3-as tabstoppal íródott. A Vimben ez csúnyán
+jelenik meg, hiszen a Vim 8 karaktert használ a tabstophoz. Igazítsd a Vim
+tabstopját 3-ra. Ezt minden egyes alkalommal meg kell tenni ha megnyitod a
+fájlt. 
+   A Vim át tudja konvertálni a tabstopokat a fájlodban. Állítsd a 'tabstop'
+értékét megfelelőre, majd add ki a ":retab" parancsot. >
 
 	:set tabstop=3
 	:retab 8
 
-The ":retab" command will change 'tabstop' to 8, while changing the text such
-that it looks the same.  It changes spans of white space into tabs and spaces
-for this.  You can now write the file.  Next time you edit it the indents will
-be right without setting an option.
-   Warning: When using ":retab" on a program, it may change white space inside
-a string constant.  Therefore it's a good habit to use "\t" instead of a
-real tab.
+A ":retab" parancs a 'tabstop' értékét 8-ra állítja, a szöveg viszont alig
+változik. Megfelelő arányban kitölti a területet tabok és szóközök
+felhasználásával, így a következő alkalommal a behúzások rendben fognak
+kinézni beállítások nélkül is.
+   Figyelem: A ":retab" parancs megváltoztathatja a programban definiált
+stringek összetételét. Már csak ezért is ajánlott a tab karaktereket
+helyettesíteni "\t" karakterrel.
 
 ==============================================================================
-*25.4*	Dealing with long lines
+*25.4*	Munka hosszú sorokkal
 
-Sometimes you will be editing a file that is wider than the number of columns
-in the window.  When that occurs, Vim wraps the lines so that everything fits
-on the screen.
-   If you switch the 'wrap' option off, each line in the file shows up as one
-line on the screen.  Then the ends of the long lines disappear off the screen
-to the right.
-   When you move the cursor to a character that can't be seen, Vim will scroll
-the text to show it.  This is like moving a viewport over the text in the
-horizontal direction.
-   By default, Vim does not display a horizontal scrollbar in the GUI.  If you
-want to enable one, use the following command: >
+Néha olyan fájlokkal kell dolgozzunk, melynek sorai annyira hosszúak, hogy a
+szerkesztőnk ezt nem képes megjeleníteni egy sorban. Ha ez megtörténik, akkor
+a Vim automatikusan tördeli a hosszú sorokat, hogy minden elférjen a
+képernyőn.
+   Ha a 'wrap' opciót kikapcsolod, akkor minden sor az eredeti hosszában fog
+megjelenni. A hosszú sorok jobb oldala teljesen el fog tűnni.
+   Ha olyan pontra mozgatod a kurzort, amely nem esik bele a képernyő
+látószögébe, akkor a vim oda mozgatja az ablakot. 
+   A GUI verzióban nincs engedélyezve a horizontális görgetősáv. Ha használni
+szeretnéd, akkor engedélyezned kell:  >
 
 	:set guioptions+=b
 
-One horizontal scrollbar will appear at the bottom of the Vim window.
+A görgetősáv a Vim ablakának  alján jelenik meg.
 
-If you don't have a scrollbar or don't want to use it, use these commands to
-scroll the text.  The cursor will stay in the same place, but it's moved back
-into the visible text if necessary.
+Ha nincs engedélyezve a görgetősáv, vagy csak nem akarod használni, akkor
+parancsok segítségével is görgethetsz. A kurzor tartja a pozícióját, amíg
+látható tartományban van, majd követi a nézőpontot, ha ez szükséges.
 
-	zh		scroll right
-	4zh		scroll four characters right
-	zH		scroll half a window width right
-	ze		scroll right to put the cursor at the end
-	zl		scroll left
-	4zl		scroll four characters left
-	zL		scroll half a window width left
-	zs		scroll left to put the cursor at the start
+	zh		görgetés jobbra
+	4zh		görgetés négy karaktert jobbra
+	zH		görgetés fél képernyőnyit jobbra
+	ze		görgetés jobbra, kurzor a sor végéhez
+	zl		görgetés balra
+	4zl		görgetés négy karaktert balra
+	zL		görgetés fél képernyőnyit balra
+	zs		görgetés balra, kurzort a sor elejéhez
 
-Let's attempt to show this with one line of text.  The cursor is on the "w" of
-"which".  The "current window" above the line indicates the text that is
-currently visible.  The "window"s below the text indicate the text that is
-visible after the command left of it.
+Próbáljuk meg bemutatni ezt egy sornyi szövegen. A kurzor a "which" szó "w"
+betűjén áll. Az ablak jelöli a képernyőn látható szöveg mennyiségét. Az
+"ablak" sorok jelzik a képernyő helyzetet a parancs lefutása után.
 
-			      |<-- current window -->|
+			      |<--     ablak      -->|
 		some long text, part of which is visible in the window ~
-	ze	  |<--	   window     -->|
-	zH	   |<--     window     -->|
-	4zh		  |<--	   window     -->|
-	zh		     |<--     window	 -->|
-	zl		       |<--	window	   -->|
-	4zl			  |<--	   window     -->|
-	zL				|<--	 window     -->|
-	zs			       |<--	window	   -->|
+	ze	  |<--	   ablak     -->|
+	zH	   |<--     ablak     -->|
+	4zh		  |<--	   ablak     -->|
+	zh		     |<--     ablak	 -->|
+	zl		       |<--	ablak	   -->|
+	4zl			  |<--	   ablak     -->|
+	zL				|<--	 ablak     -->|
+	zs			       |<--	ablak	   -->|
 
 
-MOVING WITH WRAP OFF
+MOZGÁSOK (WRAP: OFF)
 
-When 'wrap' is off and the text has scrolled horizontally, you can use the
-following commands to move the cursor to a character you can see.  Thus text
-left and right of the window is ignored.  These never cause the text to
-scroll:
+Ha a 'wrap' opció ki van kapcsolva, az alábbi parancsokkal tudjuk mozgatni a
+kurzort (az ablakon belül). A parancs nem veszi figyelembe a az ablakból balra 
+és jobbra kilógó szövegeket, így soha nem történik gördítés. 
 
-	g0		to first visible character in this line
-	g^		to first non-blank visible character in this line
-	gm		to middle of screen line
-	gM		to middle of the text in this line
-	g$		to last visible character in this line
+	g0		ugrás az első látható karakterhez
+	g^		ugrás a sor első nem üres karakterére
+	gm		ugrás a ablak sorának közepére
+	gM		ugrás sor közepére
+	g$		ugrás az utolsó látható karakterhez
 
-		|<--	  window     -->|
+		|<--	  ablak     -->|
 	some long    text, part of which is visible in one line ~
 		 g0  g^    gm	   gM g$
 
 
-BREAKING AT WORDS				*edit-no-break*
+SORTÖRÉS SZAVAKBAN				*edit-no-break*
 
-When preparing text for use by another program, you might have to make
-paragraphs without a line break.  A disadvantage of using 'nowrap' is that you
-can't see the whole sentence you are working on.  When 'wrap' is on, words are
-broken halfway, which makes them hard to read.
-   A good solution for editing this kind of paragraph is setting the
-'linebreak' option.  Vim then breaks lines at an appropriate place when
-displaying the line.  The text in the file remains unchanged.
-   Without 'linebreak' text might look like this:
+Valamikor a szöveg feldolgozása azt kívánja, hogy a bekezdéseinkben ne
+alkalmazzunk sortörést. A 'nowrap' egyik nagy hátránya, hogy a hosszú sorok
+nem láthatóak. A 'wrap' opció a szavak közepén is alkalmaz sortöréseket, de ez
+a szöveget nehezen olvashatóvá teszi.
+   A szerkesztésnek az optimális módja, ha a 'linebreak' opciót beállítjuk.
+Így a sortörésein jó helyen lesznek és a szöveg olvashatóvá válik.
+Beállításával a fájl tartalma nem változik meg, csupán a megjelenítése.
+   A 'linebreak' opció nélkül:
 
 	+---------------------------------+
 	|letter generation program for a b|
@@ -376,11 +377,11 @@ displaying the line.  The text in the file remains unchanged.
 	|eir richest 1000 customers.  Unfo|
 	|rtunately for the programmer, he |
 	+---------------------------------+
-After: >
+Állítsuk be: >
 
 	:set linebreak
 
-it looks like this:
+Az eredmény pedig:
 
 	+---------------------------------+
 	|letter generation program for a  |
@@ -390,44 +391,47 @@ it looks like this:
 	|Unfortunately for the programmer,|
 	+---------------------------------+
 
-Related options:
-'breakat' specifies the characters where a break can be inserted.
-'showbreak' specifies a string to show at the start of broken line.
-Set 'textwidth' to zero to avoid a paragraph to be split.
+Releváns beállítások:
+    - 'breakat': sortörés megadott karaktereknél történik
+    - 'showbreak': sornyitó üres karakterek kijelzése
+    - 'textwidth': állítsd 0-ra, hogy a bekezdések ne legyenek feldarabolva
 
 
-MOVING BY VISIBLE LINES
+MOZGÁS A VIZUÁLIS SOROK KÖZÖTT
 
-The "j" and "k" commands move to the next and previous lines.  When used on
-a long line, this means moving a lot of screen lines at once.
-   To move only one screen line, use the "gj" and "gk" commands.  When a line
-doesn't wrap they do the same as "j" and "k".  When the line does wrap, they
-move to a character displayed one line below or above.
-   You might like to use these mappings, which bind these movement commands to
-the cursor keys: >
+A "j" és "k" parancsokkal sorokat válthatunk le és fel. Ha ezt egy nagyon
+hosszú tesszük, akkor észrevesszük, hogy több sort és léphetünk egyszerre.
+Ennek oka, hogy a szerkesztő különbséget tesz a valós sorok és a vizuális
+sorok között. 
+   Ha csak egyetlen egy sorral szeretnél feljebb vagy lejjebb mozogni, akkor a
+"gj" és "gk" parancsokat használd. Ha a sorban nincs sortörés, akkor a parancs
+továbbra is egy sort fog ugrani. Amennyiben van a sorban sortörés, akkor a
+kurzor a kurzor fölötti (vagy alatti) karakterre lép (mely gyakorlatilag még
+ugyan az a sor).
+   Talán hasznos lehet az alábbi mapping, mely a nyilakat állítja relatív
+sorváltásra: >
 
 	:map <Up> gk
 	:map <Down> gj
 
 
-TURNING A PARAGRAPH INTO ONE LINE			*edit-paragraph-join*
+BEKEZDÉS EGY SORRÁ ALAKÍTÁSA			*edit-paragraph-join*
 
-If you want to import text into a program like MS-Word, each paragraph should
-be a single line.  If your paragraphs are currently separated with empty
-lines, this is how you turn each paragraph into a single line: >
+MS-Wordben importálandó szöveg esetén minden sornak egy sorban kell lennie
+(hogy a Word bekezdésként értelmezze). Ha a bekezdéseidet a sztenderd egy üres
+sor választja el, akkor így alakíthatod őket egysorossá: >
 
 	:g/./,/^$/join
 
-That looks complicated.  Let's break it up in pieces:
+Ijesztően néz ki? Daraboljuk szét:
 
-	:g/./		A ":global" command that finds all lines that contain
-			at least one character.
-	     ,/^$/	A range, starting from the current line (the non-empty
-			line) until an empty line.
-		  join	The ":join" command joins the range of lines together
-			into one line.
+	:g/./		A ":global" parancs olyan sorokat keres, melyek
+			legalább egy karaktert tartalmaznak.
+	     ,/^$/	A tartomány az aktív sortól az első üres sorig tart.
+		  join	A ":join" parancs egyesíti a sorokat egy sorba.
 
-Starting with this text, containing eight lines broken at column 30:
+Vizsgáljuk meg az alábbi szövegen, mely nyolc tördelt sort tartalmaz a 30.
+sorban:
 
 	+----------------------------------+
 	|A letter generation program	   |
@@ -440,7 +444,7 @@ Starting with this text, containing eight lines broken at column 30:
 	|the programmer,		   |
 	+----------------------------------+
 
-You end up with two lines:
+A két sornyi bekezdés pedig:
 
 	+----------------------------------+
 	|A letter generation program for a |
@@ -450,89 +454,90 @@ You end up with two lines:
 	|Unfortunately for the programmer, |
 	+----------------------------------+
 
-Note that this doesn't work when the separating line is blank but not empty;
-when it contains spaces and/or tabs.  This command does work with blank lines:
+Megjegyzés: Ez nem működik akkor, ha bekezdéseket nem üres sorok választják el
+egymástól (a sor nem üres ha szóközöket, vagy tabot tartalmaz).
+
+Az alábbi parancs működik üres sorok esetén:
 >
 	:g/\S/,/^\s*$/join
 
-This still requires a blank or empty line at the end of the file for the last
-paragraph to be joined.
+Ha a legutolsó bekezdésünk a fájl végén helyezkedik el, akkor gondoskodjunk az
+azt követkő üres sorról is, ellenkező esetben az utolsó bekezdés sorai nem
+lesznek egyesítve.
 
 ==============================================================================
-*25.5*	Editing tables
+*25.5*	Táblázatok szerkesztése
 
-Suppose you are editing a table with four columns:
+Tegyük fel, hogy az alábbi négy oszlopos táblázatot kell szerkeszteni:
 
 	nice table	  test 1	test 2	    test 3 ~
 	input A		  0.534 ~
 	input B		  0.913 ~
 
-You need to enter numbers in the third column.  You could move to the second
-line, use "A", enter a lot of spaces and type the text.
-   For this kind of editing there is a special option: >
+A harmadik oszlopot számokkal kell feltöltenünk. Átválthatsz a második sorba,
+majd "A" parancs után rengeteg szóközt alkalmazva beírod a az adatot.
+   Az ilyen jellegű szerkesztésekhez van egy speciális beállítás: >
 
 	set virtualedit=all
 
-Now you can move the cursor to positions where there isn't any text.  This is
-called "virtual space".  Editing a table is a lot easier this way.
-   Move the cursor by searching for the header of the last column: >
+Így képes leszel olyan helyekre is pozícionálni a kurzort, ahol nincs szöveg
+("virtual space"). Sokkal egyszerűbb a táblázatok szerkesztése ily módon.
+   Vidd a kurzor a táblázat fejlécére az következő kereséssel: >
 
 	/test 3
 
-Now press "j" and you are right where you can enter the value for "input A".
-Typing "0.693" results in:
+Most nyomj "j"-t és jó helyen vagy, végül add meg az adatot "0.693":
 
 	nice table	  test 1     test 2	 test 3 ~
 	input A		  0.534			 0.693 ~
 	input B		  0.913 ~
 
-Vim has automatically filled the gap in front of the new text for you.  Now,
-to enter the next field in this column use "Bj".  "B" moves back to the start
-of a white space separated word.  Then "j" moves to the place where the next
-field can be entered.
-
-	Note:
-	You can move the cursor anywhere in the display, also beyond the end
-	of a line.  But Vim will not insert spaces there, until you insert a
-	character in that position.
+A színfalak mögött a Vim automatikusat kitölti az üres részt. Lépj a következő
+sorba "Bj". "B" vissza irányban mozog az első karakterig, mely üres karakter
+után "található", "j" pedig egy sorral lejjebb helyezi a kurzort, ahol
+megkezdődhet az adatbevitel.
 
 
-COPYING A COLUMN
+	Megjegyzés:
+	A kurzor akárhová viheted a képernyőt. Még az utolsó sor alá is (ide
+	nem kerül semmilyen karakter, amíg te magad nem szúrsz be egyet).
 
-You want to add a column, which should be a copy of the third column and
-placed before the "test 1" column.  Do this in seven steps:
-1.  Move the cursor to the left upper corner of this column, e.g., with
-    "/test 3".
-2.  Press CTRL-V to start blockwise Visual mode.
-3.  Move the cursor down two lines with "2j".  You are now in "virtual space":
-    the "input B" line of the "test 3" column.
-4.  Move the cursor right, to include the whole column in the selection, plus
-    the space that you want between the columns.  "9l" should do it.
-5.  Yank the selected rectangle with "y".
-6.  Move the cursor to "test 1", where the new column must be placed.
-7.  Press "P".
 
-The result should be:
+OSZLOP MÁSOLÁSA
+
+Hozzá szeretnél adni egy oszlopot a táblázathoz, mely a 3. oszlop másolata
+lesz és a "test 1" oszlop elé fog kerülni. Hét lépésben:
+1.  Vidd a kurzort a másolandó oszlopra (például /test 3).
+2.  Nyomj CTRL-V-t, a blokk kijelöléséhez Visual módban.
+3.  Vidd a kurzort két sorral lejjebb "2j". Most már a "virtual space"-ben
+    vagy (input B;test 3).
+4.  Jelöld  ki jobbra a teljes oszlopot plussz a két oszlop közötti térközt.
+    "9l" megfelelőnek tűnik.
+5.  Másol a kijelölést "y'.
+6.  Vidd a kurzort "test 1"-re, ahová be szeretnéd illeszteni.
+7. Illeszt be P-vel.
+
+Ha mindent jól csináltál:
 
 	nice table	  test 3    test 1     test 2	   test 3 ~
 	input A		  0.693     0.534		   0.693 ~
 	input B			    0.913 ~
 
-Notice that the whole "test 1" column was shifted right, also the line where
-the "test 3" column didn't have text.
+Vedd észre, hogy a teljes "test 1" oszlop jobbra eltolódott, illetve azok az
+oszlopok is melyek nem tartalmaztak adatot.
 
-Go back to non-virtual cursor movements with: >
+A virtuális szerkesztés visszaállítása: >
 
 	:set virtualedit=
 
 
-VIRTUAL REPLACE MODE
+VIRTUAL REPLACE MÓD
 
-The disadvantage of using 'virtualedit' is that it "feels" different.  You
-can't recognize tabs or spaces beyond the end of line when moving the cursor
-around.  Another method can be used: Virtual Replace mode.
-   Suppose you have a line in a table that contains both tabs and other
-characters.  Use "rx" on the first tab:
+A 'virtualedit' egyik nagy hátránya, hogy "másabb". Nem érzed a tabokat és a
+szóközöket navigálás közben. A Virtual replace móddal ugyanezt a problémát
+másképpen oldhatjuk meg. 
+   Tegyük fel, hogy a táblázatodban lévő sorok tabokat és szóközöket is
+tartalmaznak. Add ki az "rx" parancsot az első tab karakteren: 
 
 	inp	0.693   0.534	0.693 ~
 
@@ -542,7 +547,7 @@ characters.  Use "rx" on the first tab:
 
 	inpx0.693   0.534	0.693 ~
 
-The layout is messed up.  To avoid that, use the "gr" command:
+Az elrendezés elcsúszott, add ki a "gr" parancsot:
 
 	inp	0.693   0.534	0.693 ~
 
@@ -552,14 +557,14 @@ The layout is messed up.  To avoid that, use the "gr" command:
 
 	inpx	0.693   0.534	0.693 ~
 
-What happens is that the "gr" command makes sure the new character takes the
-right amount of screen space.  Extra spaces or tabs are inserted to fill the
-gap.  Thus what actually happens is that a tab is replaced by "x" and then
-blanks added to make the text after it keep its place.  In this case a
-tab is inserted.
-   When you need to replace more than one character, you use the "R" command
-to go to Replace mode (see |04.9|).  This messes up the layout and replaces
-the wrong characters:
+A "gr" parancs biztosította, hogy az új karakterek pontosan annyi helyet 
+foglaljanak, amennyit szükséges. Az extra hely szóközök és tabulátorok
+segítségével ki lett töltve. Tulajdonképpen egy tabulátor lecserélődött "x"
+karakterre, a szöveg elején és végén hozzáadott üres karakterek biztosították,
+hogy a szöveg a helyén maradt. Ebben az esetben egy tabbal egészült ki a
+szöveg.
+   Ha több, mint egy karaktert kell lecserélned, akkor használd az "R"
+parancsot a csere módhoz (|04.9|), mely nem tartja meg az elrendezést:
 
 	inp	0	0.534	0.693 ~
 
@@ -569,7 +574,7 @@ the wrong characters:
 
 	inp	0.78634	0.693 ~
 
-The "gR" command uses Virtual Replace mode.  This preserves the layout:
+A "gR parancs Virtual Csere módot használ. Ez megtartja az elrendezést:
 
 	inp	0	0.534	0.693 ~
 
@@ -581,6 +586,6 @@ The "gR" command uses Virtual Replace mode.  This preserves the layout:
 
 ==============================================================================
 
-Következő fejezet: |usr_26.txt|  Repeating
+Következő fejezet: |usr_26.txt|  Ismétlés
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
