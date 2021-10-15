@@ -1,153 +1,151 @@
 *usr_27.txt*	For Vim version 8.2.  Last change: 2019 Jul 14
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			 Search commands and patterns
+			 Keresési parancsok és minták
 
 
-In chapter 3 a few simple search patterns were mentioned |03.9|.  Vim can do
-much more complex searches.  This chapter explains the most often used ones.
-A detailed specification can be found here: |pattern|
+A harmadik fejezetben már megtanulhattuk a keresés alapjait |03.9| Azonban a
+Vim ennél sokkal többre képes. A fejezet bemutatja a leggyakrabban alkalmazott
+techinkákat. A mintákról külön fejezetben tajákozódhatsz: |pattern|.
 
-|27.1|	Ignoring case
-|27.2|	Wrapping around the file end
-|27.3|	Offsets
-|27.4|	Matching multiple times
-|27.5|	Alternatives
-|27.6|	Character ranges
-|27.7|	Character classes
-|27.8|	Matching a line break
-|27.9|	Examples
+|27.1|	Kis- és nagybetű ignorálása
+|27.2|	Körkörös keresés
+|27.3|	Offszetek
+|27.4|	Illesztés több alkalommal
+|27.5|	Alternatívák
+|27.6|	Karaktertartományok
+|27.7|	Karakterosztályok
+|27.8|	Sortörés illesztése
+|27.9|	Példák
 
-     Következő fejezet: |usr_28.txt|  Folding
- Előző fejezet: |usr_26.txt|  Repeating
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_28.txt|  Foldolás
+    Előző fejezet: |usr_26.txt|  Ismétlés
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*27.1*	Ignoring case
+*27.1*	Kis- és nagybetű ignorálása
 
-By default, Vim's searches are case sensitive.  Therefore, "include",
-"INCLUDE", and "Include" are three different words and a search will match
-only one of them.
-   Now switch on the 'ignorecase' option: >
+Ha az alapértelmezett beállításokon nem változtatunk, akkor a keresés során a
+Vim illeszti a nagy- és kisbetűket is. Ezért "include", "INCLUDE" és "Include"
+különbözőek, azért a keresésünk csak az egyik szóra fog illeszkedni.
+   Most kapcsold be az 'ignorecase' opciót: >
 
 	:set ignorecase
 
-Search for "include" again, and now it will match "Include", "INCLUDE" and
-"InClUDe".  (Set the 'hlsearch' option to quickly see where a pattern
-matches.)
-   You can switch this off again with: >
+Keress az "include" szóra. A művelet illeszkedett mindhárom szóra, és
+illeszkedne például a "InClUdE" szóra is. (Kapcsold be a 'hlsearch' opciót,
+mely kiemeli a találatokat).
+   Így kapcsolható ki: >
 
 	:set noignorecase
 
-But let's keep it set, and search for "INCLUDE".  It will match exactly the
-same text as "include" did.  Now set the 'smartcase' option: >
+Most azonban még ne kapcsoljuk ki, keressünk rá az "INCLUDE" szóra. Az
+eredmény ugyan az, a keresés mindhárom szóra illeszkedett. Kapcsoljuk be a
+'smartcase' opciót: >
 
 	:set ignorecase smartcase
 
-If you have a pattern with at least one uppercase character, the search
-becomes case sensitive.  The idea is that you didn't have to type that
-uppercase character, so you must have done it because you wanted case to
-match.  That's smart!
-    With these two options set you find the following matches:
+Ha a mintának legalább egy karaktere nagybetűs, akkor a keresés betűérzékennyé
+válik, hiszen csak abban az esetben használunk nagybetűt, ha azt szeretnénk,
+hogy a keresés betűérzékeny legyen. Okos!
+    A 'ignorecase' és s 'smartcase' által végzett keresések találatainak
+szemléltetés:
 
-	pattern			matches	~
+	minta			egyezés	~
 	word			word, Word, WORD, WoRd, etc.
 	Word			Word
 	WORD			WORD
 	WoRd			WoRd
 
 
-CASE IN ONE PATTERN
+BETŰÉRZÉKENYSÉG MINTÁNKÉNT
 
-If you want to ignore case for one specific pattern, you can do this by
-prepending the "\c" string.  Using "\C" will make the pattern to match case.
-This overrules the 'ignorecase' and 'smartcase' options, when "\c" or "\C" is
-used their value doesn't matter.
+Az előbb említett opciókat nem kell feltétlenül be- és kikcsolni minden egyes
+keresés alkalmával. Ha betűérzéketlenné szeretnéd tenni a keresést, akkor "\c"
+stringet fűzd a mintád elejéhez. "\C" betűérzékennyé teszi a keresést. A
+prefixum felülírja az 'ignorecase' és a 'smartcase' értékeit. "\c","\C"
+használata esetén az  említett két opció értéke nincs figyelembe véve.
 
-	pattern			matches	~
+	minta			egyezés	~
 	\Cword			word
 	\CWord			Word
 	\cword			word, Word, WORD, WoRd, etc.
 	\cWord			word, Word, WORD, WoRd, etc.
 
-A big advantage of using "\c" and "\C" is that it sticks with the pattern.
-Thus if you repeat a pattern from the search history, the same will happen, no
-matter if 'ignorecase' or 'smartcase' was changed.
+A "\c \C" egyik nagy előnye, hogy beépül a mintába. Ezért ha a keresést a
+historyból ismétled szintén nem kell hozzányúlni az opciókhoz.
 
-	Note:
-	The use of "\" items in search patterns depends on the 'magic' option.
-	In this chapter we will assume 'magic' is on, because that is the
-	standard and recommended setting.  If you would change 'magic', many
-	search patterns would suddenly become invalid.
+	Megjegyzés:
+	Az "\" elemek használata függ a 'magic' opciótól. Ebben a fejezetben
+	feltételezzük, hogy 'magic' be van kapcsolva, mert ez az ajánlott és
+	alapértelmezett beállítás. Ha megváltoztatnád a 'magic' értékét, akkor
+	hirtelen az összes példa invaliddá válna.
 
-	Note:
-	If your search takes much longer than you expected, you can interrupt
-	it with CTRL-C on Unix and CTRL-Break on MS-Windows.
+	Megjegyzés:
+	Hosszan tartó kereséseket megszakíthatunk Unixon CTRL-C, MS-Windowson
+	CTRL-Break billentyűkkel.
 
 ==============================================================================
-*27.2*	Wrapping around the file end
+*27.2*	Körkörös keresés
 
-By default, a forward search starts searching for the given string at the
-current cursor location.  It then proceeds to the end of the file.  If it has
-not found the string by that time, it starts from the beginning and searches
-from the start of the file to the cursor location.
-   Keep in mind that when repeating the "n" command to search for the next
-match, you eventually get back to the first match.  If you don't notice this
-you keep searching forever!  To give you a hint, Vim displays this message:
+Keresésnél (előre irányban), a keresés a kurzortól pontjától a fájl végéig
+futtatja a keresést. Amennyiben nem volt találat, akkor a keresés a fájl
+elejétől folytatódik és a kurzor pozíciójáig tart.
+   A parancs ismétlésénél ("n") a találatok bejárása során visszajutsz a
+legelső találathoz is, amit ha nem veszel észre akkor örökkés keresni fogsz!
+Hogy végképp ne vessz el, a Vim az alábbi üzeneteket írja ki a command-linrea:
 
 	search hit BOTTOM, continuing at TOP ~
 
-If you use the "?" command, to search in the other direction, you get this
-message:
+Ha visszafelé irányban keresel ("?"), akkor az alábbi üzenetet láthatod:
 
 	search hit TOP, continuing at BOTTOM ~
 
-Still, you don't know when you are back at the first match.  One way to see
-this is by switching on the 'ruler' option: >
+Sajnos még mindig nem láthatod, hog mikor van a kurzorod az első találaton.
+Egyik módja, ha bekapcsolod a 'ruler' opciót: >
 
 	:set ruler
 
-Vim will display the cursor position in the lower righthand corner of the
-window (in the status line if there is one).  It looks like this:
+A jobb alsó sarokban láthatod (az állapotsoron, ha engedéyezve van)  a 'ruler'-t,
+mely megjeleníti kurzor sor- és oszlopszámát:
 
 	101,29       84% ~
 
-The first number is the line number of the cursor.  Remember the line number
-where you started, so that you can check if you passed this position again.
+Jegyezd meg, hogy melyik soron található az első találat, és legközelebb már
+tudni fogod, hogy áthaladtál-e rajta.
 
 
-NOT WRAPPING
+KÖRKÖRÖS KERESÉS KIKAPCSOLÁSA
 
-To turn off search wrapping, use the following command: >
+A körkörös keresést kikapcsolhatod: >
 
 	:set nowrapscan
 
-Now when the search hits the end of the file, an error message displays:
+Így, ha a keresésed eléri a fájl végét, akkor hibaüzenetet kapsz:
 
 	E385: search hit BOTTOM without match for: forever ~
 
-Thus you can find all matches by going to the start of the file with "gg" and
-keep searching until you see this message.
-   If you search in the other direction, using "?", you get:
+Ezért, hogy az összes találatot megtaláld, először a fájl elejére kell
+ugranod a "gg" paranccsal és addig keresni, amíg hibaüzenetet nem kapsz.
+   A fájl teteje által kiváltott hibaüzenet kereséskor ("?"):
 
 	E384: search hit TOP without match for: forever ~
 
 ==============================================================================
-*27.3*	Offsets
+*27.3*	Offszetek
 
-By default, the search command leaves the cursor positioned on the beginning
-of the pattern.  You can tell Vim to leave it some other place by specifying
-an offset.  For the forward search command "/", the offset is specified by
-appending a slash (/) and the offset: >
+Ha a keresés találatot eredményez, akkor a kurzor az egyező minta elejére
+kerül. Ha ez nem megfelelő, akkor offszet segítségével a Vim képes
+pozícionálni a kurzort. Előre keresésnél "/", a mintát egy "/" karakter, és az
+offszet értéke követi: >
 
 	/default/2
 
-This command searches for the pattern "default" and then moves to the
-beginning of the second line past the pattern.  Using this command on the
-paragraph above, Vim finds the word "default" in the first line.  Then the
-cursor is moved two lines down and lands on "an offset".
+A parancs mintája a "default" szó, az offszet pedig 2, így a kurzor a találat
+sorához képest két sorral lejjebb (a sor elején) fog elhelyezkedni.
 
+Ha az offszet egy szám, akkor a kurzor a sor elejére kerül. 
 If the offset is a simple number, the cursor will be placed at the beginning
 of the line that many lines from the match.  The offset number can be positive
 or negative.  If it is positive, the cursor moves down that many lines; if
