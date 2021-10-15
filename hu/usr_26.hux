@@ -63,160 +63,159 @@ Most nyomj CTRL-A-t. Az évszámok eggyel nőnek:
 			2000		2001 ~
 	income		45,403		66,234 ~
 
-Use "n" to find the next year, and press "." to repeat the CTRL-A ("." is a
-bit quicker to type).  Repeat "n" and "." for all years that appear.
-   Hint: set the 'hlsearch' option to see the matches you are going to change,
-then you can look ahead and do it faster.
+"n" paranccsal találd meg a következő évszámot, "."-al pedig ismételljük a
+CTRL-A parancsot (a "." gyorsabb gépelni). Ezek után már csak "n" és "."kell
+ismételned.
+   Tipp: állítsd be a 'hlsearch' opiót, hogy lásd a keresés találatait, így
+jobban felkészülhetsz az műveletre.
 
-Adding more than one can be done by prepending the number to CTRL-A.  Suppose
-you have this list:
+A számokhoz nem csak egyet tudunk hozzáadni, a CTRL-A mennyiséggel
+prefixálható. Például:
 
 	1.  item four ~
 	2.  item five ~
 	3.  item six ~
 
-Move the cursor to "1." and type: >
+Vidd a kurzort az "1."-re és gépelj: >
 
 	3 CTRL-A
 
-The "1." will change to "4.".  Again, you can use "." to repeat this on the
-other numbers.
+Az "1." "4."-re változott. Ismételhető "." billentyűvel.
 
-Another example:
+Másik példa:
 
 	006	foo bar ~
 	007	foo bar ~
 
-Using CTRL-A on these numbers results in:
+CTRL-A használata az alábbi elemeken:
 
 	007	foo bar ~
 	010	foo bar ~
 
-7 plus one is 10?  What happened here is that Vim recognized "007" as an octal
-number, because there is a leading zero.  This notation is often used in C
-programs.  If you do not want a number with leading zeros to be handled as
-octal, use this: >
-
+7 meg 1 az 10? A Vim nem ismert fel "007"-et oktális számként a vezető nulla
+miatt. Az ilyen típusú jelölést C programok esetén használják. Ha nem
+szeretnéd, hogy a Vim oktális számként kezelje a az ilyen formátumú számokat:
+>
 	:set nrformats-=octal
 
-The CTRL-X command does subtraction in a similar way.
+A CTRL-X parancs kivonást végez el, hasonló módon.
 
 ==============================================================================
-*26.3*	Making a change in many files
+*26.3*	Szerkesztések több fájlon
 
-Suppose you have a variable called "x_cnt" and you want to change it to
-"x_counter".  This variable is used in several of your C files.  You need to
-change it in all files.  This is how you do it.
-   Put all the relevant files in the argument list: >
+Tegyük fel, hogy van egy változód, melynek neve "x_cnt" és át szeretnéd
+nevezni "x_counter"-re. A változó több fájlban is jelen van, ezért az összes
+előfordulást le kell cserélni. Így oldhatod meg.
+   Tedd az összes érintett fájlt az argumentumlistába: >
 
 	:args *.c
 <
-This finds all C files and edits the first one.  Now you can perform a
-substitution command on all these files: >
+mely az összes C fájlt az argumentumlistába rakja, a lista első eleme pedig
+megjelenik aktív fájlként. Cseréld le a változónevet az összes fájlban: >
 
 	:argdo %s/\<x_cnt\>/x_counter/ge | update
 
-The ":argdo" command takes an argument that is another command.  That command
-will be executed on all files in the argument list.
-   The "%s" substitute command that follows works on all lines.  It finds the
-word "x_cnt" with "\<x_cnt\>".  The "\<" and "\>" are used to match the whole
-word only, and not "px_cnt" or "x_cnt2".
-   The flags for the substitute command include "g" to replace all occurrences
-of "x_cnt" in the same line.  The "e" flag is used to avoid an error message
-when "x_cnt" does not appear in the file.  Otherwise ":argdo" would abort on
-the first file where "x_cnt" was not found.
-   The "|" separates two commands.  The following "update" command writes the
-file only if it was changed.  If no "x_cnt" was changed to "x_counter" nothing
-happens.
+Az ":argdo" parancs elfogad egy másik argumentumot is, melynek parancsnak kell
+lennie, a parancsot a szerkesztő lefuttatja az összes fájlon.
+   Az "%s" substitute parancs cserét hajt végre az összes fájlban
+(tartományuk: teljes fájl). Az "\<x_cnt\>" mintával megtaláljuk a "x_cnt"
+szót. A "\<" és "\>" minták miatt a keresés csak teljes szavakra fog
+illeszkedni ("px_cnt" vagy "x_cnt2" szavak nem fognak illeszkedni).
+   A keresés flagje a "g" (soronkénti összes elúfordulás cseréje), az "e",
+mely nem dob hibaüzenetet, ha "x_cnt" nem található a fájlban (az ":argdo"
+parancs megszakadna a legelső hibaüzenetnél).
+   A "|" két parancsot választ el, az "update" parancs pedig menti a fájlt
+változás esetén. Ha egyetlen egy "x_cnt" sem cserélődött le, akkor nem
+történik semmi
 
-There is also the ":windo" command, which executes its argument in all
-windows.  And ":bufdo" executes its argument on all buffers.  Be careful with
-this, because you might have more files in the buffer list than you think.
-Check this with the ":buffers" command (or ":ls").
+Létezik egy úgynevezett ":windo" parancs, mely argumentumot futtat az összes
+ablakon, ":bufdo", amely az argumentumokat a buffereken futtatja. Légy óvatos,
+hiszen általában mindig sokkal több fájl van a bufferlistádon, mint azt
+gondolnád. Ellenőrzés a ":buffers" parancssal. (vagy ":ls").
 
 ==============================================================================
-*26.4*	Using Vim from a shell script
+*26.4*	Vim használata shell-szkripttel
 
-Suppose you have a lot of files in which you need to change the string
-"-person-" to "Jones" and then print it.  How do you do that?  One way is to
-do a lot of typing.  The other is to write a shell script to do the work.
-   The Vim editor does a superb job as a screen-oriented editor when using
-Normal mode commands.  For batch processing, however, Normal mode commands do
-not result in clear, commented command files; so here you will use Ex mode
-instead.  This mode gives you a nice command-line interface that makes it easy
-to put into a batch file.  ("Ex command" is just another name for a
-command-line (:) command.)
-   The Ex mode commands you need are as follows: >
+Képzeljük el, hogy rengeteg fájlod van, amiben le kell cserélned a "-person-"
+szöveget "Jones"-ra, majd kinyomtatni a fájlokat. Hogyan csináljuk? Az egyik
+lehetőség az, ha nagyon sokat gépelünk. A másik, hogy írunk egy shell szkriptet,
+amely elvégzi a munkát helyettünk.
+   A Vim szuper munkát végez a Normál módú parancsai által. Tömeges
+feldolgozásnál a normál módú parancsok miatt fájlunk nem lesz tiszta, szépen
+kommentelhető fájlt, így ebben az esetben az Ex módot fogjuk használni, ami
+egy egysoros command-line interfészt biztosít számunkra, melyek szebben
+integrálhatóak bash szriptekben. (Az "Ex" a ":" parancsokat jelenti).
+   Az alábbi három Ex parancsra van szülséged. >
 
 	%s/-person-/Jones/g
 	write tempfile
 	quit
 
-You put these commands in the file "change.vim".  Now to run the editor in
-batch mode, use this shell script: >
+A parancsokat mentsd el "change.vim" néven, és dolgozzuk fel a fájlokat az
+alábbi shell szkripttel: >
 
 	for file in *.txt; do
 	  vim -e -s $file < change.vim
 	  lpr -r tempfile
 	done
 
-The for-done loop is a shell construct to repeat the two lines in between,
-while the $file variable is set to a different file name each time.
-   The second line runs the Vim editor in Ex mode (-e argument) on the file
-$file and reads commands from the file "change.vim".  The -s argument tells
-Vim to operate in silent mode.  In other words, do not keep outputting the
-:prompt, or any other prompt for that matter.
+A for-done ciklus a két behúzott sort ismétli, minden iterációnál a $file nevű
+változó új értéket kap.
+   A második sor futtatja Ex módban a Vimet (-e argumentum) a $file változóban
+lévő fájlon. A change.vim fájlban leírt szerkesztések futtatja a fájlon. Az
+"-s" argumentum (silent) határásra a Vimnek egyálatalán nem lesz kimenete
+(:prompt üzenetek).
+   Az "lpr -r tempfile" parancs ki\rja a "tempfile"-t, majd törli (-r) azt.
    The "lpr -r tempfile" command prints the resulting "tempfile" and deletes
 it (that's what the -r argument does).
 
 
-READING FROM STDIN
+OLVASÁS STANDARD BEMENETRŐL
 
-Vim can read text on standard input.  Since the normal way is to read commands
-there, you must tell Vim to read text instead.  This is done by passing the
-"-" argument in place of a file.  Example: >
+A Vim képes olvasni a sztenderd bemenetről. Fájlnév helyett add át az "-"
+argumentumot. Például: >
 
 	ls | vim -
 
-This allows you to edit the output of the "ls" command, without first saving
-the text in a file.
-   If you use the standard input to read text from, you can use the "-S"
-argument to read a script: >
+Ez lehetővé teszi számunkra, hogy azonnal szerkesszük az "ls" parancs
+kimenetét anélkül, hogy ezt először fájlba mentenénk (vagy Vimből kelljen
+beolvasnunk ugyanezt a kimentet).
+   Ha a sztenderd kiementről olvasol be, akkor az "-S" argumentummal szkriptet
+olvashtasz be: >
 
 	producer | vim -S change.vim -
 
 
-NORMAL MODE SCRIPTS
+NORMÁL MÓDÚ SZKRIPTEK
 
-If you really want to use Normal mode commands in a script, you can use it
-like this: >
+Ha tényleg Normal módú parancsokat szeretnél használni, akkor végülis
+megteheted: >
 
 	vim -s script file.txt ...
 <
-	Note:
-	"-s" has a different meaning when it is used without "-e".  Here it
-	means to source the "script" as Normal mode commands.  When used with
-	"-e" it means to be silent, and doesn't use the next argument as a
-	file name.
+	Az "-s" argumentumnak más jelentése van, ha "-e" nélkül használjuk.
+	Az "-s" a beolvasandó szkriptfájlt jelenti ebben az esetben. Ha az
+	"-e" argumentummal használjuk, akkor pedig némítja a kimenetet
+	(silent), valamint nem használja a következő argumentumot fájlnévként.
 
-The commands in "script" are executed like you typed them.  Don't forget that
-a line break is interpreted as pressing <Enter>.  In Normal mode that moves
-the cursor to the next line.
-   To create the script you can edit the script file and type the commands.
-You need to imagine what the result would be, which can be a bit difficult.
-Another way is to record the commands while you perform them manually.  This
-is how you do that: >
+A "script" fájlban lévő parancsok úgy értelmeződnek, ahogy írod őked. Ne
+feledd, hogy a sortörés <Enter>-ként interpretálódik. Normal módban ez kurzort
+a következő sorba helyezni.
+   A szkript létrehozásához egyenként begépelheted a parancsaidat, viszont így
+képzeletben kell követned, hogy mit fog csinálni a szerksztő és mi lesz az
+eredmény. Praktikusabb, ha az általad kiadott parnacsokat felveszed, miközben
+elvégzed a feladatot: >
 
 	vim -w script file.txt ...
 
-All typed keys will be written to "script".  If you make a small mistake you
-can just continue and remember to edit the script later.
-   The "-w" argument appends to an existing script.  That is good when you
-want to record the script bit by bit.  If you want to start from scratch and
-start all over, use the "-W" argument.  It overwrites any existing file.
+Minden általad kiadott parancs a "script" fájlban tárolódik. Ha hibáztál,
+akkor jegyezd meg azt a pontot, ezt később manuálisan korrigálhatod.
+   A "-w" argument hozzáfűz a szkriptfájlhoz. Nagyszerű megoldás, ha rögzíteni
+szeretnél egy nagyobb terjedelmű szerksztést. Ha előlről szeretnéd kezdeni,
+akkor a "-W" argumentum felülírja a fájlt.
 
 ==============================================================================
 
-Következő fejezet: |usr_27.txt|  Search commands and patterns
+Következő fejezet: |usr_27.txt|  Keresési parancsok és minták
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
