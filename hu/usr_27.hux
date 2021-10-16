@@ -374,31 +374,31 @@ egész mintában:
 A [] tartománynak vannak speciális esetei, melyekről |/[]| itt olvashatsz.
 
 
-COMPLEMENTED RANGE
+KOMPLEMENTER TARTOMÁNYOK
 
-To avoid matching a specific character, use "^" at the start of the range.
-The [] item then matches everything but the characters included.  Example: >
+A "^" jelölés mindig a következő elemre vonatkozik (megtiltja az egyezést).
+A [] illeszti a közbezárt karaktereket. Például: >
 
 	/"[^"]*"
 <
-	 "	  a double quote
-	  [^"]	  any character that is not a double quote
-	      *	  as many as possible
-	       "  a double quote again
+	 "	  idézőjel
+	  [^"]	  bármilyen karakter, ami nem idézőjel
+	      *	  amennyiszer csak lehetséges
+	       "  idézőjel újra
 
-This matches "foo" and "3!x", including the double quotes.
+Erre illeszkedik "foo" és "3!x", beleértve az idézőjeleket is.
 
 
-PREDEFINED RANGES
+ELŐDEFINIÁLT TARTOMÁNYOK
 
-A number of ranges are used very often.  Vim provides a shortcut for these.
-For example: >
+A tartományokat gyakran használjuk illesztésekben. A Vimben számos tartomány
+rendelkezésre áll: >
 
 	/\a
 
-Finds alphabetic characters.  This is equal to using "/[a-zA-Z]".  Here are a
-few more of these:
-
+Az összes kis- és nagybetű (alpha). Egyenértékű ezzel "/[a-zA-Z]". A Magyar 
+ékezetes karakterek a definíció nem tartalmazza. Tartományok: >
+<
 	elem	illeszkedik			egyenlő ~
 	\d	szám			[0-9]
 	\D	nem-szám		[^0-9]
@@ -411,47 +411,47 @@ few more of these:
 	\u	nagybetűs alpha		[A-Z]
 	\U	nem-nagybetűs alpha	[^A-Z]
 
-	Note:
-	Using these predefined ranges works a lot faster than the character
-	range it stands for.
-	These items can not be used inside [].  Thus "[\d\l]" does NOT work to
-	match a digit or lowercase alpha.  Use "\(\d\|\l\)" instead.
+	Megjegyzés:
+	A csoportok nem szerepelhetnek [] jelen belül. Azaz, "[\d\l]" nem
+	nem érvényes illesztés. Ehelyett így határozzuk meg: "\(\d\|\l\)".
 
-See |/\s| for the whole list of these ranges.
+Lásd |/\s| a teljes listához.
 
 ==============================================================================
-*27.7*	Character classes
+*27.7*	Karakterosztályok
 
-The character range matches a fixed set of characters.  A character class is
-similar, but with an essential difference: The set of characters can be
-redefined without changing the search pattern.
-   For example, search for this pattern: >
+A karakterosztályok egy előre meghatározott karakterek halmazára illeszt. A
+karakterosztályok hasonlóak, azonban egy lényegi dologban eltérnek: a
+karaktereket újradefiniálhatjuk anélkül, hogy a keresési mintát módosítanunk
+kellene.
+   Például, az alábbi minta: >
 
 	/\f\+
 
-The "\f" item stands for file name characters.  Thus this matches a sequence
-of characters that can be a file name.
-   Which characters can be part of a file name depends on the system you are
-using.  On MS-Windows, the backslash is included, on Unix it is not.  This is
-specified with the 'isfname' option.  The default value for Unix is: >
-
+Az "\f" csak fájlnév-karakterekből állhat, azaz minden olyan karakterre
+illeszt, amely szerepelhet a fájlnevekben.
+   Az osztály tartalma platformfüggő, ugyanis a MS-Windows és a Unix rendszerek
+fájlnevei eltérnek egymástól. Windowson a "\" karakter szerepel az elérési
+utakban, Unix rendszeren pedig a "/". Az 'isfname' opció leírja az adott 
+rendszeren lévő érvényes fájlnév-karaktereket. Alapértelmezett értéke Unix
+rendszeren:
+>
 	:set isfname
 	isfname=@,48-57,/,.,-,_,+,,,#,$,%,~,=
 
-For other systems the default value is different.  Thus you can make a search
-pattern with "\f" to match a file name, and it will automatically adjust to
-the system you are using it on.
+Az 'isfname' opció platformonként különböző, azért ha keresést hajtasz végre,
+akkor az a rendszerhez fogja igazítani az "\f" értékét.
 
-	Note:
-	Actually, Unix allows using just about any character in a file name,
-	including white space.  Including these characters in 'isfname' would
-	be theoretically correct.  But it would make it impossible to find the
-	end of a file name in text.  Thus the default value of 'isfname' is a
-	compromise.
+	Megjegyzés:
+	Pontosabban, Unix rendszeren fájlunkat bárminek elnevezhetjük, nincs
+	megkötés, akár üres karaktereket is használhatunk. Elméletileg korrekt,
+	ha a 'isfname' opció tartalmazná ezen karaktereket, de abban az esetben
+	lehetetlen lenne megtalálni a fájl végét a szövegben. Ezért 'isfname'
+	értéke kompromisszum a kettő között.
 
 A karakterosztályok:
 
-	item	matches				option ~
+	elem	illeszkedik			opció ~
 	\i	azonosító karakterek		'isident'
 	\I	mint \i, kivéve számok
 	\k	kulcsszó karakterek		'iskeyword'
@@ -462,94 +462,91 @@ A karakterosztályok:
 	\F	mint \f, kivéve számok
 
 ==============================================================================
-*27.8*	Matching a line break
+*27.8*	Sortörés illesztése
 
-Vim can find a pattern that includes a line break.  You need to specify where
-the line break happens, because all items mentioned so far don't match a line
-break.
-   To check for a line break in a specific place, use the "\n" item: >
+A Vimben olyan mintákat is írhatunk, melyek magukba foglalják a sortörést.
+Meg kell határoznunk a sortörés helyzetét, mert összes eddig említett elem nem
+illesztett sortörésre.
+   Sortörés illesztése meghatározott helyen "\n" elemmel: >
 
 	/one\ntwo
 
-This will match at a line that ends in "one" and the next line starts with
-"two".  To match "one two" as well, you need to match a space or a line
-break.  The item to use for it is "\_s": >
+A mint akkor fog illeszkedni, ha "one" a sor végén szerepel, sortörést
+követően pedig a következő sor "two" karakterekkel kezdődik. Ha a "one two"-t
+is illeszteni szeretnéd, akkor mindkét karakternek illeszkednie kell (a
+sortörésnek is és a szóköznek is). Ehhez a "\_s" elemet használjuk: >
 
 	/one\_stwo
 
-To allow any amount of white space: >
+Tetszőleges számú üres karakter: >
 
 	/one\_s\+two
 
-This also matches when "one  " is at the end of a line and "   two" at the
-start of the next one.
+Mely illeszti "one  "-t a sor végén, és "   two"-t is a következő sor elején.
+"\s" üres karakterre illeszt, "\_s" üres karakterre vagy sortörésre.
 
-"\s" matches white space, "\_s" matches white space or a line break.
-Similarly, "\a" matches an alphabetic character, and "\_a" matches an
-alphabetic character or a line break.  The other character classes and ranges
-can be modified in the same way by inserting a "_".
+Hasonlóan "\a" kis- nagybetűs karakterekre illeszt, "\_a" kis- nagybetűs
+karakterek vagy sortörés. A összes tartomány és karakterosztály módosítható
+ily módon "_" hozzáadásával.
 
-Many other items can be made to match a line break by prepending "\_".  For
-example: "\_." matches any character or a line break.
+Például: "\_." illeszt az összes karakterre, vagy sortörésre.
 
-	Note:
-	"\_.*" matches everything until the end of the file.  Be careful with
-	this, it can make a search command very slow.
+	Megjegyzés:
+	"\_.*" illeszt mindenre a fájl végéig. Légy óvatos, belassíthatja a
+	keresést.
 
-Another example is "\_[]", a character range that includes a line break: >
+Másik példa a "\_[]", tartomány, mely illeszt sortörésre: >
 
 	/"\_[^"]*"
 
-This finds a text in double quotes that may be split up in several lines.
+Mely megtalálja az idézőjelek közé zárt szöveget több soron keresztül.
 
 ==============================================================================
-*27.9*	Examples
+*27.9*	Példák
 
-Here are a few search patterns you might find useful.  This shows how the
-items mentioned above can be combined.
+Most következzen egy maréknyi hasznos minta. Itt láthatjuk az előbb említett
+dolgok kombinációját:
 
 
-FINDING A CALIFORNIA LICENSE PLATE
+KALIFORNIAI RENDSZÁM ILLESZTÉSE
 
-A sample license plate number is "1MGU103".  It has one digit, three uppercase
-letters and three digits.  Directly putting this into a search pattern: >
+A formátum: "1MGU103", azaz egy szám, három nagybetűs karakter, három szám. A
+legelemibb minta: >
 
 	/\d\u\u\u\d\d\d
 
-Another way is to specify that there are three digits and letters with a
-count: >
+Mennyiséggel is elláthatjuk a karakterosztályokat: >
 
 	/\d\u\{3}\d\{3}
 
-Using [] ranges instead: >
+[] tartományok használata: >
 
 	/[0-9][A-Z]\{3}[0-9]\{3}
 
-Which one of these you should use?  Whichever one you can remember.  The
-simple way you can remember is much faster than the fancy way that you can't.
-If you can remember them all, then avoid the last one, because it's both more
-typing and slower to execute.
+Melyiket használd? Amelyiket megjegyzed. Ha az összeset meg akarod jegyezni,
+akkor egy tanács: az utolsót ne használd, sokáig tart gépelni.
 
 
-FINDING AN IDENTIFIER
+AZONOSÍTÓ KERESÉSE
 
-In C programs (and many other computer languages) an identifier starts with a
-letter and further consists of letters and digits.  Underscores can be used
-too.  This can be found with: >
+C programokban (és még számos programnyelvben), az azonosító karakterrel
+kezdődik, melyeket számok és egyéb karakterek követhetnek. Az "_" karakterek
+használata is megengedett. Ezeket így találhatjuk meg: >
 
 	/\<\h\w*\>
 
-"\<" and "\>" are used to find only whole words.  "\h" stands for "[A-Za-z_]"
-and "\w" for "[0-9A-Za-z_]".
+A "\<" ás "\>" karakterek csak teljes szavakra illesztenek. A "\h"
+karakterosztály definíciója "[A-Za-z_]", a "\w" osztályé "[0-9A-Za-z_]".
 
-	Note:
-	"\<" and "\>" depend on the 'iskeyword' option.  If it includes "-",
-	for example, then "ident-" is not matched.  In this situation use: >
+	Megjegyzés:
+	A "\<" ás "\>" az 'iskeyword' opció függvénye. Ha tartalmazza a "-"
+	karaktert, akkor például az "ident-" nem fog illeszkedni. Ebben a
+	helyzetben: >
 
 		/\w\@<!\h\w*\w\@!
 <
-	This checks if "\w" does not match before or after the identifier.
-	See |/\@<!| and |/\@!|.
+	Mely megvizsgálja, hogy "\w" illeszkedik-e az azonosító előtt és után.
+	Lásd |/\@<!| és |/\@!|.
 
 ==============================================================================
 
