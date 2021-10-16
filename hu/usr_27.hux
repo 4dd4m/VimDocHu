@@ -145,236 +145,233 @@ offszet értéke követi: >
 A parancs mintája a "default" szó, az offszet pedig 2, így a kurzor a találat
 sorához képest két sorral lejjebb (a sor elején) fog elhelyezkedni.
 
-Ha az offszet egy szám, akkor a kurzor a sor elejére kerül. 
-If the offset is a simple number, the cursor will be placed at the beginning
-of the line that many lines from the match.  The offset number can be positive
-or negative.  If it is positive, the cursor moves down that many lines; if
-negative, it moves up.
+Ha az offszet egy szám, akkor a kurzor a sor elejére kerül. Az offszet lehet
+negatív és pozitív is. Ha a szám negatív, akkor a találattól feljebb, ha
+pozitív, akkor a találattól lejjebb helyezi a kurzort.
 
 
-CHARACTER OFFSETS
+KARAKTER OFSZETEK
 
-The "e" offset indicates an offset from the end of the match.  It moves the
-cursor onto the last character of the match.  The command: >
-
+Az "e" offszet jelzi a találat végét, a kurzort így a találat végére mozgatja:
+>
 	/const/e
 
-puts the cursor on the "t" of "const".
-   From that position, adding a number moves forward that many characters.
-This command moves to the character just after the match: >
+ez a kurzort a "t" betűre helyezi a "const" szóban.
+   Erről a pozíciótól egy szám argumentummal tudunk elmozdulni akár pozitív,
+akár negatív irányba. Az argumentum értéke határozza meg az elmozdulást. >
 
 	/const/e+1
 
-A positive number moves the cursor to the right, a negative number moves it to
-the left.  For example: >
+Pozitív egész szám a kurzort jobbra mozgatja, negatív elmozdulás pedig balra.
+Például: >
 
 	/const/e-1
 
-moves the cursor to the "s" of "const".
+Ebben az esetben a kurzor a "const" szó "s" betűjére kerül.
 
-If the offset begins with "b", the cursor moves to the beginning of the
-pattern.  That's not very useful, since leaving out the "b" does the same
-thing.  It does get useful when a number is added or subtracted.  The cursor
-then goes forward or backward that many characters.  For example: >
+A "b" offszet a szó elejére helyezi a kurzort, mely nem túl hasznos
+önmagában, hiszen az alapértelmezett keresés is így működik, ezért az
+általános használata mindig egy számmal történik, adott karakterszámmal
+mozdítja el a kurzort. Például: >
 
 	/const/b+2
 
-Moves the cursor to the beginning of the match and then two characters to the
-right.  Thus it lands on the "n".
+A kurzor két karakterrel jobbra mozdul el a keresés után ("n").
 
 
-REPEATING
+ISMÉTLÉS
 
-To repeat searching for the previously used search pattern, but with a
-different offset, leave out the pattern: >
+A keresés ismétlése különböző offszettel, csak hagyjuk ki a mintát: >
 
 	/that
 	//e
 
-Is equal to: >
+Egyenértékű ezzel: >
 
 	/that/e
 
-To repeat with the same offset: >
+Ismétlés azonos offszettel: >
 
 	/
 
-"n" does the same thing.  To repeat while removing a previously used offset: >
+Az "n" ugyanazt csinálja.  Megismétli a keresést ugyanazzal az offszettel: >
 
 	//
 
 
-SEARCHING BACKWARDS
+KERESÉS VISSZA IRÁNYBAN
 
-The "?" command uses offsets in the same way, but you must use "?" to separate
-the offset from the pattern, instead of "/": >
+A "?" parancs az offszeteket ugyanígy használja, következetesen "?" kell
+használnunk a keresés és az offszet elválasztásánál: >
 
 	?const?e-2
 
-The "b" and "e" keep their meaning, they don't change direction with the use
-of "?".
+Az "e" és "b" (begin - end) is ugyanúgy működnek, irányuk nem változik meg a "?"
+használatánál.
 
 
-START POSITION
+KEZDŐPOZÍCIÓ
 
-When starting a search, it normally starts at the cursor position.  When you
-specify a line offset, this can cause trouble.  For example: >
+A keresés kezdőpontja a kurzor. Ha offszeteled a keresést, gondot okozhat.
+Például: >
 
 	/const/-2
 
-This finds the next word "const" and then moves two lines up.  If you
-use "n" to search again, Vim could start at the current position and find the
-same "const" match.  Then using the offset again, you would be back where you
-started.  You would be stuck!
-   It could be worse: Suppose there is another match with "const" in the next
-line.  Then repeating the forward search would find this match and move two
-lines up.  Thus you would actually move the cursor back!
+A keresés megtalálja a "const" szót, mely után két sor lép felfelé. Ha "n"
+paranccsal a következő találatra szeretnél ugrani, akkor második alkalommal is
+ugyanarra a találatra érkezel, ezért sohasem fogsz előrébb jutni.
+   Rosszabb esetben: Képzeld el, hogy van még egy "const" szó két sorral
+feljebb. Ez lényegében visszább viszi a kurzort!
 
-When you specify a character offset, Vim will compensate for this.  Thus the
-search starts a few characters forward or backward, so that the same match
-isn't found again.
+Offszetes keresésnél a Vim kompenzál pár karaktert vissza és előre irányban,
+hogy ne legyen egy találat kétszer a körbejárás során.
 
 ==============================================================================
-*27.4*	Matching multiple times
+*27.4*	Illesztés több alkalommal
 
-The "*" item specifies that the item before it can match any number of times.
-Thus: >
+A "*" előtt álló elem akárhányszor előfordulhat (akár nulla alkalommal is). 
+Ezért: >
 
 	/a*
 
-matches "a", "aa", "aaa", etc.  But also "" (the empty string), because zero
-times is included.
-   The "*" only applies to the item directly before it.  Thus "ab*" matches
-"a", "ab", "abb", "abbb", etc.  To match a whole string multiple times, it
-must be grouped into one item.  This is done by putting "\(" before it and
-"\)" after it.  Thus this command: >
+Ez illeszkedik: "a", "aa", "aaa", stb.  De szintén illeszkedik az  "" 
+(üres string), mivel nulla alkalommal is előfordulhat.
+   Az "*" csak az őt megelőző elemre vonatkozik. Ezért "ab*" illeszkedik:
+"a", "ab", "abb", "abbb", stb.  Ha ezt hosszabb karakterláncra is ki
+szeretnénk terjeszti, akkor csoportosítanunk kell őket zárójelek segítségével.
+Ezt úgy tehetjük meg, hogy a karakterlánc elé "\(", mögé pedig "\)" írunk.
+Azaz: >
 
 	/\(ab\)*
 
-Matches: "ab", "abab", "ababab", etc.  And also "".
+Illeszkedik: "ab", "abab", "ababab", stb,  és persze "".
 
-To avoid matching the empty string, use "\+".  This makes the previous item
-match one or more times. >
+Az üres sztring illesztését úgy tudjuk elkerülni, ha a "\+" metakaraktert
+használjuk, mely megengedi, hogy az előző elem egyszer, vagy többször
+forduljon elő. >
 
 	/ab\+
 
-Matches "ab", "abb", "abbb", etc.  It does not match "a" when no "b" follows.
+Illeszkedik "ab", "abb", "abbb", stb. Nem illeszkedik az összes olyan
+sztringre, melyekben "a" nem "b"-t követi.
 
-To match an optional item, use "\=".  Example: >
+
+Opcionális elem, "\=".  Például: >
 
 	/folders\=
 
-Matches "folder" and "folders".
+Illeszkedik "folder" és "folders"-re.
 
 
-SPECIFIC COUNTS
+SZÁMSZERŰSÍTÉS
 
-To match a specific number of items use the form "\{n,m}".  "n" and "m" are
-numbers.  The item before it will be matched "n" to "m" times |inclusive|.
-Example: >
+Ha egy meghatározott mennyiséget szeretnél engedélyezni, akkor használd a
+"\{n,m}" formátumot. Az "n" és "m" pozitív egész szám. Ennek hatására a
+megelőző elem minimum "n" és maximum "m" alkalommal szerepelhet. |inclusive|.
+Például: >
 
 	/ab\{3,5}
 
-matches "abbb", "abbbb" and "abbbbb".
-  When "n" is omitted, it defaults to zero.  When "m" is omitted it defaults
-to infinity.  When ",m" is omitted, it matches exactly "n" times.
-Examples:
+Illeszkedik "abbb", "abbbb" and "abbbbb".
+  Ha "n" nincs meghatározva, akkor értéke 0. Ha "m" nincs meghatározva, akkor
+értéke a végtelen. Ha ",m" hiányzik a mintából, akkor pontosan "n" alkalommal.
+Például:
 
-	pattern		match count ~
+	minta		egyezések száma ~
 	\{,4}		0, 1, 2, 3 or 4
-	\{3,}		3, 4, 5, etc.
-	\{0,1}		0 or 1, same as \=
-	\{0,}		0 or more, same as *
-	\{1,}		1 or more, same as \+
+	\{3,}		3, 4, 5, stb.
+	\{0,1}		0 vagy 1, azaz \=
+	\{0,}		0 vagy többször, azaz *
+	\{1,}		1 vagy többször, azaz \+
 	\{3}		3
 
 
-MATCHING AS LITTLE AS POSSIBLE
+A LEHETŐ LEGKISEBB ILLESZTÉS
 
-The items so far match as many characters as they can find.  To match as few
-as possible, use "\{-n,m}".  It works the same as "\{n,m}", except that the
-minimal amount possible is used.
-   For example, use: >
-
+Az eddigi minták az összes karakterre illeszkedtek. Lehető legkisebb illesztés
+formátuma: "\{-n,m}". Működése megegyezik a "\{n,m}" mintáéval, kivéve, hogy a
+lehető legkevesebb karaktert próbálja illeszteni. Például, a következő minta:
+>
 	/ab\{-1,3}
 
-Will match "ab" in "abbb".  Actually, it will never match more than one b,
-because there is no reason to match more.  It requires something else to force
-it to match more than the lower limit.
-   The same rules apply to removing "n" and "m".  It's even possible to remove
-both of the numbers, resulting in "\{-}".  This matches the item before it
-zero or more times, as few as possible.  The item by itself always matches
-zero times.  It is useful when combined with something else.  Example: >
+Illeszkedni fog "ab"-re az "abbb"-ben. Tulajdonképpen, soha nem fog egy b-nél
+többre illeszteni, hiszen nincs szükség rá. Más módszerrel kényszeríthetjük,
+hogy többet illesszen az alsó határtól.
+   Ugyanezek a szabályok vonatkoznak ha "n" és "m"-et eltávolítjuk, "\{-}". Ez
+illeszkedik 0  vagy több alkalommal, a lehető legkevesebbszer. Általában
+kombinációban használjuk más elemekkel: >
 
 	/a.\{-}b
 
-This matches "axb" in "axbxb".  If this pattern would be used: >
+Illeszkedik "axb"-re az "axbxb"-ben.  Ha így használtuk volna: >
 
 	/a.*b
 
-It would try to match as many characters as possible with ".*", thus it
-matches "axbxb" as a whole.
+".*" a lehető legtöbb karakterre illesztett volna, "axbxb"-re is.
 
 ==============================================================================
-*27.5*	Alternatives
+*27.5*	Alternatívák
 
-The "or" operator in a pattern is "\|".  Example: >
+Az "vagy" operátor szintaktikája az "\|". Például: >
 
 	/foo\|bar
 
-This matches "foo" or "bar".  More alternatives can be concatenated: >
+Ez illeszkedik "foo" és "bar" szavakra. A többi alternatívát hozzáfűzzük: >
 
 	/one\|two\|three
 
-Matches "one", "two" and "three".
-   To match multiple times, the whole thing must be placed in "\(" and "\)": >
+Illeszkedik "one", "two" és "three" szavakra.
+   Ha megengedjük, hogy többször is előforduljanak, akkor  "\(" közé "\)"
+zárjuk őket: >
 
 	/\(foo\|bar\)\+
 
-This matches "foo", "foobar", "foofoo", "barfoobar", etc.
-   Another example: >
+Ez illeszkedik "foo", "foobar", "foofoo", "barfoobar", stb. szavakra.
+   Egy másik példa: >
 
 	/end\(if\|while\|for\)
 
-This matches "endif", "endwhile" and "endfor".
-
+Ez illeszkedik "endif", "endwhile" és "endfor" szavakra.
+???
 A related item is "\&".  This requires that both alternatives match in the
 same place.  The resulting match uses the last alternative.  Example: >
-
+???  >
 	/forever\&...
 
-This matches "for" in "forever".  It will not match "fortuin", for example.
+Ez illeszkedik a "forever" szóban lévő "for"-ra.  A "fortuin" szóra nem fog
+illeszkedni.
 
 ==============================================================================
-*27.6*	Character ranges
+*27.6*	Karaktertartományok
 
-To match "a", "b" or "c" you could use "/a\|b\|c".  When you want to match all
-letters from "a" to "z" this gets very long.  There is a shorter method: >
+"a", "b" vagy "c" illesztéséhez használhatjuk ezt a mintát: "/a\|b\|c". Ha az
+összes karakterre szeretnél illeszteni "a"-tól "z"-ig, ezzel a módszerrel
+sokáig tartana leírni a mintát. Ezért rövidítést használunk: >
 
 	/[a-z]
 
-The [] construct matches a single character.  Inside you specify which
-characters to match.  You can include a list of characters, like this: >
+A [] szimpla karakterekre illeszt, melyeket a [] belsejében kell
+definiálnunk. A karaktereket listaszerűen beírhatjuk így: >
 
 	/[0123456789abcdef]
 
-This will match any of the characters included.  For consecutive characters
-you can specify the range.  "0-3" stands for "0123".  "w-z" stands for "wxyz".
-Thus the same command as above can be shortened to: >
+Ez csak azokra a karakterekre illeszt, amelyek a lista részét képzik. Egymást
+követő karakterek esetén meghatározhatjuk a tartományt. "0-3" jelentése
+"0123". "w-z" jelentése "wxyz". Ezért a fenti minta így rövidíthető: >
 
 	/[0-9a-f]
 
-To match the "-" character itself make it the first or last one in the range.
-These special characters are accepted to make it easier to use them inside a
-[] range (they can actually be used anywhere in the search pattern):
+Ha konkrétan a "-" karaktert szeretnéd illeszteni, akkor szúrd be külön a
+lista elejére (vagy végére). 
+    Az alábbi speciális karakterek használhatjuk a [] tartományban (és az
+egész mintában:
 
 	\e	<Esc>
 	\t	<Tab>
 	\r	<CR>
 	\b	<BS>
 
-There are a few more special cases for [] ranges, see |/[]| for the whole
-story.
+A [] tartománynak vannak speciális esetei, melyekről |/[]| itt olvashatsz.
 
 
 COMPLEMENTED RANGE
@@ -402,17 +399,17 @@ For example: >
 Finds alphabetic characters.  This is equal to using "/[a-zA-Z]".  Here are a
 few more of these:
 
-	item	matches			equivalent ~
-	\d	digit			[0-9]
-	\D	non-digit		[^0-9]
-	\x	hex digit		[0-9a-fA-F]
-	\X	non-hex digit		[^0-9a-fA-F]
-	\s	white space		[ 	]     (<Tab> and <Space>)
-	\S	non-white characters	[^ 	]     (not <Tab> and <Space>)
-	\l	lowercase alpha		[a-z]
-	\L	non-lowercase alpha	[^a-z]
-	\u	uppercase alpha		[A-Z]
-	\U	non-uppercase alpha	[^A-Z]
+	elem	illeszkedik			egyenlő ~
+	\d	szám			[0-9]
+	\D	nem-szám		[^0-9]
+	\x	hex szám		[0-9a-fA-F]
+	\X	nem-hex szám		[^0-9a-fA-F]
+	\s	üres karakter		[ 	]     (<Tab> és <Space>)
+	\S	nem-üres karakter	[^ 	]     (nem <Tab> és <Space>)
+	\l	kisbetűs alpha		[a-z]
+	\L	nem-kisbetűs alpha	[^a-z]
+	\u	nagybetűs alpha		[A-Z]
+	\U	nem-nagybetűs alpha	[^A-Z]
 
 	Note:
 	Using these predefined ranges works a lot faster than the character
@@ -452,17 +449,17 @@ the system you are using it on.
 	end of a file name in text.  Thus the default value of 'isfname' is a
 	compromise.
 
-The character classes are:
+A karakterosztályok:
 
 	item	matches				option ~
-	\i	identifier characters		'isident'
-	\I	like \i, excluding digits
-	\k	keyword characters		'iskeyword'
-	\K	like \k, excluding digits
-	\p	printable characters		'isprint'
-	\P	like \p, excluding digits
-	\f	file name characters		'isfname'
-	\F	like \f, excluding digits
+	\i	azonosító karakterek		'isident'
+	\I	mint \i, kivéve számok
+	\k	kulcsszó karakterek		'iskeyword'
+	\K	mint \k, kivéve számok
+	\p	nyomtatható karakter		'isprint'
+	\P	mint \p, kivéve számok
+	\f	fájlnév karakter		'isfname'
+	\F	mint \f, kivéve számok
 
 ==============================================================================
 *27.8*	Matching a line break
@@ -556,6 +553,6 @@ and "\w" for "[0-9A-Za-z_]".
 
 ==============================================================================
 
-Következő fejezet: |usr_28.txt|  Folding
+Következő fejezet: |usr_28.txt|  Foldolás
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
