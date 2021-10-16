@@ -63,10 +63,10 @@ Most nyomj CTRL-A-t. Az évszámok eggyel nőnek:
 			2000		2001 ~
 	income		45,403		66,234 ~
 
-"n" paranccsal találd meg a következő évszámot, "."-al pedig ismételljük a
+"n" paranccsal találd meg a következő évszámot, "."-al pedig ismételjük a
 CTRL-A parancsot (a "." gyorsabb gépelni). Ezek után már csak "n" és "."kell
 ismételned.
-   Tipp: állítsd be a 'hlsearch' opiót, hogy lásd a keresés találatait, így
+   Tipp: állítsd be a 'hlsearch' opciót, hogy lásd a keresés találatait, így
 jobban felkészülhetsz az műveletre.
 
 A számokhoz nem csak egyet tudunk hozzáadni, a CTRL-A mennyiséggel
@@ -121,7 +121,7 @@ lennie, a parancsot a szerkesztő lefuttatja az összes fájlon.
 (tartományuk: teljes fájl). Az "\<x_cnt\>" mintával megtaláljuk a "x_cnt"
 szót. A "\<" és "\>" minták miatt a keresés csak teljes szavakra fog
 illeszkedni ("px_cnt" vagy "x_cnt2" szavak nem fognak illeszkedni).
-   A keresés flagje a "g" (soronkénti összes elúfordulás cseréje), az "e",
+   A keresés flagje a "g" (soronkénti összes előfordulás cseréje), az "e",
 mely nem dob hibaüzenetet, ha "x_cnt" nem található a fájlban (az ":argdo"
 parancs megszakadna a legelső hibaüzenetnél).
    A "|" két parancsot választ el, az "update" parancs pedig menti a fájlt
@@ -131,7 +131,7 @@ történik semmi
 Létezik egy úgynevezett ":windo" parancs, mely argumentumot futtat az összes
 ablakon, ":bufdo", amely az argumentumokat a buffereken futtatja. Légy óvatos,
 hiszen általában mindig sokkal több fájl van a bufferlistádon, mint azt
-gondolnád. Ellenőrzés a ":buffers" parancssal. (vagy ":ls").
+gondolnád. Ellenőrzés a ":buffers" paranccsal. (vagy ":ls").
 
 ==============================================================================
 *26.4*	Vim használata shell-szkripttel
@@ -144,8 +144,8 @@ amely elvégzi a munkát helyettünk.
 feldolgozásnál a normál módú parancsok miatt fájlunk nem lesz tiszta, szépen
 kommentelhető fájlt, így ebben az esetben az Ex módot fogjuk használni, ami
 egy egysoros command-line interfészt biztosít számunkra, melyek szebben
-integrálhatóak bash szriptekben. (Az "Ex" a ":" parancsokat jelenti).
-   Az alábbi három Ex parancsra van szülséged. >
+integrálhatóak bash szkriptekben. (Az "Ex" a ":" parancsokat jelenti).
+   Az alábbi három Ex parancsra van szükséged. >
 
 	%s/-person-/Jones/g
 	write tempfile
@@ -163,9 +163,9 @@ A for-done ciklus a két behúzott sort ismétli, minden iterációnál a $file 
 változó új értéket kap.
    A második sor futtatja Ex módban a Vimet (-e argumentum) a $file változóban
 lévő fájlon. A change.vim fájlban leírt szerkesztések futtatja a fájlon. Az
-"-s" argumentum (silent) határásra a Vimnek egyálatalán nem lesz kimenete
+"-s" argumentum (silent) határásra a Vimnek egyáltalán nem lesz kimenete
 (:prompt üzenetek).
-   Az "lpr -r tempfile" parancs ki\rja a "tempfile"-t, majd törli (-r) azt.
+   Az "lpr -r tempfile" parancs kiírja a "tempfile"-t, majd törli (-r) azt.
    The "lpr -r tempfile" command prints the resulting "tempfile" and deletes
 it (that's what the -r argument does).
 
@@ -180,8 +180,8 @@ argumentumot. Például: >
 Ez lehetővé teszi számunkra, hogy azonnal szerkesszük az "ls" parancs
 kimenetét anélkül, hogy ezt először fájlba mentenénk (vagy Vimből kelljen
 beolvasnunk ugyanezt a kimentet).
-   Ha a sztenderd kiementről olvasol be, akkor az "-S" argumentummal szkriptet
-olvashtasz be: >
+   Ha a sztenderd kimentről olvasol be, akkor az "-S" argumentummal szkriptet
+olvashatsz be: >
 
 	producer | vim -S change.vim -
 
@@ -198,12 +198,12 @@ megteheted: >
 	"-e" argumentummal használjuk, akkor pedig némítja a kimenetet
 	(silent), valamint nem használja a következő argumentumot fájlnévként.
 
-A "script" fájlban lévő parancsok úgy értelmeződnek, ahogy írod őked. Ne
+A "script" fájlban lévő parancsok úgy értelmeződnek, ahogy írod őket. Ne
 feledd, hogy a sortörés <Enter>-ként interpretálódik. Normal módban ez kurzort
 a következő sorba helyezni.
    A szkript létrehozásához egyenként begépelheted a parancsaidat, viszont így
-képzeletben kell követned, hogy mit fog csinálni a szerksztő és mi lesz az
-eredmény. Praktikusabb, ha az általad kiadott parnacsokat felveszed, miközben
+képzeletben kell követned, hogy mit fog csinálni a szerkesztő és mi lesz az
+eredmény. Praktikusabb, ha az általad kiadott parancsokat felveszed, miközben
 elvégzed a feladatot: >
 
 	vim -w script file.txt ...
@@ -211,7 +211,7 @@ elvégzed a feladatot: >
 Minden általad kiadott parancs a "script" fájlban tárolódik. Ha hibáztál,
 akkor jegyezd meg azt a pontot, ezt később manuálisan korrigálhatod.
    A "-w" argument hozzáfűz a szkriptfájlhoz. Nagyszerű megoldás, ha rögzíteni
-szeretnél egy nagyobb terjedelmű szerksztést. Ha előlről szeretnéd kezdeni,
+szeretnél egy nagyobb terjedelmű szerkesztést. Ha elölről szeretnéd kezdeni,
 akkor a "-W" argumentum felülírja a fájlt.
 
 ==============================================================================

@@ -7,7 +7,7 @@
 
 A harmadik fejezetben már megtanulhattuk a keresés alapjait |03.9| Azonban a
 Vim ennél sokkal többre képes. A fejezet bemutatja a leggyakrabban alkalmazott
-techinkákat. A mintákról külön fejezetben tajákozódhatsz: |pattern|.
+technikákat. A mintákról külön fejezetben tájékozódhatsz: |pattern|.
 
 |27.1|	Kis- és nagybetű ignorálása
 |27.2|	Körkörös keresés
@@ -61,7 +61,7 @@ szemléltetés:
 
 BETŰÉRZÉKENYSÉG MINTÁNKÉNT
 
-Az előbb említett opciókat nem kell feltétlenül be- és kikcsolni minden egyes
+Az előbb említett opciókat nem kell feltétlenül be- és kikapcsolni minden egyes
 keresés alkalmával. Ha betűérzéketlenné szeretnéd tenni a keresést, akkor "\c"
 stringet fűzd a mintád elejéhez. "\C" betűérzékennyé teszi a keresést. A
 prefixum felülírja az 'ignorecase' és a 'smartcase' értékeit. "\c","\C"
@@ -93,8 +93,8 @@ Keresésnél (előre irányban), a keresés a kurzortól pontjától a fájl vé
 futtatja a keresést. Amennyiben nem volt találat, akkor a keresés a fájl
 elejétől folytatódik és a kurzor pozíciójáig tart.
    A parancs ismétlésénél ("n") a találatok bejárása során visszajutsz a
-legelső találathoz is, amit ha nem veszel észre akkor örökkés keresni fogsz!
-Hogy végképp ne vessz el, a Vim az alábbi üzeneteket írja ki a command-linrea:
+legelső találathoz is, amit ha nem veszel észre akkor örökké keresni fogsz!
+Hogy végképp ne vessz el, a Vim az alábbi üzeneteket írja ki a command-linera:
 
 	search hit BOTTOM, continuing at TOP ~
 
@@ -107,7 +107,7 @@ Egyik módja, ha bekapcsolod a 'ruler' opciót: >
 
 	:set ruler
 
-A jobb alsó sarokban láthatod (az állapotsoron, ha engedéyezve van)  a 'ruler'-t,
+A jobb alsó sarokban láthatod (az állapotsoron, ha engedélyezve van)  a 'ruler'-t,
 mely megjeleníti kurzor sor- és oszlopszámát:
 
 	101,29       84% ~
