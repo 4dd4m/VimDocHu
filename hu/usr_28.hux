@@ -213,73 +213,71 @@ tartozó fájlt.
 ==============================================================================
 *28.5*	Foldolás behúzás által
 
-Defining folds with |zf| is a lot of work.  If your text is structured by
-giving lower level items a larger indent, you can use the indent folding
-method.  This will create folds for every sequence of lines with the same
-indent.  Lines with a larger indent will become nested folds.  This works well
-with many programming languages.
+Munkaigényes, ha minden foldot a |zf| paranccsal szeretnél létrehozni. Ha
+fájlod jó struktúrált (behúzások), akkor foldolhatsz a behúzások alapján is. 
+Minden egyes behúzási szint új foldként definiálódik. A legtöbb programnyelv
+esetében remekül működik.
 
-Try this by setting the 'foldmethod' option: >
+Próbáld ki, állítsd át a 'foldmethod' opciót: >
 
 	:set foldmethod=indent
 
-Then you can use the |zm| and |zr| commands to fold more and reduce folding.
-It's easy to see on this example text:
+Az automatikusan létrehozott foldokat |zm| és |zr| parancsokkal nyithatod,
+zárhatod.
+Szemléljük meg a működését:
 
-This line is not indented
-	This line is indented once
-		This line is indented twice
-		This line is indented twice
-	This line is indented once
-This line is not indented
-	This line is indented once
-	This line is indented once
+Sor behúzás nélkül
+	Sor egyszer behúzva
+		Sor kétszer behúzva
+		Sor kétszer behúzva
+	Sor egyszer behúzva
+Sor behúzás nélkül
+	Sor egyszer behúzva
+	Sor egyszer behúzva
 
-Note that the relation between the amount of indent and the fold depth depends
-on the 'shiftwidth' option.  Each 'shiftwidth' worth of indent adds one to the
-depth of the fold.  This is called a fold level.
+Megjegyzés: A foldmélység és a behúzás értéke függ a 'shiftwidth' opciótól.
+Minden egyes 'shiftwidth' távolság nő a fold mélysége. Ez a fold szintje (fold
+level).
 
-When you use the |zr| and |zm| commands you actually increase or decrease the
-'foldlevel' option.  You could also set it directly: >
+Tulajdonképpen a |zr| és |zm| parancsokkal növeled, vagy csökkented a
+'foldlevel' értékét. Közvetetten is beállíthatod: >
 
 	:set foldlevel=3
 
-This means that all folds with three times a 'shiftwidth' indent or more will
-be closed.  The lower the foldlevel, the more folds will be closed.  When
-'foldlevel' is zero, all folds are closed.  |zM| does set 'foldlevel' to zero.
-The opposite command |zR| sets 'foldlevel' to the deepest fold level that is
-present in the file.
+Ez azt jelenti, hogy a foldok három (vagy több) 'shiftwidth' távolságra be
+lesznek zárva. Minél alacsonyabb a 'foldlevel' annál több fold lesz bezárva.
+Ha a 'foldlevel' 0, akkor az összes fold zárt állapotban van. |zM| nullára
+állítja a 'foldlevel' értékét. A |zR| a 'foldlevel'-t a legmélyebbre állítja.
 
-Thus there are two ways to open and close the folds:
-(A) By setting the fold level.
-    This gives a very quick way of "zooming out" to view the structure of the
-    text, move the cursor, and "zoom in" on the text again.
+Ezért a foldok megnyitására és bezárására két opció van:
+(A) A fold level állításával.
+    "Zoom in" - "Zoom out" technikával gyorsan áttekinthető a struktúrált
+    szöveg.
 
-(B) By using |zo| and |zc| commands to open or close specific folds.
-    This allows opening only those folds that you want to be open, while other
-    folds remain closed.
+(B) Foldok bezárása a |zo| és |zc| parancsokkal.
+    Így csak azok a foldok nyitott állapotban, melyeket kinyitunk.
 
-This can be combined: You can first close most folds by using |zm| a few times
-and then open a specific fold with |zo|.  Or open all folds with |zR| and
-then close specific folds with |zc|.
+A kettő kombinálható: A legtöbb foldot bezárod a |zm| paranccsal, aztán kézzel
+megnyitod a foldot (|zo|). Vagy az összes foldot megnyitod |zR|, míg bizonyos
+foldokat bezársz |zc|.
 
-But you cannot manually define folds when 'foldmethod' is "indent", as that
-would conflict with the relation between the indent and the fold level.
+A probléma, hogy nem tudunk kézzel foldot létrehozni, ha a 'foldmethod' értéke
+"indent", hiszen ez ütközne a indent és fold level értékekkel.
 
-More about folding by indent in the reference manual: |fold-indent|
+Még több a behúzás alapú foldokról a manuálban: |fold-indent|
 
 ==============================================================================
-*28.6*	Folding with markers
+*28.6*	Foldolás markerek által
 
-Markers in the text are used to specify the start and end of a fold region.
-This gives precise control over which lines are included in a fold.  The
-disadvantage is that the text needs to be modified.
+A foldot kezdeti és végpontjai kijelölhetők markerekkel (jelelőkkel).
+Precízen, magas fokú kontroll mellett létrehozhatjuk a foldot. Hátrány, hogy
+módosítanunk kell a szöveget.
 
-Try it: >
+Próbáld ki: >
 
 	:set foldmethod=marker
 
-Example text, as it could appear in a C program:
+Példa, C program esetén:
 
 	/* foobar () {{{ */
 	int foobar()
@@ -290,11 +288,11 @@ Example text, as it could appear in a C program:
 	}
 	/* }}} */
 
-Notice that the folded line will display the text before the marker.  This is
-very useful to tell what the fold contains.
+Vedd észre, hogy a foldolt sor megjelenik a marker előtt, így meg tudjuk
+mondani, hogy mi a fold tartalma.
 
-It's quite annoying when the markers don't pair up correctly after moving some
-lines around.  This can be avoided by using numbered markers.  Example:
+Elég idegesítő, hogy a sorok mozgatásával a jelölők inkonzisztenssé válnak.
+Számozott jelölőkkel ezt megoldhatjuk. Például:
 
 	/* global variables {{{1 */
 	int varA, varB;
@@ -307,122 +305,127 @@ lines around.  This can be avoided by using numbered markers.  Example:
 	void funcB() {}
 	/* }}}1 */
 
-At every numbered marker a fold at the specified level begins.  This will make
-any fold at a higher level stop here.  You can just use numbered start markers
-to define all folds.  Only when you want to explicitly stop a fold before
-another starts you need to add an end marker.
+Minden egyes számozott marker ({{{1, }}}1) új fold szintet takar. Minden
+nagyobb szintű fold itt megáll. Semmi akadálya, hogy kizárólag markerekkel
+jelöljük ki a foldjainkat. Ha meg szeretnél állni egy foldban, mielőtt egy
+másik kezdődne, "end marker"-rel meg kell jelölnöd.
 
-More about folding with markers in the reference manual: |fold-marker|
-
-==============================================================================
-*28.7*	Folding by syntax
-
-For each language Vim uses a different syntax file.  This defines the colors
-for various items in the file.  If you are reading this in Vim, in a terminal
-that supports colors, the colors you see are made with the "help" syntax file.
-   In the syntax files it is possible to add syntax items that have the "fold"
-argument.  These define a fold region.  This requires writing a syntax file
-and adding these items in it.  That's not so easy to do.  But once it's done,
-all folding happens automatically.
-   Here we'll assume you are using an existing syntax file.  Then there is
-nothing more to explain.  You can open and close folds as explained above.
-The folds will be created and deleted automatically when you edit the file.
-
-More about folding by syntax in the reference manual: |fold-syntax|
+A technika részleteiről olvasd el a dokumentációt: |fold-marker|
 
 ==============================================================================
-*28.8*	Folding by expression
+*28.7*	Foldolás szintaxis által
 
-This is similar to folding by indent, but instead of using the indent of a
-line a user function is called to compute the fold level of a line.  You can
-use this for text where something in the text indicates which lines belong
-together.  An example is an e-mail message where the quoted text is indicated
-by a ">" before the line.  To fold these quotes use this: >
+A Vim minden egyes fájltípushoz saját szintaxisfájlt használ, mely
+meghatározza a színeket és egyéb elemeket. Ha ezt  a Vimben olvasod és a
+terminálod támogatja a színeket, a színek definíciója a "help" szintaxis
+fájlban található. 
+   A szintaxisfájlokban a "fold" argumentum használatával leírhatjuk, hogy mi
+definiálhat egy fold tartományt. Létre kell hoznunk a saját szintaxisfájlunkat
+és ennek megfelelően szerkeszteni, ami nem könnyű feladat. Azonban ha egyszer
+készen vagyunk vele, foldjainkat a Vim automatikusan létrehozza, olyan
+körülmények között, ahogy azt leírtuk. 
+   Feltételezzük, hogy egy létező szintaxisfájlt használsz, ezért itt nincs
+mit magyarázni. A foldok automatikusan létrejönnek és törlődnek a fájl
+szerkesztésekor.
+
+A szintaxisalapú foldolás: |fold-syntax|
+
+==============================================================================
+*28.8*	Foldolás kifejezés által
+
+Nagyon hasonló a behúzásos módszerhez, a felhasználó által írt függvény
+határozza meg a sorok behúzását. Használata akkor optimális, ha a szövegben
+fizikailag jelölve van az egybetartozó szöveg. Például, egy e-mail üzenet,
+ahol az idézett szöveget ">" karakter jelöli a sor kezdetén. Mely foldolása: >
 
 	:set foldmethod=expr
-	:set foldexpr=strlen(substitute(substitute(getline(v:lnum),'\\s','',\"g\"),'[^>].*','',''))
+	:set foldexpr=strlen(substitute(
+	                     substitute(
+			     getline(
+			     v:lnum),'\\s','',\"g\"),'[^>].*','',''))
 
-You can try it out on this text:
+Megjegyzés: ":set foldexpr..." sor egy sor, csak az olvashatóság miatt van
+	    tördelve.
 
-> quoted text he wrote
+Ezen a szövegen kipróbálhatod:
+
+> quoted text he wrote 
 > quoted text he wrote
 > > double quoted text I wrote
 > > double quoted text I wrote
+> > 
 
-Explanation for the 'foldexpr' used in the example (inside out):
-   getline(v:lnum)			gets the current line
-   substitute(...,'\\s','','g')		removes all white space from the line
-   substitute(...,'[^>].*','','')	removes everything after leading '>'s
-   strlen(...)				counts the length of the string, which
-					is the number of '>'s found
+A 'foldexpr' kifejezésének magyarázata (belülről kifelé):
+   getline(v:lnum)			az aktív sor
+   substitute(...,'\\s','','g')		minden üres karaktert eltávolít a
+					sorból
+   substitute(...,'[^>].*','','')	töröl mindent a '>' karakter után
+   strlen(...)				String hossza, melyben '>' található
 
-Note that a backslash must be inserted before every space, double quote and
-backslash for the ":set" command.  If this confuses you, do >
+Megjegyzés: \ karaktert kell raknunk minden szóköz, idézőjel és backslash elé.
+Ha ez megzavar, akkor: >
 
 	:set foldexpr
 
-to check the actual resulting value.  To correct a complicated expression, use
-the command-line completion: >
+
+Az aktuális érték kiíratásához. Komplex kifejezés korrigáláshoz használd a
 
 	:set foldexpr=<Tab>
 
-Where <Tab> is a real Tab.  Vim will fill in the previous value, which you can
-then edit.
+Ahol <Tab> valós Tab, ezért a Vim automatikusan kitölti az aktuális parancsot,
+melyet könnyedén szerkeszthetünk.
 
-When the expression gets more complicated you should put it in a function and
-set 'foldexpr' to call that function.
+Ha nagyon komplexre sikeredik, akkor tedd be egy függvénybe, a 'foldexpr'-nak
+viszont ezt a függvényt kell meghívnia.
 
-More about folding by expression in the reference manual: |fold-expr|
+Még több a kifejezés alapú foldolásról: |fold-expr|.
 
 ==============================================================================
-*28.9*	Folding unchanged lines
+*28.9*	Változatlan sorok foldolása
 
-This is useful when you set the 'diff' option in the same window.  The
-|vimdiff| command does this for you.  Example: >
+Ez akkor hasznos, ha az ablakban beállítod a 'diff' opciót is. A |vimdiff|
+parancs elvégzi helyetted. Például: >
 
 	:setlocal diff foldmethod=diff scrollbind nowrap foldlevel=1
 
-Do this in every window that shows a different version of the same file.  You
-will clearly see the differences between the files, while the text that didn't
-change is folded.
+Játszd ezt el az összes ablakkal, mely a fájl különböző verzióit tartalmazzák.
+Ezek után már tisztán láthatod, hogy a változatlan sorok foldolva vannak.
 
-For more details see |fold-diff|.
+Még több információ |fold-diff|.
 
 ==============================================================================
-*28.10* Which fold method to use?
+*28.10* Melyik foldolást válasszam?
 
-All these possibilities make you wonder which method you should choose.
-Unfortunately, there is no golden rule.  Here are some hints.
+Ennyi lehetőség után nem csodálom, ha felmerül a kérdés. Sajnos nincs
+aranyszabály. Pár tipp.
 
-If there is a syntax file with folding for the language you are editing, that
-is probably the best choice.  If there isn't one, you might try to write it.
-This requires a good knowledge of search patterns.  It's not easy, but when
-it's working you will not have to define folds manually.
+Ha van olyan szintaxisfájlod, amely leírja a foldokat is, az a legjobb
+választás. Ha nincs, akkor megpróbálhatsz írni egyet. Jól kell bánni a
+keresési mintákkal, ami nem könnyű, de ha működik, akkor ezentúl nem kell a
+foldjaiddal bajlódnod.
 
-Typing commands to manually fold regions can be used for unstructured text.
-Then use the |:mkview| command to save and restore your folds.
+Nem struktúrált szöveg esetén nem probléma, ha ki kell adni egy-két parancsot.
+A |:mkview| paranccsal mentsük a nézetet és mely visszatölti a foldjainkat is.
 
-The marker method requires you to change the file.  If you are sharing the
-files with other people or you have to meet company standards, you might not
-be allowed to add them.
-   The main advantage of markers is that you can put them exactly where you
-want them.  That avoids that a few lines are missed when you cut and paste
-folds.  And you can add a comment about what is contained in the fold.
+A marker módszer használatához szerkesztened kell a fájlt. Csapatmunka esetén
+valószínű, hogy nem fogja a sztenderd részét képezni, sőt, lehet meg sem
+engedik a használatát.
+   A markerek legelőnyösebb tulajdonsága, hogy oda teszed őket ahová akarod.
+Biztos módszer, hogy egy áthelyezés alkalmával ne maradjonak le sorok. A fold
+tartalmát kommentelheted.
 
-Folding by indent is something that works in many files, but not always very
-well.  Use it when you can't use one of the other methods.  However, it is
-very useful for outlining.  Then you specifically use one 'shiftwidth' for
-each nesting level.
+A behúzásalapú foldolás a fájlok nagy részében működik, de nem túl jól. Akkor
+használd ha más módszer nem áll rendelkezésre. Kiemelésekhez hasznos.
+Használatánál ügyelni kell az 1 'shiftwidth' 1 fold mélységre.
 
-Folding with expressions can make folds in almost any structured text.  It is
-quite simple to specify, especially if the start and end of a fold can easily
-be recognized.
-   If you use the "expr" method to define folds, but they are not exactly how
-you want them, you could switch to the "manual" method.  This will not remove
-the defined folds.  Then you can delete or add folds manually.
+Kifejezések által bármilyen struktúrált szövegen alapuló fájlt foldolhatunk.
+Könnyű meghatározni, különösen, ha a fold eleje és vége jól felismerhető.
+   Ha az "expr" módszert használod, de nem pontosan úgy működik, ahogyan
+szeretnéd, akkor használj kézi módszert. Ez nem távolítja el a már létrehozott
+foldokat. A foldok létrehozása és törlése kézzel történik.
 
 ==============================================================================
 
-Következő fejezet: |usr_29.txt|  Moving through programs
+Következő fejezet: |usr_29.txt|  Mozgás kódbázisban
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
