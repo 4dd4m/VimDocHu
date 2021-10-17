@@ -1,215 +1,217 @@
 *usr_28.txt*	For Vim version 8.2.  Last change: 2008 Jun 14
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-				   Folding
+				   Foldolás
 
 
-Structured text can be separated in sections.  And sections in sub-sections.
-Folding allows you to display a section as one line, providing an overview.
-This chapter explains the different ways this can be done.
+A struktúrált szöveget logikailag elkülöníthetjük. Részekre bonthatjuk, aztán
+azokat később még tovább. Foldolással kódrészleteket tömöríthetsz egy sorba.
+A fejezetben a foldolás különböző módszereit tárgyaljuk.
 
-|28.1|	What is folding?
-|28.2|	Manual folding
-|28.3|	Working with folds
-|28.4|	Saving and restoring folds
-|28.5|	Folding by indent
-|28.6|	Folding with markers
-|28.7|	Folding by syntax
-|28.8|	Folding by expression
-|28.9|	Folding unchanged lines
-|28.10|	Which fold method to use?
+|28.1|	Mi a foldolás?
+|28.2|	Kézi foldolás
+|28.3|	Munka a foldokkal
+|28.4|	Foldok mentése, visszaállítása
+|28.5|	Foldolás behúzás által
+|28.6|	Foldolás markerek által
+|28.7|	Foldolás szintaxis által
+|28.8|	Foldolás kifejezéssel
+|28.9|	Változatlan sorok foldolása
+|28.10|	Melyik foldolási módszert válasszam?
 
-     Következő fejezet: |usr_29.txt|  Moving through programs
- Előző fejezet: |usr_27.txt|  Search commands and patterns
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_29.txt|  Mozgás a kódban
+    Előző fejezet: |usr_27.txt|  Keresési parancsok és minták
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*28.1*	What is folding?
+*28.1*	Mi a foldolás?
 
-Folding is used to show a range of lines in the buffer as a single line on the
-screen.  Like a piece of paper which is folded to make it shorter:
+Foldolással a bufferben lévő tartományokat egy sorként jelenítjük meg a
+képernyőn. Mint egy darab papír, melyet ha összehajtunk, rövidebbé válik:
 
 	+------------------------+
-	| line 1		 |
-	| line 2		 |
-	| line 3		 |
+	| sor 1 		 |
+	| sor 2 		 |
+	| sor 3 		 |
 	|_______________________ |
 	\			 \
 	 \________________________\
-	 / folded lines		  /
+	 / foldolt sorok	  /
 	/________________________/
-	| line 12		 |
-	| line 13		 |
-	| line 14		 |
+	| sor 12		 |
+	| sor 13		 |
+	| sor 14		 |
 	+------------------------+
 
-The text is still in the buffer, unchanged.  Only the way lines are displayed
-is affected by folding.
+A tartalmazott szöveg még mindig a bufferben van. Csak a megjelenítés módja
+változott.
 
-The advantage of folding is that you can get a better overview of the
-structure of text, by folding lines of a section and replacing it with a line
-that indicates that there is a section.
+A foldolás egyik előnye, hogy jobb képet kaphatunk a fájlról, hiszen a
+logikailag összetartozó sorok nagy részét egy sorba tömörítjük, helyét csak
+egyetlen egy sorral jelezzük.
 
 ==============================================================================
-*28.2*	Manual folding
+*28.2*	Kézi foldolás
 
-Try it out: Position the cursor in a paragraph and type: >
+Próbáld ki: vidd a kurzort egy bekezdésre: >
 
 	zfap
 
-You will see that the paragraph is replaced by a highlighted line.  You have
-created a fold.  |zf| is an operator and |ap| a text object selection.  You
-can use the |zf| operator with any movement command to create a fold for the
-text that it moved over.  |zf| also works in Visual mode.
+A bekezdést helyettesítette egyetlen egy sor. Egy foldot hoztál létre. |zf|
+egy operátor, |ap| pedig a szöveg-objektum volt. A |zf| operátort bármilyen
+elmozdulással kombinálhatjuk, mely létrehozza a kijelölésen átívelő foldot. 
+A |zf| Visual módban is működik.
 
-To view the text again, open the fold by typing: >
+A fold kinyitásához gépeld be: >
 
 	zo
 
-And you can close the fold again with: >
+Bezárása pedig: >
 
 	zc
 
-All the folding commands start with "z".  With some fantasy, this looks like a
-folded piece of paper, seen from the side.  The letter after the "z" has a
-mnemonic meaning to make it easier to remember the commands:
+Az összes folddal kapcsolatos parancs "z"-vel kezdődik. Kis fantáziával ugyan
+de a "z" betű éppen úgy néz ki, mint egy összehajtott papírlap oldalról. A
+"z"-t követő betűt pedig így érdemes megjegyezni: >
 
-	zf	F-old creation
-	zo	O-pen a fold
-	zc	C-lose a fold
+	zf	Fold létrehozása (Fold)
+	zo	Fold kinyitása (Open)
+	zc	Fold bezárása (Close)
 
-Folds can be nested: A region of text that contains folds can be folded
-again.  For example, you can fold each paragraph in this section, and then
-fold all the sections in this chapter.  Try it out.  You will notice that
-opening the fold for the whole chapter will restore the nested folds as they
-were, some may be open and some may be closed.
+A foldok egymásba ágyazhatóak: a dokumentum bekezdéseit foldoljuk, aztán még
+egyszer foldoljuk az összeset (fejezet). Ha kinyitjuk a fejezet foldot, akkor
+az visszaállítja (megjeleníti) a bekezdések foldjait az eredeti állapotukba
+(melyek lehetnek nyitottak, lehetnek zártak, attól függően, hogy hogyan
+hagytuk őket).
 
-Suppose you have created several folds, and now want to view all the text.
-You could go to each fold and type "zo".  To do this faster, use this command: >
+Tegyük fel, hogy készítettél pár foldot, de látni szeretnéd az összes
+szöveget. Ha türelmes vagy, akkor bejárhatod az összeset, külön futtatva a
+"zo" parancsot. Gyorsabb módja: >
 
 	zr
 
-This will R-educe the folding.  The opposite is: >
+Ez csökkenti a foldokat (Reduce). Ellentéte: >
 
 	zm
 
-This folds M-ore.  You can repeat "zr" and "zm" to open and close nested folds
-of several levels.
+Zárja a foldokat (More). Megismételheted a "zr" és "zm" parancsokat, ha egymásba
+ágyazott foldokkal dolgozol.
 
-If you have nested several levels deep, you can open all of them with: >
+Ha foldjaid több szintesek, akkor az összeset kinyithatod egyszerre: >
 
 	zR
 
-This R-educes folds until there are none left.  And you can close all folds
-with: >
+Csökkenti a foldokat (kinyitja őket). Az összes fold bezárása: >
 
 	zM
 
-This folds M-ore and M-ore.
+Mely bezárja az összes foldot (More).
 
-You can quickly disable the folding with the |zn| command.  Then |zN| brings
-back the folding as it was.  |zi| toggles between the two.  This is a useful
-way of working:
-- create folds to get overview on your file
-- move around to where you want to do your work
-- do |zi| to look at the text and edit it
-- do |zi| again to go back to moving around
+A foldolás engedélyezése, tiltása a |zn| paranccsal változtatható. A |zN|
+visszaállítja a foldokat, ahogyan voltak. A |zi| változtatja a 'foldenable'
+állapotát. Példa munkafolyamat:
 
-More about manual folding in the reference manual: |fold-manual|
+    - foldok létrehozás
+    - navigáció, szerkesztési pontra
+    - |zi| szöveg szerkesztése
+    - |zi| navigáció
+
+A kézi foldolás részletes leírása: |fold-manual|
 
 ==============================================================================
-*28.3*	Working with folds
+*28.3*	Munka a foldokkal
 
-When some folds are closed, movement commands like "j" and "k" move over a
-fold like it was a single, empty line.  This allows you to quickly move around
-over folded text.
+"j" és "k" parancsok üres sorként haladnák át a zárt foldokon, meggyorsítva a
+navigációt.
 
-You can yank, delete and put folds as if it was a single line.  This is very
-useful if you want to reorder functions in a program.  First make sure that
-each fold contains a whole function (or a bit less) by selecting the right
-'foldmethod'.  Then delete the function with "dd", move the cursor and put it
-with "p".  If some lines of the function are above or below the fold, you can
-use Visual selection:
-- put the cursor on the first line to be moved
-- hit "V" to start Visual mode
-- put the cursor on the last line to be moved
-- hit "d" to delete the selected lines.
-- move the cursor to the new position and "p"ut the lines there.
+A foldokat egyszerű sorként másolhatjuk, törölhetjük és illeszthetjük be. Így
+a fájlt nagyon gyorsan át lehet rendezni. Győződj meg arról, hogy minden
+fold egy teljes függvényt tartalmaz (vagy picivel kevesebbet, ami a
+'foldmethod' opció függvénye). Töröld ki a függvényt "dd"-vel, menj a
+megfelelő melyre és illeszd be "p". Ha a függvény (alja vagy teteje) kilóg a
+foldból, Visual módban jelöld ki a területet:
 
-It is sometimes difficult to see or remember where a fold is located, thus
-where a |zo| command would actually work.  To see the defined folds: >
+    - vidd a kurzort az első sorra
+    - válts át "V" Visual módra
+    - jelöld ki az utolsó sort is
+    - töröld ki "d" a sorokat
+    - menj az új helyre, majd illeszd be "p"
+
+Néha nehéz észrevenni, hogy egy fold merre található, azaz, hogy melyik soron
+használhatjuk a |zo| parancsot. A jobb szemléltetéshez: >
 
 	:set foldcolumn=4
 
-This will show a small column on the left of the window to indicate folds.
-A "+" is shown for a closed fold.  A "-" is shown at the start of each open
-fold and "|" at following lines of the fold.
+Mely létrehoz egy (jelen esetben) 4 oszlopból álló sávot az ablak bal oldalán,
+ahol "+" jelölést láthatunk a zárt állapotú foldok helyén, "-" jelet pedig a
+nyitott foldok esetén. A fold által tartalmazott sorokat "|" karakter jelzi.
 
-You can use the mouse to open a fold by clicking on the "+" in the foldcolumn.
-Clicking on the "-" or a "|" below it will close an open fold.
+Egér használatával is elvégezhetjük a foldok nyitását a "+" jelölésre
+kattintva, zárását a "-" vagy "|" jelekre kattintva. 
 
-To open all folds at the cursor line use |zO|.
-To close all folds at the cursor line use |zC|.
-To delete a fold at the cursor line use |zd|.
-To delete all folds at the cursor line use |zD|.
+Kurzor alatt lévő össze fold kinyitása |zO|.
+Kurzor alatt lévő összes fold bezárása |zC|.
+Kurzor sorában lévő fold törlése |zd| (csak a fold definícióját).
+Kurzor alatt lévő összes fold törlése |zD| (csak a fold definícióját).
 
-When in Insert mode, the fold at the cursor line is never closed.  That allows
-you to see what you type!
+Insert módban a kurzor alatt lévő sor soha nem záródik be (ha zárva van, akkor
+kinyílik). Így láthatod, hogy mit írsz!
 
-Folds are opened automatically when jumping around or moving the cursor left
-or right.  For example, the "0" command opens the fold under the cursor
-(if 'foldopen' contains "hor", which is the default).  The 'foldopen' option
-can be changed to open folds for specific commands.  If you want the line
-under the cursor always to be open, do this: >
+A foldok automatikusan megnyílnak, ha a kurzort rajtuk jobbra vagy balra
+mozgatjuk. Például, a "0" parancs megnyitja a kurzor alatt lévő foldot (ha
+'foldopen' "hor"-ként van konfigurálva, ami az alapértelmezés). A 'foldopen'
+opció meghatározza, hogy mely parancsok hatására nyíljon ki a fold. A kurzor
+alatt lévő fold minden esetben kinyílik, ha: >
 
 	:set foldopen=all
 
-Warning: You won't be able to move onto a closed fold then.  You might want to
-use this only temporarily and then set it back to the default: >
+Figyelem: Így nem tudsz zárt foldra ugrani.  Ideiglenes jó ötletnek tűnik, de
+próbáljuk alapértelmezetten tartani: >
 
 	:set foldopen&
 
-You can make folds close automatically when you move out of it: >
+A foldokat automatikusan bezárhatod, ha kilépsz belőlük: >
 
 	:set foldclose=all
 
-This will re-apply 'foldlevel' to all folds that don't contain the cursor.
-You have to try it out if you like how this feels.  Use |zm| to fold more and
-|zr| to fold less (reduce folds).
 
-The folding is local to the window.  This allows you to open two windows on
-the same buffer, one with folds and one without folds.  Or one with all folds
-closed and one with all folds open.
+Ez újra-alkalmazza a 'foldlevel' opciót azokon a foldokon, melyben nem
+szerepel a kurzor. Próbáld ki, hogy hogyan érzed. A |zm| egy szintet bezár a
+|zf| egy szintet kinyit.
+
+A foldolás az ablak tekintetében lokális, ezért egy fájlt megnyithatsz
+többször is, egyik ablakban foldokkal, másikban anélkül. (Vagy az egyikben
+nyitott foldokkal, a másikban pedig zártakkal).
 
 ==============================================================================
-*28.4*	Saving and restoring folds
+*28.4*	Foldok mentése, visszaállítása
 
-When you abandon a file (starting to edit another one), the state of the folds
-is lost.  If you come back to the same file later, all manually opened and
-closed folds are back to their default.  When folds have been created
-manually, all folds are gone!  To save the folds use the |:mkview| command: >
+Ha "elhagysz" egy fájlt (egy másikat nyitsz meg), akkor a foldok helyzete
+elveszik. A kézzel kinyitott és bezárt foldok felveszik kezdő állapotukat
+visszatéréskor. Ha kézzel hozol létre foldot, akkor az összes elveszik.
+Mentésükhöz használt a |:mkview| parancsot: >
 
 	:mkview
 
-This will store the settings and other things that influence the view on the
-file.  You can change what is stored with the 'viewoptions' option.
-When you come back to the same file later, you can load the view again: >
+Mely elmenti a nézetet befolyásoló beállításokat. A menthető opciókat a
+'viewoptions'-ban  állíthatjuk be. A fájl megnyitásánál töltsük be a nézetet
+újra: >
 
 	:loadview
 
-You can store up to ten views on one file.  For example, to save the current
-setup as the third view and load the second view: >
+Egy fájlról tíz nézet tárolható. Például, a jelenlegi nézet elmentése a 3.
+nézetként, 2. nézet visszatöltése: >
 
 	:mkview 3
 	:loadview 2
 
-Note that when you insert or delete lines the views might become invalid.
-Also check out the 'viewdir' option, which specifies where the views are
-stored.  You might want to delete old views now and then.
+Megjegyzés: Sorok beszúrásakor vagy törlésekor, a nézet invaliddá válhat. A
+'viewdir' opcióban meghatározott könyvtárban néha töröld a régi nézethez
+tartozó fájlt.
 
 ==============================================================================
-*28.5*	Folding by indent
+*28.5*	Foldolás behúzás által
 
 Defining folds with |zf| is a lot of work.  If your text is structured by
 giving lower level items a larger indent, you can use the indent folding
