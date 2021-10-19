@@ -2,56 +2,53 @@
 
 		     Bram Moolenaar: Vim felhasználói kézikönyv
 
-			    Moving through programs
+			    Mozgás kódbázisban
 
+A Vim alkotója maga is programozó, így nem csoda, hogy ennyi funkció került a
+Vimbe. Ugorj oda a változókhoz és találd meg a használati helyeiket.
+Deklarációk előnézete külön ablakban. Még több a következő fejezetben.
 
-The creator of Vim is a computer programmer.  It's no surprise that Vim
-contains many features to aid in writing programs.  Jump around to find where
-identifiers are defined and used.  Preview declarations in a separate window.
-There is more in the next chapter.
+|29.1|	Tagek használata
+|29.2|	Az előnézeti ablak
+|29.3|	Mozgás kódbázisban
+|29.4|	Globális azonosítók keresése
+|29.5|	Lokális azonosítók
 
-|29.1|	Using tags
-|29.2|	The preview window
-|29.3|	Moving through a program
-|29.4|	Finding global identifiers
-|29.5|	Finding local identifiers
-
-     Következő fejezet: |usr_30.txt|  Editing programs
- Előző fejezet: |usr_28.txt|  Folding
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_30.txt|  Programok szerkesztése
+    Előző fejezet: |usr_28.txt|  Foldolás
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*29.1*	Using tags
+*29.1*	Tagek használata
 
-What is a tag?  It is a location where an identifier is defined.  An example
-is a function definition in a C or C++ program.  A list of tags is kept in a
-tags file.  This can be used by Vim to directly jump from any place to the
-tag, the place where an identifier is defined.
-   To generate the tags file for all C files in the current directory, use the
-following command: >
+Mi a tag? A tag leírja, hogy az adott kód eleme, melyik fájlban van
+definiálva. Például képzeljünk el egy függvénydefiníciót C vagy C++
+programokban. A tagek listáját a tagfájl tartalmazza. A Vim ezt arra használja
+fel, hogy közvetlenül definícióhoz ugorjon (függvény, változó, osztály stb.).
+   Tagfájl generálása a (könyvtárban lévő) összes C fájlhoz: >
 
 	ctags *.c
 
-"ctags" is a separate program.  Most Unix systems already have it installed.
-If you do not have it yet, you can find Exuberant ctags here:
+"ctags" egy külső program. A legtöbb Unix rendszeren alapból installálva van.
+Ha nincs a gépeden, akkor innen töltheted le (Exuberant): 
 
 	http://ctags.sf.net ~
 
-Now when you are in Vim and you want to go to a function definition, you can
-jump to it by using the following command: >
+A fájl generálása után megkereshetjük a függvénydefiníciókat, melyekhez
+odaugorhatunk. >
 
 	:tag startlist
 
-This command will find the function "startlist" even if it is in another file.
-   The CTRL-] command jumps to the tag of the word that is under the cursor.
-This makes it easy to explore a tangle of C code.  Suppose, for example, that
-you are in the function "write_block".  You can see that it calls
-"write_line".  But what does "write_line" do?  By placing the cursor on the
-call to "write_line" and pressing CTRL-], you jump to the definition of this
-function.
-   The "write_line" function calls "write_char".  You need to figure out what
-it does.  So you position the cursor over the call to "write_char" and press
-CTRL-].  Now you are at the definition of "write_char".
+A parancs megtalálja a "startlist" nevezetű függvényt még akkor is, ha az egy
+másik fájlban található.
+   A CTRL-] parancs kurzor alatt lévő tagre ugrik (éppen úgy, mint itt a
+kézikönyvben), mellyel gyorsan bejárhatjuk a kódot. Tegyük fel, hogy a
+"write_block" függvényben vagy. Látod, hogy a függvény meghívja a "write_line"
+nevű függvényt. De mit csinál "write_line"? Vigyük a kurzort a "write_line"
+szóra és nyomjunk CTRL-] billentyűket, a függvény pedig  megjelenik előttünk.
+   A "write_line" függvény "write_char" függvényt hívja. Elért a kurzort a
+"write_char"-ra viszed és CTRL-]-t nyomsz. Már láthatod "write_char"
+definícióját.
 
 	+-------------------------------------+
 	|void write_block(char **s; int cnt)  |
@@ -79,7 +76,7 @@ CTRL-].  Now you are at the definition of "write_char".
 				       |}				    |
 				       +------------------------------------+
 
-The ":tags" command shows the list of tags that you traversed through:
+A ":tags" parancs mutatja azokat a tageket, melyeket utad során bejársz:
 
 	:tags
 	  # TO tag	   FROM line  in file/text ~
@@ -87,90 +84,95 @@ The ":tags" command shows the list of tags that you traversed through:
 	  2  1 write_char	   7  write_line.c ~
 	> ~
 >
-Now to go back.  The CTRL-T command goes to the preceding tag.  In the example
-above you get back to the "write_line" function, in the call to "write_char".
-   This command takes a count argument that indicates how many tags to jump
-back.  You have gone forward, and now back.  Let's go forward again.  The
-following command goes to the tag on top of the list: >
+A CTRL-T parancs az előző tagre lép. A példában így léphetsz vissza a 
+"write_line" függvényhez (a "write_char" függvényből). 
+   Argumentumként fogadja a visszafelé lépések számát. Most menjünk előre.
+Eddig visszafelé léptünk. Az alábbi parancs a taglista legtetején elhelyezkedő
+taghez ugrik: >
 
 	:tag
 
-You can prefix it with a count and jump forward that many tags.  For example:
-":3tag".  CTRL-T also can be preceded with a count.
-   These commands thus allow you to go down a call tree with CTRL-] and back
-up again with CTRL-T.  Use ":tags" to find out where you are.
+Argumentumként fogadja az előrelépések számát. Például: ":3tag". CTRL-T pedig
+a visszalépésekét.
+   A híváslistában az ismertetett parancsokkal fel-le mozoghatunk. Ha
+eltévedtél, akkor ":tags" parancs.
 
 
-SPLIT WINDOWS
+SPLITEK
 
-The ":tag" command replaces the file in the current window with the one
-containing the new function.  But suppose you want to see not only the old
-function but also the new one?  You can split the window using the ":split"
-command followed by the ":tag" command.  Vim has a shorthand command that does
-both: >
+A ":tag" megjeleníti az új függvényt az aktív ablakban. Mindkettőt látni
+akarod? Splitelheted az ablakot (":split"), melyet kombinálhatsz a ":tag"
+paranccsal. A parancs rövidítése pedig: >
+
 	:stag tagname
 
-To split the current window and jump to the tag under the cursor use this
-command: >
+Az ablak splitelése és ugrás a kurzor alatti taghez: >
 
 	CTRL-W ]
 
-If a count is specified, the new window will be that many lines high.
+A mennyiség prefixum meghatározza az új ablak magasságát.
 
 
-MORE TAGS FILES
+MÉG TÖBB TAGFÁJL
 
-When you have files in many directories, you can create a tags file in each of
-them.  Vim will then only be able to jump to tags within that directory.
-   To find more tags files, set the 'tags' option to include all the relevant
-tags files.  Example: >
+Az összes fájlhoz létrehozható tagfájl az adott könyvtárban, melyet a Vim fel
+tud használni a definíciók megkereséséhez. Ebben az esetben a
+könyvtárszerkezetben nem mozoghatunk. Önmagában a Vim nem képes könyvtárat
+váltani.
+   Ezért a 'tags' változóba nekünk kell hozzáadnunk a tagfájlok útvonalait.
+Például: >
 
 	:set tags=./tags,./../tags,./*/tags
 
-This finds a tags file in the same directory as the current file, one
-directory level higher and in all subdirectories.
-   This is quite a number of tags files, but it may still not be enough.  For
-example, when editing a file in "~/proj/src", you will not find the tags file
-"~/proj/sub/tags".  For this situation Vim offers to search a whole directory
-tree for tags files.  Example: >
+Tagfájlok hozzáadása az aktív könyvtárból, az összes alkönyvtárból és a
+szülőkönyvtárból. 
+   Szép kis mennyiség, de lehet, hogy elég sem lesz. Például, ha a
+"~/proj/src" könyvtárban fájlt szerkesztünk, akkor nem fogjuk látni
+"~/proj/sub/tags" fájlokat. Kijelölhetjük az egész könyvtárfát. Például: >
 
 	:set tags=~/proj/**/tags
 
 
 ONE TAGS FILE
 
-When Vim has to search many places for tags files, you can hear the disk
-rattling.  It may get a bit slow.  In that case it's better to spend this
-time while generating one big tags file.  You might do this overnight.
-   This requires the Exuberant ctags program, mentioned above.  It offers an
-argument to search a whole directory tree: >
+Ha a Vim több helyen kutat tagfájlok után, akkor lehet hallani, hogy dolgozik
+a rendszer, esetenként be is lassulhat. Ilyenkor ajánlott ezt az időt egy
+"globális" tagfájl létrehozására fordítani. Valószínűleg bekapcsolva kell
+hagyni a gépet éjszakára. 
+   Ennek követelménye a Exuberant ctags programja. Argumenttel tudjuk
+feldolgozni a könyvtárfát: >
 
 	cd ~/proj
 	ctags -R .
 
-The nice thing about this is that Exuberant ctags recognizes various file
-types.  Thus this doesn't work just for C and C++ programs, also for Eiffel
-and even Vim scripts.  See the ctags documentation to tune this.
-   Now you only need to tell Vim where your big tags file is: >
+A program legszebb tulajdonsága, hogy kezeli a fájltípusokat, mely nem csak C és
+C++ programokkal működik, kezeli az Eiffelt és a Vim szkriptet is. Érdemes
+átböngészni a ctags dokumentációját az egyéb trükkökért:
+   Már csak el kell mondanunk a Vimnek, hogy merre találja ezt a nagy
+tagfájlt: >
 
 	:set tags=~/proj/tags
 
 
-MULTIPLE MATCHES
+TÖBB EGYEZÉS
 
-When a function is defined multiple times (or a method in several classes),
-the ":tag" command will jump to the first one.  If there is a match in the
-current file, that one is used first.
-   You can now jump to other matches for the same tag with: >
+Ha egy függvényt több helyen is definiálunk (vagy metódust osztályokban), a
+":tag" parancs mindig a legelsőhöz ugrik. Ha a jelenlegi fájlhoz van találat,
+akkor kivételesen ez lesz a legelső találat.
+   A jelenlegi tag további találataira ugrás: Ha egy függvényt több helyen is
+definiálunk (vagy metódust osztályokban), a ":tag" parancs mindig a
+legelsőhöz ugrik. Ha a jelenlegi fájlhoz van találat, akkor kivételesen ez
+lesz a legelső találat.
+   Ugrás a tagfájl további találataihoz:  >
 
 	:tnext
 
-Repeat this to find further matches.  If there are many, you can select which
-one to jump to: >
+Ismételd kedved szerint. Ha nagyon nagyon sok találatod van, akkor itt
+kiválaszthatod, hogy melyikhez szeretnél ugrani: >
 
 	:tselect tagname
 
-Vim will present you with a list of choices:
+A felbukkanó listából választhatsz:
 
 	  # pri kind tag	       file ~
 	  1 F	f    mch_init	       os_amiga.c ~
@@ -183,144 +185,139 @@ Vim will present you with a list of choices:
 		       mch_init() ~
 	Enter nr of choice (<CR> to abort):  ~
 
-You can now enter the number (in the first column) of the match that you would
-like to jump to.  The information in the other columns give you a good idea of
-where the match is defined.
+Az azonosítókat az első oszlopban találod. A többi oszlopban elhelyezett
+információ jó utalás a definíciót illetően.
 
-To move between the matching tags, these commands can be used:
+Navigációs parancsok, melyekkel a találatok bejárhatók: 
 
-	:tfirst			go to first match
-	:[count]tprevious	go to [count] previous match
-	:[count]tnext		go to [count] next match
-	:tlast			go to last match
+	:tfirst			első egyezés
+	:[count]tprevious	[count] előző egyezés
+	:[count]tnext		[count] következő egyezés
+	:tlast			utolsó egyezés
 
-If [count] is omitted then one is used.
+[count] értéke 1, ha nem adjuk meg az argumentumot.
 
 
-GUESSING TAG NAMES
+TAGEK KITALÁLÁSA
 
-Command line completion is a good way to avoid typing a long tag name.  Just
-type the first bit and press <Tab>: >
+A command-line kiegészítés jó kiindulópont a hosszú tagnevek rövidítésére.
+Csak írd be az első részt és nyomj <Tab>-ot:j >
 
 	:tag write_<Tab>
 
-You will get the first match.  If it's not the one you want, press <Tab> until
-you find the right one.
-   Sometimes you only know part of the name of a function.  Or you have many
-tags that start with the same string, but end differently.  Then you can tell
-Vim to use a pattern to find the tag.
-   Suppose you want to jump to a tag that contains "block".  First type
-this: >
+Az első találatra egészül tagnév. Ha ez nem az, amit kerestél, akkor addig
+nyomj <Tab> billentyűt, amíg a helyeset meg nem találod.
+   Valamikor a függvény nevének csak egy részére emlékszel (vagy több tag is
+ugyanazzal a karakterekkel kezdődik, de mással végződik). A tagek kereséséhez
+minta is felhasználható. 
+   Tegyük fel, hogy ahhoz a taghez szeretnél ugrani, mely tartalmazza a "block"
+szót. Először keresd meg: >
 
 	:tag /block
 
-Now use command line completion: press <Tab>.  Vim will find all tags that
-contain "block" and use the first match.
-   The "/" before a tag name tells Vim that what follows is not a literal tag
-name, but a pattern.  You can use all the items for search patterns here.  For
-example, suppose you want to select a tag that starts with "write_": >
+Most használd a kiegészítést: nyomj <Tab>-ot. A keresés lefut "block" és a Vim
+a legelső találathoz ugrik. 
+   A tagnév előtt lévő "/" jel jelzi, hogy nem tagnév a keresés tárgya, hanem
+egy minta. Az összes metakarakter használható. Ezért ha csak arra emlékszel,
+hogy a tag "write_"-al kezdődött, akkor így találod meg: >
 
 	:tselect /^write_
 
-The "^" specifies that the tag starts with "write_".  Otherwise it would also
-be found halfway a tag name.  Similarly "$" at the end makes sure the pattern
-matches until the end of a tag.
+A "^" jel jelzi, hogy ez a minta eleje: a találatnak mindenképpen "write_"-al
+kell kezdődjön, egyébként akkor is illeszkedne a keresésünk, ha a tag
+közepében szerepel.
 
 
-A TAGS BROWSER
+A TAGBÖNGÉSZŐ
 
-Since CTRL-] takes you to the definition of the identifier under the cursor,
-you can use a list of identifier names as a table of contents.  Here is an
-example.
-   First create a list of identifiers (this requires Exuberant ctags): >
+A CTRL-] parancs a kurzor alatt lévő azonosító definíciójához ugrik, tehát
+használhatod az azonosítók listáját "tartalomjegyzékként". Példa:
+   Generáljuk le az azonosítók listáját (követelmény: Exuberant ctags): >
 
 	ctags --c-types=f -f functions *.c
 
-Now start Vim without a file, and edit this file in Vim, in a vertically split
-window: >
+Most indítsuk el a szerkesztőt fájl nélkül, vertikális splitben pedig
+szerkesszük (az elkészített fájlt): >
 
 	vim
 	:vsplit functions
 
-The window contains a list of all the functions.  There is some more stuff,
-but you can ignore that.  Do ":setlocal ts=99" to clean it up a bit.
-   In this window, define a mapping: >
+Az összes függvényt láthatjuk az ablakban. A többit egyelőre hagyd figyelmen
+kívül. Állítsd a 'setlocal' változót: ":setlocal ts=99", hogy egy kicsit
+megtisztítsd a fájlt. 
+   Ugyanebben az ablakban hozz létre egy mappet: >
 
 	:nnoremap <buffer> <CR> 0ye<C-W>w:tag <C-R>"<CR>
 
-Move the cursor to the line that contains the function you want to go to.
-Now press <Enter>.  Vim will go to the other window and jump to the selected
-function.
+Menj a kurzorral arra a sorra, amelyik függvényéhez ugrani szeretnél. Most
+nyomj <Enter>-t. A választott függvény definíciója új splitben megnyílik.
 
 
 RELATED ITEMS
 
-To make case in tag names be ignored, you can set 'ignorecase' while leaving
-'tagcase' as "followic", or set 'tagcase' to "ignore".
+A tag neveit betűérzéketlenné teheted, ha beállítod a 'ignorecase' és a
+'tagcase' "followic"-n hagyod, vagy állítsd a 'tagcase'-t "ignore"-ra.
 
-The 'tagbsearch' option tells if the tags file is sorted or not.  The default
-is to assume a sorted tags file, which makes a tags search a lot faster, but
-doesn't work if the tags file isn't sorted.
+A 'tagbsearch' opció leírja, hogy a tagfájl rendezett-e vagy sem.
+Alaphelyzetben feltételezzük, hogy a fájl rendezett, ezért a keresés sokkal
+gyorsabb, viszont nem működik, ha a fájl rendezetlen.
 
-The 'taglength' option can be used to tell Vim the number of significant
-characters in a tag.
+A 'taglength' opció a tag szignifikáns karaktereit definiálja.
 
-Cscope is a free program.  It does not only find places where an identifier is
-declared, but also where it is used.  See |cscope|.
+A |cscope| ingyenes szoftver. Nem csak a deklarálás, hanem a használatok helyeit
+is nyilvántartja.
 
 ==============================================================================
-*29.2*	The preview window
+*29.2*	Az előnézeti ablak
 
-When you edit code that contains a function call, you need to use the correct
-arguments.  To know what values to pass you can look at how the function is
-defined.  The tags mechanism works very well for this.  Preferably the
-definition is displayed in another window.  For this the preview window can be
-used.
-   To open a preview window to display the function "write_char": >
+Függvényhívás esetén tudnod kell pontosan a függvény paramétereit,
+argumentumait. A legjobb módszer, ha megvizsgáljuk a függvény definícióját. A
+tagek mechanizmusa ezt is lehetővé teszi. A definíciót megjeleníthetjük külön
+ablakban.
+   "write_char" előnézeti ablaka: >
 
 	:ptag write_char
 
-Vim will open a window, and jumps to the tag "write_char".  Then it takes you
-back to the original position.  Thus you can continue typing without the need
-to use a CTRL-W command.
-   If the name of a function appears in the text, you can get its definition
-in the preview window with: >
+A szerkesztő új ablakot nyit és a "write_char" taghez ugrik. Aztán visszavisz
+a kezdeti pozícióra. A gépelést zavartalanul folytathatod, hiszen nem kell
+használni a CTRL-W parancsot.
+   Ha aa függvénynév megjelenik a szövegben, a definíciójához ugorhatunk
+(előnézeti ablakban): >
 
 	CTRL-W }
 
-There is a script that automatically displays the text where the word under
-the cursor was defined.  See |CursorHold-example|.
+Létezik egy szkript, mely automatikusan megjeleníti a kurzor alatt lévő szó
+definíciójának szövegkörnyezetét (pár sor). Lásd |CursorHold-example|.
 
-To close the preview window use this command: >
+Az előnézeti ablak bezárása: >
 
 	:pclose
 
-To edit a specific file in the preview window, use ":pedit".  This can be
-useful to edit a header file, for example: >
+
+Fájl szerkesztése az előnézeti ablakban: ":pedit". Headerfájlok
+szerkesztésénél jól jön, például: >
 
 	:pedit defs.h
 
-Finally, ":psearch" can be used to find a word in the current file and any
-included files and display the match in the preview window.  This is
-especially useful when using library functions, for which you do not have a
-tags file.  Example: >
+Végül a ":psearch", mely megtalálja a szót az aktív fájlban és includeolt
+fájlokban, a találatot pedig az előnézeti ablakban jeleníti meg. Library
+függvények szerkesztésénél jó szolgálatot tesz, ezekhez nem rendelkezel
+tagfájllal. Például: >
 
 	:psearch popen
 
-This will show the "stdio.h" file in the preview window, with the function
-prototype for popen():
+Az előnézeti ablakban megjeleníti "stdio.h" fájl tartalmát: popen():
 
 	FILE	*popen __P((const char *, const char *)); ~
 
-You can specify the height of the preview window, when it is opened, with the
-'previewheight' option.
+A 'previewheight' opcióval szabályozható az előnézeti ablak magassága.
 
 ==============================================================================
-*29.3*	Moving through a program
+*29.3*	Mozgás kódbázisban
 
-Since a program is structured, Vim can recognize items in it.  Specific
-commands can be used to move around.
-   C programs often contain constructs like this:
+A programok struktúrált szöveges állományok, ezért a Vim felismeri az
+alkotóelemeket, melyekhez számos navigációs parancs köthető.
+   A C programok gyakran használnak konstruktorokat: 
 
 	#ifdef USE_POPEN ~
 	    fd = popen("ls", "r") ~
@@ -328,23 +325,22 @@ commands can be used to move around.
 	    fd = fopen("tmp", "w") ~
 	#endif ~
 
-But then much longer, and possibly nested.  Position the cursor on the
-"#ifdef" and press %.  Vim will jump to the "#else".  Pressing % again takes
-you to the "#endif".  Another % takes you to the "#ifdef" again.
-   When the construct is nested, Vim will find the matching items.  This is a
-good way to check if you didn't forget an "#endif".
-   When you are somewhere inside a "#if" - "#endif", you can jump to the start
-of it with: >
+Sokkal hosszabban, akár  egymásba ágyazva is. Vidd a kurzort az "#ifdef"-re és
+nyomj %-t. A kurzor most az "#else" szón áll, újbóli % paranccsal pedig az
+"#endif" utasításon landolunk. Újból %, "#ifdef" újra.
+   Ha a konstruktor be van ágyazva, a szerkesztő megtalálja az utasítás párját.
+Jó módszer, mellyel ellenőrizni lehet az "#endif" meglétét.
+   Ha valahol az "#if" - "#endif"-ben tartózkodsz, akkor az utasítás elejére
+így ugorhatsz:  >
 
 	[#
 
-If you are not after a "#if" or "#ifdef" Vim will beep.  To jump forward to
-the next "#else" or "#endif" use: >
+Ha nem "#if" vagy "#ifdef" környezetben vagy, akkor azt a Vim hanggal jelzi.
+Ugrás a következő "#else" vagy "#endif"-re: >
 
 	]#
 
-These two commands skip any "#if" - "#endif" blocks that they encounter.
-Example:
+A két parancs átugorja az összes "#if" - "#endif" utasításokat. Például:
 
 	#if defined(HAS_INC_H) ~
 	    a = a + inc(); ~
@@ -353,18 +349,18 @@ Example:
 	# endif ~
 	    set_width(a); ~
 
-With the cursor in the last line, "[#" moves to the first line.  The "#ifdef"
-- "#endif" block in the middle is skipped.
+A kurzor az utolsó sorban van, "[#" az első sorra visz. Az "#ifdef" - "#endif"
+blokkot a közepén kihagyja.
 
 
-MOVING IN CODE BLOCKS
+KÓDBLOKKOK MOZGATÁSA
 
-In C code blocks are enclosed in {}.  These can get pretty long.  To move to
-the start of the outer block use the "[[" command.  Use "][" to find the end.
-This assumes that the "{" and "}" are in the first column.
-   The "[{" command moves to the start of the current block.  It skips over
-pairs of {} at the same level.  "]}" jumps to the end.
-   An overview:
+A C programok blokkjai {} karakterekkel vannak elválasztva. Elég hosszúak
+lehetnek. Ugrás a blokk elejéhez "[[". A végéhez  ugrás "][". Ez feltételezi
+azt, hogy "{" és "}" jelek az első oszlopban vannak.
+   A "[{" parancs a jelenlegi blokk elejéhez ugrik. Áthalad minden {} jelekkel
+közrezárt kódon. "]}" a végéhez ugrik.
+   Áttekintés:
 
 			function(int a)
 	   +->		{
@@ -380,13 +376,13 @@ pairs of {} at the same level.  "]}" jumps to the end.
 			    }			       <-+	 |
 			}				       <-+
 
-When writing C++ or Java, the outer {} block is for the class.  The next level
-of {} is for a method.  When somewhere inside a class use "[m" to find the
-previous start of a method.  "]m" finds the next start of a method.
+Ha C++ vagy Java nyelven fejlesztesz, akkor a legkülső {} blokk mindig az
+osztályt határolja. Az osztályon belül "[m" ugrik az előző metódus elejére,
+"]m" pedig a következő metódus elejére.
 
-Additionally, "[]" moves backward to the end of a function and "]]" moves
-forward to the start of the next function.  The end of a function is defined
-by a "}" in the first column.
+Ráadásul, a "[]" visszafelé mozog, az előző metódus végére és "]]" mozog a
+előre, a következő metódus kezdetéhez. A metódus elejét az első oszlopban lévő
+"}" jel definiálja.
 
 				int func1(void)
 				{
@@ -405,14 +401,15 @@ by a "}" in the first column.
 					return 3;
 				}
 
-Don't forget you can also use "%" to move between matching (), {} and [].
-That also works when they are many lines apart.
+Ne feledd, "%"-al bejárhatod a (), {}, [] párokat. Akkor is, ha sorok
+választják őket el egymástól.
 
 
-MOVING IN BRACES
+MOZGÁS ZÁRÓJELEKBEN
 
-The "[(" and "])" commands work similar to "[{" and "]}", except that they
-work on () pairs instead of {} pairs.
+A "[(" és "])" parancsok a "[{" és "]}" parancsokhoz hasonlóan működnek,
+kivéve, hogy a művelet () párokon hajtódik végre, és nem a {} párokon.
+
 >
 				  [(
 <		    <--------------------------------
@@ -422,10 +419,10 @@ work on () pairs instead of {} pairs.
 			  --------------------------------> >
 				       ])
 
-MOVING IN COMMENTS
+MOZGÁS KOMMENTEKBEN
 
-To move back to the start of a comment use "[/".  Move forward to the end of a
-comment with "]/".  This only works for /* - */ comments.
+Ugrás a komment kezdetéhez "[/", a komment végéhez ugrás "]/". Ez csak a /* -
+*/ típusú kommentek esetében működik.
 
 	  +->	  +-> /*
 	  |    [/ |    * A comment about      --+
@@ -437,40 +434,39 @@ comment with "]/".  This only works for /* - */ comments.
 		       /* a short comment */  <-+
 
 ==============================================================================
-*29.4*	Finding global identifiers
+*29.4*	Globális azonosítók keresése
 
-You are editing a C program and wonder if a variable is declared as "int" or
-"unsigned".  A quick way to find this is with the "[I" command.
-   Suppose the cursor is on the word "column".  Type: >
+Programírás (C) közben az a kérdés merül fel, hogy a változót "int" -ként, vagy
+"unsigned"-ként definiáltuk. Ismerjük meg a "[I" parancsot.
+   Tegyük fel, hogy kurzor a "column" szón áll. Gépeld:  >
 
 	[I
 
-Vim will list the matching lines it can find.  Not only in the current file,
-but also in all included files (and files included in them, etc.).  The result
-looks like this:
+Listázásra kerül az összes egyező sor. Nem csak az aktív fájlban, hanem az
+includeolt (és az abban includeolt stb.) fájlokban is. A lista így nézhet ki:
 
 	structs.h ~
 	 1:   29     unsigned     column;    /* column number */ ~
 
-The advantage over using tags or the preview window is that included files are
-searched.  In most cases this results in the right declaration to be found.
-Also when the tags file is out of date.  Also when you don't have tags for the
-included files.
-   However, a few things must be right for "[I" to do its work.  First of all,
-the 'include' option must specify how a file is included.  The default value
-works for C and C++.  For other languages you will have to change it.
+Az előny a tagek használatához képest, hogy az includeolt fájlokban is keres.
+A legtöbb esetben a megfelelő deklaráció jelenik meg. Továbbá nagy előny, ha a
+tagfájlod már túl régi, vagy csak nincs tagfájlod az includeolt fájlokhoz.
+   Azt hozzá kell tenni, hogy pár beállításnak a helyén kell lennie, mielőtt
+"[I" működne. Először is, az 'include' opciónak le kell írnia, hogy a fájl
+hogyan van includeolva. Az alapértelmezett érték C és C++ nyelveken belül
+működik. Más nyelvek esetén lehet, hogy módosításra szorul.
 
 
-LOCATING INCLUDED FILES
+INCLUDEOLT FÁJLOK FELDERÍTÉSE
 
-   Vim will find included files in the places specified with the 'path'
-option.  If a directory is missing, some include files will not be found.  You
-can discover this with this command: >
+   Az includeolt fájlok keresése a 'path' változóban meghatározott elérési
+utakon történik. Ha egy könyvtár ebből hiányzik, akkor az includeolt fájlokat
+a Vim értelemszerűen nem fogja megtalálni. Futtasd az alábbi parancsot: >
 
 	:checkpath
 
-It will list the include files that could not be found.  Also files included
-by the files that could be found.  An example of the output:
+Kilistázza az ismeretlen includeolt fájlokat. Még azokat is, melyek az
+icludenak az includejai. Példakimenet:
 
 	--- Included files not found in path --- ~
 	<io.h> ~
@@ -478,104 +474,112 @@ by the files that could be found.  An example of the output:
 	  <functions.h> ~
 	  <clib/exec_protos.h> ~
 
-The "io.h" file is included by the current file and can't be found.  "vim.h"
-can be found, thus ":checkpath" goes into this file and checks what it
-includes.  The "functions.h" and "clib/exec_protos.h" files, included by
-"vim.h" are not found.
+Az "io.h" file az aktív fájlba van beágyazva és nem található. A "vim.h"
+megtalálható, ezért a ":checkpath" megvizsgálja a fájlt, kideríti, hogy a
+fájlban milyen egyéb fájlok vannak beágyazva. A "functions.h" és
+"clib/exec_protos.h" fájl a "vim.h" fájlban vannak beágyazva, ami ugye nem
+található.
 
-	Note:
-	Vim is not a compiler.  It does not recognize "#ifdef" statements.
-	This means every "#include" statement is used, also when it comes
-	after "#if NEVER".
+	Megjegyzés:
+	A Vim nem compiler. Nem ismeri fel az "#ifdef" utasításokat. Ugyanez
+	vonatkozik az összes "#include"-ra, és az összes "#if NEVER"-re is.
 
-To fix the files that could not be found, add a directory to the 'path'
-option.  A good place to find out about this is the Makefile.  Look out for
-lines that contain "-I" items, like "-I/usr/local/X11".  To add this directory
-use: >
+A probléma megoldása, ha a hiányzó könyvtárakat pótoljuk a 'path' változóba. A
+Makefile egy jó kiindulópont. Keress olyan sorokat, melyek a "-I"-t
+tartalmazzák, például "-I/usr/local/X11", majd add hozzá ezt a könyvtárat: >
 
 	:set path+=/usr/local/X11
 
-When there are many subdirectories, you can use the "*" wildcard.  Example: >
+Ha túl sok alkönyvtár van, akkor használd a "*" metakaraktert. Például: >
 
 	:set path+=/usr/*/include
 
-This would find files in "/usr/local/include" as well as "/usr/X11/include".
+Ami megtalálja a fájlokat a "/usr/local/include" és a  "/usr/X11/include"
+könyvtárakban is.
 
-When working on a project with a whole nested tree of included files, the "**"
-items is useful.  This will search down in all subdirectories.  Example: >
+Nagyobb projektekben a "**" használata hasznos. Ez jelenti az adott könyvtár
+összes alkönyvtárát és fájljait. Például: >
 
 	:set path+=/projects/invent/**/include
 
-This will find files in the directories:
+Érvényes elérési utak a parancsot követően:
 
 	/projects/invent/include ~
 	/projects/invent/main/include ~
 	/projects/invent/main/os/include ~
 	etc.
 
-There are even more possibilities.  Check out the 'path' option for info.
-   If you want to see which included files are actually found, use this
-command: >
+Még több lehetőség van, nincs vége. Nézd meg a 'path' dokumentációját. 
+   Ha látni szeretnéd a fájlokat, melyeket megtalált a szerkesztő: >
 
 	:checkpath!
 
-You will get a (very long) list of included files, the files they include, and
-so on.  To shorten the list a bit, Vim shows "(Already listed)" for files that
-were found before and doesn't list the included files in there again.
+A végeredmény (egy nagyon) hosszú lista, beágyazott, valamint az abban
+beágyazott stb. fájlokkal. A lista rövidítésére a Vim "(Already listed)"
+üzenettel látja el a fájlokat, melyeket már megtalált, ezért azokat nem is
+listázza többször.
 
 
-JUMPING TO A MATCH
+UGRÁS EGYEZÉSHEZ
 
-"[I" produces a list with only one line of text.  When you want to have a
-closer look at the first item, you can jump to that line with the command: >
+Az "[I" parancs egy listát hoz létre, egyetlen egy sorral. Ha közelebbről is
+megszeretnéd nézni az adott elemet, akkor odaugorhatsz: >
 
 	[<Tab>
 
-You can also use "[ CTRL-I", since CTRL-I is the same as pressing <Tab>.
+Odajuthatsz a "[ CTRL-I" paranccsal is, hiszen a CTRL-I <Tab>-bal
+egyenértékű.
 
-The list that "[I" produces has a number at the start of each line.  When you
-want to jump to another item than the first one, type the number first: >
+A "[I" parancs azonosítókkal ellátott listát készít. Ha nem az első elemre
+szeretnél ugrani, akkor először írd be az azonosítóját: >
 
 	3[<Tab>
 
-Will jump to the third item in the list.  Remember that you can use CTRL-O to
-jump back to where you started from.
+Ez a lista harmadik eleméhez fog ugrani. Ne feledd, CTRL-O-val egy szintet
+vissza léphetsz.
 
 
-RELATED COMMANDS
+EGYÉB PARANCSOK
 
-	[i		only lists the first match
-	]I		only lists items below the cursor
-	]i		only lists the first item below the cursor
+	[i		csak az első egyezés listázza
+	]I		csak a kurzor alatti elemek listázása
+	]i		csak a kurzor alatt lévő első elem listázása
+
+    Megjegyzés: Kurzor alatt lévő, azaz a kurzort követő sor egészen a fájl
+    végéig.
 
 
-FINDING DEFINED IDENTIFIERS
+DEFINED AZONOSÍTÓK KERESÉSE
 
-The "[I" command finds any identifier.  To find only macros, defined with
-"#define" use: >
+Az "[I" parancs bármilyen azonosítót megtalál. Csak makrókhoz, melyek
+"#define"-al deklaráltak: >
 
 	[D
 
-Again, this searches in included files.  The 'define' option specifies what a
-line looks like that defines the items for "[D".  You could change it to make
-it work with other languages than C or C++.
-   The commands related to "[D" are:
+Mely keres a beágyazott fájlokban is. A 'define' opció azt írja le, hogy
+hogyan néznek ki azok a sorok, melyek a "[D" számára definiálnak elemeket. Ez
+megváltoztathatod, hogy kompatibilis legyen más nyelvekkel is.
 
-	[d		only lists the first match
-	]D		only lists items below the cursor
-	]d		only lists the first item below the cursor
+
+	[d		csak az első találat listázása
+	]D		csak a kurzor alatt lévő találatok listázása
+	]d		csak a kurzor alatt lévő első elem listázása
+
+    Megjegyzés: Kurzor alatt lévő, azaz a kurzort követő sor egészen a fájl
+    végéig.
 
 ==============================================================================
-*29.5*	Finding local identifiers
+*29.5*	Helyi azonosítók keresése
 
-The "[I" command searches included files.  To search in the current file only,
-and jump to the first place where the word under the cursor is used: >
+Az "[I" parancs a beágyazott fájlokban keres. Keresés csak az aktív fájlban, a
+kurzor alatt lévő szó első használati helyéhez ugrás: >
 
 	gD
 
-Hint: Goto Definition.  This command is very useful to find a variable or
-function that was declared locally ("static", in C terms).  Example (cursor on
-"counter"):
+Tipp: goto Definition. A parancs  hasznos, ha olyan változót, vagy függvényt
+keresünk, mely lokálisan lett deklarálva ("static", C-s terminológia szerint).
+Például (kurzorunk a "counter" szón áll):
+
 
 	   +->   static int counter = 0;
 	   |
@@ -585,15 +589,15 @@ function that was declared locally ("static", in C terms).  Example (cursor on
 	   +--	     return counter;
 		 }
 
-To restrict the search even further, and look only in the current function,
-use this command: >
+Hogy még tovább szűkítsük a keresést, limitáljuk le a keresést csak az aktív
+függvényre:  >
 
 	gd
 
-This will go back to the start of the current function and find the first
-occurrence of the word under the cursor.  Actually, it searches backwards to
-an empty line above a "{" in the first column.  From there it searches forward
-for the identifier.  Example (cursor on "idx"):
+Ez visszamegy a függvényünk legelejére és megtalálja a kurzor alatt lévő szó
+első előfordulását. Lényegében az első oszlopban található "{" karakter
+feletti üres sorig keres. Onnantól kezdve előre keres, a megadott azonosítóig.
+Például (kurzor az "idx"-en):
 
 		int find_entry(char *name)
 		{
@@ -606,6 +610,6 @@ for the identifier.  Example (cursor on "idx"):
 
 ==============================================================================
 
-Következő fejezet: |usr_30.txt|  Editing programs
+Következő fejezet: |usr_30.txt|  Programok szerkesztése
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
