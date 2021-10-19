@@ -1,43 +1,42 @@
 *usr_30.txt*	For Vim version 8.2.  Last change: 2007 Nov 10
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      Editing programs
+			    Programok szerkesztése
 
 
-Vim has various commands that aid in writing computer programs.  Compile a
-program and directly jump to reported errors.  Automatically set the indent
-for many languages and format comments.
+Rengeteg parancs nyújt támaszt a programok szerkesztése során. A program
+fordítása,  majd egyből a legelső hibára ugrás. Automatikus behúzás, formázott
+kommentek.
 
-|30.1|	Compiling
-|30.2|	Indenting C files
-|30.3|	Automatic indenting
-|30.4|	Other indenting
-|30.5|	Tabs and spaces
-|30.6|	Formatting comments
+|30.1|	Fordítás
+|30.2|	C fájlok behúzása
+|30.3|	Automatikus behúzás
+|30.4|	Egyéb behúzások
+|30.5|	Tabulátorok és szóközök
+|30.6|	Kommentek formázása
 
-     Következő fejezet: |usr_31.txt|  Exploiting the GUI
- Előző fejezet: |usr_29.txt|  Moving through programs
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_31.txt|  Exploiting the GUI
+    Előző fejezet: |usr_29.txt|  Moving through programs
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*30.1*	Compiling
+*30.1*	Fordítás
 
-Vim has a set of so called "quickfix" commands.  They enable you to compile a
-program from within Vim and then go through the errors generated and fix them
-(hopefully).  You can then recompile and fix any new errors that are found
-until finally your program compiles without any error.
+Meg kell ismerjük a Vim következő nagy parancs csomagját, a "quickfix"
+parancsokat. Használatukkal úgy fordíthatunk, hogy nem kell elhagynunk a
+szerkesztőt, végigjárhatjuk a hibák listáját, kísérletet tehetünk a javításra. 
+Majd új ciklust kezdünk, fordítunk és javítjuk a hibákat addig, amíg az összes
+hibától megszabadulunk.
 
-The following command runs the program "make" (supplying it with any argument
-you give) and captures the results: >
+A következő parancs a "make" programot futtatja (azokkal az argumentumokkal,
+melyeket megadsz) és rögzíti a hibákat: >
 
-	:make {arguments}
+    :make {arguments}
 
-If errors were generated, they are captured and the editor positions you where
-the first error occurred.
-   Take a look at an example ":make" session.  (Typical :make sessions generate
-far more errors and fewer stupid ones.)  After typing ":make" the screen looks
-like this:
+A hibákat egy listában összegyűjti a Vim és az első találathoz navigál.
+Köved végig az alábbi ":make" munkafolyamatot. A ":make" beírása utáni
+kimenet:
 
 	:!make | &tee /tmp/vim215953.err ~
 	gcc -g -Wall -o prog main.c sub.c ~
@@ -52,16 +51,16 @@ like this:
 	(3 of 6): too many arguments to function 'do_sub' ~
 	Press ENTER or type command to continue ~
 
-From this you can see that you have errors in the file "main.c".  When you
-press <Enter>, Vim displays the file "main.c", with the cursor positioned on
-line 6, the first line with an error.  You did not need to specify the file or
-the line number, Vim knew where to go by looking in the error messages.
+Ebből azt láthatjuk, hogy hiba forrás a "main.c" fájl. Ha <Enter> billentyűt
+nyomsz, akkor a szerkesztő a "main.c" fájlt fogja megnyitni, a kurzort a 6.
+sorra pozícionálva. Nem kell meghatároznod sem a fájl helyét, sem a kurzor
+helyét. A Vim tudja, hogy hová kell mennie hiba esetén.
 
 		+---------------------------------------------------+
 		|int main()					    |
 		|{						    |
 		|	int i=3;				    |
-      cursor -> |	do_sub("foo");				    |
+      kurzor -> |	do_sub("foo");				    |
 		|	++i;					    |
 		|	return (0);				    |
 		|}						    |
@@ -70,29 +69,29 @@ the line number, Vim knew where to go by looking in the error messages.
 		|(3 of 12): too many arguments to function 'do_sub' |
 		+---------------------------------------------------+
 
-The following command goes to where the next error occurs: >
+Ugrás a következő hibára: >
 
 	:cnext
 
-Vim jumps to line 10, the last line in the file, where there is an extra '}'.
-   When there is not enough room, Vim will shorten the error message.  To see
-the whole message use: >
+A kurzor a 10. sorba kerül (fájl utolsó sora), ahol az extra '}' található.
+   Ha a hibaüzenet nem fér ki, akkor a Vim lerövidíti az üzenetet. A teljes
+hibaüzenet elérése: >
 
 	:cc
 
-You can get an overview of all the error messages with the ":clist" command.
-The output looks like this: >
+Az összes hibaüzenetről a ":clist" paranccsal kaphatsz egy egysoros
+áttekintést, mely így néz ki: >
 
-	:clist
-<	3 main.c: 6:too many arguments to function 'do_sub' ~
+	:clist  
+>	3 main.c: 6:too many arguments to function 'do_sub' ~
 	5 main.c: 10:parse error before '}' ~
 
-Only the lines where Vim recognized a file name and line number are listed
-here.  It assumes those are the interesting lines and the rest is just boring
-messages.  However, sometimes unrecognized lines do contain something you want
-to see.  Output from the linker, for example, about an undefined function.
-To see all the messages add a "!" to the command: >
-
+A listában csak a fájlnévvel és a sor számával beazonosítható hibák
+szerepelnek. Feltételezi, hogy ezek a sorok érdekelhetnek bennünket leginkább.
+Előfordulhat, hogy a nem felismerhető sorok tartalmaznak valami olyasmit, amit
+szívesen megvizsgálnál. A linker kimenete, például egy nem létező függvény. Az
+összes hibaüzenet megjelenítéséhez adj a parancshoz egy "!" jelet:
+>
 	:clist!
 <	1 gcc -g -Wall -o prog main.c sub.c ~
 	2 main.c: In function 'main': ~
@@ -101,86 +100,88 @@ To see all the messages add a "!" to the command: >
 	5 main.c:10: parse error before '}' ~
 	6 make: *** [prog] Error 1 ~
 
-Vim will highlight the current error.  To go back to the previous error, use:
+A Vim kiemeli az aktív hibát. Visszatérés az előző hibára: >
 >
 	:cprevious
 
-Other commands to move around in the error list:
+Navigáció a hibalistában:
 
-	:cfirst		to first error
-	:clast		to last error
-	:cc 3		to error nr 3
+	:cfirst		első hibához
+	:clast		utolsó hibához
+	:cc 3		a 3. hibához
 
 
-USING ANOTHER COMPILER
+MÁSIK FORDÍTÓ HASZNÁLATA
 
-The name of the program to run when the ":make" command is executed is defined
-by the 'makeprg' option.  Usually this is set to "make", but Visual C++ users
-should set this to "nmake" by executing the following command: >
+
+A 'makeprg' határozza meg, hogy a ":make" parancs milyen parancsot hív meg.
+Általában az érték "make", de a Visual C++ felhasználóknak ezt az értéket át
+kell állítaniuk "nmake"-re az alábbi paranccsal: >
 
 	:set makeprg=nmake
 
-You can also include arguments in this option.  Special characters need to
-be escaped with a backslash.  Example: >
+Argumentumokat is hozzáfűzhetsz, viszont a speciális karaktereket escapelni
+kell \ karakterrel. Például: >
 
 	:set makeprg=nmake\ -f\ project.mak
 
-You can include special Vim keywords in the command specification.  The %
-character expands to the name of the current file.  So if you execute the
-command: >
+A speciális Vim kulcsszavak is használhatóak. A % karakter a jelenlegi
+fájlnevet jelenti. Szóval ha ezt a parancsot futtatod: >
+
 	:set makeprg=make\ %:S
 
-When you are editing main.c, then ":make" executes the following command: >
+Ha a main.c fájlt szerkeszted, majd kiadod a ":make" parancsot, akkor a
+parancs ez lesz: >
 
 	make main.c
 
-This is not too useful, so you will refine the command a little and use the :r
-(root) modifier: >
+Nincs túl sok értelme, ezért még finomítani kell, most használjuk a :r (root)
+módosítót: >
 
 	:set makeprg=make\ %:r:S.o
 
-Now the command executed is as follows: >
+A parancs így fog lefutni: >
 
 	make main.o
 
-More about these modifiers here: |filename-modifiers|.
+A módosítókról még több: |filename-modifiers|.
 
 
-OLD ERROR LISTS
+A RÉGI ERROR LIST
 
-Suppose you ":make" a program.  There is a warning message in one file and an
-error message in another.  You fix the error and use ":make" again to check if
-it was really fixed.  Now you want to look at the warning message.  It doesn't
-show up in the last error list, since the file with the warning wasn't
-compiled again.  You can go back to the previous error list with: >
+Tegyük fel, hogy fordítanál egy programot a ":make" paranccsal. Egy fájlhoz
+figyelmeztető üzenet jelent meg, a másik fájlhoz pedig egy hibaüzenet.
+Korrigálod a hibát, majd lefuttatod még egyszer a ":make" programot, tesztelve
+a hibát. Meg szeretnéd tekinteni a figyelmeztető üzenet is. Ez viszont nem
+jelent meg újra, hiszen a fájlt nem sikerült lefordítani. Az előző
+hibalistához visszatérhetsz: >
 
 	:colder
 
-Then use ":clist" and ":cc {nr}" to jump to the place with the warning.
-   To go forward to the next error list: >
+Aztán a ":clist" és a ":cc {nr}" paranccsal a figyelmeztető üzenet helyére
+ugorhatsz.
+   A frissebb hibalistához váltás: >
 
 	:cnewer
 
-Vim remembers ten error lists.
+A Vim tíz hibalistát tart számon.
 
 
-SWITCHING COMPILERS
+FORDÍTÓK CSERÉJE
 
-You have to tell Vim what format the error messages are that your compiler
-produces.  This is done with the 'errorformat' option.  The syntax of this
-option is quite complicated and it can be made to fit almost any compiler.
-You can find the explanation here: |errorformat|.
+Az 'errorformat' opcióban be kell állítanunk, hogy a fordítónk milyen milyen
+formátumban listázza a hibaüzeneteket. A változó szintaxisa elég komplex,
+viszont bármelyik fordítóra meg lehet írni a megfelelő formátumot. Erről több
+magyarázatot itt találsz: |errorformat|.
 
-You might be using various different compilers.  Setting the 'makeprg' option,
-and especially the 'errorformat' each time is not easy.  Vim offers a simple
-method for this.  For example, to switch to using the Microsoft Visual C++
-compiler: >
+Lehet, hogy több fordítót is használsz. Így a 'makeprg' opció manuális
+állítgatása nem egyszerű feladat. Ezért a Vim egy paranccsal zárja rövidre a
+témát. Például, váltás Microsoft Visual C++ fordítóra: >
 
 	:compiler msvc
 
-This will find the Vim script for the "msvc" compiler and set the appropriate
-options.
-   You can write your own compiler files.  See |write-compiler-plugin|.
+Ami betölti az "msvc" fordítóhoz szükséges beállításokat.
+   Hozd létre a saját fájlod, így |write-compiler-plugin|.
 
 
 OUTPUT REDIRECTION
