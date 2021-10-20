@@ -2,179 +2,182 @@
 
 		     Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      The undo tree
+			       A visszavonásfa
 
 
-Vim provides multi-level undo.  If you undo a few changes and then make a new
-change you create a branch in the undo tree.  This text is about moving
-through the branches.
+A visszavonások többszintesek. Ha visszavontál pár szerkesztést, egy új
+módosítás új ágat hoz létre a fában. A fejezet a fában történő mozgásokról
+szól.
 
-|32.1|	Undo up to a file write
-|32.2|	Numbering changes
-|32.3|	Jumping around the tree
-|32.4|	Time travelling
+|32.1|	Visszavonás a mentett állapotig
+|32.2|	Változatok számozása
+|32.3|	Ugrás a fában
+|32.4|	Időutazás
 
-     Következő fejezet: |usr_40.txt|  Make new commands
- Előző fejezet: |usr_31.txt|  Exploiting the GUI
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_40.txt|  Új parancsok létrehozása
+    Előző fejezet: |usr_31.txt|  A GUI használata
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*32.1*	Undo up to a file write
+*32.1*	Visszavonás a mentett állapotig
 
-Sometimes you make several changes, and then discover you want to go back to
-when you have last written the file.  You can do that with this command: >
+A szerkesztés nem mindig sikerül. Néha vissza kell menni teljesen az utolsó
+mentési állapothoz, újbóli megnyitás nélkül, azonnal. Lássuk: >
 
 	:earlier 1f
 
-The "f" stands for "file" here.
+Az "f" jelentése "fájl". A prefixumot kötelezően ki kell tennünk, azaz a
+parancs nem működik ilyen formában: ":earlier f".
 
-You can repeat this command to go further back in the past.  Or use a count
-different from 1 to go back faster.
+A parancs ismétlésével még korábbi mentett állapotok érhetőek el. Ha
+gyorsabban szeretnél utazni, akkor alkalmazz nagyobb prefixumot.
 
-If you go back too far, go forward again with: >
+Ha nagyon nagyon a múltban vagy, így haladhatsz a jövő felé: >
 
 	:later 1f
 
-Note that these commands really work in time sequence.  This matters if you
-made changes after undoing some changes.  It's explained in the next section.
+Megjegyzés: A parancsok tényleg idősíkon alapulnak. Ezért számít az, ha
+visszavonás után szerkeszted a fájlt. A következő bekezdésben mindenre
+fény derül.
 
-Also note that we are talking about text writes here.  For writing the undo
-information in a file see |undo-persistence|.
+A visszavonások fájlba írásához lásd |undo-persistence|.
 
 ==============================================================================
-*32.2*	Numbering changes
+*32.2*	Változatok számozása
 
-In section |02.5| we only discussed one line of undo/redo.  But it is also
-possible to branch off.  This happens when you undo a few changes and then
-make a new change.  The new changes become a branch in the undo tree.
+A |02.5| fejezetben csak az egysoros visszavonásokat tekintettük át, bár ezek
+is képesek az elágazásokra. Elágazás (brach) akkor jön létre, ha a
+szerkesztéseidet visszavontad és egy másik ponton történő szerkesztéssel új
+változatot hozol létre. Ez a fában egy új ágként reprezentálódik.
 
-Let's start with the text "one".  The first change to make is to append
-" too".  And then move to the first 'o' and change it into 'w'.  We then have
-two changes, numbered 1 and 2, and three states of the text:
+Vegyük alapul a "one" szót. Egészítsük ki " too"-val. Módosítsuk a "too" szó
+első "o" betűjét "w" betűre. Ezzel két változatot készítettünk: 
 
 		one ~
 		 |
-	      change 1
+	     változat 1
 		 |
 	      one too ~
 		 |
-	      change 2
+	     változat 2
 		 |
 	      one two ~
 
-If we now undo one change, back to "one too", and change "one" to "me" we
-create a branch in the undo tree:
+Ha most egyet visszavonunk (one too), és lecseréljük a "one"-t "me"-re, akkor
+egy új ágat hozunk létre a fában:
 
 		one ~
 		 |
-	      change 1
+	     változat 1
 		 |
 	      one too ~
 	      /     \
-	 change 2  change 3
+       változat 2  változat 3
 	    |	      |
 	 one two    me too ~
 
-You can now use the |u| command to undo.  If you do this twice you get to
-"one".  Use |CTRL-R| to redo, and you will go to "one too".  One more |CTRL-R|
-takes you to "me too".  Thus undo and redo go up and down in the tree, using
-the branch that was last used.
+Ha itt kétszer visszavonunk, akkor a "one" szöveget kapjuk. |CTRL-R| (mégis)
+után "one too" változatra érkezünk. Még egy |CTRL-R| a "me too" ra visz
+bennünket, mert a mégis parancs az utoljára használt ágon megy fel és le.
 
-What matters here is the order in which the changes are made.  Undo and redo
-are not considered changes in this context.  After each change you have a new
-state of the text.
+Ami számít az a változtatások sorrendje. A Visszavonás és mégis parancsokat
+ebben a kontextusban nem tekintjük változtatásnak. Minden egyes változtatás
+egy új szövegállapotot hoz létre.
 
-Note that only the changes are numbered, the text shown in the tree above has
-no identifier.  They are mostly referred to by the number of the change above
-it.  But sometimes by the number of one of the changes below it, especially
-when moving up in the tree, so that you know which change was just undone.
+Megjegyzés:  csak a változatok számozottak, ezért a fa tetején lévő szövegnek
+ilyen értelemben nincs azonosítója. A változat mindig a felette lévő
+változatra hivatkozik. Egyes szerkesztések után ez változhat, azaz a változat
+hivatkozhat egy alsóbb szintre, mely gyakori jelenség ha a fában fel és le
+mozgunk.
 
 ==============================================================================
-*32.3*	Jumping around the tree
+*32.3*	Ugrás a fában
 
-So how do you get to "one two" now?  You can use this command: >
+Hogy megyünk vissza "one two" ra? Ezzel a paranccsal: >
 
 	:undo 2
 
-The text is now "one two", you are below change 2.  You can use the |:undo|
-command to jump to below any change in the tree.
+A szöveg most már "one two", melyet a 2. változat takar. Az |:undo| paranccsal
+bármelyik változatra ugorhatunk.
 
-Now make another change: change "one" to "not":
+Módosítsuk a szöveget újra: a "one" szót "not"-ra:
 
 		one ~
 		 |
-	      change 1
+	      változat 1
 		 |
 	      one too ~
 	      /     \
-	 change 2  change 3
+	 változat 2  változat 3
 	    |	      |
 	 one two    me too ~
 	    |
-	 change 4
+	 változat 4
 	    |
 	 not two ~
 
-Now you change your mind and want to go back to "me too".  Use the |g-|
-command.  This moves back in time.  Thus it doesn't walk the tree upwards or
-downwards, but goes to the change made before.
+Meggondolod maga és vissza szeretnél ugrani a "me too" változatra. A |g-|
+paranccsal tudjuk ezt megtenni. A parancs az időben megy vissza és nem a fát
+járja be.
 
-You can repeat |g-| and you will see the text change:
+A |g-| parancs ismétlése a fenti példa alapján:
 	me too ~
 	one two ~
 	one too ~
 	one ~
 
-Use |g+| to move forward in time:
+A |g+| parancs előre mozog az időben:
 	one ~
 	one too ~
 	one two ~
 	me too ~
 	not two ~
 
-Using |:undo| is useful if you know what change you want to jump to.  |g-| and
-|g+| are useful if you don't know exactly what the change number is.
+Az |:undo| parancsot akkor érdemes használnunk, ha pontosan tudjuk, hogy
+melyik változathoz szeretnénk ugrani. A |g-| és |g+| parancsokat akkor érdemes
+használni, ha nem ismerjük a konkrét változatot.
 
-You can type a count before |g-| and |g+| to repeat them.
+Természetesen |g-| és |g+| prefixálhatóak mennyiséggel.
 
 ==============================================================================
-*32.4*	Time travelling
+*32.4*	Időutazás
 
-When you have been working on text for a while the tree grows to become big.
-Then you may want to go to the text of some minutes ago.
+Ha már egy ideje dolgozol egy fájlon, akkor a fa akkorára nőhet, hogy érdemes
+viszonyítási alapként a relatív időpontot.
 
-To see what branches there are in the undo tree use this command: >
+Az ágak az alábbi paranccsal tudjuk megjeleníteni: >
 
 	:undolist
 <	number changes  time ~
 	     3       2  16 seconds ago
 	     4       3  5 seconds ago
 
-Here you can see the number of the leaves in each branch and when the change
-was made.  Assuming we are below change 4, at "not two", you can go back ten
-seconds with this command: >
+Láthatjuk az agákon létrejött pontokat és a szerkesztés időpontját.
+Feltételezzük, hogy 4. változaton állunk ("not two"), betölthetjük a fájl 10
+másodperccel ezelőtti állapotát: >
 
 	:earlier 10s
 
-Depending on how much time you took for the changes you end up at a certain
-position in the tree.  The |:earlier| command argument can be "m" for minutes,
-"h" for hours and "d" for days.  To go all the way back use a big number: >
+A meghatározott időponttól függően a fa egy adott pontjára érkezünk. Az
+|:earlier| parancs argumentumai lehetnek "m" perc (minutes), "h" óra (hour) és
+"d" nap (day). Ha az elejére szeretnénk visszatérni, akkor használjunk egy
+nagy számot. Például: >
 
 	:earlier 100d
 
-To travel forward in time again use the |:later| command: >
+A jövőbe utazáshoz pedig a |:later| parancs felel: >
 
 	:later 1m
 
-The arguments are "s", "m" and "h", just like with |:earlier|.
+Az argumentumok megegyeznek a az |:earlier| argumentumaival ("s","m","h","d").
 
-If you want even more details, or want to manipulate the information, you can
-use the |undotree()| function.  To see what it returns: >
+Ha kíváncsi vagy a részletekre, vagy manipulálnád a fát, az |undotree()|
+rendelkezésre áll. Nézd meg a kimenetét: >
 
 	:echo undotree()
 
 ==============================================================================
 
-Következő fejezet: |usr_40.txt|  Make new commands
+Következő fejezet: |usr_40.txt|  Új parancsok létrehozása
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
