@@ -397,150 +397,158 @@ alábbi példában a kurzor a "printf" függvényen van:
 	}			}			    } ~
 
 ==============================================================================
-*30.5*	Tabs and spaces
+*30.5*	Tabulátorok és szóközök
 
-'tabstop' is set to eight by default.  Although you can change it, you quickly
-run into trouble later.  Other programs won't know what tabstop value you
-used.  They probably use the default value of eight, and your text suddenly
-looks very different.  Also, most printers use a fixed tabstop value of eight.
-Thus it's best to keep 'tabstop' alone.  (If you edit a file which was written
-with a different tabstop setting, see |25.3| for how to fix that.)
-   For indenting lines in a program, using a multiple of eight spaces makes
-you quickly run into the right border of the window.  Using a single space
-doesn't provide enough visual difference.  Many people prefer to use four
-spaces, a good compromise.
-   Since a <Tab> is eight spaces and you want to use an indent of four spaces,
-you can't use a <Tab> character to make your indent.  There are two ways to
-handle this:
+A 'tabstop' alapértelmezett értéke  8. Megváltoztathatod ugyan, de ebből
+később probléma lehet. Egyes programok nem tudják majd értelmezni, ha valami
+egzotikus értéket állítasz be. Például, az esetek nagy részében a külsős
+szerkesztők rosszul jeleníthetik meg a fájlt, hiszen nekik egy előre beállított
+értékű 'tabstop' van beállítva (mely általában 8). Ezért, ha ettől 'tabstop'
+értéket állítunk be a Vimben, akkor a fájl itt vagy ott (attól függ melyik
+programmal hoztuk létre), hibásan fog megjelenni. A (mátrix) nyomtatók
+'tabstop' értéke szintén nyolc, ezért a legjobb választás ha a beállítást nem
+állítjuk el. (Ha olyan fájlt kell szerkesztened, melynek értéke eltér az
+alapértelmezettől, akkor a |25.3| fejezet alapján korrigálhatod).
+   Forráskód írása során, ha nyolc karaktert használunk a behúzásokhoz, akkor
+gyorsan a jobb margónál találjuk magunkat. Egy karakter nem elég, hogy
+vizuálisan jól megkülönböztethető legyen a behúzás. Sokan négy karaktert
+használnak, ami jó kompromisszum.
+   Szóval a <Tab> billentyű  nyolc karaktert húz be, viszont mi csak néggyel
+szeretnénk behúzni, ezért a <Tab> billentyűt nem használhatjuk. Két megoldás
+közül választhatunk:
 
-1.  Use a mix of <Tab> and space characters.  Since a <Tab> takes the place of
-    eight spaces, you have fewer characters in your file.  Inserting a <Tab>
-    is quicker than eight spaces.  Backspacing works faster as well.
+    1. <Space> és <Tab> karakterek vegyes használata. Mivel a <Tab> nyolc
+    karaktert foglal, így a fájl kevesebb karakterből fog állni. A <Tab>
+    beszúrása gyorsabb, mint nyolc szóközt gépelni, ráadásul a <Backspace>
+    billentyű is gyorsabban dolgozik.
 
-2.  Use spaces only.  This avoids the trouble with programs that use a
-    different tabstop value.
+    2. Csak <Space> karakterek használata. Ezzel megkerülhető a
+    szerkesztőprogramok közötti 'tabstop' differencia.
 
-Fortunately, Vim supports both methods quite well.
+Szerencsére a Vim mindkét megoldást nagyon jól kezeli
 
 
-SPACES AND TABS
+SZÓKÖZÖK ÉS TABULÁTOROK
 
-If you are using a combination of tabs and spaces, you just edit normally.
-The Vim defaults do a fine job of handling things.
-   You can make life a little easier by setting the 'softtabstop' option.
-This option tells Vim to make the <Tab> key look and feel as if tabs were set
-at the value of 'softtabstop', but actually use a combination of tabs and
-spaces.
-   After you execute the following command, every time you press the <Tab> key
-the cursor moves to the next 4-column boundary: >
+Ha tabokat és a szóközöket vegyesen használod, akkor csak szerekessz tovább.
+Az alapértelmezett Vim beállításokkal nem lesz problémád.
+   Könnyebbé teheted az életed, a 'softtabstop' opcióval.
+A beállítással a <Tab> billentyű megáll a 'softtabstop' értékeken, de a
+színfalak mögött a Vim automatikusan tabulátorokat és szóközöket használ
+vegyesen.
+   Miután kiadod a parancsot, a <Tab> billentyű 4 oszloppal viszi a kurzort
+jobbra: >
 
 	:set softtabstop=4
 
-When you start in the first column and press <Tab>, you get 4 spaces inserted
-in your text.  The second time, Vim takes out the 4 spaces and puts in a <Tab>
-(thus taking you to column 8).  Thus Vim uses as many <Tab>s as possible, and
-then fills up with spaces.
-   When backspacing it works the other way around.  A <BS> will always delete
-the amount specified with 'softtabstop'.  Then <Tab>s are used as many as
-possible and spaces to fill the gap.
-   The following shows what happens pressing <Tab> a few times, and then using
-<BS>.  A "." stands for a space and "------->" for a <Tab>.
+Ha az első oszlopban vagy, nyomj <Tab>-ot, ez négy karaktert húz beljebb. A
+második alkalommal, a Vim elveszi az előzőleg beillesztett 4 szóközt, melyet
+tabra cserél (4+4=8). Annyi <Tab> karaktert használ a szerkesztő, amennyit
+lehetséges, a többit kitölti szóközzel.
+   A törlés ehhez képest fordítottan működik. A <Backspace> mindig a
+'softtabstop' értékével töröl. A sor újra kiértékelődik, az üres karaktereket
+pedig tabulátorra és szóközökre cseréli a megfelelő arányban.
+   Az alábbi ábra azt mutatja, hogy mi történik a <Tab> billentyű utáni <BS>
+használatakor. A "." karakter jelzi a szóközt, a "------->" pedig a
+tabulátort:
 
-	type			  result ~
+	billetnyű		  eredmény ~
 	<Tab>			  ....
 	<Tab><Tab>		  ------->
 	<Tab><Tab><Tab>		  ------->....
 	<Tab><Tab><Tab><BS>	  ------->
 	<Tab><Tab><Tab><BS><BS>   ....
 
-An alternative is to use the 'smarttab' option.  When it's set, Vim uses
-'shiftwidth' for a <Tab> typed in the indent of a line, and a real <Tab> when
-typed after the first non-blank character.  However, <BS> doesn't work like
-with 'softtabstop'.
+Kipróbálhatjuk a 'smarttab' opciót. Ha ez be van állítva, akkor a Vim
+'shiftwidth' értéknyit használ a <Tab> karakterekhez (a behúzásnál), valamint
+valódi tabulátort az első karakter gépelésekor. Ezért a <BS> billentyű a
+'softtabstop'-tól eltérően fog működni.
 
 
-JUST SPACES
+CSAK SZÓKÖZÖK
 
-If you want absolutely no tabs in your file, you can set the 'expandtab'
-option: >
+Ha egyáltalán nem szeretnél tabulátort használni, akkor engedélyezd a
+'expandtab' opciót: >
 
 	:set expandtab
 
-When this option is set, the <Tab> key inserts a series of spaces.  Thus you
-get the same amount of white space as if a <Tab> character was inserted, but
-there isn't a real <Tab> character in your file.
-   The backspace key will delete each space by itself.  Thus after typing one
-<Tab> you have to press the <BS> key up to eight times to undo it.  If you are
-in the indent, pressing CTRL-D will be a lot quicker.
+Így a <Tab> karaktereinket teljes egészében szóköz fogja kitölteni (a tab 
+értékének megfelelő mennyiségű szóközökkel).
+   A <Backspace> karakter szóközönként töröl, ami azt jelenti, hogy egy <Tab>
+karaktert nyolc <Backspace> karakterrel tudunk törölni. Ha a behúzni szeretnél
+(Insert mód), akkor a CTRL-D sokkal gyorsabb.
 
 
-CHANGING TABS IN SPACES (AND BACK)
+TABULÁTOROK CSERÉJE SZÓKÖZÖKKEL (ÉS VISSZA)
 
-Setting 'expandtab' does not affect any existing tabs.  In other words, any
-tabs in the document remain tabs.  If you want to convert tabs to spaces, use
-the ":retab" command.  Use these commands: >
+Az 'expandtab' beállítása nem lesz hatással a fájlban már szereplő
+tabulátorokra. Más szavakkal, a fájlban minden tabulátor tabulátor marad. Ha
+át szeretnéd konvertálni a tabulátor karaktereket szóköz karakterekre, akkor
+használd a ":retab" parancsot: >
 
 	:set expandtab
 	:%retab
 
-Now Vim will have changed all indents to use spaces instead of tabs.  However,
-all tabs that come after a non-blank character are kept.  If you want these to
-be converted as well, add a !: >
+Ezzel a Vim lecseréli az összes tabulátor karakter szóközökre és megtartja a
+sorokban lévő tabulátorokat (azok a tabulátorok, mely az első nem üres
+karakterek után következik a sorban). A maradékot is át tudod konvertálni,
+csak adj a parancshoz egy "!" jelet: >
 
 	:%retab!
 
-This is a little bit dangerous, because it can also change tabs inside a
-string.  To check if these exist, you could use this: >
+Légy óvatos, mert ez egy veszélyes művelet, hiszen ez cseréi a stringekben
+lévő tabulátorokat is. Ha nem vagy biztos benne, akkor ezzel a paranccsal le
+tudod ellenőrizni: >
 
 	/"[^"\t]*\t[^"]*"
 
-It's recommended not to use hard tabs inside a string.  Replace them with
-"\t" to avoid trouble.
+Ezért a stringekben ajánlott a kemény (hard) tabulátorok használata. Cseréld
+le őket erre: "\t", így nem érhet meglepetés.
 
-The other way around works just as well: >
+Egy másik megoldás: >
 
 	:set noexpandtab
 	:%retab!
 
 ==============================================================================
-*30.6*	Formatting comments
+*30.6*	Kommentek formázása
 
-One of the great things about Vim is that it understands comments.  You can
-ask Vim to format a comment and it will do the right thing.
-   Suppose, for example, that you have the following comment:
+A Vim érti a kommentjeidet, ezért pillanatok alatt képes egységesen formázni 
+őket. A formázási parancsokat ne teszteld ebben a fájlban, mert a komment
+végén lévő ~ karakterek miatt a formázás nem megfelelő.
+   Tegyük fel, hogy például az alábbi kommentet írtad: 
 
 	/* ~
 	 * This is a test ~
 	 * of the text formatting. ~
 	 */ ~
 
-You then ask Vim to format it by positioning the cursor at the start of the
-comment and type: >
+Vidd a kurzort a komment kezdetére és gépeld: >
 
 	gq]/
 
-"gq" is the operator to format text.  "]/" is the motion that takes you to the
-end of a comment.  The result is:
+A "gq" egy szövegformázó operátor. A "]/" egy elmozdulás (a komment végére).
+Végeredmény:
 
 	/* ~
 	 * This is a test of the text formatting. ~
 	 */ ~
 
-Notice that Vim properly handled the beginning of each line.
-  An alternative is to select the text that is to be formatted in Visual mode
-and type "gq".
+Figyeld meg, hogy a Vim tökéletesen kezelte a komment elejét.
+  Ha ez kényelmetlen, akkor a kijelölésünket el tudjuk végezni Visual módban,
+melyet a "qt" parancs követ.
 
-To add a new line to the comment, position the cursor on the middle line and
-press "o".  The result looks like this:
+Új sor hozzáadásához állítsd a kurzort a komment egyik sorára, és nyiss új
+sort (o,O), az új sor a komment részeként jön létre:
 
 	/* ~
 	 * This is a test of the text formatting. ~
 	 * ~
 	 */ ~
 
-Vim has automatically inserted a star and a space for you.  Now you can type
-the comment text.  When it gets longer than 'textwidth', Vim will break the
-line.  Again, the star is inserted automatically:
+A Vim automatikusan beillesztette a * karaktert, ezért nyugodtan fókuszálhatsz
+innentől a komment írására. Ha sor meghaladja a 'textwidth' értékét, akkor a
+Vim új sort kezd a vezető * karakterrel természetesen:
 
 	/* ~
 	 * This is a test of the text formatting. ~
@@ -548,43 +556,46 @@ line.  Again, the star is inserted automatically:
 	 * break ~
 	 */ ~
 
-For this to work some flags must be present in 'formatoptions':
+Ennek működéséhez viszont az alábbi flageket definiálni kell a
+'formatoptions'-ban:
 
-	r	insert the star when typing <Enter> in Insert mode
-	o	insert the star when using "o" or "O" in Normal mode
-	c	break comment text according to 'textwidth'
+	r	* karakter beszúrása <Enter> billentyűnél Insert módban
+	o	* karakter beszúrása "o" vagy "O" használatánál Normal módban
+	c	komment sorainak tördelése 'textwidth' szerint
 
-See |fo-table| for more flags.
+Lásd |fo-table| még több flag megismeréséhez.
 
 
-DEFINING A COMMENT
+KOMMENT DEFINIÁLÁSA
 
-The 'comments' option defines what a comment looks like.  Vim distinguishes
-between a single-line comment and a comment that has a different start, end
-and middle part.
-   Many single-line comments start with a specific character.  In C++ // is
-used, in Makefiles #, in Vim scripts ".  For example, to make Vim understand
-C++ comments: >
+A 'comments' opció felelős a kommentek kinézetéért. A Vim képes megkülönböztetni
+az egysoros kommenteket, illetve az olyan kommenteket, melyek első, közép és
+végei különbözőek.
+   Az egysoros kommentek szintaxisa nyelvenként eltérőek. C++-ban //, a
+Makefájlokban #, a Vim szkriptekben pedig ". Például, így vehetjük rá, hogy a
+Vim C++ típusúként kezelje a kommentjeinket: >
 
 	:set comments=://
 
-The colon separates the flags of an item from the text by which the comment is
-recognized.  The general form of an item in 'comments' is:
+A bejegyzésekben ":" karakter választja el a flageket az értékektől (melyek
+alapján a Vim felismeri a kommentet). A 'comments' elemek általános alakja: 
 
 	{flags}:{text}
 
-The {flags} part can be empty, as in this case.
-   Several of these items can be concatenated, separated by commas.  This
-allows recognizing different types of comments at the same time.  For example,
-let's edit an e-mail message.  When replying, the text that others wrote is
-preceded with ">" and "!" characters.  This command would work: >
+A {flag} lehet üres is, mint ebben az esetben.
+   Számos elemet összevonhatunk vagy elválaszthatunk vesszők segítségével.
+Ezzel megoldható a különböző típusú kommentek felismerése (egy fájlban).
+Például, szerkesszünk egy e-mail üzenetet. Válasz esetén az eredeti üzenet
+megjelenik a szerkesztőben (a sorok elején lévő ">" és "!" karakterekkel). Ezt
+az alábbi paranccsal  állíthatjuk be: >
 
 	:set comments=n:>,n:!
 
-There are two items, one for comments starting with ">" and one for comments
-that start with "!".  Both use the flag "n".  This means that these comments
-nest.  Thus a line starting with ">" may have another comment after the ">".
-This allows formatting a message like this:
+Az opció két elemet tartalmaz, az első a ">" jelekkel kezdődő sorokat tekinti
+kommentnek, míg a másik "!" karakterekkel kezdődő sorokat. Mindkettő az "n"
+flaget használja. Ez azt jelenti, hogy a kommentek egymásba ágyazhatóak (nest).
+Ezért a ">" karakterrel kezdődő sor tartalmazhat egy másik kommentet (a kezdő
+">" után. A szöveg formázása pedig:
 
 	> ! Did you see that site? ~
 	> ! It looks really great. ~
@@ -593,41 +604,42 @@ This allows formatting a message like this:
 	What is the URL of that ~
 	site? ~
 
-Try setting 'textwidth' to a different value, e.g., 80, and format the text by
-Visually selecting it and typing "gq".  The result is:
+Próbálkozz meg a 'textwidth' különböző értékre állításával, például 80, és
+formázd a kommentet a "gq" paranccsal. Az eredmény:
 
 	> ! Did you see that site?  It looks really great. ~
 	> I don't like it.  The colors are terrible. ~
 	What is the URL of that site? ~
 
-You will notice that Vim did not move text from one type of comment to
-another.  The "I" in the second line would have fit at the end of the first
-line, but since that line starts with "> !" and the second line with ">", Vim
-knows that this is a different kind of comment.
+Ha figyelmes vagy, akkor kiszúrtad, hogy a Vim nem mozgatta át a különböző
+típusú kommenteket. Az "I" karakter elfért volna az első sor elejére is 
+("> !"), de a Vim tudta, hogy az egy másik típusú komment (">").
 
 
-A THREE PART COMMENT
+HÁROMRÉSZES KOMMENT
 
-A C comment starts with "/*", has "*" in the middle and "*/" at the end.  The
-entry in 'comments' for this looks like this: >
+A C stílusú kommentek "/*" karakterekkel, a komment törzse "*", komment vége
+pedig "*/" karakterekkel kezdődnek. A 'comments' opcióban lévő bejegyzésük így
+néz ki: >
 
 	:set comments=s1:/*,mb:*,ex:*/
 
-The start is defined with "s1:/*".  The "s" indicates the start of a
-three-piece comment.  The colon separates the flags from the text by which the
-comment is recognized: "/*".  There is one flag: "1".  This tells Vim that the
-middle part has an offset of one space.
-   The middle part "mb:*" starts with "m", which indicates it is a middle
-part.  The "b" flag means that a blank must follow the text.  Otherwise Vim
-would consider text like "*pointer" also to be the middle of a comment.
-   The end part "ex:*/" has the "e" for identification.  The "x" flag has a
-special meaning.  It means that after Vim automatically inserted a star,
-typing / will remove the extra space.
+A kezdőpont "s1:/*"-ként van definiálva. Az "s" jelenti a komment kezdetét. A
+":" karakter választja el a flaget az értéktől, mely itt "/*". Az "1" flag az
+offszetet jelöli, azaz a középső rész egy karakterrel beljebb fog kezdődni.
+   A középső rész "mb:*" az "m" karakterrel kezdődik, mely jelzi, hogy ez a
+középső (middle) rész. A "b" flag pedig arra utal, hogy a komment elején lévő
+* karaktert egy üres (blank) karakternek kell követnie. Ha ez nem történik
+meg, akkor a komment "*így kezdődik", ahelyett, hogy "* így kezdődne" (emiatt
+csúszhat a formázás is).
+   A definíció vége, az "ex:*/", "e" háromrészes komment vége (end). Az "x"
+flagnek speciális jelentése van: miután a Vim beszúrta a "*" karaktert, a /
+gépelése eltávolítja az üres karaktereket.
 
-For more details see |format-comments|.
+További lehetőségekért olvasd el: |format-comments|.
 
 ==============================================================================
 
-Következő fejezet: |usr_31.txt|  Exploiting the GUI
+Következő fejezet: |usr_31.txt|  A GUI használata
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
