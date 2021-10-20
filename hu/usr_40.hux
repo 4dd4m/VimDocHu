@@ -1,54 +1,56 @@
 *usr_40.txt*	For Vim version 8.2.  Last change: 2020 Sep 02
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      Make new commands
+			   Új parancsok létrehozása
 
 
-Vim is an extensible editor.  You can take a sequence of commands you use
-often and turn it into a new command.  Or redefine an existing command.
-Autocommands make it possible to execute commands automatically.
+A Vim nagyszerűen kiegészíthető. A gyakran kiadott parancs sorozatokat
+összegyűjtheted és egy új parancsot hozhatsz létre belőlük. Vagy definiálj
+újra egy létező parancsot másképpen. Az atuocommandokkal a parancsok
+automatikusan futtathatóak.
 
-|40.1|	Key mapping
-|40.2|	Defining command-line commands
-|40.3|	Autocommands
+|40.1|	Billentyű mappek
+|40.2|	Command-line parancsok definiálása
+|40.3|	Atuocommandok
 
-     Következő fejezet: |usr_41.txt|  Write a Vim script
- Előző fejezet: |usr_32.txt|  The undo tree
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_41.txt|  Vimszkript írása
+    Előző fejezet: |usr_32.txt|  A visszavonásfa
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*40.1*	Key mapping
+*40.1*	Billentyű mappek
 
-A simple mapping was explained in section |05.3|.  The principle is that one
-sequence of key strokes is translated into another sequence of key strokes.
-This is a simple, yet powerful mechanism.
-   The simplest form is that one key is mapped to a sequence of keys.  Since
-the function keys, except <F1>, have no predefined meaning in Vim, these are
-good choices to map.  Example: >
+Az egyszerű mappekkel már foglalkoztunk a |05.3| fejezetben. A lényeg, hogy a
+billentyűleütésekkel (általában több) billentyűleütést idézünk elő, mely egy
+egyszerű, de erőteljes mechanizmus.
+   A mappelés legegyszerűbb formája, amikor egy billentyűleütés (vagy
+kombinációt) egy meghatározott kombinációhoz kapcsolunk. A funkció
+billentyűknek (az <F1> kivételével) nincs előre meghatározott jelentésük a
+Vimben, ezért remekül használhatjuk őket kezdeti mapjeink létrehozásához: >
 
 	:map <F2> GoDate: <Esc>:read !date<CR>kJ
 
-This shows how three modes are used.  After going to the last line with "G",
-the "o" command opens a new line and starts Insert mode.  The text "Date: " is
-inserted and <Esc> takes you out of insert mode.
-   Notice the use of special keys inside <>.  This is called angle bracket
-notation.  You type these as separate characters, not by pressing the key
-itself.  This makes the mappings better readable and you can copy and paste
-the text without problems.
-   The ":" character takes Vim to the command line.  The ":read !date" command
-reads the output from the "date" command and appends it below the current
-line.  The <CR> is required to execute the ":read" command.
-   At this point of execution the text looks like this:
+Az fenti parancs három módot egyesít. A "G" a fájl aljára ugrik, az "o" pedig
+új sort nyit alulra (Normal mód), Insert módba lépés után beírja a "Date: "
+szöveget, majd az <Esc> billentyű kilép az Insert módból. 
+   Minden speciális billentyűt <> karakterek (angle bracket) közé kell zárnunk. 
+A definícióban be kell írnunk ezeket a karaktereket (<F1>), tehát nem elég csak
+F1-et nyomnunk, ez sokkal olvashatóbbá teszi a mappeket a későbbiek során.
+   A :" karakterrel command-line módba lépünk. A ":read !date" beolvassa a
+"date" parancs kimenetét és hozzáfűzi az aktív sorhoz. A <CR> a "<F13>:read"
+parancs futtatásához szükséges.
+   Jelen pillanatban a szövegünk:
 
 	Date:  ~
 	Fri Jun 15 12:54:34 CEST 2001 ~
 
-Now "kJ" moves the cursor up and joins the lines together.
-   To decide which key or keys you use for mapping, see |map-which-keys|.
+Most "k" sort vált felfelé irányban, "J" pedig összefűzi a sorokat.
+   Annak eldöntésére, hogy milyen billentyűkel használj a mapjeidben Lásd
+|map-which-keys|.
 
 
-MAPPING AND MODES
+MAPPELÉS ÉS MÓDOK
 
 The ":map" command defines remapping for keys in Normal mode.  You can also
 define mappings for other modes.  For example, ":imap" applies to Insert mode.

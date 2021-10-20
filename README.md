@@ -4,7 +4,7 @@
 
 ## Állapot
 * A fordítás jelenleg usr_01.hux - usr_32.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_33.hux
+* Folyamatban: usr_40.hux
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
   azonban pontosításra szorul
 
