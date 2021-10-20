@@ -3,14 +3,16 @@
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_30.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_31.hux
+* A fordítás jelenleg usr_01.hux - usr_31.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_32.hux
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
   azonban pontosításra szorul
 
 
-Folyamat:
- [#############################----------------------------------------------]
+Kézikönyv:
+ [###############################################----------------------------]
+Dokumentáció:
+ [---------------------------------------------------------------------------]
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal az alábbi mappákban
@@ -18,6 +20,8 @@ Folyamat:
 * töröld a régi tagfájlokat (tags,tags-hu): $VIMRUNTIME/doc
 * futtasd ':helptags $VIMRUNTIME/doc' a Vimből
 * a .vimrchez add hozzá ':helplang=hu,en'
+* nvim? telepíthető, de az nvim specifikus anyagokat @en kereséssel éred el
+* mindenképp nvim? ajánlott telepíteni a vimet, telepítsd oda. 
 
 
 ## Fordítanál?

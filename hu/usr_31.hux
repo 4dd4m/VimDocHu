@@ -1,97 +1,99 @@
 *usr_31.txt*	For Vim version 8.2.  Last change: 2020 Jul 28
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      Exploiting the GUI
+			       A GUI használata
 
 
-Vim works well in a terminal, but the GUI has a few extra items.  A file
-browser can be used for commands that use a file.  A dialog to make a choice
-between alternatives.  Use keyboard shortcuts to access menu items quickly.
+A Vim remekül működik a terminálban, de a GUI fel van szerelve extrákkal. A
+grafikus fájlböngészők környezeti menüjéből gyorsan megnyithatjuk a fájlt,
+amire szükségünk van. A választási lehetőségek ablakban jelennek meg, extra
+menüket adhatunk hozzá, melyeket a billentyűzet segítségével könnyedén
+bejárhatunk.
 
-|31.1|	The file browser
-|31.2|	Confirmation
-|31.3|	Menu shortcuts
-|31.4|	Vim window position and size
-|31.5|	Various
+|31.1|	A fájlböngésző
+|31.2|	Megerősítés
+|31.3|	Menüelemek
+|31.4|	A Vim ablak pozíciója és mérete
+|31.5|	Egyebek
 
-     Következő fejezet: |usr_32.txt|  The undo tree
- Előző fejezet: |usr_30.txt|  Editing programs
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_32.txt|  A visszavonásfa
+    Előző fejezet: |usr_30.txt|  Programok szerkesztése
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*31.1*	The file browser
+*31.1*	A fájlböngésző 
 
-When using the File/Open... menu you get a file browser.  This makes it easier
-to find the file you want to edit.  But what if you want to split a window to
-edit another file?  There is no menu entry for this.  You could first use
-Window/Split and then File/Open..., but that's more work.
-   Since you are typing most commands in Vim, opening the file browser with a
-typed command is possible as well.  To make the split command use the file
-browser, prepend "browse": >
+A Fájl/Megnyitás... menüpontot választva a elénk tárul a fájlböngésző. A kellő
+bóklászással megnyithatjuk a kívánt fájlt. De mi van akkor, ha a fájlt
+splitben szeretnénk megnyitni? A beépített fájlkezelőben nincs ilyen opció. A
+Vim GUI-ban nincs ilyen menü. Kiválaszthatod az Ablak menü Felosztás menüjét,
+mielőtt megnyitnád a fájlt (Fájl/Megnyitás)..., de ez túl sokáig tart. 
+   A parancsok többségét gépeled, miért ne gépelnéd ezt  is? A command-linet
+grafikus módban is elérjük. Split létrehozásához használd a "browse"
+parancsot és kombináld a "split"-tel: >
 
 	:browse split
 
-Select a file and then the ":split" command will be executed with it.  If you
-cancel the file dialog nothing happens, the window isn't split.
-   You can also specify a file name argument.  This is used to tell the file
-browser where to start.  Example: >
+Miután kiválasztod a fájlt, a ":split" parancs azonnal felosztja az ablakot.
+Ha meggondoltad magad és nem választasz fájlt, a split nem lesz létrehozva. 
+   Ha a fájlnév argumentumkét egy könyvtárat adunk meg, akkor a fájlböngésző
+azon a ponton fog megnyílni. Például: >
 
 	:browse split /etc
 
-The file browser will pop up, starting in the directory "/etc".
+A fájlböngésző megnyílik az "/etc" könyvtárban.
 
-The ":browse" command can be prepended to just about any command that opens a
-file.
-   If no directory is specified, Vim will decide where to start the file
-browser.  By default it uses the same directory as the last time.  Thus when
-you used ":browse split" and selected a file in "/usr/local/share", the next
-time you use a ":browse" it will start in "/usr/local/share" again.
-   This can be changed with the 'browsedir' option.  It can have one of three
-values:
+A ":browse" parancs bármilyen parancs elé beszúrható, ami fájlt nyit meg.
+   Ha nem adunk meg könyvtárat, akkor a Vim maga eldönti, hogy hol nyitja meg
+a fájlböngészőt. Alapértelmezés szerint a legutolsó elérési út nyílik meg.
+Ezért, ha előzőleg megnyitottál valamit a "/usr/local/share" könyvtárban
+":browse split", akkor következő alkalommal is ":browse" a "/usr/local/share"
+könyvtárból nyílik a grafikus fájlböngésző.
+   A 'browsedir' opcióval ezen változtathatunk, három lehetőségünk van:
 
-	last		Use the last directory browsed (default)
-	buffer		Use the same directory as the current buffer
-	current		use the current directory
+	last		az utolsó könyvtár (alapértelmezés)
+	buffer		a bufferben lévő fájl elérési útjának a használata
+	current		munkakönyvtár (pwd)
 
-For example, when you are in the directory "/usr", editing the file
-"/usr/local/share/readme", then the command: >
+Például, ha a "/usr" könyvtárban vagy és szerkeszted a
+"/usr/local/share/readme" fájlt, majd kiadod az alábbi parancsokat: >
 
 	:set browsedir=buffer
 	:browse edit
 
-Will start the browser in "/usr/local/share".  Alternatively: >
+A fájlböngésző a "/usr/local/share" könyvtárban nyílik meg. Alternatíva: >
 
 	:set browsedir=current
 	:browse edit
 
-Will start the browser in "/usr".
+Pedig a "/usr" könyvtárban indítja a böngészőt.
 
-	Note:
-	To avoid using the mouse, most file browsers offer using key presses
-	to navigate.  Since this is different for every system, it is not
-	explained here.  Vim uses a standard browser when possible, your
-	system documentation should contain an explanation on the keyboard
-	shortcuts somewhere.
+	Megjegyzés:
+	A legtöbb fájlkezelőben a billentyűzet segítségével is navigálhatunk
+	(nem csak az egérrel). Erre nem térünk ki, mert rendszerenként
+	különböző a módszer. Feltételezzük, hogy a rendszered
+	dokumentációjában utána tudsz nézni a billentyűparancsoknak. 
 
-When you are not using the GUI version, you could use the file explorer window
-to select files like in a file browser.  However, this doesn't work for the
-":browse" command.  See |netrw-browse|.
+Ha a szövegszerkesztőt a terminálban használod, fájljaidat ugyanilyen
+módszerrel megkeresheted. Bár, ez a ":browse" paranccsal nem működik. Használd
+az ":Explore" parancsot. Lásd |netrw-browse|.
 
 ==============================================================================
-*31.2*	Confirmation
+*31.2*	Megerősítés
 
-Vim protects you from accidentally overwriting a file and other ways to lose
-changes.  If you do something that might be a bad thing to do, Vim produces an
-error message and suggests appending ! if you really want to do it.
-   To avoid retyping the command with the !, you can make Vim give you a
-dialog.  You can then press "OK" or "Cancel" to tell Vim what you want.
-   For example, you are editing a file and made changes to it.  You start
-editing another file with: >
+A szerkesztő próbál megóvni bennünket a véletlen felülírásoktól vagy, hogy
+egyéb módon adatot veszítsünk. Ha valami olyasmit szeretnél tenni, ami erre
+lehetőséget ad, akkor hibaüzenetet kapsz, ami azt javasolja, hogy "!" jellel
+erősítsd meg a műveletet.
+   Gépelhetjük újra? Nem. Párbeszédablakot kapunk, melyben megerősíthetjük a
+műveletet ("OK" vagy "Mégsem").
+   Például, módosítottál az aktív fájlon. A következő paranccsal már egy másik
+fájl szeretnél szerkeszteni: >
 
 	:confirm edit foo.txt
 
-Vim will pop up a dialog that looks something like this:
+A párbeszédablak pedig előbukkan:
 
 	+-----------------------------------+
 	|				    |
@@ -100,173 +102,173 @@ Vim will pop up a dialog that looks something like this:
 	|   YES   NO		 CANCEL     |
 	+-----------------------------------+
 
-Now make your choice.  If you do want to save the changes, select "YES".  If
-you want to lose the changes for ever: "NO".  If you forgot what you were
-doing and want to check what really changed use "CANCEL".  You will be back in
-the same file, with the changes still there.
+Dönthetsz. Ha mented a fájl változásait, akkor válaszd az "IGEN"-t. Ha a
+változásokat eldobod (örökre): "NEM". A "MÉGSEM" gomb pedig megszakítja az új
+fájl megnyitását, a fókusz visszakerül az aktív ablakba, így lehetőségünk van
+a fájlt elmenteni.
 
-Just like ":browse", the ":confirm" command can be prepended to most commands
-that edit another file.  They can also be combined: >
+Nem csak a ":browse", de a ":confirm" parancsot is beszúrhatjuk bármely olyan
+parancs elé, amely fájlt szerkeszt. Kombinálhatóak akár így is: >
 
 	:confirm browse edit
 
-This will produce a dialog when the current buffer was changed.  Then it will
-pop up a file browser to select the file to edit.
+A parancs párbeszédablakot jelenít meg, ha a buffer tartalma változott, majd
+megnyitja a fájlböngészőt.
 
-	Note:
-	In the dialog you can use the keyboard to select the choice.
-	Typically the <Tab> key and the cursor keys change the choice.
-	Pressing <Enter> selects the choice.  This depends on the system
-	though.
+	Megjegyzés:
+	A párbeszédablakban a billentyűzet segítségével választhatunk az
+	opciók között. Általában a <Tab> billentyű járja körbe a válaszokat.
+	Az <Enter> pedig kiválaszt. Természetesen rendszerfüggő.
 
-When you are not using the GUI, the ":confirm" command works as well.  Instead
-of popping up a dialog, Vim will print the message at the bottom of the Vim
-window and ask you to press a key to make a choice. >
+Terminálos szerkesztő esetében a ":confirm" parancs működése teljesen
+megegyező. A párbeszédablak helyett a képernyő alján üzenetben kapjuk meg a
+választási lehetőségeket. >
 
 	:confirm edit main.c
 <	Save changes to "Untitled"? ~
 	[Y]es, (N)o, (C)ancel:  ~
 
-You can now press the single key for the choice.  You don't have to press
-<Enter>, unlike other typing on the command line.
+Egyetlen egy billentyűvel választ adhatunk. A választást követően nincs
+szükség az <Enter> megnyomására.
 
 ==============================================================================
-*31.3*	Menu shortcuts
+*31.3*	Menüelemek
 
-The keyboard is used for all Vim commands.  The menus provide a simple way to
-select commands, without knowing what they are called.  But you have to move
-your hand from the keyboard and grab the mouse.
-   Menus can often be selected with keys as well.  This depends on your
-system, but most often it works this way.  Use the <Alt> key in combination
-with the underlined letter of a menu.  For example, <A-w> (<Alt> and w) pops
-up the Window menu.
-   In the Window menu, the "split" item has the p underlined.  To select it,
-let go of the <Alt> key and press p.
+A billentyűzet segítségével az összes parancs kiadható, viszont a menük
+leegyszerűsíthetik a gépelés mennyiségét. Még azt sem kell tudnunk pontosan,
+hogy az adott parancs mit hív meg, cserébe meg kell fognunk az egeret.
+   A menüket billentyűkkel is kiválaszthatjuk. Rendszerenként eltérő lehet, de
+általánosságban az elv működik. Az <Alt> billentyűt kell megnyomnunk, melyet a
+menü aláhúzott karaktere követ. Például, <A-w> (<Alt> és w), az ablak menüt
+nyitja le.
+   A menüben a "split" opció "p" betűje aláhúzott. Kiválasztásához nyomjunk
+<Alt>, majd p billentyűket.
 
-After the first selection of a menu with the <Alt> key, you can use the cursor
-keys to move through the menus.  <Right> selects a submenu and <left> closes
-it.  <Esc> also closes a menu.  <Enter> selects a menu item.
+Miután a főmenü megnyílt, a kurzorbillentyűkkel <Up><Down> mozoghatunk az
+almenük között, a <Left><Right> gombokkal pedig bezárhatjuk és megnyithatjuk
+az almenüket. <Enter> kiválasztja a menüelemet.
 
-There is a conflict between using the <Alt> key to select menu items, and
-using <Alt> key combinations for mappings.  The 'winaltkeys' option tells Vim
-what it should do with the <Alt> key.
-   The default value "menu" is the smart choice: If the key combination is a
-menu shortcut it can't be mapped.  All other keys are available for mapping.
-   The value "no" doesn't use any <Alt> keys for the menus.  Thus you must use
-the mouse for the menus, and all <Alt> keys can be mapped.
-   The value "yes" means that Vim will use any <Alt> keys for the menus.  Some
-<Alt> key combinations may also do other things than selecting a menu.
+A főmenüket kiválasztó <Alt> és a mappeket tartalmazó <Alt> billentyűk között
+ütközés van. A 'winaltkeys' opció meghatározza, hogy mit csináljon a Vim  az
+<Alt> billentyű megnyomásakor.
+   Az első érték a "menu". Ha kombináció egy menüelemhez tartozik, akkor nem
+mappelhető, ezt kivéve nincs korlátozás a mappeket illetően.
+   Ha az érték "no" akkor az <Alt> billentyű egyáltalán nem használható a
+menüelemek eléréséhez, viszont <Alt> teljes értékűen mappelhető.
+   Ha az érték "yes", akkor a Vim az <Alt> megnyomásával kiválasztja az adott
+menüt, de nem akadályozza meg, hogy az esetleges mappek lefussanak.
 
 ==============================================================================
-*31.4*	Vim window position and size
+*31.4*	A vim ablak pozíciója és mérete
 
-To see the current Vim window position on the screen use: >
+Az ablak aktuális pozíciójának kiíratása: >
 
 	:winpos
 
-This will only work in the GUI.  The output may look like this:
+Ez csak GUI üzemmódban működik. A kimenet:
 
 	Window position: X 272, Y 103 ~
 
-The position is given in screen pixels.  Now you can use the numbers to move
-Vim somewhere else.  For example, to move it to the left a hundred pixels: >
+Az értékek pixelben értendőek. Most, hogy már van viszonyítási alapunk, az
+ablakot bárhová áthelyezhetjük. Például, mozgassuk az ablakot balra 100
+pixellel. >
 
 	:winpos 172 103
 <
-	Note:
-	There may be a small offset between the reported position and where
-	the window moves.  This is because of the border around the window.
-	This is added by the window manager.
+	Megjegyzés:
+	Offszet jelentkezhet az ablak valós és végleges helyzete között. Ez
+	azért van, mert az ablakkezelő keretet rajzol az ablak köré (ami nincs
+	beleszámolva a végleges pozícióba).
 
-You can use this command in your startup script to position the window at a
-specific position.
+Ha ezt a parancsot bemásolod a vimrcbe, akkor az ablak mindig ugyanabban a
+helyzetben fog megnyílni.
 
-The size of the Vim window is computed in characters.  Thus this depends on
-the size of the font being used.  You can see the current size with this
-command: >
+Az ablak méretét a Vim karakterekben számolja. Ez viszont függ attól, hogy
+milyen nagy betűtípus alkalmazunk. A jelenlegi méretet így kérheted le: >
 
 	:set lines columns
 
-To change the size set the 'lines' and/or 'columns' options to a new value: >
+Az ablakméret megváltoztatása a 'lines' és vagy 'columns' opciókkal: >
 
 	:set lines=50
 	:set columns=80
 
-Obtaining the size works in a terminal just like in the GUI.  Setting the size
-is not possible in most terminals.
+A méretet terminál üzemmódban is lekérhetjük, de a beállítása nem fog működni,
+hiszen ez nem lehetséges a legtöbb terminálban.
 
-You can start the X-Windows version of gvim with an argument to specify the
-size and position of the window: >
+Elindíthatod a gvim X-Windows verzióját, argumentummal a méret és pozíció
+megadható: >
 
 	gvim -geometry {width}x{height}+{x-offset}+{y-offset}
 
-{width} and {height} are in characters, {x-offset} and {y-offset} are in
-pixels.  Example: >
+{width} és {height} karakterekben értendőek, {x-offset} és {y-offset}
+pixelekben. Példa: >
 
 	gvim -geometry 80x25+100+300
 
 ==============================================================================
-*31.5*	Various
+*31.5*	Egyebek
 
-You can use gvim to edit an e-mail message.  In your e-mail program you must
-select gvim to be the editor for messages.  When you try that, you will
-see that it doesn't work: The mail program thinks that editing is finished,
-while gvim is still running!
-   What happens is that gvim disconnects from the shell it was started in.
-That is fine when you start gvim in a terminal, so that you can do other work
-in that terminal.  But when you really want to wait for gvim to finish, you
-must prevent it from disconnecting.  The "-f" argument does this: >
+A gvimmel az e-mailjeidet is szerkesztheted. Az e-mail kliensedben add meg
+szerkesztőként a gvimet. Ha megpróbálod, akkor ez nem fog menni: Az e-mail
+kliens azt hiszi, hogy már befejezted a fájl szerkesztését, holott a gvim még
+mindig fut!
+   Azt történik, hogy a gvim egy külön shellben indul (és nem abban, amiben
+indítottad). Normál esetben ez jó, hiszen a munkát a shellben továbbra is
+folytathatod, nem kell megvárni a gvim bezárását. Ha viszont tényleg meg
+szeretnéd várni, hogy a gvim bezáródjon, akkor használd az "-f" argumentumot,
+mely elindítja a gvimet abban a shellben, ahol kiadtad a parancsot és megvárja
+a program bezárását: >
 
 	gvim -f file.txt
 
-The "-f" stands for foreground.  Now Vim will block the shell it was started
-in until you finish editing and exit.
+Az "-f" jelentése előtérben (foreground). A Vim blokkolja a shellt a
+szerkesztés befejezéséig.
 
 
-DELAYED START OF THE GUI
+GUI KÉSLELTETETT INDÍTÁSA
 
-On Unix it's possible to first start Vim in a terminal.  That's useful if you
-do various tasks in the same shell.  If you are editing a file and decide you
-want to use the GUI after all, you can start it with: >
+Unix rendszeren megtehetjük azt, hogy a Vimet először terminálból indítjuk.
+Feltételezve, hogy a munkafolyamatot megelőzően is a terminálban
+tevékenykedünk. A fájlok szerkesztése során dönthetünk úgy, hogy innentől
+kezdve a Vim GUI verzióját használjuk tovább. Semmi akadálya: >
 
 	:gui
 
-Vim will open the GUI window and no longer use the terminal.  You can continue
-using the terminal for something else.  The "-f" argument is used here to run
-the GUI in the foreground.  You can also use ":gui -f".
+Megnyílik a GUI, ettől a ponttól kezdve már nem a terminált használjuk. Az
+"-f" argumentum használható, mely blokkolja a shellt addig, amíg a szerkesztőt
+be nem zárjuk.
 
+A GVIM BEÁLLÍTÓFÁJL
 
-THE GVIM STARTUP FILE
-
-When gvim starts, it reads the gvimrc file.  That's similar to the vimrc file
-used when starting Vim.  The gvimrc file can be used for settings and commands
-that are only to be used when the GUI is going to be started.  For example,
-you can set the 'lines' option to set a different window size: >
+A gvim induláskor olvassa a gvimrc fájl. Hasonlóan a Vim vimrc fájljához. A
+gvimrc fájlt csak GUI specifikus beállítások tárolására használjuk. Például a
+'lines' opcióval az ablakméretet állíthatjuk: >
 
 	:set lines=55
 
-You don't want to do this in a terminal, since its size is fixed (except for
-an xterm that supports resizing).
-   The gvimrc file is searched for in the same locations as the vimrc file.
-Normally its name is "~/.gvimrc" for Unix and "$VIM/_gvimrc" for MS-Windows.
-The $MYGVIMRC environment variable is set to it, thus you can use this command
-to edit the file, if you have one: >
+Ezt a terminálban nem tudod megtenni (fix méretű), kivéve azokat az xterm
+terminálokat, melyek támogatják az átméretezést.
+   A gvimrc fájlt a vimrc fájlhoz azonos elérési utakon keresi a szerkesztő.
+Normális esetben ez "~/.gvimrc" Unix rendszereken és "$VIM/_gvimrc MS-Windows
+A $MYGVIMRC környezeti változó be van rá állítva, ezért a fájl szerkesztéséhez
+is használhatod: >
 
 	:edit $MYGVIMRC
 <
-   If for some reason you don't want to use the normal gvimrc file, you can
-specify another one with the "-U" argument: >
+   Ha valami oknál fogva nem szeretnéd az alapértelmezett gvimrc fájlt
+használni, akkor az "-U" argumentummal egy másik beállítófájl tölthetsz be: >
 
 	gvim -U thisrc ...
 
-That allows starting gvim for different kinds of editing.  You could set
-another font size, for example.
-   To completely skip reading a gvimrc file: >
+Ezért lehet több gvimrc fájlod, mindegyik más típusú szerkesztésre, például az
+egyikben sokkal nagyobb betűméret stb.
+   Ha nem szeretnél betölteni beállítófájlt, akkor: >
 
 	gvim -U NONE ...
 
 ==============================================================================
 
-Következő fejezet: |usr_32.txt|  The undo tree
+Következő fejezet: |usr_32.txt|  A visszavonásfa
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
