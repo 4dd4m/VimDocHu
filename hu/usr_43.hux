@@ -1,153 +1,159 @@
 *usr_43.txt*	For Vim version 8.2.  Last change: 2015 Oct 23
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			       Using filetypes
+				 Fájltípusok
 
 
-When you are editing a file of a certain type, for example a C program or a
-shell script, you often use the same option settings and mappings.  You
-quickly get tired of manually setting these each time.  This chapter explains
-how to do it automatically.
+Bizonyos fájltípusok esetén, például C forráskód, shell szkript stb, mindig
+ugyanazokat a beállítás csoportokat kell alkalmaznunk. Ha ezt mind manuálisan
+kellene megtennünk, akkor elég hamar elmenne a kedvünk az egésztől. A fejezet
+azt tárgyalja, hogy hogyan automatizálhatjuk a beállításainkat.
 
-|43.1|	Plugins for a filetype
-|43.2|	Adding a filetype
+|43.1|	Fájltípus beépülők
+|43.2|	Fájltípus hozzáadása
 
-     Következő fejezet: |usr_44.txt|  Your own syntax highlighted
- Előző fejezet: |usr_42.txt|  Add new menus
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_44.txt|  Your own syntax highlighted
+    Előző fejezet: |usr_42.txt|  Add new menus
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*43.1*	Plugins for a filetype				*filetype-plugin*
+*43.1*	Fájltípus beépülők				*filetype-plugin*
 
-How to start using filetype plugins has already been discussed here:
-|add-filetype-plugin|.  But you probably are not satisfied with the default
-settings, because they have been kept minimal.  Suppose that for C files you
-want to set the 'softtabstop' option to 4 and define a mapping to insert a
-three-line comment.  You do this with only two steps:
+A fájltípus beépülők kezdetleges használatáról a |add-filetype-plugin|
+fejezetben már szó esett, viszont lehetséges, hogy nem vagy megelégedve a az
+alapértelmezett beállításaival, ezért ezen beállítások száma minimális. Tegyük
+fel, hogy C forráskódok esetén a 'softtabstop'-ot 4-re szeretnéd állítani,
+valamit parancsot létrehozni a három-soros kommentek létrehozására. Ezt két
+lépésben elvégezhetjük:
 
 							*your-runtime-dir*
-1. Create your own runtime directory.  On Unix this usually is "~/.vim".  In
-   this directory create the "ftplugin" directory: >
+1. Hozd létre a saját runtime könyvtáradat. Unixon ez általában "~/.vim".
+   Ebben a könyvtárban pedig hozd létre a "ftplugin" könyvtárat: >
 
 	mkdir ~/.vim
 	mkdir ~/.vim/ftplugin
 <
-   When you are not on Unix, check the value of the 'runtimepath' option to
-   see where Vim will look for the "ftplugin" directory: >
+   Ha nem Unix rendszeren dolgozol, akkor nézd meg a 'runtimepath' változó
+   tartalmát, hogy lásd, a Vim milyen elérési utakon keresi az "ftplugin"
+   könyvtárat: >
 
 	set runtimepath
+<
+   Érdemes az első elérési utat választani (ami az első vessző előtt
+   található). Ha az érték nem tetszik, akkor egy általad meghatározott
+   elérési utat is választhatsz, de ebben az esetben ne felejtsd el hozzáadni
+   a |vimrc| fájlodhoz.
 
-<  You would normally use the first directory name (before the first comma).
-   You might want to prepend a directory name to the 'runtimepath' option in
-   your |vimrc| file if you don't like the default value.
-
-2. Create the file "~/.vim/ftplugin/c.vim", with the contents: >
+2. Hozd létre a "~/.vim/ftplugin/c.vim" fájlt az alábbi tartalommal: >
 
 	setlocal softtabstop=4
 	noremap <buffer> <LocalLeader>c o/**************<CR><CR>/<Esc>
 	let b:undo_ftplugin = "setl softtabstop< | unmap <buffer> <LocalLeader>c"
 
-Try editing a C file.  You should notice that the 'softtabstop' option is set
-to 4.  But when you edit another file it's reset to the default zero.  That is
-because the ":setlocal" command was used.  This sets the 'softtabstop' option
-only locally to the buffer.  As soon as you edit another buffer, it will be
-set to the value set for that buffer.  For a new buffer it will get the
-default value or the value from the last ":set" command.
+Próbálj egy C fájlt szerkeszteni. A 'softtabstop' opciónak 4-en kell állnia.
+Ha egy másik típusú fájlt szerkesztesz, akkor a 'softtabstop' értéke megint 0
+lesz. Ez azért van, mert a softtabstopot a ":setlocal" paranccsal hoztuk
+létre. A ":setlocal" parancs csak az aktuális bufferben tartja meg értékeit.
+Mihelyst egy másik fájltípust szerkesztesz, felveszi annak az értékeit. Az új
+bufferben az opció értéke alapértelmezett lesz, vagy a legutolsó ":set"
+parancs eredménye.
 
+Ugyanígy, a <leader>c mapping is megszűnik, ha másik bufferben szerkesztünk. A
+":map  <buffer>" mappek lokálisak, csak az aktuális bufferre érvényesek.
 Likewise, the mapping for "\c" will disappear when editing another buffer.
-The ":map <buffer>" command creates a mapping that is local to the current
-buffer.  This works with any mapping command: ":map!", ":vmap", etc.  The
-|<LocalLeader>| in the mapping is replaced with the value of the
-"maplocalleader" variable.
+Természetesen ez a ":map" összes variációjánál érvényes például: "map!",
+":vmap", ":imap" stb. A |<LocalLeader>| értéke a "maplocalleader" értékét
+veszi fel. 
 
-The line to set b:undo_ftplugin is for when the filetype is set to another
-value.  In that case you will want to undo your preferences.  The
-b:undo_ftplugin variable is executed as a command. Watch out for characters
-with a special meaning inside a string, such as a backslash.
+A b:undo_ftplugin a fájltípus cseréjénél fut le. Arra az esetre, ha valamelyik
+értéket valami másra szeretnéd átállítani. A b:undo_ftplugin gyakorlatilag egy
+parancs. Figyelj a speciális karakterekre, mint például a \.
 
-You can find examples for filetype plugins in this directory: >
+Példákat a fájltípus beépülőkre itt találsz:  >
 
 	$VIMRUNTIME/ftplugin/
 
-More details about writing a filetype plugin can be found here:
-|write-plugin|.
+A fájltípus beépülők írásáról általánosan: |write-plugin|.
 
 ==============================================================================
-*43.2*	Adding a filetype
+*43.2*	Fájltípus hozzáadása
 
-If you are using a type of file that is not recognized by Vim, this is how to
-get it recognized.  You need a runtime directory of your own.  See
-|your-runtime-dir| above.
+Ha olyan fájltípust nyitottál meg, amelyet a Vim nem ismer fel, akkor így
+taníthatod meg rá a szerkesztőt. Szükséged van egy saját runtime könyvtárra.
+Lásd |your-runtime-dir|.
 
-Create a file "filetype.vim" which contains an autocommand for your filetype.
-(Autocommands were explained in section |40.3|.)  Example: >
+Hozd létre a "fájltípus.vim" fájlt, ami egy autocommandot fog tartalmazni.
+(Az autocommandokat bemutattuk a |40.3| fejezetben.)  Például: >
 
 	augroup filetypedetect
 	au BufNewFile,BufRead *.xyz	setf xyz
 	augroup END
 
-This will recognize all files that end in ".xyz" as the "xyz" filetype.  The
-":augroup" commands put this autocommand in the "filetypedetect" group.  This
-allows removing all autocommands for filetype detection when doing ":filetype
-off".  The "setf" command will set the 'filetype' option to its argument,
-unless it was set already.  This will make sure that 'filetype' isn't set
-twice.
+A parancs gondoskodik arról, hogy az ".xyz" kiterjesztésű fájlok fájltípusa
+"xyz" legyen. Az ":augroup" parancs a az autocommandnak a "filetypedetect"
+csoportnevet adta. Később ezzel tudjuk eltávolítani az autocommandokat
+":filetype off" parancs esetén. A "setf" parancs beállítja a 'filetype' opciót
+az adott argumentum szerint. Így a 'filetype' opció biztosan csak egyszer lesz
+beállítva.
 
-You can use many different patterns to match the name of your file.  Directory
-names can also be included.  See |autocmd-patterns|.  For example, the files
-under "/usr/share/scripts/" are all "ruby" files, but don't have the expected
-file name extension.  Adding this to the example above: >
+A fájlnevekhez illesztéséhez mintákat használhatunk. Elérési utak használata
+is megengedett. Lásd |autocmd-patterns|. Például, az "/usr/share/scripts/"
+könyvtárban ruby fájlok szerepelnek, viszont nem biztos, hogy mindegyik fájl
+rendelkezik kiterjesztéssel. Add hozzá a fenti példához az alábbiakat: >
 
 	augroup filetypedetect
 	au BufNewFile,BufRead *.xyz			setf xyz
 	au BufNewFile,BufRead /usr/share/scripts/*	setf ruby
 	augroup END
-
-However, if you now edit a file /usr/share/scripts/README.txt, this is not a
-ruby file.  The danger of a pattern ending in "*" is that it quickly matches
-too many files.  To avoid trouble with this, put the filetype.vim file in
-another directory, one that is at the end of 'runtimepath'.  For Unix for
-example, you could use "~/.vim/after/filetype.vim".
-   You now put the detection of text files in ~/.vim/filetype.vim: >
+<
+A /usr/share/scripts/README.txt nyilvánvalóan  nem ruby fájl. A "*" minta
+veszélye, hogy az összes fájlra illeszkedik. Hogy ezt elkerüljük, helyezzük át
+a filetype.vim fájlt egy másik könyvtárba. Célozzuk meg a 'runtimepath'-ban
+található utolsó elérési utat. Ez Unixon "~/.vim/after/filetype.vim".
+   Most tedd a txt fájlokért felelős fájlt ide ~/.vim/filetype.vim: >
 
 	augroup filetypedetect
 	au BufNewFile,BufRead *.txt			setf text
 	augroup END
 
-That file is found in 'runtimepath' first.  Then use this in
-~/.vim/after/filetype.vim, which is found last: >
+Tehát ugyanazon a néven, de két fájlunk van. Ezt a fájlt találja meg először a
+Vim a 'runtimepath'-ban (txt-ért felelős fájl). Aztán pedig a
+~/.vim/after/filetype.vim fájlt fogja utoljára megtalálni: >
 
 	augroup filetypedetect
 	au BufNewFile,BufRead /usr/share/scripts/*	setf ruby
 	augroup END
 
-What will happen now is that Vim searches for "filetype.vim" files in each
-directory in 'runtimepath'.  First ~/.vim/filetype.vim is found.  The
-autocommand to catch *.txt files is defined there.  Then Vim finds the
-filetype.vim file in $VIMRUNTIME, which is halfway 'runtimepath'.  Finally
-~/.vim/after/filetype.vim is found and the autocommand for detecting ruby
-files in /usr/share/scripts is added.
-   When you now edit /usr/share/scripts/README.txt, the autocommands are
-checked in the order in which they were defined.  The *.txt pattern matches,
-thus "setf text" is executed to set the filetype to "text".  The pattern for
-ruby matches too, and the "setf ruby" is executed.  But since 'filetype' was
-already set to "text", nothing happens here.
-   When you edit the file /usr/share/scripts/foobar the same autocommands are
-checked.  Only the one for ruby matches and "setf ruby" sets 'filetype' to
-ruby.
+Az történik, hogy a Vim elkezdi keresni a "filetype.vim"  fájlokat a
+'runtimepath'-ban szereplő elérési utak mentén. Először a ~/.vim/filetype.vim
+fájlt találja meg. Az autocommand sikeresen illeszti a *.txt mintát a
+README.txt fájlunkra. Aztán a Vim megtalálja a következő filetype.vim fájlt a
+$VIMRUNTIME elérési úton (ami körülbelül a 'runtimepath' felénél található.
+Végül a Vim megtalálja a ~/.vim/after/filetype.vim fájlt is melynek az
+autocommandjai hozzáadódnak az előzőekéhez.
+   Ha most szerkeszted a /usr/share/scripts/README.txt fájlt, akkor az
+autocommandok is ilyen sorrendben fognak lefutni. A *.txt minta illeszkedik,
+ezért a "setf text" parancs lefut és a fájltípus "text"-re állítja. A ruby
+fájlok mintája is illeszkedik a fájlra, ezért a "setf ruby" parancs is lefut.
+Mivel a 'filetype' már be lett állítva "text"-re, ezért ezen a ponton semmi
+sem fog történni.
+   Ha a /usr/share/scripts/foobar fájlt szerkeszted, ugyanezek az
+autocommandok futnak le ugyanilyen sorrendben. Ennél a fájlnál azonban már
+csak a ruby fog illeszkedni, ezért "setf ruby" beállítja a 'filetype'-ot
+rubyra.
 
 
-RECOGNIZING BY CONTENTS
+FELISMERÉS TARTALOM ALAPJÁN
 
-If your file cannot be recognized by its file name, you might be able to
-recognize it by its contents.  For example, many script files start with a
-line like:
+Ha a fájltípust a fájlnévről nem sikerült megállapítani, akkor a tartalma
+alapján tudjuk azonosítani. Például, a bash fájlok nagy része ezzel a sorral
+kezdődik:
 
 	#!/bin/xyz ~
 
-To recognize this script create a file "scripts.vim" in your runtime directory
-(same place where filetype.vim goes).  It might look like this: >
+Hozzunk létre egy új fájlt a runtime könyvtárunkban "scripts.vim" néven
+(ugyanarra a helyre, ahová tettük a filetype.vim fájlt). Így nézzen ki: >
 
 	if did_filetype()
 	  finish
@@ -156,24 +162,24 @@ To recognize this script create a file "scripts.vim" in your runtime directory
 	  setf xyz
 	endif
 
-The first check with did_filetype() is to avoid that you will check the
-contents of files for which the filetype was already detected by the file
-name.  That avoids wasting time on checking the file when the "setf" command
-won't do anything.
-   The scripts.vim file is sourced by an autocommand in the default
-filetype.vim file.  Therefore, the order of checks is:
+Az did_filetype() elkerülhetjük az újabb felesleges ellenőrzést, amit az
+autocommandok már elvégeztek. Megakadályozza, hogy beállítsuk a fájltípust
+újra a "setf" paranccsal, ami ebben az esetben egyébként se csinálna semmit.
+   A scripts.vim fájlt egy autocommand tölti be az alapértelmezett
+filetype.vim fájlból. Ezért az ellenőrzési sorrend:
 
-	1. filetype.vim files before $VIMRUNTIME in 'runtimepath'
-	2. first part of $VIMRUNTIME/filetype.vim
-	3. all scripts.vim files in 'runtimepath'
-	4. remainder of $VIMRUNTIME/filetype.vim
-	5. filetype.vim files after $VIMRUNTIME in 'runtimepath'
+	1. filetype.vim fájlok a $VIMRUNTIME  előtt a 'runtimepath'-ban
+	2. $VIMRUNTIME/filetype.vim elő része
+	3. minden scripts.vim fájlt a 'runtimepath'-ban
+	4. $VIMRUNTIME/filetype.vim maradéka
+	5. filetype.vim fájlok $VIMRUNTIME után a 'runtimepath'-ban
 
-If this is not sufficient for you, add an autocommand that matches all files
-and sources a script or executes a function to check the contents of the file.
+Ha ez nem lenne elég, kiegészítheted olyan autocommandokkal mely az összes
+fájlra illeszt és külön szkripteket vagy függvényeken keresztül ellenőrzi a
+fájlnevet.
 
 ==============================================================================
 
-Következő fejezet: |usr_44.txt|  Your own syntax highlighted
+Következő fejezet: |usr_44.txt|  A saját szintaxis kiemelésed
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
