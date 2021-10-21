@@ -1,8 +1,8 @@
 *usr_41.txt*	 For Vim version 8.2.  Last change: 2021 Aug 08
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			      Write a Vim script
+				Vim szkriptek
 
 
 The Vim script language is used for the startup vimrc file, syntax files, and
