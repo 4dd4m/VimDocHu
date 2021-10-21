@@ -3,14 +3,15 @@
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_32.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_40.hux
+* A fordítás jelenleg usr_01.hux - usr_40.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_42.hux
+* Hátrébb sorolva: usr_41.hux (terjedelem miatt)
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
   azonban pontosításra szorul
 
 
 Kézikönyv:
- [###############################################----------------------------]
+ [####################################################-----------------------]
 
 Dokumentáció:
  [---------------------------------------------------------------------------]
