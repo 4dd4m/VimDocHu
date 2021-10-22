@@ -1,68 +1,65 @@
 *usr_44.txt*	For Vim version 8.2.  Last change: 2017 May 06
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			 Your own syntax highlighted
+			 A saját szintaxis kiemelésed
 
 
-Vim comes with highlighting for a couple of hundred different file types.  If
-the file you are editing isn't included, read this chapter to find out how to
-get this type of file highlighted.  Also see |:syn-define| in the reference
-manual.
+A Vim többszázféle fájltípus szintaxisának kiemelésére képes. Ha olyan
+helyzetbe kerülnél, hogy a Vim mégsem lenne képes megbirkózni a kiemeléssel,
+akkor ez a Te fejezeted. A fejezet a szintaxisfájlok szerkesztéséről szól.
+Lásd |:syn-define| (dokumentáció).
 
-|44.1|	Basic syntax commands
-|44.2|	Keywords
-|44.3|	Matches
-|44.4|	Regions
-|44.5|	Nested items
+|44.1|	Alap szintaxis parancsok
+|44.2|	Kulcsszavak
+|44.3|	Egyezések
+|44.4|	Tartományok
+|44.5|	Egymásba ágyazott elemek
 |44.6|	Following groups
-|44.7|	Other arguments
+|44.7|	Egyéb argumentumok
 |44.8|	Clusters
-|44.9|	Including another syntax file
-|44.10|	Synchronizing
-|44.11|	Installing a syntax file
-|44.12|	Portable syntax file layout
+|44.9|	Szintaxis fájl beágyazása
+|44.10|	Szinkronizáció
+|44.11|	Szintaxis fájl telepítése
+|44.12|	Hordozható szintaxis fájl szerkezet
 
-     Következő fejezet: |usr_45.txt|  Select your language
- Előző fejezet: |usr_43.txt|  Using filetypes
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_45.txt|  Nyelvválasztás
+    Előző fejezet: |usr_43.txt|  Fájltípusok
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*44.1*	Basic syntax commands
+*44.1*	Alap szintaxis parancsok
 
-Using an existing syntax file to start with will save you a lot of time.  Try
-finding a syntax file in $VIMRUNTIME/syntax for a language that is similar.
-These files will also show you the normal layout of a syntax file.  To
-understand it, you need to read the following.
+Sok időt spórolhatunk, ha egy már meglévő, az elképzeléseinkhez hasonló
+szintaxis fájlt szerkesztünk. Nézzünk körül a $VIMRUNTIME/syntax könyvtárban,
+próbáljuk megtalálni a legmegfelelőbbet. A fájlok remekül mutatják a
+szintaxisfájlok szerkezetét.
 
-Let's start with the basic arguments.  Before we start defining any new
-syntax, we need to clear out any old definitions: >
+Kezdjük az alapoknál. Mielőtt bármit is csinálnák, távolítsuk el a betöltött
+kiemelést: >
 
 	:syntax clear
 
-This isn't required in the final syntax file, but very useful when
-experimenting.
+A kísérletezéshez hasznos. 
 
-There are more simplifications in this chapter.  If you are writing a syntax
-file to be used by others, read all the way through the end to find out the
-details.
+A fejezetben több egyszerűsítés is található. Ha a fájlt később használhatják
+mások is, olvasd végig a részleteket.
 
 
-LISTING DEFINED ITEMS
+DEFINIÁLT ELEMEK LISTÁZÁSA
 
-To check which syntax items are currently defined, use this command: >
+A teljes lista megjelenítése: >
 
 	:syntax
 
-You can use this to check which items have actually been defined.  Quite
-useful when you are experimenting with a new syntax file.  It also shows the
-colors used for each item, which helps to find out what is what.
-   To list the items in a specific syntax group use: >
+A lista megjeleníti a definiált elemeket, a hozzájuk tartozó színnel, így
+gyorsan fel lehet ismerni, hogy mi mihez tartozik.
+   Ha csak egy csoportot szeretnénk látni: >
 
 	:syntax list {group-name}
 
-This also can be used to list clusters (explained in |44.8|).  Just include
-the @ in the name.
+A parancs a clustereket is képes megjeleníteni (ezekre kitérünk a |44.8|
+pontban), ehhez adjuk hozzá a @ jelet a fájlnévhez.
 
 
 MATCHING CASE
