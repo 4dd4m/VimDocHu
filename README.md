@@ -30,7 +30,7 @@
     * syntax on
     * au! BufEnter *.hux :set syntax=hux
     * set conceallevel=2
-    * set concealcursor=nj
+    * set concealcursor=n
 * nvim? telepíthető, de az nvim specifikus anyagokat @en kereséssel éred el
 * mindenképp nvim? ajánlott telepíteni a vimet, telepítsd oda. 
 
