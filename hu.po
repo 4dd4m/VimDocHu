@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Vim Magyar Fordítás\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Adam Torok <a.torok@ulster.ac.uk>\n"
 "POT-Creation-Date: 2021-10-23 08:25+0100\n"
 "PO-Revision-Date: 2003-02-25 11:05+0000\n"
 "Last-Translator: Adam Torok <a.torok@ulster.ac.uk>\n"
@@ -128,17 +128,17 @@ msgstr "E680: <buffer=%d>: érvénytelen buffer "
 # #, c-format
 # msgid "%s Autocommands for \"%s\""
 # msgstr ""
-# 
-# #: ../autocmd.c:2356
-# #, c-format
-# msgid "Executing %s"
-# msgstr ""
-# 
+ 
+#: ../autocmd.c:2356
+#, c-format
+msgid "Executing %s"
+msgstr "%s futtatása"
+ 
 # #: ../autocmd.c:2426
 # #, c-format
 # msgid "autocommand %s"
 # msgstr ""
-# 
+ 
 # #: ../blob.c:401
 # msgid "E972: Blob value does not have the right number of bytes"
 # msgstr ""
@@ -155,14 +155,14 @@ msgstr "E680: <buffer=%d>: érvénytelen buffer "
 # msgid "E817: Blowfish big/little endian use wrong"
 # msgstr ""
 # 
-# #: ../blowfish.c:675
-# msgid "E818: sha256 test failed"
-# msgstr ""
-# 
-# #: ../blowfish.c:680
-# msgid "E819: Blowfish test failed"
-# msgstr ""
-# 
+#: ../blowfish.c:675
+msgid "E818: sha256 test failed"
+msgstr "E818: sha256 teszt hiba"
+ 
+#: ../blowfish.c:680
+msgid "E819: Blowfish test failed"
+msgstr "E819: Blowfish teszt hibe"
+ 
 # #: ../buffer.c:65
 # msgid "[Location List]"
 # msgstr ""
@@ -198,23 +198,23 @@ msgstr "E680: <buffer=%d>: érvénytelen buffer "
 # msgid "E90: Cannot unload last buffer"
 # msgstr "E102: Cannot find buffer \"%s\""
 # 
-# #: ../buffer.c:1260
-# msgid "E84: No modified buffer found"
-# msgstr ""
+#: ../buffer.c:1260
+msgid "E84: No modified buffer found"
+msgstr "E84: Az összes buffer változatlan"
 # 
 # #. back where we started, didn't find anything.
 # #: ../buffer.c:1299
 # msgid "E85: There is no listed buffer"
 # msgstr ""
-# 
+ 
 # #: ../buffer.c:1314
 msgid "E87: Cannot go beyond last buffer"
 msgstr "E87: Első buffer"
-# 
+ 
 # #: ../buffer.c:1316
 msgid "E88: Cannot go before first buffer"
 msgstr "E88: Utolsó buffer"
-# 
+ 
 # #: ../buffer.c:1369
 # #, fuzzy, c-format
 # msgid "E89: No write since last change for buffer %d (add ! to override)"
@@ -241,14 +241,14 @@ msgstr "E88: Utolsó buffer"
 # msgid_plural "%d buffers unloaded"
 # msgstr[0] "E918: Buffer must be loaded: %s"
 # msgstr[1] "E918: Buffer must be loaded: %s"
-# 
-# #: ../buffer.c:1680
-# #, c-format
-# msgid "%d buffer deleted"
-# msgid_plural "%d buffers deleted"
-# msgstr[0] ""
-# msgstr[1] ""
-# 
+ 
+#: ../buffer.c:1680
+#, c-format
+#msgid "%d buffer deleted"
+#msgid_plural "%d buffers deleted"
+#msgstr[0] "%d buffer törölve"
+#msgstr[1] "%d buffer törölve"
+ 
 # #: ../buffer.c:1683
 # #, c-format
 # msgid "%d buffer wiped out"
@@ -269,9 +269,9 @@ msgstr "E88: Utolsó buffer"
 # msgstr ""
 # 
 # #: ../buffer.c:2387 ../quickfix.c:7222
-# #, c-format
-# msgid "E92: Buffer %d not found"
-# msgstr ""
+#, c-format
+msgid "E92: Buffer %d not found"
+msgstr "E92: %d buffer nem található"
 # 
 # #: ../buffer.c:2671
 # #, fuzzy, c-format
@@ -295,9 +295,9 @@ msgstr "sor %ld"
 msgid " [Modified]"
 msgstr "[Módosítva]"
  
-# #: ../buffer.c:3690
-# msgid "[Not edited]"
-# msgstr ""
+#: ../buffer.c:3690
+msgid "[Not edited]"
+msgstr "[Módosítatlan]"
 # 
 # #: ../buffer.c:3696
 msgid "[Read errors]"
@@ -370,12 +370,12 @@ msgstr "Előnézet"
 # #. don't use emsg() here, don't want to flush the buffers
 # #: ../bufwrite.c:535
 msgid "WARNING: The file has been changed since reading it!!!"
-msgstr "FIGYELEM: A fájl tartalma változot!!!"
-# 
+msgstr "FIGYELEM: A fájl tartalma változott!!!"
+ 
 #: ../bufwrite.c:537
 msgid "Do you really want to write to it"
 msgstr "Valóban menteni szeretnéd"
-# 
+ 
 #: ../bufwrite.c:607
 msgid "[New]"
 msgstr "[Új]"
@@ -458,10 +458,10 @@ msgstr "könyvtár"
 # #: ../bufwrite.c:1830
 # msgid "E212: Can't open file for writing"
 # msgstr "E212: Cannot open file for writing"
-# 
-# #: ../bufwrite.c:1907
-# msgid "E949: File changed while writing"
-# msgstr ""
+ 
+#: ../bufwrite.c:1907
+msgid "E949: File changed while writing"
+msgstr "E949: A fájl írás közben változott"
 # 
 # #: ../bufwrite.c:2233
 # msgid "E512: Close failed"
@@ -512,11 +512,11 @@ msgstr "könyvtár"
 # #: ../bufwrite.c:2410
 # msgid " appended"
 # msgstr ""
-# 
-# #: ../bufwrite.c:2412
-# msgid " [w]"
-# msgstr ""
-# 
+ 
+#: ../bufwrite.c:2412
+msgid " [w]"
+msgstr "[w]"
+ 
 #: ../bufwrite.c:2412
 msgid " written"
 msgstr " mentve"
@@ -669,10 +669,10 @@ msgstr " mentve"
 # #: ../cmdexpand.c:615
 # msgid " kind file\n"
 # msgstr ""
-# 
-# #: ../cmdhist.c:704
-# msgid "'history' option is zero"
-# msgstr ""
+ 
+#: ../cmdhist.c:704
+msgid "'history' option is zero"
+msgstr " a 'history' értéke 0"
 # 
 # #: ../crypt.c:203
 # msgid "E821: File is encrypted with unknown method"
@@ -1977,15 +1977,15 @@ msgstr "Névtelen"
 # #, fuzzy, c-format
 # msgid "E321: Could not reload \"%s\""
 # msgstr "E255: Could not read in sign data!"
-# 
-# #: ../fileio.c:5616
-# msgid "E219: Missing {."
-# msgstr ""
-# 
-# #: ../fileio.c:5618
-# msgid "E220: Missing }."
-# msgstr ""
-# 
+
+#: ../fileio.c:5616
+msgid "E219: Missing {."
+msgstr "E219: Hiányzó {."
+
+#: ../fileio.c:5618
+msgid "E220: Missing }."
+msgstr "E220: Hiányzó }."
+
 # #: ../filepath.c:1767 ../filepath.c:2300 ../terminal.c:4778
 # msgid "<empty>"
 # msgstr ""
@@ -4702,19 +4702,19 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../message.c:1364
 # msgid "Interrupt: "
 # msgstr ""
-# 
-# #: ../message.c:1366
-# msgid "Press ENTER or type command to continue"
-# msgstr ""
-# 
+ 
+#: ../message.c:1366
+msgid "Press ENTER or type command to continue"
+msgstr "ENTER vagy parancs a folytatáshoz"
+ 
 # #: ../message.c:2440
 # #, c-format
 # msgid "%s line %ld"
 # msgstr ""
-# 
-# #: ../message.c:3291
-# msgid "-- More --"
-# msgstr ""
+ 
+#: ../message.c:3291
+msgid "-- More --"
+msgstr "-- Több --"
 # 
 # #: ../message.c:3297
 # msgid " SPACE/d/j: screen/page/line down, b/u/k: up, q: quit "
@@ -4764,10 +4764,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../misc1.c:1059
 # msgid " (Interrupted)"
 # msgstr ""
-# 
-# #: ../misc1.c:1144
-# msgid "Beep!"
-# msgstr ""
+ 
+#: ../misc1.c:1144
+msgid "Beep!"
+msgstr "Beep!"
 # 
 # #: ../misc1.c:2449
 # msgid "E677: Error writing temp file"
@@ -4777,10 +4777,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, c-format
 # msgid "Calling shell to execute: \"%s\""
 # msgstr ""
-# 
-# #: ../misc2.c:2071
-# msgid "E545: Missing colon"
-# msgstr ""
+ 
+#: ../misc2.c:2071
+msgid "E545: Missing colon"
+msgstr "E545: Hiányzó ','"
 # 
 # #: ../misc2.c:2073 ../misc2.c:2099
 # msgid "E546: Illegal mode"
@@ -4789,10 +4789,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../misc2.c:2138
 # msgid "E547: Illegal mouseshape"
 # msgstr ""
-# 
-# #: ../misc2.c:2178
-# msgid "E548: digit expected"
-# msgstr "E548: Digit expected"
+ 
+#: ../misc2.c:2178
+msgid "E548: digit expected"
+msgstr "E548: Nem szám"
 # 
 # #: ../misc2.c:2183
 # msgid "E549: Illegal percentage"
@@ -5750,12 +5750,12 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, c-format
 # msgid "freeing %ld lines"
 # msgstr ""
-# 
-# #: ../register.c:1362
-# #, c-format
-# msgid " into \"%c"
-# msgstr ""
-# 
+ 
+#: ../register.c:1362
+#, c-format
+msgid " into \"%c"
+msgstr " \"%c regiszterbe"
+ 
 # #: ../register.c:1368
 # #, c-format
 # msgid "block of %ld line yanked%s"
@@ -5961,17 +5961,17 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, fuzzy, c-format
 # msgid "E383: Invalid search string: %s"
 # msgstr "E935: Invalid submatch number: %d"
-# 
-# #: ../search.c:1130
-# #, c-format
-# msgid "E384: search hit TOP without match for: %s"
-# msgstr "E384: Search hit TOP without match for: %s"
-# 
-# #: ../search.c:1133
-# #, c-format
-# msgid "E385: search hit BOTTOM without match for: %s"
-# msgstr "E385: Search hit BOTTOM without match for: %s"
-# 
+ 
+#: ../search.c:1130
+#, c-format
+msgid "E384: search hit TOP without match for: %s"
+msgstr "E384: Fájl ELEJE nincs egyezés: %s"
+ 
+#: ../search.c:1133
+#, c-format
+msgid "E385: search hit BOTTOM without match for: %s"
+msgstr "E385: Fájl VÉGE nincs egyezés: %s"
+ 
 # #: ../search.c:1650
 # msgid "E386: Expected '?' or '/'  after ';'"
 # msgstr ""
@@ -6489,12 +6489,12 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, c-format
 # msgid "Number of words after soundfolding: %ld"
 # msgstr ""
-# 
-# #: ../spellfile.c:5639
-# #, c-format
-# msgid "Total number of words: %d"
-# msgstr ""
-# 
+ 
+#: ../spellfile.c:5639
+#, c-format
+msgid "Total number of words: %d"
+msgstr "Szavak száma: %d"
+ 
 # #: ../spellfile.c:5810
 # #, c-format
 # msgid "Writing suggestion file %s..."
@@ -6527,11 +6527,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, c-format
 # msgid "Writing spell file %s..."
 # msgstr ""
-# 
-# #: ../spellfile.c:6097
-# msgid "Done!"
-# msgstr ""
-# 
+ 
+#: ../spellfile.c:6097
+msgid "Done!"
+msgstr "Kész!"
+ 
 # #: ../spellfile.c:6231
 # #, c-format
 # msgid "E765: 'spellfile' does not have %d entries"
@@ -6698,10 +6698,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, c-format
 # msgid "E392: No such syntax cluster: %s"
 # msgstr ""
-# 
-# #: ../syntax.c:3942
-# msgid "from the first line"
-# msgstr ""
+
+#: ../syntax.c:3942
+msgid "from the first line"
+msgstr "az első sortól"
 # 
 # #: ../syntax.c:3947
 # msgid "minimal "
@@ -7025,11 +7025,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../terminal.c:4746
 # msgid "E958: Job already finished"
 # msgstr ""
-# 
-# #: ../terminal.c:4772
-# #, c-format
-# msgid "E953: File exists: %s"
-# msgstr ""
+
+#: ../terminal.c:4772
+#, c-format
+msgid "E953: File exists: %s"
+msgstr "E953: %s már létezik"
 # 
 # #: ../terminal.c:5876
 # msgid "E955: Not a terminal buffer"
@@ -7083,10 +7083,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, fuzzy, c-format
 # msgid "E970: Unknown highlight group name: '%s'"
 # msgstr "E411: Highlight group not found: %s"
-# 
-# #: ../time.c:93 ../time.c:298
-# msgid "(Invalid)"
-# msgstr ""
+ 
+#: ../time.c:93 ../time.c:298
+msgid "(Invalid)"
+msgstr "(Érvénytelen)"
 # 
 # #: ../time.c:96
 # msgid "%a %b %d %H:%M:%S %Y"
@@ -7220,12 +7220,12 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../typval.c:1257
 # msgid "E694: Invalid operation for Funcrefs"
 # msgstr ""
-# 
-# #: ../typval.c:1649
-# #, c-format
-# msgid "E112: Option name missing: %s"
-# msgstr ""
-# 
+ 
+#: ../typval.c:1649
+#, c-format
+msgid "E112: Option name missing: %s"
+msgstr "E112: Hiányzó opció: %s"
+ 
 # #: ../typval.c:1799
 # msgid "E973: Blob literal should have an even number of hex characters"
 # msgstr ""
@@ -7363,23 +7363,23 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, fuzzy
 # msgid "E438: u_undo: line numbers wrong"
 # msgstr "E842: No line number to use for \"<slnum>\""
-# 
-# #: ../undo.c:2989
-# msgid "more line"
-# msgstr ""
-# 
-# #: ../undo.c:2991
-# msgid "more lines"
-# msgstr ""
-# 
-# #: ../undo.c:2993
-# msgid "line less"
-# msgstr ""
-# 
-# #: ../undo.c:2995
-# msgid "fewer lines"
-# msgstr ""
-# 
+
+#: ../undo.c:2989
+msgid "more line"
+msgstr "sorral több"
+ 
+#: ../undo.c:2991
+msgid "more lines"
+msgstr "több sor"
+ 
+#: ../undo.c:2993
+msgid "line less"
+msgstr "sorral kevesebb"
+ 
+#: ../undo.c:2995
+msgid "fewer lines"
+msgstr "kevesebb sor"
+ 
 # #: ../undo.c:3000
 # msgid "change"
 # msgstr ""
@@ -7400,11 +7400,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../undo.c:3041
 # msgid "after"
 # msgstr ""
-# 
-# #: ../undo.c:3154
-# msgid "Nothing to undo"
-# msgstr ""
-# 
+
+#: ../undo.c:3154
+msgid "Nothing to undo"
+msgstr "Nincs mit  visszavonni"
+ 
 # #: ../undo.c:3160
 # msgid "number changes  when               saved"
 # msgstr ""
@@ -7552,11 +7552,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../userfunc.c:2389
 # msgid "E132: Function call depth is higher than 'maxfuncdepth'"
 # msgstr ""
-# 
-# #: ../userfunc.c:2675
-# #, c-format
-# msgid "calling %s"
-# msgstr ""
+ 
+#: ../userfunc.c:2675
+#, c-format
+msgid "calling %s"
+msgstr "%s hívása"
 # 
 # #: ../userfunc.c:2770
 # #, c-format
@@ -7813,11 +7813,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../version.c:8240
 # msgid "with GUI."
 # msgstr ""
-# 
-# #: ../version.c:8248
-# msgid "  Features included (+) or not (-):\n"
-# msgstr ""
-# 
+
+#: ../version.c:8248
+msgid "  Features included (+) or not (-):\n"
+msgstr "  Modulok: elérhető (+), hiányzó (-):\n"
+ 
 # #: ../version.c:8255
 # msgid "   system vimrc file: \""
 # msgstr ""
@@ -7877,11 +7877,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../version.c:8327
 # msgid "Compilation: "
 # msgstr ""
-# 
-# #: ../version.c:8333
-# msgid "Compiler: "
-# msgstr ""
-# 
+ 
+#: ../version.c:8333
+msgid "Compiler: "
+msgstr "Fordító: "
+ 
 # #: ../version.c:8338
 # msgid "Linking: "
 # msgstr ""
@@ -7893,23 +7893,23 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../version.c:8379
 # msgid "VIM - Vi IMproved"
 # msgstr ""
-# 
-# #: ../version.c:8381
-# msgid "version "
-# msgstr ""
+ 
+#: ../version.c:8381
+msgid "version "
+msgstr "verzió "
 # 
 # #: ../version.c:8382
 # msgid "by Bram Moolenaar et al."
 # msgstr ""
-# 
-# #: ../version.c:8386
-# msgid "Vim is open source and freely distributable"
-# msgstr ""
-# 
-# #: ../version.c:8388
-# msgid "Help poor children in Uganda!"
-# msgstr ""
-# 
+
+#: ../version.c:8386
+msgid "Vim is open source and freely distributable"
+msgstr "A Vim nyílt forráskódú és szabadon terjeszthető"
+ 
+#: ../version.c:8388
+msgid "Help poor children in Uganda!"
+msgstr "Segíts az Ugaindai szegény gyermekeken!"
+ 
 # #: ../version.c:8389
 # msgid "type  :help iccf<Enter>       for information "
 # msgstr ""
@@ -7961,14 +7961,14 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../version.c:8422
 # msgid "                              for Vim defaults   "
 # msgstr ""
-# 
-# #: ../version.c:8463
-# msgid "Sponsor Vim development!"
-# msgstr ""
-# 
-# #: ../version.c:8464
-# msgid "Become a registered Vim user!"
-# msgstr ""
+ 
+#: ../version.c:8463
+msgid "Sponsor Vim development!"
+msgstr "Támogasd a Vim fejlesztését!"
+
+#: ../version.c:8464
+msgid "Become a registered Vim user!"
+msgstr "Légy regisztrált Vim felhasználó!"
 # 
 # #: ../version.c:8467
 # msgid "type  :help sponsor<Enter>    for information "
@@ -7985,28 +7985,30 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../vim9compile.c:3967
 # msgid "[end of lines]"
 # msgstr ""
-# 
-# #: ../vim9compile.c:6021
-# msgid "global"
-# msgstr ""
-# 
-# #: ../vim9compile.c:6022
-# msgid "buffer"
-# msgstr ""
-# 
-# #: ../vim9compile.c:6023
-# msgid "window"
-# msgstr ""
-# 
-# #: ../vim9compile.c:6024
-# msgid "tab"
-# msgstr ""
-# 
-# #: ../viminfo.c:432
-# msgid ""
-# "\n"
-# "# Buffer list:\n"
-# msgstr ""
+
+#: ../vim9compile.c:6021
+msgid "global"
+msgstr "globális"
+
+#: ../vim9compile.c:6022
+msgid "buffer"
+msgstr "buffer"
+
+#: ../vim9compile.c:6023
+msgid "window"
+msgstr "ablak"
+ 
+#: ../vim9compile.c:6024
+msgid "tab"
+msgstr "fül"
+ 
+#: ../viminfo.c:432
+msgid ""
+"\n"
+"# Buffer list:\n"
+msgstr ""
+"\n"
+"# Bufferlista:\n"
 # 
 # #: ../viminfo.c:844
 # #, c-format
@@ -8070,20 +8072,22 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # "# Last %sSearch Pattern:\n"
 # "~"
 # msgstr ""
-# 
-# #: ../viminfo.c:1546
-# msgid "Substitute "
-# msgstr ""
-# 
+
+#: ../viminfo.c:1546
+msgid "Substitute "
+msgstr "Csere "
+ 
 # #: ../viminfo.c:1614
 # msgid "Illegal register name"
 # msgstr ""
-# 
-# #: ../viminfo.c:1829
-# msgid ""
-# "\n"
-# "# Registers:\n"
-# msgstr ""
+ 
+#: ../viminfo.c:1829
+msgid ""
+"\n"
+"# Registers:\n"
+msgstr ""
+"\n"
+"# Regiszterek:\n"
 # 
 # #: ../viminfo.c:1894
 # #, fuzzy, c-format
@@ -8151,10 +8155,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../viminfo.c:3032
 # msgid " oldfiles"
 # msgstr ""
-# 
-# #: ../viminfo.c:3033
-# msgid " FAILED"
-# msgstr ""
+ 
+#: ../viminfo.c:3033
+msgid " FAILED"
+msgstr " HIBA"
 # 
 # #. avoid a wait_return for this message, it's annoying
 # #: ../viminfo.c:3129
@@ -8188,11 +8192,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, fuzzy
 # msgid "E195: Cannot open viminfo file for reading"
 # msgstr "E166: Cannot open linked file for writing"
-# 
-# #: ../window.c:78
-# msgid "Already only one window"
-# msgstr ""
-# 
+
+#: ../window.c:78
+msgid "Already only one window"
+msgstr "Már nics több alblak"
+ 
 # #: ../window.c:200
 # #, c-format
 # msgid "E92: Buffer %ld not found"
@@ -8296,11 +8300,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #, fuzzy
 # msgid "E13: File exists (add ! to override)"
 # msgstr "E510: Cannot make backup file (add ! to override)"
-# 
-# #: ../errors.h:25
-# #, c-format
-# msgid "E15: Invalid expression: \"%s\""
-# msgstr ""
+ 
+#: ../errors.h:25
+#, c-format
+msgid "E15: Invalid expression: \"%s\""
+msgstr "E15: \"%s\" érvénytelen kifejezés"
 # 
 # #: ../errors.h:28
 # #, fuzzy
@@ -8324,11 +8328,11 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # #: ../errors.h:40
 # msgid "E19: Mark has invalid line number"
 # msgstr ""
-# 
-# #: ../errors.h:42
-# msgid "E20: Mark not set"
-# msgstr ""
-# 
+
+#: ../errors.h:42
+msgid "E20: Mark not set"
+msgstr "E20: Érvénytelen mark"
+ 
 #: ../errors.h:44
 msgid "E21: Cannot make changes, 'modifiable' is off"
 msgstr "E21: Nem menthető, 'modifiable': ki"
@@ -9747,42 +9751,42 @@ msgstr "E37: Kilépsz mentés nélkül? (ha igen :q!)"
 # #: ../globals.h:1600
 # msgid "E588: :endwhile without :while"
 # msgstr ""
-# 
-# #: ../globals.h:1601
-# msgid "E588: :endfor without :for"
-# msgstr ""
-# 
-# #: ../globals.h:1603
-# msgid "E472: Command failed"
-# msgstr ""
-# 
+
+#: ../globals.h:1601
+msgid "E588: :endfor without :for"
+msgstr "E588: :endofr :for nélkül"
+ 
+#: ../globals.h:1603
+msgid "E472: Command failed"
+msgstr "E472: Parancshiba"
+ 
 # #: ../globals.h:1605
 # #, fuzzy, c-format
 # msgid "E234: Unknown fontset: %s"
 # msgstr "E273: Unknown longjmp status %d"
-# 
+ 
 # #: ../globals.h:1609
 # #, fuzzy, c-format
 # msgid "E235: Unknown font: %s"
 # msgstr "E273: Unknown longjmp status %d"
+ 
+#: ../globals.h:1612
+#, c-format
+msgid "E236: Font \"%s\" is not fixed-width"
+msgstr "E236: \"%s\" nem fix szélességű"
 # 
-# #: ../globals.h:1612
-# #, c-format
-# msgid "E236: Font \"%s\" is not fixed-width"
-# msgstr ""
-# 
-# #: ../globals.h:1614
-# msgid "E473: Internal error"
-# msgstr ""
+#: ../globals.h:1614
+msgid "E473: Internal error"
+msgstr "E473: Belső hiba"
 # 
 # #: ../globals.h:1615
 # #, fuzzy, c-format
 # msgid "E685: Internal error: %s"
 # msgstr "E40: %s hibafájl nem nyitható meg"
-# 
-# #: ../globals.h:1616
-# msgid "Interrupted"
-# msgstr ""
+
+#: ../globals.h:1616
+msgid "Interrupted"
+msgstr "Megszakítva"
 # 
 # #: ../globals.h:1617
 # #, fuzzy
@@ -9817,10 +9821,10 @@ msgstr "E37: Kilépsz mentés nélkül? (ha igen :q!)"
 # #, c-format
 # msgid "E364: Library call failed for \"%s()\""
 # msgstr ""
-# 
-# #: ../globals.h:1629
-# msgid "E667: Fsync failed"
-# msgstr ""
+ 
+#: ../globals.h:1629
+msgid "E667: Fsync failed"
+msgstr "E667: Fsync hiba"
 # 
 # #: ../globals.h:1640
 # #, c-format
@@ -9831,23 +9835,23 @@ msgstr "E37: Kilépsz mentés nélkül? (ha igen :q!)"
 # #, c-format
 # msgid "E448: Could not load library function %s"
 # msgstr ""
-# 
-# #: ../globals.h:1643
-# msgid "E477: No ! allowed"
-# msgstr ""
+ 
+#: ../globals.h:1643
+msgid "E477: No ! allowed"
+msgstr "E477: ! nem érvényes"
 # 
 # #: ../globals.h:1645
 # msgid "E800: Arabic cannot be used: Not enabled at compile time\n"
 # msgstr ""
-# 
-# #: ../globals.h:1647
-# msgid "E479: No match"
-# msgstr ""
-# 
-# #: ../globals.h:1648
-# #, c-format
-# msgid "E480: No match: %s"
-# msgstr ""
+
+#: ../globals.h:1647
+msgid "E479: No match"
+msgstr "E479: Nincs találat"
+
+#: ../globals.h:1648
+#, c-format
+msgid "E480: No match: %s"
+msgstr "E480: %s: Nincs találat"
 # 
 # #: ../globals.h:1649
 # msgid "E481: No range allowed"
@@ -9871,20 +9875,20 @@ msgstr "E482: %s nem hozható létre"
 # #, c-format
 msgid "E484: Can't open file %s"
 msgstr "E484: %s nem nyitható meg"
-# 
+ 
 # #: ../globals.h:1656
 # #, c-format
 # msgid "E485: Can't read file %s"
 # msgstr "E485: %s fájl nem olvasható"
-# 
+ 
 # #: ../globals.h:1658
 # msgid "E233: cannot open display"
 # msgstr "E233: Cannot open display"
-# 
+ 
 #: ../globals.h:1660
 msgid "Pattern not found"
 msgstr "A minta nem található"
-# 
+ 
 # #: ../globals.h:1661
 # #, fuzzy, c-format
 # msgid "E486: Pattern not found: %s"
@@ -9894,9 +9898,9 @@ msgid "E486: Pattern not found: %s"
 msgstr "E486: Minta nem található: %s"
 
  
-# #: ../globals.h:1662
-# msgid "E487: Argument must be positive"
-# msgstr ""
+#: ../globals.h:1662
+msgid "E487: Argument must be positive"
+msgstr "E487: Nem pozitív argumentum"
 # 
 # #: ../globals.h:1664
 # msgid "E459: Cannot go back to previous directory"
@@ -10014,11 +10018,11 @@ msgstr "E486: Minta nem található: %s"
 # #: ../globals.h:1693
 # msgid "E996: Cannot lock an option"
 # msgstr ""
-# 
-# #: ../globals.h:1694
-# #, c-format
-# msgid "E113: Unknown option: %s"
-# msgstr ""
+
+#: ../globals.h:1694
+#, c-format
+msgid "E113: Unknown option: %s"
+msgstr "E113: %s: ismeretlen opció"
 # 
 # #: ../globals.h:1695
 # #, c-format
@@ -10029,10 +10033,10 @@ msgstr "E486: Minta nem található: %s"
 # #, fuzzy, c-format
 # msgid "E857: Dictionary key \"%s\" required"
 # msgstr "E437: Terminal capability \"cm\" required"
-# 
-# #: ../globals.h:1698
-# msgid "E523: Not allowed here"
-# msgstr ""
+
+#: ../globals.h:1698
+msgid "E523: Not allowed here"
+msgstr "E523: Itt nem engedélyezett"
 # 
 # #: ../globals.h:1699
 # msgid "E578: Not allowed to change text here"
@@ -10071,14 +10075,14 @@ msgstr "E486: Minta nem található: %s"
 # #: ../globals.h:1712
 # msgid "E75: Name too long"
 # msgstr ""
-# 
-# #: ../globals.h:1713
-# msgid "E76: Too many ["
-# msgstr ""
-# 
-# #: ../globals.h:1714
-# msgid "E77: Too many file names"
-# msgstr ""
+ 
+#: ../globals.h:1713
+msgid "E76: Too many ["
+msgstr "E76: Túl sok ["
+ 
+#: ../globals.h:1714
+msgid "E77: Too many file names"
+msgstr "E77: Túl sok fájlnév"
 # 
 # #: ../globals.h:1715
 # #, fuzzy
@@ -10116,11 +10120,11 @@ msgstr "E78: Ismeretlen mark"
 # #, fuzzy
 # msgid "E939: Positive count required"
 # msgstr "E536: Comma required"
-# 
-# #: ../globals.h:1724
-# msgid "E81: Using <SID> not in a script context"
-# msgstr ""
-# 
+ 
+#: ../globals.h:1724
+msgid "E81: Using <SID> not in a script context"
+msgstr "E81: <SID> csak szkipt kontextuban használható"
+ 
 # #: ../globals.h:1725
 # #, fuzzy, c-format
 # msgid "E107: Missing parentheses: %s"
@@ -10134,12 +10138,12 @@ msgstr "E110: Hiányzó ')'"
 # #, c-format
 msgid "E720: Missing colon in Dictionary: %s"
 msgstr "E720: %s szótárban hiányzó ','"
-# 
-# #: ../globals.h:1728
-# #, c-format
-# msgid "E721: Duplicate key in Dictionary: \"%s\""
-# msgstr ""
-# 
+
+#: ../globals.h:1728
+#, c-format
+msgid "E721: Duplicate key in Dictionary: \"%s\""
+msgstr "E721: \"%s\" szótárban duplikált azonodító"
+ 
 # #: ../globals.h:1729
 # #, c-format
 # msgid "E722: Missing comma in Dictionary: %s"
@@ -10165,28 +10169,28 @@ msgstr "E720: %s szótárban hiányzó ','"
 # #: ../globals.h:1739
 # msgid "E363: pattern uses more memory than 'maxmempattern'"
 # msgstr "E363: Pattern uses more memory than 'maxmempattern'"
-# 
-# #: ../globals.h:1740
-# msgid "E749: empty buffer"
-# msgstr "E749: Üres Buffer"
-# 
-# #: ../globals.h:1741
-# #, c-format
-# msgid "E86: Buffer %ld does not exist"
-# msgstr ""
-# 
-# #: ../globals.h:1743
-# msgid "E682: Invalid search pattern or delimiter"
-# msgstr ""
-# 
+ 
+#: ../globals.h:1740
+msgid "E749: empty buffer"
+msgstr "E749: üres buffer"
+ 
+#: ../globals.h:1741
+#, c-format
+msgid "E86: Buffer %ld does not exist"
+msgstr "E86: %ld buffer nem létezik"
+ 
+#: ../globals.h:1743
+msgid "E682: Invalid search pattern or delimiter"
+msgstr "E682: Érvénytelen minta, elválasztó"
+ 
 # #: ../globals.h:1744
 # msgid "E139: File is loaded in another buffer"
 # msgstr ""
-# 
-# #: ../globals.h:1746
-# #, c-format
-# msgid "E764: Option '%s' is not set"
-# msgstr ""
+ 
+#: ../globals.h:1746
+#, c-format
+msgid "E764: Option '%s' is not set"
+msgstr "E764: '%s' opció nincs beállítva"
 # 
 # #: ../globals.h:1749
 # #, fuzzy

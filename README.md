@@ -40,7 +40,7 @@ Az eddig betartott alapelvek:
 * Tilos a Google- és egyéb fordítómotorok használata
 * A dokumentáció szintaxisát meg kell tartani (|link|,<>, behúzások stb.)
 * A fordítás során a magyarosság prioritást élvez a szó szerinti fordításokkal
-  szemben
+	  szemben
 * Ha úgy érzed, más szavakkal tartalmasabb lenne az információ, fogalmazd át
 * Ha úgy érzed, a dokumentáció félreérthetően fogalmaz, pontosítsd
 * Ha úgy érzed, hogy a dokumentáció túl szűkszavú, egészítsd ki
@@ -79,4 +79,4 @@ hogy könnyedén felderíthető legyen.
 ## Egyebek
 * A manual fájljai még nincsenek átemelve
 
-vim: tw=80 filetype=markdown syntax=markdown
+ vim:tw=80:filetype=markdown:syntax=markdown
