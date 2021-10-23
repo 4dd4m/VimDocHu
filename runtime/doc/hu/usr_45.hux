@@ -1,193 +1,183 @@
 *usr_45.txt*	For Vim version 8.2.  Last change: 2020 Jun 11
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			Select your language (locale)
+				Nyelvválasztás
 
 
-The messages in Vim can be given in several languages.  This chapter explains
-how to change which one is used.  Also, the different ways to work with files
-in various languages is explained.
+A Vim üzenetei számos nyelven elérhetőek. Ebben a fejezetben arról lesz szó,
+hogy ezt hogyan változtathatjuk meg, valamint hogy ezt hogyan építsük be a
+munkafolyamatainkba.
 
-|45.1|	Language for Messages
-|45.2|	Language for Menus
-|45.3|	Using another encoding
-|45.4|	Editing files with a different encoding
+|45.1|	Az üzenetek nyelve
+|45.2|	A menük nyelve
+|45.3|	Más karakterkódolás használata
+|45.4|	Szerkesztés más karakterkódolással
 |45.5|	Entering language text
 
-     Következő fejezet: |usr_46.txt|  Write plugins using Vim9 script
- Előző fejezet: |usr_44.txt|  Your own syntax highlighted
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_46.txt|  Beépülők készítése Vim9 szkripttel
+    Előző fejezet: |usr_44.txt|  Egyedi Szintaxis kiemelés
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*45.1*	Language for Messages
+*45.1*	Az üzenetek nyelve
 
-When you start Vim, it checks the environment to find out what language you
-are using.  Mostly this should work fine, and you get the messages in your
-language (if they are available).  To see what the current language is, use
-this command: >
+A Vim indításkor megvizsgálja a környezetet és eldönti, hogy milyen nyelvet
+alkalmazzon. A legtöbb esetben helyesen tippel az üzeneteket a saját nyelveden
+olvashatod (ha léteznek). A jelenlegi betöltött nyelv megjelenítése: >
 
 	:language
 
-If it replies with "C", this means the default is being used, which is
-English.
+Ha a kimenet "C", akkor az alapértelmezett nyelv van használatban, ami Angol.
 
-	Note:
-	Using different languages only works when Vim was compiled to handle
-	it.  To find out if it works, use the ":version" command and check the
-	output for "+gettext" and "+multi_lang".  If they are there, you are
-	OK.  If you see "-gettext" or "-multi_lang" you will have to find
-	another Vim.
+	Megjegyzés:
+	A nyelvi beállítások csak akkor működnek, ha a Vimet úgy fordították,
+	hogy erre képes legyen. Ezt a ":version" paranccsal tudjuk
+	ellenőrizni, melyben a "+gettext" és a "+multi_lang" modulokat kell
+	keresni. Ha ezt látod, akkor minden rendben. Ha a modulok listájában
+	"-gettext" vagy "-multi_lang" modulokat látod, akkor másik Vimet kell
+	keresned.
 
-What if you would like your messages in a different language?  There are
-several ways.  Which one you should use depends on the capabilities of your
-system.
-   The first way is to set the environment to the desired language before
-starting Vim.  Example for Unix: >
+Mit kell tennünk, hogy az üzenetek nyelvét megváltoztassuk? Ezt többféle
+képpen is el lehet érni, melynek módja a rendszered képességeitől függ.
+   Az első módszer a környezeti változó beállítása a kívánt nyelvre (a Vim
+indítása előtt). Unixon: >
 
 	env LANG=de_DE.ISO_8859-1  vim
 
-This only works if the language is available on your system.  The advantage is
-that all the GUI messages and things in libraries will use the right language
-as well.  A disadvantage is that you must do this before starting Vim.  If you
-want to change language while Vim is running, you can use the second method: >
+Ez csak akkor működik ha kívánt nyelv elérhető a rendszeren. Ennek előnye,
+hogy a rendszer GUI-ja és üzenetei a jó nyelven jelennek meg. A hátránya, hogy
+ez a Vim indítása előtt kell elvégezni. Ha a Vim már fut, akkor ezt a verziót
+tudjuk alkalmazni: >
 
-	:language fr_FR.ISO_8859-1
+	:language hu_HU.UTF-8
 
-This way you can try out several names for your language.  You will get an
-error message when it's not supported on your system.  You don't get an error
-when translated messages are not available.  Vim will silently fall back to
-using English.
-   To find out which languages are supported on your system, find the
-directory where they are listed.  On my system it is "/usr/share/locale".  On
-some systems it's in "/usr/lib/locale".  The manual page for "setlocale"
-should give you a hint where it is found on your system.
-   Be careful to type the name exactly as it should be.  Upper and lowercase
-matter, and the '-' and '_' characters are easily confused.
+Próbáljuk ki az általunk választott nyelvvel. Ha hibaüzenetet kapunk (és helyen
+írtuk be), akkor az adott nyelv nem érhető el a rendszerünkön. Nem kapunk
+hibaüzenetet, ha a lefordított üzenetek nem elérhetőek. A Vim egyszerűen csak
+visszavált Angol nyelvre.
+   Hogy kiderítsük, mely nyelvek vannak telepítve a rendszerükre, navigáljunk
+abba a könyvtárba, hol fel vannak sorolva. Általában a "/usr/share/locale"
+könyvtárban. A "setlocale" man oldalának említést kell tennie arról, hogy
+találjuk ezeket a fájlokat.
+   Legyünk óvatosak, a megfelelő nevet írjuk be. Számítanak a kis- és
+nagybetűk, a '-' és a '_' karakterek is.
 
-You can also set the language separately for messages, edited text and the
-time format.  See |:language|.
+Az üzenetek, a szerkesztett szöveget és az időformátumot is be tudjuk
+állítani. Lásd: |:language|.
 
 
-DO-IT-YOURSELF MESSAGE TRANSLATION
+CSINÁLD MAGAD FORDÍTÁS
 
-If translated messages are not available for your language, you could write
-them yourself.  To do this, get the source code for Vim and the GNU gettext
-package.  After unpacking the sources, instructions can be found in the
-directory src/po/README.txt.
-   It's not too difficult to do the translation.  You don't need to be a
-programmer.  You must know both English and the language you are translating
-to, of course.
-   When you are satisfied with the translation, consider making it available
-to others.  Upload it at vim-online (http://vim.sf.net) or e-mail it to
-the Vim maintainer <maintainer@vim.org>.  Or both.
+Ha az üzeneteket még senki sem fordította le, akkor ezt magunk is
+elvégezhetjük. Ehhez töltsük le a Vim forráskódját és a GNU gettext csomagját.
+A forráskód kicsomagolás után, az instrukciókat az src/po/README.txt fájlban
+találjuk.
+   Nem nehéz lefordítani. Nem kell programozónak lenni hozzá. Elég ha Angolul
+tudunk, illetve arra a nyelvre amire fordítunk természetesen. 
+   Ha elégedett vagy a fordítással, akkor tedd elérhetővé mások számára is.
+Töltsd fel ide: vim-online (http://vim.sf.net) vagy e-mailben küld el a Vim
+karbantartója számára. Esetleg mindkettő.
 
 ==============================================================================
-*45.2*	Language for Menus
+*45.2*	A menük nyelve
 
-The default menus are in English.  To be able to use your local language, they
-must be translated.  Normally this is automatically done for you if the
-environment is set for your language, just like with messages.  You don't need
-to do anything extra for this.  But it only works if translations for the
-language are available.
-   Suppose you are in Germany, with the language set to German, but prefer to
-use "File" instead of "Datei".  You can switch back to using the English menus
-this way: >
-
+Az alapértelmezett menü Angol. Használatukhoz le kell először fordítani őket
+(a fordítás már elérhető). A környezeti változók beállításával az üzenetek
+nyelve is változik, ezért nem kell tennünk semmi extrát, de csak akkor
+működik, ha a fordítás elérhető.
+   Tegyük fel, hogy Németországban vagyunk, német nyelvvel, de inkább a
+"File"-t használnánk "Datei" helyett. Az Angol nyelvre így tudunk visszaállni:
+>
 	:set langmenu=none
 
-It is also possible to specify a language: >
+Meghatározhatunk egyből másik nyelvet is: >
 
 	:set langmenu=nl_NL.ISO_8859-1
 
-Like above, differences between "-" and "_" matter.  However, upper/lowercase
-differences are ignored here.
-   The 'langmenu' option must be set before the menus are loaded.  Once the
-menus have been defined changing 'langmenu' has no direct effect.  Therefore,
-put the command to set 'langmenu' in your vimrc file.
-   If you really want to switch menu language while running Vim, you can do it
-this way: >
+Mint a fenti példában, a "-" és "_" közötti különbség számít, bár itt a kis-
+és nagybetű nem.
+   A 'langmenu' opciót a menük betöltése előtt be kell állítani. Ha már a menü
+betöltődött, akkor a 'langmenu' beállításának nem lesz semmilyen hatása. Ezért
+a parancsot jobb a vimrcben tartani.
+   Ha ragaszkodunk a futásidejű cseréhez, akkor ezzel rá tudjuk bírni a
+szerkesztőt: >
 
 	:source $VIMRUNTIME/delmenu.vim
 	:set langmenu=de_DE.ISO_8859-1
 	:source $VIMRUNTIME/menu.vim
 
-There is one drawback: All menus that you defined yourself will be gone.  You
-will need to redefine them as well.
+Ennek egy hátránya van: Az összes egyedileg készített menü el fog tűnni (ezért
+újra kell definiálni őket).
 
 
-DO-IT-YOURSELF MENU TRANSLATION
+CSINÁLD MAGAD FORDÍTÁS (MENÜK)
 
-To see which menu translations are available, look in this directory:
+Listázzuk az alábbi könyvtárat a menü fordítások megtekintéséhez:
 
 	$VIMRUNTIME/lang ~
 
-The files are called menu_{language}.vim.  If you don't see the language you
-want to use, you can do your own translations.  The simplest way to do this is
-by copying one of the existing language files, and change it.
-   First find out the name of your language with the ":language" command.  Use
-this name, but with all letters made lowercase.  Then copy the file to your
-own runtime directory, as found early in 'runtimepath'.  For example, for Unix
-you would do: >
+A fájlt menu{language}.vim-nek hívják. Ha nem látjuk a fájlt a kívánt nyelven,
+akkor le kell fordítunk. A legegyszerűbb módja, hogy lemásolunk egy fájlt és
+azt szerkesztjük.
+   Először listázzuk ki a jelenlegi nyelvet a ":language" paranccsal, majd
+másoljuk a fájlt a 'runtime' változóban található elérési utak egyikébe.
+Valahová az elejére. Például, Unixon: >
 
-	:!cp $VIMRUNTIME/lang/menu_ko_kr.euckr.vim ~/.vim/lang/menu_nl_be.iso_8859-1.vim
+    :!cp $VIMRUNTIME/lang/menu_ko_kr.euckr.vim ~/.vim/lang/menu_nl_be.iso_8859-1.vim
 
-You will find hints for the translation in "$VIMRUNTIME/lang/README.txt".
+A fordításhoz tippek it: "$VIMRUNTIME/lang/README.txt".
 
 ==============================================================================
-*45.3*	Using another encoding
+*45.3*	Más kódolás használata
 
-Vim guesses that the files you are going to edit are encoded for your
-language.  For many European languages this is "latin1".  Then each byte is
-one character.  That means there are 256 different characters possible.  For
-Asian languages this is not sufficient.  These mostly use a double-byte
-encoding, providing for over ten thousand possible characters.  This still
-isn't enough when a text is to contain several different languages.  This is
-where Unicode comes in.  It was designed to include all characters used in
-commonly used languages.  This is the "Super encoding that replaces all
-others".  But it isn't used that much yet.
-   Fortunately, Vim supports these three kinds of encodings.  And, with some
-restrictions, you can use them even when your environment uses another
-language than the text.
-   Nevertheless, when you only edit files that are in the encoding of your
-language, the default should work fine and you don't need to do anything.  The
-following is only relevant when you want to edit different languages.
+A Vim kitalálja szerkesztett fájl karakterkódolását. Európai nyelvek esetén
+általában ez "latin1".  Minden byte egy karakter. Ez azt jelenti, hogy 256
+különböző karakterünk lehet. Az ázsiai nyelvekhez ez nem elegendő. Ezek a
+fájlok általában dupla-kódolást használnak, elérhetővé téve több mint tízezer
+karaktert. Itt jön képbe a Unicode. Arra lett tervezve, hogy tartalmazza a
+gyakori nyelvek karaktereit. Ez a "joker", mely mindent visz, de nem annyira
+elterjedt.
+   Szerencsére a Vim támogatja mindhárom karakterkódolást. És, limitációkkal
+ugyan, de használhatjuk őket még akkor is, ha a rendszerünk nem támogatja. 
+   Ha a saját nyelvünkön szerkesztjük a fájlokat, akkor ezekre semmi szükség,
+így nincs teendő. A továbbiak csak akkor relevánsak, ha több nyelven is
+szerkesztünk.
 
 
-USING UNICODE IN THE GUI
+UNICODE HASZNÁLATA A GUIBAN
 
-The nice thing about Unicode is that other encodings can be converted to it
-and back without losing information.  When you make Vim use Unicode
-internally, you will be able to edit files in any encoding.
-   Unfortunately, the number of systems supporting Unicode is still limited.
-Thus it's unlikely that your language uses it.  You need to tell Vim you want
-to use Unicode, and how to handle interfacing with the rest of the system.
-   Let's start with the GUI version of Vim, which is able to display Unicode
-characters.  This should work: >
+Az Unicode legszebb tulajdonsága, hogy veszteségmentesen tudjuk konvertálni
+a szöveget (oda és vissza). Ha a Vimet Unicode kódolásra állítjuk be, akkor az
+összes karakterkódolással készült fájlt tudjuk szerkeszteni. 
+   Sajnos a Unicodeot támogató rendszerek száma igen csekély. Ezért nem
+valószínű, hogy egy adott nyelv azt használhatja. Ha Unicodeot akarunk
+használni, akkor azt először be kell állítani.
+   Kezdjük a Vim GUI üzemmódjával, ami képes a Unicode karakterkódolás
+   megjelenítésére. Ennek működnie kell: >
 
 	:set encoding=utf-8
 	:set guifont=-misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
 
-The 'encoding' option tells Vim the encoding of the characters that you use.
-This applies to the text in buffers (files you are editing), registers, Vim
-script files, etc.  You can regard 'encoding' as the setting for the internals
-of Vim.
-   This example assumes you have this font on your system.  The name in the
-example is for the X Window System.  This font is in a package that is used to
-enhance xterm with Unicode support.  If you don't have this font, you might
-find it here:
+Az 'encoding' opció leírja a használandó karakterkódolást. Ez lesz érvényben a
+bufferekben lévő szövegre, regiszterekre, Vim szkript fájlokra stb.
+Felfoghatjuk az 'encoding' opciót a Vim belső kódolásának.
+   A példa feltételezi, hogy a megfelelő betűtípus rendelkezésre áll a
+rendszerünkön. A példában szereplő név az X ablakkezelő rendszerhez íródott. A
+font csomag az xterm Unicode támogatását hivatott fejleszteni. Ha nincs
+telepítve a betűtípus, akkor innen tölthetjük le:
 
 	http://www.cl.cam.ac.uk/~mgk25/download/ucs-fonts.tar.gz ~
 
-For MS-Windows, some fonts have a limited number of Unicode characters.  Try
-using the "Courier New" font.  You can use the Edit/Select Font... menu to
-select and try out the fonts available.  Only fixed-width fonts can be used
-though.  Example: >
+MS-Windows rendszeren, egyes betűtípusoknak korlátozott számú Unicode
+karakterekből állnak. Próbáljuk ki a "Courier New" betűtípust. Válasszunk az
+"Edit, Select Font..." menü és keressünk számunkra megfelelőt. A Fix
+szélességű betűtípusokat részesítsük előnyben. Például:   >
 
 	:set guifont=courier_new:h12
 
-If it doesn't work well, try getting a fontpack.  If Microsoft didn't move it,
-you can find it here:
+Ha nem találtunk megfelelőt, akkor töltsünk le egyet. Ha a Microsoft nem
+helyezte át őket, itt elérhetjük:
 
 	http://www.microsoft.com/typography/fonts/default.aspx ~
 
