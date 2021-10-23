@@ -66,6 +66,11 @@ hogy könnyedén felderíthető legyen.
 ## Szerkezet
 * hu/ kézikönyv fájljai
 * orig/ eredeti fájlok, diffeléshez, karbantartáshoz
+* hu.po fájl:
+	* a Vim üzeneteit tartalmazza
+	* a fájl a forrással együtt kell lefordítani (teszteléshez is)
+	* mielőtt fordítanád (Magyarra) [olvasd el ezt](https://github.com/vim/vim/blob/master/src/po/README.txt)
+	* a feldolgozatlan sorok előtt egy globális komment van (üres üzeneteket nem lehet fordítani)
 
 ## Bugok
 * helpgrep magyarul nem működik
