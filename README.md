@@ -21,16 +21,16 @@
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal az alábbi mappákban
-* A runtime/doc/hu könyvtárat másold be ide: $VIMRUNTIME/doc
-* A runtime/syntax/hux.vim fájlt másold beide $VIMRUNTIME/syntax
-* töröld a régi tagfájlokat (tags,tags-hu): $VIMRUNTIME/doc
-* futtasd ':helptags $VIMRUNTIME/doc' a Vimből
+* A runtime/doc/hu könyvtárat másold be ide: `$VIMRUNTIME/doc`
+* A runtime/syntax/hux.vim fájlt másold beide `$VIMRUNTIME/syntax`
+* töröld a régi tagfájlokat (tags,tags-hu): `$VIMRUNTIME/doc`
+* futtasd `:helptags $VIMRUNTIME/doc` a Vimből
 * a .vimrchez add hozzá:
-    * :helplang=hu,en
-    * syntax on
-    * au! BufEnter *.hux :set syntax=hux
-    * set conceallevel=2
-    * set concealcursor=n
+	* :helplang=hu,en
+	* syntax on
+	* au! BufEnter *.hux :set syntax=hux
+	* set conceallevel=2
+	* set concealcursor=n
 * nvim? telepíthető, de az nvim specifikus anyagokat @en kereséssel éred el
 * mindenképp nvim? ajánlott telepíteni a vimet, telepítsd oda. 
 
@@ -68,9 +68,10 @@ hogy könnyedén felderíthető legyen.
 * orig/ eredeti fájlok, diffeléshez, karbantartáshoz
 * hu.po fájl:
 	* a Vim üzeneteit tartalmazza
-	* a fájl a forrással együtt kell lefordítani (teszteléshez is)
+	* a fájl a forrással együtt kell lefordítani (teszteléshez is)  `vim/src/po`
 	* mielőtt fordítanád (Magyarra) [olvasd el ezt](https://github.com/vim/vim/blob/master/src/po/README.txt)
 	* a feldolgozatlan sorok előtt egy globális komment van (üres üzeneteket nem lehet fordítani)
+	* push előtt `:source check.vim`-el ellőrizni kell a fjált
 
 ## Bugok
 * helpgrep magyarul nem működik
