@@ -15,13 +15,13 @@ Lásd |:syn-define| (dokumentáció).
 |44.3|	Egyezések
 |44.4|	Tartományok
 |44.5|	Egymásba ágyazott elemek
-|44.6|	Following groups
+|44.6|	Csoportok követése
 |44.7|	Egyéb argumentumok
 |44.8|	Clusters
 |44.9|	Szintaxis fájl beágyazása
 |44.10|	Szinkronizáció
 |44.11|	Szintaxis fájl telepítése
-|44.12|	Hordozható szintaxis fájl szerkezet
+|44.12|	Hordozható szerkezet
 
 Következő fejezet: |usr_45.txt|  Nyelvválasztás
     Előző fejezet: |usr_43.txt|  Fájltípusok
@@ -62,164 +62,167 @@ A parancs a clustereket is képes megjeleníteni (ezekre kitérünk a |44.8|
 pontban), ehhez adjuk hozzá a @ jelet a fájlnévhez.
 
 
-MATCHING CASE
+KISBETŰ-NAGYBETŰ ÉRZÉKENYSÉG
 
-Some languages are not case sensitive, such as Pascal.  Others, such as C, are
-case sensitive.  You need to tell which type you have with the following
-commands: >
+Némely nyelv, mint például a Pascal nem érzékenyet a kis- és nagybetűkre. Más
+nyelvek, mint például a C, igen.  Először a szintaxis ezen tulajdonságát kell
+meghatároznunk: >
+
 	:syntax case match
 	:syntax case ignore
 
-The "match" argument means that Vim will match the case of syntax elements.
-Therefore, "int" differs from "Int" and "INT".  If the "ignore" argument is
-used, the following are equivalent: "Procedure", "PROCEDURE" and "procedure".
-   The ":syntax case" commands can appear anywhere in a syntax file and affect
-the syntax definitions that follow.  In most cases, you have only one ":syntax
-case" command in your syntax file; if you work with an unusual language that
-contains both case-sensitive and non-case-sensitive elements, however, you can
-scatter the ":syntax case" command throughout the file.
+A "match" argumentum azt jelenti, hogy a szintaxis ellenőrzése betűérzékeny
+lesz. Ezért "Int" nem egyenlő "INT"-el. "ignore" argumentum esetén viszont az
+alábbiak egyenlőek: "Procedure", "PROCEDURE" and "procedure".
+   A ":syntax case" a szintaxist leíró fájlban akárhol elhelyezhetjük, hatása
+pedig az utána következő definíciókra lesz érvényes. A legtöbb esetben ennek
+beállítása egyszer elegendő, viszont ha olyan kiemelést szeretnél készíteni,
+amiben mindkét stílus szerepel, akkor a ":syntax case" parancsok
+váltogathatják egymást a fájlban.
 
 ==============================================================================
-*44.2*	Keywords
+*44.2*	Kulcsszavak
 
-The most basic syntax elements are keywords.  To define a keyword, use the
-following form: >
+A kiemelés egyik legalapvetőbb eleme a kulcsszó. Definiálásának szintaxisa: >
 
 	:syntax keyword {group} {keyword} ...
 
-The {group} is the name of a syntax group.  With the ":highlight" command you
-can assign colors to a {group}.  The {keyword} argument is an actual keyword.
-Here are a few examples: >
+A {group} a kiemeléscsoport neve. A ":highlight" paranccsal színeket
+rendelhetünk a csoporthoz. A kulcsszó pedig a {keyword}. Pár példa: >
 
 	:syntax keyword xType int long char
 	:syntax keyword xStatement if then else endif
 
-This example uses the group names "xType" and "xStatement".  By convention,
-each group name is prefixed by the filetype for the language being defined.
-This example defines syntax for the x language (eXample language without an
-interesting name).  In a syntax file for "csh" scripts the name "cshType"
-would be used.  Thus the prefix is equal to the value of 'filetype'.
-   These commands cause the words "int", "long" and "char" to be highlighted
-one way and the words "if", "then", "else" and "endif" to be highlighted
-another way.  Now you need to connect the x group names to standard Vim
-names.  You do this with the following commands: >
-
+A példában szereplő csoportnevek: "xType" és "xStatement". Az elnevezési
+konvenció szerint minden csoportnevet prefixálni kell a nyelv fájltípusával. A
+példában szereplő definíció az "x" nyelvhez tartozik. "csh" szkriptek esetén a
+csoportnév "cshType" lenne. Azaz a prefixum egyenlő a nyelv 'filetype'
+értékével.
+   Ezért a definíció szerint az "int", "long", "char" szavaknak és az "if"
+then", "else" és "endif" szavak kijelölése különböző lesz. Ezek után az x
+csoport neveit a sztenderd  Vim nevekhez kell linkeljük az alábbi paranccsal:
+>
 	:highlight link xType Type
 	:highlight link xStatement Statement
 
-This tells Vim to highlight "xType" like "Type" and "xStatement" like
-"Statement".  See |group-name| for the standard names.
+Ezért a Vim kiemeli "xType"-ot "Type"-ként, és "xStatement"-et "Statement"-ként.
+A sztenderd csoportnevekről itt olvashatsz: |group-name|.
 
 
-UNUSUAL KEYWORDS
+EGYEDI KULCSSZAVAK
 
-The characters used in a keyword must be in the 'iskeyword' option.  If you
-use another character, the word will never match.  Vim doesn't give a warning
-message for this.
-   The x language uses the '-' character in keywords.  This is how it's done:
+Az összes kulcsszót alkotó karakternek benne kell lennie az 'iskeyword'
+opcióban, ellenben a szó soha nem fog egyezni a definícióval (erről nem
+figyelmeztet külön a Vim).
+   Az x nyelvben szavaiban megengedett a '-' karakter használata. Ezt így
+tudjuk hitelesíteni: >
 >
 	:setlocal iskeyword+=-
 	:syntax keyword xStatement when-not
 
-The ":setlocal" command is used to change 'iskeyword' only for the current
-buffer.  Still it does change the behavior of commands like "w" and "*".  If
-that is not wanted, don't define a keyword but use a match (explained in the
-next section).
+A ":setlocal" paranccsal módosítjuk az 'iskeyword' tartalmát, de csak az aktív
+bufferben. A művelet után természetesen olyan parancsok viselkedése is
+megváltozik, mint például "w" vagy "*". Ha ezt nem szeretnénk, akkor a kulcsszó
+definíció helyett egy egyezést kell meghatároznunk (erre a következő
+bekezdésben kitérünk).
 
-The x language allows for abbreviations.  For example, "next" can be
-abbreviated to "n", "ne" or "nex".  You can define them by using this command:
+Az x nyelv megengedi a rövidítések használatát is. Például, a "next" szó
+rövidíthető "n"-re, "ne"-re vagy "nex"-re. Ezt így tudjuk megadni: >
 >
 	:syntax keyword xStatement n[ext]
 
-This doesn't match "nextone", keywords always match whole words only.
+Ez persze nem fog működni a "nextone" esetén, a kulcsszavak mindig egy szóra
+illeszkednek.
 
 ==============================================================================
-*44.3*	Matches
+*44.3*	Egyezések
 
-Consider defining something a bit more complex.  You want to match ordinary
-identifiers.  To do this, you define a match syntax item.  This one matches
-any word consisting of only lowercase letters: >
+Tegyük fel, hogy valami bonyolultabbat szeretnénk végrehajtani. Szokásos
+kulcsszavakat szeretnénk illeszteni. Ehhez egy match elemet kell definiálnunk.
+Az illesztés olyan szavakra fog illeszkedni, melyben csak kisbetűk
+szerepelnek: >
 
 	:syntax match xIdentifier /\<\l\+\>/
 <
-	Note:
-	Keywords overrule any other syntax item.  Thus the keywords "if",
-	"then", etc., will be keywords, as defined with the ":syntax keyword"
-	commands above, even though they also match the pattern for
-	xIdentifier.
+	Megjegyzés:
+	A kulcsszavak felülírják az egyéb szintaxis elemeket. Ezért az az
+	"if", "then" stb., kulcsszavak lesznek, hiszen a ":syntax keyword"
+	paranccsal definiáltuk őket, hiába illeszkednek az xIdentifier
+	mintára.
 
-The part at the end is a pattern, like it's used for searching.  The // is
-used to surround the pattern (like how it's done in a ":substitute" command).
-You can use any other character, like a plus or a quote.
+A definíció utolsó része pedig maga a minta (mintha kereséshez használnánk). A
+mintát // karakterek közé kell zárni (mintha a ":substitute" parancsot
+használnánk). Ehhez bármely más karakter használható, például a "+" és a "'".
 
-Now define a match for a comment.  In the x language it is anything from # to
-the end of a line: >
+Most definiáljuk egy egyezést a kommentek számára. Az x nyelvben bármi
+kommentnek számít a # jel után a sor végéig: >
 
 	:syntax match xComment /#.*/
 
-Since you can use any search pattern, you can highlight very complex things
-with a match item.  See |pattern| for help on search patterns.
+A keresési minták segítségével elég bonyolult dolgokat is illeszthetünk. Lásd a
+|pattern| bejegyzést a minták használatához.
 
 ==============================================================================
-*44.4*	Regions
+*44.4*	Tartományok
 
-In the example x language, strings are enclosed in double quotation marks (").
-To highlight strings you define a region.  You need a region start (double
-quote) and a region end (double quote).  The definition is as follows: >
+A képzeletbeli nyelvünkben a sztringek " jelek közé vannak zárva. Ehhez meg
+kell határoznunk egy tartományt (kezdő- és végpontokat). Mindkét ponthoz a
+" karaktert kell rendeljük. A definíció így folytatódik: >
 
 	:syntax region xString start=/"/ end=/"/
 
-The "start" and "end" directives define the patterns used to find the start
-and end of the region.  But what about strings that look like this?
+A "start" és az "end" direktívák határozzák meg a tartomány elejét és végét.
+De mi van akkor, ha sztring az alábbi képpen néz ki?
 
 	"A string with a double quote (\") in it" ~
 
-This creates a problem: The double quotation marks in the middle of the string
-will end the region.  You need to tell Vim to skip over any escaped double
-quotes in the string.  Do this with the skip keyword: >
+A probléma: A sztring közepén szereplő " jel zárja a tartományt. Ezért a
+Vimnek meg kell mondanunk, hogy az útközben szereplő escapelt " karaktereket
+ugorja át, melyet így valósíthatunk meg: >
 
 	:syntax region xString start=/"/ skip=/\\"/ end=/"/
 
-The double backslash matches a single backslash, since the backslash is a
-special character in search patterns.
+A dupla \\ illeszkedik \ karakterre (a \ karakternek speciális jelentése van a
+keresési mintákban).
 
-When to use a region instead of a match?  The main difference is that a match
-item is a single pattern, which must match as a whole.  A region starts as
-soon as the "start" pattern matches.  Whether the "end" pattern is found or
-not doesn't matter.  Thus when the item depends on the "end" pattern to match,
-you cannot use a region.  Otherwise, regions are often simpler to define.  And
-it is easier to use nested items, as is explained in the next section.
+Mikor használjuk tartományt egyszerű minta helyett? A legalapvetőbb különbség,
+hogy a minta egy egy egyszerű illesztés, melynek teljes egészében illeszkednie
+kell. A tartomány akkor kezdődik, ha a Vim találkozik a "start" karakterrel.
+Az, hogy az "end" karaktert megtaláltuk-e vagy sem, az teljesen lényegtelen.
+Ezért, ha az elem végének is illeszkednie kell, akkor nem használhatunk
+tartományt. Egyébként, a tartományokat sokkal egyszerűbb meghatározni, és
+egyszerűbb beágyazva is illeszteni őket, melyről a következő bekezdésben lesz
+szó.
 
 ==============================================================================
-*44.5*	Nested items
+*44.5*	Beágyazott elemek
 
-Take a look at this comment:
+Vizsgáljuk meg az alábbi kommentet:
 
 	%Get input  TODO: Skip white space ~
 
-You want to highlight TODO in big yellow letters, even though it is in a
-comment that is highlighted blue.  To let Vim know about this, you define the
-following syntax groups: >
+A TODO karaktereket ki szeretnéd emelni sárga betűkkel annak ellenére, hogy ez
+egy komment és kék színű. Két paranccsal meg tudjuk oldani: >
 
 	:syntax keyword xTodo TODO contained
 	:syntax match xComment /%.*/ contains=xTodo
 
-In the first line, the "contained" argument tells Vim that this keyword can
-exist only inside another syntax item.  The next line has "contains=xTodo".
-This indicates that the xTodo syntax element is inside it.  The result is that
-the comment line as a whole is matched with "xComment" and made blue.  The
-word TODO inside it is matched by xTodo and highlighted yellow (highlighting
-for xTodo was setup for this).
+Az első sorban a "contained" argumentum azt írja le, hogy a kulcsszó csak egy
+másik elemben szerepelhet. A következő sorban a "contains=xTodo" arra utal,
+hogy az xComment egyezés tartalmazza az xTodo kulcsszót. Az eredmény az lesz,
+hogy komment sora illeszkedik az "xComment" definíciójára és kék színű lesz. A
+TODO szó a kommenten belül illeszkedik a xTodo kulcsszóra és ezért sárga lesz
+(tételezzük fel, hogy az xTodo elemet már korábban létrehoztuk).
 
 
-RECURSIVE NESTING
+REKURZÍV EGYMÁSBA ÁGYAZÁS
 
-The x language defines code blocks in curly braces.  And a code block may
-contain other code blocks.  This can be defined this way: >
+Az x nyelv a kódblokkjait {} karakterekkel határolja. A blokkok más blokkokat
+is tartalmazhatnak. Kivitelezés: >
 
 	:syntax region xBlock start=/{/ end=/}/ contains=xBlock
 
-Suppose you have this text:
+A kódrészletünk:
 
 	while i < b { ~
 		if a { ~
@@ -227,129 +230,129 @@ Suppose you have this text:
 		} ~
 	} ~
 
-First a xBlock starts at the { in the first line.  In the second line another
-{ is found.  Since we are inside a xBlock item, and it contains itself, a
-nested xBlock item will start here.  Thus the "b = c" line is inside the
-second level xBlock region.  Then a } is found in the next line, which matches
-with the end pattern of the region.  This ends the nested xBlock.  Because the
-} is included in the nested region, it is hidden from the first xBlock region.
-Then at the last } the first xBlock region ends.
+Az első xBlock elem az első sorban kezdődik. A második sorban egy újabb {
+karakter található. Mivel az xBlockban vagyunk, mely önmagát tartalmazza, a
+beágyazás ezen a ponton kezdődik. Ezért "b = c" sor a második xBlock
+tartományban lesz. Aztán a következő sorban lévő } karakterrel ér véget a
+beágyazott tartomány (a } karakter az első tartomány elől rejtve marad). Az
+utolsó sorban lévő } karakter pedig zárja a külső tartományt.
 
 
-KEEPING THE END
+SORVÉGEK TARTÁSA
 
-Consider the following two syntax items: >
+Az alábbi definíciókkal rendelkezünk: >
 
 	:syntax region xComment start=/%/ end=/$/ contained
 	:syntax region xPreProc start=/#/ end=/$/ contains=xComment
 
-You define a comment as anything from % to the end of the line.  A
-preprocessor directive is anything from # to the end of the line.  Because you
-can have a comment on a preprocessor line, the preprocessor definition
-includes a "contains=xComment" argument.  Now look what happens with this
-text:
+Mely szerint, kommentnek számít minden a % karaktertől sor végéig. A #
+karaktertől minden preprocesszor direktíva (C programnyelv) a sor végéig.
+Mivel a direktívákban elhelyezhetünk kommenteket is, ezért a preprocesszor
+direktívája tartalmazza a "contains=xComment" argumentumot. Nézzük meg, hogy
+mi történik az alábbi kódrészlettel:
 
 	#define X = Y  % Comment text ~
 	int foo = 1; ~
 
-What you see is that the second line is also highlighted as xPreProc.  The
-preprocessor directive should end at the end of the line.  That is why
-you have used "end=/$/".  So what is going wrong?
-   The problem is the contained comment.  The comment starts with % and ends
-at the end of the line.  After the comment ends, the preprocessor syntax
-continues.  This is after the end of the line has been seen, so the next
-line is included as well.
-   To avoid this problem and to avoid a contained syntax item eating a needed
-end of line, use the "keepend" argument.  This takes care of
-the double end-of-line matching: >
+Azt láthatod, hogy  a második sor is az xPreProc alapján van kiemelve. A
+preprocesszor direktívájának a sor végéig kell tartania. Ezért használtuk a
+"end=/$/" meghatározást. Mi történt?
+   A problémát a beágyazott komment okozza. A komment % karakterrel kezdődik,
+és a sor végéig tart. Miután a komment befejeződött, a preprocesszor kiemelés
+folytatódik, mert a sor vége már fel lett dolgozva a % komment által, ezért a
+kiemelés a következő sorra csúszik át.
+   Úgy tudjuk megoldani a problémát, hogy megakadályozzuk, hogy a tartalmazó
+elem "ellopja" a sor végét. A "keepend" argumentum erre megoldást jelent: >
 
 	:syntax region xComment start=/%/ end=/$/ contained
 	:syntax region xPreProc start=/#/ end=/$/ contains=xComment keepend
 
 
-CONTAINING MANY ITEMS
+TÖBB ELEM BEÁGYAZÁSA
 
-You can use the contains argument to specify that everything can be contained.
-For example: >
+A "contains" argumentummal akár azt is megadhatjuk, hogy tartalmazzon mindent.
+Például:   >
 
 	:syntax region xList start=/\[/ end=/\]/ contains=ALL
 
-All syntax items will be contained in this one.  It also contains itself, but
-not at the same position (that would cause an endless loop).
-   You can specify that some groups are not contained.  Thus contain all
-groups but the ones that are listed:
+Ezzel xList tartalmazni fogja az összes elemet (még saját magát is), de nem
+azonos helyen (ami végtelen ciklust okozna). 
+   Meghatározható, hogy a definíció az összes elemet tartalmazza, kivéve
+bizonyos elemeket: >
 >
 	:syntax region xList start=/\[/ end=/\]/ contains=ALLBUT,xString
 
-With the "TOP" item you can include all items that don't have a "contained"
-argument.  "CONTAINED" is used to only include items with a "contained"
-argument.  See |:syn-contains| for the details.
+A "TOP" elemmel beágyazhatjuk az összes olyan elemet, amelyeknek nincs
+"contained" argumentuma. A "CONTAINED" olyan elemeket ágyaz be, melyekben
+szerepel a "contained" argumentum. Lásd: : |syn-contains| a további
+részletekért.
 
 ==============================================================================
-*44.6*	Following groups
+*44.6*	Csoportok követése
 
-The x language has statements in this form:
+Az x nyelv az alábbi statementtel rendelkezik:
 
 	if (condition) then ~
 
-You want to highlight the three items differently.  But "(condition)" and
-"then" might also appear in other places, where they get different
-highlighting.  This is how you can do this: >
+A három elemet különbözően szeretnénk kezelni. De a "(condition)" és a "then"
+egyéb helyeken is megjelenhet, ahol különböző kiemeléseket kaphat. A
+parancsok: >
 
 	:syntax match xIf /if/ nextgroup=xIfCondition skipwhite
 	:syntax match xIfCondition /([^)]*)/ contained nextgroup=xThen skipwhite
 	:syntax match xThen /then/ contained
 
-The "nextgroup" argument specifies which item can come next.  This is not
-required.  If none of the items that are specified are found, nothing happens.
-For example, in this text:
+A "nextgroup" argumentum meghatározza a következő elemet. Ez nem követelmény.
+Ha egyik definiált elem sem található, akkor nem történik semmi. Például az
+alábbi kódrészletben:
 
 	if not (condition) then ~
 
-The "if" is matched by xIf.  "not" doesn't match the specified nextgroup
-xIfCondition, thus only the "if" is highlighted.
+Az xIf illeszkedik az "if"-re. A "not" nem illeszkedik a nextgroup
+argumentumban szereplő elemre, ezért csak az "if" lesz kiemelve.
 
-The "skipwhite" argument tells Vim that white space (spaces and tabs) may
-appear in between the items.  Similar arguments are "skipnl", which allows a
-line break in between the items, and "skipempty", which allows empty lines.
-Notice that "skipnl" doesn't skip an empty line, something must match after
-the line break.
+A "skipwhite" argumentummal a Vim kihagyja az összes üres karaktert
+(tabulátorok és szóközök), melyek az elemek között előfordulhatnak. Hasonlóan
+működik a "skipnl" argumentum, amely a sortöréseket, a "skipempty" pedig az
+üres sorokat engedélyezi. A "skipnl" nem hagyja ki az üres sorokat, tehát
+valaminek egyeznie kell a sortörés után.
 
 ==============================================================================
-*44.7*	Other arguments
+*44.7*	Egyéb argumentumok
 
-MATCHGROUP
+MATCHGROUP ARGUMENTUM
 
-When you define a region, the entire region is highlighted according to the
-group name specified.  To highlight the text enclosed in parentheses () with
-the group xInside, for example, use the following command: >
+Ha definiálunk egy tartományt, akkor a teljes tartomány ki lesz emelve a
+csoport neve szerint. Ahhoz, hogy az xInside csoporttal a tárójelek közötti
+részt kiemeljük, az alábbi parancsot kell használjuk: >
 
 	:syntax region xInside start=/(/ end=/)/
 
-Suppose, that you want to highlight the parentheses differently.  You can do
-this with a lot of convoluted region statements, or you can use the
-"matchgroup" argument.  This tells Vim to highlight the start and end of a
-region with a different highlight group (in this case, the xParen group): >
+Tegyük fel, hogy a zárójeleket különböző színnel szeretnéd kiemelni. Ezt
+megtehetjük bonyolult tartomány meghatározásokkal, vagy alkalmazhatjuk a
+"matchgroup" argumentumot. Ez azt jelenti, hogy a tartomány eleje és vége
+különböző csoporttal lesz kiemelve (ebben az esetben az xParen csoporttal): >
 
 	:syntax region xInside matchgroup=xParen start=/(/ end=/)/
 
-The "matchgroup" argument applies to the start or end match that comes after
-it.  In the previous example both start and end are highlighted with xParen.
-To highlight the end with xParenEnd: >
+A "matchgroup" argumentum arra a tartomány kezdő- és végpontokra vonatkozik,
+amelyek előtt szerepel. Ezért előző példában mind a kezdő, mind a végpontokra
+az xParen kiemelést érvényesítettük. Ha csak a végponton szeretnénk a
+xParenEnd alkalmazni, akkor: >
 
 	:syntax region xInside matchgroup=xParen start=/(/
 		\ matchgroup=xParenEnd end=/)/
 
-A side effect of using "matchgroup" is that contained items will not match in
-the start or end of the region.  The example for "transparent" uses this.
+A "matchgroup" használatának mellékhatása, hogy a tartalmazott elem nem
+illeszkedik a tartomány elejére, vagy végére. 
 
 
-TRANSPARENT
+TRANSPARENT ARGUMENTUM
 
-In a C language file you would like to highlight the () text after a "while"
-differently from the () text after a "for".  In both of these there can be
-nested () items, which should be highlighted in the same way.  You must make
-sure the () highlighting stops at the matching ).  This is one way to do this:
+C fájlokban ki szeretnénk emelni a ()-ben lévő szöveget a "while" után, de
+teljesen máshogyan, mint a "for" után. Mindkét esetben lehet beágyazott ()
+elem, amit ugyanúgy kellene kiemelnünk. Ezért meg kell győződünk arról, hogy a
+kiemelés a záró ) pároknál megáll. Egyik módja: >
 >
 	:syntax region cWhile matchgroup=cWhile start=/while\s*(/ end=/)/
 		\ contains=cCondNest
@@ -357,264 +360,270 @@ sure the () highlighting stops at the matching ).  This is one way to do this:
 		\ contains=cCondNest
 	:syntax region cCondNest start=/(/ end=/)/ contained transparent
 
-Now you can give cWhile and cFor different highlighting.  The cCondNest item
-can appear in either of them, but take over the highlighting of the item it is
-contained in.  The "transparent" argument causes this.
-   Notice that the "matchgroup" argument has the same group as the item
-itself.  Why define it then?  Well, the side effect of using a matchgroup is
-that contained items are not found in the match with the start item then.
-This avoids that the cCondNest group matches the ( just after the "while" or
-"for".  If this would happen, it would span the whole text until the matching
-) and the region would continue after it.  Now cCondNest only matches after
-the match with the start pattern, thus after the first (.
+cWhile és cFor elemeknek különböző kiemelést adhatunk. A cCondNest elem
+mindegyikben szerepelhet, de ez felülírná annak az elemnek a kiemelését, ami
+tartalmazza azt. Ezt a "transparent" argumentum okozza.
+   Figyeljük meg, hogy a "matchgroup" neve a tartomány nevével egyezik meg.
+Akkor miért definiálnánk? Nos, a matchgroup mellékhatásaként, hogy a
+tartalmazott elem kezdete nem található. Ez elkerüli azt, hogy cCondNest
+csoport illeszkedjen közvetlenül a "while" vagy a"for"a után. Ha ez
+megtörténne, akkor illeszkedne a teljes szövegre, a bezáró ) karakterig és a
+tartomány még ez után is folytatódna. Így cCondNest csak a tartomány kezdete
+után fog illeszkedni, az első ( karakter után.
 
 
-OFFSETS
+OFFSZETEK
 
-Suppose you want to define a region for the text between ( and ) after an
-"if".  But you don't want to include the "if" or the ( and ).  You can do this
-by specifying offsets for the patterns.  Example: >
+Tegyük fel, hogy egy tartományt szeretnék létrehozni ( és ) jelek között, az
+"if" után. De nem szeretnénk, ha a tartomány részét képezné az "if", vagy
+akármelyik () karakter. A mintákhoz offszeteket is meghatározhatunk: >
 
 	:syntax region xCond start=/if\s*(/ms=e+1 end=/)/me=s-1
 
-The offset for the start pattern is "ms=e+1".  "ms" stands for Match Start.
-This defines an offset for the start of the match.  Normally the match starts
-where the pattern matches.  "e+1" means that the match now starts at the end
-of the pattern match, and then one character further.
-   The offset for the end pattern is "me=s-1".  "me" stands for Match End.
-"s-1" means the start of the pattern match and then one character back.  The
-result is that in this text:
+A mintához tartozó offszet "ms=e+1". "ms" jelenti a minta kezdetét (Match
+Start). Normál esetben az egyezés ott kezdődik, ahol a minta illeszkedik.
+"e+1" azt jelenti, hogy az illesztés most a minta végétől egy karakterrel
+jobbra kezdődik. 
+   A minta végének offszete pedig "me=s-1". "me" jelentése az illesztés vége
+(Match End). "s-1" pedig azt jelenti, hogy az illesztés a minta végétől egy
+karakterrel balra történik. Ezért az alábbi kódrészletben: 
 
 	if (foo == bar) ~
 
-Only the text "foo == bar" will be highlighted as xCond.
+Csak a "foo == bar" lesz kiemelve az xCond illesztéseként.
 
-More about offsets here: |:syn-pattern-offset|.
+Az offszetekről bővebben: |:syn-pattern-offset|.
 
 
-ONELINE
+ONELINE ARGUMENTUM
 
-The "oneline" argument indicates that the region does not cross a line
-boundary.  For example: >
+A "oneline" argumentum jelzi, hogy a tartomány határa nem léphet át másik
+sorba.  Például:   >
 
 	:syntax region xIfThen start=/if/ end=/then/ oneline
 
-This defines a region that starts at "if" and ends at "then".  But if there is
-no "then" after the "if", the region doesn't match.
+A parancs egy olyan tartományt definiál, mely "if"-el kezdődik, "then"-el ér
+véget. Mi történik, ha nincs "then" az "if" után? A tartomány nem illeszkedik.
 
-	Note:
-	When using "oneline" the region doesn't start if the end pattern
-	doesn't match in the same line.  Without "oneline" Vim does _not_
-	check if there is a match for the end pattern.  The region starts even
-	when the end pattern doesn't match in the rest of the file.
+	Megjegyzés:
+	Az "oneline" használata esetén a tartomány nem kezdődik el, ha annak a
+	végpontja nem található. Az "oneline" argumentum nélkül viszont a Vim
+	NEM ellenőrizné le a végpont meglétét (a tartomány akkor is
+	elkezdődik, ha a fájlban a végpont egyáltalán nem szerepel).
 
 
-CONTINUATION LINES AND AVOIDING THEM
+A SOROK FOLYTATÁSÁNAK ELKERÜLÉSE
 
-Things now become a little more complex.  Let's define a preprocessor line.
-This starts with a # in the first column and continues until the end of the
-line.  A line that ends with \ makes the next line a continuation line.  The
-way you handle this is to allow the syntax item to contain a continuation
-pattern: >
+Bonyolítsuk mega dolgokat. Hozzunk létre egy preprocesszor sort. Ez # jellel
+kezdődik az első oszlopban és a sor végéig tart. A \ karakter feloldja a sor
+végét (folytatásnak számít). A problémát úgy oldhatjuk meg, hogy a kiemelésnek
+megengedjük, hogy tartalmazzon egy folytatólagos mintát: >
 
 	:syntax region xPreProc start=/^#/ end=/$/ contains=xLineContinue
 	:syntax match xLineContinue "\\$" contained
 
-In this case, although xPreProc normally matches a single line, the group
-contained in it (namely xLineContinue) lets it go on for more than one line.
-For example, it would match both of these lines:
+Ebben az esetben, bár a xPreProc normális esetben csak egy sorra illeszkedne,
+az általa tartalmazott csoport (névlegesen a xLineContinue) megengedi, hogy a
+mint a következő sorba csússzon. Például, ez illesztené az alábbiakat:
 
 	#define SPAM  spam spam spam \ ~
 			bacon and spam ~
 
-In this case, this is what you want.  If it is not what you want, you can call
-for the region to be on a single line by adding "excludenl" to the contained
-pattern.  For example, you want to highlight "end" in xPreProc, but only at
-the end of the line.  To avoid making the xPreProc continue on the next line,
-like xLineContinue does, use "excludenl" like this: >
+Az történt, amit szerettünk volna. (Ha mégsem, akkor a tartalmazott mintában
+az "excludenl" argumentummal egy sorba kényszeríthetjük a mintát). Például, ki
+szeretnéd emelni az "end" szót a xPreProc tartományban, de csak a sor végén. A
+mintát egy sorban kell tartanunk, hogy xPreProc ne folytatódhasson új sorban,
+mint a xLineContinue, ezért "excludenl"-t kell használnunk: >
 
 	:syntax region xPreProc start=/^#/ end=/$/
 		\ contains=xLineContinue,xPreProcEnd
 	:syntax match xPreProcEnd excludenl /end$/ contained
 	:syntax match xLineContinue "\\$" contained
 
-"excludenl" must be placed before the pattern.  Since "xLineContinue" doesn't
-have "excludenl", a match with it will extend xPreProc to the next line as
-before.
+"excludenl"-nek a minta előtt kell szerepelnie. Mivel "xLineContinue" nem
+tartalmazza az "excludenl" elemet, az illesztés kiterjeszti a xPreProc elemet
+a következő sorra.
 
 ==============================================================================
-*44.8*	Clusters
+*44.8*	Klaszterek
 
-One of the things you will notice as you start to write a syntax file is that
-you wind up generating a lot of syntax groups.  Vim enables you to define a
-collection of syntax groups called a cluster.
-   Suppose you have a language that contains for loops, if statements, while
-loops, and functions.  Each of them contains the same syntax elements: numbers
-and identifiers.  You define them like this: >
+Ha új szintaxis kiemelésen dolgozunk, akkor elég sor csoportot létrehozunk. A
+csoportokat klaszterekbe foglalhatjuk.
+   Tegyük fel, hogy képzeletbeli programnyelv ciklusokat, feltételes
+elágazásokat, és függvényeket tartalmaz. Mindegyikük ugyanazokat a kiemeléseket
+tartalmazza: számokat és azonosítókat, melyeket így hozhatunk létre: >
 
 	:syntax match xFor /^for.*/ contains=xNumber,xIdent
 	:syntax match xIf /^if.*/ contains=xNumber,xIdent
 	:syntax match xWhile /^while.*/ contains=xNumber,xIdent
 
-You have to repeat the same "contains=" every time.  If you want to add
-another contained item, you have to add it three times.  Syntax clusters
-simplify these definitions by enabling you to have one cluster stand for
-several syntax groups.
-   To define a cluster for the two items that the three groups contain, use
-the following command: >
+A "contains=" kódrészletet minden esetben meg kellett ismételnünk. Ha egy
+harmadik elemet is hozzá szeretnénk adni, akkor azt is meg kellene ismételni
+még egyszer. A klaszterek leegyszerűsítik az ilyen jellegű definíciókat oly
+módon, hogy megengedik, hogy egy klaszter számos csoportot helyettesíthessen.
+   A klaszter definiálása két elemhez, melyet három csoportban alkalmazunk: >
 
 	:syntax cluster xState contains=xNumber,xIdent
 
-Clusters are used inside other syntax items just like any syntax group.
-Their names start with @.  Thus, you can define the three groups like this: >
+A létrehozott klasztereket ugyanúgy használhatjuk a definíciókban, mint
+bármelyik másik csoportot. A nevük @ jellel kezdődik. Alkalmazásuk három
+csoportban pedig: >
 
 	:syntax match xFor /^for.*/ contains=@xState
 	:syntax match xIf /^if.*/ contains=@xState
 	:syntax match xWhile /^while.*/ contains=@xState
 
-You can add new group names to this cluster with the "add" argument: >
+Új csoport hozzáadása a klaszterhez az "add" argumentummal: >
 
 	:syntax cluster xState add=xString
 
-You can remove syntax groups from this list as well: >
+Csoport eltávolítása a klaszterből: >
 
 	:syntax cluster xState remove=xNumber
 
 ==============================================================================
-*44.9*	Including another syntax file
+*44.9*	Szintaxis fájl beágyazása
 
-The C++ language syntax is a superset of the C language.  Because you do not
-want to write two syntax files, you can have the C++ syntax file read in the
-one for C by using the following command: >
+A C++ programnyelv a C nyelv szuperszettje (azaz a C++ a C nyelv szintaxisát
+nagy részét tartalmazza). Ezért semmi értelme, hogy a munkát teljesen az
+elejéről kezdjük. Ezért a C szintaxis fájlját beolvashatjuk a C++ nyelvhez
+akár menet közben: >
 
 	:runtime! syntax/c.vim
 
-The ":runtime!" command searches 'runtimepath' for all "syntax/c.vim" files.
-This makes the C parts of the C++ syntax be defined like for C files.  If you
-have replaced the c.vim syntax file, or added items with an extra file, these
-will be loaded as well.
-   After loading the C syntax items the specific C++ items can be defined.
-For example, add keywords that are not used in C: >
+A ":runtime!" parancs megkeresi a 'runtimepath' elérési utak alatt található
+összes "syntax/c.vim" fájlt. Ezzel a C++ nyelnek a C nyelvvel megegyező
+kiemeléseit már definiáltuk. Ha már lecserélted a c.vim fájlt (vagy új
+definíciókkal egészítetted ki, akkor ezek is betöltődnek).
+   A c.vim fájl betöltése után már csak az a feladat, hogy a C++ nyelvnek a
+különbségeit leírjuk. Például, olyan kulcsszavak használata, melyeket a C
+nyelv nem használ: >
 
 	:syntax keyword cppStatement	new delete this friend using
 
-This works just like in any other syntax file.
+A technika egyébként bármelyik fájl és nyelv esetén működik.
 
-Now consider the Perl language.  A Perl script consists of two distinct parts:
-a documentation section in POD format, and a program written in Perl itself.
-The POD section starts with "=head" and ends with "=cut".
-   You want to define the POD syntax in one file, and use it from the Perl
-syntax file.  The ":syntax include" command reads in a syntax file and stores
-the elements it defined in a syntax cluster.  For Perl, the statements are as
-follows: >
+Most vegyük például a Perl nyelvet. A Perl szkriptek két fő részre
+oszthatóak: a dokumentáció része POD formátumban, és a program kódja maga,
+Perl nyelven. A POD rész "=head"-el kezdődik és "=cut"-al ér véget.
+   A két részt szeparálni szeretnénk, azaz létre szeretnénk hozni egy fájlt a
+POD kiemelés számára és egyet a Perl szintaxis számára. A ":syntax include"
+parancs beolvassa a szintaxis fájlt és eltárolja a leírt elemeket a
+meghatározott kiemelés klaszterben. A két parancs pedig: >
 
 	:syntax include @Pod <sfile>:p:h/pod.vim
 	:syntax region perlPOD start=/^=head/ end=/^=cut/ contains=@Pod
 
-When "=head" is found in a Perl file, the perlPOD region starts.  In this
-region the @Pod cluster is contained.  All the items defined as top-level
-items in the pod.vim syntax files will match here.  When "=cut" is found, the
-region ends and we go back to the items defined in the Perl file.
-   The ":syntax include" command is clever enough to ignore a ":syntax clear"
-command in the included file.  And an argument such as "contains=ALL" will
-only contain items defined in the included file, not in the file that includes
-it.
-   The "<sfile>:p:h/" part uses the name of the current file (<sfile>),
-expands it to a full path (:p) and then takes the head (:h).  This results in
-the directory name of the file.  This causes the pod.vim file in the same
-directory to be included.
+Amikor "=head" részhez ér a szövegszerkesztő a Perl fájlban, akkor a perlPOD
+tartomány elkezdődik, mely tartalmazza a @Pod klasztert. Az összes pod.vim
+fájlban a legfelső szinten leírt ebbe a tartományba. Amikor az értelmezés a
+"=cut" szövegrészhez ér, a tartomány befejeződik és visszakerülünk a Perl
+fájlban leírt elemekhez.
+   A ":syntax include" parancs elég okos, hogy figyelmen kívül hagyja a
+":syntax clear" parancsot a beágyazott fájlban. És egy olyan argumentum, mint
+például a "contains=ALL" csak azokra az elemekre lesz érvényes, amelyik
+fájlban definiálva van (és nem abban, ami meghívta azt).
+   A "<sfile>:p:h/" rész veszi az aktív fájlt (<sfile>), kibontja a teljes
+elérési utat (:p), melynek a "fejét" veszi (:h), azaz a végeredmény a fájllal
+megegyező elérési út lesz. Azaz, a pod.vim fájl azonos elérési úttal lesz
+importálva.
 
 ==============================================================================
-*44.10*	Synchronizing
+*44.10*	Szinkronizáció
 
-Compilers have it easy.  They start at the beginning of a file and parse it
-straight through.  Vim does not have it so easy.  It must start in the middle,
-where the editing is being done.  So how does it tell where it is?
-   The secret is the ":syntax sync" command.  This tells Vim how to figure out
-where it is.  For example, the following command tells Vim to scan backward
-for the beginning or end of a C-style comment and begin syntax coloring from
-there: >
+A fordítóknak könnyű dolga van. A fájl elején kezdik az értelmezést és csak
+egyenesen végighaladnak rajta. A Vimnek nem ilyen könnyű az élet. Középen kell
+kezdenie, ahol a szerkesztés folyik. Honnan tudja?
+   A titok a ":syntax sync" parancsban rejlik. Ez mondja mega Vimnek, hogy
+merre van. Például, a következő parancs mondja meg a Vimnek, hogy hátrafelé
+pásztázzon a komment elejéhez, majd onnan kezdje a kiemelést. >
 
 	:syntax sync ccomment
 
-You can tune this processing with some arguments.  The "minlines" argument
-tells Vim the minimum number of lines to look backward, and "maxlines" tells
-the editor the maximum number of lines to scan.
-   For example, the following command tells Vim to look at least 10 lines
-before the top of the screen: >
+Argumentumokkal szabályozhatjuk a működést. A "minlines" argumentum a
+minimális sorok számát adja meg, mellyel a Vim hátra irányban keres,a "maxline"
+pedig a maximális sorok számát takarja.
+   Például, az alábbi paranccsal a Vim a képernyő tetejétől számított 10 sort
+vizsgálja (nem látható tartomány). >
 
 	:syntax sync ccomment minlines=10 maxlines=500
 
-If it cannot figure out where it is in that space, it starts looking farther
-and farther back until it figures out what to do.  But it looks no farther
-back than 500 lines.  (A large "maxlines" slows down processing.  A small one
-might cause synchronization to fail.)
-   To make synchronizing go a bit faster, tell Vim which syntax items can be
-skipped.  Every match and region that only needs to be used when actually
-displaying text can be given the "display" argument.
-   By default, the comment to be found will be colored as part of the Comment
-syntax group.  If you want to color things another way, you can specify a
-different syntax group: >
+Sikertelen megállapítás esetén a fájlt tovább vizsgálja, de soha nem haladja
+meg a maxlinesban foglalt sorok számát. (Ha túl nagy értéket adunk a
+"maxlines" argumentumnak, akkor az lelassítja a feldolgozást. Nagyon kicsi
+érték esetén pedig a szinkronizáció egyáltalán nem fog működni).
+   A szinkronizáció gyorsítására állítsuk be, hogy mely szintaxis elemek
+legyenek kihagyva. Az összes tartománynak és illesztésnek átadhatjuk a
+"display" argumentumot abban az esetben, ha ezen elemeknek mindenképpen a
+képernyőn kell szerepeljenek (szöveg nélkül felesleges a keresésük).
+   Alapértelmezésként, a megtalált komment a Comment kiemeléscsoport alapján
+lesz színezve. Ha másképpen szeretnénk színezni, akkor megadhatunk eltérő
+csoportot: >
 
 	:syntax sync ccomment xAltComment
 
-If your programming language does not have C-style comments in it, you can try
-another method of synchronization.  The simplest way is to tell Vim to space
-back a number of lines and try to figure out things from there.  The following
-command tells Vim to go back 150 lines and start parsing from there: >
-
+Ha programnyelvünknek nincs C stílusú kommentjei, akkor megpróbálhatjuk a
+szinkronizációt más módszerrel. A legegyszerűbb módszer, ha megmondjuk a
+Vimnek, hogy menjen vissza meghatározott sort és próbálja onnan folytatni. Az
+alábbi paranccsal a Vim visszamegy 150 sort és az értelmezést onnan folytatja:
+>
 	:syntax sync minlines=150
 
-A large "minlines" value can make Vim slower, especially when scrolling
-backwards in the file.
-   Finally, you can specify a syntax group to look for by using this command:
+A nagy "minlines" érték a Vimet lassúvá teheti, különösen vissza irányban
+történő görgetésnél.
+   Végül, meghatározhatjuk a keresendő szintaxis csoportot ezzel a
+paranccsal: >
 >
 	:syntax sync match {sync-group-name}
 		\ grouphere {group-name} {pattern}
 
-This tells Vim that when it sees {pattern} the syntax group named {group-name}
-begins just after the pattern given.  The {sync-group-name} is used to give a
-name to this synchronization specification.  For example, the sh scripting
-language begins an if statement with "if" and ends it with "fi":
+Ha a Vim látja a {pattern} mintát, akkor a szintaxis csoport neve az adott
+minta után kezdődik. A {sync-group-name} (szinkronizációs csoportnevet) arra
+használjuk, hogy ezt a szinkronizációs csoportot elnevezzük. Például, az sh
+szkriptekben kezdődő "if" szerkezet "fi"-vel végződik: 
 
 	if [ --f file.txt ] ; then ~
 		echo "File exists" ~
 	fi ~
 
-To define a "grouphere" directive for this syntax, you use the following
-command: >
+A "grouphere" direktíva létrehozásához az alábbi parancsot használhatjuk: >
 
 	:syntax sync match shIfSync grouphere shIf "\<if\>"
 
-The "groupthere" argument tells Vim that the pattern ends a group.  For
-example, the end of the if/fi group is as follows: >
-
+A "groupthere" argumentum jelzi a minta végét. Például, az if/fi csoport vége:
+>
 	:syntax sync match shIfSync groupthere NONE "\<fi\>"
 
-In this example, the NONE tells Vim that you are not in any special syntax
-region.  In particular, you are not inside an if block.
+Ebben a példában a NONE hogy a tartományt nem kell speciális kiemelés
+részeként kezelni, azaz nem vagyunk if blokkban.
 
-You also can define matches and regions that are with no "grouphere" or
-"groupthere" arguments.  These groups are for syntax groups skipped during
-synchronization.  For example, the following skips over anything inside {},
-even if it would normally match another synchronization method: >
+Illesztéseket és tartományokat a "grouphere" vagy "groupthere" argumentumok
+nélkül is definiálhatunk, melyek kimaradnak a szintaxis szinkronizációból.
+Például, az alábbi definíció mindent kihagy az {} blokkban, még akkor is, ha
+egyébként egy másik szinkronizációs metódusra illeszkedne: >
 
 	:syntax sync match xSpecial /{.*}/
 
-More about synchronizing in the reference manual: |:syn-sync|.
+Még több a szinkronizációról a dokumentációban: |:syn-sync|.
 
 ==============================================================================
-*44.11*	Installing a syntax file
+*44.11*	Szintaxis fájl telepítése
 
-When your new syntax file is ready to be used, drop it in a "syntax" directory
-in 'runtimepath'.  For Unix that would be "~/.vim/syntax".
-  The name of the syntax file must be equal to the file type, with ".vim"
-added.  Thus for the x language, the full path of the file would be:
+Ha az új szintaxis fájlod kész, akkor másold be a 'runtimepath' részét képező
+"syntax" könyvtárba. Ez Unixon: "~/.vim/syntax". 
+  A fájl nevének meg kell egyezzen a fájl kiterjesztésével, amihez a ".vim" et
+hozzá kell adni. Ezért x nyelven a teljes elérési útja a következő lesz:
 
 	~/.vim/syntax/x.vim ~
 
-You must also make the file type be recognized.  See |43.2|.
+Arról is gondoskodnunk kell, hogy a Vim ezt betöltse: |43.2|.
 
+Ha a fájlunk remekül működik, akkor azt megoszthatjuk másokkal. Először
+olvassuk el a következő bekezdést és győződjünk meg arról, hogy a fájl
+megfelelően működik mások számára is. Aztán e-mailben küldjük el a Vim
+karbantartója számára <maintainer@vim.org> egy rövid magyarázattal, mely
+leírja, hogy hogyan detektálhatjuk a fájlt. Egy kis szerencsével a fájl
+szerepelhet a Vim következő verziójában!
 If your file works well, you might want to make it available to other Vim
 users.  First read the next section to make sure your file works well for
 others.  Then e-mail it to the Vim maintainer: <maintainer@vim.org>.  Also
@@ -622,32 +631,34 @@ explain how the filetype can be detected.  With a bit of luck your file will
 be included in the next Vim version!
 
 
-ADDING TO AN EXISTING SYNTAX FILE
+MEGLÉVŐ SZINTAXIS FÁJL BŐVÍTÉSE
 
-We were assuming you were adding a completely new syntax file.  When an existing
-syntax file works, but is missing some items, you can add items in a separate
-file.  That avoids changing the distributed syntax file, which will be lost
-when installing a new version of Vim.
-   Write syntax commands in your file, possibly using group names from the
-existing syntax.  For example, to add new variable types to the C syntax file:
+Eddig feltételeztük, hogy egy teljesen új fájlt hoztunk létre. Ha egy már
+létező fájl részben működik, csak kiegészítésre szorul, a különbségeket egy
+külön fájlba kell helyeznünk. Így elkerülhetjük, hogy megsemmisüljön (új
+verziók telepítésénél gyakori).
+   Írd le a kiemelés definíciót egy külön fájlba (lehetőleg a meglévő
+kiemelésben meghatározott csoportneveket használva). Például, új típusú
+változó hozzáadása a C szintaxis fájlhoz:
 >
 	:syntax keyword cType off_t uint
 
-Write the file with the same name as the original syntax file.  In this case
-"c.vim".  Place it in a directory near the end of 'runtimepath'.  This makes
-it loaded after the original syntax file.  For Unix this would be:
+A fájlt az eredetivel megegyezően nevezd el. Ebben az esetben "c.vim". Helyezd
+el a 'runtimepath' elérési úton található könyvtárak végén (after könyvtár).
+Ennek hatására a fájl  utolsóként fog betöltődni (a módosításokkal kiegészítve
+a létező fájlt). Unixon ez így néz ki: 
 
 	~/.vim/after/syntax/c.vim ~
 
 ==============================================================================
-*44.12*	Portable syntax file layout
+*44.12*	Hordozható szerkezet
 
-Wouldn't it be nice if all Vim users exchange syntax files?  To make this
-possible, the syntax file must follow a few guidelines.
+Nem lenne szép, ha minden Vim felhasználó kedvére cserélgethetné a kiemelés
+fájlokat? Hogy ez megtörténhessen, követnünk kell pár alapvető konvenciót.
 
-Start with a header that explains what the syntax file is for, who maintains
-it and when it was last updated.  Don't include too much information about
-changes history, not many people will read it.  Example: >
+A fejléc elmagyarázza, hogy mihez való a kiemelés, ki tartja karban és mikor
+frissült utoljára. Nem érdemes túl sok információt feltüntetni (changelog),
+ezeket nem sokan olvassák el. Például:   >
 
 	" Vim syntax file
 	" Language:	C
@@ -655,51 +666,53 @@ changes history, not many people will read it.  Example: >
 	" Last Change:	2001 Jun 18
 	" Remark:	Included by the C++ syntax.
 
-Use the same layout as the other syntax files.  Using an existing syntax file
-as an example will save you a lot of time.
+Használd a többi szintaxis fájl által használt szerkezetet, mely egyébként sok
+időt meg is spórol.
 
-Choose a good, descriptive name for your syntax file.  Use lowercase letters
-and digits.  Don't make it too long, it is used in many places: The name of
-the syntax file "name.vim", 'filetype', b:current_syntax and the start of each
-syntax group (nameType, nameStatement, nameString, etc).
+Használj egy megfelelő, leíró nevet. Kisbetűket és számokat. Ne írd hosszúra.
+A fájl neve "name.vim", 'filetype', b:current_syntax és a kezdőcsoportok
+(nameType, nameStatement, nameString, stb).
 
-Start with a check for "b:current_syntax".  If it is defined, some other
-syntax file, earlier in 'runtimepath' was already loaded: >
+A fájl elejéhez ellenőrizd a "b:current_syntax" változót. Ha van értéke, akkor
+már egy szintaxis fájl be lett töltve a 'runtimepath'-ból: >
 
 	if exists("b:current_syntax")
 	  finish
 	endif
 
-Set "b:current_syntax" to the name of the syntax at the end.  Don't forget
-that included files do this too, you might have to reset "b:current_syntax" if
-you include two files.
+Állítsuk be a "b:current_syntax" változó nevét a fájl végén. Ne felejtsük el
+hogy ezt a beágyazott fájlok is megteszik és talán vissza kell állítanunk a
+változó értékét, ha több fájllal dolgozunk.
 
-Do not include anything that is a user preference.  Don't set 'tabstop',
-'expandtab', etc.  These belong in a filetype plugin.
+Ne adjunk hozzá olyan beállításokat, amik a felhasználói preferenciát
+képezhetik. Ne állítsuk be a 'tabstop', 'expandtab' értékét, stb. Ezek a
+fájltípus beépülőkhöz tartoznak.
 
-Do not include mappings or abbreviations.  Only include setting 'iskeyword' if
-it is really necessary for recognizing keywords.
+Ne tartalmazzanak a fájlok mappeket vagy rövidítéseket. Csak az 'iskeyword'
+értékét állítsuk be, ha ez feltétlenül szükséges.
 
-To allow users select their own preferred colors, make a different group name
-for every kind of highlighted item.  Then link each of them to one of the
-standard highlight groups.  That will make it work with every color scheme.
-If you select specific colors it will look bad with some color schemes.  And
-don't forget that some people use a different background color, or have only
-eight colors available.
+Engedjük meg a felhasználóknak, hogy kiválaszthassák a színeket, készítsünk
+különböző csoportokat minden elem számára. Ezek után rendeljük hozzá minden
+elemet az alapértelmezett csoportok egyikéhez. Így a fájl minden színséma
+esetén működni fog. Ha konkrétan megadjuk a színt, akkor az esetleg egy másik
+színsémában akár olvashatatlan is lehet. Ne felejtsük el, hogy egyes
+felhasználóknak más háttérszínt alkalmaznak, vagy csak 8 szín áll
+rendelkezésre.
 
-For the linking use "hi def link", so that the user can select different
-highlighting before your syntax file is loaded.  Example: >
+A linkeléshez használjuk a "hi def link", így a felhasználó más kiemelést is
+választhat, mielőtt a fájlt betöltődne: Például:   >
 
 	  hi def link nameString	String
 	  hi def link nameNumber	Number
 	  hi def link nameCommand	Statement
 	  ... etc ...
 
-Add the "display" argument to items that are not used when syncing, to speed
-up scrolling backwards and CTRL-L.
+Adjuk hozzá a "display" argumentumot azokhoz az argumentumokhoz, amelyeket a
+szinkronizáció során nem használunk, hogy felgyorsítsuk a görgetést és a
+CTRL-L parancsot
 
 ==============================================================================
 
-Következő fejezet: |usr_45.txt|  Select your language
+Következő fejezet: |usr_45.txt|  Nyelv kiválasztása
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
