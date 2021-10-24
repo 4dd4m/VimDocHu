@@ -3209,10 +3209,10 @@ msgstr "E149: Hiányzó dokumentáció: %s "
 # msgid_plural "%ld lines indented "
 # msgstr[0] ""
 # msgstr[1] ""
-# 
-# #: ../insexpand.c:47
-# msgid " Keyword completion (^N^P)"
-# msgstr ""
+
+#: ../insexpand.c:47
+msgid " Keyword completion (^N^P)"
+msgstr " Kulcsszó kiegészítés(^N^P)"
 # 
 # #. CTRL_X_NORMAL, ^P/^N compl.
 # #: ../insexpand.c:48
@@ -6545,11 +6545,11 @@ msgstr "Kész!"
 # #: ../spellfile.c:6284
 # msgid "Seek error in spellfile"
 # msgstr ""
-# 
-# #: ../spellfile.c:6331
-# #, c-format
-# msgid "Word '%.*s' added to %s"
-# msgstr ""
+ 
+#: ../spellfile.c:6331
+#, c-format
+msgid "Word '%.*s' added to %s"
+msgstr "'%.*s' szó hozzáadva: %s"
 # 
 # #: ../spellfile.c:6553
 # msgid "E763: Word characters differ between spell files"

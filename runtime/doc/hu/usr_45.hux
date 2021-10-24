@@ -13,7 +13,7 @@ munkafolyamatainkba.
 |45.2|	A menük nyelve
 |45.3|	Más karakterkódolás használata
 |45.4|	Szerkesztés más karakterkódolással
-|45.5|	Entering language text
+|45.5|	Nyelvi szövegek bevitele
 
 Következő fejezet: |usr_46.txt|  Beépülők készítése Vim9 szkripttel
     Előző fejezet: |usr_44.txt|  Egyedi Szintaxis kiemelés
@@ -181,223 +181,225 @@ helyezte át őket, itt elérhetjük:
 
 	http://www.microsoft.com/typography/fonts/default.aspx ~
 
-Now you have told Vim to use Unicode internally and display text with a
-Unicode font.  Typed characters still arrive in the encoding of your original
-language.  This requires converting them to Unicode.  Tell Vim the language
-from which to convert with the 'termencoding' option.  You can do it like
-this: >
+Így a Vim belső Unicode karakterkódolást fog használni, a szöveget pedig
+Unicode betűtípussal jeleníti meg. A begépelt karakterek a nyelvi
+beállításaink határozzák meg, melyet át kell állítanunk Unicodera. Azt, hogy
+melyiket konvertálja a 'termencoding' opció határozza meg: >
 
 	:let &termencoding = &encoding
 	:set encoding=utf-8
 
-This assigns the old value of 'encoding' to 'termencoding' before setting
-'encoding' to utf-8.  You will have to try out if this really works for your
-setup.  It should work especially well when using an input method for an Asian
-language, and you want to edit Unicode text.
+A parancs hozzárendeli az 'encoding' régi értékét a 'termencoding'-hoz,
+mielőtt az 'encoding'-ot utf-8-ra állítaná. Ezt azonban ki kell próbálnunk,
+hogy tényleg működik-e a rendszerünkön. Működnie kell, ha beviteli nyelvként
+Ázsiai nyelvet használunk és Unicode szöveget szerkesztünk.
 
 
-USING UNICODE IN A UNICODE TERMINAL
+UNICODE HASZNÁLATA UNICODE TERMINÁLBAN
 
-There are terminals that support Unicode directly.  The standard xterm that
-comes with XFree86 is one of them.  Let's use that as an example.
-   First of all, the xterm must have been compiled with Unicode support.  See
-|UTF8-xterm| how to check that and how to compile it when needed.
-   Start the xterm with the "-u8" argument.  You might also need so specify a
-font.  Example: >
+Egyes terminálok natívan támogatják a Unicode használatát. A sztenderd
+xtermben található XFree86 is ilyen. Használjuk ezt  példához. 
+   Először is, az xterm Unicode támogatással kell lefordítani. Lásd a
+|UTF8-xterm| fejezetet a fordítással kapcsolatban.
+   Indítsuk el az xtermet az "-u8" argumentummal. Valószínűleg egy betűtípust
+is meg kell határoznunk.: >
 
    xterm -u8 -fn -misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
 
-Now you can run Vim inside this terminal.  Set 'encoding' to "utf-8" as
-before.  That's all.
+Így a Vim a terminálban futtathatóvá válik. Állítsuk az 'encoding' opciót
+"utf-8"-ra. Ennyi.
 
 
-USING UNICODE IN AN ORDINARY TERMINAL
+UNICODE HASZNÁLATA HAGYOMÁNYOS TERMINÁLBAN
 
-Suppose you want to work with Unicode files, but don't have a terminal with
-Unicode support.  You can do this with Vim, although characters that are not
-supported by the terminal will not be displayed.  The layout of the text
-will be preserved.  >
+Tételezzük fel hogy  Unicode fájlokkal szeretnénk dolgozni, de a terminálunk
+ezt nem támogatja. A Vimben tovább dolgozhatunk, a terminálunk ugyan a Unicode
+karaktereket nem fogja megjeleníteni, azonban ugyanúgy dolgozhatunk velük. >
 
 	:let &termencoding = &encoding
 	:set encoding=utf-8
 
-This is the same as what was used for the GUI.  But it works differently: Vim
-will convert the displayed text before sending it to the terminal.  That
-avoids that the display is messed up with strange characters.
-   For this to work the conversion between 'termencoding' and 'encoding' must
-be possible.  Vim will convert from latin1 to Unicode, thus that always works.
-For other conversions the |+iconv| feature is required.
-   Try editing a file with Unicode characters in it.  You will notice that Vim
-will put a question mark (or underscore or some other character) in places
-where a character should be that the terminal can't display.  Move the cursor
-to a question mark and use this command: >
+Ez ugyanaz, mint amit a GUI-nál használtunk. Másképpen működik: A Vim
+átalakítja a karaktereket, mielőtt azt a terminálnak elküldené, így
+megjelenítés egységesebb lesz.
+   Ez csak akkor működik, ha lehetővé tesszük a 'termencoding' és az
+'encoding' közötti konverziót. A latin1 kódolást a szerkesztő Unicodera
+alakítja, mely mindig működik. Egyéb konverziókhoz szükségünk lehet az |+iconv|
+modulra.
+   Próbáljunk egy olyan fájl szerkeszteni, amelyben Unicode karakterek vannak.
+A Vim kérdőjelet tesz (vagy aláhúz) olyan karakterekhez, melyeket a terminál
+nem képes megjeleníteni. Vigyük a kurzort a kérdőjelre és adjuk ki a
+parancsot: >
 
 	ga
 
-Vim will display a line with the code of the character.  This gives you a hint
-about what character it is.  You can look it up in a Unicode table.  You could
-actually view a file that way, if you have lots of time at hand.
+Erre a szerkesztő kiírja a karakter kódját, melyet megnézhetünk a Unicode
+táblázatban. Maradhatunk ennél a módszernél és olvashatjuk a fájlt így is, ha
+sok időnk van.
 
-	Note:
-	Since 'encoding' is used for all text inside Vim, changing it makes
-	all non-ASCII text invalid.  You will notice this when using registers
-	and the 'viminfo' file (e.g., a remembered search pattern).  It's
-	recommended to set 'encoding' in your vimrc file, and leave it alone.
+	Megjegyzés:
+	Mivel az 'encoding' opció beállítását használja a Vim, változtatása az
+	összes nem-ASCII szöveget érvénytelenné teszi. Ezt a regiszterek
+	használatakor vehetjük észre és a 'viminfo' fájlban. (például egy
+	megjegyzett keresési minta esetén). Állítsuk be az 'encoding' opciót a
+	vimrc fájlban és nyúljunk hozzá.
 
 ==============================================================================
-*45.4*	Editing files with a different encoding
+*45.4*	Szerkesztés más karakterkódolással
 
-Suppose you have setup Vim to use Unicode, and you want to edit a file that is
-in 16-bit Unicode.  Sounds simple, right?  Well, Vim actually uses utf-8
-encoding internally, thus the 16-bit encoding must be converted, since there
-is a difference between the character set (Unicode) and the encoding (utf-8 or
-16-bit).
-   Vim will try to detect what kind of file you are editing.  It uses the
-encoding names in the 'fileencodings' option.  When using Unicode, the default
-value is: "ucs-bom,utf-8,latin1".  This means that Vim checks the file to see
-if it's one of these encodings:
+Tegyük fel, hogy Vimet a Unicode kódolásra készítettük fel és most egy 16
+bites Unicode fájl szeretnénk szerkeszteni. Egyszerűnek hangzik, ugye? Nos, a
+Vim utf-8 bites kódolást használ, ezért 16 bites kódolást konvertálnunk kell,
+mivel különbség van a Unicode és utf-8 (vagy utf-16 között).
+   A szerkesztő megpróbálja kitalálni, hogy milyen fájllal dolgozunk, melyhez
+a 'fileencodings' opcióban található neveket használja. Ha Unicodeot
+használunk, akkor az alapértelmezett érték: "ucs-bom,utf-8,latin1". Ez azt
+jelenti, hogy a Vim az alábbiakat vizsgálja meg:
 
-	ucs-bom		File must start with a Byte Order Mark (BOM).  This
-			allows detection of 16-bit, 32-bit and utf-8 Unicode
-			encodings.
-	utf-8		utf-8 Unicode.  This is rejected when a sequence of
-			bytes is illegal in utf-8.
-	latin1		The good old 8-bit encoding.  Always works.
+	ucs-bom		A fájlnak Byte Order Mark-al (BOM) kell kezdődnie, 
+			mely felismerhetővé teszi a 16 bites, 32 bites és az
+			utf-8 Unicode kódolást.
+	utf-8		utf-8 Unicode.  Visszautasítva, ha bájtszekvencia
+			hibás az utf-8-ban.
+	latin1		A régi öreg 8-bit kódolás.  Mindig működik.
 
-When you start editing that 16-bit Unicode file, and it has a BOM, Vim will
-detect this and convert the file to utf-8 when reading it.  The 'fileencoding'
-option (without s at the end) is set to the detected value.  In this case it
-is "utf-16le".  That means it's Unicode, 16-bit and little-endian.  This
-file format is common on MS-Windows (e.g., for registry files).
-   When writing the file, Vim will compare 'fileencoding' with 'encoding'.  If
-they are different, the text will be converted.
-   An empty value for 'fileencoding' means that no conversion is to be done.
-Thus the text is assumed to be encoded with 'encoding'.
+16 bites Unicode fájl szerkesztése esetén, ha az rendelkezik BOMmal, a Vim
+átkonvertálja azt utf-8-re, mielőtt beolvasná. A 'fileencoding' opció (a végén
+nincs s), a felismert értékre változik. Ebben az esetben ez "utf-16le". Azaz
+Unicode, 16-bit, little-endian, ami egy gyakori fájlformátum MS-Windows
+rendszeren (például registry fájloknál).
+   Fájl írásakor, a Vim összehasonlítja a 'fileencoding' opciót az
+'encoding'-al. Ha különböznek, akkor a szöveg konvertáláson esik át. 
+   Nem történik konvertálás, ha a 'fileencoding' opciónak nincs értéke. 
+A szöveg feltételezhetően az 'encoding' opcióban foglaltak szerint
+konvertálódik.
 
-If the default 'fileencodings' value is not good for you, set it to the
-encodings you want Vim to try.  Only when a value is found to be invalid will
-the next one be used.  Putting "latin1" first doesn't work, because it is
-never illegal.  An example, to fall back to Japanese when the file doesn't
-have a BOM and isn't utf-8: >
+Ha a 'fileencodings' értéke számunkra nem megfelelő, akkor kipróbálhatjuk egy
+másik értékkel. Érvénytelen érték esetén a szerkesztő a következő értékkel
+próbálkozik. Ne tegyük a "latin1" kódolást a lista elejére, hiszen az mindig
+érvényes. Például, az alábbi paranccsal visszaállunk Japán kódolásra, ha a
+fájl nem tartalmaz BOM-ot és nem utf-8:
 
 	:set fileencodings=ucs-bom,utf-8,sjis
 
-See |encoding-values| for suggested values.  Other values may work as well.
-This depends on the conversion available.
+Az |encoding-values|-ban találhatunk további ötleteket. Egyéb érékek is
+működhetnek, de ez rendszerfüggő.
 
 
-FORCING AN ENCODING
+KÓDOLÁS KÉNYSZERÍTÉSE
 
-If the automatic detection doesn't work you must tell Vim what encoding the
-file is.  Example: >
+Ha az automatikus felismerés nem működik, akkor azt be kell állítanunk
+manuálisan. Például:   >
 
 	:edit ++enc=koi8-r russian.txt
 
-The "++enc" part specifies the name of the encoding to be used for this file
-only.  Vim will convert the file from the specified encoding, Russian in this
-example, to 'encoding'.  'fileencoding' will also be set to the specified
-encoding, so that the reverse conversion can be done when writing the file.
-   The same argument can be used when writing the file.  This way you can
-actually use Vim to convert a file.  Example: >
+Az "++enc" rész csak az aktív fájl karakterkódolását határozza meg. A
+fájlt a szerkesztő átkódolja a megadott kódolásról (itt Oroszra)
+'encoding'-ra. A 'fileencoding' szintén a meghatározott kódolás értékét veszi
+fel, így az átalakítás (vissza irányban) megoldhatóvá válik a fájl mentésekor.
+   Íráshoz is használhatjuk az argumentumot. Ebben az esetben a Vim
+konvertálja a fájlt. Például:   >
 
 	:write ++enc=utf-8 russian.txt
 <
-	Note:
-	Conversion may result in lost characters.  Conversion from an encoding
-	to Unicode and back is mostly free of this problem, unless there are
-	illegal characters.  Conversion from Unicode to other encodings often
-	loses information when there was more than one language in the file.
+	Megjegyzés:
+	A konvertálás veszteséges lehet. Unicodera történő konvertálás
+	általában veszteségmentesen megy végbe (kivéve az érvénytelen
+	karaktereket). Ha Unicoderól szeretnénk konvertálni, akkor az
+	általában veszteséges, ha a fájlban több mint egy nyelvű szöveget
+	tartalmaz.
 
 ==============================================================================
-*45.5*	Entering language text
+*45.5*	Nyelvi szövegek bevitele
 
-Computer keyboards don't have much more than a hundred keys.  Some languages
-have thousands of characters, Unicode has over hundred thousand.  So how do
-you type these characters?
-   First of all, when you don't use too many of the special characters, you
-can use digraphs.  This was already explained in |24.9|.
-   When you use a language that uses many more characters than keys on your
-keyboard, you will want to use an Input Method (IM).  This requires learning
-the translation from typed keys to resulting character.  When you need an IM
-you probably already have one on your system.  It should work with Vim like
-with other programs.  For details see |mbyte-XIM| for the X Window system and
-|mbyte-IME| for MS-Windows.
+A billentyűzetünk karakterkészlete véges. Léteznek nyelvek, amelyek több ezer
+karakterből állnak, Unicode több, mint száz ezret. Hogyan írhatjuk be ezen
+karaktereket?
+   Először is, ha nem használunk ennyi karaktert, akkor a digrammák jó
+alternatívát jelenthetnek. Ezeket elmagyaráztuk a |24.9| fejezetben.
+   Ha olyan nyelvet használunk, ami a billentyűink számától több karakterből
+áll, akkor beviteli módot kell használnunk (IM). Ehhez meg kell nézzük, hogy
+a fizikailag gépelt karakterek, milyen karaktereket eredményezzenek. Ebben a
+helyzetben valószínűleg már egyébként is létezik a rendszerünkön beviteli
+mód. Ennek egyébként működni kell más "Vim szerű" programok esetében is. A
+részletekhez lásd |mbyte-XIM| az X ablakkezelőhöz és |mbyte-IME| Windowshoz.
 
 
-KEYMAPS
+KEYMAPPEK
 
-For some languages the character set is different from latin, but uses a
-similar number of characters.  It's possible to map keys to characters.  Vim
-uses keymaps for this.
-   Suppose you want to type Hebrew.  You can load the keymap like this: >
+Egyes nyelvek bár eltérnek a latintól, de körülbelül ugyanannyi karakterből
+állnak, ezért lehetőségünk van a billentyűket karakterekhez rendelni. A Vim
+erre a célra keymappet használ.
+   Tételezzük fel, hogy Magyarul szeretnél gépelni. A keymappet így töltheted
+be: >
 
-	:set keymap=hebrew
+	:set keymap=magyar
 
-Vim will try to find a keymap file for you.  This depends on the value of
-'encoding'.  If no matching file was found, you will get an error message.
-
-Now you can type Hebrew in Insert mode.  In Normal mode, and when typing a ":"
-command, Vim automatically switches to English.  You can use this command to
-switch between Hebrew and English: >
+A Vim megkeresi a megfelelő keymappet számunkra, mely függ az 'encoding'
+értékétől. Ha a fájl nem található, hibaüzenetet kapunk.
+Most már gépelhetünk héberül Insert módban. Normál módban és a ":" kiadása
+után a Vim automatikusan visszavált Angol nyelvre. Ezt manuálisan is
+megtehetjük, ha szeretnénk: >
 
 	CTRL-^
 
-This only works in Insert mode and Command-line mode.  In Normal mode it does
-something completely different (jumps to alternate file).
-   The usage of the keymap is indicated in the mode message, if you have the
-'showmode' option set.  In the GUI Vim will indicate the usage of keymaps with
-a different cursor color.
-   You can also change the usage of the keymap with the 'iminsert' and
-'imsearch' options.
+A parancs csak Normál és Command-line módban működik. Normal módban teljes
+mást csinál (visszaugrik az előző fájlhoz).
+   Ha a 'showmode' be van állítva, akkor a mód neve mellett megjelenik az
+aktív keymap. GUI módban a kurzor színével teszünk különbséget a keymappek
+között.
+   A keymap beállításai tovább finomíthatjuk az 'iminsert' és az 'imsearch'
+opciókkal.
 
-To see the list of mappings, use this command: >
+Az aktív keymapból származó összes map listája: >
 
 	:lmap
 
-To find out which keymap files are available, in the GUI you can use the
-Edit/Keymap menu.  Otherwise you can use this command: >
+A rendszeren lévő összes keymappet listázása (GUI módban az Edit/Keymap
+menü): >
 
 	:echo globpath(&rtp, "keymap/*.vim")
 
 
-DO-IT-YOURSELF KEYMAPS
+CSINÁLD MAGAD KEYMAPPEK
 
-You can create your own keymap file.  It's not very difficult.  Start with
-a keymap file that is similar to the language you want to use.  Copy it to the
-"keymap" directory in your runtime directory.  For example, for Unix, you
-would use the directory "~/.vim/keymap".
-   The name of the keymap file must look like this:
+Akár saját magunk számára is létrehozhatunk keymap fájlt. Nem bonyolult.
+Kezdjük egy olyan keymap fájllal, ami hasonló a mi elvárásainkhoz. Másoljuk le
+a fájlt a "keymap" könyvtárunkba (ami a 'runtimepath' része). Például, Unixon:
+"~/.vim/keymap".
+   A fájlt így kell elneveznünk:
 
 	keymap/{name}.vim ~
-or
+vagy
 	keymap/{name}_{encoding}.vim ~
 
-{name} is the name of the keymap.  Chose a name that is obvious, but different
-from existing keymaps (unless you want to replace an existing keymap file).
-{name} cannot contain an underscore.  Optionally, add the encoding used after
-an underscore.  Examples:
+{name} a keymap neve. A neve tükrözze a fájl célját, de ne egyezzen meg a már
+létező fájlokkal (hacsak nem le szeretnénk cserélni egy már meglévő fájlt). A
+{name} rész nem tartalmazhat "_" jelet. Opcionálisan megadhatjuk a
+karakterkódolást a "_" jel után. Például:  
 
-	keymap/hebrew.vim ~
-	keymap/hebrew_utf-8.vim ~
+	keymap/magyar.vim ~
+	keymap/magyar_utf-8.vim ~
 
-The contents of the file should be self-explanatory.  Look at a few of the
-keymaps that are distributed with Vim.  For the details, see |mbyte-keymap|.
+A fájlt tartalmának egyértelműnek kell lennie. A Vim rengeteg keymap fájllal
+érkezik, ez remek lehetőség a vizsgálatukra. Bővebben: |mbyte-keymap|.
 
 
-LAST RESORT
+VÉGSŐ MEGOLDÁS
 
-If all other methods fail, you can enter any character with CTRL-V:
+Ha eddig minden csődöt mondott, akkor az alábbi módszer segítségével bármilyen
+karaktert be tudunk vinni:
 
-	encoding   type			range ~
-	8-bit	   CTRL-V 123		decimal 0-255
-	8-bit	   CTRL-V x a1		hexadecimal 00-ff
-	16-bit     CTRL-V u 013b	hexadecimal 0000-ffff
-	31-bit	   CTRL-V U 001303a4	hexadecimal 00000000-7fffffff
+	kódolás    típus		tartomány ~
+	8-bit	   CTRL-V 123		decimális 0-255
+	8-bit	   CTRL-V x a1		hexadecimális 00-ff
+	16-bit     CTRL-V u 013b	hexadecimális 0000-ffff
+	31-bit	   CTRL-V U 001303a4	hexadecimális 00000000-7fffffff
 
-Don't type the spaces.  See |i_CTRL-V_digit| for the details.
+A szóközöket ne írjuk ki. Lásd: |i_CTRL-V_digit|.
 
 ==============================================================================
 
-Következő fejezet: |usr_46.txt|  Write plugins using Vim9 script
+Következő fejezet: |usr_46.txt|  Vim9 beépülő írása
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

@@ -1,25 +1,25 @@
 *usr_46.txt*	For Vim version 8.2.  Last change: 2020 Jun 14
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-		       Write plugins using Vim9 script
+			     Vim9 beépülők írása
 
 
 The Vim9 script language is used for writing plugins, especially larger ones
 that use multiple files.  This chapter explains how to split up a plugin into
 modules, import and export items and keep the rest local.
 
-|46.1|	Introduction
-|46.2|	Variable declarations
-|46.3|	Functions and types
+|46.1|	Bevezetés
+|46.2|	Változó deklaráció
+|46.3|	Függvények és típusok
 |46.?|	Using a Vim9 script from legacy script
 
-     Következő fejezet: |usr_90.txt|  Installing Vim
- Előző fejezet: |usr_45.txt|  Select your language (locale)
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_90.txt|  A Vim telepítése
+    Előző fejezet: |usr_45.txt|  Nyelvválasztás
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*46.1*	Introduction				*vim9-script-intro*
+*46.1*	Bevezetés				*vim9-script-intro*
 
 Vim9 script was designed to make it easier to write large Vim scripts.  It
 looks more like other script languages, especially Typescript.  Also,

@@ -8,15 +8,15 @@
 * [A program](https://www.vimconf.live/#agenda)
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_44.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_45.hux
+* A fordítás jelenleg usr_01.hux - usr_45.hux-ig kész (+- pár mondat)
+* Folyamatban: usr_46.hux
 * Hátrébb sorolva: usr_41.hux (terjedelem miatt)
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
   azonban pontosításra szorul
 
 
 * Kézikönyv:
- [####################################################-----------------------]
+ [##############################################################-------------]
 
 
 ## A jelenlegi fordítás használatba vétele
@@ -64,7 +64,7 @@ karakterekkel (ne fordítsd le, vagy ha igen, hagyd meg az angol szöveget is),
 hogy könnyedén felderíthető legyen.
 
 ## Szerkezet
-* hu/ kézikönyv fájljai
+* runtime/doc/hu/ - kézikönyv fájljai
 * orig/ eredeti fájlok, diffeléshez, karbantartáshoz
 * hu.po fájl:
 	* a Vim üzeneteit tartalmazza
