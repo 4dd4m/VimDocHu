@@ -13,7 +13,7 @@ ezért a fejzet hosszú
 |41.2|	Változók
 |41.3|	Kifejezések
 |41.4|	Feltételek
-|41.5|	Kfejezések futtatása
+|41.5|	Kifejezések futtatása
 |41.6|	Függvények használata
 |41.7|	Függvények definiálása
 |41.8|	Listák és szótárak
@@ -55,103 +55,103 @@ Kezdjük egy egyszerű példával: >
 	:  let i += 1
 	:endwhile
 <
-	Note:
-	The ":" characters are not really needed here.  You only need to use
-	them when you type a command.  In a Vim script file they can be left
-	out.  We will use them here anyway to make clear these are colon
-	commands and make them stand out from Normal mode commands.
-	Note:
-	You can try out the examples by yanking the lines from the text here
-	and executing them with :@"
+	Megjegyzés:
+	A ":" karakterre itt nincs igazán szükség. Csak akkor kötelező
+	használni, ha command-lineban dolgozunk. A Vim szkriptekben
+	kihagyhatjuk őket, használatukkal csak indikálni szeretnénk, hogy ezek
+	":" parancsok (a Normal módtól való elkülöníthetőség végett).
+	Megjegyzés:
+	A példákat úgy futtathatjuk, hogy másoljuk forráskódot (y), majd kiadjuk a :@"
+	parancsot.
 
-The output of the example code is:
+A példa kimenete:
 
 	count is 1 ~
 	count is 2 ~
 	count is 3 ~
 	count is 4 ~
 
-In the first line the ":let" command assigns a value to a variable.  The
-generic form is: >
+Az első sorban található :let" paranccsal adunk értéket a változónak.
+Általános formája: >
 
 	:let {variable} = {expression}
 
-In this case the variable name is "i" and the expression is a simple value,
-the number one.
-   The ":while" command starts a loop.  The generic form is: >
+A példában a változó neve "i" a kifejezés pedig egy szimpla érték: 1.
+   A ":while" parancs elkezdi a ciklust. Általános alakja: >
 
 	:while {condition}
 	:  {statements}
 	:endwhile
 
-The statements until the matching ":endwhile" are executed for as long as the
-condition is true.  The condition used here is the expression "i < 5".  This
-is true when the variable i is smaller than five.
-	Note:
-	If you happen to write a while loop that keeps on running, you can
-	interrupt it by pressing CTRL-C (CTRL-Break on MS-Windows).
+A kódblokk a ciklust végét jelző ":endwhile" parancsig tart, a köztes
+kódrészlet pedig addig fut, amíg a feltétel (condition) igaz. Az alkalmazott
+feltétel: "i < 5", mely igaz, ha i kisebb, mint öt.
+	Megjegyzés:
+	Ha véletlenül végtelen ciklust írunk, akkor a CTRL-C billentyűvel
+	(CTRL-Break Ms-Windows) szakíthatjuk meg.
 
-The ":echo" command prints its arguments.  In this case the string "count is"
-and the value of the variable i.  Since i is one, this will print:
+Az ":echo" parancs kiírja az argumentumait. Ebben az esetben a stringet "count
+is" és az i változó értékét. Mivel i értéke egy, ezért a kimenet:
 
 	count is 1 ~
 
-Then there is the ":let i += 1" command.  This does the same thing as
-":let i = i + 1".  This adds one to the variable i and assigns the new value
-to the same variable.
-Note: this is how it works in legacy Vim script, which is what we discuss in
-this file.  In Vim9 script it's a bit different, see |usr_46.txt|.
+aj következik a ":let 1 += 1" parancs, mely ebben az alakban is szabályos:
+":let i = i + 1". A kifejezés i változó értékét megnöveli eggyel.
+Megjegyzés: Ebben a fájlban a régi Vim szkriptet tárgyaljuk, mely nem
+összetévesztendő a Vim9 szkripttel, ami sokkal másabb, lásd: |usr_46.txt|.
 
-The example was given to explain the commands, but would you really want to
-make such a loop, it can be written much more compact: >
+A fenti példában lévő ciklus csak szemléltetés volt. Azonban minek írnánk
+ilyen szintaktikával egy ciklust, ha ezt kompaktabban is megtehetjük:
 
 	:for i in range(1, 4)
 	:  echo "count is" i
 	:endfor
 
-We won't explain how |:for| and |range()| work until later.  Follow the links
-if you are impatient.
+Most nem térünk ki a |:for| és |range()| működési elveire. Kövesd a linkeket,
+ha türelmetlen vagy.
 
 
-FOUR KINDS OF NUMBERS
+NÉGYFÉLE SZÁM
 
-Numbers can be decimal, hexadecimal, octal or binary.
+A számok lehetnek decimálisak, hexadecimálisak, oktálisak és binárisak.
 
-A hexadecimal number starts with "0x" or "0X".  For example "0x1f" is decimal
-31.
+A hexadecimális számok "0x", vagy "0X"-el kezdődne. Például "0x1f" a
+decimálist 31 megfelelője.
 
-An octal number starts with "0o", "0O" or a zero and another digit.  "0o17" is
-decimal 15.  Using just a zero prefix is not supported in Vim9 script.
+Az oktális számok "0o", "0O" vagy nullával és egy másik számmal kezdődhetnek.
+"0o17" decimális számrendszerben 15. A csak 0 prefixum használata nem
+megengedett a Vim9 szkriptben. 
 
-A binary number starts with "0b" or "0B".  For example "0b101" is decimal 5.
+A bináris számok kezdete "0b" vagy "0B". Például "0b101", ami decimális
+számrendszerben 5.
 
-A decimal number is just digits.  Careful: don't put a zero before a decimal
-number, it will be interpreted as an octal number in legacy script!
+A decimális számok csak szám karakterekből állnak. Óvatosan: ne tegyünk
+vezető nullát a szám elé, különben a Vimszkript oktális számnak fogja
+tekinteni!
 
-The ":echo" command always prints decimal numbers.  Example: >
+Az ":echo" parancs mindig decimális számokat ír ki. Például:   >
 
 	:echo 0x7f 0o36
 <	127 30 ~
 
-A number is made negative with a minus sign.  This also works for hexadecimal,
-octal and binary numbers.  A minus sign is also used for subtraction.  Compare
-this with the previous example: >
+A negatív előjellel ellátott számok negatív számként értelmeződnek, mely az
+összes többi szám esetében is igaz. A negatív előjelet ezen túl kivonáshoz is
+használjuk.  Összehasonlítva ezt az előző példával: >
 
 	:echo 0x7f -0o36
 <	97 ~
 
-White space in an expression is ignored.  However, it's recommended to use it
-for separating items, to make the expression easier to read.  For example, to
-avoid the confusion with a negative number above, put a space between the
-minus sign and the following number: >
+A szóközök a kifejezésekben nem számítanak. Bár, javasolt a használatuk
+olvashatósági okok miatt. Például, hogy a fenti példában lévő nehogy
+összetévesszük, tegyünk szóközt a kötőjel és a szám közé: >
 
 	:echo 0x7f - 0o36
 
 ==============================================================================
-*41.2*	Variables
+*41.2*	Változók
 
-A variable name consists of ASCII letters, digits and the underscore.  It
-cannot start with a digit.  Valid variable names are:
+A változónevek ASCII karakterekből, számokból és "_" jelből állhat. Nem
+kezdődhet számmal. Érvényes változónevek:
 
 	counter
 	_aap3
@@ -159,17 +159,16 @@ cannot start with a digit.  Valid variable names are:
 	FuncLength
 	LENGTH
 
-Invalid names are "foo+bar" and "6var".
-   These variables are global.  To see a list of currently defined variables
-use this command: >
+Érvénytelen nevek: "foo+bar" and "6var".
+   Ezek a változók globálisak. Az eddig definiált változókat listázhatod: >
 
 	:let
 
-You can use global variables everywhere.  This also means that when the
-variable "count" is used in one script file, it might also be used in another
-file.  This leads to confusion at least, and real problems at worst.  To avoid
-this, you can use a variable local to a script file by prepending "s:".  For
-example, one script contains this code: >
+A globális változókat bárhol használhatjuk. Ez azt jelent, hogy az általunk
+használt "count" változót nem csak saját fájlja, hanem más szrkiptfájlok is
+használhatják, mely zavart okozhat és előbb utóbb problémát természetesen.
+Ennek elkerülésére a változót lokálissá tehetjük az "s:" prefixummal. Például,
+a szkriptünk ezt tartalmazza: >
 
 	:let s:count = 1
 	:while s:count < 5
@@ -177,36 +176,36 @@ example, one script contains this code: >
 	:  let s:count += 1
 	:endwhile
 
-Since "s:count" is local to this script, you can be sure that sourcing the
-"other.vim" script will not change this variable.  If "other.vim" also uses an
-"s:count" variable, it will be a different copy, local to that script.  More
-about script-local variables here: |script-variable|.
+Mivel "s:count" lokális a szkriptben, biztosak lehetünk benne, hogy
+"other.vim" szkriptfájl betöltése nem fogja megváltoztatni az értékét. Ha
+"other.vim" szkriptben is van egy "s:count" jellegű változó, az sem okoz
+problémát, mert mindegyik lokális az adott szkriptjéhez. Még több a lokális
+változókról itt: |script-variable|.
+Ennél ayonban több változótípus létezik:  |internal-variables|. A
+leggyakrabban használt típusok (névtér szerint):
 
-There are more kinds of variables, see |internal-variables|.  The most often
-used ones are:
-
-	b:name		variable local to a buffer
-	w:name		variable local to a window
-	g:name		global variable (also in a function)
-	v:name		variable predefined by Vim
+	b:name		csak a buffer számára érehető el
+	w:name		csak az ablak számára érehető el
+	g:name		globális változó (függvényekben is)
+	v:name		a Vim által definiált változók
 
 
-DELETING VARIABLES
+VÁLTOZÓ TÖRLÉSE
 
-Variables take up memory and show up in the output of the ":let" command.  To
-delete a variable use the ":unlet" command.  Example: >
+A változók a memóriában tárolódnak a ":let" parancs által. Változó törléséhez
+használjuk az ":unlet" parancsot. Például:  >
 
 	:unlet s:count
 
-This deletes the script-local variable "s:count" to free up the memory it
-uses.  If you are not sure if the variable exists, and don't want an error
-message when it doesn't, append !: >
+Ez törli a szkript lokális "s:count" változóját, helyet szabadítva fel a
+memóriában. Ha nem vagyunk benne biztosak, hogy egy adott változó létezik, és
+például nem szeretnénk hibaüzenetet kapna, ha mégsem létezne, akkor használjuk
+a "!" jelet:j >
 
 	:unlet! s:count
 
-When a script finishes, the local variables used there will not be
-automatically freed.  The next time the script executes, it can still use the
-old value.  Example: >
+Ha a szkript lefutott, a lokális változó automatikusan nem szabdul fel. A
+szkrip követkző futásakor is használható lesz a régi értékével. Például: >
 
 	:if !exists("s:call_count")
 	:  let s:call_count = 0
@@ -214,61 +213,66 @@ old value.  Example: >
 	:let s:call_count = s:call_count + 1
 	:echo "called" s:call_count "times"
 
-The "exists()" function checks if a variable has already been defined.  Its
-argument is the name of the variable you want to check.  Not the variable
-itself!  If you would do this: >
+Az exist() függvény ellenőrzi, hogy a változó definiálva van-e. Argumentumként
+a változó nevét fogadja, tehát nem magát a változót! Ha így hívnánk: >
 
 	:if !exists(s:call_count)
 
-Then the value of s:call_count will be used as the name of the variable that
-exists() checks.  That's not what you want.
-   The exclamation mark ! negates a value.  When the value was true, it
-becomes false.  When it was false, it becomes true.  You can read it as "not".
-Thus "if !exists()" can be read as "if not exists()".
-   What Vim calls true is anything that is not zero.  Zero is false.
-	Note:
-	Vim automatically converts a string to a number when it is looking for
-	a number.  When using a string that doesn't start with a digit the
-	resulting number is zero.  Thus look out for this: >
+Akkor az s:call_count változót használná az ellenőrzése és nem a nevét. Ez nem
+az, amit szeretnénk.
+   A "!" jel negációt jelenti. Ha az érték igaz, akkor hamisra vált. Ha hamis,
+akkor pedig igazra. A kifejezést "nem"-ként olvashtajuk, ezért "if !exists()"
+így mondjuk: "ha nem létezik()".
+   Amit a Vim igaznak hív az gyakorlatilag minden, ami nem nulla. A nulla
+(Zero) természetesen hamis.
+	Megjegyzés:
+	A Vim automatikusan konvertája a stringeket számmá, ha erre van
+	szüksége. Ha olyan stringet használunk, amely nem számmal kezdődik, az
+	mindig nulla lesz. Ezért vizsgáljuk meg az alábbit: >
+
 		:if "true"
-<	The "true" will be interpreted as a zero, thus as false!
+	
+<	A "true" zéróként interpretálódik (nem számmal kezdődik), ezért hamis
+	lesz az értéke.
 
 
-STRING VARIABLES AND CONSTANTS
+STRING VÁLTOZÓK ÉS KONSTANSOK
 
-So far only numbers were used for the variable value.  Strings can be used as
-well.  Numbers and strings are the basic types of variables that Vim supports.
-The type is dynamic, it is set each time when assigning a value to the
-variable with ":let".  More about types in |41.8|.
-   To assign a string value to a variable, you need to use a string constant.
-There are two types of these.  First the string in double quotes: >
+Eddig a változókhoz csak számokat rendeltünk. Stringeket is használhatunk. A
+számok és  stringek az alaptípusok, melyeket a Vim támogat. A típusadás
+dinamikus, mely a ":let"-el való értékadáskor következik be. A típusokról
+bővebben a |41.8| fejezetben.
+   Egy változó típusa akkor lehet string, ha stringet rendelünk hozzá, melyet
+kétféleképpen végezhetünk el: a stringet dupla idézőjelek közé tesszük: >
 
 	:let name = "peter"
 	:echo name
 <	peter ~
 
-If you want to include a double quote inside the string, put a backslash in
-front of it: >
+Ha a stringben idézőjeleket szeretnénk használni, akkor a belső idézőjeleket \
+karakterrel escapelnünk kell (enélkül a Vim nem tudja eldönteni, hogy hol ér
+véget a változó): >
 
 	:let name = "\"peter\""
 	:echo name
 <	"peter" ~
 
-To avoid the need for a backslash, you can use a string in single quotes: >
+Hogy ne kelljen állandóan escapelnünk, a külső idézőjeleket aposztrófra
+cserélhetjük: >
 
 	:let name = '"peter"'
 	:echo name
 <	"peter" ~
 
-Inside a single-quote string all the characters are as they are.  Only the
-single quote itself is special: you need to use two to get one.  A backslash
-is taken literally, thus you can't use it to change the meaning of the
-character after it.
-   In double-quote strings it is possible to use special characters.  Here are
-a few useful ones:
+
+Az aposztrófos 'stringekben ' minden karakter reprezentálódik. Csak és kizárólag
+az aposztróf speciális: kettőt kell használjunk '', hogy egy megjelenjen. A \ szó
+szerint értelmeződik (karakterként), azért escapelésre nem használható.
+   Az "idézőjeles" stringekben a speciális karakterek használata megengedett,
+néhány hasznos belőlük:
 
 	\t		<Tab>
-	\n		<NL>, line break
+	\n		<NL>, sortörés
 	\r		<CR>, <Enter>
 	\e		<Esc>
 	\b		<BS>, backspace
@@ -277,47 +281,47 @@ a few useful ones:
 	\<Esc>		<Esc>
 	\<C-W>		CTRL-W
 
-The last two are just examples.  The  "\<name>" form can be used to include
-the special key "name".
-   See |expr-quote| for the full list of special items in a string.
+Az utolsó kettő csak példa. A "\<name>" formátumot használjuk a "name"
+billentyű reprezentálására.
+   Lásd |expr-quote| a stringekben használható speciális karakterek teljes
+listája.
 
 ==============================================================================
-*41.3*	Expressions
+*41.3*	Kifejezések
 
-Vim has a rich, yet simple way to handle expressions.  You can read the
-definition here: |expression-syntax|.  Here we will show the most common
-items.
-   The numbers, strings and variables mentioned above are expressions by
-themselves.  Thus everywhere an expression is expected, you can use a number,
-string or variable.  Other basic items in an expression are:
+A vim gazdag de mégis egyszerű módon kezeli a kifejezéseket. A definíciót itt
+elolvashatod: |expressions-syntax|. Itt bemutatjuk a leggyakoribb elemeket.
+    A számok, stringek és változók melyeket fent láthattunk, már önmagukban is
+kifejezések. Ezért bárhol, ahol kifejezés az elvárt érték, használhatod őket.
+Alapvető kifejezések továbbá:
 
-	$NAME		environment variable
-	&name		option
-	@r		register
+	$NAME		Környezeti változó
+	&name		opció
+	@r		regiszter
 
-Examples: >
+Példa: >
 
 	:echo "The value of 'tabstop' is" &ts
 	:echo "Your home directory is" $HOME
 	:if @a > 5
 
-The &name form can be used to save an option value, set it to a new value,
-do something and restore the old value.  Example: >
+A &name alakot az opció értékének tárolására használjuk, új értéket adunk
+neki, csinálunk valamit és visszaállítjuk a régi értékére. Például: >
 
 	:let save_ic = &ic
 	:set noic
 	:/The Start/,$delete
 	:let &ic = save_ic
 
-This makes sure the "The Start" pattern is used with the 'ignorecase' option
-off.  Still, it keeps the value that the user had set.  (Another way to do
-this would be to add "\C" to the pattern, see |/\C|.)
+Így biztosak lehetünk benne, hogy a "The Start" minta használatakor az 'ignorecase' opció ki lesz kapcsolva.
+Ráadásul még meg is tartja a régi értékét, amit a felhasználó beállított. (Egy
+másik módja ennek a "\C" hozzáadása lett volna a mintához, lásd |/\C|.)
 
 
-MATHEMATICS
+MATEMATIKA
 
-It becomes more interesting if we combine these basic items.  Let's start with
-mathematics on numbers:
+Még érdekesebbé válik, ha az alapelemeket elkezdjük kombinálni. Kezdjük a
+számokon végzett matematikai műveletekkel:
 
 	a + b		add
 	a - b		subtract
@@ -325,54 +329,54 @@ mathematics on numbers:
 	a / b		divide
 	a % b		modulo
 
-The usual precedence is used.  Example: >
+A műveleti sorrend a szokásos. Például:   >
 
 	:echo 10 + 5 * 2
 <	20 ~
 
-Grouping is done with parentheses.  No surprises here.  Example: >
+A műveletek csoportosíthatóak zárójelekkel. Semmi extra. Például:   >
 
 	:echo (10 + 5) * 2
 <	30 ~
 
-Strings can be concatenated with ".." (see |expr6|).  Example: >
+A stringeket konkatenálhatjuk az ".." operátorral (lásd |expr6|). Például:   >
 
 	:echo "foo" .. "bar"
 <	foobar ~
 
-When the ":echo" command gets multiple arguments, it separates them with a
-space.  In the example the argument is a single expression, thus no space is
-inserted.
+Ha az ":echo parancs több argumentumot kap, akkor elválasztja őket szóközzel.
+A példában az argumentum egy egyszerű kifejezés, ezért nincs szóköz közötte.
 
-Borrowed from the C language is the conditional expression:
+A C nyelvből kölcsönözve a feltételes kifejezés: >
 
 	a ? b : c
 
-If "a" evaluates to true "b" is used, otherwise "c" is used.  Example: >
+Ha "a" igazra értékelődik ki, akkor "b"-t használjuk, egyébként pedig "c"-t.
+Például:   >
 
 	:let i = 4
 	:echo i > 5 ? "i is big" : "i is small"
 <	i is small ~
 
-The three parts of the constructs are always evaluated first, thus you could
-see it work as:
+A három kifejezés először mindig kiértékelődik, ezért így is ábrázolhatnánk:
 
 	(a) ? (b) : (c)
 
 ==============================================================================
-*41.4*	Conditionals
+*41.4*	Feltételek
 
-The ":if" commands executes the following statements, until the matching
-":endif", only when a condition is met.  The generic form is:
+Az ":if" parancs lefuttatja a kódblokkot az ":endif"-ig, de csak akkor, ha a
+feltétel teljesül. Az általános alakja:
 
 	:if {condition}
 	   {statements}
 	:endif
 
-Only when the expression {condition} evaluates to true (non-zero) will the
-{statements} be executed.  These must still be valid commands.  If they
-contain garbage, Vim won't be able to find the ":endif".
-   You can also use ":else".  The generic form for this is:
+Csak ha {condition} kifejezés igazzá értékelődik ki (nem nulla), akkor a
+{statement} rész lefut, melyeknek maguknak is érvényes kifejezéseknek kell
+lenniük, különben. Ha szemetet tartalmaznak, akkor a Vim nem fogja megtalálni
+az ":endif" parancsot.
+   Használhatunk ":else"-t is. Általános alakja:
 
 	:if {condition}
 	   {statements}
@@ -380,8 +384,8 @@ contain garbage, Vim won't be able to find the ":endif".
 	   {statements}
 	:endif
 
-The second {statements} is only executed if the first one isn't.
-   Finally, there is ":elseif":
+A második {statements} csak akkor fut le, ha az első nem.
+   Végül pedig az ":elseif":
 
 	:if {condition}
 	   {statements}
@@ -389,10 +393,8 @@ The second {statements} is only executed if the first one isn't.
 	   {statements}
 	:endif
 
-This works just like using ":else" and then "if", but without the need for an
-extra ":endif".
-   A useful example for your vimrc file is checking the 'term' option and
-doing something depending upon its value: >
+Működése tökéletesen megegyezik az ":else" és "if" használatával, de anélkül,
+hogy egy extra ":endif"-et feltüntetnénk. >
 
 	:if &term == "xterm"
 	:  " Do stuff for xterm
@@ -403,10 +405,9 @@ doing something depending upon its value: >
 	:endif
 
 
-LOGIC OPERATIONS
+LOGIKAI OPERÁTOROK
 
-We already used some of them in the examples.  These are the most often used
-ones:
+Némelyiket már használtuk. Itt vannak a leggyakoribbak:
 
 	a == b		equal to
 	a != b		not equal to
@@ -415,7 +416,7 @@ ones:
 	a <  b		less than
 	a <= b		less than or equal to
 
-The result is one if the condition is met and zero otherwise.  An example: >
+A végeredmény 1, ha a feltétel teljesül, és 0, ha nem. Például:   >
 
 	:if v:version >= 700
 	:  echo "congratulations"
@@ -423,10 +424,9 @@ The result is one if the condition is met and zero otherwise.  An example: >
 	:  echo "you are using an old version, upgrade!"
 	:endif
 
-Here "v:version" is a variable defined by Vim, which has the value of the Vim
-version.  600 is for version 6.0.  Version 6.1 has the value 601.  This is
-very useful to write a script that works with multiple versions of Vim.
-|v:version|
+Itt a "v:version" változót a Vim definiálta, melynek tartalma a Vim verziója.
+600 a 6.0-ás verzióhoz. A 6.1 verzió 601 lenne. Így verzió specifikus
+szkripteket tudunk létrehozni |v:version|.
 
 The logic operators work both for numbers and strings.  When comparing two
 strings, the mathematical difference is used.  This compares byte values,
