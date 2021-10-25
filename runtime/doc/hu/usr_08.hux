@@ -1,11 +1,12 @@
-*usr_08.txt*	For Vim version 8.2.  Last change: 2021 May 20
+*usr_08.txt*	For Vim version 8.2.	Last change: 2021 May 20
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				   Splitek
 
 
-Fájlok megjelenítése egymás fölött vagy mellett? Munka a fájl két teljesen különböző pontján? Diff megtekintése kényelmesen? Ez mind lehetséges a splitek
+Fájlok megjelenítése egymás fölött vagy mellett? Munka a fájl két teljesen
+különböző pontján? Diff megtekintése kényelmesen? Ez mind lehetséges a splitek
 használatával.
 
 |08.1|	Split létrehozása

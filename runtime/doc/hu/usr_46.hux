@@ -1,13 +1,13 @@
-*usr_46.txt*	For Vim version 8.2.  Last change: 2020 Jun 14
+*usr_46.txt*	For Vim version 8.2.	Last change: 2020 Jun 14
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			     Vim9 beépülők írása
 
-
-The Vim9 script language is used for writing plugins, especially larger ones
-that use multiple files.  This chapter explains how to split up a plugin into
-modules, import and export items and keep the rest local.
+A Vim9 szkriptnyelvet beépülők írásához tervezték, kifejezetten olyanokra,
+amik több fájlra oszlanak fel. A fejezte azt részletezi, hogy a szkriptünket
+hogyan tudjuk fájlokba, modulokba szervezni és hogy ezeket részeit hogyan
+tudjuk importálni és exportálni.
 
 |46.1|	Bevezetés
 |46.2|	Változó deklaráció
@@ -21,18 +21,19 @@ Következő fejezet: |usr_90.txt|  A Vim telepítése
 ==============================================================================
 *46.1*	Bevezetés				*vim9-script-intro*
 
-Vim9 script was designed to make it easier to write large Vim scripts.  It
-looks more like other script languages, especially Typescript.  Also,
-functions are compiled into instructions that can be executed quickly.  This
-makes Vim9 script a lot faster, up to a 100 times.
+A Vim9-et arra tervezték, hogy könnyebb legyen nagyobb terjedelmű szkripteket
+írni. Hasonlít a többi szkriptnyelvhez, különösen a Typescripthez. A
+függvényeket instrukciókba fordítjuk, melyek gyorsan futtathatóak. Ez teszi a
+Vim9-et gyorsabbá, több mint százszor gyorsabbá.
 
-The basic idea is that a script file has items that are private, only used
-inside the script file, and items that are exported, used outside of the
-script file.  The exported items can then be used by scripts that import them.
-That makes very clear what is defined where.
+Az alapötlet, hogy a szkriptfájl egyes elemei privát tulajdonsággal
+rendelkezik, mely csak a szkriptfájl számára érhető el, az exportált elemeket
+viszont a szkriptfájlon kívülről is el lehet érni, melyeket más szkriptfájlok
+importálhatnak. A szkript természete miatt pontosan meg tudjuk mondani, hogy
+mit hol definiáltunk.
 
-Let's start with an example, a script that exports one function and has one
-private function: >
+Kezdjük egy példával: a szkript egy függvényt exportál és egy privát függvénye
+van: >
 
 	vim9script  " This indicates a Vim9 script file.
 
@@ -52,51 +53,57 @@ private function: >
 	  endif
 	enddef
 
-The `vim9script` command must be the very first command in the file.  Without
-it Vim will assume legacy script syntax.
+A `vim9script` parancsnak kell legelőször szerepelnie, nélküle csak egyszerű
+Vim szkriptnek minősülne.
 
-The `export def GetMessage(): string` line starts with `export`, meaning that
-this function can be imported and called by other scripts. The line
-`def GetPart(...` does not start with `export`, this is a script-local
-function, it can only be used inside this script file.
+Az `export def GetMessage(): string` sor az `export` paranccsal kezdődik, mely
+azt jelenti, hogy importálható és hívható más szkriptek számára. A def
+`Getpart(...` nem kezdődik `export`tal, ez a szkript lokális függvénye, mely csak
+ebben a szkriptfájlban használható.
 
-In the `export def GetMessage(): string` line you will notice the colon and
-the return type.  Vim9 functions, defined with `def`, require specifying the
-type of arguments and the return type.  That way Vim can compile the code
-efficiently.  The GetPart function defines an argument "nr" of type "number".
+Az `export def GetMessage(): string` sorban észrevehetjük a kettőspontot és a
+visszatérési típust. A Vim9-ben a `de`f kulcsszóval definiáljuk a függvényeket,
+melyeknek meg kell határoznunk az argumentumait és visszatérési típusát. Így a
+Vim a kódot nagy eredményességgel tudja lefordítani. A Getpart függvény az
+"nr" argumentumot várja, mely "number" típusú.
 
-Notice that the assignment `result = GetPart(count)` does not use the `let`
-command.  That is explained in the next section.
+Figyeljük meg, hogy az értékadás result = `GetPart(count)` nem használja a
+`le`t parancsot. Ennek magyarázata a következő bekezdésben.
 
 ==============================================================================
-*46.2*	Variable declarations				*vim9-declarations*
+*46.2*	Változók deklarálása				*vim9-declarations*
 
-In Vim9 script variables are declared once with a `:let` or `:const` command.
-Assigning a value is done without `:let` and it is not possible to `:unlet`
-the variable.
+A Vim9 szkriptekben a változókat a :`let`, vagy a :`const` paranccsal deklaráljuk.
+Az értékadás történhet a :`let` nélkül, a változóra nem használhatjuk a :`unlet`
+parancsot.
 
-In most cases you will want to declare the variable and initialize it at the
-same time: >
+A legtöbb esetben a lépést leegyszerűsítsük és a deklarációt és értékadást egy
+műveletben végezzük: >
+
 	let myText = 'some text'
 	...
 	myText = 'other text'
 
-The type of the variable will be inferred from the expression.  In this case
-it is a string.  If you initialize with a number, then the type is number: >
+A változó típusát a kifejezés határozza meg (a példában string). Ha számmal
+inicializáljuk a változót, akkor szám típusú lesz: >
+
 	let myNumber = 1234
 	...
 	myNumber = 0
 
-If you try to assign a string to this variable, you will get an error: >
+Ezért később, ha egy stringet szeretnénk a változónak adni értékül, akkor
+hibaüzenetet kapunk: >
+
 	let myNumber = 'this fails!'
 
-In the rare case you want a variable that can take values of any type, you
-have to specify the type: >
+Szükségünk lehet dinamikus változókra, melyek bármilyen típusú értéket
+felvehetnek: >
+	
 	let myVar: any = 1234
 	myVar = 'text also works'
 
-You can also declare a variable without assigning a value.  In that case Vim
-will initialize it to zero or empty: >
+A változókat érték nélkül is deklarálhatjuk, így üres változót kapunk: >
+
 	let word: string
 	if condition
 	  word = 'yes'
@@ -104,30 +111,35 @@ will initialize it to zero or empty: >
 	  word = 'no'
 	endif
 
-Although it's shorter to do: >
+Amit így rövidíthetünk: >
+
 	let word = condition ? 'yes' : 'no'
 
 ==============================================================================
-*46.3*	Functions and types
+*46.3*	Függvények és típusaik
 
-Legacy Vim script does have type checking, but this happens at runtime, when
-the code is executed.  And it's permissive, often a computation gives an
-unexpected value instead of reporting an error.  Thus you can define a
-function and think it's fine, but see a problem only later when it is called: >
+A régi Vim szkript végez típusellenőrzést, de ez futásidőben történik. Az
+ellenőrzés pedig nem ritka, hibaüzenet nélkül megy végbe az ellenőrzés. Ezért
+létrehozunk egy függvényt, amiről azt hisszük, hogy jól működik, de a
+problémát csak akkor látjuk, ha meghívjuk: >
+
 	let s:collected = ''
 	func ExtendAndReturn(add)
 	   let s:collected += a:add
 	   return s:collected
 	endfunc
 
-Can you spot the error?  Try this: >
-	echo ExtendAndReturn('text')
-And you'll see zero.  Why?  Because in legacy Vim script "+=" will convert the
-arguments to numbers, and any string without a number results in zero!
+Felfedezed a hibát? Próbáld így: >
 
-With `:def` the type checking happens when compiling the function.  For that
-you need to specify the argument types and the return type.  Also notice that
-the argument is used without the "a:" prefix: >
+	echo ExtendAndReturn('text')
+
+Nulla. Miért? Mert a régi Vim szkriptben az "+=" operátor az argumentumokat
+számmá konvertálja és bármely string szám nullát eredményez.
+
+:def-el a típusellenőrzés fordításkor történik, ezért meg kell határoznunk az
+argumentumok típusait és a függvény visszatérési típusát. Az argumentumot az
+"a:" prefixum nélkül használjuk: >
+
 	let s:collected = ''
 	def ExtendAndReturn(add: string): string
 	   s:collected += add
@@ -135,27 +147,33 @@ the argument is used without the "a:" prefix: >
 	enddef
 	defcompile
 
-Here we use `:defcompile` to do the compilation right away, without it the
-compilation would happen when the function is called.  Vim will tell you what
-you did wrong: >
+A :defcompile-al a fordítást itt helyben elvégezzük, enélkül a fordítás csak
+akkor történne meg, ha a függvény meghívjuk. Hiba esetén pontos üzenetet
+kapunk: >
+
 	E1013: type mismatch, expected number but got string
 
-Vim9 script is strict, it uses the "+" operator only for numbers and floats.
-For string concatenation ".." must be used.  This avoids mistakes and avoids
-the automatic conversion that gave a surprising result above.  So you change
-the first line of the function to: >
-	   s:collected ..= add
-And now it works.
+A Vim9 szkriptnyelv szigorú. A "+" operátort csak számokhoz és lebegőpontos
+számokhoz használja. A stringek összefűzésére a ".." operátor áll
+rendelkezésre, mely kiküszöböli a típuskonverziókból adódó hibalehetőségeket,
+így nem érhet bennünket meglepetés. Cseréljük le a függvény első sorát: >
 
-If the function does not return anything, just leave out the return type: >
+	   s:collected ..= add
+
+Működik.
+
+Ha a függvénynek nincs visszatérési típusa, akkor csak egyszerűen hagyjuk ki
+a definíciót: >
+
 	def ReportResult(result: string)
 	   echo 'The result is: ' .. result
 	enddef
 
-This is also checked, if you try to return a value you'll get an error.
+Ez szintén ellenőrizve van, ezért return esetén hibaüzenetet kapunk.
 
-In case you don't care about types or have a function that does work with
-multiple types, you can use the "any" type: >
+Ebben az esetben nem kell törődnünk a típussal. Ha olyan függvényt szeretnénk
+írni, melynek mindegy az argumentum típusa, alkalmazzuk az "any" típust: >
+
 	def Store(key: string, value: any)
 	  resultDict[key] = value
 	enddef
@@ -163,30 +181,32 @@ multiple types, you can use the "any" type: >
 ==============================================================================
 *46.?*	Using a Vim9 script from legacy script		*source-vim9-script*
 
-In some cases you have a legacy Vim script where you want to use items from a
-Vim9 script.  For example in your .vimrc you want to initialize a plugin.  The
-best way to do this is to use `:import`.  For example: >
+Olykor a régi Vim szkripteket a Vim9 szkriptből szeretnéd használni. Például a
+.vimrc fájlodban szeretnél inicializálni egy beépülőt. A legjobb, ha ezt az
+:importtal végzed el. Például:   >
 
 	import Init as NiceInit from 'myNicePlugin.vim'
 	call NiceInit('today')
 
-This finds the exported function "Init" in the Vim9 script file and makes it
-available as script-local item "NiceInit". `:import` always uses the script
-namespace, even when "s:" is not given.  If "myNicePlugin.vim" was already
-sourced it is not sourced again.
+Így megtaláljuk az exportált "Init" függvény a Vim9 szkript fájlban és
+elérhetővé tesszük a szkript lokális elemei között "NiceInit" néven. Az
+:import mindig a szkript névterét használja, még akkor is, ha "s:" nincs
+megadva. Ha a "myNicePlugin.vim" már be lett töltve, akkor nem töltődik be még
+egyszer (akárhányszor is próbáljuk meg betölteni).
 
-Besides avoiding putting any items in the global namespace (where name clashes
-can cause unexpected errors), this also means the script is sourced only once,
-no matter how many times items from it are imported.
+Mely elkerüli az elemek globális névtérbe való helyezését (ahol a nevek
+ütközése váratlanul hibát eredményezhetne).
 
-In some cases, e.g. for testing, you may just want to source the Vim9 script.
-That is OK, but then only global items will be available.  The Vim9 script
-will have to make sure to use a unique name for these global items. Example: >
+Egyes esetekben, például tesztelésnél, csak a Vim9 szkriptet kívánjuk
+betölteni. Ez rendben van, de csak a globális elemeket fogjuk elérni. A Vim9
+szkriptnek meg fog győződni arról, hogy a globális elemekre egyedi nevekkel
+hivatkozunk. Például:   >
+
 	source ~/.vim/extra/myNicePlugin.vim
 	call g:NicePluginTest()
 
 ==============================================================================
 
-Következő fejezet: |usr_90.txt|  Installing Vim
+Következő fejezet: |usr_90.txt|  A Vim telepítése
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:

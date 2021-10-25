@@ -1,115 +1,115 @@
-*usr_90.txt*	For Vim version 8.2.  Last change: 2020 Jun 11
+*usr_90.txt*	For Vim version 8.2.	Last change: 2020 Jun 11
 
-		     Bram Moolenaar: Vim felhasználói kézikönyv
+		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				Installing Vim
 
 								*install*
-Before you can use Vim you have to install it.  Depending on your system it's
-simple or easy.  This chapter gives a few hints and also explains how
-upgrading to a new version is done.
+
+Használat előtt telepítenünk kell a Vimet. Rendszerünktől függően a folyamat
+könnyű, vagy akár nehéz is lehet. A fejezet tippeket és elmagyarázza, hogy
+hogyan frissítsünk új verzióra
 
 |90.1|	Unix
 |90.2|	MS-Windows
-|90.3|	Upgrading
-|90.4|	Common installation issues
+|90.3|	Frissítés
+|90.4|	Gyakori telepítési problémák
 |90.5|	Uninstalling Vim
 
- Előző fejezet: |usr_46.txt|  Write plugins using Vim9 script
+  Előző fejezet: |usr_46.txt|  Vim9 beépül írása
 Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *90.1*	Unix
 
-First you have to decide if you are going to install Vim system-wide or for a
-single user.  The installation is almost the same, but the directory where Vim
-is installed in differs.
-   For a system-wide installation the base directory "/usr/local" is often
-used.  But this may be different for your system.  Try finding out where other
-packages are installed.
-   When installing for a single user, you can use your home directory as the
-base.  The files will be placed in subdirectories like "bin" and "shared/vim".
+A telepítés első kérdése, hogy rendszerszintű, vagy felhasználó szintű
+telepítést szeretnénk végrehajtani. A telepítés közel azonos mindkét esetben,
+csak a telepítés könyvtára különbözik.
+   A rendszerszintű telepítés általános könyvtára a "/usr/local", mely
+disztribúciónként eltérő lehet. 
+   Ha csak egy felhasználó számára szeretnénk telepíteni, akkor a home
+könyvtárunkat használjuk. Az alkönyvtárak a "bin" és a "shared/vim"-be
+kerülnek.
 
 
-FROM A PACKAGE
+TELEPÍTÉS CSOMAGBÓL
 
+Az előre lefordított állományok az összes UNIX disztribúcióra letölthető. Az
+alábbi linken találhatunk egy hosszabb listát:
 You can get precompiled binaries for many different UNIX systems.  There is a
 long list with links on this page:
 
 	http://www.vim.org/binaries.html ~
 
-Volunteers maintain the binaries, so they are often out of date.  It is a
-good idea to compile your own UNIX version from the source.  Also, creating
-the editor from the source allows you to control which features are compiled.
-This does require a compiler though.
+Önkéntesek tartják karban, ezért sokszor elavult lehet. Jó ötlet, ha magadnak
+fordítod forrásból, melyhez rendelkezned kell egy fordítóval, ellenben totális
+kontroll alá veheted a telepített modulok listáját.
 
-If you have a Linux distribution, the "vi" program is probably a minimal
-version of Vim.  It doesn't do syntax highlighting, for example.  Try finding
-another Vim package in your distribution, or search on the web site.
+Ha Linux rendszered van, akkor a "vi" program talán a Vim legminimálisabb
+megfelelője. Nincs szintaxis kiemelés például. 
 
 
-FROM SOURCES
+TELEPÍTÉS FORRÁSBÓL
 
-To compile and install Vim, you will need the following:
+A Vim fordításához és telepítéséhez az alábbiakra van szükséged:
 
-	-  A C compiler (GCC preferred)
-	-  The GZIP program (you can get it from www.gnu.org)
-	-  The Vim source and runtime archives
+	-  C fordító (GCC ajánlott)
+	-  GZIP program (innen töltheted le www.gnu.org)
+	-  A Vim forráskódjára
 
-To get the Vim archives, look in this file for a mirror near you, this should
-provide the fastest download:
+A Vim archívumainak letöltéséhez válaszd ki a listában a hozzád legközelebb
+álló tükörkiszolgálót:
 
 	ftp://ftp.vim.org/pub/vim/MIRRORS ~
 
-Or use the home site ftp.vim.org, if you think it's fast enough.  Go to the
-"unix" directory and you'll find a list of files there.  The version number is
-embedded in the file name.  You will want to get the most recent version.
-   You can get the files for Unix in one big archive that contains everything:
+Vagy látogass el: ftp.vim.org, ha a letöltési sebesség megfelelő. Nyisd meg a
+"unix" könyvtárat, ahol a listát megtalálod. A verziószám fel van tüntetve a
+fájlnévben. Töltsd le a legfrissebbet.
+   A fájlokat egy nagy archívumként is letöltheted, amely tartalmaz mindent:
 
 	vim-8.2.tar.bz2 ~
 
-You need the bzip2 program to uncompress it.
+Melyet a bzip2 programmal tudsz kibontani.
 
 
-COMPILING
+FORDÍTÁS
 
-First create a top directory to work in, for example: >
+Hozzuk létre a munkakönyvtárat, például: >
 
 	mkdir ~/vim
 	cd ~/vim
 
-Then unpack the archives there.  You can unpack it like this: >
+Bontsd ki az archívumot ide: >
 
 	tar xf path/vim-8.2.tar.bz2
 
-If your tar command doesn't support bz2 directly: >
+Ha a tar programod nem támogatná a bz2-t közvetlenül: >
 
 	bzip2 -d -c path/vim-8.2.tar.bz2 | tar xf -
 
-Change "path" to where you have downloaded the file.
-If you are satisfied with getting the default features, and your environment
-is setup properly, you should be able to compile Vim with just this: >
+Helyettesítsd a "path" szót a saját elérési utaddal. 
+Ha elégedett vagy az alapvető funkciókkal és a környezeted is megfelelően van
+beállítva, akkor a Vimet így tudod lefordítani: >
 
 	cd vim82/src
 	make
 
-The make program will run configure and compile everything.  Further on we
-will explain how to compile with different features.
-   If there are errors while compiling, carefully look at the error messages.
-There should be a hint about what went wrong.  Hopefully you will be able to
-correct it.  You might have to disable some features to make Vim compile.
-Look in the Makefile for specific hints for your system.
+A make program lefuttatja a configure parancsot, ami mindent lefordít. A
+továbbiakban kitérünk arra, hogy hogyan fordítsunk csak bizonyos modulokat.
+   Ha hibaüzenetbe futunk, akkor próbáljuk meg értelmezni őket. Remélhetőleg
+sikerül kijavítanunk a hibát. Előfordulhat, hogy bizonyos modulokat le kell
+tiltanunk a fordítás előtt. A Makefile vizsgálata jó kiindulópont.
 
 
-TESTING
+TESZTELÉS
 
-Now you can check if compiling worked OK: >
+A fordítás ellenőrzése: >
 
 	make test
 
-This will run a sequence of test scripts to verify that Vim works as expected.
-Vim will be started many times and all kinds of text and messages flash by.
-If it is alright you will finally see:
+Ezzel számos tesztet futtathatunk, amely (sikeres esetén) garantálja a
+Vim működését. A szerkesztő elindul pár alkalommal, üzenetek villannak fel, de
+ha minden rendben van, akkor ezt láthatjuk.
 
 	test results: ~
 	ALL DONE ~
