@@ -8,15 +8,13 @@
 * [A program](https://www.vimconf.live/#agenda)
 
 ## Állapot
-* A fordítás jelenleg usr_01.hux - usr_45.hux-ig kész (+- pár mondat)
-* Folyamatban: usr_46.hux
-* Hátrébb sorolva: usr_41.hux (terjedelem miatt)
+* Utolsó fájl folyamatban: usr_41.hux
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
   azonban pontosításra szorul
 
 
 * Kézikönyv:
- [##############################################################-------------]
+ [#######################################################################----]
 
 
 ## A jelenlegi fordítás használatba vétele

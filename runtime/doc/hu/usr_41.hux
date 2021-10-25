@@ -5,49 +5,49 @@
 				Vim szkriptek
 
 
-The Vim script language is used for the startup vimrc file, syntax files, and
-many other things.  This chapter explains the items that can be used in a Vim
-script.  There are a lot of them, thus this is a long chapter.
+A Vim szkriptnyelv a vimrc fájl leírónyelve és még sok egyéb másé. A fejezet
+elmagyarázza, hogy milyen elemeket használhatunk Vim szkriptben. Elég sokat,
+ezért a fejzet hosszú
 
-|41.1|	Introduction
-|41.2|	Variables
-|41.3|	Expressions
-|41.4|	Conditionals
-|41.5|	Executing an expression
-|41.6|	Using functions
-|41.7|	Defining a function
-|41.8|	Lists and Dictionaries
-|41.9|	Exceptions
-|41.10|	Various remarks
-|41.11|	Writing a plugin
-|41.12|	Writing a filetype plugin
-|41.13|	Writing a compiler plugin
-|41.14|	Writing a plugin that loads quickly
-|41.15|	Writing library scripts
-|41.16|	Distributing Vim scripts
+|41.1|	Bevezetés
+|41.2|	Változók
+|41.3|	Kifejezések
+|41.4|	Feltételek
+|41.5|	Kfejezések futtatása
+|41.6|	Függvények használata
+|41.7|	Függvények definiálása
+|41.8|	Listák és szótárak
+|41.9|	Kivételek
+|41.10|	Egyéb megjegyzések
+|41.11|	Beépülő írása
+|41.12|	FileType beépülő írása
+|41.13|	Fordító beépülő írása
+|41.14|	A gyors beépülő ismérvei
+|41.15|	Szkript könyvtárak írása
+|41.16|	VimSzkriptek közzététele
 
-     Következő fejezet: |usr_42.txt|  Add new menus
- Előző fejezet: |usr_40.txt|  Make new commands
-Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_42.txt|  Új menük hozzáadása
+    Előző fejezet: |usr_40.txt|  Új parancsok készítése
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*41.1*	Introduction				*vim-script-intro* *script*
+*41.1*	Bevezetés				*vim-script-intro* *script*
 
-Your first experience with Vim scripts is the vimrc file.  Vim reads it when
-it starts up and executes the commands.  You can set options to values you
-prefer.  And you can use any colon command in it (commands that start with a
-":"; these are sometimes referred to as Ex commands or command-line commands).
-   Syntax files are also Vim scripts.  As are files that set options for a
-specific file type.  A complicated macro can be defined by a separate Vim
-script file.  You can think of other uses yourself.
+A Vim szkriptel való első találkozásod a vimrc fájl. Induláskor a szerkesztő
+olvassa a fájl tartalmát. Olyan opciókat állíthatsz be, amilyeneket szeretnél.
+Bármilyen ":" parancsot használhatsz, ezekre Ex parancsok, vagy command-line
+parancsok néven hivatkozhatunk. 
+   A szintaxis kiemelés fájljai szintén Vim szkriptek, melyek csak
+meghatározott opciókat állítanak be adott fájltípus esetén.  Egy bonyolult
+makróra tekinthetünk úgy, mint egy különálló Vim szkript fájlt.
 
-	If you are familiar with Python, you can find a comparison between
-	Python and Vim script here, with pointers to other documents:
+	Ha van tapasztalatod a Pzthonnal, akkor itt találhatsz egy rövid
+	összehasonlítást, pointerekkel és egyéb dokumentumokkal.
 	   https://gist.github.com/yegappan/16d964a37ead0979b05e655aa036cad0
-	And if you are familiar with JavaScript:
+	Ha a jJavaScriptben vagy járatos.:
 	   https://w0rp.com/blog/post/vim-script-for-the-javascripter/
 
-Let's start with a simple example: >
+Kezdjük egy egyszerű példával: >
 
 	:let i = 1
 	:while i < 5
