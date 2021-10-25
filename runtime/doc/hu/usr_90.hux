@@ -36,8 +36,6 @@ TELEPÍTÉS CSOMAGBÓL
 
 Az előre lefordított állományok az összes UNIX disztribúcióra letölthető. Az
 alábbi linken találhatunk egy hosszabb listát:
-You can get precompiled binaries for many different UNIX systems.  There is a
-long list with links on this page:
 
 	http://www.vim.org/binaries.html ~
 
@@ -114,23 +112,23 @@ ha minden rendben van, akkor ezt láthatjuk.
 	test results: ~
 	ALL DONE ~
 
-Ha az végeremény "TEST FAILURE", akkor pár teszt nem sikerült. Ha csak egy-két
+Ha az végeredmény "TEST FAILURE", akkor pár teszt nem sikerült. Ha csak egy-két
 hibaüzenetet kapunk, akkor elképzelhető, hogy a Vim még működhet. Ez nem
 garantál akkor, ha viszonylag sok hibaüzenettel találkozunk, vagy a fordítási
-foyamat a vége előtt megszakad. A hibát magunk es javíthatjuk, vagy másokra is
-rábízhatjuk. Érdemes körülnézni a |maillist-archive|-ban, háhta találunk
-megoldást. Legutolsó esetben megkérhetünk valakit a |mailliesten| keresztül.
+folyamat a vége előtt megszakad. A hibát magunk es javíthatjuk, vagy másokra is
+rábízhatjuk. Érdemes körülnézni a |maillist-archive|-ban, hátha találunk
+megoldást. Legutolsó esetben megkérhetünk valakit a |maillist|en keresztül.
 
 
 TELEPÍTÉS
 							*install-home*
-A home könytárba való telepítéshez szerkesszük a Makefilet az alábbiak
+A home könyvtárba való telepítéshez szerkesszük a Makefilet az alábbiak
 szerint:
 
 	#prefix = $(HOME) ~
 
 Távolítsuk el a sor elejéről a # jelet.
-   Ha rendzserszinten telepítjük, akkor a Vim nagy valószínűséggel a jó
+   Ha rendszerszinten telepítjük, akkor a Vim nagy valószínűséggel a jó
    telepítési könyvtárra van beállítva. Ezen változtathatunk, ha root
    felhasználók vagyunk.
 
@@ -139,7 +137,7 @@ Telepítési parancs >
 	make install
 
 A parancs összegyűjti a szükséges fájlokat. Kipróbálhatjuk a futtatást, hogy
-megbizonyosodjunk róla, hogy tényeg működik. Az alábbi két teszttel a Vim
+megbizonyosodjunk róla, hogy tényleg működik. Az alábbi két teszttel a Vim
 runtime fájljainak elérését tesztelhetjük: >
 
 	:help
@@ -161,8 +159,8 @@ módon használjuk. Telepítés után kövessük a |not-compatible| opcióit.
 MODULOK KIVÁLASZTÁSA
 
 Ezt több módon is megtehetjük. A legegyszerűbb, ha a Makefájlt szerkesztjük.
-Sok példát láthatunk. Többnyire a modulokat egy sor kommentélésével
-engedéyezhetjük.
+Sok példát láthatunk. Többnyire a modulokat egy sor kommentelésével
+engedélyezhetjük.
    Alternatívaként a "configure"-t külön is lefuttathatjuk, az opciók között
 mi választhatunk. Ennek az a hátránya, hogy tudnunk kell mi mit jelent.
    Néhány érdekes argumentum, melyeket természetesen a Makefileban tovább
@@ -190,7 +188,7 @@ A teljes lista: >
 
 	./configure --help
 
-Egy rövid magyarázattal megismerhetjuk a modulok funkcióit, a linkek
+Egy rövid magyarázattal megismerhetjük a modulok funkcióit, a linkek
 segítségével pedig tovább tanulmányozhatjuk a modult: |feature-list|.
 You can find a bit of explanation for each feature, and links for more
 information here: |feature-list|.
@@ -212,8 +210,8 @@ Az archívum letöltéséhez válassz tükörkiszolgálót az alábbi listából
 
 	ftp://ftp.vim.org/pub/vim/MIRRORS ~
 
-Vagy töltsd le az állományokan a ftp.vim.org-ról. A "pc" köynvtárba kell
-belépnünk. A verziószámokat a név tartalmazza, válassszuk a legfrissebbet. Mi
+Vagy töltsd le az állományokon a ftp.vim.org-ról. A "pc" könyvtárba kell
+belépnünk. A verziószámokat a név tartalmazza, válasszuk a legfrissebbet. Mi
 itt a 8.2 verziót mutatjuk be:
 
 	gvim82.exe		A telepítő
@@ -224,7 +222,7 @@ kövessük az utasításokat.
 Az első módszerhez ki kell választanunk a bináris archívumot, melyek lehetnek:
 
 	gvim82.zip		A normál MS-Windows GUI verziója.
-	gvim82ole.zip		MS-Windows GUI verzióka OLE támogatással.
+	gvim82ole.zip		MS-Windows GUI verzió OLE támogatással.
 				Több memóriát használ, támogatja az OLE
 				interfészek használatát.
 	vim82w32.zip		32 bites MS-Windows konzol verzió.
@@ -234,7 +232,7 @@ konzolos változata is. A runtime fájlokat mindig le kell töltenünk.
 
 	vim82rt.zip		runtime fájlok
 
-Bontsuk ki az állomyánt. Például, az "unzip" programmal: >
+Bontsuk ki az állományt. Például, az "unzip" programmal: >
 
 	cd c:\
 	unzip path\gvim82.zip
@@ -245,8 +243,8 @@ A művelet végeztével fájljaink a "c:\vim\vim82" mappába kerülnek.
 
 	install
 
-Figyelmesen olvassunk el mindent és válasszuk ki az opciókat. Vegül a "do it"
-kiválasztásával a program elindítja a máveletet.
+Figyelmesen olvassunk el mindent és válasszuk ki az opciókat. Végül a "do it"
+kiválasztásával a program elindítja a műveletet.
    A runtime fájlok helye nem változik a telepítés során. Ott maradnak, ahová
    kibontottuk őket.
 
@@ -266,10 +264,10 @@ UNIX
 
 A "make parancs" kiadása után a runtime fájlok az aktuális verzióhoz tartozó
 könyvtárba másolódnak. Ezért gond nélkül dolgozhatunk több verzióval is.
-   A futtatható "vim" felülírja a régi versziót. Ha nem érdekel a régi verzi
+   A futtatható "vim" felülírja a régi verziót. Ha nem érdekel a régi verzió
 megtartása, akkor "make install" parancs megfelelő. A régi runtime fájlokat
-törölhetjük manulisan. Csak töröljük ki a verziószámmal ellátott könyvtárat.
-Példáuk: >
+törölhetjük manuálisan. Csak töröljük ki a verziószámmal ellátott könyvtárat.
+Például: >
 
 	rm -rf /usr/local/share/vim/vim74
 
@@ -278,13 +276,13 @@ megváltoztattad mondjuk a "filetype.vim" fájlt, akkor másold a fájlt az új
 verzió könyvtárában.
 
 Ha óvatos vagy és az új verziót csak ideiglenesen szeretnéd kipróbálni,
-mielőtt véglegesen válatanál, telepítsd az új verziót más néven. Ehhez egy
+mielőtt véglegesen váltanál, telepítsd az új verziót más néven. Ehhez egy
 argumentumot kell átadnunk. Például: >
 
 	./configure --with-vim-name=vim8
 
 A "make install" előtt a "make -n install" paranccsal biztosíthatjuk, hogy az
-értékes már lérező fájlok nem fognak felülíródni.
+értékes már létező fájlok nem fognak felülíródni.
    Amennyiben végelegesen az új verzió mellett döntünk, akkor csak annyit kell
 tennünk, hogy átnevezzük a könyvtárak. Például: >
 
@@ -298,11 +296,11 @@ ki  a fájlokat az előző verzióval megegyező helyre. Új könyvtár lesz
 létrehozva például "vim82" az új fájlok számára. A runtime fájlok, a vimrc
 fájl és a viminfo érintetlenül lesz hagyva.
    Ha mindkét verziót szeretnéd használni, akkor további műveletekre van
-szükségünk. Ne telepítsd egyből a programot, mert ez régi verzió fájlainak egy
+szükségünk. Ne telepítsd egyből a programot, mert ez régi verzió fájljainak egy
 részét felülírja. Futtasd a bináris állományt a teljes elérési utat megadva. A
 szerkesztő automatikusan megtalálja a verzióhoz tartozó runtime fájlokat. Ez
-nem műdödik, ha előzőleg a $VIMRUNTIME változót már átállítottad.
-   Ha elégedett vagy a frisítéssel, akkor az előző verzió fájljait
+nem működik, ha előzőleg a $VIMRUNTIME változót már átállítottad.
+   Ha elégedett vagy a frissítéssel, akkor az előző verzió fájljait
 letörölheted. Lásd |90.5|.
 
 ==============================================================================
@@ -321,7 +319,7 @@ telepítés: >
 	./configure --prefix=$HOME
 
 Ez lesz a személyes Vim másolatod. A szerkesztő indításához hozzá kell adni a
-$HOME/bin utata path-hoz. Lásd |install-home|.
+$HOME/bin utat a path-hoz. Lásd |install-home|.
 
 
 Q: A színekkel van problémám. (Unix)
@@ -335,17 +333,17 @@ lehet, ha kizárólag a Vim GUI verzióját használod (gvim), mellyel
 elkerülhetjük a terminált érintő beállításokat.
 
 
-Q: A <Backspace> és <Delete> billetnyűim nem működnek jól
+Q: A <Backspace> és <Delete> billentyűk nem működnek jól
 
-A <BS> és <Del> esetében a billentyűk álatal elküldött kód eléggé bizonytalan.
+A <BS> és <Del> esetében a billentyűk által elküldött kód eléggé bizonytalan.
 Először is, ellenőrizd a $TERM értékét Ha a beállítás jó, akkor próbáld ki
 ezeket: >
 
 	:set t_kb=^V<BS>
 	:set t_kD=^V<Del>
 
-Az első sorban CTRL-V-t kell ütni és utánna <Backspace> billentyűt. A második
-sorban CTRL-V, majd <Delete> billetnyű. A két sort bemásolhatjuk a vimrc
+Az első sorban CTRL-V-t kell ütni és utána <Backspace> billentyűt. A második
+sorban CTRL-V, majd <Delete> billentyű. A két sort bemásolhatjuk a vimrc
 fájlba, lásd |05.1|. Az értékeket felül kell vizsgálna, ha új terminált
 használunk. Alternatív megoldások: |:fixdel|.
 
@@ -358,7 +356,7 @@ telepítsd fel.
 
 
 Q: Hogyan kapcsolhatom be a szintaxis kiemelést?  Hogyan használhatom a
-   bépülőket?
+   beépülőket?
 
 Használd a példa vimrc szkriptet. Magyarázatot hozzá itt találsz: 
 |not-compatible|.
@@ -379,7 +377,7 @@ feltöltöttek.
 
 Q: Hogyan találok új tippeket?
 
-http://vim.sf.net.  Keresd az archvívumot, amely a Vim tippekről (hint), szól.
+http://vim.sf.net.  Keresd az archívumot, amely a Vim tippekről (hint), szól.
 A levelezőlistában is kereshetsz: |maillist-archive|.
 
 ==============================================================================
@@ -392,7 +390,7 @@ UNIX
 
 Ha a Vimet a csomagkezelőnk segítségével telepítettük, akkor a törlést a
 csomagkezelőnk fogja elvégezni.
-   Ha a a Vimet forrásból telepítettük, akkor ezzel a paranccsal tudjuk
+   Ha a Vimet forrásból telepítettük, akkor ezzel a paranccsal tudjuk
 eltávolítani: >
 
 	make uninstall
@@ -439,7 +437,7 @@ itt egy példa, ha a telepítés alapkönyvtára "/usr/local/" volt: >
 MS-WINDOWS
 
 Ha telepítő segítségével telepítettük a Vimet, akkor az "uninstall-gui"
-programmal tudjuk a szerksztőt eltávolíani, melynek az elérési útja tipikusan:
+programmal tudjuk a szerkesztőt eltávolítani, melynek az elérési útja tipikusan:
 "c:\vim\vim82\ (vagy az az elérési út, amit telepítésnél megadtunk). Ha a
 telepítés során engedélyeztük az elemek Start menüben történő elhelyezését,
 akkor onnan. Ez a fájlok nagy részét eltávolítja, a menübejegyzéseket és az
@@ -449,9 +447,9 @@ asztali ikonokat.  Egyes fájlok hátramaradhatnak, melyek törléséhez a Windo
 tartalmazza a vimrc és egyéb runtime fájlokat szóval legyünk óvatosak.
 
 Ha a telepítést zip archívumból végeztük, akkor preferált módszer az
-"uninstall" program használata, melyet az "install" programmal megyező
+"uninstall" program használata, melyet az "install" programmal megegyező
 könyvtárban találunk, például: "c:\vim\vim82". Eltávolíthatjuk még a
-kalsszikus "Programok eltávolítása" menüpont alatt is.
+klasszikus "Programok eltávolítása" menüpont alatt is.
    Ez csak a registry-bejegyzéseket távolítja el, a fájlokat magunknak kell
 törölnünk. Egyszerűen csak töröljük a "vim\vim82" könyvtárat. 
    A "vim" könyvtár tartalmazhatja a vimrc fájlt és egy runtime fájlokat.
