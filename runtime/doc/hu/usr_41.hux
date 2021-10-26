@@ -409,12 +409,12 @@ LOGIKAI OPERÁTOROK
 
 Némelyiket már használtuk. Itt vannak a leggyakoribbak:
 
-	a == b		equal to
-	a != b		not equal to
-	a >  b		greater than
-	a >= b		greater than or equal to
-	a <  b		less than
-	a <= b		less than or equal to
+	a == b		egyenlő
+	a != b		nem egyenlő
+	a >  b		nagyobb, mint
+	a >= b		nagyobb, vagy egyenlő, mint
+	a <  b		kisebb, mint
+	a <= b		kisebb, vagy egyenlő, mint
 
 A végeredmény 1, ha a feltétel teljesül, és 0, ha nem. Például:   >
 
@@ -428,27 +428,28 @@ Itt a "v:version" változót a Vim definiálta, melynek tartalma a Vim verziója
 600 a 6.0-ás verzióhoz. A 6.1 verzió 601 lenne. Így verzió specifikus
 szkripteket tudunk létrehozni |v:version|.
 
-The logic operators work both for numbers and strings.  When comparing two
-strings, the mathematical difference is used.  This compares byte values,
-which may not be right for some languages.
-   When comparing a string with a number, the string is first converted to a
-number.  This is a bit tricky, because when a string doesn't look like a
-number, the number zero is used.  Example: >
+A logikai operátorok számok és stringek esetén is működik. Ha két stringet
+hasonlítunk össze, akkor a matematikai különbséget kapjuk. Az eredmény a
+bájtok összehasonlításával keletkezik, így nyelvek és nyelvek között a kimenet
+eltérhet.
+   Ha stringet hasonlítunk számhoz, akkor a string először számmá
+konvertálódik. Ez trükkös, hiszen ha string nem számnak néz ki, akkor a
+konvertálás eredménye nulla. Például:   >
 
 	:if 0 == "one"
 	:  echo "yes"
 	:endif
 
-This will echo "yes", because "one" doesn't look like a number, thus it is
-converted to the number zero.
+A kód kimenete "yes", mert "one" nem néz ki számnak (az első karaktere nem
+szám), ezért nullává konvertálódik.
 
-For strings there are two more items:
+Stringek összehasonlítására a további két operátor áll rendelkezésre:
 
-	a =~ b		matches with
-	a !~ b		does not match with
+	a =~ b		egyezik
+	a !~ b		nem egyezik
 
-The left item "a" is used as a string.  The right item "b" is used as a
-pattern, like what's used for searching.  Example: >
+A bal oldali "a"-t stringként használjuk. A jobb oldalon szereplő "b"
+mintaként van használva, mintha keresnénk. Például:   >
 
 	:if str =~ " "
 	:  echo "str contains a space"
@@ -457,28 +458,28 @@ pattern, like what's used for searching.  Example: >
 	:  echo "str does not end in a full stop"
 	:endif
 
-Notice the use of a single-quote string for the pattern.  This is useful,
-because backslashes would need to be doubled in a double-quote string and
-patterns tend to contain many backslashes.
+Figyeljünk arra, hogy a keresési mintát aposztrófok közé zártuk, így nem kell
+escapelnünk \ karakterrel (amit idézőjelek esetén meg kellett volna tenni).
 
-The 'ignorecase' option is used when comparing strings.  When you don't want
-that, append "#" to match case and "?" to ignore case.  Thus "==?" compares
-two strings to be equal while ignoring case.  And "!~#" checks if a pattern
-doesn't match, also checking the case of letters.  For the full table see
-|expr-==|.
+Az 'ignorecase' opció hatással van a stringek összehasonlítására. Ha ezt nem
+szeretnénk, akkor fűzzük a "#" karaktert (betűérzékeny), vagy a "?" karaktert
+(nem betűérzékeny) az operátorhoz. Ezért "==?" két stringet hasonlít össze a
+betűérzékenységet figyelmen kívül hagyva. "!~#" megvizsgálja, hogy a két
+string egyenlő-e a betűérzékenység figyelembevételével. A teljes táblázathoz
+lásd |expr-==|.
 
 
-MORE LOOPING
+MÉG TÖBB CIKLUS
 
-The ":while" command was already mentioned.  Two more statements can be used
-in between the ":while" and the ":endwhile":
+A ":while" ciklust már említettük. Két parancsot használhatunk a ciklusban (a
+":while" és ":endwhile" között):
 
-	:continue		Jump back to the start of the while loop; the
-				loop continues.
-	:break			Jump forward to the ":endwhile"; the loop is
-				discontinued.
+	:continue		Visszaugrik a while ciklus kezdetéhez és
+				folytatja azt
+	:break			a vezérlés az ":endwhile"-ra ugrik, a ciklus
+				megszakad
 
-Example: >
+Például:  >
 
 	:while counter < 40
 	:  call do_something()
@@ -491,416 +492,409 @@ Example: >
 	:  sleep 50m
 	:endwhile
 
-The ":sleep" command makes Vim take a nap.  The "50m" specifies fifty
-milliseconds.  Another example is ":sleep 4", which sleeps for four seconds.
+A ":sleep" paranccsal a szkript futtatását függeszthetjük fel. Az "50m" ötven
+milliszekondumot jelent. Másik példa a ":sleep 4", mely négy másodpercig tart.
 
-Even more looping can be done with the ":for" command, see below in |41.8|.
+A ":for" ciklushoz lásd |41.8|.
 
 ==============================================================================
-*41.5*	Executing an expression
+*41.5*	Kifejezés futtatása
 
-So far the commands in the script were executed by Vim directly.  The
-":execute" command allows executing the result of an expression.  This is a
-very powerful way to build commands and execute them.
-   An example is to jump to a tag, which is contained in a variable: >
+Eddig a parancsokat a Vimben adtuk ki. Az ":execute" paranccsal lefuttathatjuk
+a kifejezés értékét, mellyel bonyolult parancsokat is írhatunk.
+   Például ugrás taghez, melyet a változó tartalmaz: >
 
 	:execute "tag " .. tag_name
 
-The ".." is used to concatenate the string "tag " with the value of variable
-"tag_name".  Suppose "tag_name" has the value "get_cmd", then the command that
-will be executed is: >
+A ".." operátorral fűztük össze a "tag " stringet a "tag_name" változóval.
+Feltételezzük, hogy a "tag_name" értéke "get_cmd", mely kiértékelés után: >
 
 	:tag get_cmd
 
-The ":execute" command can only execute colon commands.  The ":normal" command
-executes Normal mode commands.  However, its argument is not an expression but
-the literal command characters.  Example: >
+Az ":execute" parancs csak ":" futtatására alkalmas. A ":normal" parancs a
+Normal módú parancsokat tudja futtatni. Bár az argumentum nem egy kifejezés
+értéke, stringként adjuk át a ":normal" parancsnak. Például:   >
 
 	:normal gg=G
 
-This jumps to the first line and formats all lines with the "=" operator.
-   To make ":normal" work with an expression, combine ":execute" with it.
-Example: >
+A parancs az első sorra ugrik és formázza az összes sort a "=" operátorral.
+   ":normal" módban úgy dolgozhatunk kifejezéssel, hogy átadjuk az ":execute"
+parancsnak. Például:   >
 
 	:execute "normal " .. normal_commands
 
-The variable "normal_commands" must contain the Normal mode commands.
-   Make sure that the argument for ":normal" is a complete command.  Otherwise
-Vim will run into the end of the argument and abort the command.  For example,
-if you start Insert mode, you must leave Insert mode as well.  This works: >
+A "normal_commands" változónak normál módú parancsokat kell tartalmaznia.
+   Győződjünk meg arról, hogy a ":normal" parancsnak átadott argumentum teljes
+értékű parancs. Például, ha Insert módba lépünk, akkor ki is kell lépnünk
+belőle. Így működik: >
 
 	:execute "normal Inew text \<Esc>"
 
-This inserts "new text " in the current line.  Notice the use of the special
-key "\<Esc>".  This avoids having to enter a real <Esc> character in your
-script.
+Futtatás beilleszti a "new text" szöveget az aktív sorba. Figyeljük meg a
+speciális billentyűk használatát: a "\<Esc>" a normál módba küldi a
+billentyűleütést, és közvetlenül a szkriptnek (<Esc> a szkriptben azonnal
+értelmeződne).
 
-If you don't want to execute a string but evaluate it to get its expression
-value, you can use the eval() function: >
+Ha nem szeretnénk egy stringet futtatni, csak kiértékelni a kifejezés értékét,
+akkor az eval() függvényt használhatjuk: >
 
 	:let optname = "path"
 	:let optval = eval('&' .. optname)
 
-A "&" character is prepended to "path", thus the argument to eval() is
-"&path".  The result will then be the value of the 'path' option.
-   The same thing can be done with: >
+A "&" karaktert a "path" elé fűztük, ezért az eval() függvény argumentumként a
+"&path"-t kapja. Az eredmény pedig a 'path' opció értéke lesz.
+   Ezzel egyenértékű: >
+
 	:exe 'let optval = &' .. optname
 
 ==============================================================================
-*41.6*	Using functions
+*41.6*	Függvények használata
 
-Vim defines many functions and provides a large amount of functionality that
-way.  A few examples will be given in this section.  You can find the whole
-list here: |functions|.
+A Vim a beépített függvényei révén hatalmas funkcionalitást biztosít. Néhány
+példán keresztül ezt bemutatjuk. A teljes függvénylista: |functions|.
 
-A function is called with the ":call" command.  The parameters are passed in
-between parentheses separated by commas.  Example: >
+Függvényeket a ":call" paranccsal hívhatunk. A paramétereket a zárójelek
+között kell átadnunk vesszővel elválasztva. Például:   >
 
 	:call search("Date: ", "W")
 
-This calls the search() function, with arguments "Date: " and "W".  The
-search() function uses its first argument as a search pattern and the second
-one as flags.  The "W" flag means the search doesn't wrap around the end of
-the file.
+Ez meghívja a search() függvényt a "Date: " és a "W" argumentumokkal. A search
+függvény első paramétere a keresési minta, a második pedig a flag. A "W" flag
+azt jelenti, hogy a keresés nem folytatódik a fájl végéhez érve.
 
-A function can be called in an expression.  Example: >
+A függvényeket kifejezésekben is meghívhatjuk. Például:   >
 
 	:let line = getline(".")
 	:let repl = substitute(line, '\a', "*", "g")
 	:call setline(".", repl)
 
-The getline() function obtains a line from the current buffer.  Its argument
-is a specification of the line number.  In this case "." is used, which means
-the line where the cursor is.
-   The substitute() function does something similar to the ":substitute"
-command.  The first argument is the string on which to perform the
-substitution.  The second argument is the pattern, the third the replacement
-string.  Finally, the last arguments are the flags.
-   The setline() function sets the line, specified by the first argument, to a
-new string, the second argument.  In this example the line under the cursor is
-replaced with the result of the substitute().  Thus the effect of the three
-statements is equal to: >
+A getline() függvény a buffer egy sorával tér vissza. Argumentumként a sor
+számát várja. A példában "."-t használtunk, mely a kurzor sorára utal.
+   A substitute() függvény a ":substitute" parancs megfelelője. Az első
+argumentum a string, melyen a műveletet végezzük, második a minta, a harmadik
+pedig a csere string. Végül utolsó argumentumként pedig a flag.
+   A setline() függvény felülírja az első argumentumban hivatkozott sort a
+második argumentumban szereplő értékkel. A példában a kurzor sorát cseréljük
+le a substitute() függvény eredményével. A három kifejezés egyenlő: >
 
 	:substitute/\a/*/g
 
-Using the functions becomes more interesting when you do more work before and
-after the substitute() call.
+A függvények használata akkor válik érdekesebbé, ha a substitute() hívás előtt
+és után több munkát kell végeznünk.
 
 
-FUNCTIONS						*function-list*
+FÜGGVÉNYEK						*function-list*
 
-There are many functions.  We will mention them here, grouped by what they are
-used for.  You can find an alphabetical list here: |functions|.  Use CTRL-] on
-the function name to jump to detailed help on it.
+Rengeted függvény létezik. Használati jellegük alapján csoportosítottuk a
+listát. A betűrendi lista itt található: |functions|. CTRL-] a függvény nevén
+megnyitja a részletes leírást.
 
-String manipulation:					*string-functions*
-	nr2char()		get a character by its number value
-	list2str()		get a character string from a list of numbers
-	char2nr()		get number value of a character
-	str2list()		get list of numbers from a string
-	str2nr()		convert a string to a Number
-	str2float()		convert a string to a Float
-	printf()		format a string according to % items
-	escape()		escape characters in a string with a '\'
-	shellescape()		escape a string for use with a shell command
-	fnameescape()		escape a file name for use with a Vim command
-	tr()			translate characters from one set to another
-	strtrans()		translate a string to make it printable
-	tolower()		turn a string to lowercase
-	toupper()		turn a string to uppercase
-	charclass()		class of a character
-	match()			position where a pattern matches in a string
-	matchend()		position where a pattern match ends in a string
-	matchfuzzy()		fuzzy matches a string in a list of strings
-	matchfuzzypos()		fuzzy matches a string in a list of strings
-	matchstr()		match of a pattern in a string
-	matchstrpos()		match and positions of a pattern in a string
-	matchlist()		like matchstr() and also return submatches
+String manipuláció:					*string-functions*
+	nr2char()		karaktert ad vissza számérték alapján
+	list2str()		stringet ad listában szereplő számok alapján
+	char2nr()		számot ad vissza karakterből
+	str2list()		stringből szám alapú listát generál
+	str2nr()		stringből Számot konvertál
+	str2float()		stgringből Floatot konvertál
+	printf()		szöveg formázása a % elemek szerint
+	escape()		karakterek escapelése a stringben '\'-el
+	shellescape()		string escapelése shell parancs számára
+	fnameescape()		fájlnév escapelése Vim parancs számára
+	tr()			másolás karakterszettek között
+	strtrans()		string nyomtathatóvá alakítása
+	tolower()		string kisbetűssé alakítása
+	toupper()		string nagybetűssé alakítása
+	charclass()		karakter osztálya
+	match()			egyezés pozíciója
+	matchend()		egyezés végének a pozíciója
+	matchfuzzy()		fuzzy stílusú egyezés a stringben
+	matchfuzzypos()		fuzzy stílusú egyezés a stringben
+	matchstr()		egyező minta értéke a stringben
+	matchstrpos()		egyezés a stringben és azok pozíciója
+	matchlist()		mint a  matchstr() rész egyezések is
 	stridx()		first index of a short string in a long string
 	strridx()		last index of a short string in a long string
 	strlen()		length of a string in bytes
 	strcharlen()		length of a string in characters
-	strchars()		number of characters in a string
-	strwidth()		size of string when displayed
-	strdisplaywidth()	size of string when displayed, deals with tabs
-	setcellwidths()		set character cell width overrides
-	substitute()		substitute a pattern match with a string
-	submatch()		get a specific match in ":s" and substitute()
-	strpart()		get part of a string using byte index
-	strcharpart()		get part of a string using char index
-	slice()			take a slice of a string, using char index in
-				Vim9 script
-	strgetchar()		get character from a string using char index
-	expand()		expand special keywords
-	expandcmd()		expand a command like done for `:edit`
-	iconv()			convert text from one encoding to another
-	byteidx()		byte index of a character in a string
-	byteidxcomp()		like byteidx() but count composing characters
-	charidx()		character index of a byte in a string
-	repeat()		repeat a string multiple times
-	eval()			evaluate a string expression
-	execute()		execute an Ex command and get the output
-	win_execute()		like execute() but in a specified window
-	trim()			trim characters from a string
-	gettext()		lookup message translation
+	strchars()		karakterek száma a stringben
+	strwidth()		megjelenített string hossza
+	strdisplaywidth()	megjelenített string hossza, tabokkal
+	setcellwidths()		karakter-cella beállítása, felülírással
+	substitute()		string helyettesítés mintával
+	submatch()		rész egyezések ":s" és substitute()
+	strpart()		string része (byte index alapján)
+	strcharpart()		string része (char index alapján)
+	slice()			string szelet (char index alapján) Vim9
+	strgetchar()		string szelet (char index)
+	expand()		speciális kulcsszavak kibontása
+	expandcmd()		parancsok kibontása (mint az `:edit`)
+	iconv()			kódolások közötti konvertálás
+	byteidx()		string karakterének byte indexe
+	byteidxcomp()		mint a  byteidx() alkotó karakter számít
+	charidx()		byte karakterindexe stringben
+	repeat()		string ismétlés
+	eval()			string kifejezés kiértékelése
+	execute()		Ex parancs futtatása
+	win_execute()		mint az execute() de meghatározott ablakban
+	trim()			karakterek trimmelése stringből
+	gettext()		üzenet fordításának keresése
 
-List manipulation:					*list-functions*
-	get()			get an item without error for wrong index
-	len()			number of items in a List
-	empty()			check if List is empty
-	insert()		insert an item somewhere in a List
-	add()			append an item to a List
-	extend()		append a List to a List
-	extendnew()		make a new List and append items
-	remove()		remove one or more items from a List
-	copy()			make a shallow copy of a List
-	deepcopy()		make a full copy of a List
-	filter()		remove selected items from a List
-	map()			change each List item
-	mapnew()		make a new List with changed items
-	reduce()		reduce a List to a value
-	slice()			take a slice of a List
-	sort()			sort a List
-	reverse()		reverse the order of a List
-	uniq()			remove copies of repeated adjacent items
-	split()			split a String into a List
-	join()			join List items into a String
-	range()			return a List with a sequence of numbers
-	string()		String representation of a List
-	call()			call a function with List as arguments
-	index()			index of a value in a List
-	max()			maximum value in a List
-	min()			minimum value in a List
-	count()			count number of times a value appears in a List
-	repeat()		repeat a List multiple times
-	flatten()		flatten a List
-	flattennew()		flatten a copy of a List
+Lista manipuláció:					*list-functions*
+	get()			érték listából hibaüzenet nélkül (index)
+	len()			listaelemek száma
+	empty()			üres-e a lista
+	insert()		elem beszúrása
+	add()			elem hozzáfűzése
+	extend()		listát listához fűz
+	extendnew()		új lista, majd hozzáfűz
+	remove()		egy vagy több elem eltávolítása
+	copy()			shallow másolat
+	deepcopy()		lista teljes másolata
+	filter()		kiválasztott elemek eltávolítása
+	map()			minden listaelem változtatása
+	mapnew()		új lista a változott értékekkel
+	reduce()		lista redukálása értékhez
+	slice()			lista-szelet
+	sort()			list rendezése
+	reverse()		fordított sorrend
+	uniq()			egyedi listaelemek
+	split()			string bontása listába
+	join()			listaelemek összefűzése stringgé
+	range()			számsorozatból lista összeállítás
+	string()		lista string reprezentációja
+	call()			függvényhívás lista argumentumokkal
+	index()			elem indexe a listában
+	max()			lista maximum értéke
+	min()			lista minimum értéke
+	count()			elem gyakorisága listában
+	repeat()		lista ismétlése
+	flatten()		lista dimenziójának redukálása
+	flattennew()		lista dimenziójának redukálása másolással
 
-Dictionary manipulation:				*dict-functions*
-	get()			get an entry without an error for a wrong key
-	len()			number of entries in a Dictionary
-	has_key()		check whether a key appears in a Dictionary
-	empty()			check if Dictionary is empty
-	remove()		remove an entry from a Dictionary
-	extend()		add entries from one Dictionary to another
-	extendnew()		make a new Dictionary and append items
-	filter()		remove selected entries from a Dictionary
-	map()			change each Dictionary entry
-	mapnew()		make a new Dictionary with changed items
-	keys()			get List of Dictionary keys
-	values()		get List of Dictionary values
-	items()			get List of Dictionary key-value pairs
-	copy()			make a shallow copy of a Dictionary
-	deepcopy()		make a full copy of a Dictionary
-	string()		String representation of a Dictionary
-	max()			maximum value in a Dictionary
-	min()			minimum value in a Dictionary
-	count()			count number of times a value appears
+Szótár manipuláció:				*dict-functions*
+	get()			bejegyzés lekérése hiba nélkül (key)
+	len()			bejegyzések száma
+	has_key()		kulcs ellenőrzés
+	empty()			üres-e
+	remove()		bejegyzés eltávolítása
+	extend()		hozzáadás szótárból szótárba
+	extendnew()		hozzáadás szótárból szótárba, összefűzéssel
+	filter()		kiválasztott elemek eltávolítása
+	map()			minden bejegyzés megváltoztatása
+	mapnew()		változtatott elemekből új lista
+	keys()			kulcsot listája
+	values()		értékek listája
+	items()			kulcs-érték párokból lista
+	copy()			shallow másolat
+	deepcopy()		teljes másolat
+	string()		szótár string reprezentációja
+	max()			szótár maximum értéke
+	min()			szótár minimum értéke
+	count()			elem gyakorisága
 
-Floating point computation:				*float-functions*
-	float2nr()		convert Float to Number
-	abs()			absolute value (also works for Number)
-	round()			round off
-	ceil()			round up
-	floor()			round down
-	trunc()			remove value after decimal point
-	fmod()			remainder of division
-	exp()			exponential
-	log()			natural logarithm (logarithm to base e)
-	log10()			logarithm to base 10
-	pow()			value of x to the exponent y
-	sqrt()			square root
-	sin()			sine
-	cos()			cosine
-	tan()			tangent
-	asin()			arc sine
-	acos()			arc cosine
-	atan()			arc tangent
-	atan2()			arc tangent
-	sinh()			hyperbolic sine
-	cosh()			hyperbolic cosine
-	tanh()			hyperbolic tangent
-	isinf()			check for infinity
-	isnan()			check for not a number
+Lebegőpontos számítások:			*float-functions*
+	float2nr()		float számmá
+	abs()			abszolút érték (Számokkal is)
+	round()			kerekítés
+	ceil()			kerekítés fel
+	floor()			kerekítés le 
+	trunc()			tizedes utáni értékek eltávolítása
+	fmod()			maradék
+	exp()			exponenciális
+	log()			természetes logaritmus (e alapú)
+	log10()			10 alapú logaritmus
+	pow()			négyzetre emelés
+	sqrt()			négyzetgyök
+	sin()			szinusz
+	cos()			koszinusz
+	tan()			tangens
+	asin()			arc szinusz
+	acos()			arc koszinusz
+	atan()			arc tangens
+	atan2()			arc tangens
+	sinh()			hyperbolic szinusz
+	cosh()			hyperbolic koszinusz
+	tanh()			hyperbolic tangens
+	isinf()			végtelen ellenőrzése
+	isnan()			nem szám?
 
-Other computation:					*bitwise-function*
-	and()			bitwise AND
-	invert()		bitwise invert
-	or()			bitwise OR
-	xor()			bitwise XOR
+Egyéb számítások:				*bitwise-function*
+	and()			bitenkénti ÉS
+	invert()		bitenkénti inverz
+	or()			bitenkénti VAGY
+	xor()			bitenkénti KIZÁRÓ VAGY
 	sha256()		SHA-256 hash
-	rand()			get a pseudo-random number
-	srand()			initialize seed used by rand()
+	rand()			pseudo-random szám
+	srand()			kezdeti seed, rand()
 
-Variables:						*var-functions*
-	type()			type of a variable as a number
-	typename()		type of a variable as text
-	islocked()		check if a variable is locked
-	funcref()		get a Funcref for a function reference
-	function()		get a Funcref for a function name
-	getbufvar()		get a variable value from a specific buffer
-	setbufvar()		set a variable in a specific buffer
-	getwinvar()		get a variable from specific window
-	gettabvar()		get a variable from specific tab page
-	gettabwinvar()		get a variable from specific window & tab page
-	setwinvar()		set a variable in a specific window
-	settabvar()		set a variable in a specific tab page
-	settabwinvar()		set a variable in a specific window & tab page
-	garbagecollect()	possibly free memory
+Változók:					*var-functions*
+	type()			változó típusa számként
+	typename()		változó típusa szövegként
+	islocked()		változó locked állapotának ellenőrzése
+	funcref()		függvényhivatkozás referencia alapján
+	function()		függvényhivatkozás név lapján
+	setbufvar()		buffer változójának lekérése
+	getwinvar()		ablak  változójának lekérése
+	gettabvar()		fül    változójának lekérése
+	gettabwinvar()		ablak és fül változójának lekérése
+	setwinvar()		ablak változójának beállítása
+	settabvar()		fül változójának beállítása
+	settabwinvar()		ablak és fül változójának beállítása
+	garbagecollect()	elérhető szabad memória
 
-Cursor and mark position:		*cursor-functions* *mark-functions*
-	col()			column number of the cursor or a mark
-	virtcol()		screen column of the cursor or a mark
-	line()			line number of the cursor or mark
-	wincol()		window column number of the cursor
-	winline()		window line number of the cursor
-	cursor()		position the cursor at a line/column
-	screencol()		get screen column of the cursor
-	screenrow()		get screen row of the cursor
-	screenpos()		screen row and col of a text character
-	getcurpos()		get position of the cursor
-	getpos()		get position of cursor, mark, etc.
-	setpos()		set position of cursor, mark, etc.
-	getmarklist()		list of global/local marks
-	byte2line()		get line number at a specific byte count
-	line2byte()		byte count at a specific line
-	diff_filler()		get the number of filler lines above a line
-	screenattr()		get attribute at a screen line/row
-	screenchar()		get character code at a screen line/row
-	screenchars()		get character codes at a screen line/row
-	screenstring()		get string of characters at a screen line/row
-	charcol()		character number of the cursor or a mark
-	getcharpos()		get character position of cursor, mark, etc.
+Kurzor és mark pozíciók:			*cursor-functions* *mark-functions*
+	col()			kurzor vagy mark oszlopa
+	virtcol()		kurzor vagy mark virtuális sora
+	line()			kurzor vagy mark sora
+	wincol()		kurzor vagy mark oszlopa ablakban
+	winline()		kurzor vagy mark sora ablakban
+	cursor()		kurzor pozíciója sora és oszlopa 
+	screencol()		kurzor oszlopa a képernyőn
+	screenrow()		kurzor sora a képernyőn
+	screenpos()		szöveg pozíciója sor és oszlop képernyő
+	getcurpos()		kurzor pozíciója
+	getpos()		kurzor, mark pozíciója
+	setpos()		kurzor, mark pozíciójának beállítása
+	getmarklist()		globális és lokális markok
+	byte2line()		byte érték sora
+	line2byte()		sor byte értéke
+	diff_filler()		sor fölött lévő kitöltősorok száma
+	screenattr()		képernyő sorának tulajdonságai
+	screenchar()		karakter kódja sor-oszlop alapján képernyő
+	screenchars()		mint screenchar(), listát ad vissza
+	screenstring()		mint screenchars(), stringet ad vissza
+	charcol()		mint col(), karaktert ad vissza
+	getcharpos()		mint getpos(), karakter indexet ad vissza
 	setcharpos()		set character position of cursor, mark, etc.
-	getcursorcharpos()	get character position of the cursor
-	setcursorcharpos()	set character position of the cursor
+	getcursorcharpos()	mint setpos(), oszlopszámmal
+	setcursorcharpos()	mint cursor(), oszlopszámot használ
 
-Working with text in the current buffer:		*text-functions*
-	getline()		get a line or list of lines from the buffer
-	setline()		replace a line in the buffer
-	append()		append line or list of lines in the buffer
-	indent()		indent of a specific line
-	cindent()		indent according to C indenting
-	lispindent()		indent according to Lisp indenting
-	nextnonblank()		find next non-blank line
-	prevnonblank()		find previous non-blank line
-	search()		find a match for a pattern
-	searchpos()		find a match for a pattern
-	searchcount()		get number of matches before/after the cursor
-	searchpair()		find the other end of a start/skip/end
-	searchpairpos()		find the other end of a start/skip/end
-	searchdecl()		search for the declaration of a name
-	getcharsearch()		return character search information
-	setcharsearch()		set character search information
+Munka az aktív bufferben lévő szöveggel:	*text-functions*
+	getline()		sor, vagy sorok listája a bufferből
+	setline()		buffer sorának cseréje
+	append()		sor, vagy sorok hozzáfűzése
+	indent()		behúzás
+	cindent()		C stílusú behúzás
+	lispindent()		Lisp stílusú behúzás
+	nextnonblank()		következő nem üres sor
+	prevnonblank()		előző nem üres sor
+	search()		minta egyezése
+	searchpos()		minta egyezésének helye
+	searchcount()		egyezések száma a kurzor előtt és után
+	searchpair()		másik vég, kezdet
+	searchpairpos()		másik vég, kezdet
+	searchdecl()		név deklarációjának keresése
+	getcharsearch()		karakter keresési információi
+	setcharsearch()		karakter keresési info. beállítása
 
-Working with text in another buffer:
-	getbufline()		get a list of lines from the specified buffer
-	setbufline()		replace a line in the specified buffer
-	appendbufline()		append a list of lines in the specified buffer
-	deletebufline()		delete lines from a specified buffer
+Munka egy másik bufferben lévő szöveggel:
+	getbufline()		buffer sorának lekérése
+	setbufline()		buffer sorának cseréje
+	appendbufline()		sorok hozzáfűzése a bufferhez
+	deletebufline()		buffer sorainak törlése
 
 					*system-functions* *file-functions*
-System functions and manipulation of files:
-	glob()			expand wildcards
-	globpath()		expand wildcards in a number of directories
-	glob2regpat()		convert a glob pattern into a search pattern
-	findfile()		find a file in a list of directories
-	finddir()		find a directory in a list of directories
-	resolve()		find out where a shortcut points to
-	fnamemodify()		modify a file name
-	pathshorten()		shorten directory names in a path
-	simplify()		simplify a path without changing its meaning
-	executable()		check if an executable program exists
-	exepath()		full path of an executable program
-	filereadable()		check if a file can be read
-	filewritable()		check if a file can be written to
-	getfperm()		get the permissions of a file
-	setfperm()		set the permissions of a file
-	getftype()		get the kind of a file
-	isdirectory()		check if a directory exists
-	getfsize()		get the size of a file
-	getcwd()		get the current working directory
-	haslocaldir()		check if current window used |:lcd| or |:tcd|
-	tempname()		get the name of a temporary file
-	mkdir()			create a new directory
-	chdir()			change current working directory
-	delete()		delete a file
-	rename()		rename a file
-	system()		get the result of a shell command as a string
-	systemlist()		get the result of a shell command as a list
-	environ()		get all environment variables
-	getenv()		get one environment variable
-	setenv()		set an environment variable
-	hostname()		name of the system
-	readfile()		read a file into a List of lines
-	readblob()		read a file into a Blob
-	readdir()		get a List of file names in a directory
-	readdirex()		get a List of file information in a directory
-	writefile()		write a List of lines or Blob into a file
+Rendszerfüggvények, manipuláció fájlokkal:
+	glob()			fájl metakarakterek kibontása
+	globpath()		mint glob(), a 'path' könyvtárait
+	glob2regpat()		glob minta konvertálása keresési mintává
+	findfile()		fájlkeresés
+	finddir()		könyvtárkeresés
+	resolve()		parancsikon, linkek feloldása
+	fnamemodify()		fájl átnevezés
+	pathshorten()		könyvtárnevek rövidítése a path ban
+	simplify()		elérési utak egyszerűsítése
+	executable()		futtatható állomány ellenőrzése
+	exepath()		futtatható program teljes elérési útja
+	filereadable()		ellenőrzés: fájl olvasható
+	filewritable()		ellenőrzés: fájl írható
+	getfperm()		fájl engedélyek
+	setfperm()		fájl engedélyek beállítása
+	getftype()		fájltípus lekérés
+	isdirectory()		ellenőrzés: létező könyvtár
+	getfsize()		fájlméret
+	getcwd()		munkakönyvtár
+	haslocaldir()		ellenőrzés: ablak |:lcd| vagy |:tcd|
+	tempname()		ideiglenes fájl neve
+	mkdir()			új könyvtár
+	chdir()			könyvtárváltás
+	delete()		fájl törlése
+	rename()		fájl átnevezése
+	system()		shell parancs kimenete stringként
+	systemlist()		shell parancs kimenete listaként
+	environ()		összes környezeti változó
+	getenv()		egy környezeti változó
+	setenv()		környezeti változó értékének beállítása
+	hostname()		gép neve
+	readfile()		fájl olvasása listába
+	readblob()		olvasás Blobként
+	readdir()		könyvtárban lévő fájlok nevei listába
+	readdirex()		könyvtárban lévő fájlok információi listába
+	writefile()		lista sorai vagy Blob fájlba
 
-Date and Time:				*date-functions* *time-functions*
-	getftime()		get last modification time of a file
-	localtime()		get current time in seconds
-	strftime()		convert time to a string
-	strptime()		convert a date/time string to time
-	reltime()		get the current or elapsed time accurately
-	reltimestr()		convert reltime() result to a string
-	reltimefloat()		convert reltime() result to a Float
+Dátum és Idő:				*date-functions* *time-functions*
+	getftime()		utolsó módosítás dátuma
+	localtime()		időbélyeg másodpercben
+	strftime()		idő stringgé konvertálása
+	strptime()		dátum/idő string konvertálás időbélyeggé
+	reltime()		pontos idő, vagy eltelt idő
+	reltimestr()		reltime() konvertálása,  string
+	reltimefloat()		reltime() konvertálása,  Float
 
 			*buffer-functions* *window-functions* *arg-functions*
-Buffers, windows and the argument list:
-	argc()			number of entries in the argument list
-	argidx()		current position in the argument list
-	arglistid()		get id of the argument list
-	argv()			get one entry from the argument list
-	bufadd()		add a file to the list of buffers
-	bufexists()		check if a buffer exists
-	buflisted()		check if a buffer exists and is listed
-	bufload()		ensure a buffer is loaded
-	bufloaded()		check if a buffer exists and is loaded
-	bufname()		get the name of a specific buffer
-	bufnr()			get the buffer number of a specific buffer
-	tabpagebuflist()	return List of buffers in a tab page
-	tabpagenr()		get the number of a tab page
-	tabpagewinnr()		like winnr() for a specified tab page
-	winnr()			get the window number for the current window
-	bufwinid()		get the window ID of a specific buffer
-	bufwinnr()		get the window number of a specific buffer
-	winbufnr()		get the buffer number of a specific window
-	listener_add()		add a callback to listen to changes
-	listener_flush()	invoke listener callbacks
-	listener_remove()	remove a listener callback
-	win_findbuf()		find windows containing a buffer
-	win_getid()		get window ID of a window
-	win_gettype()		get type of window
-	win_gotoid()		go to window with ID
-	win_id2tabwin()		get tab and window nr from window ID
-	win_id2win()		get window nr from window ID
-	win_splitmove()		move window to a split of another window
-	getbufinfo()		get a list with buffer information
-	gettabinfo()		get a list with tab page information
-	getwininfo()		get a list with window information
-	getchangelist()		get a list of change list entries
-	getjumplist()		get a list of jump list entries
-	swapinfo()		information about a swap file
-	swapname()		get the swap file path of a buffer
+Bufferek, ablakok és az argumentum lista:
+	argc()			argumentumlista elemeinek száma
+	argidx()		argumentumlista pozíciója
+	arglistid()		argumentumlista azonosítója
+	argv()			argumentumlista egy eleme
+	bufadd()		fájl hozzáadása a bufferek listájához
+	bufexists()		ellenőrzés: buffer létezik
+	buflisted()		ellenőrzés: buffer létezik és listázott
+	bufload()		a buffer betöltött
+	bufloaded()		ellenőrzés: buffer létezik és betöltött
+	bufname()		buffer neve
+	bufnr()			buffer száma
+	tabpagebuflist()	bufferek listája fülről
+	tabpagenr()		fülek száma
+	tabpagewinnr()		mint winnr() meghat. fülön
+	winnr()			aktív ablak neve
+	bufwinid()		ablak ID-je buffer alapján
+	bufwinnr()		ablak száma bufferből
+	winbufnr()		buffer száma ablakból
+	listener_add()		callback a változásokhoz
+	listener_flush()	callback hívása
+	listener_remove()	callback eltávolítása
+	win_findbuf()		buffert tartalmazó ablak keresése
+	win_getid()		ablak ID lekérés
+	win_gettype()		ablak típusa
+	win_gotoid()		váltás ablakra ID alapján
+	win_id2tabwin()		fül és ablakszám ablak ID alapján
+	win_id2win()		ablakszám ablak ID alapján
+	win_splitmove()		ablak mozgatása másik ablakba (split)
+	getbufinfo()		buffer információi | lista
+	gettabinfo()		fül információi | lista
+	getwininfo()		ablak információi | lista
+	getchangelist()		változások listája | lista
+	getjumplist()		jump list bejegyzések | lista
+	swapinfo()		swap fájl információk
+	swapname()		buffer swapfájlja
 
 Command line:					*command-line-functions*
-	getcmdline()		get the current command line
-	getcmdpos()		get position of the cursor in the command line
-	setcmdpos()		set position of the cursor in the command line
-	getcmdtype()		return the current command-line type
-	getcmdwintype()		return the current command-line window type
-	getcompletion()		list of command-line completion matches
+	getcmdline()		command-line tartalma
+	getcmdpos()		kurzor pozíciója a command-lineban
+	setcmdpos()		kurzor pozíciójának beállítása a command-lineban
+	getcmdtype()		command-line típusa
+	getcmdwintype()		mint getcmdtype() visszatérhet üres stringgel
+	getcompletion()		command-line kiegészítések | lista
 	fullcommand()		get full command name
 
-Quickfix and location lists:			*quickfix-functions*
-	getqflist()		list of quickfix errors
-	setqflist()		modify a quickfix list
-	getloclist()		list of location list items
-	setloclist()		modify a location list
+Quickfix és location lista:			*quickfix-functions*
+	getqflist()		quickfix hibák listája
+	setqflist()		quickfix lista módosítása
+	getloclist()		location lista elemeinek helye 
+	setloclist()		location lista módosítása
 
-Insert mode completion:				*completion-functions*
+Insert mód kiegészítés:				*completion-functions*
 	complete()		set found matches
 	complete_add()		add to found matches
 	complete_check()	check if completion should be aborted
@@ -908,14 +902,14 @@ Insert mode completion:				*completion-functions*
 	pumvisible()		check if the popup menu is displayed
 	pum_getpos()		position and size of popup menu if visible
 
-Folding:					*folding-functions*
+Foldolás:					*folding-functions*
 	foldclosed()		check for a closed fold at a specific line
 	foldclosedend()		like foldclosed() but return the last line
 	foldlevel()		check for the fold level at a specific line
 	foldtext()		generate the line displayed for a closed fold
 	foldtextresult()	get the text displayed for a closed fold
 
-Syntax and highlighting:	  *syntax-functions* *highlighting-functions*
+Szintaxis és kiemelés:	    	  *syntax-functions* *highlighting-functions*
 	clearmatches()		clear all matches defined by |matchadd()| and
 				the |:match| commands
 	getmatches()		get all matches defined by |matchadd()| and
