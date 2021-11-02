@@ -2,11 +2,6 @@
 * Ongoing Hungarian Translation of the Vim reference &amp; help files
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
-# VimConf 2021
-* Az idei évben online formában kerül megrendezésre a VimConf 2021 Október 29.-én és Október 30.-án
-* [Hivatalos weboldal](https://www.vimconf.live)
-* [A program](https://www.vimconf.live/#agenda)
-
 ## Állapot
 * Utolsó fájl folyamatban: usr_41.hux
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
