@@ -36,7 +36,7 @@ Következő fejezet: |usr_42.txt|  Új menük hozzáadása
 A Vim szkriptel való első találkozásod a vimrc fájl. Induláskor a szerkesztő
 olvassa a fájl tartalmát. Olyan opciókat állíthatsz be, amilyeneket szeretnél.
 Bármilyen ":" parancsot használhatsz, ezekre Ex parancsok, vagy command-line
-parancsok néven hivatkozhatunk. 
+parancsok néven hivatkozhatunk.
    A szintaxis kiemelés fájljai szintén Vim szkriptek, melyek csak
 meghatározott opciókat állítanak be adott fájltípus esetén.  Egy bonyolult
 makróra tekinthetünk úgy, mint egy különálló Vim szkript fájlt.
@@ -120,7 +120,7 @@ decimálist 31 megfelelője.
 
 Az oktális számok "0o", "0O" vagy nullával és egy másik számmal kezdődhetnek.
 "0o17" decimális számrendszerben 15. A csak 0 prefixum használata nem
-megengedett a Vim9 szkriptben. 
+megengedett a Vim9 szkriptben.
 
 A bináris számok kezdete "0b" vagy "0B". Például "0b101", ami decimális
 számrendszerben 5.
@@ -231,7 +231,7 @@ akkor pedig igazra. A kifejezést "nem"-ként olvashtajuk, ezért "if !exists()"
 	mindig nulla lesz. Ezért vizsgáljuk meg az alábbit: >
 
 		:if "true"
-	
+
 <	A "true" zéróként interpretálódik (nem számmal kezdődik), ezért hamis
 	lesz az értéke.
 
@@ -697,7 +697,7 @@ Lebegőpontos számítások:			*float-functions*
 	abs()			abszolút érték (Számokkal is)
 	round()			kerekítés
 	ceil()			kerekítés fel
-	floor()			kerekítés le 
+	floor()			kerekítés le
 	trunc()			tizedes utáni értékek eltávolítása
 	fmod()			maradék
 	exp()			exponenciális
@@ -748,7 +748,7 @@ Kurzor és mark pozíciók:			*cursor-functions* *mark-functions*
 	line()			kurzor vagy mark sora
 	wincol()		kurzor vagy mark oszlopa ablakban
 	winline()		kurzor vagy mark sora ablakban
-	cursor()		kurzor pozíciója sora és oszlopa 
+	cursor()		kurzor pozíciója sora és oszlopa
 	screencol()		kurzor oszlopa a képernyőn
 	screenrow()		kurzor sora a képernyőn
 	screenpos()		szöveg pozíciója sor és oszlop képernyő
@@ -891,7 +891,7 @@ Command line:					*command-line-functions*
 Quickfix és location lista:			*quickfix-functions*
 	getqflist()		quickfix hibák listája
 	setqflist()		quickfix lista módosítása
-	getloclist()		location lista elemeinek helye 
+	getloclist()		location lista elemeinek helye
 	setloclist()		location lista módosítása
 
 Insert mód kiegészítés:				*completion-functions*
@@ -1216,31 +1216,31 @@ Various:					*various-functions*
 	debugbreak()		interrupt a program being debugged
 
 ==============================================================================
-*41.7*	Defining a function
+*41.7*	Függvények létrehozása
 
-Vim enables you to define your own functions.  The basic function declaration
-begins as follows: >
+A Vimben létrehozhatjuk saját függvényeinket. Az alapvető függvénydeklaráció a
+következő: >
 
 	:function {name}({var1}, {var2}, ...)
 	:  {body}
 	:endfunction
 <
-	Note:
-	Function names must begin with a capital letter.
+	Megjegyzés:
+	A függvényneveknek nagy kezdőbetűvel kell kezdődniük
 
-Let's define a short function to return the smaller of two numbers.  It starts
-with this line: >
+Hozzunk lére egy olyan függvényt, mely két számból a kissebbel tért vissza.
+Kezdjük ezzel a sorral: >
 
 	:function Min(num1, num2)
 
-This tells Vim that the function is named "Min" and it takes two arguments:
-"num1" and "num2".
-   The first thing you need to do is to check to see which number is smaller:
+Ezzel meghatároztuk a függvény nevét "Min", illetve a két argumentumot: "num1"
+és "num2".
+   Első lépésben ellenőriznünk kell, hogy melyik szám kissebb:
    >
 	:  if a:num1 < a:num2
 
-The special prefix "a:" tells Vim that the variable is a function argument.
-Let's assign the variable "smaller" the value of the smallest number: >
+Az "a:" prefixum azt jelenti, hogy a változó egy függvényargumentum. Rendeljük
+ hozzá a kisebb számot a "smaller" nevű változóhoz: >
 
 	:  if a:num1 < a:num2
 	:    let smaller = a:num1
@@ -1248,22 +1248,22 @@ Let's assign the variable "smaller" the value of the smallest number: >
 	:    let smaller = a:num2
 	:  endif
 
-The variable "smaller" is a local variable.  Variables used inside a function
-are local unless prefixed by something like "g:", "a:", or "s:".
+A "smaller" változó lokális. Minden változó lokális a függvényre nézve, amíg
+ezt máshogyan nem jelöljük, mint például: "g:", "a:", vagy "s:".
 
-	Note:
-	To access a global variable from inside a function you must prepend
-	"g:" to it.  Thus "g:today" inside a function is used for the global
-	variable "today", and "today" is another variable, local to the
-	function.
+	Megjegyzés:
+	Ahhoz, hogy egy globális változót el tudjuk érni a függvényen
+	belülről, "g:" prefixummal kell ellássuk. Ezért "g:today" változóra
+	globális változóként tekintünk, "today"-t egy külön változóként
+	kezeljük, ami a függvény lokális változója.
 
-You now use the ":return" statement to return the smallest number to the user.
-Finally, you end the function: >
+Végül használjuk a ":return" parancsot a visszatéréshez, amely a kisebb
+számmal tér vissza, májd zárjuk a függvényt: >
 
 	:  return smaller
 	:endfunction
 
-The complete function definition is as follows: >
+A teljes függvénydefiníció: >
 
 	:function Min(num1, num2)
 	:  if a:num1 < a:num2
@@ -1274,7 +1274,7 @@ The complete function definition is as follows: >
 	:  return smaller
 	:endfunction
 
-For people who like short functions, this does the same thing: >
+Akik szeretik a rövid függvényeket: >
 
 	:function Min(num1, num2)
 	:  if a:num1 < a:num2
@@ -1283,34 +1283,34 @@ For people who like short functions, this does the same thing: >
 	:  return a:num2
 	:endfunction
 
-A user defined function is called in exactly the same way as a built-in
-function.  Only the name is different.  The Min function can be used like
-this: >
+A felhasználó által definiált függvényeket ugyanúgy kell meghívnunk, mint a
+beépítetteket. A Min függvényt így tudjuk meghívni: >
 
 	:echo Min(5, 8)
 
-Only now will the function be executed and the lines be interpreted by Vim.
-If there are mistakes, like using an undefined variable or function, you will
-now get an error message.  When defining the function these errors are not
-detected.
 
-When a function reaches ":endfunction" or ":return" is used without an
-argument, the function returns zero.
+A függvény futtatása elkezdődik és a Vim soronként végrehajtja a prancsokat.
+Hiba esetén (például ismeretlen változó vagy függvény esetén) hibaüzenetet
+ebben a szakaszban kapjuk meg. A függvény írásakor nincs mód a hibák
+észlelésére.
 
-To redefine a function that already exists, use the ! for the ":function"
-command: >
+Amikor a függvény eléri az ":endfunction" vagy ":return" kulcsszavakat,
+argumentum használata nélkül a függvény automatikusan nulla (0) értékkel tér
+vissza.
+
+Létező függvény újradefiniálásához  a "!" jelet kell használjuk a ":function"
+parancsban: >
 
 	:function!  Min(num1, num2, num3)
 
 
-USING A RANGE
+TARTOMÁNY HASZNÁLATA
 
-The ":call" command can be given a line range.  This can have one of two
-meanings.  When a function has been defined with the "range" keyword, it will
-take care of the line range itself.
-  The function will be passed the variables "a:firstline" and "a:lastline".
-These will have the line numbers from the range the function was called with.
-Example: >
+A ":call" parnacsnak sorokra hivatkozó tartományt is átadhatunk. Ennek két
+értelme lehet. Ha a függvényt a "range" kulcsszóval definiáltuk, akkor ennek
+kezeléséről magának gondoskodik.
+  Ekkor a függvény megkapja a "a:firstline" és a "a:lastline" változókat,
+melyek tartalmazzák a tartomány kezdeti- és végpontját. Például: >
 
 	:function Count_words() range
 	:  let lnum = a:firstline
@@ -1322,37 +1322,36 @@ Example: >
 	:  echo "found " .. n .. " words"
 	:endfunction
 
-You can call this function with: >
+A függvényt meghívatjuk így: >
 
 	:10,30call Count_words()
 
-It will be executed once and echo the number of words.
-   The other way to use a line range is by defining a function without the
-"range" keyword.  The function will be called once for every line in the
-range, with the cursor in that line.  Example: >
+A függvény egyszer fut le és kiírja a szavak számát.
+   A másik módszer, ha  a függvényt a "range" kulcsszó nélkül definiáljuk. Így
+a függvény minden sorban külön meghívódik. Például: >
 
 	:function  Number()
 	:  echo "line " .. line(".") .. " contains: " .. getline(".")
 	:endfunction
 
-If you call this function with: >
+Ha a függvényt így hívjuk meg: >
 
 	:10,15call Number()
 
-The function will be called six times.
+Akkor az hat hívást jelent.
 
 
-VARIABLE NUMBER OF ARGUMENTS
+VÁLTOZÓ ARGUMENTUMLISTA
 
-Vim enables you to define functions that have a variable number of arguments.
-The following command, for instance, defines a function that must have 1
-argument (start) and can have up to 20 additional arguments: >
+A Vim függvényeiben egynél több argumentum is szerepelhet. Az alábbi
+paranccsal, például egy olyan függvényt definiálunk, melyben kötelezően kell
+szerepelnie egy (start) argumentumnak. (A függvények maximálisan 20
+argumentumot képesek kezelni: >
 
 	:function Show(start, ...)
 
-The variable "a:1" contains the first optional argument, "a:2" the second, and
-so on.  The variable "a:0" contains the number of extra arguments.
-   For example: >
+Az "a:1" változó tartalmazza az első argumentumot, a "a:2" a másodikat és így
+tovább. Az "a:0" tartalmazza az extra argumentumok számát. Például: >
 
 	:function Show(start, ...)
 	:  echohl Title
@@ -1366,25 +1365,26 @@ so on.  The variable "a:0" contains the number of extra arguments.
 	:  echo ""
 	:endfunction
 
-This uses the ":echohl" command to specify the highlighting used for the
-following ":echo" command.  ":echohl None" stops it again.  The ":echon"
-command works like ":echo", but doesn't output a line break.
+A példa "echohl" a következő ":echo" parancs kiemelését határozza meg.
+":echohl None" visszaállítja a kiemelést. Az ":echon" parancs ugyanúgy
+működik, mint az ":echo", sortörést viszont nem alkalmaz.
 
-You can also use the a:000 variable, it is a List of all the "..." arguments.
-See |a:000|.
+Az "a:000" speciális változó, egy lista, mely az összes "..." argumentumot
+tartalmazza. Lásd |a:000|.
 
 
-LISTING FUNCTIONS
+LISTÁZÓ FÜGGVÉNYEK
 
-The ":function" command lists the names and arguments of all user-defined
-functions: >
+A ":function" parancs az összes felhasználó által definiált (beleértve a
+telepített beépülőket is) neveket és argumentumokat lisázza: >
 
 	:function
 <	function Show(start, ...) ~
 	function GetVimIndent() ~
 	function SetSyn(name) ~
 
-To see what a function does, use its name as an argument for ":function": >
+Ha meg szeretnénk tekinteni magát a függvényt, akkor adjuk át a függvény nevét
+argumentumként a ":function" parancsnak: >
 
 	:function SetSyn
 <	1     if &syntax == '' ~
@@ -1393,28 +1393,28 @@ To see what a function does, use its name as an argument for ":function": >
 	   endfunction ~
 
 
-DEBUGGING
+HIBAKERESÉS
 
-The line number is useful for when you get an error message or when debugging.
-See |debug-scripts| about debugging mode.
-   You can also set the 'verbose' option to 12 or higher to see all function
-calls.  Set it to 15 or higher to see every executed line.
+A sor száma nagyon hasznos hibaüzenetek értelmezésekor, vagy hibakeresésnél.
+Lásd |debug-scripts|.
+   A 'verbose' opció 12, vagy annál nagyobbra állításával láthatóvá válik
+minden függvényhívás. 15, vagy annál nagyobb esetén az összes futtatott sor
+látszik.
 
 
-DELETING A FUNCTION
+FÜGGVÉNY TÖRLÉSE
 
-To delete the Show() function: >
+A Show() függvény törlése: >
 
 	:delfunction Show
 
-You get an error when the function doesn't exist.
+Ha a függvény nem létezik, akkor hibaüzenetet kapunk.
 
 
-FUNCTION REFERENCES
+FÜGGVÉNYHIVATKOZÁSOK
 
-Sometimes it can be useful to have a variable point to one function or
-another.  You can do it with the function() function.  It turns the name of a
-function into a reference: >
+Olykor hasznos, ha egy függvényt változóhoz tudunk rendelni, ezt a function()
+függvénnyel tudjuk megtenni, mely átalakítja a függvény nevét hivatkozássá. >
 
 	:let result = 0		" or 1
 	:function! Right()
@@ -1432,34 +1432,32 @@ function into a reference: >
 	:echo call(Afunc, [])
 <	Wrong! ~
 
-Note that the name of a variable that holds a function reference must start
-with a capital.  Otherwise it could be confused with the name of a builtin
-function.
-   The way to invoke a function that a variable refers to is with the call()
-function.  Its first argument is the function reference, the second argument
-is a List with arguments.
+Megjegyzés: a függvényhivatkozást tartalmazó változó nevének nagy betűvel kell
+kezdődnie, különben könnyen egy beépített függvénynek tekinthetjük.
+   A hivatkozott függvényt a call() függvénnyel tudjuk meghívni, melynek első
+argumentuma a függvényhivatkozást tartalmazó változó, a második pedig az
+argumentumokat tartalmazó lista.
 
-Function references are most useful in combination with a Dictionary, as is
-explained in the next section.
-
+A függvényhivatkozások szótárakkal való kombinálása további lehetőségeket
+nyújt, erről azonban a következő fejezetben.
 ==============================================================================
-*41.8*	Lists and Dictionaries
+*41.8*	Listák és szótárak
 
-So far we have used the basic types String and Number.  Vim also supports two
-composite types: List and Dictionary.
+Eddig az alap String és szám típusokat használtuk. A Vim további két összetett
+változó típust támogat: a listákat és a szótárakat.
 
-A List is an ordered sequence of things.  The things can be any kind of value,
-thus you can make a List of numbers, a List of Lists and even a List of mixed
-items.  To create a List with three strings: >
+A lista különböző adatok rendezett sora. Az adatok bármik lehetnek, ezért
+létrehozhatunk listát számokkal, listát tartalmazó listákat, vagy akár a kettő
+kombinációját. Lista három elemmel: >
 
 	:let alist = ['aap', 'mies', 'noot']
 
-The List items are enclosed in square brackets and separated by commas.  To
-create an empty List: >
+A listát szögletes zárójelek határolják és értékeit vesszők választják el
+egymástól. Üres lista létrehozása: >
 
 	:let alist = []
 
-You can add items to a List with the add() function: >
+Az add() függvénnyel a listához elemeket rendelhetünk: >
 
 	:let alist = []
 	:call add(alist, 'foo')
@@ -1467,31 +1465,31 @@ You can add items to a List with the add() function: >
 	:echo alist
 <	['foo', 'bar'] ~
 
-List concatenation is done with +: >
+Listák összefűzéséhez a "+" operátort használhatjuk: >
 
 	:echo alist + ['foo', 'bar']
 <	['foo', 'bar', 'foo', 'bar'] ~
 
-Or, if you want to extend a List directly: >
+Vagy, ha közvetlenül szeretnéd kiegészíteni: >
 
 	:let alist = ['one']
 	:call extend(alist, ['two', 'three'])
 	:echo alist
 <	['one', 'two', 'three'] ~
 
-Notice that using add() will have a different effect: >
+Vegyük észre az add() és extend() közötti különbséget:  >
 
 	:let alist = ['one']
 	:call add(alist, ['two', 'three'])
 	:echo alist
 <	['one', ['two', 'three']] ~
 
-The second argument of add() is added as a single item.
+Az add() második argumentuma egy elemeként adódik a listához.
 
 
-FOR LOOP
+FOR CIKLUS
 
-One of the nice things you can do with a List is iterate over it: >
+A listák egyik jó tulajdonsága, hogy bejárhatjuk őket: >
 
 	:let alist = ['one', 'two', 'three']
 	:for n in alist
@@ -1501,15 +1499,14 @@ One of the nice things you can do with a List is iterate over it: >
 	two ~
 	three ~
 
-This will loop over each element in List "alist", assigning the value to
-variable "n".  The generic form of a for loop is: >
+A példa az "alist" lista összes elemét bejárja, az értéket "n"-hez rendelve
+kiírja a kimenetre. A for ciklus általános formája: >
 
 	:for {varname} in {listexpression}
 	:  {commands}
 	:endfor
 
-To loop a certain number of times you need a List of a specific length.  The
-range() function creates one for you: >
+Meghatározott ismétlésszámhoz a range() függvényt használhatjuk: >
 
 	:for a in range(3)
 	:  echo a
@@ -1518,9 +1515,9 @@ range() function creates one for you: >
 	1 ~
 	2 ~
 
-Notice that the first item of the List that range() produces is zero, thus the
-last item is one less than the length of the list.
-   You can also specify the maximum value, the stride and even go backwards: >
+Jegyezzük meg, hogy a range() függvény első eleme mindig nullával kezdődik,
+ezért az utolsó elem eggyel kevesebb lesz, mint a lista hossza.
+   Maximum értéket is meghatározhatunk, sőt, akár visszafelé is haladhatunk: >
 
 	:for a in range(8, 4, -2)
 	:  echo a
@@ -1529,7 +1526,7 @@ last item is one less than the length of the list.
 	6 ~
 	4 ~
 
-A more useful example, looping over lines in the buffer: >
+Még hasznosabb példa: a bufer sorainak bejárása: >
 
 	:for line in getline(1, 20)
 	:  if line =~ "Date: "
@@ -1537,32 +1534,32 @@ A more useful example, looping over lines in the buffer: >
 	:  endif
 	:endfor
 
-This looks into lines 1 to 20 (inclusive) and echoes any date found in there.
+Mely végighalad az első húsz soron (1-20 inkluzív) és kiírja a megtalált
+dátumokat.
 
 
-DICTIONARIES
+SZÓTÁRAK
 
-A Dictionary stores key-value pairs.  You can quickly lookup a value if you
-know the key.  A Dictionary is created with curly braces: >
+A szótárak kulcs-értekpárokat tárolnak. A bejárás nagyon gyors, ha ismerjük a
+kulcsokat. A szótárakat kapcsos zárójelek határolják: >
 
 	:let uk2nl = {'one': 'een', 'two': 'twee', 'three': 'drie'}
 
-Now you can lookup words by putting the key in square brackets: >
+A kulcsokhoz tartozó értékeket így érhetjük el: >
 
 	:echo uk2nl['two']
 <	twee ~
 
-The generic form for defining a Dictionary is: >
+A szótár általános definíciója: >
 
 	{<key> : <value>, ...}
 
-An empty Dictionary is one without any keys: >
+Üres szótár definiálása kulcsok nélkül: >
 
 	{}
 
-The possibilities with Dictionaries are numerous.  There are various functions
-for them as well.  For example, you can obtain a list of the keys and loop
-over them: >
+A szótárakban rejlő potenciál hatalmas. Kezelésükhöz számos beépített függvény
+elérhető. Például, a lista kulcsainak bejárása: >
 
 	:for key in keys(uk2nl)
 	:  echo key
@@ -1571,8 +1568,7 @@ over them: >
 	one ~
 	two ~
 
-You will notice the keys are not ordered.  You can sort the list to get a
-specific order: >
+Észrevehetjük, hogy a kulcsok nem rendezettek. Így rendezhetjük őket: >
 
 	:for key in sort(keys(uk2nl))
 	:  echo key
@@ -1581,38 +1577,37 @@ specific order: >
 	three ~
 	two ~
 
-But you can never get back the order in which items are defined.  For that you
-need to use a List, it stores items in an ordered sequence.
+A szótárban tárolt elemek eredeti elrendezését soha nem kapjuk meg, ehhez
+listát kell használnunk, mely sorrendben tárolja az elemeket.
 
 
-DICTIONARY FUNCTIONS
+SZÓTÁRFÜGGVÉNYEK
 
-The items in a Dictionary can normally be obtained with an index in square
-brackets: >
-
+A szótár elemeit a szögletes zárójelek közötti kulcs átadásával érthetjük el.
+>
 	:echo uk2nl['one']
 <	een ~
 
-A method that does the same, but without so many punctuation characters: >
+Az alábbi módszerrel is elérhetjük az elemeket, speciális karakterek írása
+nálkül: >
 
 	:echo uk2nl.one
 <	een ~
 
-This only works for a key that is made of ASCII letters, digits and the
-underscore.  You can also assign a new value this way: >
+A módszer csak az ASCII karakterek betűivel, számokkal és "_" karakterrel
+működik. Így akár új elemeket is létrehozhatunk:  >
 
 	:let uk2nl.four = 'vier'
 	:echo uk2nl
 <	{'three': 'drie', 'four': 'vier', 'one': 'een', 'two': 'twee'} ~
 
-And now for something special: you can directly define a function and store a
-reference to it in the dictionary: >
+És most valami specialitás, függvényeket is létrehozhatunk listaelemként. >
 
 	:function uk2nl.translate(line) dict
 	:  return join(map(split(a:line), 'get(self, v:val, "???")'))
 	:endfunction
 
-Let's first try it out: >
+Próbáljuk ki: >
 
 	:echo uk2nl.translate('three two five one')
 <	drie twee ??? een ~
