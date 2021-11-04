@@ -895,174 +895,173 @@ Quickfix és location lista:			*quickfix-functions*
 	setloclist()		location lista módosítása
 
 Insert mód kiegészítés:				*completion-functions*
-	complete()		set found matches
-	complete_add()		add to found matches
-	complete_check()	check if completion should be aborted
-	complete_info()		get current completion information
-	pumvisible()		check if the popup menu is displayed
-	pum_getpos()		position and size of popup menu if visible
+	complete()		kiegészítés
+	complete_add()		kiegészítés hozzáadása
+	complete_check()	ellenőrzés: kiegészítés megszakítása
+	complete_info()		kiegészítésre vonatkozó információ | szótár
+	pumvisible()		ellenőrzés: popup menü megjelenítve
+	pum_getpos()		popup mérete és pozíciója
 
 Foldolás:					*folding-functions*
-	foldclosed()		check for a closed fold at a specific line
-	foldclosedend()		like foldclosed() but return the last line
-	foldlevel()		check for the fold level at a specific line
-	foldtext()		generate the line displayed for a closed fold
-	foldtextresult()	get the text displayed for a closed fold
+	foldclosed()		ellenőrzés: meghat. sorban zárt fold
+	foldclosedend()		mint foldclosed(), de az utolsó sort
+				visszaadja
+	foldlevel()		meghatározott sor fold szintje
+	foldtext()		zárt fold megjelenített szövege
+	foldtextresult()	zárt fold megjelenített szövege | string
 
 Szintaxis és kiemelés:	    	  *syntax-functions* *highlighting-functions*
-	clearmatches()		clear all matches defined by |matchadd()| and
-				the |:match| commands
-	getmatches()		get all matches defined by |matchadd()| and
-				the |:match| commands
-	hlexists()		check if a highlight group exists
-	hlID()			get ID of a highlight group
-	synID()			get syntax ID at a specific position
-	synIDattr()		get a specific attribute of a syntax ID
-	synIDtrans()		get translated syntax ID
-	synstack()		get list of syntax IDs at a specific position
-	synconcealed()		get info about concealing
+	clearmatches()		|matchadd()| és |:match| összes egyezésének
+				törlése
+	getmatches()		|matchadd()| és |:match| összes egyezése
+	hlexists()		ellenőrzés: highlight csoport megléte
+	hlID()			highlight csoport ID-je
+	synID()			meghat. pozíció sztanxis ID-je
+	synIDattr()		szintaxis ID attribútuma
+	synIDtrans()		lefordított szintaxis ID
+	synstack()		meghat. pozíció szintaxis ID listája
+	synconcealed()		conceal információk
 	diff_hlID()		get highlight ID for diff mode at a position
-	matchadd()		define a pattern to highlight (a "match")
+	matchadd()		kiemelési minta meghatározása
 	matchaddpos()		define a list of positions to highlight
-	matcharg()		get info about |:match| arguments
-	matchdelete()		delete a match defined by |matchadd()| or a
-				|:match| command
-	setmatches()		restore a list of matches saved by
-				|getmatches()|
+	matcharg()		|:match| argumentum információi
+				|:match| által definiált egyezés törlése
+	setmatches()		|getmatches()| által mentett egyezések
+				visszaállítása
 
-Spelling:					*spell-functions*
-	spellbadword()		locate badly spelled word at or after cursor
-	spellsuggest()		return suggested spelling corrections
-	soundfold()		return the sound-a-like equivalent of a word
+Helyesírás ellenőrzés:				*spell-functions*
+	spellbadword()		elgépel szó a kurzor után
+	spellsuggest()		javaslatok
+	soundfold()		hasonlóan hangzó szavak
 
 History:					*history-functions*
-	histadd()		add an item to a history
-	histdel()		delete an item from a history
-	histget()		get an item from a history
-	histnr()		get highest index of a history list
+	histadd()		elem hozzáadása a historyhoz
+	histdel()		elem eltávolítása a historyból
+	histget()		elem a historyból
+	histnr()		history legmagasabb indexe
 
-Interactive:					*interactive-functions*
-	browse()		put up a file requester
-	browsedir()		put up a directory requester
-	confirm()		let the user make a choice
-	getchar()		get a character from the user
-	getcharstr()		get a character from the user as a string
-	getcharmod()		get modifiers for the last typed character
-	getmousepos()		get last known mouse position
-	echoraw()		output characters as-is
-	feedkeys()		put characters in the typeahead queue
-	input()			get a line from the user
-	inputlist()		let the user pick an entry from a list
-	inputsecret()		get a line from the user without showing it
-	inputdialog()		get a line from the user in a dialog
-	inputsave()		save and clear typeahead
-	inputrestore()		restore typeahead
+Interaktív:					*interactive-functions*
+	browse()		fájlválasztó
+	browsedir()		könyvtárválasztó
+	confirm()		felhasználói megerősítése
+	getchar()		karakter a felhasználótól
+	getcharstr()		karakter a felhasználótól stringként
+	getcharmod()		utolsó karakter módosítóbillentyűje
+	getmousepos()		egér utolsó pozíciója
+	echoraw()		karakter kiírása (formázatlanul)
+	feedkeys()		karakter typeahead-sorba helyezése
+	input()			felhasználótól bekért sor
+	inputlist()		felhasználó választhat listából
+	inputsecret()		felhasználó bekért sor (kimenet nélkül)
+	inputdialog()		sor bekérése párbeszédablakkal
+	inputsave()		mentés és typeahead törlése
+	inputrestore()		typeahead visszaállítása
 
 GUI:						*gui-functions*
-	getfontname()		get name of current font being used
-	getwinpos()		position of the Vim window
-	getwinposx()		X position of the Vim window
-	getwinposy()		Y position of the Vim window
-	balloon_show()		set the balloon content
-	balloon_split()		split a message for a balloon
-	balloon_gettext()	get the text in the balloon
+	getfontname()		használatban lévő betűtípus
+	getwinpos()		Vim ablak pozíciója
+	getwinposx()		Vim ablak X pozíciója
+	getwinposy()		Vim ablak Y pozíciója
+	balloon_show()		buboréksúgó
+	balloon_split()		üzenet felosztása buboréksúgóban
+	balloon_gettext()	buboréksúgó szövege
 
-Vim server:					*server-functions*
-	serverlist()		return the list of server names
-	remote_startserver()	run a server
-	remote_send()		send command characters to a Vim server
-	remote_expr()		evaluate an expression in a Vim server
-	server2client()		send a reply to a client of a Vim server
-	remote_peek()		check if there is a reply from a Vim server
-	remote_read()		read a reply from a Vim server
-	foreground()		move the Vim window to the foreground
-	remote_foreground()	move the Vim server window to the foreground
+Vim szerver:					*server-functions*
+	serverlist()		szervernevek listája
+	remote_startserver()	szerver futtatása
+	remote_send()		parancs küldése a szervernek
+	remote_expr()		kifejezés kiértékelése a szerver
+	server2client()		válasz a kliensnek
+	remote_peek()		ellenőrzés: válasz a Vim szervertől
+	remote_read()		válasz olvasása a Vim szervertől
+	foreground()		Vim ablakot előtérbe helyez
+	remote_foreground()	Vim szerver ablakot előtérbe helyez
 
-Window size and position:			*window-size-functions*
-	winheight()		get height of a specific window
-	winwidth()		get width of a specific window
-	win_screenpos()		get screen position of a window
-	winlayout()		get layout of windows in a tab page
-	winrestcmd()		return command to restore window sizes
-	winsaveview()		get view of current window
-	winrestview()		restore saved view of current window
+Ablak méret és pozíció:				*window-size-functions*
+	winheight()		ablak magassága
+	winwidth()		ablak szélessége
+	win_screenpos()		ablak pozíciója a képernyőn
+	winlayout()		ablakelrendezés lekérése a fülről
+	winrestcmd()		ablakméretek visszaállítása
+	winsaveview()		aktív ablak nézete
+	winrestview()		aktív ablak mentett nézetének visszaállítása
 
-Mappings and Menus:			    *mapping-functions*
-	digraph_get()		get |digraph|
-	digraph_getlist()	get all |digraph|s
-	digraph_set()		register |digraph|
-	digraph_setlist()	register multiple |digraph|s
-	hasmapto()		check if a mapping exists
-	mapcheck()		check if a matching mapping exists
-	maparg()		get rhs of a mapping
-	mapset()		restore a mapping
-	menu_info()		get information about a menu item
-	wildmenumode()		check if the wildmode is active
+Mappek és menük:				*mapping-functions*
+	digraph_get()		|digraph|
+	digraph_getlist()	összes |digraph|
+	digraph_set()		|digraph| beállítása
+	digraph_setlist()	több |digraph| beállítása
+	hasmapto()		mappelés ellenőrzése
+	mapcheck()		egyező mappelés ellenőrzése
+	maparg()		mapping jobb-értéke
+	mapset()		map visszaállítása
+	menu_info()		menüelem információi
+	wildmenumode()		ellenőrzés: 'wildmenu'
 
-Testing:				    *test-functions*
-	assert_equal()		assert that two expressions values are equal
-	assert_equalfile()	assert that two file contents are equal
-	assert_notequal()	assert that two expressions values are not equal
-	assert_inrange()	assert that an expression is inside a range
-	assert_match()		assert that a pattern matches the value
-	assert_notmatch()	assert that a pattern does not match the value
-	assert_false()		assert that an expression is false
-	assert_true()		assert that an expression is true
-	assert_exception()	assert that a command throws an exception
-	assert_beeps()		assert that a command beeps
-	assert_nobeep()		assert that a command does not cause a beep
-	assert_fails()		assert that a command fails
-	assert_report()		report a test failure
-	test_alloc_fail()	make memory allocation fail
-	test_autochdir()	enable 'autochdir' during startup
-	test_override()		test with Vim internal overrides
-	test_garbagecollect_now()   free memory right now
-	test_garbagecollect_soon()  set a flag to free memory soon
-	test_getvalue()		get value of an internal variable
-	test_gui_drop_files()	drop file(s) in a window
-	test_gui_mouse_event()	add a GUI mouse event to the input buffer
-	test_ignore_error()	ignore a specific error message
-	test_null_blob()	return a null Blob
-	test_null_channel()	return a null Channel
-	test_null_dict()	return a null Dict
-	test_null_function()	return a null Funcref
-	test_null_job()		return a null Job
-	test_null_list()	return a null List
-	test_null_partial()	return a null Partial function
-	test_null_string()	return a null String
-	test_settime()		set the time Vim uses internally
-	test_setmouse()		set the mouse position
-	test_feedinput()	add key sequence to input buffer
-	test_option_not_set()	reset flag indicating option was set
-	test_scrollbar()	simulate scrollbar movement in the GUI
-	test_refcount()		return an expression's reference count
-	test_srand_seed()	set the seed value for srand()
-	test_unknown()		return a value with unknown type
-	test_void()		return a value with void type
+Tesztelés:					*test-functions*
+	assert_equal()		két kifejezés értéke egyenlő
+	assert_equalfile()	két fájl tartalma azonos
+	assert_notequal()	két kifejezés értéke nem egyenlő
+	assert_inrange()	kifejezés értéke tartományon belül
+	assert_match()		minta illeszkedik
+	assert_notmatch()	minta nem illeszkedik
+	assert_false()		kifejelés hamis
+	assert_true()		kifejezés igaz
+	assert_exception()	kifejezés kivétel dob
+	assert_beeps()		parancs hangjelzést ad
+	assert_nobeep()		parancs nem ad hangjelzést
+	assert_fails()		parancs hiba
+	assert_report()		hibás teszt eredményének megjelenítése
+	test_alloc_fail()	hibás memória-foglalás
+	test_autochdir()	'autochdir' engedélyezése indításnál
+	test_override()		tesztelés a Vim belső overridejaival
+	test_garbagecollect_now()   memória felszabadítása most
+	test_garbagecollect_soon()  flag a hamarosan felszabaduló memóriának
+	test_getvalue()		belső változó értéke
+	test_gui_drop_files()	fájlok ablakba ejtése
+	test_gui_mouse_event()	GUI egér esemény ablakhoz rendelése
+	test_ignore_error()	maghat. hibaüzenetek ignorálása
+	test_null_blob()	visszatérési érték:  null Blob
+	test_null_channel()	visszatérési érték:  null Channel
+	test_null_dict()	visszatérési érték:  null Dict
+	test_null_function()	visszatérési érték:  null Funcref
+	test_null_job()		visszatérési érték:  null Job
+	test_null_list()	visszatérési érték:  null List
+	test_null_partial()	visszatérési érték:  null Partial function
+	test_null_string()	visszatérési érték:  null String
+	test_settime()		Vim belső időbélyeg
+	test_setmouse()		egér pozíciójának beállítása
+	test_feedinput()	billentyű-szekvencia az input buffernek
+	test_option_not_set()	flag visszaállítása:  opció nincs beállítva
+	test_scrollbar()	görgetősáv szimulációja a GUIban
+	test_refcount()		kifejezés referenciaértéke
+	test_srand_seed()	srand() seed értéke
+	test_unknown()		visszatérési érték ismeretlen típusú
+	test_void()		visszatérési érték void típusú
 
-Inter-process communication:		    *channel-functions*
-	ch_canread()		check if there is something to read
-	ch_open()		open a channel
-	ch_close()		close a channel
-	ch_close_in()		close the in part of a channel
-	ch_read()		read a message from a channel
-	ch_readblob()		read a Blob from a channel
-	ch_readraw()		read a raw message from a channel
-	ch_sendexpr()		send a JSON message over a channel
-	ch_sendraw()		send a raw message over a channel
-	ch_evalexpr()		evaluate an expression over channel
-	ch_evalraw()		evaluate a raw string over channel
-	ch_status()		get status of a channel
-	ch_getbufnr()		get the buffer number of a channel
-	ch_getjob()		get the job associated with a channel
-	ch_info()		get channel information
-	ch_log()		write a message in the channel log file
-	ch_logfile()		set the channel log file
-	ch_setoptions()		set the options for a channel
-	json_encode()		encode an expression to a JSON string
-	json_decode()		decode a JSON string to Vim types
-	js_encode()		encode an expression to a JSON string
-	js_decode()		decode a JSON string to Vim types
+Belső-folyamtok között kommunikáció:	    *channel-functions*
+	ch_canread()		beolvasási állapot ellenőrzése
+	ch_open()		csatorna nyitása
+	ch_close()		csatorna zárása
+	ch_close_in()		csatorna bementének zárása
+	ch_read()		üzenet olvasása a csatornáról
+	ch_readblob()		Blob olvasása a csatornáról
+	ch_readraw()		raw message olvasása a csatornáról
+	ch_sendexpr()		JSON üzenet küldése a csatornán
+	ch_sendraw()		raw message küldése a csatornán
+	ch_evalexpr()		kifejezés kiértékelése a csatornán
+	ch_evalraw()		raw string kiértékelése a csatornán
+	ch_status()		csatorna állapota
+	ch_getbufnr()		csatorna bufferszáma
+	ch_getjob()		csatornához társítható munkafolyamat
+	ch_info()		csatorna információk
+	ch_log()		üzenet írása a csatorna log fájlba
+	ch_logfile()		csatorna log beállítása
+	ch_setoptions()		csatorna beállításai
+	json_encode()		kifejezés kódolása JSON Stringgé
+	json_decode()		JSON string dekódolása Vim stringgé
+	js_encode()		kifejezés kódolása JSON Stringgé
+	js_decode()		JSON string dekódolása Vim típussá
 
 Jobs:						*job-functions*
 	job_start()		start a job
