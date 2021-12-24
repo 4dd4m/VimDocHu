@@ -886,7 +886,7 @@ Command line:					*command-line-functions*
 	getcmdtype()		command-line típusa
 	getcmdwintype()		mint getcmdtype() visszatérhet üres stringgel
 	getcompletion()		command-line kiegészítések | lista
-	fullcommand()		get full command name
+	fullcommand()		a teljes parancs neve
 
 Quickfix és location lista:			*quickfix-functions*
 	getqflist()		quickfix hibák listája
@@ -1063,157 +1063,158 @@ Belső-folyamtok között kommunikáció:	    *channel-functions*
 	js_encode()		kifejezés kódolása JSON Stringgé
 	js_decode()		JSON string dekódolása Vim típussá
 
-Jobs:						*job-functions*
-	job_start()		start a job
-	job_stop()		stop a job
-	job_status()		get the status of a job
-	job_getchannel()	get the channel used by a job
-	job_info()		get information about a job
-	job_setoptions()	set options for a job
+Munkafolyamatok:				*job-functions*
+	job_start()		munkafolyamat indítása
+	job_stop()		munkafolyamat leállítása
+	job_status()		munkafolyamat állapota
+	job_getchannel()	munkafolyamat által használt csatorna
+	job_info()		munkafolyamat információi
+	job_setoptions()	munkafolyamat opcióinak beállítása
 
-Signs:						*sign-functions*
-	sign_define()		define or update a sign
-	sign_getdefined()	get a list of defined signs
-	sign_getplaced()	get a list of placed signs
-	sign_jump()		jump to a sign
-	sign_place()		place a sign
-	sign_placelist()	place a list of signs
+Jelek:						*sign-functions*
+	sign_define()		jel definiálása vagy frissítése
+	sign_getdefined()	jelek listája
+	sign_getplaced()	jelek helyeinek listája
+	sign_jump()		ugrás jelhez
+	sign_place()		jel elhelyezése
+	sign_placelist()	jelek listájának elhelyezése
 	sign_undefine()		undefine a sign
-	sign_unplace()		unplace a sign
-	sign_unplacelist()	unplace a list of signs
+	sign_unplace()		jel visszavonása
+	sign_unplacelist()	jelek listájának visszavonása
 
-Terminal window:				*terminal-functions*
-	term_start()		open a terminal window and run a job
-	term_list()		get the list of terminal buffers
-	term_sendkeys()		send keystrokes to a terminal
-	term_wait()		wait for screen to be updated
-	term_getjob()		get the job associated with a terminal
-	term_scrape()		get row of a terminal screen
-	term_getline()		get a line of text from a terminal
-	term_getattr()		get the value of attribute {what}
-	term_getcursor()	get the cursor position of a terminal
-	term_getscrolled()	get the scroll count of a terminal
-	term_getaltscreen()	get the alternate screen flag
-	term_getsize()		get the size of a terminal
-	term_getstatus()	get the status of a terminal
-	term_gettitle()		get the title of a terminal
-	term_gettty()		get the tty name of a terminal
-	term_setansicolors()	set 16 ANSI colors, used for GUI
-	term_getansicolors()	get 16 ANSI colors, used for GUI
-	term_dumpdiff()		display difference between two screen dumps
-	term_dumpload()		load a terminal screen dump in a window
-	term_dumpwrite()	dump contents of a terminal screen to a file
-	term_setkill()		set signal to stop job in a terminal
-	term_setrestore()	set command to restore a terminal
-	term_setsize()		set the size of a terminal
-	term_setapi()		set terminal JSON API function name prefix
+Terminálablak:					*terminal-functions*
+	term_start()		új terminálablak munkafolyamattal
+	term_list()		terminál buffereinek listája
+	term_sendkeys()		billentyűleütések küldése a terminálba
+	term_wait()		várakozás a képernyő frissítésére
+	term_getjob()		terminálhoz társított munkafolyamatok
+	term_scrape()		terminálablak sorának lekérdezése
+	term_getline()		terminálablak egy sorának lekérdezése
+	term_getattr()		{what} attribútum értéke
+	term_getcursor()	terminálablak kurzorpozíciója
+	term_getscrolled()	terminálablakban görgetett sorok
+	term_getaltscreen()	alternatív screen flagek
+	term_getsize()		terminálablak mérete
+	term_getstatus()	terminál állapota
+	term_gettitle()		terminálablak neve
+	term_gettty()		terminálablak tty neve
+	term_setansicolors()	GUI 16 ANSI színeinek beállítása
+	term_getansicolors()	GUI 16 ANSI színeinek lekérdezése
+	term_dumpdiff()		két dump különbségeinek megjelenítése
+	term_dumpload()		terminál-dump betöltése ablakba
+	term_dumpwrite()	terminál-dump mentése fájlba
+	term_setkill()		munkafolyamat megállítása a terminálban
+	term_setrestore()	terminálablak visszaállításának parancsa
+	term_setsize()		terminálablak méretének beállítása
+	term_setapi()		terminálablak JSON API prefixuma
 
-Popup window:					*popup-window-functions*
-	popup_create()		create popup centered in the screen
-	popup_atcursor()	create popup just above the cursor position,
-				closes when the cursor moves away
-	popup_beval()		at the position indicated by v:beval_
-				variables, closes when the mouse moves away
-	popup_notification()	show a notification for three seconds
-	popup_dialog()		create popup centered with padding and border
-	popup_menu()		prompt for selecting an item from a list
-	popup_hide()		hide a popup temporarily
-	popup_show()		show a previously hidden popup
-	popup_move()		change the position and size of a popup
-	popup_setoptions()	override options of a popup
-	popup_settext()		replace the popup buffer contents
-	popup_close()		close one popup
-	popup_clear()		close all popups
-	popup_filter_menu()	select from a list of items
-	popup_filter_yesno()	block until 'y' or 'n' is pressed
-	popup_getoptions()	get current options for a popup
-	popup_getpos()		get actual position and size of a popup
-	popup_findinfo()	get window ID for popup info window
-	popup_findpreview()	get window ID for popup preview window
-	popup_list()		get list of all popup window IDs
-	popup_locate()		get popup window ID from its screen position
+Felugró ablak:					*popup-window-functions*
+	popup_create()		felugró ablak létrehozása a képernyő közepén
+	popup_atcursor()	felugró ablak létrehozása a kurzor fölött,
+				mely eltűnik a kurzor mozgatása esetén
+	popup_beval()		v:beval_ változó pozíciójánál a bezáródik, ha
+				ha ez egér elmozog
+	popup_notification()	értesítés megjelenítése három másodpercig
+	popup_dialog()		középre zárt felugró ablak, szegéllyel és
+				térközzel
+	popup_menu()		elem kiválasztása listából (prompt)
+	popup_hide()		felugró ablak elrejtése ideiglenesen
+	popup_show()		elrejtett felugró ablak megjelenítése
+	popup_move()		felugró ablak mozgatása
+	popup_setoptions()	felugró ablak beállításai
+	popup_settext()		felugró ablak tartalmának változtatása
+	popup_close()		felugró ablak bezárása
+	popup_clear()		az összes felugró ablak bezárása
+	popup_filter_menu()	elem kiválasztása listából
+	popup_filter_yesno()	'y' vagy 'n' prompt
+	popup_getoptions()	felugró ablak opciói
+	popup_getpos()		felugró ablak aktuális pozíciója
+	popup_findinfo()	felugró ablak window ID-ja
+	popup_findpreview()	betekintő ablak window ID-ja
+	popup_list()		az összes felugró ablak window ID-ja
+	popup_locate()		felugró ablak window ID-ja pozíció alapján
 
-Timers:						*timer-functions*
-	timer_start()		create a timer
-	timer_pause()		pause or unpause a timer
-	timer_stop()		stop a timer
-	timer_stopall()		stop all timers
-	timer_info()		get information about timers
+Timerek:					*timer-functions*
+	timer_start()		timer létrehozása
+	timer_pause()		timer megállítása, indítása
+	timer_stop()		timer megállítása
+	timer_stopall()		az összes timer megállítása
+	timer_info()		timer-információk
 
-Tags:						*tag-functions*
-	taglist()		get list of matching tags
-	tagfiles()		get a list of tags files
-	gettagstack()		get the tag stack of a window
-	settagstack()		modify the tag stack of a window
+Tagek:						*tag-functions*
+	taglist()		egyező tagek listája
+	tagfiles()		tagfájlok listája
+	gettagstack()		ablakhoz tartozó tag stack
+	settagstack()		ablakhoz tartozó tag stack módosítása
 
-Prompt Buffer:					*promptbuffer-functions*
-	prompt_getprompt()	get the effective prompt text for a buffer
-	prompt_setcallback()	set prompt callback for a buffer
-	prompt_setinterrupt()	set interrupt callback for a buffer
-	prompt_setprompt()	set the prompt text for a buffer
+Buffer promptok:				*promptbuffer-functions*
+	prompt_getprompt()	bufferhez tartozó prompt
+	prompt_setcallback()	bufferhez tartozó prompt callback
+	prompt_setinterrupt()	bufferhez tartozó interrupt callback
+	prompt_setprompt()	bufferhez tartozó prompt szövege
 
-Text Properties:				*text-property-functions*
-	prop_add()		attach a property at a position
-	prop_add_list()		attach a property at multiple positions
-	prop_clear()		remove all properties from a line or lines
-	prop_find()		search for a property
-	prop_list()		return a list of all properties in a line
-	prop_remove()		remove a property from a line
-	prop_type_add()		add/define a property type
-	prop_type_change()	change properties of a type
-	prop_type_delete()	remove a text property type
-	prop_type_get()		return the properties of a type
-	prop_type_list()	return a list of all property types
+Szöveg-tulajdonságok:				*text-property-functions*
+	prop_add()		tulajdonság hozzáadása adott pozícióhoz
+	prop_add_list()		tulajdonság hozzáadása több pozícióhoz
+	prop_clear()		tulajdonság eltávolítása sor vagy sorokból
+	prop_find()		tulajdonság keresése
+	prop_list()		sor összes tulajdonsága (lista)
+	prop_remove()		sor összes tulajdonságának eltávolítása
+	prop_type_add()		tulajdonság típus definiálása
+	prop_type_change()	típus beállítása
+	prop_type_delete()	típus törlése
+	prop_type_get()		típus tulajdonságai
+	prop_type_list()	az összes típus tulajdonságai
 
-Sound:							*sound-functions*
-	sound_clear()		stop playing all sounds
-	sound_playevent()	play an event's sound
-	sound_playfile()	play a sound file
-	sound_stop()		stop playing a sound
+Hangok:							*sound-functions*
+	sound_clear()		az összes hang lejátszásásának megállítása
+	sound_playevent()	esemény hangjának lejátszásása
+	sound_playfile()	hangfájl lejátszása
+	sound_stop()		hangfájl lejátszásának megállítása
 
-Various:					*various-functions*
-	mode()			get current editing mode
-	state()			get current busy state
-	visualmode()		last visual mode used
-	exists()		check if a variable, function, etc. exists
-	exists_compiled()	like exists() but check at compile time
-	has()			check if a feature is supported in Vim
-	changenr()		return number of most recent change
-	cscope_connection()	check if a cscope connection exists
-	did_filetype()		check if a FileType autocommand was used
-	eventhandler()		check if invoked by an event handler
-	getpid()		get process ID of Vim
-	getimstatus()		check if IME status is active
-	interrupt()		interrupt script execution
-	windowsversion()	get MS-Windows version
-	terminalprops()		properties of the terminal
+Egyebek:						*various-functions*
+	mode()			szerekesztési mód
+	state()			'busy' állapot lekérése
+	visualmode()		utolsó vizuális mód típusa
+	exists()		változó, föggvény, stb. meglétének ellenőrzése
+	exists_compiled()	mint az exists(), de fordításkor elllenőriz
+	has()			Vim-feature támogatásának ellenőrzése
+	changenr()		legutóbbi változások száma
+	cscope_connection()	cscope kapcsolatának ellenőrzése
+	did_filetype()		FileType autocommand használatának ellenőrzése
+	eventhandler()		eseménykezelő által kiváltva (ellenőrzés)
+	getpid()		Vim PID-je
+	getimstatus()		IME aktív állapotának ellenőrzése
+	interrupt()		szkript futtatásának felfüggesztése
+	windowsversion()	MS-Windows verziója
+	terminalprops()		terminál tulajdonságai
 
-	libcall()		call a function in an external library
-	libcallnr()		idem, returning a number
+	libcall()		külső library függvényének hívása
+	libcallnr()		ugyanaz, visszatérés számmal
 
-	undofile()		get the name of the undo file
-	undotree()		return the state of the undo tree
+	undofile()		visszavonás fájl neve
+	undotree()		visszavonás fa állapota
 
-	getreg()		get contents of a register
-	getreginfo()		get information about a register
-	getregtype()		get type of a register
-	setreg()		set contents and type of a register
-	reg_executing()		return the name of the register being executed
-	reg_recording()		return the name of the register being recorded
+	getreg()		regiszter tartalma
+	getreginfo()		regiszter-információk
+	getregtype()		regiszter típusa
+	setreg()		regiszter tartalmának és típusának beállítása
+	reg_executing()		futtatott regiszter neve
+	reg_recording()		rögzített regiszter neve
 
-	shiftwidth()		effective value of 'shiftwidth'
+	shiftwidth()		'shiftwidth' effektív értéke
 
-	wordcount()		get byte/word/char count of buffer
+	wordcount()		buffer byte/word/char értékei
 
-	luaeval()		evaluate |Lua| expression
-	mzeval()		evaluate |MzScheme| expression
-	perleval()		evaluate Perl expression (|+perl|)
-	py3eval()		evaluate Python expression (|+python3|)
-	pyeval()		evaluate Python expression (|+python|)
-	pyxeval()		evaluate |python_x| expression
-	rubyeval()		evaluate |Ruby| expression
+	luaeval()		|Lua| kifejezés kiértékelése
+	mzeval()		|MzScheme| kifejezés kiértékelése
+	perleval()		Perl kifejezés (|+perl|) kiértékelése
+	py3eval()		Python kifejezés (|+python3|) kiértékelése
+	pyeval()		Python kifejezés (|+python|) kiértékelése
+	pyxeval()		|python_x| kifejezés kiértékelése
+	rubyeval()		|Ruby| kifejezés kiértékelése
 
-	debugbreak()		interrupt a program being debugged
+	debugbreak()		debug alatt álló program megszakítása
 
 ==============================================================================
 *41.7*	Függvények létrehozása
@@ -1612,79 +1613,80 @@ Próbáljuk ki: >
 	:echo uk2nl.translate('three two five one')
 <	drie twee ??? een ~
 
-The first special thing you notice is the "dict" at the end of the ":function"
-line.  This marks the function as being used from a Dictionary.  The "self"
-local variable will then refer to that Dictionary.
-   Now let's break up the complicated return command: >
-
+Vegyük észre a "dict" szót a ":function" sorában. Ez jelöli azt, hogy a
+függvényt egy szótáron használjuk. A "self" lokális változó erre a szótárra
+utal.
+   Vizsgáljuk meg a függvény visszatérési értékét: >
+ 
 	split(a:line)
 
-The split() function takes a string, chops it into whitespace separated words
-and returns a list with these words.  Thus in the example it returns: >
+A split() függvény paraméterként egy stringet vár, melyet a szóközök mentén
+elválaszt és listaként adja vissza ezen szavakat. A példában szereplő
+visszatérési érték: >
 
 	:echo split('three two five one')
 <	['three', 'two', 'five', 'one'] ~
 
-This list is the first argument to the map() function.  This will go through
-the list, evaluating its second argument with "v:val" set to the value of each
-item.  This is a shortcut to using a for loop.  This command: >
+Ez a lista lesz a map() függvény első argumentuma. Bejárjuk a szótárat, és  a
+kulcsokhoz tartozó értékekekt a "v:val" változóhoz rendeljük. Gyakorlatilag
+egy ciklus rövidített változata. A parancs: >
 
 	:let alist = map(split(a:line), 'get(self, v:val, "???")')
 
-Is equivalent to: >
+Mely egyenértékű ezzel: >
 
 	:let alist = split(a:line)
 	:for idx in range(len(alist))
 	:  let alist[idx] = get(self, alist[idx], "???")
 	:endfor
 
-The get() function checks if a key is present in a Dictionary.  If it is, then
-the value is retrieved.  If it isn't, then the default value is returned, in
-the example it's '???'.  This is a convenient way to handle situations where a
-key may not be present and you don't want an error message.
+A get() függvény ellenőrzi, hogy a kulcs szerepel-e a szótárban. Ha igen,
+akkor az értéket visszaadja. Ha nem, akkor az előre beállított alapértelmezett
+értéket adja vissza (ebben az esetben '???'). Kényelmes megoldás a nem létező
+kulcsok kezelésére, ha nem szeretnénk hibaüzenetet kapni.
 
-The join() function does the opposite of split(): it joins together a list of
-words, putting a space in between.
-  This combination of split(), map() and join() is a nice way to filter a line
-of words in a very compact way.
+A join() függvény a split(): ellentéte, összefűzi a lista értékeit
+szóközökkel.
+  A split(), map() és join() kombinációjával kompakt módon szűrhetjük az
+értékeket.
 
 
-OBJECT ORIENTED PROGRAMMING
+OBJEKTUM ORIENTÁLT PROGRAMOZÁS
 
-Now that you can put both values and functions in a Dictionary, you can
-actually use a Dictionary like an object.
-   Above we used a Dictionary for translating Dutch to English.  We might want
-to do the same for other languages.  Let's first make an object (aka
-Dictionary) that has the translate function, but no words to translate: >
+Mivel a szótárakban nem csak értékeket helyezhetünk el, hanem függvényeket is,
+ezért a szótárakat használhatjuk objektum-szerűen is.
+   A fent említett példában a szótárat holland szavak angolra fordításához
+használtuk. Ha ezt a mechanizmust újra fel szeretnénk használni, akkor először
+hozzunk létre egy "objektumot" (szótárat), egy translate nevű függvénnyel: >
 
 	:let transdict = {}
 	:function transdict.translate(line) dict
 	:  return join(map(split(a:line), 'get(self.words, v:val, "???")'))
 	:endfunction
 
-It's slightly different from the function above, using 'self.words' to lookup
-word translations.  But we don't have a self.words.  Thus you could call this
-an abstract class.
+Ez picit különbözik az előzőleg használt módszertől. Itt a 'self.words'
+segítségével hivatkozhatunk a szótár értékeire. Mivel konkrétan nincs a
+'self.word' definiálva, ezért ezt az objektumot kezelhetjük absztrakt
+osztályként.
 
-Now we can instantiate a Dutch translation object: >
+Példányosítsuk a holland szavak fordításához: >
 
 	:let uk2nl = copy(transdict)
 	:let uk2nl.words = {'one': 'een', 'two': 'twee', 'three': 'drie'}
 	:echo uk2nl.translate('three one')
 <	drie een ~
 
-And a German translator: >
+És a német fordító: >
 
 	:let uk2de = copy(transdict)
 	:let uk2de.words = {'one': 'eins', 'two': 'zwei', 'three': 'drei'}
 	:echo uk2de.translate('three one')
 <	drei eins ~
 
-You see that the copy() function is used to make a copy of the "transdict"
-Dictionary and then the copy is changed to add the words.  The original
-remains the same, of course.
+Láthatjuk, hogy a copy() függvénnyel másoltuk a "transdict"-et, a másolatban
+pedig átírtuk az értékeket. Az eredeti szótár természetesen nem változik.
 
-Now you can go one step further, and use your preferred translator: >
+Lépjünk tovább: >
 
 	:if $LANG =~ "de"
 	:  let trans = uk2de
@@ -1694,12 +1696,11 @@ Now you can go one step further, and use your preferred translator: >
 	:echo trans.translate('one two three')
 <	een twee drie ~
 
-Here "trans" refers to one of the two objects (Dictionaries).  No copy is
-made.  More about List and Dictionary identity can be found at |list-identity|
-and |dict-identity|.
+A példában a két objektum (szótár) egyikére hivatkozunk. Másolás nem történik.
+A listákról és szótárakról bővebben: |list-identity| és |dict-identity|.
 
-Now you might use a language that isn't supported.  You can overrule the
-translate() function to do nothing: >
+Előfordulhat olyan eset, amikor az adott nyelv nem támogatott. A translate()
+függvényt felülírhatjuk, hogy ne tegyen semmit: >
 
 	:let uk2uk = copy(transdict)
 	:function! uk2uk.translate(line)
@@ -1708,8 +1709,8 @@ translate() function to do nothing: >
 	:echo uk2uk.translate('three one wladiwostok')
 <	three one wladiwostok ~
 
-Notice that a ! was used to overwrite the existing function reference.  Now
-use "uk2uk" when no recognized language is found: >
+Vegyük észre a ! jelet, mellyel felülírtuk a létező függvényhivatkozást. Most
+használjuk a "uk2uk"-t, ha a nyelv nem támogatott: >
 
 	:if $LANG =~ "de"
 	:  let trans = uk2de
@@ -1721,12 +1722,12 @@ use "uk2uk" when no recognized language is found: >
 	:echo trans.translate('one two three')
 <	one two three ~
 
-For further reading see |Lists| and |Dictionaries|.
+További olvasnivaló: |Lists| és |Dictionaries|.
 
 ==============================================================================
-*41.9*	Exceptions
+*41.9*	Kivételek
 
-Let's start with an example: >
+Például: >
 
 	:try
 	:   read ~/templates/pascal.tmpl
@@ -1734,21 +1735,21 @@ Let's start with an example: >
 	:   echo "Sorry, the Pascal template file cannot be found."
 	:endtry
 
-The ":read" command will fail if the file does not exist.  Instead of
-generating an error message, this code catches the error and gives the user a
-nice message.
+A ":read" parancs hibával tér vissza, ha a fájl nem található. A beépített
+hibaüzenet helyet a hiba kódjával elkaphatjuk a hibát és egy szebb (vagy
+relevánsabb) üzenetet írathatunk ki.
 
-For the commands in between ":try" and ":endtry" errors are turned into
-exceptions.  An exception is a string.  In the case of an error the string
-contains the error message.  And every error message has a number.  In this
-case, the error we catch contains "E484:".  This number is guaranteed to stay
-the same (the text may change, e.g., it may be translated).
+A ":try" és az ":endtry" között keletkezett hibák kivételeket képeznek. A
+kivétel egy sztring. Hiba esetén a sztring tartalmazza a hibaüzenetet. Minden
+hibaüzenethez tartozik egy azonosító. A példában szereplő kód az "E484:"
+kivételt kezeli. A hiba garantáltan nem változik, a hibaüzenet viszont
+változhat (a fordítás függvényében).
 
-When the ":read" command causes another error, the pattern "E484:" will not
-match in it.  Thus this exception will not be caught and result in the usual
-error message.
+Ha a ":read" parancs futása közben egy más jellegű hibába ütközünk, azt az
+"E484:" nem fogja kezelni, ezért a kivétel nem lesz elkapva és hiba
+alapértelmezett hibaüzenete jelenik meg.
 
-You might be tempted to do this: >
+Kezelhetjük a kivételt így: >
 
 	:try
 	:   read ~/templates/pascal.tmpl
@@ -1756,10 +1757,10 @@ You might be tempted to do this: >
 	:   echo "Sorry, the Pascal template file cannot be found."
 	:endtry
 
-This means all errors are caught.  But then you will not see errors that are
-useful, such as "E21: Cannot make changes, 'modifiable' is off".
+Ez azt jelenti, hogy az összes hiba el lesz kapva. Ezért a hibaüzenet az
+alapértelmezett üzenet lesz, például "E21: Cannot make changes, 'modifiable' is off".
 
-Another useful mechanism is the ":finally" command: >
+Hasznos mechanizmus a ":finally" használata: >
 
 	:let tmp = tempname()
 	:try
@@ -1771,115 +1772,113 @@ Another useful mechanism is the ":finally" command: >
 	:   call delete(tmp)
 	:endtry
 
-This filters the lines from the cursor until the end of the file through the
-"filter" command, which takes a file name argument.  No matter if the
-filtering works, something goes wrong in between ":try" and ":finally" or the
-user cancels the filtering by pressing CTRL-C, the "call delete(tmp)" is
-always executed.  This makes sure you don't leave the temporary file behind.
+A kódrészlet szűri a kurzor pozíciójától a fájl végéig terjedő tartalmat a
+":filter" paranccsal, ami egy fájlnevet vár argumentumként. Nem számít, hogy a
+szűrés sikeres-e, ha valami hiba történik a ":try" és a ":finally" parancs
+között (akár ha a felhasználó megszakítja a szűrést a CTRL-C billentyűvel, a
+"call delete(tmp)" függvény mindig lefut, így nem hagyunk hátra ideiglenes
+fájlt.
 
-More information about exception handling can be found in the reference
-manual: |exception-handling|.
+Több információ a kivételkezelésről a referenciában: |exception-handling|.
 
 ==============================================================================
-*41.10*	Various remarks
+*41.10* Általános információk
 
-Here is a summary of items that apply to Vim scripts.  They are also mentioned
-elsewhere, but form a nice checklist.
+Az alábbi lista a Vim szkriptekre jellemző tulajdonságokat ír le, melyek
+említve vannak a releváns pontokon, de ez egy szép tömör lista.
 
-The end-of-line character depends on the system.  For Unix a single <NL>
-character is used.  For MS-Windows and the like, <CR><NL> is used.  This is
-important when using mappings that end in a <CR>.  See |:source_crnl|.
+A sorvégi karakterek a rendszerünktől függ. A Unix rendszer <NL> karaktert használ, a MS-Windows <CR><NL> karaktereket használ. Ez fontos a, ha mappjeink a <CR> karakterrel végződnek. Lásd |:source_crnl|.
 
 
-WHITE SPACE
+ÜRES KARAKTEREK
 
-Blank lines are allowed and ignored.
+Az üres sorok engedélyezettek és figyelmen kívül vannak hagyva.
 
-Leading whitespace characters (blanks and TABs) are always ignored.  The
-whitespaces between parameters (e.g. between the "set" and the "cpoptions" in
-the example below) are reduced to one blank character and plays the role of a
-separator, the whitespaces after the last (visible) character may or may not
-be ignored depending on the situation, see below.
+A vezető üres karakterek (szóközök és TABok), mindig figyelmen kívül vannak
+hagyva minden esetben. A paraméterek közötti üres karakterek (például a "set"
+és a "cpoptions" között a lenti példában), redukálva vannak egy karakterre,
+amik elválasztó szerepet töltenek be. A sor utolsó karaktere után szereplő
+üres karakterek szituációtól függően értelmezve vannak, lásd alább.
 
-For a ":set" command involving the "=" (equal) sign, such as in: >
+A ":set" parancshoz használnunk kell a "=" jelet: >
 
 	:set cpoptions    =aABceFst
 
-the whitespace immediately before the "=" sign is ignored.  But there can be
-no whitespace after the "=" sign!
+a "=" jelet megelőző üres karakterek ignorálva vannak, de a "=" jel után nem
+szerepelhet üres karakter!
 
-To include a whitespace character in the value of an option, it must be
-escaped by a "\" (backslash)  as in the following example: >
+Ha üres karaktereket szeretnénk használni értékként, akkor escapelnünk kell
+őket "\" karakterrel: >
 
 	:set tags=my\ nice\ file
 
-The same example written as: >
+Ugyanez a példa így írva: >
 
 	:set tags=my nice file
 
-will issue an error, because it is interpreted as: >
+hibát eredményez, hiszen így értékelődik ki: >
 
 	:set tags=my
 	:set nice
 	:set file
 
 
-COMMENTS
+KOMMENTEK
 
-The character " (the double quote mark) starts a comment.  Everything after
-and including this character until the end-of-line is considered a comment and
-is ignored, except for commands that don't consider comments, as shown in
-examples below.  A comment can start on any character position on the line.
+A " (idézőjel), a komment kezdetét jelenti. Minden további karakter a az
+aktuális sor végéig kommentként van értelmezve, kivéve azokat a parancsokat,
+ahol a " karakternek jelentősége van.
 
-There is a little "catch" with comments for some commands.  Examples: >
+Egy dologra különösen figyelnünk kell, például: >
 
 	:abbrev dev development		" shorthand
 	:map <F3> o#include		" insert include
 	:execute cmd			" do it
 	:!ls *.c			" list C files
 
-The abbreviation 'dev' will be expanded to 'development     " shorthand'.  The
-mapping of <F3> will actually be the whole line after the 'o# ....' including
-the '" insert include'.  The "execute" command will give an error.  The "!"
-command will send everything after it to the shell, causing an error for an
-unmatched '"' character.
-   There can be no comment after ":map", ":abbreviate", ":execute" and "!"
-commands (there are a few more commands with this restriction).  For the
-":map", ":abbreviate" and ":execute" commands there is a trick: >
+A 'dev' rövidítés 'development     " shorthand'-re lesz kibontva. Az <F3> map
+a teljes sort tartalmazza, beleértve a '" insert include'-t is. Az "execute"
+parancs hibát eredményez. A "!" parancs mindent átad a shell értelmezőnek,
+mely páratlan '"' karakter miatt hibát eredményez.
+   A ":map", ":abbreviate", ":execute", és a "!" parancsok után nem
+szerepelhet megjegyzés (létezik még pár parancs ezzel a megszorítással). A
+":map", ":abbreviate", ":execute" parancsokhoz az alábbi trükköt
+alkalmazhatjuk: >
 
 	:abbrev dev development|" shorthand
 	:map <F3> o#include|" insert include
 	:execute cmd			|" do it
 
-With the '|' character the command is separated from the next one.  And that
-next command is only a comment.  For the last command you need to do two
-things: |:execute| and use '|': >
+A '|' két parancsot választ el egymástól. Ezért a következő parancs csak
+kommentként értékelődik ki. Az utolsó parancshoz két dolgok kell ismernünk: az
+|:execute| és a '|' karakter használatát: >
+
 	:exe '!ls *.c'			|" list C files
 
-Notice that there is no white space before the '|' in the abbreviation and
-mapping.  For these commands, any character until the end-of-line or '|' is
-included.  As a consequence of this behavior, you don't always see that
-trailing whitespace is included: >
+Vegyük észre, hogy a '|' karakter előtt nincs üres karakter a rövidítésben és
+a mappingben. Ezekben a parancsokban minden karakter kiértékelődik a sor végig
+(vagy a '|' karakterig), ezért sorok vége előtti üres karakterek nem
+láthatóak.  >
 
 	:map <F4> o#include
 
-To spot these problems, you can set the 'list' option when editing vimrc
-files.
+A hiba felderítéséhez állítsuk be a 'list' beállítást, ha szerkesztjük a vimrc
+fájlt.
 
-For Unix there is one special way to comment a line, that allows making a Vim
-script executable: >
+Unix rendszereken egy speciális módszerrel is kommentelhetjük a fájlokat, így
+a Vim szkript futtatható marad: >
+
 	#!/usr/bin/env vim -S
 	echo "this is a Vim script"
 	quit
 
-The "#" command by itself lists a line with the line number.  Adding an
-exclamation mark changes it into doing nothing, so that you can add the shell
-command to execute the rest of the file. |:#!| |-S|
+A '#' önmagában kiírja a fájl sorát a hozzá tartozó sor számával. Egy '!'
+jelet hozzáadva a '#' jel alapértelmezett működését elveszti|:#!| |-S|
 
 
-PITFALLS
+CSAPDÁK
 
-Even bigger problem arises in the following example: >
+Az alábbi kódrészlet még nagyobb problémát okozhat: >
 
 	:map ,ab o#include
 	:unmap ,ab
@@ -2749,7 +2748,7 @@ like: >
 Further reading: |autoload|.
 
 ==============================================================================
-*41.16*	Distributing Vim scripts			*distribute-script*
+*41.16*	Vim Szkriptek megosztása			    *distribute-script*
 
 Vim users will look for scripts on the Vim website: http://www.vim.org.
 If you made something that is useful for others, share it!
@@ -2761,10 +2760,10 @@ utility is recommended.
 For utmost portability use Vim itself to pack scripts together.  This can be
 done with the Vimball utility.  See |vimball|.
 
-It's good if you add a line to allow automatic updating.  See |glvs-plugins|.
+It's good if you add a line to allow automatic updating.  Lásd |glvs-plugins|.
 
 ==============================================================================
 
-Következő fejezet: |usr_42.txt|  Add new menus
+Következő fejezet: |usr_42.txt|  Új menük létrehozása
 
 Jogi információk: lásd |manual-copyright|  vim:tw=78:ts=8:noet:ft=help:norl:
