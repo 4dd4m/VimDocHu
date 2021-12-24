@@ -15,11 +15,11 @@
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal az alábbi mappákban
 * A runtime/doc/hu könyvtárat másold be ide: `$VIMRUNTIME/doc`
-* A runtime/syntax/hux.vim fájlt másold beide `$VIMRUNTIME/syntax`
+* A runtime/syntax/hux.vim fájlt másold be ide `$VIMRUNTIME/syntax`
 * töröld a régi tagfájlokat (tags,tags-hu): `$VIMRUNTIME/doc`
 * futtasd `:helptags $VIMRUNTIME/doc` a Vimből
 * a .vimrchez add hozzá:
-	* :helplang=hu,en
+	* set helplang=hu,en
 	* syntax on
 	* au! BufEnter *.hux :set syntax=hux
 	* set conceallevel=2
