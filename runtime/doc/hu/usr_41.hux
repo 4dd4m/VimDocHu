@@ -28,7 +28,7 @@ ezért a fejezet hosszú
 
 Következő fejezet: |usr_42.txt|  Új menük hozzáadása
     Előző fejezet: |usr_40.txt|  Új parancsok készítése
-  Tartalomjegyzék: |usr_toc.txt|
+ Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *41.1*	Bevezetés				*vim-script-intro* *script*
@@ -1787,7 +1787,9 @@ Több információ a kivételkezelésről a referenciában: |exception-handling|
 Az alábbi lista a Vim szkriptekre jellemző tulajdonságokat ír le, melyek
 említve vannak a releváns pontokon, de ez egy szép tömör lista.
 
-A sorvégi karakterek a rendszerünktől függ. A Unix rendszer <NL> karaktert használ, a MS-Windows <CR><NL> karaktereket használ. Ez fontos a, ha mapjeink a <CR> karakterrel végződnek. Lásd |:source_crnl|.
+A sorvégi karakterek a rendszerünktől függ. A Unix rendszer <NL> karaktert
+használ, a MS-Windows <CR><NL> karaktereket használ. Ez fontos a, ha mapjeink
+a <CR> karakterrel végződnek. Lásd |:source_crnl|.
 
 
 ÜRES KARAKTEREK
@@ -2418,47 +2420,48 @@ kényszeríthetjük ki: >
 
 	:setlocal
 
-And only set options which are local to a buffer (see
-the help for the option to check that).  When using |:setlocal| for global
-options or options local to a window, the value will change for many buffers,
-and that is not what a filetype plugin should do.
+Amely a ":set" paranccsal egyenértékű azzal a kivétellel, hogy csak az
+aktuális buffer opcióit állítja be. Ha |:setlocal| paranccsal globális
+változót, vagy ablak-specifikus változót állítunk be, az több bufferre
+hatással lesz, ez pedig kerülendő.
 
-When an option has a value that is a list of flags or items, consider using
-"+=" and "-=" to keep the existing value.  Be aware that the user may have
-changed an option value already.  First resetting to the default value and
-then changing it is often a good idea.  Example: >
+Ha az opció típusa lista, akkor fontoljuk meg a "+=" és a "-=" operátor
+használatát, mert így a lista megtartja az eredeti értékét. Jó ötlet, ha a
+változó inicializálásakor a kezdő értéknek a változó alapértelmezett értékét
+adjuk meg (előfordulhat, hogy a felhasználó esetleg már módosította a változót
+a beépülő telepítését megelőzően). Például: >
 
 	:setlocal formatoptions& formatoptions+=ro
 
 
-MAPPINGS
+MAPPEK
 
-To make sure mappings will only work in the current buffer use the >
+A map hozzárendelése a jelenlegi bufferhez: >
 
 	:map <buffer>
 
-command.  This needs to be combined with the two-step mapping explained above.
-An example of how to define functionality in a filetype plugin: >
+Ezt még kombinálnunk kell a fentebb említett map-deklarációval. Példa egy
+funkcionalitás létrehozására a fájltípus beépülőben: >
 
 	if !hasmapto('<Plug>JavaImport;')
 	  map <buffer> <unique> <LocalLeader>i <Plug>JavaImport;
 	endif
 	noremap <buffer> <unique> <Plug>JavaImport; oimport ""<Left><Esc>
 
-|hasmapto()| is used to check if the user has already defined a map to
-<Plug>JavaImport;.  If not, then the filetype plugin defines the default
-mapping.  This starts with |<LocalLeader>|, which allows the user to select
-the key(s) he wants filetype plugin mappings to start with.  The default is a
-backslash.
-"<unique>" is used to give an error message if the mapping already exists or
-overlaps with an existing mapping.
-|:noremap| is used to avoid that any other mappings that the user has defined
-interferes.  You might want to use ":noremap <script>" to allow remapping
-mappings defined in this script that start with <SID>.
+A |hasmapto()|-val Ellenőrizzük, hogy a felhasználó definiált-e már mappet a 
+<Plug>JavaImport;-hoz. Ha nem, akkor a fájltípus beépülő létrehozza az
+alapértelmezett mappet. A <LocalLeader> megengedi a felhasználónak, hogy egy
+egyedi leader-billentyűvel hívja a mappet. Az alapértelmezett leader key a
+backslash "\".
+A "<unique>" használata miatt soha nem fogunk hibaüzenetet kapni, ha a map már
+létezik, vagy fedésben van az érvényben lévő mappekkel.
+A |:noremap| parancs hatására a mapben definiált billentyűleütések nem hívják
+meg a már definiált mappeket. Kezdhetjük a map leírását ":noremap <script>"-el
+is, így lehetőséget adunk arra, hogy remappeljük a szkriptben <SID>-vel
+kezdődő mappeket.
 
-The user must have a chance to disable the mappings in a filetype plugin,
-without disabling everything.  Here is an example of how this is done for a
-plugin for the mail filetype: >
+A felhasználónak úgy kell lehetőséget adni a szkript mapjeinek letiltására
+anélkül, hogy mindent tiltana. Részlet a mail fájltípusból: >
 
 	" Add mappings, unless the user didn't want this.
 	if !exists("no_plugin_maps") && !exists("no_mail_maps")
@@ -2471,31 +2474,33 @@ plugin for the mail filetype: >
 	  nnoremap <buffer> <Plug>MailQuote; :.,$s/^/> /<CR>
 	endif
 
-Two global variables are used:
-|no_plugin_maps|	disables mappings for all filetype plugins
-|no_mail_maps|		disables mappings for the "mail" filetype
+Az implementáció két globális változót használ:
+|no_plugin_maps|	az összes fájltípus beépülő mapjeinek a tiltása
+|no_mail_maps|		a "mail" fájltípus mapjeinek a tiltása
 
 
-USER COMMANDS
+FELHASZNÁLÓI PARANCSOK
 
-To add a user command for a specific file type, so that it can only be used in
-one buffer, use the "-buffer" argument to |:command|.  Example: >
+A "-buffer" argumentumot használva a fájltípus beépülő felhasználói parancsai
+csak egy bufferben futnak. |:command| Például: >
 
 	:command -buffer  Make  make %:r.s
 
 
-VARIABLES
+VÁLTOZÓK
 
-A filetype plugin will be sourced for each buffer of the type it's for.  Local
-script variables |s:var| will be shared between all invocations.  Use local
-buffer variables |b:var| if you want a variable specifically for one buffer.
+A fájlt típusának megegyezésekor az összes buffer betölti a fájltípus
+beépülőt. A szkript lokális változóit |s:var| a bufferek látják, értékét
+felülírhatják (az aktuális bufferek osztoznak a változón). Ha kimondottan
+buffer-specifikus változót szeretnénk létrehozni (a szkripten belül), akkor
+használjuk a |b:var| változókat.
 
 
-FUNCTIONS
+FÜGGVÉNYEK
 
-When defining a function, this only needs to be done once.  But the filetype
-plugin will be sourced every time a file with this filetype will be opened.
-This construct makes sure the function is only defined once: >
+A függvényeket elég egyszer deklarálnunk. A fájltípus beépülő újbóli betöltése
+(új bufferhez), újra és újra felülírja a függvényünket. A következő
+megoldás biztosítja, hogy a függvények csak egyszer legyenek deklarálva: >
 
 	:if !exists("*s:Func")
 	:  function s:Func(arg)
@@ -2504,87 +2509,90 @@ This construct makes sure the function is only defined once: >
 	:endif
 <
 
-UNDO						*undo_indent* *undo_ftplugin*
+VISSZAVONÁS				    *undo_indent* *undo_ftplugin*
 
-When the user does ":setfiletype xyz" the effect of the previous filetype
-should be undone.  Set the b:undo_ftplugin variable to the commands that will
-undo the settings in your filetype plugin.  Example: >
+Ha a felhasználó a ":setfiletype xyz" módszerrel állítja át a fájltípust,
+akkor az előző fájltípus beállításait vissza kell vonnunk. A "b:undo_ftplugin"
+változóban helyezzük el azt a parancsot, ami visszaállítja a módosításokat.
+Például: >
 
 	let b:undo_ftplugin = "setlocal fo< com< tw< commentstring<"
 		\ .. "| unlet b:match_ignorecase b:match_words b:match_skip"
 
-Using ":setlocal" with "<" after the option name resets the option to its
-global value.  That is mostly the best way to reset the option value.
+Ha a ":setlocal" parancsot "<" jellel használjuk, az visszaállítja az opciók
+globális értékét. Ez az egyik legjobb és legkellemesebb módszer erre a célra.
 
-This does require removing the "C" flag from 'cpoptions' to allow line
-continuation, as mentioned above |use-cpo-save|.
+Ne feledjük, az említett példakód csak akkor működik, ha engedélyezve van a
+sor folytatása ("C" flagnek nem szabad szerepelnie a 'cpoptions'-ban), mint
+ahogy a |:use-cpo-save| résznél már ezt említettük.
 
-For undoing the effect of an indent script, the b:undo_indent variable should
-be set accordingly.
+A behúzások visszavonásához a "b:undo_indent" változót is be kell állítanunk
+értelemszerűen.
 
 
-FILE NAME
+FÁJLNÉV
 
-The filetype must be included in the file name |ftplugin-name|.  Use one of
-these three forms:
+A fájltípus nevének szerepelni kell a fájl nevében |ftplugin-name|. A három
+leggyakoribb alak: 
 
 	.../ftplugin/stuff.vim
 	.../ftplugin/stuff_foo.vim
 	.../ftplugin/stuff/bar.vim
 
-"stuff" is the filetype, "foo" and "bar" are arbitrary names.
+A fájltípus: "stuff", "foo" és "bar" tetszőleges nevek.
 
 
-SUMMARY							*ftplugin-special*
+ÖSSZEFOGLALÁS					    *ftplugin-special*
 
-Summary of special things to use in a filetype plugin:
+A fájltípus beépülő egyedi technikái:
 
-<LocalLeader>		Value of "maplocalleader", which the user defines as
-			the keys that filetype plugin mappings start with.
+<LocalLeader>		A "maplocalleader" értéke, mellyel a fájltípus beépülő
+			mapjei kezdődnek.
 
-:map <buffer>		Define a mapping local to the buffer.
+:map <buffer>		Buffer-specifikus map
 
-:noremap <script>	Only remap mappings defined in this script that start
-			with <SID>.
+:noremap <script>	Csak a <SID>-vel kezdődő mappek remappelése.
 
-:setlocal		Set an option for the current buffer only.
+:setlocal		Buffer-specifikus opció beállítása.
 
-:command -buffer	Define a user command local to the buffer.
+:command -buffer	Buffer-specifikus felhasználói parancs
 
-exists("*s:Func")	Check if a function was already defined.
+exists("*s:Func")	Függvénynév-definíció ellenőrzés
 
-Also see |plugin-special|, the special things used for all plugins.
+Továbbá |plugin-special|, a beépülők által használt egyedi dolgok.
 
 ==============================================================================
-*41.13*	Writing a compiler plugin		*write-compiler-plugin*
+*41.13*	Fordító szkript létrehozása		*write-compiler-plugin*
 
-A compiler plugin sets options for use with a specific compiler.  The user can
-load it with the |:compiler| command.  The main use is to set the
-'errorformat' and 'makeprg' options.
+Az ilyen típusú beépülők fordító-specifikus opciókat is beállítanak. Ezeket a
+|:compiler| paranccsal tölthetjük be. Azért használjuk, hogy beállítsuk az
+'errorformat' és a 'makeprg' parancsokat. 
 
-Easiest is to have a look at examples.  This command will edit all the default
-compiler plugins: >
+A legegyszerűbb ezt egy példán szemléltetni. A következő parancs szerkeszti az
+összes fordítóval kapcsolatos beépülőt: >
 
 	:next $VIMRUNTIME/compiler/*.vim
 
-Use |:next| to go to the next plugin file.
+A |:next| használatával ugorhatunk a következő fájlra.
 
-There are two special items about these files.  First is a mechanism to allow
-a user to overrule or add to the default file.  The default files start with: >
+A fordító fájloknak két fő feladata van. Az egyik a mechanizmus, amivel a
+felhasználó felülírhatja, vagy kiegészítheti az alapértelmezett fájlt. Az
+alapértelmezett fájlban az alábbi szerepel: >
 
 	:if exists("current_compiler")
 	:  finish
 	:endif
 	:let current_compiler = "mine"
 
-When you write a compiler file and put it in your personal runtime directory
-(e.g., ~/.vim/compiler for Unix), you set the "current_compiler" variable to
-make the default file skip the settings.
+Ha saját fordító-fájlt írunk, akkor azt tegyük be a saját runtime
+könyvtárunkban (például: ~/.vim/compiler Unixon), ezzel átállítjuk a
+"current_compiler" értékét és ezzel az alapértelmezett fájl beállításai nem
+értelmeződnek.
 							*:CompilerSet*
-The second mechanism is to use ":set" for ":compiler!" and ":setlocal" for
-":compiler".  Vim defines the ":CompilerSet" user command for this.  However,
-older Vim versions don't, thus your plugin should define it then.  This is an
-example: >
+A második mechanizmushoz használjuk a ":set" parancsot a ":compiler!" és a
+":setlocal" parancsot a ":compiler" parancshoz. Ezt a műveletet a Vim
+megkönnyíti a ":CompilerSet" parancs használatával. A Vim régi verzió sajnos
+ezt nem támogatják, így ezt nekünk definiálnunk kell. Például: >
 
   if exists(":CompilerSet") != 2
     command -nargs=* CompilerSet setlocal <args>
@@ -2592,35 +2600,34 @@ example: >
   CompilerSet errorformat&		" use the default 'errorformat'
   CompilerSet makeprg=nmake
 
-When you write a compiler plugin for the Vim distribution or for a system-wide
-runtime directory, use the mechanism mentioned above.  When
-"current_compiler" was already set by a user plugin nothing will be done.
+Ha Vim alapértelmezett disztribúciójához (vagy egy rendszerszintű runtime
+könyvtárhoz) írjuk, mindenképpen helyezzük el a definíciót a fájlunkban. Ha
+"current_compiler" egy felhasználói beépülő már értéket adott, akkor semmit
+nem történik.
 
-When you write a compiler plugin to overrule settings from a default plugin,
-don't check "current_compiler".  This plugin is supposed to be loaded
-last, thus it should be in a directory at the end of 'runtimepath'.  For Unix
-that could be ~/.vim/after/compiler.
+Ha olyan beépülőt írunk, amely az alapértelmezett beépülő érték írja felül,
+akkor nem kell ellenőriznünk a "current_compiler" értékét. Természetesen a
+beépülőnket kell utoljára betöltenünk, ezért helyezzük el a 'runtimepath'
+utolsó elérési utak egyikében, Unixon ez ~/.vim/after/compiler.
 
 ==============================================================================
-*41.14*	Writing a plugin that loads quickly	*write-plugin-quickload*
+*41.14*	Gyorsan betölthető beépülő írása	*write-plugin-quickload*
 
-A plugin may grow and become quite long.  The startup delay may become
-noticeable, while you hardly ever use the plugin.  Then it's time for a
-quickload plugin.
+A beépülő idővel növekszik és elég hosszúvá válhat. Indításnál ez szembetűnő
+lehet, még akkor is, ha alig használjuk a beépülőt. Itt az idő a quickload
+beépülő használatára.
 
-The basic idea is that the plugin is loaded twice.  The first time user
-commands and mappings are defined that offer the functionality.  The second
-time the functions that implement the functionality are defined.
+Az ötlet, hogy a beépülőt két részletben töltjük be. Először a felhasználói
+parancsokat és mappeket, majd a függvénydefiníciókat és stb.
 
-It may sound surprising that quickload means loading a script twice.  What we
-mean is that it loads quickly the first time, postponing the bulk of the
-script to the second time, which only happens when you actually use it.  When
-you always use the functionality it actually gets slower!
+Meglepően hangzik, hogy a quickload valójában két részletbeni betöltést
+jelent. Az első rész azonnal betöltődik, de a második rész csak akkor, ha a
+beépülő funkcionalitását ténylegesen használjuk. Ha állandóan használjuk a
+script funkcionalitását, akkor a szkript mindig lassabb!
 
-Note that since Vim 7 there is an alternative: use the |autoload|
-functionality |41.15|.
+A Vim 7-től kezdődően a quickload alternatívája az 'autoload' |41.15|.
 
-The following example shows how it's done: >
+Ezt az alábbi példa demonstrálja: >
 
 	" Vim global plugin for demonstrating quick loading
 	" Last Change:	2005 Feb 25
@@ -2646,115 +2653,112 @@ The following example shows how it's done: >
 		" write functionality here
 	endfunction
 
-When the script is first loaded "s:did_load" is not set.  The commands between
-the "if" and "endif" will be executed.  This ends in a |:finish| command, thus
-the rest of the script is not executed.
+A szkript első betöltésénél a "s:did_load" változó nem kap értéket, ezért az
+"if" és "endif" közötti utasítások lefutnak, melyet a |:finish| paranccsal
+zárunk. A szkript értelmezése itt egyelőre megszakad.
 
-The second time the script is loaded "s:did_load" exists and the commands
-after the "endif" are executed.  This defines the (possible long)
-BufNetRead() and BufNetWrite() functions.
+A második alkalommal, az "s:did_load" változónak már van értéke és az "endif"
+utáni utasítások lefutnak, melyek betöltik a BufNetRead() és a BufNetWrite()
+függvényeket.
 
-If you drop this script in your plugin directory Vim will execute it on
-startup.  This is the sequence of events that happens:
+Ha a szkriptet bemásoljuk a plugin könyvtárunkba, akkor a Vim azt minden
+indításkor lefuttatja. A sorrend a következő:
 
-1. The "BNRead" command is defined and the <F19> key is mapped when the script
-   is sourced at startup.  A |FuncUndefined| autocommand is defined.  The
-   ":finish" command causes the script to terminate early.
+1. A "BNRead" parancsdefiníció létrejön és az <F19> billentyű elvégzi a
+   mappelést (ez fut le a Vim indításakor). A |FuncUndefined| autocommand
 
-2. The user types the BNRead command or presses the <F19> key.  The
-   BufNetRead() or BufNetWrite() function will be called.
+2. A felhasználó meghívja a BNRead parancsot, vagy leüti az <F19> billentyűt,
+   ezért a BufNetRead() vagy a BufNetWrite() függvény hívást kap.
 
-3. Vim can't find the function and triggers the |FuncUndefined| autocommand
-   event.  Since the pattern "BufNet*" matches the invoked function, the
-   command "source fname" will be executed.  "fname" will be equal to the name
-   of the script, no matter where it is located, because it comes from
-   expanding "<sfile>" (see |expand()|).
+3. A Vim nem fogja megtalálni a függvényt, ezért a |FuncUndefined| eseményt
+   kiváltja. A "BufNet*" minta illeszkedik a függvény nevére, ezért a "source
+   fname" parancs lefut. "fname" a szkript nevével lesz egyenlő, a fájl
+   elérési útja bármi lehet ('runtimepath'-on belül), mert ezt az "<sfile>"
+   kibontásával kapjuk meg (lásd |expand()|).
 
-4. The script is sourced again, the "s:did_load" variable exists and the
-   functions are defined.
+4. A szkript újból betöltődik, az "s:did_load" változó már létezik és a
+   függvénydefiníciók lefutnak.
 
-Notice that the functions that are loaded afterwards match the pattern in the
-|FuncUndefined| autocommand.  You must make sure that no other plugin defines
-functions that match this pattern.
+Vegyük észre, hogy a későbbiekben betöltött függvények neve illeszkedik a
+|FuncUndefined| autocommand mintájára. Biztosítanunk kell, hogy más függvény
+erre a mintára ne illeszkedjen.
 
 ==============================================================================
-*41.15*	Writing library scripts			*write-library-script*
+*41.15*	Könyvtár szkriptek írása			*write-library-script*
 
-Some functionality will be required in several places.  When this becomes more
-than a few lines you will want to put it in one script and use it from many
-scripts.  We will call that one script a library script.
+Egyes funkcionalitást több helyen is használni szeretnénk. Ha a funkcionalitás
+terjedelme több pár sornál, akkor az írjuk ki egy új fájlba, elérhetővé téve a
+többi szkript számára. Az így létrehozott  szkriptet nevezzük könyvtár
+szkriptnek.
 
-Manually loading a library script is possible, so long as you avoid loading it
-when it's already done.  You can do this with the |exists()| function.
-Example: >
+A könyvtár szkript manuális betöltése lehetséges az |exists()| függvénnyel: >
 
 	if !exists('*MyLibFunction')
 	   runtime library/mylibscript.vim
 	endif
 	call MyLibFunction(arg)
 
-Here you need to know that MyLibFunction() is defined in a script
-"library/mylibscript.vim" in one of the directories in 'runtimepath'.
+Tudnunk kell, hogy a MyLibFunction() a "library/mylibscript.vim" fájlban van
+definiálva a 'runtimepath' könyvtárak egyikében.
 
-To make this a bit simpler Vim offers the autoload mechanism.  Then the
-example looks like this: >
+Hogy ezt leegyszerűsítsük, használjuk a Vim autoload mechanizmusát: >
 
 	call mylib#my function(arg)
 
-That's a lot simpler, isn't it?  Vim will recognize the function name and when
-it's not defined search for the script "autoload/mylib.vim" in 'runtimepath'.
-That script must define the "mylib#myfunction()" function.
+Sokkal egyszerűbb, ugye? A Vim felismerte a függvény nevét, mivel ez nem volt
+definiálva, megkereste az "autoload/mylib.vim" fájlt a 'runtimepath'-ban.
+A szkriptek muszáj definiálnia a "mylib#myfunction()" függvényt.
 
-You can put many other functions in the mylib.vim script, you are free to
-organize your functions in library scripts.  But you must use function names
-where the part before the '#' matches the script name.  Otherwise Vim would
-not know what script to load.
+A mylib.vim fájlba annyi függvényt tehetünk, amennyi jól esik. Ha így
+teszünk, akkor a '#' előtt a megfelelő szkript nevét kell használnunk
+(ellenkező esetben a Vim nem tudja eldönteni, hogy melyik szkriptet töltse
+be).
 
-If you get really enthusiastic and write lots of library scripts, you may
-want to use subdirectories.  Example: >
+Szkriptjeinket szervezhetjük alkönyvtárakba is. Például: >
 
 	call netlib#ftp#read('somefile')
 
-For Unix the library script used for this could be:
+Unixon a könyvtár szkriptek elérése útja általában: >
 
 	~/.vim/autoload/netlib/ftp.vim
 
-Where the function is defined like this: >
+Melyekben a függvényeinket így definiáljuk: >
 
 	function netlib#ftp#read(fname)
 		"  Read the file fname through ftp
 	endfunction
 
-Notice that the name the function is defined with is exactly the same as the
-name used for calling the function.  And the part before the last '#'
-exactly matches the subdirectory and script name.
+A függvény neve a függvényhívási paranccsal megegyezik. A '#' előtti rész
+természetesen követi a fájl elhelyezkedési struktúráját.
 
-You can use the same mechanism for variables: >
+Változókat létrehozása hasonlóképpen: >
 
 	let weekdays = dutch#weekdays
 
-This will load the script "autoload/dutch.vim", which should contain something
-like: >
+Így a változót az "autoload/dutch.vim" fájlból töltjük be, ami valami hasonlót
+rejt: >
 
 	let dutch#weekdays = ['zondag', 'maandag', 'dinsdag', 'woensdag',
 		\ 'donderdag', 'vrijdag', 'zaterdag']
 
-Further reading: |autoload|.
+Lásd: |autoload|.
 
 ==============================================================================
 *41.16*	Vim Szkriptek megosztása			    *distribute-script*
 
-Vim users will look for scripts on the Vim website: http://www.vim.org.
-If you made something that is useful for others, share it!
+A Vim felhasználók a szkriptjeiket a Vim oldaláról szerzik be
+http://www.vim.org. Amennyiben készítettél valami hasznosat, akkor ne habozz
+azt megosztani!
 
-Vim scripts can be used on any system.  There might not be a tar or gzip
-command.  If you want to pack files together and/or compress them the "zip"
-utility is recommended.
+A Vim szkriptek bármilyen rendszeren futtathatóak. Tar és gzip azonban egyes
+rendszereket nem érhető el alapértelmezetten, így munkádat készítsd el "zip"
+formátumban.
 
-For utmost portability use Vim itself to pack scripts together.  This can be
-done with the Vimball utility.  See |vimball|.
+A legjobb hordozhatóság érdekében használjuk a Vimet a szkriptfájlok
+összeállításához |vimball|.
 
-It's good if you add a line to allow automatic updating.  Lásd |guvs-plugins|.
+Fontoljuk meg, hogy elérhetővé tesszük a szkript automatikus frissítését (egy
+sor mindösszesen).  Lásd |guvs-plugins|.
 
 ==============================================================================
 

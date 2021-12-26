@@ -26,7 +26,7 @@
 |Q_co|	változtatás: Komplex		|Q_bu|	Buffer lista parancsok
 |Q_vi|	Vizuális mód			|Q_sy|	Szintaxis kiemelés
 |Q_to|	Szöveges Objektumok		|Q_gu|	GUI parancsok
-					|Q_fo|	Folding
+					|Q_fo|	Foldolás
 
 ------------------------------------------------------------------------------
 Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé kerül.

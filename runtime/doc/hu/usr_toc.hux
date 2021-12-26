@@ -6,9 +6,7 @@
 								 *user-manual*
 
 ==============================================================================
-Overview ~
-
-Kezdeti lépések 
+Kezdeti lépések ~
 |usr_01.txt|  A kézikönyvről
 |usr_02.txt|  Első lépések a Vimben
 |usr_03.txt|  Navigáció
@@ -22,7 +20,7 @@ Kezdeti lépések
 |usr_11.txt|  Helyreállítás
 |usr_12.txt|  Tippek, trükkök
 
-Hatékony szerkesztés
+Hatékony szerkesztés ~
 |usr_20.txt|  Command-line parancsok gyors gépelése
 |usr_21.txt|  Visszatérés adott pontra
 |usr_22.txt|  Fájlkeresés
@@ -37,7 +35,7 @@ Hatékony szerkesztés
 |usr_31.txt|  A GUI (ki)használása
 |usr_32.txt|  A visszavonás fa
 
-A Vim finomhangolása
+A Vim finomhangolása~
 |usr_40.txt|  Új parancsok definiálása
 |usr_41.txt|  Vim szkript írása
 |usr_42.txt|  Menük létrehozása
@@ -46,11 +44,11 @@ A Vim finomhangolása
 |usr_45.txt|  Nyelv kiválasztása 
 |usr_46.txt|  Beépülők írása (Vim9)
 
-A Vim futtatása
+A Vim futtatása~
 |usr_90.txt|  Telepítés
 
 
-Vim Dokumentáció
+Vim Dokumentáció~
 |reference_toc|     A legrészletesebb leírások az összes parancshoz
 
 A kézikönyv elérhető nyomtatásra kész HTML, vagy PDF formátumban (angol) itt:
