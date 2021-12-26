@@ -3,13 +3,13 @@
 * A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
 
 ## Állapot
-* Utolsó fájl folyamatban: usr_41.hux
+* Utolsó fájl folyamatban: uganda.hux
 * A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
   azonban pontosításra szorul
 
 
 * Kézikönyv:
- [#######################################################################----]
+ [##########################################################################-]
 
 
 ## A jelenlegi fordítás használatba vétele

@@ -4,21 +4,99 @@
 
 
 			*uganda* *Uganda* *copying* *copyright* *license*
-SUMMARY
+ÖSDSZEGZÉS
 								*iccf* *ICCF*
-Vim is Charityware.  You can use and copy it as much as you like, but you are
-encouraged to make a donation for needy children in Uganda.  Please see |kcc|
-below or visit the ICCF web site, available at these URLs:
+A Vim úgynevezett "Charityware". Szabadon másolható és felhasználható, de arra
+bátorítunk mindenkit, hogy adakozzon az Ugandai gyermekek javára. Lásd |kcc|,
+vagy látogasd meg az ICCF weboldalát az alábbi címeken: >
 
 	http://iccf-holland.org/
 	http://www.vim.org/iccf/
 	http://www.iccf.nl/
 
-You can also sponsor the development of Vim.  Vim sponsors can vote for
-features.  See |sponsor|.  The money goes to Uganda anyway.
+A Vim fejlesztését is támogathatod. A támogatók szavazati jogokkal
+rendelkeznek. Lásd |sponsor|. A támogatások is Ugandába kerülnek.
 
-The Open Publication License applies to the Vim documentation, see
-|manual-copyright|.
+A Vim dokumentációjára az "Open Publication License" szabályai vonatkoznak,
+lásd |manual-copyright|.
+
+VIM LICENSZ MAGYARUL
+
+I)  A Vim módosítás nélküli terjesztése (a szoftver része, vagy egésze) nincs
+    korlátozva, kivéve, hogy a Vim licensz szövegét tartalmaznia kell. A Vim
+    forráskódján alapuló futtatható állomány szabadon terjeszthető,
+    kiegészíthető saját példákkal és Vim szkriptekkel.
+II) A Vim módosított (vagy kiegészített változata) szabadon terjeszthető,
+    beleértve a futtatható állományokat és/vagy forráskódot, ha az alábbi négy
+    feltétel teljesül:
+    1) A licensz eredeti szövegét tartalmaznia kell.
+    2) A módosított Vim terjesztése továbbá az alábbi öt módon történhet:
+       a) Ha a Vimen történő változtatás estén, fel kell az elérhetőséget
+       tüntetni. Ha a karbantartó (bármilyen módon) kéri a módosított Vim
+       állományát (vagy akár forráskódját), azt ingyenesen a rendelkezésére
+       kell bocsátani. A karbantartó fenntartja a jogot, hogy az elvégzett
+       módosítások implementálására (hivatalos Vim disztribúció). A benyújtott
+       módosítási igényeket a karbantartó bírálja el, illetve a módosítás
+       terjesztésének jogi- és licensz-információi megvitathatóak. Ha ez nem
+       történik meg, akkor a mindenkori Vim licensz vonatkozik a benyújtott
+       módosításokra. A jelenlegi karbantartó: Bram Moolenaar <Bram@vim.org>.
+       Ennek változása bejelentésre kerül (valószínűleg a vim.sf.net és a
+       www.vim.org és/vagy com.editors címeken). Ha a karbantartó abszolút nem
+       elérhető, akkor a változtatásokat érintő bejelentési kötelezettség
+       megszűnik. Miután a karbantartó megerősítette a változtatásunk
+       megérkezését, azt már nem kell újra elküldenünk.
+
+       b) Az a) pontban leírtak alapján terjesztett Vim disztribúció
+	  módosítatlanul terjeszthető az I) pontban leírtak alapján. További
+	  módosítások esetén az a) pontban leírtak lépnek érvénybe.
+
+       c) A Vim forráskódját minden olyan példány után nyilvánossá kell tenni,
+	  amely módosztáson végbement.  Ez történhet akár egy context diff-el
+	  is. A hozzáadott kód licensze  szabadon megválasztható. A
+	  változtatások (és licenszeik) nem akadályozhatja meg más
+	  felhasználókat, hogy a változtatásaikat a hivatalos Vim
+	  disztribúción is elvégezzék.
+
+       d) Ha a Vim disztribúciója a c) pontban foglaltaknak megfelel, akkor
+          terjeszthető a forráskódokat érintő változtatások leírása nélkül
+	  akkor, ha az alábbi három feltétel teljesül:
+	  - A változtatásokat érintő licensz megengedi, hogy a Vim
+	    karbantartója a változtatásokat szabadon és ingyenesen
+	    használhatja, illetve felhatalmazza a Vim karbantartóját, hogy a
+	    szóban forgó változtatásokat implementálja a hivatalos Vim
+	    disztribúciókban.
+	  - A változtatásokat az utolsó terjesztéstől számított minimum három
+	    évig nyilvánosak és hozzáférhetőek. A változtatásokat ezen
+	    intervallumon belül kérésre átnyújtják.
+	  - A disztribúcióban rendelkezésre kell bocsátani a kapcsolati
+	    adatokat melynek a terjesztést követő három évig érvényesnek kell
+	    lennie (vagy ameddig lehetséges).
+
+       e) Ha a változtatásokra a GNU General Public License (GPL) érvényes,
+	  akkor a módosított Vimet a GNU GPL 2-es (vagy frissebb) verziója
+	  alapján terjeszthető.
+
+    3) A ":version" parancs kimenetéhez (legalább) és az kezdőképernyőn egy
+       üzenet formájában fel kell tüntetni, hogy Vimet ki módosította. A 2)e)
+       pont alapján történő terjesztés esetén csak akkor kell a tájékoztató
+       üzenetet elhelyezni, ha az nem ütközik  a változtatások által használt
+       licenszbe.
+
+    4) A kapcsolati információkat a 2)a) valamint a 2)d) pontok alapján nem
+       szabad eltávolítani, vagy cserélni. Kivételt képez, ha a változtatások
+       szerzője végzi a cserét.
+
+III) Módosított verzió terjesztése esetén, a Vim licensz használata ajánlott,
+     a változtatásokat és forráskódot a karbantartót számára elérhetővé kell
+     tenni egy e-mail küldésével, a fájlok szerverre való
+     feltöltésével (e-mail URL). Ha változtatások száma elenyésző, (például
+     módosított Makefile), egy context diff küldése is megfelel. A
+     bejelentéshez használt e-mail cím: <maintainer@vim.org>
+
+IV)  Jelen licensz eltávolítása a mindenkori Vim disztribúciók forrásából,
+     részeiből, vagy módosított verzióiból. Jelen licensz használható a
+     korábbi Vim disztribúciók terjesztéséhez, melynek opciója szabadon
+     megválasztható.
 
 === begin of license ===
 
@@ -103,17 +181,16 @@ IV)  It is not allowed to remove this license from the distribution of the Vim
 
 === end of license ===
 
-Note:
+Megjegyzés:
 
-- If you are happy with Vim, please express that by reading the rest of this
-  file and consider helping needy children in Uganda.
+- Ha elégedett vagy a Vimmel, akkor kérlek olvasd végig a fájlt és fontold meg
+  a segítséged felajánlását az Ugandai gyermekek számára.
 
-- If you want to support further Vim development consider becoming a
-  |sponsor|.  The money goes to Uganda anyway.
+- Ha továbbiakban támogatni szeretnéd a Vim fejlődését, akkor ezt egy
+  |sponsor| tagság keretében megteheted. A tagság díja Ugandába kerül.
 
-- According to Richard Stallman the Vim license is GNU GPL compatible.
-  A few minor changes have been made since he checked it, but that should not
-  make a difference.
+- Richard Stallman állítása szerinte Vim licensz GNU GPL kompatibilis. Apró
+  változtatások történtek azóta, de ezek nem mérvadóak.
 
 - If you link Vim with a library that goes under the GNU GPL, this limits
   further distribution to the GNU GPL.  Also when you didn't actually change
@@ -276,12 +353,12 @@ Others:		Transfer to one of these accounts if possible:
 		below.  Minimal amount: $70 (my bank does not accept smaller
 		amounts for foreign check, sorry)
 
-Address to send checks to:
+A csekkeket ide küldd:
 			Bram Moolenaar
 			Finsterruetihof 1
 			8134 Adliswil
 			Switzerland
 
-This address is expected to be valid for a long time.
+A cím nagy valószínűséggel nem fog változni a jövőben.
 
  vim:tw=78:ts=8:noet:ft=help:norl:

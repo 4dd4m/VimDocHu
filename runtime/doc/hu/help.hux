@@ -11,11 +11,14 @@
 		    elvész.
 
    Tárgyhoz ugrás:  Állítsd rá a kurzort egy tárgyra (például |bars|) és üss
-		    CTRL-] (angol kiosztáson vagy egérrel).
+		    CTRL-] (angol kiosztáson vagy egérrel). 
 
-	  Egérrel:  Engedélyezd az egeret a következő paranccsal: ":set mouse=a"
-		    (xtermben, vagy GUIban), majd dupla klikkelj a kiemelt
-		    elemekre.
+		    A Magyar kiosztáson alapértelmezetten a <CTRL-Altgr-G>
+		    billentyűkombinációval tudunk a tárgyhoz ugrani.
+
+	  Egérrel:  Engedélyezd az egeret a következő paranccsal:
+		    ":set mouse=a" (xtermben, vagy GUIban), majd dupla
+		    klikkelj a kiemelt elemekre.
 
       Visszalépés:  CTRL-O
 
@@ -24,7 +27,7 @@ Specifikus segítség:	Ha tudod, hogy konkrétan mire szeretnél rákeresni,
 			Speciális előtagokkal tovább szűkítheted a keresést.
 							    *help-context*
 
-			  MI			ELŐTAG		PÉLDA	~
+			  TÍPUS			ELŐTAG		PÉLDA	~
 		      Normál parancs			   :help x
 		      Vizuális parancs		  v_	   :help v_u
 		      Beszúró parancs		  i_	   :help i_<Esc>
@@ -245,16 +248,16 @@ HELYI KIEGÉSZÍTÉS				*local-additions*
 ------------------------------------------------------------------------------
 *bars*		Bars example
 
-Gratulálok, sikerült idetalálnod a CTRL-] vagy dupla egérklikk
-segítségével. Vissza tudsz lépni az előző pontra a CTRL-T,CTRL-O, g<RightMouse>
-vagy <C-RightMouse> segítségével.
+Gratulálok, sikerült idetalálnod a CTRL-], <CTRL-Altgr-G> vagy dupla egérklikk
+segítségével. Vissza tudsz lépni az előző pontra a CTRL-T,CTRL-O,
+g<RightMouse> vagy <C-RightMouse> segítségével.
 
 Megjegyzés: a tageket | karakterek határolják, viszont, ha a kiemelés
 engedélyezve van, akkor ezeket nem lehet látni. Így egyszerűbb olvasni a
 dokumentációt.
 
-Egyébként, a CTRL-] bármikor használhatod, nem csak a kiemelt szavakon,
-ha tartozik a szóhoz helpfájl, a Vim megnyitja.
+Egyébként, a CTRL-] és <CTRL-Altgr-G> bármikor használhatod, nem csak a kiemelt szavakon,
+ha tartozik a szóhoz helpfájl vagy tag, a Vim megnyitja.
 
 ------------------------------------------------------------------------------
  vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
