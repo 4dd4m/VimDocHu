@@ -8,10 +8,10 @@
 * [x] Eredeti fájlok dátuma: 2021.08.25 (összes fájl)
 
 ## Teendők
-* [] Nyelvtani pontosítások
-* [] Tartalomjegyzék - *.hux fájlok hivatkozásainak konzisztenciája
-* [] Frissítések implementálása
-* [] Referencia fájlok átvétele
+* [ ] Nyelvtani pontosítások
+* [ ] Tartalomjegyzék - *.hux fájlok hivatkozásainak konzisztenciája
+* [ ] Frissítések implementálása
+* [ ] Referencia fájlok átvétele
 
 
 ## A jelenlegi fordítás használatba vétele
