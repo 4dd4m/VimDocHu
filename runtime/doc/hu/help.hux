@@ -108,8 +108,9 @@ A Vim futtatása~
 |usr_90.txt|  A Vim telepítése
 
 
-VIM DOKUMENTÁCIÓ: Ezek a fájlok elmagyarázzák a Vim működését a
-		  legapróbb részletekig.			*reference_toc*
+						    *reference_toc*
+
+VIM DOKUMENTÁCIÓ: A Vim működését a legapróbb részletekig.	
 
 Általános témakörök~
 |intro.txt|	általános bevezetés a Vim használatába, a dokumentáció
@@ -132,13 +133,11 @@ Alapvető szerkesztési feladatok ~
 |editing.txt|	fájlok szerkesztése és írása
 |motion.txt|	navigációs parancsok
 |scroll.txt|	görgetés
-|insert.txt|	insert and Replace mode
 |insert.txt|	beszúrás és csere
 |undo.txt|	visszavonás és újra
 |repeat.txt|	parancsok ismétlése, Vim szkriptek, debuggolás
 |visual.txt|	a vizuális mód használata (szöveg kijelölése)
 |various.txt|	számos egyéb parancs
-|recover.txt|	recovering from a crash
 |recover.txt|	helyreállítás összeomlás után
 
 Szerkesztés felsőfokon~
@@ -154,7 +153,6 @@ Szerkesztés felsőfokon~
 |autocmd.txt|	esemény vezérelt parancsok
 |eval.txt|	kifejezések kiértékelése, feltételes parancsok
 |channel.txt|	munkák, csatornák, kommunikáció
-|channel.txt|	jobs, Channels, inter-process communication
 |fold.txt|	kód folding
 
 Speciális helyzetek~
@@ -179,7 +177,7 @@ Programnyelvek támogatása~
 |ft_sql.txt|	az SQL filetype beépülőről
 
 Támogatott nyelvek~
-|digraph.txt|	list of available digraphs
+|digraph.txt|	digrammák listája
 |hungarian.txt|   Magyar nyelv támogatása
 |mbyte.txt|	multibyte támogatás
 |mlang.txt|	nem Angol nyelvek támogatása
