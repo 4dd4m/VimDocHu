@@ -1,32 +1,35 @@
 # VimDocHu
 * Ongoing Hungarian Translation of the Vim reference &amp; help files
-* A Vim felhasználói kézikönyvének és dokumentációjának részleges fordítása
+* A Vim felhasználói kézikönyvének, dokumentációjának (részleges) fordítása
 
 ## Állapot
-* Utolsó fájl folyamatban: uganda.hux
-* A fordítás vázlati stádiumban van, mely használható, nyelvhelyességileg
-  azonban pontosításra szorul
+* [x] Kézikönyv: ~100%. 
+* [x] Nyelvhelyesség, helyesírási hibák korrekciója, diffmerge folyamatban
+* [x] Eredeti fájlok dátuma: 2021.08.25 (összes fájl)
 
-
-* Kézikönyv:
- [##########################################################################-]
+## Teendők
+* [] Nyelvtani pontosítások
+* [] Tartalomjegyzék - *.hux fájlok hivatkozásainak konzisztenciája
+* [] Frissítések implementálása
+* [] Referencia fájlok átvétele
 
 
 ## A jelenlegi fordítás használatba vétele
-* rendelkezz megfelelő jogosultságokkal az alábbi mappákban
-* A runtime/doc/hu könyvtárat másold be ide: `$VIMRUNTIME/doc`
-* A runtime/syntax/hux.vim fájlt másold be ide `$VIMRUNTIME/syntax`
-* töröld a régi tagfájlokat (tags,tags-hu): `$VIMRUNTIME/doc`
+* rendelkezz megfelelő jogosultságokkal a `$VIMRUNTIME` mappában
+* A VimDocHu/runtime/doc/hu könyvtárat másold be ide: `$VIMRUNTIME/doc`
+* A VimDocHu/runtime/syntax/hux.vim fájlt másold be ide `$VIMRUNTIME/syntax`
+* töröld a régi tagfájlokat (tags,tags-hu) itt: `$VIMRUNTIME/doc`
 * futtasd `:helptags $VIMRUNTIME/doc` a Vimből
-* a .vimrchez add hozzá:
-	* set helplang=hu,en
-	* syntax on
-	* au! BufEnter *.hux :set syntax=hux
-	* set conceallevel=2
-	* set concealcursor=n
-* nvim? telepíthető, de az nvim specifikus anyagokat @en kereséssel éred el
-* mindenképp nvim? ajánlott telepíteni a vimet, telepítsd oda. 
+* a .vimrchez add hozzá (opcionális):
+	* `set helplang=hu,en` (alapértelmezett :help a magyar dokumentációt nyitja
+      meg)
+	* `syntax on`
+	* `au! BufEnter *.hux :set syntax=hux` (ha bemásoltad a syntax filet)
+	* `set conceallevel=2`
+	* `set concealcursor=n`
 
+## NVIM
+* működik, azonban nem ajánlott az Nvim-specifikus differenciák miatt
 
 ## Fordítanál?
 Az eddig betartott alapelvek:
@@ -57,7 +60,7 @@ karakterekkel (ne fordítsd le, vagy ha igen, hagyd meg az angol szöveget is),
 hogy könnyedén felderíthető legyen.
 
 ## Szerkezet
-* runtime/doc/hu/ - kézikönyv fájljai
+* `runtime/doc/hu/` - kézikönyv fájljai
 * orig/ eredeti fájlok, diffeléshez, karbantartáshoz
 * hu.po fájl:
 	* a Vim üzeneteit tartalmazza
@@ -68,8 +71,5 @@ hogy könnyedén felderíthető legyen.
 
 ## Bugok
 * helpgrep magyarul nem működik
-
-## Egyebek
-* A manual fájljai még nincsenek átemelve
 
  vim:tw=80:filetype=markdown:syntax=markdown
