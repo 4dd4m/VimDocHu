@@ -185,6 +185,30 @@ A leggyakrabban használt színsémák megtekintéséhez futtasd: >
 
 Így könnyedén dönthetsz az olvashatóságról és kinézetről.
 
+Azonban nem csak ennyi szín érhető el a számunkra. A színeket #rrggbb
+hexadecimális kód alapján meghatározhatjuk és neveket is adhatunk nekik a
+|v:colornames|-ben: >
+
+   let v:colornames['mine_red'] = '#aa0000'
+<
+Ha mások számára készítünk színsémát, hogy csak akkor definiáljuk a színeket,
+ha még nem léteznek: >
+
+   call extend(v:colornames, {'mine_red': '#aa0000'}, 'keep')
+
+Így felhasználók felülírhatják a definíciókat a színséma betöltését
+megelőzően. Például a |.vimrc| fájlunk:
+
+   runtime colors/lists/css_colors.vim
+   let v:colornames['your_red'] = v:colornames['css_red']
+   colorscheme yourscheme
+
+A színséma szerzőjeként A GUI színeire is gondolnunk kell, melyek definícióját
+itt találjuk: `colors/lists/default.vim`. Az összes ilyen, 'runtimepath' ban
+található fájlt betöltődik minden alkalommal, amikor a colorscheme parancsot
+futtatjuk. A Vim disztribúcióban megtalálható a canonical lista, mely az
+összes X11 színt tartalmazza (a fájl előzőleg rgb.txt néven szerepelt).
+
 ==============================================================================
 *06.4*	Színekkel, vagy anélkül
 
