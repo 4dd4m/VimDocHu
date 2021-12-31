@@ -1,4 +1,4 @@
-*Usr_41.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Aug 08
+*Usr_41.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Sep 10
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -718,6 +718,11 @@ Lebegőpontos számítások:			*float-functions*
 	isinf()			végtelen ellenőrzése
 	isnan()			nem szám?
 
+ 
+Blob manipulation:				*blob-functions*
+	blob2list()	    lista lekérése a blob-ból
+        list2blob()	    blob lekérése a listából
+
 Egyéb számítások:				*bitwise-function*
 	and()			bitenkénti ÉS
 	invert()		bitenkénti inverz
@@ -915,6 +920,8 @@ Szintaxis és kiemelés:	    	  *syntax-functions* *highlighting-functions*
 				törlése
 	getmatches()		|matchadd()| és |:match| összes egyezése
 	hlexists()		ellenőrzés: highlight csoport megléte
+        hlget()			kiemelés-csoportok attribútumai
+        hlset()		        kiemelés-csoportok attribútumainak beállítása	
 	hlID()			highlight csoport ID-je
 	synID()			meghat. pozíció szintaxis ID-je
 	synIDattr()		szintaxis ID attribútuma
@@ -1441,6 +1448,10 @@ argumentumokat tartalmazó lista.
 
 A függvényhivatkozások szótárakkal való kombinálása további lehetőségeket
 nyújt, erről azonban a következő fejezetben.
+
+A saját magunk által definiálható függvényekről itt olvashatunk:
+|user-functions|.
+
 ==============================================================================
 *41.8*	Listák és szótárak
 
