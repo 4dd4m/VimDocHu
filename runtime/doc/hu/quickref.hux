@@ -603,8 +603,6 @@ Insert vagy Command-line módban:
 ------------------------------------------------------------------------------
 *Q_op*		Beállítások
 
-??? termcap? ???
-
 |:set|		:se[t]			  az összes módosított beállítás
 				          listázása
 |:set|		:se[t] all		  összes nem termcap beállítás

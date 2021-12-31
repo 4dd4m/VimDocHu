@@ -217,391 +217,389 @@ Ha a "from" vagy a "to" mezők per jelet tartalmaznak akkor  visszaperjellel
 escapelni kell. Egyszerűbb azonban, ha perjel helyett egy másik karaktert
 használunk. Például "+" karaktert:
 
-???  Teszt
-Egyszerűbb, ha a / jelet lecseréljük valami másra. Például a + jelre: >
+    Egyszerűbb, ha a / jelet lecseréljük valami másra. Például a + jelre: >
+
+	    :s+one/two+one or two+
+<
+    ==============================================================================
+    *10.3*	Parancs-tartományok
+
+    A ":substitute" parancs, mint megannyi más ":" parancs, alkalmazhatóak
+    meghatározott sorokra. Ezt hívjuk tartományoknak.
+       A legegyszerűbb tartomány a {number},{number}. Például: >
+
+	    :1,5s/this/that/g
+<
+    Futtatja a csere parancsot az első öt soron (beleértve 1., valamint az 5.
+    sort is). A tartomány mindig a parancs elé kerül.
+
+    Egyetlen egy számmal a csere csak az adott számú sorban hajtódik végre: >
+
+	    :54s/President/Fool/
+<
+    Néhány parancs a teljes fájlon hajtódik végre, ha nem határozol meg
+    tartományt. Ahhoz, hogy a parancs az aktuális sorban fusson, alkalmazhatod a
+    "." tartományt. A ":write" parancs így működik. Tartomány nélkül a fájl összes
+    sora kiíródik, viszont ha csak az aktuális sort szeretnéd kiírni:  >
+
+	    :.write otherfile
+<
+    A fájl első sora tartományok meghatározásánál mindig számmal szerepel. De mi
+    can az utolsó sorral? A "$" karaktert használjuk erre a célra. Például, csere
+    az aktív sortól a fájl végéig. >
+
+	    :.,$s/yes/no/
+<
+    A "%" tartomány gyakorlatilag csak egy rövidítése a "1,$" tartománynak.
+
+
+    MINTÁK HASZNÁLATA A TARTOMÁNYOKBAN
+
+    Tegyük fel, hogy egy könyv fejezetét írod és ki szeretnél cserélni minden
+    "grey" szót a "gray" szóra, de csak ebben a fejezetben, a következőben nem.
+    Tudod, hogy a "Chapter" szó csak a fejezetek címében a sor elején szerepelhet, 
+    így fel tudod használni a tartomány pontos megállapításához. A feladat
+    megoldása: >
+
+	    :?^Chapter?,/^Chapter/s=grey=gray=g
+<
+    A keresési mintát kétszer láthatod. Az első "?^Chapter?" találja meg a
+    kurzortól felfelé elhelyezkedő sorokot egészen az előző Chapterig. A ?minta? 
+    tehát az adott pozíciótól visszafelé keres. Hasonlóan a "/^Chapter/" minta
+    pedig előre irányban találja meg a következő Chaptert.
+       A káosz elkerülése érdekében a perjelek helyett itt "=" jel szerepel. A
+    perjel is működőképes, de jelen esetben túl zajos.
+
+
+    BŐVÍTÉS ÉS SZŰKÍTÉS
+
+    A keresési parancsunkkal már csak az az egy baj van, hogy ha a következő
+    fejezet címében szerepel a "grey" szó, akkor a keresés azt is kigyomlálja.
+    Talán ezt akarod, de mi van ha nem? Ha nem, akkor offszetelned kell a
+    tartományt.
+       Szőkítsük le a tartományt egy sorral (a következő Chapter szó fölötti sor):
+       >
+	    /Chapter/-1
+<
+    Az egész számok halmazába tartozó bármely számot használhattuk volna 1 helyett.
+    Így pedig bővíthetjük a tartományt (következő Chapter alatti második sorig): >
+
+	    /Chapter/+2
+<
+    Nevesített tartományokat is offszetelhetünk. Nézzük: >
+
+	    :.+3,$-5
+<
+    A tartomány három sorral a kurzor alatt kezdődik és a fájl vége előtt öt
+    sorral ér véget. 
+
+
+    JELÖLŐK HASZNÁLATA
+
+    Ahelyett, hogy azon töprengenél, hogy hogyan adj meg egy komplex tartományt,
+    használj jelölőket. Gyorsabb.
+       Rakd le a jelölőid a 3. fejezetben leírtak szerint. Például, "mt"
+    jelöléssel a tartomány tetejét (top), "mb"-vel pedig az alját (bottom). Ezt
+    így hasznosíthatod (a jelölők sora még a tartományhoz tartozik): >
+
+	    :'t,'b
+<
+    VISUAL MÓD ÉS A TARTOMÁNYOK
+
+    Tartományokat Visual módban egyszerűen, könnyen és gyorsan megadhatunk.
+    Részben erre is való a mód. Jelöljünk ki valamit, hogy nyomjunk egy ":" a
+    command-line módba lépéshez, melybe azonnal az alábbi érdekességet láthatjuk:
+    >
+	    :'<,'>
+<
+    A működés teljesen normális. Ezek a karakterek a vizuális tartomány elejét és
+    végét jelentik. A parancsaidat ugyanúgy folytathatod, viszont az összes művelet 
+    a kijelölt tartományon lesz elvégezve.
+
+	    Megjegyzés:
+	    Visual módban a CTRL-V-vel jelölhetünk ki szövegblokkokat, azonban a
+	    leírtakkal ellentétben a művelet végrehajtódik minden olyan sor
+	    egészén, amelynek a blokk megelőzőleg a részét képezte. Ez változhat a
+	    későbbi Vim verziók során.
+
+    A '< és '> nem mások mint jelölők, melyeket a Vim a vizuális kijelölés elejére
+    és végére helyez. A jelölők addig maradnak érvényben, amíg egy másik Visual
+    módú kijelöléssel ki nem jelölünk valamit. Ebből az következik, hogy
+    újrahasznosíthatóak. Azaz, a pozíciójukhoz ugorhatsz "'<" (a ' csak a sor
+    számát jelöli), de fel is használhatod őket további tartományok definiáláshoz.
+    >
+	    :'>,$
+<
+    Az alábbi címzéssel  a az utolsó vizuális kijelöléstől a fájl végéig tartó
+    tartományt hozunk létre.
+
+
+    A SOROK SZÁMA
+
+    Ha pontosan tudod, hogy mennyi sorban szeretnél dolgozni, az aktív sorhoz
+    hozzáfűzheted számformátumban:  >
+
+	    :.,.+4
+<
+
+    A végére pedig jöhet a parancs. Az így képzett művelet az aktív sor "." és az
+    azt követő négy sor ".+4" (azaz összesen ötre) értendő.
+
+    ==============================================================================
+    *10.4*	A global parancs
+
+    A ":global" parancs az egyik leghatékonyabb parancs a Vimben. Keresési minta
+    meghatározása után lefuttathatjuk az általunk meghatározott parancsot,
+    egyszerre. Általános alakja: >
+
+	    :[range]global/{pattern}/{command}
+<
+    Ez nagyon hasonló a ":substitute" parancshoz, de ahelyett, hogy cserét
+    végeznénk el, lefuttatjuk a {command} parancsot.
+
+	    Megjegyzés:
+	    A ":global" parancs által csak olyan parancsokat tudunk futtatni,
+	    melyek ":"-al kezdődnek (tehát Normal módú parancsokat futtatására
+	    nincs lehetőség), legalábbis direkt módon. A Normal módú parancsokat a
+	    |:normal| parancsok keresztül érheted el.
+
+    Tegyük fel, hogy le át szeretnéd alakítani az összes "foobar" szót
+    "barfoo"-ra, de csak C++ típusú kommentekben. A kommentek minden esetben "//"
+    jellel kezdődnek. A parancs: >
+
+	    :g+//+s/foobar/barfoo/g
+<
+    Az első ":g" rész a ":global" rövid alakja, mint ":s" esetében a ":substitute".
+    A minta "+" karakterek közé van zárva, erre azért van szükség, mert
+    perjelekre keresünk. A következő a substitute parancs, ami lecseréli
+    "foobart"-t "barfoo"-ra.
+       A global alapértelmezett tartománya az teljes fájl, noha nem adtunk meg
+    explicit tartományt. A ":substitute" parancsnak át kell adnunk egy tartományt,
+    amit ha nem teszünk meg, a csere csak egy sorban lesz végrehajtva. Ez lényeges
+    különbség. 
+       A parancs nem tökéletes, hiszen a "//" jelek akár a sorok közepén is
+    előfordulhatnak, a csere pedig érintené a komment jelek előtti "foobar"-okat
+    is.
+
+    A ":substitute" parancshoz hasonlóan, itt is akármilyen tartományt
+    megadhattunk volna. Később meg fogsz ismerni sokkal bonyolultabb mintákat és
+    tovább tökéletesítheted a jelenlegi példát.
+
+    ==============================================================================
+    *10.5*	Visual block mód
+
+    A CTRL-V egy egészen más kijelölési módot ajánl, amivel talán még nem is
+    találkoztál. Négyzetes területet tudsz kijelölni. Létezik pár manipulációs 
+    parancs, melyekkel konkrétan erre a kijelölési módra születtek.
+
+    A "$" parancs Visual blokk mód használatakor különösen viselkedik, az összes
+    sor kijelölése ki lesz terjesztve a sor végéig, még azoké is, melyek
+    rövidebbek.  A kijelölés addig marad aktív, amíg horizontális irányban el nem
+    kezdesz mozogni visszafelé. "j" megtartja, "h" megszünteti (a kijelölés
+    átalakul valódi négyzetes kijelölésre, és a sorok nagy részének megszűnik a
+    sor végéig tartó kijelölése).
+
+
+    SZÖVEG BEILLESZTÉSE
+
+    Az "I{String}<Esc>" beilleszteti a {String}et a blokk elé. Normál módban "I"
+    hasonlóan működik, ott a sor elejére illeszt. Nyomj CTRL-V-t és jelölj ki egy
+    blokkot a kurzor segítségével. Most üss I karaktert, Insert módba kerülsz, a
+    szerkesztő pedig várja a {String}et. A beírt szöveget csak a kijelölésed első
+    sorában fogod látni, de ha elhagyod az Insert módot, akkor érteni fogod a
+    technika lényegét.
+       Térj vissza Normal módba <Esc>, erre a beírt szöveg a blokk kijelölés
+    összes sora előtt megjelenik. Például:
+
+	    include one ~
+	    include two ~
+	    include three ~
+	    include four ~
+
+    Vidd a kurzort a "one" szó "o" betűjére, majd nyomj CTRL-V-t. Mozogj lejjebb
+    három sorral "3j" a "four" szóig. A blokk kijelölésed négy soros. Most
+    varázsolj: >
+
+	    Imain.<Esc>
+
+    Eredmény:
+
+	    include main.one ~
+	    include main.two ~
+	    include main.three ~
+	    include main.four ~
+<
+    Ha a köztes sorok nem érintik a kijelölést, akkor abba a sorba semmi nem kerül
+    beillesztésre. Vizsgáljuk meg. Az alábbi példában jelölj ki egy blokkot úgy,
+    hogy az alsó és felső "long" szavak ki legyenek jelölve. Láthatóvá válik, hogy
+    a középső sor nem érinti a kijelölést, ezért oda semmi sem lesz beillesztve.
+    Tégy egy próbát:
+
+	    This is a long line ~
+	    short ~
+	    Any other long line ~
+
+		      ^^^^ a kijelölt blokk
+
+    Most pedig futtasd a "Ivery <Esc>" parancsot. Ha minden tökéletesen ment
+    végbe:
+
+	    This is a very long line ~
+	    short ~
+	    Any other very long line ~
+
+    A rövid sorba nem került semmi.
+
+    Ha a beszúrás során alkalmazol újsor karaktert, akkor a beillesztés egyszerű,
+    Normal módú biellesztésként megy végbe és csak az első sorra hat (a kijelölés
+    többi sorába nem kerül semmi).
+
+    Az "A" parancs ugyanúgy működik, csak a blokk jobb oldalára illeszt be, illetve
+    a rövidebb sorokba is beszúr (a blokk kijelölés folytatásaként). A két parancs
+    (I és A blokk módban) azért így lett tervezve, hogy eldönthessük, szeretnénk-e
+    beilleszteni a rövidebb sorokba. 
+       "A"-nak egy speciális esete van: ha a blokk meghatározásakor "$" parancsot
+    használunk (kijelölés a sor végéig), akkor az összes sor végére fűz.
+       A fenti példát felhasználva, válts át Visual módra, majd futtasd a 
+    "$A XXX<Esc> parancsot:
+
+	    This is a long line XXX ~
+	    short XXX ~
+	    Any other long line XXX ~
+
+    A technika "$" használata nélkül nem működik. A Vim megjegyzi, ha "$"-t
+    használunk. Ha ugyanezt a hatást próbáljuk elérni, de a kijelölés során más
+    egyéb navigációs paranccsal kerülünk a sor végére (például "100l"), azonos
+    parancs mellett ($A XXX<Esc>) más eredményt fogunk tapasztalni. A kijelölés
+    során a kurzor kezdeti pozíciója nem számít, hiszen a lényeg a "$"-al való
+    ugráson van.
+
+
+    SZÖVEG VÁLTOZTATÁSA
+
+    A Visual blokk mód "c" (change) parancsa kitörli a kijelölt blokkot és Insert 
+    módra vált, amivel szövegbevitelt kezdeményezhetünk. A beírt szöveg megjelenik a
+    kijelölés összes sorában.
+       Jelöljük ki ismét a "long" szavakat, de most parancsunk legyen
+    "c_LONG_<Esc>", ezt kapjuk:
 
-	:s+one/two+one or two+
+	    This is a _LONG_ line ~
+	    short ~
+	    Any other _LONG_ line ~
 
-==============================================================================
-*10.3*	Parancs-tartományok
+    A parancs "I"-hez hasonlóan működik, ugyanis a rövidebb sorokat nem
+    változtatja. Sortörés a bevitel során nem alkalmazható. 
 
-A ":substitute" parancs, mint megannyi más ":" parancs, alkalmazhatóak
-meghatározott sorokra. Ezt hívjuk tartományoknak.
-   A legegyszerűbb tartomány a {number},{number}. Például: >
-
-	:1,5s/this/that/g
-
-Futtatja a csere parancsot az első öt soron (beleértve 1., valamint az 5.
-sort is). A tartomány mindig a parancs elé kerül.
-
-Egyetlen egy számmal a csere csak az adott számú sorban hajtódik végre: >
-
-	:54s/President/Fool/
-
-Néhány parancs a teljes fájlon hajtódik végre, ha nem határozol meg
-tartományt. Ahhoz, hogy a parancs az aktuális sorban fusson, alkalmazhatod a
-"." tartományt. A ":write" parancs így működik. Tartomány nélkül a fájl összes
-sora kiíródik, viszont ha csak az aktuális sort szeretnéd kiírni:  >
-
-	:.write otherfile
-
-A fájl első sora tartományok meghatározásánál mindig számmal szerepel. De mi
-can az utolsó sorral? A "$" karaktert használjuk erre a célra. Például, csere
-az aktív sortól a fájl végéig. >
-
-	:.,$s/yes/no/
-
-A "%" tartomány gyakorlatilag csak egy rövidítése a "1,$" tartománynak.
-
-
-MINTÁK HASZNÁLATA A TARTOMÁNYOKBAN
-
-Tegyük fel, hogy egy könyv fejezetét írod és ki szeretnél cserélni minden
-"grey" szót a "gray" szóra, de csak ebben a fejezetben, a következőben nem.
-Tudod, hogy a "Chapter" szó csak a fejezetek címében a sor elején szerepelhet, 
-így fel tudod használni a tartomány pontos megállapításához. A feladat
-megoldása: >
-
-	:?^Chapter?,/^Chapter/s=grey=gray=g
-
-A keresési mintát kétszer láthatod. Az első "?^Chapter?" találja meg a
-kurzortól felfelé elhelyezkedő sorokot egészen az előző Chapterig. A ?minta? 
-tehát az adott pozíciótól visszafelé keres. Hasonlóan a "/^Chapter/" minta
-pedig előre irányban találja meg a következő Chaptert.
-   A káosz elkerülése érdekében a perjelek helyett itt "=" jel szerepel. A
-perjel is működőképes, de jelen esetben túl zajos.
-
-
-BŐVÍTÉS ÉS SZŰKÍTÉS
-
-A keresési parancsunkkal már csak az az egy baj van, hogy ha a következő
-fejezet címében szerepel a "grey" szó, akkor a keresés azt is kigyomlálja.
-Talán ezt akarod, de mi van ha nem? Ha nem, akkor offszetelned kell a
-tartományt.
-   Szőkítsük le a tartományt egy sorral (a következő Chapter szó fölötti sor):
-   >
-	/Chapter/-1
-
-Az egész számok halmazába tartozó bármely számot használhattuk volna 1 helyett.
-Így pedig bővíthetjük a tartományt (következő Chapter alatti második sorig): >
-
-	/Chapter/+2
-
-Nevesített tartományokat is offszetelhetünk. Nézzük: >
-
-	:.+3,$-5
-
-A tartomány három sorral a kurzor alatt kezdődik és a fájl vége előtt öt
-sorral ér véget. 
-
-
-JELÖLŐK HASZNÁLATA
-
-Ahelyett, hogy azon töprengenél, hogy hogyan adj meg egy komplex tartományt,
-használj jelölőket. Gyorsabb.
-   Rakd le a jelölőid a 3. fejezetben leírtak szerint. Például, "mt"
-jelöléssel a tartomány tetejét (top), "mb"-vel pedig az alját (bottom). Ezt
-így hasznosíthatod (a jelölők sora még a tartományhoz tartozik): >
-
-	:'t,'b
-
-
-VISUAL MÓD ÉS A TARTOMÁNYOK
-
-Tartományokat Visual módban egyszerűen, könnyen és gyorsan megadhatunk.
-Részben erre is való a mód. Jelöljünk ki valamit, hogy nyomjunk egy ":" a
-command-line módba lépéshez, melybe azonnal az alábbi érdekességet láthatjuk:
->
-	:'<,'>
-
-A működés teljesen normális. Ezek a karakterek a vizuális tartomány elejét és
-végét jelentik. A parancsaidat ugyanúgy folytathatod, viszont az összes művelet 
-a kijelölt tartományon lesz elvégezve.
-
-	Megjegyzés:
-	Visual módban a CTRL-V-vel jelölhetünk ki szövegblokkokat, azonban a
-	leírtakkal ellentétben a művelet végrehajtódik minden olyan sor
-	egészén, amelynek a blokk megelőzőleg a részét képezte. Ez változhat a
-	későbbi Vim verziók során.
-
-A '< és '> nem mások mint jelölők, melyeket a Vim a vizuális kijelölés elejére
-és végére helyez. A jelölők addig maradnak érvényben, amíg egy másik Visual
-módú kijelöléssel ki nem jelölünk valamit. Ebből az következik, hogy
-újrahasznosíthatóak. Azaz, a pozíciójukhoz ugorhatsz "'<" (a ' csak a sor
-számát jelöli), de fel is használhatod őket további tartományok definiáláshoz.
->
-	:'>,$
-
-Az alábbi címzéssel  a az utolsó vizuális kijelöléstől a fájl végéig tartó
-tartományt hozunk létre.
-
-
-A SOROK SZÁMA
-
-Ha pontosan tudod, hogy mennyi sorban szeretnél dolgozni, az aktív sorhoz
-hozzáfűzheted számformátumban:  >
-
-	:.,.+4
-
-
-A végére pedig jöhet a parancs. Az így képzett művelet az aktív sor "." és az
-azt követő négy sor ".+4" (azaz összesen ötre) értendő.
-
-==============================================================================
-*10.4*	A global parancs
-
-A ":global" parancs az egyik leghatékonyabb parancs a Vimben. Keresési minta
-meghatározása után lefuttathatjuk az általunk meghatározott parancsot,
-egyszerre. Általános alakja: >
-
-	:[range]global/{pattern}/{command}
-
-Ez nagyon hasonló a ":substitute" parancshoz, de ahelyett, hogy cserét
-végeznénk el, lefuttatjuk a {command} parancsot.
-
-	Megjegyzés:
-	A ":global" parancs által csak olyan parancsokat tudunk futtatni,
-	melyek ":"-al kezdődnek (tehát Normal módú parancsokat futtatására
-	nincs lehetőség), legalábbis direkt módon. A Normal módú parancsokat a
-	|:normal| parancsok keresztül érheted el.
-
-Tegyük fel, hogy le át szeretnéd alakítani az összes "foobar" szót
-"barfoo"-ra, de csak C++ típusú kommentekben. A kommentek minden esetben "//"
-jellel kezdődnek. A parancs: >
-
-	:g+//+s/foobar/barfoo/g
-
-Az első ":g" rész a ":global" rövid alakja, mint ":s" esetében a ":substitute".
-A minta "+" karakterek közé van zárva, erre azért van szükség, mert
-perjelekre keresünk. A következő a substitute parancs, ami lecseréli
-"foobart"-t "barfoo"-ra.
-   A global alapértelmezett tartománya az teljes fájl, noha nem adtunk meg
-explicit tartományt. A ":substitute" parancsnak át kell adnunk egy tartományt,
-amit ha nem teszünk meg, a csere csak egy sorban lesz végrehajtva. Ez lényeges
-különbség. 
-   A parancs nem tökéletes, hiszen a "//" jelek akár a sorok közepén is
-előfordulhatnak, a csere pedig érintené a komment jelek előtti "foobar"-okat
-is.
-
-A ":substitute" parancshoz hasonlóan, itt is akármilyen tartományt
-megadhattunk volna. Később meg fogsz ismerni sokkal bonyolultabb mintákat és
-tovább tökéletesítheted a jelenlegi példát.
-
-==============================================================================
-*10.5*	Visual block mód
-
-A CTRL-V egy egészen más kijelölési módot ajánl, amivel talán még nem is
-találkoztál. Négyzetes területet tudsz kijelölni. Létezik pár manipulációs 
-parancs, melyekkel konkrétan erre a kijelölési módra születtek.
-
-A "$" parancs Visual blokk mód használatakor különösen viselkedik, az összes
-sor kijelölése ki lesz terjesztve a sor végéig, még azoké is, melyek
-rövidebbek.  A kijelölés addig marad aktív, amíg horizontális irányban el nem
-kezdesz mozogni visszafelé. "j" megtartja, "h" megszünteti (a kijelölés
-átalakul valódi négyzetes kijelölésre, és a sorok nagy részének megszűnik a
-sor végéig tartó kijelölése).
-
-
-SZÖVEG BEILLESZTÉSE
-
-Az "I{String}<Esc>" beilleszteti a {String}et a blokk elé. Normál módban "I"
-hasonlóan működik, ott a sor elejére illeszt. Nyomj CTRL-V-t és jelölj ki egy
-blokkot a kurzor segítségével. Most üss I karaktert, Insert módba kerülsz, a
-szerkesztő pedig várja a {String}et. A beírt szöveget csak a kijelölésed első
-sorában fogod látni, de ha elhagyod az Insert módot, akkor érteni fogod a
-technika lényegét.
-   Térj vissza Normal módba <Esc>, erre a beírt szöveg a blokk kijelölés
-összes sora előtt megjelenik. Például:
-
-	include one ~
-	include two ~
-	include three ~
-	include four ~
-
-Vidd a kurzort a "one" szó "o" betűjére, majd nyomj CTRL-V-t. Mozogj lejjebb
-három sorral "3j" a "four" szóig. A blokk kijelölésed négy soros. Most
-varázsolj: >
-
-	Imain.<Esc>
-
-Eredmény:
-
-	include main.one ~
-	include main.two ~
-	include main.three ~
-	include main.four ~
-
-Ha a köztes sorok nem érintik a kijelölést, akkor abba a sorba semmi nem kerül
-beillesztésre. Vizsgáljuk meg. Az alábbi példában jelölj ki egy blokkot úgy,
-hogy az alsó és felső "long" szavak ki legyenek jelölve. Láthatóvá válik, hogy
-a középső sor nem érinti a kijelölést, ezért oda semmi sem lesz beillesztve.
-Tégy egy próbát:
-
-	This is a long line ~
-	short ~
-	Any other long line ~
-
-		  ^^^^ a kijelölt blokk
-
-Most pedig futtasd a "Ivery <Esc>" parancsot. Ha minden tökéletesen ment
-végbe:
-
-	This is a very long line ~
-	short ~
-	Any other very long line ~
-
-A rövid sorba nem került semmi.
-
-Ha a beszúrás során alkalmazol újsor karaktert, akkor a beillesztés egyszerű,
-Normal módú biellesztésként megy végbe és csak az első sorra hat (a kijelölés
-többi sorába nem kerül semmi).
-
-Az "A" parancs ugyanúgy működik, csak a blokk jobb oldalára illeszt be, illetve
-a rövidebb sorokba is beszúr (a blokk kijelölés folytatásaként). A két parancs
-(I és A blokk módban) azért így lett tervezve, hogy eldönthessük, szeretnénk-e
-beilleszteni a rövidebb sorokba. 
-   "A"-nak egy speciális esete van: ha a blokk meghatározásakor "$" parancsot
-használunk (kijelölés a sor végéig), akkor az összes sor végére fűz.
-   A fenti példát felhasználva, válts át Visual módra, majd futtasd a 
-"$A XXX<Esc> parancsot:
-
-	This is a long line XXX ~
-	short XXX ~
-	Any other long line XXX ~
-
-A technika "$" használata nélkül nem működik. A Vim megjegyzi, ha "$"-t
-használunk. Ha ugyanezt a hatást próbáljuk elérni, de a kijelölés során más
-egyéb navigációs paranccsal kerülünk a sor végére (például "100l"), azonos
-parancs mellett ($A XXX<Esc>) más eredményt fogunk tapasztalni. A kijelölés
-során a kurzor kezdeti pozíciója nem számít, hiszen a lényeg a "$"-al való
-ugráson van.
-
-
-SZÖVEG VÁLTOZTATÁSA
-
-A Visual blokk mód "c" (change) parancsa kitörli a kijelölt blokkot és Insert 
-módra vált, amivel szövegbevitelt kezdeményezhetünk. A beírt szöveg megjelenik a
-kijelölés összes sorában.
-   Jelöljük ki ismét a "long" szavakat, de most parancsunk legyen
-"c_LONG_<Esc>", ezt kapjuk:
-
-	This is a _LONG_ line ~
-	short ~
-	Any other _LONG_ line ~
-
-A parancs "I"-hez hasonlóan működik, ugyanis a rövidebb sorokat nem
-változtatja. Sortörés a bevitel során nem alkalmazható. 
-
-A "C" parancs a kijelölés bal szélétől a sor végéig töröl és Insert módra
-vált. A bevitt szöveg csak a kijelölésben szereplő sorokra érvényes, a
-rövidebb sorokat nem egészíti ki. "C" működése normál módban teljesen
-megegyezik, azonban a szerkesztés tárgya egyetlen egy sor.
-   Még mindig ugyanazon példánál maradva gépeljünk "Cnew text<Esc>":
-
-	This is a new text ~
-	short ~
-	Any other new text ~
-
-Meg kell jegyezzük, hogy hiába csak a "long" szavak voltak kijelölve, a "long"
-szavak utáni rész is ki lett törölve. Tehát, csak a kijelölés bal széle
-számít.
-   A rövidebb sorok, melyek nem érnek bele a blokkba, érintetlenül maradnak.
-
-Egyéb parancsok, melyek megváltoztathatják a karaktereket a blokkban:
-
-	~	kis- nagybetű csere	(a -> A and A -> a)
-	U	nagybetűre csere        (a -> A and A -> A)
-	u	kisbetűre csere         (a -> a and A -> a)
-
-
-KITÖLTÉS KARAKTEREKKEL
-
-A blokk kitöltéséhez használd az "r" parancsot. A példa mondat ugyan az, a
-parancs viszont "rx":
-
-	This is a xxxx line ~
-	short ~
-	Any other xxxx line ~
-
-
-	Note:
-	
-	A sorok végén túli karaktereket is érinteni szeretnéd, akkor nézd át a
-	'virtualedit' beállításait a 25. fejezetben.
-	If you want to include characters beyond the end of the line in the
-	block, check out the 'virtualedit' feature in chapter 25.
-
-
-BEHÚZÁS
-
-A ">" behúzza a szöveget egy 'shiftwidth' értékkel, üres karaktereket beszúrva.
-A behúzás kezdőpontja a blokk bal széle.
-   Jelöld ki ismét a "long" szavakat, majd húzd be őket ">" paranccsal:
-
-	This is a	  long line ~
-	short ~
-	Any other	  long line ~
-
-A behúzás értékének megváltoztatásához állítsd át a 'shiftwidth' értékét négy
-szóköznyire: >
-
-	:set shiftwidth=4
-
-A "<" visszaállítja a behúzást a blokk bal szélétől számítva. Ha behúzás
-értékétől kevesebb üres karakter áll a blokk bal széle előtt, akkor a behúzás
-az összes üres karaktert eltávolítja.
-
-
-SOROK ÖSSZEKAPCSOLÁSA
-
-A "J" parancs az aktív sort az alatta lévővel összekapcsolja, így eltávolítja
-a sortörést. Gyakorlatilag a sortörést, a következő sor üres karaktereit és az
-aktív sor végén lévő üres karaktereket egy szóközre cseréli. A sorok vége után
-két szóközt illeszt be, amit a 'joinspaces' opcióval állítani lehet.
-   Kezdjük a már jól megismert példával. A "J" parancs eredménye:
-
-	This is a long line short Any other long line ~
-
-A "J" parancshoz nem szükséges blokk kijelölés. Visual és Visual Line módban
-is ugyanúgy működik.
-
-Ha azt szeretnéd, hogy a program megtartsa a szóközöket és egyéb üres
-karaktereket, akkor használd a "gJ" parancsot.
-
-==============================================================================
-*10.6*	Fájl részeinek olvasása, írása
-
-Ha e-mailt írsz, akkor jól jöhet, ha egy fájlt tartalmát be tudod illeszteni.
-Ez a ":read {filename}" paranccsal oldható meg. A fájl tartalma a kurzor alá
-ágyazódik. 
-   Kiindulópontunk:
-
-	Hi John, ~
-	Here is the diff that fixes the bug: ~
-	Bye, Pierre. ~
-
-Vidd a kurzor a második sorra és ágyazd be a fájlt:
-
-	:read patch
-
-A "patch" fájl tartalma megjelenik:
-
-	Hi John, ~
-	Here is the diff that fixes the bug: ~
-	2c2 ~
-	<	for (i = 0; i <= length; ++i) ~
-	--- ~
-	>	for (i = 0; i < length; ++i) ~
-	Bye, Pierre. ~
-
-A ":read" parancs kezeli a tartományokat. 
-The ":read" command accepts a range. A megadott tartomány alá kerül a fájl
-tartalma. Ezért ":$r patch" a fájl végére illeszti be a tartalmat. 
-   Mi van akkor, ha a fájl legelejére szeretnél beágyazni? Tartományként a 0.
-sort kell használnunk. A sor valójában nem létezik, a legtöbb parancs
-hibaüzenettel megszakad, de kivételesen ennél a parancsnál használható:
->
-	:0read patch
+    A "C" parancs a kijelölés bal szélétől a sor végéig töröl és Insert módra
+    vált. A bevitt szöveg csak a kijelölésben szereplő sorokra érvényes, a
+    rövidebb sorokat nem egészíti ki. "C" működése normál módban teljesen
+    megegyezik, azonban a szerkesztés tárgya egyetlen egy sor.
+       Még mindig ugyanazon példánál maradva gépeljünk "Cnew text<Esc>":
+
+	    This is a new text ~
+	    short ~
+	    Any other new text ~
+
+    Meg kell jegyezzük, hogy hiába csak a "long" szavak voltak kijelölve, a "long"
+    szavak utáni rész is ki lett törölve. Tehát, csak a kijelölés bal széle
+    számít.
+       A rövidebb sorok, melyek nem érnek bele a blokkba, érintetlenül maradnak.
+
+    Egyéb parancsok, melyek megváltoztathatják a karaktereket a blokkban:
+
+	    ~	kis- nagybetű csere	(a -> A and A -> a)
+	    U	nagybetűre csere        (a -> A and A -> A)
+	    u	kisbetűre csere         (a -> a and A -> a)
+
+
+    KITÖLTÉS KARAKTEREKKEL
+
+    A blokk kitöltéséhez használd az "r" parancsot. A példa mondat ugyan az, a
+    parancs viszont "rx":
+
+	    This is a xxxx line ~
+	    short ~
+	    Any other xxxx line ~
+
+
+	    Note:
+	    
+	    A sorok végén túli karaktereket is érinteni szeretnéd, akkor nézd át a
+	    'virtualedit' beállításait a 25. fejezetben.
+	    If you want to include characters beyond the end of the line in the
+	    block, check out the 'virtualedit' feature in chapter 25.
+
+
+    BEHÚZÁS
+
+    A ">" behúzza a szöveget egy 'shiftwidth' értékkel, üres karaktereket beszúrva.
+    A behúzás kezdőpontja a blokk bal széle.
+       Jelöld ki ismét a "long" szavakat, majd húzd be őket ">" paranccsal:
+
+	    This is a	  long line ~
+	    short ~
+	    Any other	  long line ~
+
+    A behúzás értékének megváltoztatásához állítsd át a 'shiftwidth' értékét négy
+    szóköznyire: >
+
+	    :set shiftwidth=4
+<
+    A "<" visszaállítja a behúzást a blokk bal szélétől számítva. Ha behúzás
+    értékétől kevesebb üres karakter áll a blokk bal széle előtt, akkor a behúzás
+    az összes üres karaktert eltávolítja.
+
+
+    SOROK ÖSSZEKAPCSOLÁSA
+
+    A "J" parancs az aktív sort az alatta lévővel összekapcsolja, így eltávolítja
+    a sortörést. Gyakorlatilag a sortörést, a következő sor üres karaktereit és az
+    aktív sor végén lévő üres karaktereket egy szóközre cseréli. A sorok vége után
+    két szóközt illeszt be, amit a 'joinspaces' opcióval állítani lehet.
+       Kezdjük a már jól megismert példával. A "J" parancs eredménye:
+
+	    This is a long line short Any other long line ~
+
+    A "J" parancshoz nem szükséges blokk kijelölés. Visual és Visual Line módban
+    is ugyanúgy működik.
+
+    Ha azt szeretnéd, hogy a program megtartsa a szóközöket és egyéb üres
+    karaktereket, akkor használd a "gJ" parancsot.
+
+    ==============================================================================
+    *10.6*	Fájl részeinek olvasása, írása
+
+    Ha e-mailt írsz, akkor jól jöhet, ha egy fájlt tartalmát be tudod illeszteni.
+    Ez a ":read {filename}" paranccsal oldható meg. A fájl tartalma a kurzor alá
+    ágyazódik. 
+       Kiindulópontunk:
+
+	    Hi John, ~
+	    Here is the diff that fixes the bug: ~
+	    Bye, Pierre. ~
+
+    Vidd a kurzor a második sorra és ágyazd be a fájlt:
+
+	    :read patch
+
+    A "patch" fájl tartalma megjelenik:
+
+	    Hi John, ~
+	    Here is the diff that fixes the bug: ~
+	    2c2 ~
+	    <	for (i = 0; i <= length; ++i) ~
+	    --- ~
+	    >	for (i = 0; i < length; ++i) ~
+	    Bye, Pierre. ~
+
+    A ":read" parancs kezeli a tartományokat. 
+    The ":read" command accepts a range. A megadott tartomány alá kerül a fájl
+    tartalma. Ezért ":$r patch" a fájl végére illeszti be a tartalmat. 
+       Mi van akkor, ha a fájl legelejére szeretnél beágyazni? Tartományként a 0.
+    sort kell használnunk. A sor valójában nem létezik, a legtöbb parancs
+    hibaüzenettel megszakad, de kivételesen ennél a parancsnál használható:
+    >
+	    :0read patch
 
 A "patch" fájl a az első sor fölé kerül.
 
