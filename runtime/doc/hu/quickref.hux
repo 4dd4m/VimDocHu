@@ -126,33 +126,32 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 
 |pattern|		Speciális karakterek jelentései a keresési mintákban
 
-??? missing a couple of things, not clear yet ???
 			jelentés	      magic   nomagic	~
-		illeszkedik bármely karakterre	.	\.
+              illeszkedik bármely karakterre	.	\.
 		   illeszkedik a sorkezdetre	^	^
 			   illeszkedik <EOL>	$	$
 		   illeszkedik a szó elejére	\<	\<
 		    illeszkedik a szó végére	\>	\>
      illeszkedik a tartomány egy karakterére	[a-z]	\[a-z]
   illeszkedik ha a tartomány nem tartalmazza	[^a-z]	\[^a-z]
-	 egy azonosító karakterre illeszkedik	\i	\i
+        egy azonosító karakterre illeszkedik	\i	\i
 			 ugyanaz de nem szám	\I	\I
-		 matches a keyword character	\k	\k
+	     kulcsszó karakterre illeszkedik	\k	\k
 		         ugyanaz de nem szám	\K	\K
-	       matches a file name character	\f	\f
+	      fájlnév karakterre illeszkedik	\f	\f
 			 ugyanaz de nem szám	\F	\F
-	       matches a printable character	\p	\p
-		ugyanaz but excluding digits	\P	\P
-		        white-space karakter	\s	\s
-	           nem white-space karakter	\S	\S
+	  nyomtatható karakterre illeszkedik	\p	\p
+		       ugyanaz kivéve számok	\P	\P
+			       üres karakter	\s	\s
+	                   nem üres karakter	\S	\S
 			   illeszkedik <Esc>	\e	\e
 			   illeszkedik <Tab>	\t	\t
 			    illeszkedik <CR>	\r	\r
 			    illeszkedik <BS>	\b	\b
-    az előző minta 0 vagy többször fordul elő	*	\*
-  az előző minta legalább egy- vagy többször	\+	\+
-	       az előző minta 0 vagy egyszer	\=	\=
-    az előző minta min 2-szer de max. 5-ször    \{2,5}  \{2,5}
+   az előző minta 0 vagy többször fordul elő	*	\*
+  az előző minta legalább egy, vagy többször	\+	\+
+	      az előző minta 0, vagy egyszer	\=	\=
+  az előző minta min. kétszer de max. ötször    \{2,5}  \{2,5}
           két (vagy több) alternatíva (VAGY) 	\|	\|
 			       csoportosítás	\(\)	\(\)
 
@@ -206,29 +205,28 @@ Az N a parancs ismétlésszámát jelöli az alábbi példákban. A parancs elé
 |:go|	:[range]go[to] [off]	haladj [off] bájtnyit a bufferben
 ------------------------------------------------------------------------------
 *Q_ta*		Tagek (címkék)  használata
-??? maybe later ???
 |:ta|      :ta[g][!] {tag}	ugorj taghez {tag}
-|:ta|      :[count]ta[g][!]	jump to [count]'th newer tag in tag list
-|CTRL-]|      CTRL-]		jump to the tag under cursor, unless changes
-				   have been made
-|:ts|      :ts[elect][!] [tag]	list matching tags and select one to jump to
-|:tjump|   :tj[ump][!] [tag]	jump to tag [tag] or select from list when
-				   there are multiple matches
-|:ltag|    :lt[ag][!] [tag]	jump to tag [tag] and add matching tags to the
-				   location list
+|:ta|      :[count]ta[g][!]	az [count]-adik taghez ugrik előre
+|CTRL-]|      CTRL-]		kurzor alatt lévő taghez ugrás, ha a fájlt nem
+				módosítottuk
+|:ts|      :ts[elect][!] [tag]	tagek listázása és ugrás kiválasztással
+|:tjump|   :tj[ump][!] [tag]	[tag]-hez ugrás, vagy kiválasztás a listából
+				(több találat esetén)
+|:ltag|    :lt[ag][!] [tag]	[tag]-hez ugrás, és az egyező tagek location
+				listhez adása
 
 |:tags|    :tags		tagek listázása
-|CTRL-T|   N  CTRL-T		jump back from Nth older tag in tag list
-|:po|      :[count]po[p][!]	jump back from [count]'th older tag in tag list
-|:tnext|   :[count]tn[ext][!]	jump to [count]'th next matching tag
-|:tp|      :[count]tp[revious][!] jump to [count]'th previous matching tag
-|:tr|      :[count]tr[ewind][!]	jump to [count]'th matching tag
-|:tl|      :tl[ast][!]		jump to last matching tag
+|CTRL-T|   N  CTRL-T		N. taghez ugrás (visszafelé)
+|:po|      :[count]po[p][!]	[count] taghez ugrás a taglistában
+|:tnext|   :[count]tn[ext][!]	[count] egyező taghez ugrás (előre)
+|:tp|      :[count]tp[revious][!] [count] egyező taghez ugrás  (vissza)
+|:tr|      :[count]tr[ewind][!]	[count] egyező taghoz ugrás
+|:tl|      :tl[ast][!]		utolsó illeszkedő taghoz ugrás
 
 |:ptag|    :pt[ag] {tag}	{tag} megtekintése előnézeti ablakban
 |CTRL-W_}|    CTRL-W }		mint CTRL-], tag előnézeti ablakban
-|:pts|     :pts[elect]		like ":tselect" but show tag in preview window
-|:ptjump|  :ptj[ump]		like ":tjump" but show tag in preview window
+|:pts|     :pts[elect]		mint ":tselect", de előnézeti ablakban
+|:ptjump|  :ptj[ump]		mint ":tjump", de előnézeti ablakban
 |:pclose|  :pc[lose]		tag-előnézet bezárása
 |CTRL-W_z|    CTRL-W z		tag-előnézet bezárása
 ------------------------------------------------------------------------------
@@ -475,23 +473,22 @@ Insert vagy Command-line módban:
 |v_CTRL-V| CTRL-V	blokk kijelölés (vagy kilépés ebből a módból)
 ------------------------------------------------------------------------------
 *Q_to*		Szöveges objektumok (csak Visual módban vagy parancs után)
-??? check what inner is???
 |v_aw|	   N  aw	"szó" kijelölése
-|v_iw|	   N  iw	"inner szó" kijelölése
+|v_iw|	   N  iw	"a szó" kijelölése
 |v_aW|	   N  aW	"SZÓ" kijelölése (lásd |WORD|)
 |v_iW|	   N  iW	"SZÓ" kijelölése (lásd |WORD|)
 |v_as|	   N  as	"mondat" kijelölése
-|v_is|	   N  is	"inner mondat" kijelölése
+|v_is|	   N  is	"a mondat" kijelölése
 |v_ap|	   N  ap	"bekezdés" kijelölése
-|v_ip|	   N  ip	"inner bekezdés" kijelölése
+|v_ip|	   N  ip	"a bekezdés" kijelölése
 |v_ab|	   N  ab	"blokk" kijelölése ("[("-tól "])"-ig)
-|v_ib|	   N  ib	"inner blokk" kijelölése ("[("-tól "])"-ig)
+|v_ib|	   N  ib	"a blokk" kijelölése ("[("-tól "])"-ig)
 |v_aB|	   N  aB	"Block" kijelölése ("[{"-tól "]}"-ig)
-|v_iB|	   N  iB	"inner Blokk" kijelölése ("[{"-tól "]}"-ig)
+|v_iB|	   N  iB	"a Blokk" kijelölése ("[{"-tól "]}"-ig)
 |v_a>|	   N  a>	" <> blokk" kijelölése
-|v_i>|	   N  i>	"inner <> blokk" kijelölése
+|v_i>|	   N  i>	"a <> blokk" kijelölése
 |v_at|	   N  at	"tag" kijelölése (<aaa>-tól </aaa>-ig)
-|v_it|	   N  it	"inner tag" (<aaa>-tól </aaa>-ig)
+|v_it|	   N  it	"a tag" (<aaa>-tól </aaa>-ig)
 |v_a'|	   N  a'	aposztrófok közötti tartalom kijelölése (az
 			aposztrófot "'" tartalmazza a kijelölés)
 |v_i'|	   N  i'	aposztrófok közötti tartalom kijelölése (az
@@ -610,8 +607,8 @@ Insert vagy Command-line módban:
 
 |:set|		:se[t]			  az összes módosított beállítás
 				          listázása
-|:set|		:se[t] all		  show all non-termcap options
-|:set|		:se[t] termcap		  show all termcap options
+|:set|		:se[t] all		  összes nem termcap beállítás
+|:set|		:se[t] termcap		  termcap beállításainak megjelenítése
 |:set|		:se[t] {option}		  boolean változót állít be (true, on),
 |:set|		:se[t] no{option}	  boolean változót állít be (false,
 	   				  off)
@@ -639,7 +636,6 @@ Insert vagy Command-line módban:
 					  csoportosítva, illetve egy rövid egy
 					  soros összefoglalóval
 
-??? "whatis" ballon ???
 Az összes opció rövid magyarázata:		*option-list*
 'aleph'		  'al'	    ASCII code of the letter Aleph (Hebrew)
 'allowrevins'	  'ari'     engedélyezi CTRL-_ használatát Insert és Command
@@ -666,8 +662,8 @@ Az összes opció rövid magyarázata:		*option-list*
 'backupskip'	  'bsk'     biztonsági másolat kihagyása illeszkedő minta
 			    esetén
 'balloondelay'	  'bdlay'   értesítési időköz (ms)
-'ballooneval'	  'beval'     switch on balloon evaluation in the GUI
-'balloonevalterm' 'bevalterm' switch on balloon evaluation in the terminal
+'ballooneval'	  'beval'     balloon kiértékelés váltása (GUI)
+'balloonevalterm' 'bevalterm' balloon kiértékelés bekapcsolása (terminál)
 'balloonexpr'	  'bexpr'   expression to show in balloon
 'belloff'	  'bo'	    csengő kikapcsolása események alapján
 'binary'	  'bin'     fájl szerkesztés, olvasás, írás bináris módban
@@ -1157,10 +1153,8 @@ Kiegészítés kontextus alapján a command-lineban:
 				karakterek szűkítik a találatokat
 |c_CTRL-D|	CTRL-D		kurzor előtt lévő minta összes egyezésének
 				mutatása
-??? needs to be tested ???
-|c_CTRL-A|	CTRL-A		insert all names that match pattern in front
-				of cursor
-??? endtest ???
+|c_CTRL-A|	CTRL-A		az összes egyező név beillesztése a kurzor elé
+
 |c_CTRL-L|	CTRL-L		több találat esetén a leghosszabb közös részt
 				illeszti be
 |c_CTRL-N|	CTRL-N		'wildchar' után (több találat esetén az első
@@ -1263,8 +1257,7 @@ Kiegészítés kontextus alapján a command-lineban:
 |-n|	-n		    nem hoz létre swapfájlt
 |-o|	-o [num]	    [num] számú ablakot nyit (alap.: egy fájlhoz egy
 			    buffer)
-			    ??? dont fork? ???
-|-f|	-f		    GUI: előtérben, don't fork
+|-f|	-f		    GUI: előtérben
 			    Amiga: új ablak nyitásához ne indítsa újra a Vimet
 			    (például emailhez)
 |-s|	-s {scriptin}	    olvassa be (indulás előtt) {scriptin} parancsokat

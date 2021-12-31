@@ -47,7 +47,6 @@ hagyja:
 Amit az ábrán látsz az két ablak, melyek ugyanarra a fájlra hivatkoznak. A
 "===" jelű sor jelenti az állapotsávot. Mindegyik állapotsáv a saját ablakáról
 jelenít meg különböző információkat. 
-???  (In practice the status line will be in reverse video.)
 
    Két ablakkal gyakorlatilag egy második, egymástól független nézőpontot
 kapsz a fájlról. Például az egyik ablakban a fájl változó deklarációit
@@ -434,14 +433,15 @@ Prefixummal az n. változáshoz ugorhatsz.
 
 VÁLTOZTATÁSOK ELTÁVOLÍTÁSA
 
-???Tesztelni innen
-A szöveget átmozgathatod egyik ablakból a másikba. Ez eltávolítja a változtatást, vagy éppen hozzáad. Mivel a Vim nem nézi folyamatosan a
+A szöveget átmozgathatod egyik ablakból a másikba. Ez eltávolítja a
+változtatást, vagy éppen hozzáad. Mivel a Vim nem nézi folyamatosan a
 szöveget, azért meg kell parancsolni, hogy frissítse a nézetet: >
 
 	:diffupdate
 
-A változásokat egyik ablakból át tudod mozgatni a másikba.  Vegyük a "main.c" és a "main.c~" fájlt példaképpen. Állj a kurzorral a bal oldali ablakba. 
-A művelethez állj a bal oldali ablakban egy olyan pontra, ahol a jobb oldali
+A változásokat egyik ablakból át tudod mozgatni a másikba.  Vegyük a "main.c"
+és a "main.c~" fájlt példaképpen. Állj a kurzorral a bal oldali ablakba.  A
+művelethez állj a bal oldali ablakban egy olyan pontra, ahol a jobb oldali
 fájlból hiányzik valami. Add ki a parancsot: >
 
 	dp
@@ -456,13 +456,14 @@ ablak azon pontjára, ahol a sor változott, majd add ki a parancsot: >
 A változás el lesz távolítva oly módon, hogy a másik ablakból a változás
 átmásolódik az aktív ablakba. Mivel nincs több változás, a Vim automatikuson
 foldolja a fájlt. "do" rövidítése "diff obtain".
-???Tesztelni eddig
+
 A Diff módokról bővebben: |vimdiff|.
 
 ==============================================================================
 *08.8*	Egyebek
 
-A 'laststatus' változóval beállíthatjuk, hogy az utolsó ablaknak legyen-e állapotsora:
+A 'laststatus' változóval beállíthatjuk, hogy az utolsó ablaknak legyen-e
+állapotsora:
 
 	0	soha
 	1	csak splitek esetén (alapértelmezett)

@@ -218,8 +218,7 @@ escapelni kell. Egyszerűbb azonban, ha perjel helyett egy másik karaktert
 használunk. Például "+" karaktert:
 
 ???  Teszt
-A simpler way is to use another character instead of the slash.  A plus, for 
-example: >
+Egyszerűbb, ha a / jelet lecseréljük valami másra. Például a + jelre: >
 
 	:s+one/two+one or two+
 
@@ -526,7 +525,7 @@ parancs viszont "rx":
 
 
 	Note:
-	???Teszt
+	
 	A sorok végén túli karaktereket is érinteni szeretnéd, akkor nézd át a
 	'virtualedit' beállításait a 25. fejezetben.
 	If you want to include characters beyond the end of the line in the

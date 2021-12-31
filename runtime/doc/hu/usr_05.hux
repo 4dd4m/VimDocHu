@@ -249,10 +249,10 @@ szükségünk.
 >
 	inoremap <C-U> <C-G>u<C-U>
 
-CTRL-U Insert módban a teljes sor tartalmát törli.  ??? Use CTRL-G u to first
-break undo, so that you can undo CTRL-U after inserting a
-line break.  Revert with ":iunmap <C-U>".
-
+CTRL-U Insert módban a teljes sor tartalmát törli.  A CTRL-G u az eddig
+elvégzett szerkesztésinket "megtöri", létrehozva egy visszavonási pontot. Így
+nem kell elhagynunk az insert módot, hogy ezt a Vim automatikusan megtegye.
+Visszaállítása ":iunmap <C-U>".
 >
 	if has('mouse')
 	  set mouse=a
@@ -317,10 +317,10 @@ A parancs definiálja a "DiffOrig" parancsot. Egy módosított buffer tartalmán
 és az eredeti fájlok alkalmazott diff. Lásd |diff| és |:DiffOrig|.
 >
 	set nolangremap
-???
-Prevent that the langmap option applies to characters that result from a
-mapping.  If set (default), this may break plugins (but it's backward
-compatible).  See 'langremap'.
+
+Megakadályozza, hogy langmap opciói érvényesek legyenek a mappekre. Ha be van
+állítva (alapértelmezetten igen), akkor ez egyes beépülők működését
+akadályozhatja (viszont visszafelé kompatibilis).  Lásd 'langremap'.
 
 ==============================================================================
 *05.4*	Egyszerű mappek

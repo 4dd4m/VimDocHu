@@ -380,8 +380,9 @@ megkülönböztethetőek.
 		  a szó elejéig.
 		- Az elmozdulás meghatározható egérklikkel is, bár ezt nem
 		  mindegyik terminál támogatja.
-		- ???The ":omap" command can be used to map characters while an
-		  operator is pending.
+		- Az ":omap" paranccsal az operator-pending módban tudunk
+		  karaktereket mappelni (amikor már leütöttük az operátort, de
+		  a tartományt még nem adtuk meg).
 		- Az Ex parancs használható a kurzor mozgatására.
 		  Függvényhívásokkal komplexebb mozgások is végezhetőek de
 		  csak és kizárólag karakterenkénti mozgás, nem számít, hogy
@@ -497,13 +498,12 @@ esetben támogatott. Előfordulhat, hogy a del billentyű más értéket küld, 
 a termcap entry "kD" értéke lesz a mérvadó. Mindkét érték hatása azonos. Lásd:
 |:fixdel|.
 
-Megjegyzés: ???The keypad keys are used in the same way as the corresponding
-"normal" keys.  For example, <kHome> has the same effect as <Home>.  If a
-keypad key sends the same raw key code as its non-keypad equivalent, it will
-be recognized as the non-keypad code.  For example, when <kHome> sends the
-same code as <Home>, when pressing <kHome> Vim will think <Home> was pressed.
-Mapping <kHome> will not work then.
-
+Megjegyzés: A kurzormozgató billentyűkkel is tudjuk a kurzort mozgatni.
+Például: a <kHome> a <Home> al egyenértékű. Ha a billentyű ugyanazt a kódot
+küldni, mint a nem keypad megfelelője, akkor nem keypad-ként lesz felismerve.
+Például, ha a <kHome> a <Home> billentyűknek ugyanaz a kódja, akkor <kHome>
+megnyomásakor a vim azt hiszi, hogy <Home> billentyűt ütöttünk, ezért <kHome>
+nem fog megfelelően működni.
 								*<>*
 Példákat gyakran lehet látni <> jelöléssel ellátva. Néha pusztán csak azért,
 hogy egyértelműbb legyen, hogy mit kell beírni, azonban képezhetik parancs
@@ -732,9 +732,8 @@ Q			"Ex" módra váltás. Egy picit olyan, mintha ":" ütnénk
 			Lényegében a sorok a sztenderd módon szerkeszthetőek
 			(<Del> ls <BS> töröl, CTRL-U törli az egész sort).
 
-			???
-			Vim will enter this mode by default if it's invoked as
-			"ex" on the command-line.
+			A Vim ebbe a módba lép alapértelmezetten, ha az "ex"
+			parancsot meghívjuk a command-lineban.
 			Kilépéshez adjuk ki a "vi" parancsot (|visual|).
 			Megjegyzés:
 			A Vim korábbi verzióban a "Q" egy másik funkciót

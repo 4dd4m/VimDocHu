@@ -332,10 +332,10 @@ Ez illeszkedik "foo", "foobar", "foofoo", "barfoobar", stb. szavakra.
 	/end\(if\|while\|for\)
 
 Ez illeszkedik "endif", "endwhile" és "endfor" szavakra.
-???
-A related item is "\&".  This requires that both alternatives match in the
-same place.  The resulting match uses the last alternative.  Example: >
-???  >
+
+A vonatkozó elem a "\&", mely megköveteli, hogy az adott helyen mindkettőre
+illeszkedjen. A végső illesztés az utolsó találat lesz. Például: >
+
 	/forever\&...
 
 Ez illeszkedik a "forever" szóban lévő "for"-ra.  A "fortuin" szóra nem fog

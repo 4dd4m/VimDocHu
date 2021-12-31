@@ -423,9 +423,8 @@ Ha mégis megpróbálnád írni a fájlt, akkor figyelmeztető üzenetet fogsz k
 
 	W10: Warning: Changing a readonly file ~
 
-???
-The change will be done though.  This allows for formatting the file, for
-example, to be able to read it easily.
+A fájl tartalma ki lesz írva. Ezzel formázhatjuk a fájlt például, hogy
+olvashatóbb legyen.
    Ha időközben elfelejtetted, hogy a fájl írásvédett, még mindig el tudod
 menteni. A megerősítéshez !-et kell hozzáadnod a mentési parancshoz.
 

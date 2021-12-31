@@ -398,7 +398,7 @@ Programozóként, két szokatlan rövidítést használok: >
 
 	:iabbrev #b /****************************************
 	:iabbrev #e <Space>****************************************/
-??? Pontosítani
+
 Ezek a többsoros kommentek írását könnyítik meg. A komment a #b rövidítéssel
 kezdődik, mely kirajzolja az első sort. A komment beírását követően a #e
 rövidítés pedig lezárja a kommentet.
@@ -408,7 +408,7 @@ karaktert itt <space>-ként van megadva. Használhatjuk a billentyűzet speciál
 karaktereit is, például: <Tab>,<Left>,<Right>,<Enter> stb.
 
 	`:iabbrev pf public function(){<Left><Left><Left>`
-???
+
 	Megjegyzés:
 	Az ":iabbrev" parancs hosszú, rövid megfelelője a ":iab". Ez a
 	rövidítés parancsnak a rövidítése.
