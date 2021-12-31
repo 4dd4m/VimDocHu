@@ -1,4 +1,4 @@
-*usr_10.txt*	For Vim version 8.2.	Last change: 2019 Nov 22
+*usr_10.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 Nov 22
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -11,10 +11,10 @@ részét megváltoztatják. Visual blokk módban számos dolgot tehetünk a
 szöveggel. Külső programokkal pedig egészen bonyolult műveleteket végezhetünk.
 
 |10.1|	Parancsok felvétele és visszajátszása
-|10.2|	Helyettesítés
+|10.2|	Csere
 |10.3|	Parancs-tartományok
 |10.4|	A global parancs
-|10.5|	Visual blokk mód
+|10.5|	Visual block mód
 |10.6|	Fájl részeinek olvasása, írása
 |10.7|	Szöveg formázása
 |10.8|	Kis- nagybetű váltása
@@ -22,7 +22,7 @@ szöveggel. Külső programokkal pedig egészen bonyolult műveleteket végezhet
 
 Következő fejezet: |usr_11.txt|  Helyreállítása
     Előző fejezet: |usr_09.txt|  A GUI használata
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *10.1*	Parancsok felvétele és visszajátszása
@@ -224,7 +224,7 @@ example: >
 	:s+one/two+one or two+
 
 ==============================================================================
-*10.3*	Tartományok
+*10.3*	Parancs-tartományok
 
 A ":substitute" parancs, mint megannyi más ":" parancs, alkalmazhatóak
 meghatározott sorokra. Ezt hívjuk tartományoknak.
@@ -389,7 +389,7 @@ megadhattunk volna. Később meg fogsz ismerni sokkal bonyolultabb mintákat és
 tovább tökéletesítheted a jelenlegi példát.
 
 ==============================================================================
-*10.5*	Visual blokk mód
+*10.5*	Visual block mód
 
 A CTRL-V egy egészen más kijelölési módot ajánl, amivel talán még nem is
 találkoztál. Négyzetes területet tudsz kijelölni. Létezik pár manipulációs 
@@ -570,7 +570,7 @@ Ha azt szeretnéd, hogy a program megtartsa a szóközöket és egyéb üres
 karaktereket, akkor használd a "gJ" parancsot.
 
 ==============================================================================
-*10.6*	Fájl részének olvasása írása
+*10.6*	Fájl részeinek olvasása, írása
 
 Ha e-mailt írsz, akkor jól jöhet, ha egy fájlt tartalmát be tudod illeszteni.
 Ez a ":read {filename}" paranccsal oldható meg. A fájl tartalma a kurzor alá
@@ -645,7 +645,7 @@ részét képző szöveget fűzze hozzá a fájlhoz. A parancs tetszőleges szá
 ismételhető.
 
 ==============================================================================
-*10.7*	Szövegek formázása
+*10.7*	Szöveg formázása
 
 Ha egyszerű szöveggel dolgozol, szép, ha minden sorod elfér az ablakban. Hogy
 ez valóra váljon, állítsd be a 'textwidth' opciót az alábbiak szerint: >
@@ -689,7 +689,7 @@ kurzor egy sorral lejjebb kerül.  A "." paranccsal ismételhető. Ismételd add
 amíg a fájl szöveg végére nem érsz.
 
 ==============================================================================
-*10.8*	Kis- nagybetűk cseréje
+*10.8*	Kis- nagybetű váltása
 
 A szövegben már megvannak a fejléceid, melyek előtt a "section" szó található,
 viszont kisbetűs az összes. Át szeretnéd őket alakítani nagybetűssé. Erről

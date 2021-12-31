@@ -1,8 +1,8 @@
-*usr_23.txt*	For Vim version 8.2.	Last change: 2020 Dec 19
+*usr_23.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Dec 19
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			  Egyéb fájlok szerkesztése
+			Egyéb fájltípusok szerkesztése
 
 
 Ebben  a fejezetben nem hagyományos fejlesztését mutatjuk be. A Vim képes a
@@ -10,18 +10,18 @@ tömörített és titkosított állományok szerkesztésére, interneten hozzáf
 fájlok szerkesztésére. Bizonyos keretek között, de bináris fájlok is
 szerkeszthetőek.
 
-|23.1|	DOS, Mac és Unix fájlok szerkesztése
-|23.2|	Interneten lévő fájlok szerkesztése
+|23.1|	DOS, Mac és Unix fájlok 
+|23.2|	Interneten lévő fájlok 
 |23.3|	Titkosítás
 |23.4|	Bináris fájlok
 |23.5|	Tömörített állományok
 
 Következő fejezet: |usr_24.txt|  Beillesztés gyorsan
     Előző fejezet: |usr_22.txt|  Fájlok keresése
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*23.1*	DOS, Mac és Unix fájlok szerkesztése
+*23.1*	DOS, Mac és Unix fájlok 
 
 A régi szép időkben a régi old Teletype típusú gépek két karaktert használtak
 az új sor kezdéséhez. Az első karakter felelt a kocsi pozíciójának
@@ -116,7 +116,7 @@ formátumra: >
 A fájl Unix formátumban íródik ki.
 
 ==============================================================================
-*23.2*	Interneten lévő fájlok szerkesztése
+*23.2*	Interneten lévő fájlok 
 
 E-mailben kapsz egy fájlhivatkozást. Például:
 
@@ -230,7 +230,7 @@ számítógépen, hálózat nélkül, megfelelő titkosítási eszközökkel ell
 szerkeszd. A gépet pedig tartsd széfben, ha nem használod.
 
 ==============================================================================
-*23.4*	Bináris fájlok szerkesztése
+*23.4*	Bináris fájlok
 
 Képesek vagyunk bináris fájlokat szerkeszteni, noha a Vim nem erre lett
 tervezve, ezért csak korlátozott mértékben. A fájlok megnyithatóak,

@@ -1,8 +1,8 @@
-*usr_31.txt*	For Vim version 8.2.	Last change: 2020 Jul 28
+*usr_31.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jul 28
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			       A GUI használata
+			     A GUI (ki)használása
 
 
 A Vim remekül működik a terminálban, de a GUI fel van szerelve extrákkal. A
@@ -17,9 +17,9 @@ bejárhatunk.
 |31.4|	A Vim ablak pozíciója és mérete
 |31.5|	Egyebek
 
-Következő fejezet: |usr_32.txt|  A visszavonásfa
+Következő fejezet: |usr_32.txt|  A visszavonás-fa
     Előző fejezet: |usr_30.txt|  Programok szerkesztése
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *31.1*	A fájlböngésző 

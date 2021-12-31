@@ -1,8 +1,8 @@
-*usr_43.txt*	For Vim version 8.2.	Last change: 2015 Oct 23
+*usr_43.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2015 Oct 23
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-				 Fájltípusok
+			    Fájltípusok használata
 
 
 Bizonyos fájltípusok esetén, például C forráskód, shell szkript stb, mindig
@@ -10,15 +10,15 @@ ugyanazokat a beállítás csoportokat kell alkalmaznunk. Ha ezt mind manuálisa
 kellene megtennünk, akkor elég hamar elmenne a kedvünk az egésztől. A fejezet
 azt tárgyalja, hogy hogyan automatizálhatjuk a beállításainkat.
 
-|43.1|	Fájltípus beépülők
-|43.2|	Fájltípus hozzáadása
+|43.1|	Beépülők a fájltípusokhoz
+|43.2|	Új fájltípus hozzáadása
 
-Következő fejezet: |usr_44.txt|  Your own syntax highlighted
-    Előző fejezet: |usr_42.txt|  Add new menus
- Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_44.txt|  Egyedi szintaxis kiemelés
+    Előző fejezet: |usr_42.txt|  Új menüelemek hozzáadása
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*43.1*	Fájltípus beépülők				*filetype-plugin*
+*43.1*	Beépülők a fájltípusokhoz			*filetype-plugin*
 
 A fájltípus beépülők kezdetleges használatáról a |add-filetype-plugin|
 fejezetben már szó esett, viszont lehetséges, hogy nem vagy megelégedve a az
@@ -77,7 +77,7 @@ Példákat a fájltípus beépülőkre itt találsz:  >
 A fájltípus beépülők írásáról általánosan: |write-plugin|.
 
 ==============================================================================
-*43.2*	Fájltípus hozzáadása
+*43.2*	Új fájltípus hozzáadása
 
 Ha olyan fájltípust nyitottál meg, amelyet a Vim nem ismer fel, akkor így
 taníthatod meg rá a szerkesztőt. Szükséged van egy saját runtime könyvtárra.

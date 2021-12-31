@@ -1,4 +1,4 @@
-*usr_05.txt*	For Vim version 8.2.	Last change: 2019 May 23
+*usr_05.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 May 23
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -11,18 +11,18 @@ bővítheted a Vim funkcionalitását beépülőkkel vagy hogyan definiálhatsz
 makrókat.
 
 |05.1|	A vimrc fájl
-|05.2|	A példa vimrc fájl magyarázata
-|05.3|	defaults.vim fájl magyarázata
+|05.2|	Példa vimrc fájl 
+|05.3|	defaults.vim fájl 
 |05.4|	Egyszerű mappek
 |05.5|	Csomag hozzáadása
 |05.6|	Beépülő hozzáadása
 |05.7|	Help fájl hozzáadása
 |05.8|	A beállítások ablak
-|05.9|	Gyakran használt beállítások
+|05.9|	Leggyakoribb beállítások
 
 Következő fejezet: |usr_06.txt|  Szintaxis kiemelés használata
-    Előző fejezet: |usr_04.txt|  Kisebb változtatások
- Tartalomjegyzék: |usr_toc.txt|
+    Előző fejezet: |usr_04.txt|  Kisebb szerkesztések
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *05.1*	A vimrc fájl					*vimrc-intro*
@@ -73,7 +73,7 @@ Mivel ez a fejezet csak az alapokat hivatott elmagyarázni, ezért Vim script
 fájlokról itt tudhatsz meg többet: |usr_41.txt|.
 
 ==============================================================================
-*05.2*	A példa vimrc fájl magyarázata			*vimrc_example.vim*
+*05.2*	Példa vimrc fájl	*vimrc_example.vim*
 
 Az első rész magyarázatot adott arra, hogy hogyan működik a példa vimrc fájl
 (ami a Vim disztribúcióval érkezik), amit not-compatible módban használhatunk
@@ -149,7 +149,7 @@ teljesültek. A beépülő hozzáadása: |matchit-install|.
 
 
 ==============================================================================
-*05.3*	defaults.vim magyarázat                    *defaults.vim-explained*
+*05.3*	A defaults.vim fájl                          *defaults.vim-explained*
 
 A |defaults.vim| akkor töltődik be, ha felhasználónak nincs vimrc fájlja. Ha a
 továbbiakban is használni szeretnéd a beállításait, akkor a vimrc fájlodhoz

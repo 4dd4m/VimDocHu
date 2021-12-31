@@ -1,4 +1,4 @@
-*usr_24.txt*	For Vim version 8.2.	Last change: 2018 Mar 18
+*usr_24.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2018 Mar 18
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -11,9 +11,9 @@ félkész szavakat, rövidíts le szavakat. Gépelj olyan karaktereket, melyek n
 szerepelnek a billentyűzeteden.
 
 |24.1|	Korrekciók
-|24.2|	Egyezések mutatás
+|24.2|	Egyezések mutatása
 |24.3|	Kiegészítés
-|24.4|	Szerkesztés ismétlése
+|24.4|	Beszúrás ismétlése
 |24.5|	Másolás másik sorból
 |24.6|	Regiszter tartalmának beszúrása
 |24.7|	Rövidítések
@@ -23,10 +23,10 @@ szerepelnek a billentyűzeteden.
 
 Következő fejezet: |usr_25.txt|  Formázott szövegek szerkesztése
     Előző fejezet: |usr_23.txt|  Egyéb fájlok szerkesztése
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*24.1*	Korrekciót
+*24.1*	Korrekciók
 
 A <BS> billentyű funkcióját már ismerjük.  Egy karakter töröl a kurzor előtt.
 A <Del> billentyű pedig egy karaktert töröl a kurzor után (alatt).
@@ -265,7 +265,7 @@ csinálnod |compl-omni-filetypes|. Nem működik minden fájltípusnál. Az
 működik.
 
 ==============================================================================
-*24.4*	Szerkesztés ismétlése
+*24.4*	Beszúrás ismétlése
 
 Ha CTRL-A-t ütsz (Insert módban), akkor az utolsó szerkesztésed (Insert mód) 
 szövegét automatikusan beilleszti a program.

@@ -1,4 +1,4 @@
-*usr_03.txt*	For Vim version 8.2.	Last change: 2020 Sep 03
+*usr_03.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Sep 03
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -8,23 +8,23 @@ Mielőtt beszúrnál, vagy törölnél, a kurzor a megfelelő helyre kell pozíc
 Ehhez a Vim rengeteg parancsot biztosít. A fejezet ezek közül a legfontosabbakat
 mutatja be, a teljes listát itt találod |Q_lr|.
 
-|03.1|	Szavankénti mozdulatok
-|03.2|	Sor elejére/végére ugrás
-|03.3|	Karakterhez ugrás
+|03.1|	Szavankénti mozgás
+|03.2|	Mozgás a sor végére, elejére
+|03.3|	Ugrás karakterhez
 |03.4|	Zárójelek párjai
-|03.5|	Ugrás adott sorra
+|03.5|	Adott sorra ugrás
 |03.6|	Aktuális pozíció
 |03.7|	Görgetés
 |03.8|	Egyszerű keresések
 |03.9|	Egyszerű keresési minták
 |03.10|	Jelölők használata
 
-Következő fejezet: |usr_04.txt|  Apró változtatások
-    Előző fejezet: |usr_02.txt|  Első lépések a Vimben
- Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_04.txt|  Kisebb szerkesztések
+    Előző fejezet: |usr_02.txt|  A legelső lépések
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*03.1*	Szavankénti mozdulatok
+*03.1*	Szavankénti mozgás
 
 A "w" parancs egy szóval mozdítja előre a kurzort. Természetesen numerikus
 értékkel prefixálva a művelet ismételhető, így egyszerre több szót is
@@ -74,7 +74,7 @@ A parancsok megfelelő használata esetén a bekezdés bejárható pillanatok al
 mindkét irányban.
 
 ==============================================================================
-*03.2*	Sor elejére/végére ugrás
+*03.2*	Mozgás a sor végére, elejére
 
 A "$" parancs a kurzort a sor végére mozgatja. Ha a billentyűzeteden van
 <End> billentyű, azt is használhatod, a hatás ugyan az.
@@ -103,7 +103,7 @@ mennyiség részét képezni. Kivételesen a "^" parancs sem prefixálható, aza
 semmilyen hatása nincs.
 
 ==============================================================================
-*03.3*	Karakterhez ugrás
+*03.3*	Ugrás karakterhez
 
 Az egyik leghasznosabb parancs a soron belüli keresés. Az "fx" parancs előre
 irányban "x" karakterre ugrik. (Az "f" a "Find" igéből származtatható).
@@ -173,7 +173,7 @@ zárójelére ugrik (ha van), az azt következő végrehajtáskor pedig a párj�
 			   %
 
 ==============================================================================
-*03.5*	Ugrás adott sorra
+*03.5*	Adott sorra ugrás
 
 Ha C vagy C++ programozó vagy, akkor az alábbi üzenet ismerősnek tűnhet:
 

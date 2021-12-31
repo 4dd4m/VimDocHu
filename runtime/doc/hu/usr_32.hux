@@ -1,25 +1,25 @@
-*usr_32.txt*	For Vim version 8.2.	Last change: 2010 Jul 20
+*usr_32.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2010 Jul 20
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			       A visszavonásfa
+			       A visszavonás-fa
 
 
 A visszavonások többszintesek. Ha visszavontál pár szerkesztést, egy új
 módosítás új ágat hoz létre a fában. A fejezet a fában történő mozgásokról
 szól.
 
-|32.1|	Visszavonás a mentett állapotig
+|32.1|	Visszavonás az előző mentésig
 |32.2|	Változatok számozása
-|32.3|	Ugrás a fában
+|32.3|	Mozgás a fában
 |32.4|	Időutazás
 
 Következő fejezet: |usr_40.txt|  Új parancsok létrehozása
-    Előző fejezet: |usr_31.txt|  A GUI használata
- Tartalomjegyzék: |usr_toc.txt|
+    Előző fejezet: |usr_31.txt|  A GUI (ki)használása
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*32.1*	Visszavonás a mentett állapotig
+*32.1*	Visszavonás az előző mentésig
 
 A szerkesztés nem mindig sikerül. Néha vissza kell menni teljesen az utolsó
 mentési állapothoz, újbóli megnyitás nélkül, azonnal. Lássuk: >
@@ -91,7 +91,7 @@ hivatkozhat egy alsóbb szintre, mely gyakori jelenség ha a fában fel és le
 mozgunk.
 
 ==============================================================================
-*32.3*	Ugrás a fában
+*32.3*	Mozgás a fában
 
 Hogy megyünk vissza "one two" ra? Ezzel a paranccsal: >
 

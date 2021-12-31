@@ -1,4 +1,4 @@
-*Usr_41.txt*	For Vim version 8.2.	Last change: 2021 Aug 08
+*Usr_41.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Aug 08
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -18,17 +18,17 @@ ezért a fejezet hosszú
 |41.7|	Függvények definiálása
 |41.8|	Listák és szótárak
 |41.9|	Kivételek
-|41.10|	Egyéb megjegyzések
+|41.10|	Általános információk
 |41.11|	Beépülő írása
-|41.12|	FileType beépülő írása
-|41.13|	Fordító beépülő írása
+|41.12|	Filetype beépülő írása
+|41.13|	Compiler beépülő írása
 |41.14|	A gyors beépülő ismérvei
 |41.15|	Szkript könyvtárak írása
-|41.16|	VimSzkriptek közzététele
+|41.16|	Vim szkriptek megosztása
 
-Következő fejezet: |usr_42.txt|  Új menük hozzáadása
-    Előző fejezet: |usr_40.txt|  Új parancsok készítése
- Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_42.txt|  Új menüelemek hozzáadása
+    Előző fejezet: |usr_40.txt|  Új parancsok létrehozása
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *41.1*	Bevezetés				*vim-script-intro* *script*
@@ -1217,7 +1217,7 @@ Egyebek:						*various-functions*
 	debugbreak()		debug alatt álló program megszakítása
 
 ==============================================================================
-*41.7*	Függvények létrehozása
+*41.7*	Függvények definiálása
 
 A Vimben létrehozhatjuk saját függvényeinket. Az alapvető függvénydeklaráció a
 következő: >
@@ -2369,7 +2369,7 @@ hasmapto()		a szkriptben használt map definíciójának tesztelése
 exists(":Cmd")		felhasználói parancs meglétének ellenőrzése
 
 ==============================================================================
-*41.12*	Fájltípus beépülő írása		*write-filetype-plugin* *ftplugin*
+*41.12*	Filetype beépülő írása		*write-filetype-plugin* *ftplugin*
 
 A fájltípus beépülő majdnem egy globális beépülő, azzal a kivétellel, hogy a
 definiált mappek csak az aktuális bufferre érvényesek. Lásd
@@ -2562,7 +2562,7 @@ exists("*s:Func")	Függvénynév-definíció ellenőrzés
 Továbbá |plugin-special|, a beépülők által használt egyedi dolgok.
 
 ==============================================================================
-*41.13*	Fordító szkript létrehozása		*write-compiler-plugin*
+*41.13*	Compiler beépülő írása		*write-compiler-plugin*
 
 Az ilyen típusú beépülők fordító-specifikus opciókat is beállítanak. Ezeket a
 |:compiler| paranccsal tölthetjük be. Azért használjuk, hogy beállítsuk az
@@ -2611,7 +2611,7 @@ beépülőnket kell utoljára betöltenünk, ezért helyezzük el a 'runtimepath
 utolsó elérési utak egyikében, Unixon ez ~/.vim/after/compiler.
 
 ==============================================================================
-*41.14*	Gyorsan betölthető beépülő írása	*write-plugin-quickload*
+*41.14*	A gyors beépülő ismérvei		    *write-plugin-quickload*
 
 A beépülő idővel növekszik és elég hosszúvá válhat. Indításnál ez szembetűnő
 lehet, még akkor is, ha alig használjuk a beépülőt. Itt az idő a quickload
@@ -2684,7 +2684,7 @@ Vegyük észre, hogy a későbbiekben betöltött függvények neve illeszkedik 
 erre a mintára ne illeszkedjen.
 
 ==============================================================================
-*41.15*	Könyvtár szkriptek írása			*write-library-script*
+*41.15*	Szkript könyvtárak írása			*write-library-script*
 
 Egyes funkcionalitást több helyen is használni szeretnénk. Ha a funkcionalitás
 terjedelme több pár sornál, akkor az írjuk ki egy új fájlba, elérhetővé téve a

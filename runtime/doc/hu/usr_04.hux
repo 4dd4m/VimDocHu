@@ -1,8 +1,8 @@
-*usr_04.txt*	For Vim version 8.2.	Last change: 2021 Feb 22
+*usr_04.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Feb 22
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			     Kisebb változtatások
+			     Kisebb szerkesztések
 
 
 Az alábbi fejezet bemutatja, hogy hogyan korrigálj és hogyan mozgasd a
@@ -10,19 +10,19 @@ szöveget. Háromféleképpen tanítja meg a művelet elvégzését:
 operátor-tartomány, Visual mód, és szöveges objektumokkal.
 
 |04.1|	Operátorok és tartományok
-|04.2|	Szöveg cseréje
+|04.2|	Szöveg változtatása
 |04.3|	Szerkesztés ismétlése
 |04.4|	Visual mód
 |04.5|	Szöveg mozgatása
 |04.6|	Szöveg másolása
 |04.7|	Vágólap használata
-|04.8|	Szöveg-objektumok
+|04.8|	Szövegobjektumok
 |04.9|	Replace mód
 |04.10|	Összefoglalás
 
 Következő fejezet: |usr_05.txt|  A beállításaid
     Előző fejezet: |usr_03.txt|  Navigáció
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *04.1*	Operátorok és tartományok
@@ -74,7 +74,7 @@ a tartomány (például "4l" vagy "w"). Röviden, azokon a szövegrészleteken
 végezhetsz műveleteket, melyeken a kurzor képzeletben áthalad.
 
 ==============================================================================
-*04.2*	Szöveg cseréje
+*04.2*	Szöveg változtatása
 
 Ehhez a művelethez a "c" csere parancs tartozik. Ugyanúgy viselkedik, mint a
 "d" parancs azzal a különbséggel, hogy a Insert módra állítja a szerkesztőt.
@@ -382,7 +382,7 @@ támogatja a vágólap-használatot. (clipboard support). Ezekről bővebben a
 |0.93| fejezetben és itt: |clipboard|.
 
 ==============================================================================
-*04.8*	Szöveg-objektumok
+*04.8*	Szövegobjektumok
 
 Ha a kurzor a szó közepén áll, melyet törölni szeretnél, vissza kell menned a
 szó elejére, hogy kiadhasd a "dw" parancsot. Az egyszerűbb módszer: "daw".
@@ -439,7 +439,7 @@ A szöveg-objektumokról egy egészen hosszú lista található itt:
 |text-objects|.
 
 ==============================================================================
-*04.9*	Csere mód
+*04.9*	Replace mód
 
 Az "R" parancs hatására a Vim csere módra vált. A begépelt karakterek
 lecserélik a kurzor alatt lévő karaktereket, mindaddig, amíg <Esc>

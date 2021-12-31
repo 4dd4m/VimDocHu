@@ -1,4 +1,4 @@
-*usr_11.txt*	For Vim version 8.2.	Last change: 2020 Oct 25
+*usr_11.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Oct 25
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -18,7 +18,7 @@ hol találod a swapfájlt.
 
 Következő fejezet: |usr_12.txt|  Tippek, trükkök
     Előző fejezet: |usr_10.txt|  Nagy változtatások
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *11.1*	Alapvető helyreállítás

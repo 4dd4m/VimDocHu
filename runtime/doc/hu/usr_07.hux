@@ -1,4 +1,4 @@
-*usr_07.txt*	For Vim version 8.2.	Last change: 2020 Mar 23
+*usr_07.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Mar 23
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -9,7 +9,7 @@ Nem számít, hogy mennyi fájllal kell dolgozz, az összeset szerkesztheted
 anélkül, hogy kilépnél a Vimből. Legyen szó akár fájlok közötti váltásról, akár
 szöveg másolásáról egy másik fájlba.
 
-|07.1|	Másik fájl szerkesztése
+|07.1|	Alternatív fájl szerkesztése
 |07.2|	Fájlok listája
 |07.3|	Fájlról fájlra ugrás
 |07.4|	Biztonsági mentések
@@ -22,7 +22,7 @@ Következő fejezet: |usr_08.txt|  Splitek
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*07.1*	Másik fájl szerkesztése
+*07.1*	Alternatív fájl szerkesztése
 
 Eddig minden egyes fáj szerkesztéséhez új Vimet kellett nyitnod. Egyszerűbb
 módszer: kezdd a szerkesztés a következő paranccsal: >

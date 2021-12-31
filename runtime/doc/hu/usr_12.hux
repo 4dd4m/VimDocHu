@@ -1,4 +1,4 @@
-*usr_12.txt*	For Vim version 8.2.	Last change: 2021 Apr 19
+*usr_12.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Apr 19
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -11,17 +11,17 @@ kombinációjára. Az előző fejezetben ismertetett parancsok újra felhasznál
 illetve ki is egészítjük.
 
 |12.1|	Szavak cseréje
-|12.2|	Csere "Last, First" erre "First Last"
+|12.2|	"Last, First" cseréje erre: "First Last"
 |12.3|	Lista rendezése
 |12.4|	Fordított sorrend
 |12.5|	Szavak számolása
-|12.6|	Help fájlok keresése
-|12.7|	Üres karakterek levágása
-|12.8|	Mi használja az adott szót?
+|12.6|	Keresés a dokumentációban
+|12.7|	Üres karakterek törlése
+|12.8|	Szóhasználat helyei
 
 Következő fejezet: |usr_20.txt|  Command-line parancsok gépelése gyorsan
     Előző fejezet: |usr_11.txt|  Helyreállítás
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *12.1*	Szavak cseréje
@@ -192,7 +192,7 @@ Ha ügyelünk rá, hogy a felsorolás utáni sor üres marad, mindegyik sorban
 kitehetjük a "\" jelet, így a probléma soha többé nem fog jelentkezni.
 
 ==============================================================================
-*12.4*	Fordított sorrend.
+*12.4*	Fordított sorrend
 
 A |:global| és a |:move| parancsokat kombinálhatjuk, hogy az összes sort a
 fájl elejére mozgassuk, így a fájl sorai fordított sorrendben rendeződnek. A
@@ -247,7 +247,7 @@ Szavak számolásának egyéb módszerei és más számolással kapcsolatos elem
 (sorok, egyebek) lásd |count-items|.
 
 ==============================================================================
-*12.6*	Man oldalak keresése				*find-manpage*
+*12.6*	Keresés a dokumentációban				*find-manpage*
 
 Shell szkriptek vagy C programok szerkesztésekor egy adott függvényhez vagy
 parancshoz sokszor meg szeretnénk nyitni a manuált (Unixon). Nézzük a
@@ -303,7 +303,7 @@ Vidd a kurzort az "strstr" szóra és gépelj "\K". Az strstr() dokumentációja
 ablakban fog megnyílni.
 
 ==============================================================================
-*12.7*	Sorvégi üres karakterek törlése
+*12.7*	Üres karakterek törlése
 
 Egyes emberek csúnyának, hasznavehetetlennek és pocsékolásnak tartják a sor
 végi üres karaktereket (szóköz, tab stb.). Az ilyen jellegű karaktereket
@@ -333,7 +333,7 @@ beilleszteni, ha nem tapasztalsz változást. A következő találathoz az "n"
 paranccsal léphetsz. Ismételd addig, amíg az összeset ki nem javítod.
 
 ==============================================================================
-*12.8*	Szavak előfordulási helyei
+*12.8*	Szóhasználat helyei
 
 Ha UNIX felhasználó vagy, akkor a Vim és grep parancsok együttes használatával
 a szavakat az összes fájlban szerkesztheted egyszerre. Roppant hasznos

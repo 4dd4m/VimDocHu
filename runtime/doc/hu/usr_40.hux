@@ -1,4 +1,4 @@
-*usr_40.txt*	For Vim version 8.2.	Last change: 2020 Sep 02
+*usr_40.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Sep 02
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -15,8 +15,8 @@ automatikusan futtathatóak.
 |40.3|	Atuocommandok
 
 Következő fejezet: |usr_41.txt|  Vim szkriptek
-    Előző fejezet: |usr_32.txt|  A visszavonásfa
- Tartalomjegyzék: |usr_toc.txt|
+    Előző fejezet: |usr_32.txt|  A visszavonás-fa
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *40.1*	Billentyű mappek

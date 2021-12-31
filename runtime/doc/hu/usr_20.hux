@@ -1,4 +1,4 @@
-*usr_20.txt*	For Vim version 8.2.	Last change: 2006 Apr 24
+*usr_20.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2006 Apr 24
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -10,14 +10,14 @@ rövidíthetőek, szerkeszthetőek és ismételhetőek. Kiegészítés kis túlz
 majdnem az összes adatbevitelhez elérhető.
 
 |20.1|	Command-line szerkesztés
-|20.2|	Command-line rövidítés
+|20.2|	Command-line rövidítések
 |20.3|	Command-line kiegészítés
-|20.4|	Command-line history
+|20.4|	Command-line történet
 |20.5|	Command-line ablak
 
 Következő fejezet: |usr_21.txt|  Visszatérés adott pontra
     Előző fejezet: |usr_12.txt|  Tippek, trükkök
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *20.1*	Command-line szerkesztés
@@ -291,7 +291,7 @@ tüntethetünk ebből a listából.
 Ezekről bővebben itt olvashatsz: |cmdline-completion|
 
 ==============================================================================
-*20.4*	Command-line history
+*20.4*	Command-line történet
 
 A 3. fejezetben már említést tettünk róla. <Up> billentyűvel a régebbi
 parancsok felé böngészhetsz, míg <Down> az újabbak felé navigál.

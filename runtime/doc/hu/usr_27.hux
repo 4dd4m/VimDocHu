@@ -1,4 +1,4 @@
-*usr_27.txt*	For Vim version 8.2.	Last change: 2019 Jul 14
+*usr_27.txt*	Vim Verzió 8.2.	Last change: 2019 Jul 14
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -9,7 +9,7 @@ A harmadik fejezetben már megtanulhattuk a keresés alapjait |03.9| Azonban a
 Vim ennél sokkal többre képes. A fejezet bemutatja a leggyakrabban alkalmazott
 technikákat. A mintákról külön fejezetben tájékozódhatsz: |pattern|.
 
-|27.1|	Kis- és nagybetű ignorálása
+|27.1|	Betűérzéketlenség
 |27.2|	Körkörös keresés
 |27.3|	Offszetek
 |27.4|	Illesztés több alkalommal
@@ -21,10 +21,10 @@ technikákat. A mintákról külön fejezetben tájékozódhatsz: |pattern|.
 
 Következő fejezet: |usr_28.txt|  Foldolás
     Előző fejezet: |usr_26.txt|  Ismétlés
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*27.1*	Kis- és nagybetű ignorálása
+*27.1*	Betűérzéketlenség
 
 Ha az alapértelmezett beállításokon nem változtatunk, akkor a keresés során a
 Vim illeszti a nagy- és kisbetűket is. Ezért "include", "INCLUDE" és "Include"

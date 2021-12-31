@@ -1,4 +1,4 @@
-*usr_22.txt*	For Vim version 8.2.	Last change: 2020 Mar 28
+*usr_22.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Mar 28
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -16,7 +16,7 @@ fájlból fájlba, szimplán fájlnév alapján, a előzményeket pedig bízd a 
 
 Következő fejezet: |usr_23.txt|  Egyéb fájlok szerkesztése
     Előző fejezet: |usr_21.txt|  Visszatérés adott pontra
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *22.1*	A fájlböngésző
@@ -145,7 +145,7 @@ kezelésére is képes:	(a cím végén lévő / karakter fontos)
 Lásd: |netrw-browse|.
 
 ==============================================================================
-*22.2*	Az aktív könyvtár
+*22.2*	Aktív könyvtár
 
 Mint azt a shell esetén már megszokhattuk, a Vimben is létezik az aktív
 könyvtár fogalma.  Tegyük fel, hogy a könyvtáradban vagy szerkesztened kell

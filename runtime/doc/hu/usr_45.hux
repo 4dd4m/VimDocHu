@@ -1,26 +1,26 @@
-*usr_45.txt*	For Vim version 8.2.	Last change: 2020 Jun 11
+*usr_45.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jun 11
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-				Nyelvválasztás
+			      Nyelv kiválasztása
 
 
 A Vim üzenetei számos nyelven elérhetőek. Ebben a fejezetben arról lesz szó,
 hogy ezt hogyan változtathatjuk meg, valamint hogy ezt hogyan építsük be a
 munkafolyamatainkba.
+                                             
+|45.1|	Az üzenetek megjelenítésének nyelve
+|45.2|	Menüelemek megjelenítésének nyelve
+|45.3|	Eltérő karakterkódolás használata
+|45.4|	Fájl szerkesztése más karakterkódolással
+|45.5|	Angol és idegen nyelvű kiosztás használata egyszerre
 
-|45.1|	Az üzenetek nyelve
-|45.2|	A menük nyelve
-|45.3|	Más karakterkódolás használata
-|45.4|	Szerkesztés más karakterkódolással
-|45.5|	Nyelvi szövegek bevitele
-
-Következő fejezet: |usr_46.txt|  Beépülők készítése Vim9 szkripttel
+Következő fejezet: |usr_46.txt|  Beépülők írása Vim9 szkripttel
     Előző fejezet: |usr_44.txt|  Egyedi Szintaxis kiemelés
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*45.1*	Az üzenetek nyelve
+*45.1*	Az üzenetek megjelenítésének nyelve
 
 A Vim indításkor megvizsgálja a környezetet és eldönti, hogy milyen nyelvet
 alkalmazzon. A legtöbb esetben helyesen tippel az üzeneteket a saját nyelveden
@@ -80,7 +80,7 @@ Töltsd fel ide: vim-online (http://vim.sf.net) vagy e-mailben küld el a Vim
 karbantartója számára. Esetleg mindkettő.
 
 ==============================================================================
-*45.2*	A menük nyelve
+*45.2*	Menüelemek megjelenítésének nyelve
 
 Az alapértelmezett menü Angol. Használatukhoz le kell először fordítani őket
 (a fordítás már elérhető). A környezeti változók beállításával az üzenetek
@@ -129,7 +129,7 @@ Valahová az elejére. Például, Unixon: >
 A fordításhoz tippek it: "$VIMRUNTIME/lang/README.txt".
 
 ==============================================================================
-*45.3*	Más kódolás használata
+*45.3*	Eltérő karakterkódolás használata
 
 A Vim kitalálja szerkesztett fájl karakterkódolását. Európai nyelvek esetén
 általában ez "latin1".  Minden byte egy karakter. Ez azt jelenti, hogy 256
@@ -245,7 +245,7 @@ sok időnk van.
 	vimrc fájlban és nyúljunk hozzá.
 
 ==============================================================================
-*45.4*	Szerkesztés más karakterkódolással
+*45.4*	Fájl szerkesztése más karakterkódolással
 
 Tegyük fel, hogy Vimet a Unicode kódolásra készítettük fel és most egy 16
 bites Unicode fájl szeretnénk szerkeszteni. Egyszerűnek hangzik, ugye? Nos, a
@@ -310,7 +310,7 @@ konvertálja a fájlt. Például:   >
 	tartalmaz.
 
 ==============================================================================
-*45.5*	Nyelvi szövegek bevitele
+*45.5*	Angol és idegen nyelvű kiosztás használata egyszerre
 
 A billentyűzetünk karakterkészlete véges. Léteznek nyelvek, amelyek több ezer
 karakterből állnak, Unicode több, mint száz ezret. Hogyan írhatjuk be ezen

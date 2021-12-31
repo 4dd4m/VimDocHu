@@ -1,4 +1,4 @@
-*usr_06.txt*	For Vim version 8.2.	Last change: 2019 Jun 01
+*usr_06.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 Jun 01
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -11,13 +11,13 @@ szépen néz ki, de a munkát is felgyorsítja.
 |06.1|	Bekapcsolás
 |06.2|	Nincsenek, vagy rossz színek?
 |06.3|	Különböző színek
-|06.4|	Színekkel és anélkül
-|06.5|	Nyomtatás színekkel
+|06.4|	Színekkel, vagy anélkül
+|06.5|	Színes Nyomtatás
 |06.6|	További irodalom
 
 Következő fejezet: |usr_07.txt|  Több fájl szerkesztése
     Előző fejezet: |usr_05.txt|  A beállításaid
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *06.1*	Bekapcsolás
@@ -45,7 +45,7 @@ Ha csak kizárólag a GUI verzióban szeretnél élni ezzel a lehetőséggel, ak
 ":syntax enable"-t kell betenned a |gvimrc| fájlba.
 
 ==============================================================================
-*06.2*	Nincsenek, vagy rossz színek?
+*06.2*	Nincs, vagy rossz színek?
 
 Számos oka lehet, ha nem látsz színeket:
 There can be a number of reasons why you don't see colors:
@@ -133,7 +133,7 @@ Ha a színek rosszak:
 	fájljából derül ki. Például |tex.vim| a TeX szintaxishoz.
 
 ==============================================================================
-*06.3*	Eltérő színek				*:syn-default-override*
+*06.3*	Különböző színek				*:syn-default-override*
 
 Ha nem tetszenek az alapértelmezett színek, akkor megváltoztathatod. GUI módban
 a Szerkesztés/Színséma menüpont alatt, vagy ezzel a paranccsal: >
@@ -186,7 +186,7 @@ A leggyakrabban használt színsémák megtekintéséhez futtasd: >
 Így könnyedén dönthetsz az olvashatóságról és kinézetről.
 
 ==============================================================================
-*06.4*	Színekkel vagy anélkül
+*06.4*	Színekkel, vagy anélkül
 
 A színes szövegek megjelenítése sok erőforrást igényel. Ha lassúnak találod a
 megjelenést, akkor érdemes egy próbát tenni színek nélkül: >
@@ -215,7 +215,7 @@ A szintaxis kiemelés bekapcsolása az aktuális bufferben, lásd 'syntax': >
 	:set syntax=ON
 <
 ==============================================================================
-*06.5*	Nyomtatás színekkel				*syntax-printing*
+*06.5*	Színes nyomtatás				*syntax-printing*
 
 MS-Windows platformon a nyomtatás megkezdéséhez az alábbi parancs áll
 rendelkezésre: >
@@ -270,7 +270,7 @@ megjelenni.
 ==============================================================================
 *06.6*	További Irodalom
 
-|usr_44.txt|  A saját szintaxis kiemelésed
+|usr_44.txt|  Egyedi szintaxis kiemelés
 |syntax|      Az összes részlet
 
 ==============================================================================

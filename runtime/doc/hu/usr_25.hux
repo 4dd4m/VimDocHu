@@ -1,4 +1,4 @@
-*usr_25.txt*	For Vim version 8.2.	Last change: 2016 Mar 28
+*usr_25.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2016 Mar 28
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -11,14 +11,14 @@ szerkesztéseket tárgyal. Bemutatja a Vim egysoros bekezdések és táblázatok
 formázási lehetőségeit.
 
 |25.1|	Sortörések
-|25.2|	Igazítás
+|25.2|	Szövegek igazítása
 |25.3|	Behúzások és tabulátorok
 |25.4|	Munka hosszú sorokkal
 |25.5|	Táblázatok szerkesztése
 
 Következő fejezet: |usr_26.txt|  Ismétlés
     Előző fejezet: |usr_24.txt|  Beszúrás gyorsan
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *25.1*	Sortörések

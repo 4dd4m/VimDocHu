@@ -1,8 +1,8 @@
-*usr_44.txt*	For Vim version 8.2.	Last change: 2017 May 06
+*usr_44.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2017 May 06
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			 A saját szintaxis kiemelésed
+			  Egyedi szintaxis kiemelés
 
 
 A Vim többszázféle fájltípus szintaxisának kiemelésére képes. Ha olyan
@@ -15,17 +15,17 @@ Lásd |:syn-define| (dokumentáció).
 |44.3|	Egyezések
 |44.4|	Tartományok
 |44.5|	Egymásba ágyazott elemek
-|44.6|	Csoportok követése
+|44.6|	Csoportok
 |44.7|	Egyéb argumentumok
 |44.8|	Klaszterek
 |44.9|	Szintaxis fájl beágyazása
 |44.10|	Szinkronizáció
 |44.11|	Szintaxis fájl telepítése
-|44.12|	Hordozható szerkezet
+|44.12|	Hordozható formátum
 
-Következő fejezet: |usr_45.txt|  Nyelvválasztás
-    Előző fejezet: |usr_43.txt|  Fájltípusok
- Tartalomjegyzék: |usr_toc.txt|
+Következő fejezet: |usr_45.txt|  Nyelv kiválasztása
+    Előző fejezet: |usr_43.txt|  Fájltípusok használata
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *44.1*	Alap szintaxis parancsok
@@ -195,7 +195,7 @@ egyszerűbb beágyazva is illeszteni őket, melyről a következő bekezdésben 
 szó.
 
 ==============================================================================
-*44.5*	Beágyazott elemek
+*44.5*	Egymásba ágyazott elemek
 
 Vizsgáljuk meg az alábbi kommentet:
 
@@ -288,7 +288,7 @@ szerepel a "contained" argumentum. Lásd: : |syn-contains| a további
 részletekért.
 
 ==============================================================================
-*44.6*	Csoportok követése
+*44.6*	Csoportok
 
 Az x nyelv az alábbi statementtel rendelkezik:
 
@@ -651,7 +651,7 @@ a létező fájlt). Unixon ez így néz ki:
 	~/.vim/after/syntax/c.vim ~
 
 ==============================================================================
-*44.12*	Hordozható szerkezet
+*44.12*	Hordozható formátum
 
 Nem lenne szép, ha minden Vim felhasználó kedvére cserélgethetné a kiemelés
 fájlokat? Hogy ez megtörténhessen, követnünk kell pár alapvető konvenciót.

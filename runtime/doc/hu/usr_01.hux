@@ -1,4 +1,4 @@
-*usr_01.txt*	For Vim version 8.2.	Last change: 2019 Nov 21
+*usr_01.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 Nov 21
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -7,12 +7,12 @@
 A fejezet röviden bemutatja a Vim működését. Elolvasásával a információt
 szerezhetünk a parancsok működéséről és feltételeiről.
 
-|01.1|	A két fejezet
+|01.1|	Dokumentáció és kézikönyv
 |01.2|	Vim telepítés
-|01.3|	A Vim tutor használata
+|01.3|	A Vimtutor használata
 |01.4|	Jogi információk
 
-Következő fejezet: |usr_02.txt|  Első lépések a Vim szerkesztőben
+Következő fejezet: |usr_02.txt|  A legelső lépések
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================

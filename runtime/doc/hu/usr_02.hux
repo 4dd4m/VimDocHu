@@ -1,8 +1,8 @@
-*usr_02.txt*	For Vim version 8.2.	Last change: 2021 Apr 24
+*usr_02.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Apr 24
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			    Első lépések a Vimben
+			    A legelső lépések
 
 
 A fejezet biztosítja azt a minimális információt, mellyel  a Vimben fájlokat
@@ -10,21 +10,21 @@ szerkeszthetünk. Abszolút nem optimálisan, de képesek leszünk alapvető
 szerkesztésekre. Fektess be egy kis időt és próbáld meg elsajátítani a
 parancsokat, hiszen a további fejezetek alapját képezik.
 
-|02.1|	Vim indítása a legelső alkalommal
+|02.1|	Vim futtatása első alkalommal
 |02.2|	Szöveg beszúrása
 |02.3|	Navigáció
 |02.4|	Karakterek törlése
 |02.5|	Vissza és mégis
-|02.6|	Egyéb szerkesztési parancsok
+|02.6|	Egyéb szerkesztő- parancsok
 |02.7|	Kilépés
 |02.8|	Segítség
 
 Következő fejezet: |usr_03.txt|  Navigáció
     Előző fejezet: |usr_01.txt|  A kézikönyvről
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*02.1*	Vim indítása a legelső alkalommal
+*02.1*	Vim futtatása első alkalommal
 
 A Vim indításához add ki az alábbi parancsot: >
 
@@ -315,7 +315,7 @@ tűnhet. Ne aggódj, az "u" és a CTRL-R parancsokkal bármilyen szituációt le
 tudsz kezelni. A témában többet ebben a szekcióban olvashatsz |32.2|.
 
 ==============================================================================
-*02.6*	Egyéb szerkesztő parancsok
+*02.6*	Egyéb szerkesztő- parancsok
 
 A szöveg szerkesztéséhez még számos parancs áll a rendelkezésre. Lásd |Q_in|
 és alább. Összefoglalva ezek a leggyakoribbak:j

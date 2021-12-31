@@ -1,4 +1,4 @@
-*usr_09.txt*	For Vim version 8.2.	Last change: 2017 Aug 11
+*usr_09.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2017 Aug 11
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -18,7 +18,7 @@ extra funkciókról, melyeket a GUI ajánl.
 
 Következő fejezet: |usr_10.txt|  Nagyobb változtatások
     Előző fejezet: |usr_08.txt|  Splitek
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *09.1*	A GUI részei
@@ -122,7 +122,7 @@ dolgozol a menü segítségével, vagy a 'guioptions' módosításával:
 Ez az 'l' flaget adja hozzá a 'guioptions'-hoz.
 
 ==============================================================================
-*09.2*	Az egér használata
+*09.2*	Egérhasználat
 
 A szabványok gyönyörűek... Windowsban az egérrel ki lehet jelölni a szöveget.
 Az X ablakrendszernek is megvannak a maga szabványai, de sajnos a két szabvány
@@ -251,7 +251,7 @@ Minden parancs teljesen ugyan az. Az egyedüli differencia a vágólap címzés�
 van az egyik a plussz (+), a másik a csillag (*) regisztert használja.
 
 ==============================================================================
-*09.4*	Módváltás
+*09.4*	Kiválasztás
 
 És most jöjjön egy olyan dolog, amely sokkalta gyakoribb MS-Windows rendszeren,
 mint X-en, de mindkét rendszer képes rá. A Visual módot már ismered. A Select

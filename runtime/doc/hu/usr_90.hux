@@ -1,4 +1,4 @@
-*usr_90.txt*	For Vim version 8.2.	Last change: 2020 Jun 11
+*usr_90.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jun 11
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -14,10 +14,10 @@ hogyan frissítsünk új verzióra
 |90.2|	MS-Windows
 |90.3|	Frissítés
 |90.4|	Gyakori telepítési problémák
-|90.5|	Uninstalling Vim
+|90.5|	A Vim törlése
 
    Előző fejezet: |usr_46.txt|  Vim9 beépülő írása
-Tartalomjegyzék: |usr_toc.txt|
+ Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *90.1*	Unix

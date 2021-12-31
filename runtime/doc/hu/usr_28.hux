@@ -1,4 +1,4 @@
-*usr_28.txt*	For Vim version 8.2.	Last change: 2008 Jun 14
+*usr_28.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2008 Jun 14
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -12,17 +12,17 @@ A fejezetben a foldolás különböző módszereit tárgyaljuk.
 |28.1|	Mi a foldolás?
 |28.2|	Kézi foldolás
 |28.3|	Munka a foldokkal
-|28.4|	Foldok mentése, visszaállítása
-|28.5|	Foldolás behúzás által
-|28.6|	Foldolás markerek által
-|28.7|	Foldolás szintaxis által
-|28.8|	Foldolás kifejezéssel
+|28.4|	Foldok mentése és visszaállítása
+|28.5|	Foldolás behúzás alapján
+|28.6|	Foldolás jelölők alapján
+|28.7|	Foldolás szintaxis alapján
+|28.8|	Foldolás kifejezések által
 |28.9|	Változatlan sorok foldolása
 |28.10|	Melyik foldolási módszert válasszam?
 
 Következő fejezet: |usr_29.txt|  Mozgás a kódban
     Előző fejezet: |usr_27.txt|  Keresési parancsok és minták
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *28.1*	Mi a foldolás?
@@ -185,7 +185,7 @@ többször is, egyik ablakban foldokkal, másikban anélkül. (Vagy az egyikben
 nyitott foldokkal, a másikban pedig zártakkal).
 
 ==============================================================================
-*28.4*	Foldok mentése, visszaállítása
+*28.4*	Foldok mentése és visszaállítása
 
 Ha "elhagysz" egy fájlt (egy másikat nyitsz meg), akkor a foldok helyzete
 elveszik. A kézzel kinyitott és bezárt foldok felveszik kezdő állapotukat
@@ -211,7 +211,7 @@ Megjegyzés: Sorok beszúrásakor vagy törlésekor, a nézet invaliddá válhat
 tartozó fájlt.
 
 ==============================================================================
-*28.5*	Foldolás behúzás által
+*28.5*	Foldolás behúzás alapján
 
 Munkaigényes, ha minden foldot a |zf| paranccsal szeretnél létrehozni. Ha
 fájlod jó struktúrált (behúzások), akkor foldolhatsz a behúzások alapján is. 
@@ -267,7 +267,7 @@ A probléma, hogy nem tudunk kézzel foldot létrehozni, ha a 'foldmethod' ért�
 Még több a behúzás alapú foldokról a manuálban: |fold-indent|
 
 ==============================================================================
-*28.6*	Foldolás markerek által
+*28.6*	Foldolás jelölők alapján
 
 A foldot kezdeti és végpontjai kijelölhetők markerekkel (jelelőkkel).
 Precízen, magas fokú kontroll mellett létrehozhatjuk a foldot. Hátrány, hogy
@@ -313,7 +313,7 @@ másik kezdődne, "end marker"-rel meg kell jelölnöd.
 A technika részleteiről olvasd el a dokumentációt: |fold-marker|
 
 ==============================================================================
-*28.7*	Foldolás szintaxis által
+*28.7*	Foldolás szintaxis alapján
 
 A Vim minden egyes fájltípushoz saját szintaxisfájlt használ, mely
 meghatározza a színeket és egyéb elemeket. Ha ezt  a Vimben olvasod és a
@@ -331,7 +331,7 @@ szerkesztésekor.
 A szintaxisalapú foldolás: |fold-syntax|
 
 ==============================================================================
-*28.8*	Foldolás kifejezés által
+*28.8*	Foldolás kifejezések által
 
 Nagyon hasonló a behúzásos módszerhez, a felhasználó által írt függvény
 határozza meg a sorok behúzását. Használata akkor optimális, ha a szövegben
@@ -394,7 +394,7 @@ Ezek után már tisztán láthatod, hogy a változatlan sorok foldolva vannak.
 Még több információ |fold-diff|.
 
 ==============================================================================
-*28.10* Melyik foldolást válasszam?
+*28.10* Melyik foldolási módszert válasszam?
 
 Ennyi lehetőség után nem csodálom, ha felmerül a kérdés. Sajnos nincs
 aranyszabály. Pár tipp.

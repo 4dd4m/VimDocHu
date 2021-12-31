@@ -1,8 +1,8 @@
-*usr_42.txt*	For Vim version 8.2.	Last change: 2008 May 05
+*usr_42.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2008 May 05
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			     Új menük hozzáadása
+			   Új menüelemek hozzáadása
 
 
 Mostanra már tudod, hogy a Vim nagyon flexibilis. Ez a GUI menüire is
@@ -12,11 +12,11 @@ lehetnek. A fejezet az egeret használó felhasználóknak íródott.
 |42.1|	Bevezetés
 |42.2|	Menü parancsok
 |42.3|	Egyebek
-|42.4|	Eszköztárak és felugró menük
+|42.4|	Eszköztárak és környezeti menük
 
 Következő fejezet: |usr_43.txt|  Fájltípusok használata
     Előző fejezet: |usr_41.txt|  Vim szkriptek
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *42.1*	Bevezetés

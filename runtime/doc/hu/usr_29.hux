@@ -1,25 +1,25 @@
-*usr_29.txt*	For Vim version 8.2.	Last change: 2016 Feb 27
+*usr_29.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2016 Feb 27
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			    Mozgás kódbázisban
+			    Mozgás a kódban
 
 A Vim alkotója maga is programozó, így nem csoda, hogy ennyi funkció került a
 Vimbe. Ugorj oda a változókhoz és találd meg a használati helyeiket.
 Deklarációk előnézete külön ablakban. Még több a következő fejezetben.
 
-|29.1|	Tagek használata
+|29.1|	Jelölők használata
 |29.2|	Az előnézeti ablak
-|29.3|	Mozgás kódbázisban
+|29.3|	Mozgás a kódbázisban
 |29.4|	Globális azonosítók keresése
-|29.5|	Lokális azonosítók
+|29.5|	Lokális azonosítók keresése
 
 Következő fejezet: |usr_30.txt|  Programok szerkesztése
     Előző fejezet: |usr_28.txt|  Foldolás
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*29.1*	Tagek használata
+*29.1*	Jelölők használata
 
 Mi a tag? A tag leírja, hogy az adott kód eleme, melyik fájlban van
 definiálva. Például képzeljünk el egy függvénydefiníciót C vagy C++
@@ -569,7 +569,7 @@ megváltoztathatod, hogy kompatibilis legyen más nyelvekkel is.
     végéig.
 
 ==============================================================================
-*29.5*	Helyi azonosítók keresése
+*29.5*	Lokális azonosítók keresése
 
 Az "[I" parancs a beágyazott fájlokban keres. Keresés csak az aktív fájlban, a
 kurzor alatt lévő szó első használati helyéhez ugrás: >

@@ -1,4 +1,5 @@
-*usr_toc.txt*	For Vim version 8.2.	Last change: 2020 Jun 15
+*usr_toc.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jun 15
+
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -7,7 +8,7 @@
 
 ==============================================================================
 Kezdeti lépések ~
-|usr_01.hux|  A kézikönyvről
+|usr_01.txt|  A kézikönyvről
 |usr_02.txt|  Első lépések a Vimben
 |usr_03.txt|  Navigáció
 |usr_04.txt|  Kisebb változtatások
@@ -62,19 +63,19 @@ A legelemibb parancsok megtanulásához olvasd el az alábbiakat sorrendben:
 
 |usr_01.txt|  A kézikönyvről
 		|01.1|	Dokumentáció és kézikönyv
-		|01.2|	Vim telepítve
-		|01.3|	A Vim tutor használata
+		|01.2|	Vim telepítés
+		|01.3|	A Vimtutor használata
 		|01.4|	Jogi Információk
 
 |usr_02.txt|  A legelső lépések
 		|02.1|	Vim futtatása első alkalommal
-		|02.2|	Szöveg beillesztése
+		|02.2|	Szöveg beszúrása
 		|02.3|	Navigáció
 		|02.4|	Karakterek törlése
 		|02.5|	Vissza és mégis
 		|02.6|	Egyéb szerkesztő- parancsok
 		|02.7|	Kilépés
-		|02.8|	Segítség kérése
+		|02.8|	Segítség
 
 |usr_03.txt|  Navigáció
 		|03.1|	Szavankénti mozgás
@@ -82,16 +83,16 @@ A legelemibb parancsok megtanulásához olvasd el az alábbiakat sorrendben:
 		|03.3|	Ugrás karakterhez
 		|03.4|	Zárójelek párjai
 		|03.5|	Adott sorra ugrás
-		|03.6|	Hol vagyok
+		|03.6|	Aktuális pozíció
 		|03.7|	Görgetés
 		|03.8|	Egyszerű keresések
 		|03.9|	Egyszerű keresési minták
 		|03.10|	Jelölők használata
 
-|usr_04.txt|  Kisebb változtatások
-		|04.1|	Operátorok és mozgások
+|usr_04.txt|  Kisebb szerkesztések
+		|04.1|	Operátorok és tartományok
 		|04.2|	Szöveg változtatása
-		|04.3|	Parancsok ismétlése
+		|04.3|	Szerkesztés ismétlése
 		|04.4|	Visual mód
 		|04.5|	Szöveg mozgatása
 		|04.6|	Szöveg másolása
@@ -102,11 +103,11 @@ A legelemibb parancsok megtanulásához olvasd el az alábbiakat sorrendben:
 
 |usr_05.txt|  A beállításaid
 		|05.1|	A vimrc fájl
-		|05.2|	A példa vimrc fájl magyarázata
-		|05.3|	A defaults.vim fájl magyarázata
+		|05.2|	Példa vimrc fájl 
+		|05.3|	A defaults.vim fájl 
 		|05.4|	Egyszerű mappek
-		|05.5|	Csomagok hozzáadása
-		|05.6|	Beépülők hozzáadása
+		|05.5|	Csomag hozzáadása
+		|05.6|	Beépülő hozzáadása
 		|05.7|	Help fájl hozzáadása
 		|05.8|	A beállítások ablak
 		|05.9|	Leggyakoribb beállítások
@@ -120,7 +121,7 @@ A legelemibb parancsok megtanulásához olvasd el az alábbiakat sorrendben:
 		|06.6|	További irodalom
 
 |usr_07.txt|  Több fájl szerkesztése
-		|07.1|	Másik fájl szerkesztése
+		|07.1|	Alternatív fájl szerkesztése
 		|07.2|	Fájlok listája
 		|07.3|	Fájlról fájlra ugrás
 		|07.4|	Biztonsági mentések
@@ -129,37 +130,38 @@ A legelemibb parancsok megtanulásához olvasd el az alábbiakat sorrendben:
 		|07.7|	Fájl átnevezése
 
 |usr_08.txt|  Splitek
-		|08.1|	Splitek
-		|08.2|	Split létrehozás másik fájlon
+		|08.1|	Splitek létrehozása
+		|08.2|	Split létrehozása adott fájllal
 		|08.3|	Ablakméret
 		|08.4|	Vertikális splitek
 		|08.5|	Ablakok mozgatása
 		|08.6|	Parancsok az összes ablakra
 		|08.7|	Vimdiff használata
 		|08.8|	Egyebek
+		|08.9|	Fülsáv
 
 |usr_09.txt|  A GUI használata
 		|09.1|	A GUI részei
-		|09.2|	Az egér használata
-		|09.3|	A vágólap használata
-		|09.4|	Módváltás
+		|09.2|	Egérhasználat
+		|09.3|	Vágólap
+		|09.4|	Kiválasztás
 
 |usr_10.txt|  Nagyobb változtatások
-		|10.1|	Parancsok felvétele, visszajátszása
+		|10.1|	Parancsok felvétele és visszajátszása
 		|10.2|	Csere
-		|10.3|	A parancsok tartományai
-		|10.4|	Globális parancsok
+		|10.3|	Parancs-tartományok
+		|10.4|	A global parancs
 		|10.5|	Visual block mód
 		|10.6|	Fájl részeinek olvasása, írása
 		|10.7|	Szöveg formázása
-		|10.8|	Kis- és nagybetű közötti váltás
+		|10.8|	Kis- nagybetű váltása
 		|10.9|	Külső programok használata
 
 |usr_11.txt|  Helyreállítás
 		|11.1|	Alapvető helyreállítás
 		|11.2|	Hol van a swapfájl?
-		|11.3|	Összeomlott, vagy mégsem?
-		|11.4|	További Irodalom
+		|11.3|	Összeomlott vagy sem?
+		|11.4|	További irodalom
 
 |usr_12.txt|  Tippek, trükkök
 		|12.1|	Szavak cseréje
@@ -176,107 +178,107 @@ Hatékony szerkesztés
 
 A következő fejezeteket nem szükséges sorrendben olvasni.
 
-|usr_20.txt|  Gyors gépelés command-line módban
-		|20.1|	Command line szerkesztés
-		|20.2|	Command line rövidítések
-		|20.3|	Command line kiegészítés
-		|20.4|	Command line történet
-		|20.5|	Command line ablak
+|usr_20.txt|  Command-line parancsok gépelése gyorsan
+		|20.1|	Command-line szerkesztés
+		|20.2|	Command-line rövidítések
+		|20.3|	Command-line kiegészítés
+		|20.4|	Command-line történet
+		|20.5|	Command-line ablak
 
 |usr_21.txt|  Visszatérés adott pontra
 		|21.1|	Felfüggesztés és folytatás
 		|21.2|	Shell parancsok futtatása
-		|21.3|	Az információ megjegyzése; viminfo
+		|21.3|	Információk tárolása; viminfo
 		|21.4|	Munkamenetek
 		|21.5|	Nézetek
 		|21.6|	Módsorok
 
 |usr_22.txt|  Fájlok keresése
 		|22.1|	A fájlböngésző
-		|22.2|	A aktív könyvtár
+		|22.2|	Aktív könyvtár
 		|22.3|	Fájlok keresése
 		|22.4|	A bufferlista
 
-|usr_23.txt|  Más fájlok szerkesztése
+|usr_23.txt|  Egyéb fájltípusok szerkesztése
 		|23.1|	DOS, Mac és Unix fájlok
-		|23.2|	Fájlok keresése az interneten
+		|23.2|	Interneten lévő fájlok 
 		|23.3|	Titkosítás
 		|23.4|	Bináris fájlok
 		|23.5|	Tömörített állományok
 
-|usr_24.txt|  Gyors beillesztés
+|usr_24.txt|  Beszúrás gyorsan
 		|24.1|	Korrekciók
-		|24.2|	Találatok mutatás
+		|24.2|	Egyezések mutatása
 		|24.3|	Kiegészítés
 		|24.4|	Beszúrás ismétlése
 		|24.5|	Másolás másik sorból
 		|24.6|	Regiszter tartalmának beszúrása
 		|24.7|	Rövidítések
-		|24.8|	Speciális karakterek beszúrása
+		|24.8|	Speciális karakterek bevitele
 		|24.9|	Digrammák
 		|24.10|	Normal módú parancsok
 
 |usr_25.txt|  Formázott szöveg szerkesztése
 		|25.1|	Sortörések
 		|25.2|	Szövegek igazítása
-		|25.3|	Indentálás és tabulátorok
+		|25.3|	Behúzások és tabulátorok
 		|25.4|	Munka hosszú sorokkal
 		|25.5|	Táblázatok szerkesztése
 
 |usr_26.txt|  Ismétlés
 		|26.1|	Ismétlések Visual módban
-		|26.2|	Hozzáadás, kivonás
+		|26.2|	Hozzáadás és kivonás
 		|26.3|	Egyidejű szerkesztés több fájlon
-		|26.4|	Vim használata shell szkriptből
+		|26.4|	Vim használata shell-szkripttel
 
 |usr_27.txt|  Keresési parancsok és minták
 		|27.1|	Betűérzéketlenség
 		|27.2|	Körkörös keresés
 		|27.3|	Offszetek
-		|27.4|	Illesztés többsoros tartományon
+		|27.4|	Illesztés több alkalommal
 		|27.5|	Alternatívák
-		|27.6|	Karakter tartományok
+		|27.6|	Karaktertartományok
 		|27.7|	karakterosztályok
 		|27.8|	Sortörés illesztése
 		|27.9|	Példák
 
 |usr_28.txt|  Foldolás
 		|28.1|	Mi a foldolás?
-		|28.2|	Manuális foldolás
-		|28.3|	Munka a foldok használatával
+		|28.2|	Kézi foldolás
+		|28.3|	Munka a foldokkal
 		|28.4|	Foldok mentése és visszaállítása
 		|28.5|	Foldolás behúzás alapján
 		|28.6|	Foldolás jelölők alapján
 		|28.7|	Foldolás szintaxis alapján
-		|28.8|	Foldolás kifejezés alapján
+		|28.8|	Foldolás kifejezések által
 		|28.9|	Változatlan sorok foldolása
-		|28.10|	Melyik foldolási metódust válasszam?
+		|28.10|	Melyik foldolási módszert válasszam?
 
-|usr_29.txt|  Mozgás programok között
+|usr_29.txt|  Mozgás a kódban
 		|29.1|	Jelölők használata
 		|29.2|	Az előnézeti ablak
-		|29.3|	Mozgás programon keresztül
+		|29.3|	Mozgás a kódbázisban
 		|29.4|	Globális azonosítók keresése
 		|29.5|	Lokális azonosítók keresése
 
 |usr_30.txt|  Programok szerkesztése
 		|30.1|	Fordítás
-		|30.2|	C fájlok indentálása
-		|30.3|	Automatikus indentálás
-		|30.4|	Egyéb indentálás
+		|30.2|	C fájlok behúzása
+		|30.3|	Automatikus behúzás
+		|30.4|	Egyéb behúzások
 		|30.5|	Tabulátorok és szóközök
 		|30.6|	Kommentek formázása
 
 |usr_31.txt|  A GUI (ki)használása
 		|31.1|	A fájlböngésző
 		|31.2|	Megerősítés
-		|31.3|	Menü gyorsbillentyűk
+		|31.3|	Menüelemek
 		|31.4|	A Vim ablak pozíciója és mérete
 		|31.5|	Egyebek
 
-|usr_32.txt|  A visszavonás fa
+|usr_32.txt|  A visszavonás-fa
 		|32.1|	Visszavonás az előző mentésig
-		|32.2|	Változtatások számozása
+		|32.2|	Változatok számozása
 		|32.3|	Mozgás a fában
 		|32.4|	Időutazás
 
@@ -290,21 +292,21 @@ Alakítsd a Vimet úgy, ahogy neked tetszik
 		|40.2|	Command-line parancsok definiálása
 		|40.3|	Autocommandok
 
-|usr_41.txt|  Vim Szkript írása
+|usr_41.txt|  Vim szkriptek
 		|41.1|	Bevezetés
 		|41.2|	Változók
 		|41.3|	Kifejezések
 		|41.4|	Feltételek
-		|41.5|	Kifejezés futtatása
+		|41.5|	Kifejezések futtatása
 		|41.6|	Függvények használata
 		|41.7|	Függvények definiálása
 		|41.8|	Listák és szótárak
 		|41.9|	Kivételek
-		|41.10|	Egyéb említése
+		|41.10|	Általános információk
 		|41.11|	Beépülő írása
 		|41.12|	Filetype beépülő írása
 		|41.13|	Compiler beépülő írása
-		|41.14|	Gyorsan betöltő beépülő írása
+		|41.14|	A gyors beépülő ismérvei
 		|41.15|	Szkript könyvtárak írása
 		|41.16|	Vim szkriptek megosztása
 
@@ -312,7 +314,7 @@ Alakítsd a Vimet úgy, ahogy neked tetszik
 		|42.1|	Bevezetés
 		|42.2|	Menü parancsok
 		|42.3|	Egyebek
-		|42.4|	Eszköztárak és popup menük
+		|42.4|	Eszköztárak és környezeti menük
 
 |usr_43.txt|  Fájltípusok használata
 		|43.1|	Beépülők a fájltípusokhoz
@@ -326,23 +328,23 @@ Alakítsd a Vimet úgy, ahogy neked tetszik
 		|44.5|	Egymásba ágyazott elemek
 		|44.6|	Csoportok
 		|44.7|	Egyéb argumentumok
-		|44.8|	Clusterek
-		|44.9|	Létező szintaxis fájl beemelése
+		|44.8|	Klaszterek
+		|44.9|	Szintaxis fájl beágyazása
 		|44.10|	Szinkronizáció
-		|44.11|	Szintaxis fájl installálása
-		|44.12|	Hordozható szintaxis fájl layout
+		|44.11|	Szintaxis fájl telepítése
+		|44.12|	Hordozható formátum
 
 |usr_45.txt|  Nyelv kiválasztása
-		|45.1|	Az üzenetek megjelenítési nyelve
-		|45.2|	Menük megjelenítési nyelve
-		|45.3|	Más karakterkódolás használata
+		|45.1|	Az üzenetek megjelenítésének nyelve
+		|45.2|	Menüelemek megjelenítésének nyelve
+		|45.3|	Eltérő karakterkódolás használata
 		|45.4|	Fájl szerkesztése más karakterkódolással
 		|45.5|	Angol és idegen nyelvű kiosztás használata egyszerre
 		
 
 |usr_46.txt|  Beépülők írása Vim9 szkripttel
 		|46.1|	Bevezetés
-		|46.2|	Változó deklarációk
+		|46.2|	Változó deklarálása
 		|46.3|	Függvények és típusok
 		|46.?|	Vim9 szkript használata
 

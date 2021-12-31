@@ -1,8 +1,8 @@
-*usr_46.txt*	For Vim version 8.2.	Last change: 2020 Jun 14
+*usr_46.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jun 14
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
-			     Vim9 beépülők írása
+			Beépülők írása Vim9 szkripttel
 
 A Vim9 szkriptnyelvet beépülők írásához tervezték, kifejezetten olyanokra,
 amik több fájlra oszlanak fel. A fejezte azt részletezi, hogy a szkriptünket
@@ -10,13 +10,13 @@ hogyan tudjuk fájlokba, modulokba szervezni és hogy ezeket részeit hogyan
 tudjuk importálni és exportálni.
 
 |46.1|	Bevezetés
-|46.2|	Változó deklaráció
+|46.2|	Változó deklarálása
 |46.3|	Függvények és típusok
-|46.?|	Using a Vim9 script from legacy script
+|46.?|	Vim9 szkript használata
 
 Következő fejezet: |usr_90.txt|  A Vim telepítése
-    Előző fejezet: |usr_45.txt|  Nyelvválasztás
- Tartalomjegyzék: |usr_toc.txt|
+    Előző fejezet: |usr_45.txt|  Nyelv kiválasztása
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
 *46.1*	Bevezetés				*vim9-script-intro*
@@ -116,7 +116,7 @@ Amit így rövidíthetünk: >
 	let word = condition ? 'yes' : 'no'
 
 ==============================================================================
-*46.3*	Függvények és típusaik
+*46.3*	Függvények és típusok
 
 A régi Vim szkript végez típusellenőrzést, de ez futásidőben történik. Az
 ellenőrzés pedig nem ritka, hibaüzenet nélkül megy végbe az ellenőrzés. Ezért
@@ -179,7 +179,7 @@ Ebben az esetben nem kell törődnünk a típussal. Ha olyan függvényt szeretn
 	enddef
 
 ==============================================================================
-*46.?*	Using a Vim9 script from legacy script		*source-vim9-script*
+*46.?*	Vim9 szkript használata				*source-vim9-script*
 
 Olykor a régi Vim szkripteket a Vim9 szkriptből szeretnéd használni. Például a
 .vimrc fájlodban szeretnél inicializálni egy beépülőt. A legjobb, ha ezt az

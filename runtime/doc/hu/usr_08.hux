@@ -1,4 +1,4 @@
-*usr_08.txt*	For Vim version 8.2.	Last change: 2021 May 20
+*usr_08.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 May 20
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -21,10 +21,10 @@ használatával.
 
 Következő fejezet: |usr_09.txt|  A GUI használata
     Előző fejezet: |usr_07.txt|  Több fájl szerkesztése
- Tartalomjegyzék: |usr_toc.txt|
+  Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*08.1*	Splitek
+*08.1*	Splitek létrehozása
 
 Az aktív ablak splitelése ilyen egyszerű: >
 
@@ -79,7 +79,7 @@ mentetlen változás, akkor hibaüzenet jelenik meg és az ablak nem fog
 bezáródni.
 
 ==============================================================================
-*08.2*	Split létrehozása másik fájllal
+*08.2*	Split létrehozása adott fájllal
 
 A split parancsnak egy fájlnevet átadva argumentumként splitelhetjük az adott
 fájlt:
@@ -272,7 +272,7 @@ kitaláltál):
 	CTRL-W L	ablak mozgatása jobbra 
 
 ==============================================================================
-*08.6*	Parancsok az összes ablak számára
+*08.6*	Parancsok az összes ablakra
 
 Ha több ablak meg van nyitva a Vimben és ki szeretnél lépni a szerkesztőből,
 akkor bezárogathatod egyesével, vagy a gyorsabb megoldást alkalmazod: >
@@ -493,7 +493,7 @@ parancsok előtt meghatározhatod, hogy a split pontosan hová kerüljön:
 
 
 ==============================================================================
-*08.9*	Fülek
+*08.9*	Fülsáv
 
 Az ablakok sohasem fedik egymást, ennek hátránya, hogy a az ablakunk gyorsan
 megtelik. Megoldást jelenthet a füles elrendezés.
