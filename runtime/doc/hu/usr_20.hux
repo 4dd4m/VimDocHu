@@ -1,4 +1,4 @@
-*usr_20.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2006 Apr 24
+*usr_20.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Nov 18
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -296,10 +296,10 @@ Ezekről bővebben itt olvashatsz: |cmdline-completion|
 A 3. fejezetben már említést tettünk róla. <Up> billentyűvel a régebbi
 parancsok felé böngészhetsz, míg <Down> az újabbak felé navigál.
 
-Valójában négy historyról beszélhetünk. Melyekről itt beszélünk: ":", "/", "?".
+Valójában öt historyról beszélhetünk. Melyekről itt beszélünk: ":", "/", "?".
 A "/" és "?" parancsokkal végzett munka egy historyba kerül, hiszen mindkettő
-a keresésért felel. A másik két history a kifejezéseké és az input() függvény
-számára van fenntartva. |cmdline-history|.
+a keresésért felel. A másik három history a kifejezések, debug mód parancsok
+és az input() függvény számára van fenntartva. |cmdline-history|.
 
 Tegyük fel, hogy kiadtad tíz paranccsal ezelőtt a ":set" parancsot. Meg
 szeretnéd ismételni ezért gyorsan tízszer <Up> billentyűt ütsz. Létezik egy
