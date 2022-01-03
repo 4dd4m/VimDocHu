@@ -43,6 +43,8 @@ Az eddig betartott alapelvek:
 * Nem fordítjuk a Vimmel már egybeforrt idegen nyelvű szavakat mint például:
     * quickfix, jumplist, tag, command-line, Insert, Visual, 
     * Replace, shell, autocommand, conceal, fold stb.
+* Módosításaidat küldheted pull-requestben, vagy küldd el a
+  87.adamtorok@ulster.ac.uk e-mail címre
 
 ## Nem fordítanál?
 Ebben az esetben az alábbiakban segíthetsz:
