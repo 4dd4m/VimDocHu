@@ -435,7 +435,6 @@ jelölés		jelentés	    egyenértékű	decimális   érték	~
 <Tab>		tabulátor		CTRL-I	  9	*tab* *Tab*
 							*linefeed*
 <NL>		soremelés		CTRL-J	 10 (used for <Nul>)
-<FF>		lapdobás		CTRL-L	 12	*formfeed*
 <CR>		kocsi vissza		CTRL-M	 13	*carriage-return*
 <Return>	azaz <CR>				*<Return>*
 <Enter>		azaz <CR>				*<Enter>*

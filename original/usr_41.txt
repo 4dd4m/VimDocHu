@@ -1,4 +1,4 @@
-*usr_41.txt*	For Vim version 8.2.  Last change: 2021 Aug 08
+*usr_41.txt*	For Vim version 8.2.  Last change: 2021 Sep 10
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -723,6 +723,10 @@ Floating point computation:				*float-functions*
 	isinf()			check for infinity
 	isnan()			check for not a number
 
+Blob manipulation:					*blob-functions*
+	blob2list()		get a list of numbers from a blob
+	list2blob()		get a blob from a list of numbers
+
 Other computation:					*bitwise-function*
 	and()			bitwise AND
 	invert()		bitwise invert
@@ -921,6 +925,8 @@ Syntax and highlighting:	  *syntax-functions* *highlighting-functions*
 	getmatches()		get all matches defined by |matchadd()| and
 				the |:match| commands
 	hlexists()		check if a highlight group exists
+	hlget()			get highlight group attributes
+	hlset()			set highlight group attributes
 	hlID()			get ID of a highlight group
 	synID()			get syntax ID at a specific position
 	synIDattr()		get a specific attribute of a syntax ID
@@ -1448,6 +1454,8 @@ is a List with arguments.
 
 Function references are most useful in combination with a Dictionary, as is
 explained in the next section.
+
+More information about defining your own functions here: |user-functions|.
 
 ==============================================================================
 *41.8*	Lists and Dictionaries
