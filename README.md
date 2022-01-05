@@ -72,7 +72,4 @@ hogy könnyedén felderíthető legyen.
 	* a feldolgozatlan sorok előtt egy globális komment van (üres üzeneteket nem lehet fordítani)
 	* push előtt `:source check.vim`-el ellőrizni kell a fjált
 
-## Bugok
-* helpgrep magyarul nem működik
-
  vim:tw=80:filetype=markdown:syntax=markdown
