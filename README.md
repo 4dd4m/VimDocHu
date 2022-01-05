@@ -21,11 +21,11 @@
 	* `set helplang=hu,en` (alapértelmezett :help a magyar dokumentációt nyitja
       meg)
 	* `syntax on`
-	* `au! BufEnter *.hux :set syntax=hux` (ha bemásoltad a syntax filet)
+	* `au! BufEnter *.hux :set syntax=hux` (ha bemásoltad a syntax fájlt)
 	* `set conceallevel=2`
 	* `set concealcursor=n`
 
-## GIT PULL UTÁN
+## Git pull után
 * minden további frissítés esetén futtassuk a `:helptags $VIMRUNTIME/doc`
   parancsot
 
