@@ -1,9 +1,10 @@
 *intro.txt* Vim Verzió 8.2.    Utolsó módosítás: 2020 Dec 29
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 
-Bevezetés a VIM használatába				*ref* *reference*
+Bevezetés a VIM használatába			*ref* *reference* *referencia*
 
 1. Bevezetés			|intro|
 2. Internetes források		|internet|
@@ -15,7 +16,7 @@ Bevezetés a VIM használatába				*ref* *reference*
 8. Definíciók			|definitions|
 
 ==============================================================================
-1. Bevezetés						*intro*
+1. Bevezetés						*intro* *bevezetés*
 
 A Vim egy rövidítés, jelentése: Vi IMproved. Kezdetben Vi IMitationt
 jelentett, de a számos fejlesztés hatására a névcsere elengedhetetlenné vált.
@@ -43,7 +44,7 @@ különbségekben eltérhetnek. Ezen kívül, léteznek rendszerspecifikus
 dokumentációk
 (lásd |sys-file-list|).
 
-							*pronounce*
+						*pronounce* *kiejtés*
 A Vim szót úgy ejtjük, ahogy leírjuk, nem betűzzük (vé-i-em). Az első v betű
 pedig minden esetben nagy kezdőbetű, hiszen tulajdonnévről beszélünk.
 
@@ -52,7 +53,7 @@ kezdőknek, ezért teljesen természetes, hogy olykor-olykor egy kissé
 bonyolulttá válik. Teljesen kezdők rendelkezésére áll |tutor|. A Vim
 használatát a |usr_toc| dokumentum mutatja be.
 
-							*book* *books*
+						      *book* *books* *könyvek*
 Nyomtatott könyvek rendszerint szentelnek fejezeteket a kezdők számára, míg
 mások részletesebben kitérnek egy adott konkrét funkció leírására. Az elérhető
 könyvekről készült lista itt megtekinthető, a teljesség igénye nélkül:
@@ -77,14 +78,14 @@ Kérdések és válaszok: https://vi.stackexchange.com/
 felhasználói számára.
 
 
-Usenet hírcsoport, beszélgetések a Vimről:		*news* *usenet*
+Usenet hírcsoport, beszélgetések a Vimről:	*news* *usenet* *hírek*
 	comp.editors
 A csoport más szövegszerkesztők számára is otthont ad, így ha Vim témakörben
 írsz, ne felejtsd el megemlíteni.
 Itt érheted el (angol):
 https://groups.google.com/forum/#!topic/comp.editors
 
-						*mail-list* *maillist*
+					*mail-list* *maillist* *levelezőlista*
 Levelező listák:
 <vim@vim.org>					*vim-use* *vim_use*
 	Eszmecserék a legfrissebb Vim használatáról: Hasznos mappek, kérdések,
@@ -112,18 +113,18 @@ MEGJEGYZÉS:
 - Az üzenetek és a regisztráció helyszínének azonosnak kell lennie (a spam
   emailek elkerülése végett).
 
-						*subscribe-maillist*
+			     *subscribe-maillist* *levelezőlista-felíratkozás*
 Ha csatlakozni szeretnél, küldj üzenetet ide:
 	<vim-subscribe@vim.org>
 Győződj meg arról, hogy levél feladója helyesen van kitöltve. A szerver
 további üzenetben értesít a csatlakozás pontos menetéről.
 
-						*maillist-archive*
+				   *maillist-archive* *levelezőlista-archívum*
 További információk a levelező listáról, archívum:
 http://www.vim.org/maillist.php
 
 
-Hibajelentések:				*bugs* *bug-reports* *bugreport.vim*
+Hibajelentések:			*bugs* *bug-reports* *bugreport.vim* *hibajelentés*
 
 Hibákat három módon jelenthetük:
 1. Nyiss egy új issuet GitHubon: https://github.com/vim/vim/issues
@@ -191,7 +192,7 @@ A felhasználó írhat olyan szkripteket, melyek külső programot használnak �
 eszközök nem tekinthetőek a Vim részeként.
 
 ==============================================================================
-3. Alkotók				*credits* *author* *Bram* *Moolenaar*
+3. Alkotók		*credits* *author* *Bram* *Moolenaar* *köszönet* *alkotók*
 
 A Vim nagy részét Bram Moolenaar <Bram@vim.org> írta.
 
@@ -280,6 +281,7 @@ Szeretném megköszönni mindannyiuknak az elküldött hibajelentéseket és
 javaslataikért. A lista túl hosszú lenne mindannyiukat megemlíteni. Az
 ötleteik nélkül a Vim ma nem tartana itt: Ők tartják életben a Vimet!
 *love* *peace* *friendship* *gross-national-happiness*
+*szeretet* *béke* *barátság* *boldogság*
 
 
 A dokumentációban hivatkozásokat találhatunk a Vi egyéb verzióira:
@@ -315,7 +317,7 @@ Neovim  Vim klón. 2014-ben indult útjára, de más irányt vett. A Githubhoz
 	interfészt és egyéb szkriptnyelvek.
 
 ==============================================================================
-4. Jelölések						*notation*
+4. Jelölések						*notation* *jelölés*
 
 A jelölések megkönnyítik a dokumentáció olvasását, azok a parancsok, amik
 valamilyen módon csoportosítva vannak, nem képezik a parancsok részét. Például
@@ -424,7 +426,8 @@ CTRL-{char}	{char} leütése lenyomva tartott CTRL billentyű mellett. Nincs
 
 `command`	Új stílusú parancs
 
-					*key-notation* *key-codes* *keycodes*
+   *key-notation* *key-codes* *keycodes* *billentyűjelölések* *billentyűkódok*
+
 A billentyűk elnevezései. A ":map" paranccsal kombinálva CTRL-K hatására egy
 billentyűkombinációt vár, melynek nevét helyesen beilleszti a parancssávba.
 
@@ -553,11 +556,13 @@ beleértve a '<' karaktert. Ez a módszer NEM működik más parancsoknál, pél
 ":set" és ":autocmd"!.
 
 ==============================================================================
-5. Módok, bevezetés				*vim-modes-intro* *vim-modes*
+5. Módok, bevezetés		*vim-modes-intro* *vim-modes* *módok-bevetés*
 
 A Vimnek hét ALAP módja van:
 
-					*Normal* *Normal-mode* *command-mode*
+					 *Normal* *Normal-mode* *command-mode*
+						  *Normal-mód* *command-mód*  
+
 Normál mód		Normál módban érvényesek a normál módú parancsok. A
 			szerkesztő indításával a Vim automatikusan normál
 			módba kerül. (Az 'insertmode' beállításával ez
@@ -646,7 +651,7 @@ Beszúró Kiválasztó mód	Insert Select Mode. Aktivizálódik, ha beszúró m�
 			"-- (insert) SELECT --" üzenet jelenik meg a képernyő
 			alján.
 ==============================================================================
-6. Módok közötti váltás					*mode-switching*
+6. Módok közötti váltás				*mode-switching* *módváltás*
 
 Ha valamilyen okból kifolyólag nem tudod eldönteni, hogy melyik módban vagy,
 üss kétszer <Esc> billentyűt. Az egyetlen kivétel az Ex mód, innen úgy tudsz
@@ -747,7 +752,7 @@ gQ			Váltás "Ex" módba (akárcsak "Q"), működését tekintve
 			Kilépés a ":vi" paranccsal |:visual|.
 
 ==============================================================================
-7. Az ablak tartalma					*window-contents*
+7. Az ablak tartalma			*window-contents* *ablak-tartalma*
 
 Normal,Insert/Replace módban a képernyő a az aktuális buffer tartalmát
 mutatja. WYSIWYG, két kivétellel:
@@ -872,7 +877,7 @@ legtöbb üzenet elolvasása nem fog gondot okozni.
 A legtöbb Unix rendszeren a Vim tökéletesen kezeli az ablak átméretezését
 
 ==============================================================================
-8. Definíciók						*definitions*
+8. Definíciók					*definitions* *definíciók*
 
   buffer		(buffer) Általában fájlból beolvasott szöveges sorok.
 

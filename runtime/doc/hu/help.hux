@@ -1,5 +1,6 @@
 *help.txt*  Vim Verzió 8.2.    Utolsó módosítás: 2021 Dec 27
 
+
 			VIM - Fő help fájl
 									 k
          Mozgatás:  Nyilakkal, vagy "h" - balra, "j" - le, "k" - fel   h   l
@@ -25,7 +26,7 @@
 Specifikus segítség:	Ha tudod, hogy konkrétan mire szeretnél rákeresni,
 			akkor csak add át a |:help| parancsnak argumentumként.
 			Speciális előtagokkal tovább szűkítheted a keresést.
-							    *help-context*
+					       *help-context* *help-kontextus*
 
 			  TÍPUS			ELŐTAG		PÉLDA	~
 		      Normál parancs			   :help x
@@ -52,8 +53,8 @@ Keresés a manuálban:  Gépeld be a ":help word", majd üss CTRL-D-t, így
 A Vim rövidítés a Vi IMprovedből származtatható. Nagy részét Bram Moolenaar
 írta, rengeteg hozzájárulással egyéb személyektől. Lásd |credits|.
 ------------------------------------------------------------------------------
-						*doc-file-list* *Q_ct*
-BASIC:
+			       *doc-file-list* *Q_ct* *dokumentáció-fájllista*
+ALAPOK:
 |quickref|	Áttekintés a leggyakrabban használt parancsokról
 |tutor|		30 perces interaktív kurzus kezdők számára
 |copying|	Licensz
@@ -109,7 +110,7 @@ A Vim futtatása~
 |usr_90.txt|  A Vim telepítése
 
 
-						    *reference_toc*
+				  *reference_toc* *referencia-tartalomjegyzék*
 
 VIM DOKUMENTÁCIÓ: A Vim működését a legapróbb részletekig.	
 
@@ -215,7 +216,7 @@ Javítások~
 |version6.txt|	Különbségek a Vim version 5.7 és 6.x között
 |version7.txt|	Különbségek a Vim version 6.4 és 7.x között
 |version8.txt|	Különbségek a Vim version 7.4 és 8.x között
-						*sys-file-list*
+					*sys-file-list* *operációs-rendszerek*
 Gondolatok különböző rendszerekről~
 |os_390.txt|	OS/390 Unix
 |os_amiga.txt|	Amiga
@@ -231,7 +232,7 @@ Gondolatok különböző rendszerekről~
 |os_unix.txt|	Unix
 |os_vms.txt|	VMS
 |os_win32.txt|	MS-Windows
-						*standard-plugin-list*
+			     *standard-plugin-list* *alapértelmezett-beépülők*
 Alapértelmezett beépülők~
 |pi_getscript.txt| Vim szkriptek legfrissebb verziójának letöltése
 |pi_gzip.txt|      Tömörített állományok írása és olvasása
@@ -243,10 +244,10 @@ Alapértelmezett beépülők~
 |pi_vimball.txt|   Vim Script telepítő készítése
 |pi_zip.txt|       Zip archívum böngésző
 
-HELYI KIEGÉSZÍTŐK				*local-additions*
+HELYI KIEGÉSZÍTŐK			*local-additions* *helyi-kiegészítők*
 
 ------------------------------------------------------------------------------
-*bars*		Bars example
+*bars*		Példa
 
 Gratulálok, sikerült idetalálnod a CTRL-], <CTRL-Altgr-G> vagy dupla egérklikk
 segítségével. Vissza tudsz lépni az előző pontra a CTRL-T,CTRL-O,

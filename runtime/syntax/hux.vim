@@ -12,16 +12,14 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 syn match helpHeadline		"^[-A-ZÓÜÖÚŐŰÁÉÍ .][-A-ZÓÜÖÚŐŰÁÉÍ0-9 .()_]*\ze\(\s\+\*\|$\)"
-syn match helpSectionDelim	"^===.*===$"
-syn match helpSectionDelim	"^---.*--$"
 if has("conceal")
   syn region helpExample	matchgroup=helpIgnore start=" >$" start="^>$" end="^[^ \t]"me=e-1 end="^<" concealends
 else
   syn region helpExample	matchgroup=helpIgnore start=" >$" start="^>$" end="^[^ \t]"me=e-1 end="^<"
 endif
 syn match helpHyperTextJump	"\\\@<!|[#-)!+-~]\+|" contains=helpBar
-syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*\s"he=e-1 contains=helpStar
-syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*$" contains=helpStar
+syn match helpHyperTextEntry	"\*[#-)!+-~óöüúőűáéí]\+\*\s"he=e-1 contains=helpStar
+syn match helpHyperTextEntry	"\*[#-)!+-~óöüúőűáéí]\+\*$" contains=helpStar
 if has("conceal")
   syn match helpBar		contained "|" conceal
   syn match helpBacktick	contained "`" conceal
@@ -35,9 +33,11 @@ syn match helpNormal		"|.*====*|"
 syn match helpNormal		"|||"
 syn match helpNormal		":|vim:|"	" for :help modeline
 syn match helpVim		"\<Vim version [0-9][0-9.a-z]*"
+syn match helpVim		"\<Vim Verzió [0-9][0-9.a-z]*"
 syn match helpVim		"\<For Vim version [0-9][0-9.a-z]*"
 syn match helpVim		"VIM REFERENCE.*"
 syn match helpVim		"Last change:.*"
+syn match helpVim		"Utolsó módosítás:.*"
 syn match helpVim		"Bram Moolenaar:.*"
 syn match helpVim		"NVIM REFERENCE.*"
 syn match helpOption		"'[a-z]\{2,\}'"
