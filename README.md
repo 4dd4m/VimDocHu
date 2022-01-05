@@ -26,7 +26,7 @@
 	* `set concealcursor=n`
 
 ## Git pull után
-* minden további frissítés esetén futtassuk a `:helptags $VIMRUNTIME/doc`
+* minden további frissítés esetén futtasd a `:helptags $VIMRUNTIME/doc`
   parancsot
 
 ## NVIM
