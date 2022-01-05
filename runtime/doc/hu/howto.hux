@@ -1,0 +1,96 @@
+*howto.txt*	Vim verzió 8.2.  Utolsó módosítás: 2006 Apr 02
+
+		  Bram Moolenaar: Vim felhasználói kézikönyv
+
+
+Hogyan...		 *gyik* *hogyan* *howdoi* *how-do-i* *howto* *how-to*
+
+|tutor|			kezdeti lépések
+|:quit|			kilépés?  Csapdába estem! Segítség!
+|initialization|	a Vim indítása
+|vimrc-intro|		Vim szkriptek (.vimrc)
+|suspend|		a Vim felfüggesztése
+|usr_11.txt|		helyreállítás
+|07.4|			biztonsági mentés fájl felülírásakor
+
+|usr_07.txt|		fájlok szerkesztése
+|23.4|			bináris állományok beillesztése
+|usr_24.txt|		szöveg beszúrása
+|deleting|		szöveg törlése
+|usr_04.txt|		szöveg cseréje
+|04.5|			szöveg másolása és mozgatása
+|usr_25.txt|		szöveg formázása
+|30.6|			kommentek formázása
+|30.2|			behúzás C programokban
+|25.3|			automatikus behúzás
+
+|usr_26.txt|		parancsok ismétlése
+|02.5|			visszavonás, mégis
+
+|usr_03.txt|		navigáció a fájlban
+|word-motions|		elmozdulások (szó)
+|left-right-motions|	mozgás balra és jobbra
+|up-down-motions|	mozgás fel és le
+|object-motions|	elmozdulás (szövegobjektumok)
+|various-motions|	egyéb mozgások
+|object-select|		kijelölés szöveg-objektumok segítségével
+|'whichwrap'|		sortörések átugrása
+|'virtualedit'|		mozgás üres területre
+|usr_27.txt|		keresési minták
+|tags-and-searches|	tagek és speciális keresések
+|29.4|			változók, függvények, kulcsszavak keresése
+			keresés beágyazott fájlokban
+|K|			kurzor alatti szó keresése (a külső) dokumentációban
+
+|03.7|			görgetés
+|'sidescroll'|		görgetés horizontálisan
+|'scrolloff'|		látható sorok
+
+|mode-switching|	váltás a módok között
+|04.4|			a Visual mód használata
+|'insertmode'|		Vim indítása Insert móddal
+
+|40.1|			billentyűmappek
+|24.7|			rövidítések létrehozása
+
+|ins-expandtab|		tabok cseréje szóközökre Insert módban
+|i_CTRL-R|		regiszter tartalmának beszúrása Insert módban
+|24.3|			szavak kiegészítése Insert módban
+|25.1|			hosszú sorok tördelése
+
+|20.1|			command-line szerkesztés
+|20.3|			command-line kiegészítés
+|'cmdheight'|		command-line magassága
+|10.3|			command-line tartományok
+|40.3|			parancsok automatikus futtatása a buffer
+			olvasása/írása előtt/után belépéskor/kilépéskor
+
+
+|'autowrite'|		automatikus mentés
+|30.1|			szerkesztés-fordítás-szerkesztés munkafolyamatának
+			felgyorsítása, hibák javítása
+
+|options|		opciók beállítása
+|auto-setting|		opciók automatikus beállítása
+|term-dependent-settings| terminálnév függő opciók
+|save-settings|		beállítások mentése
+|:quote|		comment my .vim files
+|'helpheight'|		help ablak magassága
+|'highlight'|		egyéb kiemelési módok
+|'title'|		ablak címe
+|'icon'|		ablak ikonja
+|'report'|		mentési állapot elrejtése
+|'shortmess'|		|hit-enter| promptok elkerülése
+
+|mouse-using|		az egér használata
+|usr_08.txt|		egynél több ablak/buffer kezelése
+|gui.txt|		a GUI használata
+
+|Nem tudja! (még)|	kimegy a konyhába sörért
+
+|usr_06.txt|		szintaxis kiemelés cseréje
+|2html.vim|		exportálás HTML formátumba, színekkel
+|less|			more és less parancsok használata Vimmel, szintaxis
+			kiemeléssel
+
+ vim:tw=78:ts=8:noet:ft=help:norl:
