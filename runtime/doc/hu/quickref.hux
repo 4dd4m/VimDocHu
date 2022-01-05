@@ -1,4 +1,4 @@
-*quickref.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Okt 17
+*quickref.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Dec 21
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
@@ -1053,6 +1053,7 @@ Az összes opció rövid magyarázata:		*option-list*
 'writeany'	  'wa'	    mentéshez nem kell használni a "!" megerősítést
 'writebackup'	  'wb'	    biztonsági másolat készítése felülírás esetén
 'writedelay'	  'wd'	    karakterek között minimális ms időköz (debug)
+'xtermcodes'		    terminál kód az xtermből
 ------------------------------------------------------------------------------
 *Q_ur*		Visszavonás/Mégis parancsok
 

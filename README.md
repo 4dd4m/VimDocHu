@@ -4,14 +4,11 @@
 
 ## Állapot
 * [x] Kézikönyv: ~100%. 
-* [x] Nyelvhelyesség, helyesírási hibák korrekciója, diffmerge folyamatban
-* [x] Eredeti fájlok dátuma: 2021.08.25 (összes fájl)
+* [x] Utolsó merge: 2022.01.05
 
 ## Teendők
 * [ ] Nyelvtani pontosítások
-* [ ] Tartalomjegyzék - *.hux fájlok hivatkozásainak konzisztenciája
-* [ ] Frissítések implementálása
-* [ ] Referencia fájlok átvétele
+* [x] Frissítések implementálása
 
 
 ## A jelenlegi fordítás használatba vétele
@@ -27,6 +24,10 @@
 	* `au! BufEnter *.hux :set syntax=hux` (ha bemásoltad a syntax filet)
 	* `set conceallevel=2`
 	* `set concealcursor=n`
+
+## GIT PULL UTÁN
+* minden további frissítés esetén futtassuk a `:helptags $VIMRUNTIME/doc`
+  parancsot
 
 ## NVIM
 * működik, azonban nem ajánlott az Nvim-specifikus differenciák miatt

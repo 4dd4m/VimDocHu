@@ -1,4 +1,4 @@
-*help.txt*  Vim Verzió 8.2.    Utolsó módosítás: 2020 Aug 15
+*help.txt*  Vim Verzió 8.2.    Utolsó módosítás: 2021 Dec 27
 
 			VIM - Fő help fájl
 									 k
@@ -153,6 +153,7 @@ Szerkesztés felsőfokon~
 |diff.txt|	adott fájl különböző verzióinak szerkesztés
 |autocmd.txt|	esemény vezérelt parancsok
 |eval.txt|	kifejezések kiértékelése, feltételes parancsok
+|builtin.txt|	beépített függvények
 |channel.txt|	munkák, csatornák, kommunikáció
 |fold.txt|	kód folding
 
@@ -242,7 +243,7 @@ Alapértelmezett beépülők~
 |pi_vimball.txt|   Vim Script telepítő készítése
 |pi_zip.txt|       Zip archívum böngésző
 
-HELYI KIEGÉSZÍTÉS				*local-additions*
+HELYI KIEGÉSZÍTŐK				*local-additions*
 
 ------------------------------------------------------------------------------
 *bars*		Bars example
