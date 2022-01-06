@@ -1,5 +1,6 @@
 *usr_08.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 May 20
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				   Splitek
@@ -63,7 +64,9 @@ Az ablak bezárásához tartozó parancs: >
 
 	:close
 
-Az igazat megvallva, bármely olyan parancs bezárja a fájlt, ami a fájl bezárná (":quit" vagy "ZZ"). A ":close" parancs viszont megakadályozza, hogy véletlenül bezárjuk a szerkesztőt az utolsó ablak bezárásakor.
+Az igazat megvallva, bármely olyan parancs bezárja a fájlt, ami a fájl bezárná
+(":quit" vagy "ZZ"). A ":close" parancs viszont megakadályozza, hogy
+véletlenül bezárjuk a szerkesztőt az utolsó ablak bezárásakor.
 
 
 INAKTÍV SPLITEK BEZÁRÁSA
@@ -159,7 +162,8 @@ az összes ablak egyforma méretű lesz.
 ==============================================================================
 *08.4*	Vertikális splitek
 
-A ":split" parancs az aktív ablak fölé nyitja az új ablakot. Ha az ablakot a bal oldalon szeretnéd elhelyezni, akkor: >
+A ":split" parancs az aktív ablak fölé nyitja az új ablakot. Ha az ablakot a
+bal oldalon szeretnéd elhelyezni, akkor: >
 
 	:vsplit
 
@@ -374,12 +378,15 @@ más színnel vannak kiemelve. Gyakorlatilag azonnal észre lehet venni, hogy
 mely karaktereket adtuk hozzá, azaz a két fájl mely részei térnek el
 egymástól.
    A törölt sorok "---" vannak megjelölve a main.c ablakban. Az ábrán ez "<-
-törölt sor". Ezek a karakterek nincsenek ott. Szerepük csupán annyi, hogy a fájl sorait szinkronban tartsák.
+törölt sor". Ezek a karakterek nincsenek ott. Szerepük csupán annyi, hogy a
+fájl sorait szinkronban tartsák.
 
 
 A FOLD OSZLOP
 
-Minden egyes ablak bal szélének a színe egy picivel másabb. Az ábrán ez "VV" van jelölve. Vedd észre a plusz karaktert minden zárt állapotú fold előtt. Ha az egérrel odakattintasz, akkor a fold kinyílik és láthatóvá válik a tartalma.
+Minden egyes ablak bal szélének a színe egy picivel másabb. Az ábrán ez "VV"
+van jelölve. Vedd észre a plusz karaktert minden zárt állapotú fold előtt. Ha
+az egérrel odakattintasz, akkor a fold kinyílik és láthatóvá válik a tartalma.
    A fold oszlopban egy - jel található, ha a fold nyitott állapotban van. Ha
 erre kattintasz, akkor a fold bezáródik. 
    Értelemszerűen, ez csak akkor működik, ha az egér engedélyezve van. Ennek
@@ -405,7 +412,9 @@ add meg a Vimnek a patch fájlt: >
 	:vertical diffpatch main.c.diff
 
 FIGYELEM: A patch fájl csak egy patchet tartalmazhat, különben rengeteg
-hibaüzenetet fogsz kapni és a végeredmény lehet, hogy nem az elvárt lesz.  A patchelési folyamat a Vim bufferében zajlik le, az eredeti fájl érintetlen marad, amíg nem mented azt.
+hibaüzenetet fogsz kapni és a végeredmény lehet, hogy nem az elvárt lesz.  A
+patchelési folyamat a Vim bufferében zajlik le, az eredeti fájl érintetlen
+marad, amíg nem mented azt.
 
 
 GÖRGETÉSI SZINKRONIZÁCIÓ

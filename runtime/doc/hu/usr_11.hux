@@ -1,5 +1,6 @@
 *usr_11.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Oct 25
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				Helyreállítás
@@ -246,7 +247,8 @@ olvasható módban (ha szeretnéd) ezáltal információt szerezve az "elfeledet
 szerkesztésekről. Ha tiéd a fájl, akkor légy kész a visszavonásokra.
 
 
-MIA TEENDŐ?					*swap-exists-choices*
+MI A TEENDŐ?						*swap-exists-choices*
+					      *helyreállítás-létező-swapfájl*
 
 Ha a párbeszédablakok támogatják, akkor hat lehetőség közül lehet választani:
 

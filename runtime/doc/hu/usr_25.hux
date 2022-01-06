@@ -1,5 +1,6 @@
 *usr_25.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2016 Mar 28
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 		       Formázott szövegek szerkesztése
@@ -359,7 +360,8 @@ kurzort (az ablakon belül). A parancs nem veszi figyelembe a az ablakból balra
 		 g0  g^    gm	   gM g$
 
 
-SORTÖRÉS SZAVAKBAN				*edit-no-break*
+SORTÖRÉS SZAVAKBAN					       *edit-no-break*
+								    *tördelés*
 
 Valamikor a szöveg feldolgozása azt kívánja, hogy a bekezdéseinkben ne
 alkalmazzunk sortörést. A 'nowrap' egyik nagy hátránya, hogy a hosszú sorok
@@ -415,7 +417,8 @@ sorváltásra: >
 	:map <Down> gj
 
 
-BEKEZDÉS EGY SORRÁ ALAKÍTÁSA			*edit-paragraph-join*
+BEKEZDÉS EGY SORRÁ ALAKÍTÁSA			      	 *edit-paragraph-join*
+							    *sorok-egyesítése*
 
 MS-Wordben importálandó szöveg esetén minden sornak egy sorban kell lennie
 (hogy a Word bekezdésként értelmezze). Ha a bekezdéseidet a sztenderd egy üres

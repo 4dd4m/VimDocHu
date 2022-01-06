@@ -1,5 +1,6 @@
 *usr_02.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Apr 24
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			    A legelső lépések
@@ -517,7 +518,7 @@ Azonosításhoz add át a hiba kódját paraméterként:
 	:help E37
 
 
-Összegzés: 					*help-summary*  >
+Összegzés: 				*help-summary* *help-összegzés*
 
 1) A CTRL-D segítségével (a parancs néhány karaktere után) a Vim megjeleníti
    az összes illeszkedő parancsot:

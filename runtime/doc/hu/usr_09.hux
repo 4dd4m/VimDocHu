@@ -1,5 +1,6 @@
 *usr_09.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2017 Aug 11
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			       A GUI használata
@@ -29,7 +30,7 @@ akkor terminálból: >
 	gvim file.txt
 	vim -g file.txt
 
-Ha ez nem működik, akkor nincs GUI verió nincs telepítve, így telepítened
+Ha ez nem működik, akkor nincs GUI verzió nincs telepítve, így telepítened
 kell.
    Egy új ablakot fogsz látni, benne a "file.txt" tartalmával. Az ablak
 kinézete függ a verziószámtól, de mindenképpen hasonlóan kell kinézzen

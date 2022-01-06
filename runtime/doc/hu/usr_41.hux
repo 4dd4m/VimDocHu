@@ -1,5 +1,6 @@
 *Usr_41.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Sep 10
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				Vim szkriptek
@@ -31,7 +32,8 @@ Következő fejezet: |usr_42.txt|  Új menüelemek hozzáadása
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*41.1*	Bevezetés				*vim-script-intro* *script*
+*41.1*	Bevezetés			     	   *vim-script-intro* *script*
+					     *vim-szkript-bevezetés* *szkript*
 
 A Vim szkripttél való első találkozásod a vimrc fájl. Induláskor a szerkesztő
 olvassa a fájl tartalmát. Olyan opciókat állíthatsz be, amilyeneket szeretnél.
@@ -583,13 +585,15 @@ A függvények használata akkor válik érdekesebbé, ha a substitute() hívás
 és után több munkát kell végeznünk.
 
 
-FÜGGVÉNYEK						*function-list*
+FÜGGVÉNYEK						       *function-list*
+							      *függvény-lista*
 
 Rengeted függvény létezik. Használati jellegük alapján csoportosítottuk a
 listát. A betűrendi lista itt található: |functions|. CTRL-] a függvény nevén
 megnyitja a részletes leírást.
 
 String manipuláció:					*string-functions*
+							*függvények-string*
 	nr2char()		karaktert ad vissza számérték alapján
 	list2str()		stringet ad listában szereplő számok alapján
 	char2nr()		számot ad vissza karakterből
@@ -640,6 +644,7 @@ String manipuláció:					*string-functions*
 	gettext()		üzenet fordításának keresése
 
 Lista manipuláció:					*list-functions*
+							*függvények-list*
 	get()			érték listából hibaüzenet nélkül (index)
 	len()			listaelemek száma
 	empty()			üres-e a lista
@@ -672,6 +677,7 @@ Lista manipuláció:					*list-functions*
 	flattennew()		lista dimenziójának redukálása másolással
 
 Szótár manipuláció:				*dict-functions*
+					        *függvények-szótár*
 	get()			bejegyzés lekérése hiba nélkül (key)
 	len()			bejegyzések száma
 	has_key()		kulcs ellenőrzés
@@ -693,6 +699,7 @@ Szótár manipuláció:				*dict-functions*
 	count()			elem gyakorisága
 
 Lebegőpontos számítások:			*float-functions*
+						*függvények-lebegőpontos*
 	float2nr()		float számmá
 	abs()			abszolút érték (Számokkal is)
 	round()			kerekítés
@@ -720,10 +727,12 @@ Lebegőpontos számítások:			*float-functions*
 
  
 Blob manipulation:				*blob-functions*
+					        *függvények-blob*
 	blob2list()	    lista lekérése a blob-ból
         list2blob()	    blob lekérése a listából
 
 Egyéb számítások:				*bitwise-function*
+						*függvények-bitenkénti*
 	and()			bitenkénti ÉS
 	invert()		bitenkénti inverz
 	or()			bitenkénti VAGY
@@ -733,6 +742,7 @@ Egyéb számítások:				*bitwise-function*
 	srand()			kezdeti seed, rand()
 
 Változók:					*var-functions*
+						*függvények-változók*
 	type()			változó típusa számként
 	typename()		változó típusa szövegként
 	islocked()		változó locked állapotának ellenőrzése
@@ -748,6 +758,8 @@ Változók:					*var-functions*
 	garbagecollect()	elérhető szabad memória
 
 Kurzor és mark pozíciók:			*cursor-functions* *mark-functions*
+						*függvények-kurzor*
+						*függvények-mark*
 	col()			kurzor vagy mark oszlopa
 	virtcol()		kurzor vagy mark virtuális sora
 	line()			kurzor vagy mark sora
@@ -775,6 +787,7 @@ Kurzor és mark pozíciók:			*cursor-functions* *mark-functions*
 	setcursorcharpos()	mint cursor(), oszlopszámot használ
 
 Munka az aktív bufferben lévő szöveggel:	*text-functions*
+						*függvények-szöveg*
 	getline()		sor, vagy sorok listája a bufferből
 	setline()		buffer sorának cseréje
 	append()		sor, vagy sorok hozzáfűzése
@@ -799,6 +812,8 @@ Munka egy másik bufferben lévő szöveggel:
 	deletebufline()		buffer sorainak törlése
 
 					*system-functions* *file-functions*
+					*függvények-rendszer*
+					*függvények-fájl*
 Rendszerfüggvények, manipuláció fájlokkal:
 	glob()			fájl metakarakterek kibontása
 	globpath()		mint glob(), a 'path' könyvtárait
@@ -838,6 +853,7 @@ Rendszerfüggvények, manipuláció fájlokkal:
 	writefile()		lista sorai vagy Blob fájlba
 
 Dátum és Idő:				*date-functions* *time-functions*
+					*függvények-dátum* *függvények-idő*
 	getftime()		utolsó módosítás dátuma
 	localtime()		időbélyeg másodpercben
 	strftime()		idő stringgé konvertálása
@@ -847,6 +863,7 @@ Dátum és Idő:				*date-functions* *time-functions*
 	reltimefloat()		reltime() konvertálása,  Float
 
 			*buffer-functions* *window-functions* *arg-functions*
+	      *függvények-buffer* *függvények-ablak* *függvények-argumentumok*
 Bufferek, ablakok és az argumentum lista:
 	argc()			argumentumlista elemeinek száma
 	argidx()		argumentumlista pozíciója
@@ -885,6 +902,7 @@ Bufferek, ablakok és az argumentum lista:
 	swapname()		buffer swapfájlja
 
 Command line:					*command-line-functions*
+						*függvények-command-line*
 	getcmdline()		command-line tartalma
 	getcmdpos()		kurzor pozíciója a command-lineban
 	setcmdpos()		kurzor pozíciójának beállítása a command-lineban
@@ -894,12 +912,14 @@ Command line:					*command-line-functions*
 	fullcommand()		a teljes parancs neve
 
 Quickfix és location lista:			*quickfix-functions*
+						*függvények-quickfix*
 	getqflist()		quickfix hibák listája
 	setqflist()		quickfix lista módosítása
 	getloclist()		location lista elemeinek helye
 	setloclist()		location lista módosítása
 
 Insert mód kiegészítés:				*completion-functions*
+					        *függvények-kiegészítés*
 	complete()		kiegészítés
 	complete_add()		kiegészítés hozzáadása
 	complete_check()	ellenőrzés: kiegészítés megszakítása
@@ -908,7 +928,8 @@ Insert mód kiegészítés:				*completion-functions*
 	pum_getpos()		popup mérete és pozíciója
 
 Foldolás:					*folding-functions*
-	foldclosed()		ellenőrzés: meghat. sorban zárt fold
+					        *függvények-foldolás*
+	foldclosed()		ellenőrzés: meghatározott sorban zárt fold
 	foldclosedend()		mint foldclosed(), de az utolsó sort
 				visszaadja
 	foldlevel()		meghatározott sor fold szintje
@@ -916,6 +937,7 @@ Foldolás:					*folding-functions*
 	foldtextresult()	zárt fold megjelenített szövege | string
 
 Szintaxis és kiemelés:	    	  *syntax-functions* *highlighting-functions*
+				  *függvények-kiemelés* *függvények-szintaxis*
 	clearmatches()		|matchadd()| és |:match| összes egyezésének
 				törlése
 	getmatches()		|matchadd()| és |:match| összes egyezése
@@ -937,17 +959,20 @@ Szintaxis és kiemelés:	    	  *syntax-functions* *highlighting-functions*
 				visszaállítása
 
 Helyesírás ellenőrzés:				*spell-functions*
+						*függvények-helyesírás*
 	spellbadword()		elgépel szó a kurzor után
 	spellsuggest()		javaslatok
 	soundfold()		hasonlóan hangzó szavak
 
 History:					*history-functions*
+						*függvények-előzmények*
 	histadd()		elem hozzáadása a historyhoz
 	histdel()		elem eltávolítása a historyból
 	histget()		elem a historyból
 	histnr()		history legmagasabb indexe
 
 Interaktív:					*interactive-functions*
+						*függvények-interaktív*
 	browse()		fájlválasztó
 	browsedir()		könyvtárválasztó
 	confirm()		felhasználói megerősítése
@@ -965,6 +990,7 @@ Interaktív:					*interactive-functions*
 	inputrestore()		typeahead visszaállítása
 
 GUI:						*gui-functions*
+					        *függvények-gui*
 	getfontname()		használatban lévő betűtípus
 	getwinpos()		Vim ablak pozíciója
 	getwinposx()		Vim ablak X pozíciója
@@ -974,6 +1000,7 @@ GUI:						*gui-functions*
 	balloon_gettext()	buboréksúgó szövege
 
 Vim szerver:					*server-functions*
+					        *függvények-szerver*
 	serverlist()		szervernevek listája
 	remote_startserver()	szerver futtatása
 	remote_send()		parancs küldése a szervernek
@@ -985,6 +1012,7 @@ Vim szerver:					*server-functions*
 	remote_foreground()	Vim szerver ablakot előtérbe helyez
 
 Ablak méret és pozíció:				*window-size-functions*
+						*függvények-ablak-méret*
 	winheight()		ablak magassága
 	winwidth()		ablak szélessége
 	win_screenpos()		ablak pozíciója a képernyőn
@@ -994,6 +1022,7 @@ Ablak méret és pozíció:				*window-size-functions*
 	winrestview()		aktív ablak mentett nézetének visszaállítása
 
 Mappek és menük:				*mapping-functions*
+						*függvények-mappelés*
 	digraph_get()		|digraph|
 	digraph_getlist()	összes |digraph|
 	digraph_set()		|digraph| beállítása
@@ -1006,6 +1035,7 @@ Mappek és menük:				*mapping-functions*
 	wildmenumode()		ellenőrzés: 'wildmenu'
 
 Tesztelés:					*test-functions*
+						*függvények-tesztelés*
 	assert_equal()		két kifejezés értéke egyenlő
 	assert_equalfile()	két fájl tartalma azonos
 	assert_notequal()	két kifejezés értéke nem egyenlő
@@ -1047,6 +1077,7 @@ Tesztelés:					*test-functions*
 	test_void()		visszatérési érték void típusú
 
 Belső-folyamtok között kommunikáció:	    *channel-functions*
+					    *függvények-csatorna*
 	ch_canread()		beolvasási állapot ellenőrzése
 	ch_open()		csatorna nyitása
 	ch_close()		csatorna zárása
@@ -1071,6 +1102,7 @@ Belső-folyamtok között kommunikáció:	    *channel-functions*
 	js_decode()		JSON string dekódolása Vim típussá
 
 Munkafolyamatok:				*job-functions*
+					*függvények-munkafolyamatok*
 	job_start()		munkafolyamat indítása
 	job_stop()		munkafolyamat leállítása
 	job_status()		munkafolyamat állapota
@@ -1079,6 +1111,7 @@ Munkafolyamatok:				*job-functions*
 	job_setoptions()	munkafolyamat opcióinak beállítása
 
 Jelek:						*sign-functions*
+						*függvények-jelek*
 	sign_define()		jel definiálása vagy frissítése
 	sign_getdefined()	jelek listája
 	sign_getplaced()	jelek helyeinek listája
@@ -1090,6 +1123,7 @@ Jelek:						*sign-functions*
 	sign_unplacelist()	jelek listájának visszavonása
 
 Terminálablak:					*terminal-functions*
+						*függvények-terminál*
 	term_start()		új terminálablak munkafolyamattal
 	term_list()		terminál buffereinek listája
 	term_sendkeys()		billentyűleütések küldése a terminálba
@@ -1116,6 +1150,7 @@ Terminálablak:					*terminal-functions*
 	term_setapi()		terminálablak JSON API prefixuma
 
 Felugró ablak:					*popup-window-functions*
+						*függvények-felugró-ablak*
 	popup_create()		felugró ablak létrehozása a képernyő közepén
 	popup_atcursor()	felugró ablak létrehozása a kurzor fölött,
 				mely eltűnik a kurzor mozgatása esetén
@@ -1142,6 +1177,7 @@ Felugró ablak:					*popup-window-functions*
 	popup_locate()		felugró ablak window ID-ja pozíció alapján
 
 Timerek:					*timer-functions*
+						*függvények-időzítők*
 	timer_start()		timer létrehozása
 	timer_pause()		timer megállítása, indítása
 	timer_stop()		timer megállítása
@@ -1149,18 +1185,21 @@ Timerek:					*timer-functions*
 	timer_info()		timer-információk
 
 Tagek:						*tag-functions*
+						*függvények-tagek*
 	taglist()		egyező tagek listája
 	tagfiles()		tagfájlok listája
 	gettagstack()		ablakhoz tartozó tag stack
 	settagstack()		ablakhoz tartozó tag stack módosítása
 
 Buffer promptok:				*promptbuffer-functions*
+						*függvények-buffer-prompt*
 	prompt_getprompt()	bufferhez tartozó prompt
 	prompt_setcallback()	bufferhez tartozó prompt callback
 	prompt_setinterrupt()	bufferhez tartozó interrupt callback
 	prompt_setprompt()	bufferhez tartozó prompt szövege
 
 Szöveg-tulajdonságok:				*text-property-functions*
+					        *függvények-szöveg-tulajdonság*
 	prop_add()		tulajdonság hozzáadása adott pozícióhoz
 	prop_add_list()		tulajdonság hozzáadása több pozícióhoz
 	prop_clear()		tulajdonság eltávolítása sor vagy sorokból
@@ -1174,12 +1213,14 @@ Szöveg-tulajdonságok:				*text-property-functions*
 	prop_type_list()	az összes típus tulajdonságai
 
 Hangok:							*sound-functions*
+							*függvények-hang*
 	sound_clear()		az összes hang lejátszásásának megállítása
 	sound_playevent()	esemény hangjának lejátszásása
 	sound_playfile()	hangfájl lejátszása
 	sound_stop()		hangfájl lejátszásának megállítása
 
 Egyebek:						*various-functions*
+							*függvények-egyéb*
 	mode()			szerkesztési mód
 	state()			'busy' állapot lekérése
 	visualmode()		utolsó vizuális mód típusa
@@ -1965,6 +2006,7 @@ Például: >
 
 ==============================================================================
 *41.11*	Beépülő írása				*write-plugin*
+						*beépülő-létrehozás*
 
 A saját Vim szkriptjeinket úgy is megírhatjuk, hogy az mások számára is
 használható legyen. A szkriptek a fogd és vidd módszerrel azonnal
@@ -2033,6 +2075,7 @@ rövid sort elég írnunk. Például: >
 
 
 SOROK FOLYTATÁSA, MELLÉKHATÁSOK ELKERÜLÉSE	    *use-cpo-save*
+						    *cpo-save-használata*
 
 A 18. sorban a sor folytatása a |line-continuation|ban leírtak szerint
 történik. A 'compatible' opció beállítása miatt hibaüzenetet kapunk. Nem elég,
@@ -2177,6 +2220,7 @@ ugyanez történik. |:menu-<script>|
 
 
 <SID> ÉS <Plug>					*using-<Plug>*
+						*<Plug>-használata*
 
 Az <SID> és <Plug> közötti különbségek:
 
@@ -2303,6 +2347,7 @@ mentése előtt ezt be kell állítanunk: >
 
 
 DOKUMENTÁCIÓ						*write-local-help*
+						        *help-fájlok-készítése*
 
 Ajánlott a beépülőnket dokumentációval ellátni, különösen akkor, ha a
 felhasználó a szkript működését nagymértékben befolyásolni tudja. Lásd
@@ -2342,6 +2387,7 @@ elérést a társított leírásokhoz.
 
 
 FÁJLTÍPUS FELISMERÉS					*plugin-filetype*
+							*beépülő-filetype*
 
 Ha a Vim nem ismeri fel a fájl típusát, akkor erre a célra egy külön fájlt
 kell létrehoznunk. Általában egy autocommandot tartalmaz, ami minta alapján
@@ -2358,6 +2404,7 @@ nyelvét a tartalma alapján. Lásd |new-filetype|.
 
 
 ÖSSZEFOGLALÁS						*plugin-special*
+							*beépülő-speciális*
 
 
 Összefoglalás a beépülőkben használt funkciókról:
@@ -2381,6 +2428,7 @@ exists(":Cmd")		felhasználói parancs meglétének ellenőrzése
 
 ==============================================================================
 *41.12*	Filetype beépülő írása		*write-filetype-plugin* *ftplugin*
+					*ftplugin-készítése*
 
 A fájltípus beépülő majdnem egy globális beépülő, azzal a kivétellel, hogy a
 definiált mappek csak az aktuális bufferre érvényesek. Lásd
@@ -2521,6 +2569,7 @@ megoldás biztosítja, hogy a függvények csak egyszer legyenek deklarálva: >
 <
 
 VISSZAVONÁS				    *undo_indent* *undo_ftplugin*
+				  *behúzás_visszavonás* *ftplugin_visszavonás*
 
 Ha a felhasználó a ":setfiletype xyz" módszerrel állítja át a fájltípust,
 akkor az előző fájltípus beállításait vissza kell vonnunk. A "b:undo_ftplugin"
@@ -2554,6 +2603,7 @@ A fájltípus: "stuff", "foo" és "bar" tetszőleges nevek.
 
 
 ÖSSZEFOGLALÁS					    *ftplugin-special*
+						    *ftplugin-speciális*
 
 A fájltípus beépülő egyedi technikái:
 
@@ -2574,6 +2624,7 @@ Továbbá |plugin-special|, a beépülők által használt egyedi dolgok.
 
 ==============================================================================
 *41.13*	Compiler beépülő írása		*write-compiler-plugin*
+					*compiler-beépülő-készítése*
 
 Az ilyen típusú beépülők fordító-specifikus opciókat is beállítanak. Ezeket a
 |:compiler| paranccsal tölthetjük be. Azért használjuk, hogy beállítsuk az
@@ -2623,6 +2674,7 @@ utolsó elérési utak egyikében, Unixon ez ~/.vim/after/compiler.
 
 ==============================================================================
 *41.14*	A gyors beépülő ismérvei		    *write-plugin-quickload*
+						    *gyorsan-betöltő-plugin*
 
 A beépülő idővel növekszik és elég hosszúvá válhat. Indításnál ez szembetűnő
 lehet, még akkor is, ha alig használjuk a beépülőt. Itt az idő a quickload
@@ -2696,6 +2748,7 @@ erre a mintára ne illeszkedjen.
 
 ==============================================================================
 *41.15*	Szkript könyvtárak írása			*write-library-script*
+						*függvénykönyvtárak-készítése*
 
 Egyes funkcionalitást több helyen is használni szeretnénk. Ha a funkcionalitás
 terjedelme több pár sornál, akkor az írjuk ki egy új fájlba, elérhetővé téve a
@@ -2756,6 +2809,7 @@ Lásd: |autoload|.
 
 ==============================================================================
 *41.16*	Vim Szkriptek megosztása			    *distribute-script*
+							 *szkriptek-megosztása*
 
 A Vim felhasználók a szkriptjeiket a Vim oldaláról szerzik be
 http://www.vim.org. Amennyiben készítettél valami hasznosat, akkor ne habozz

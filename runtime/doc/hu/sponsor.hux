@@ -4,7 +4,7 @@
 
 
 
-TÁMOGASD A VIM FEJLESZTÉSÉT					*sponsor*
+TÁMOGASD A VIM FEJLESZTÉSÉT			*sponsor* *szponzoráció*
 
 A hibajavítások, új funkciók rengeteg időt és energiát felemésztenek. Hálád
 jeléül, valamint Bram és a többiek  motiválásához kérlek támogasd a Vim
@@ -20,7 +20,7 @@ A szponzoráció legfrissebb részleteiről itt tájékozódhatsz:
 További magyarázatok: |sponsor-faq|.
 
 
-REGISZTRÁLT VIM FELHASZNÁLÓ					*register*
+REGISZTRÁLT VIM FELHASZNÁLÓ		       	*register*    *regisztráció*
 
 Regisztrált felhasználóvá válhatsz, ha legalább 10 eurót küldesz, mely a
 szponzorációhoz hasonlóan működik |sponsor|. A Regisztráció szó teszi
@@ -31,7 +31,7 @@ biztosítani "szponzoráció", vagy éppen "adakozás" címszó alatt.
 További magyarázatok: |register-faq|.
 
 
-SZAVAZÁS FUNKCIÓKÉRT					*vote-for-features*
+SZAVAZÁS FUNKCIÓKÉRT			*vote-for-features*   *szavazati-jog*
 
 A regisztrált és szponzor felhasználók abban az előnyben részesülnek a mezei
 felhasználókkal szemben, hogy szavazati joguk van: egy megadott listából
@@ -56,7 +56,7 @@ hall of honor" oldalán: http://www.vim.org/sponsor/hall_of_honour.php
 Csak abban az esetben, ha ezt külön engedélyezed.
 
 
-HOGYAN KÜLDJ PÉNZT						*send-money*
+HOGYAN KÜLDJ PÉNZT				*send-money* *pénz-küldése*
 
 Bankkártya	PayPalon keresztül, a PayPal oldalán további információt
 		találsz a folyamatról:
@@ -77,7 +77,8 @@ Egyéb módszerek	Lásd |iccf-donations|.
 		a státuszod (regisztrált, vagy szponzor).
 
 
-KÉRDÉSEK ÉS VÁLASZOK				*sponsor-faq* *register-faq*
+KÉRDÉSEK ÉS VÁLASZOK			      	*sponsor-faq* *register-faq*
+					 *szponzor-gyik* *regisztráció-gyik*
 
 Miért küldjek pénzt?
 
@@ -152,7 +153,7 @@ tanácsokhoz a fejlesztői levelezőlistát használjuk |maillist|, hibák jelen
 |bugs|.
 
 
-Hogyan számolódnak a szavazataim?			*votes-counted*
+Hogyan számolódnak a szavazataim?		*votes-counted* *szavazatok-száma*
 
 Szavazhatsz, ha több, mint 10 eurót küldesz. Tíz szavazatod lehet. Ugyanarra
 az elemre többször is szavazhatsz. Három ellenszavazattal is rendelkezel,

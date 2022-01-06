@@ -1,5 +1,6 @@
 *usr_10.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 Nov 22
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			    Nagyobb változtatások
@@ -141,7 +142,8 @@ Ismételd amíg jól esik. Az "a jelű regiszter tartalmazni fogja a kimásolt
 sorokat pontosan abban a sorrendben, ahogy kimásoltad őket.
 
 ==============================================================================
-*10.2*	Csere						*find-replace*
+*10.2*	Csere							*find-replace*
+							        *keresés-csere*
 
 A ":substitute" paranccsal cserélhetsz szöveget, akár több soron, vagy az
 egész fájlon keresztül. A parancs általános alakja: >

@@ -1,5 +1,6 @@
 *usr_05.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 May 23
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				A beállításaid
@@ -25,7 +26,7 @@ Következő fejezet: |usr_06.txt|  Szintaxis kiemelés használata
   Tartalomjegyzék: |usr_toc.txt|
 
 ==============================================================================
-*05.1*	A vimrc fájl					*vimrc-intro*
+*05.1*	A vimrc fájl				*vimrc-intro* *vimrc-bevezetés*
 
 Talán már belefáradtál abba, hogy minden egyes alkalommal parancsokat kell
 írnod a beállítások cseréjéhez. Gyűjtsd össze kedvenc beállításaid,
@@ -73,7 +74,7 @@ Mivel ez a fejezet csak az alapokat hivatott elmagyarázni, ezért Vim script
 fájlokról itt tudhatsz meg többet: |usr_41.txt|.
 
 ==============================================================================
-*05.2*	Példa vimrc fájl	*vimrc_example.vim*
+*05.2*	Példa vimrc fájl		*vimrc_example.vim* *vimrc_példa.vim*
 
 Az első rész magyarázatot adott arra, hogy hogyan működik a példa vimrc fájl
 (ami a Vim disztribúcióval érkezik), amit not-compatible módban használhatunk
@@ -149,7 +150,7 @@ teljesültek. A beépülő hozzáadása: |matchit-install|.
 
 
 ==============================================================================
-*05.3*	A defaults.vim fájl                          *defaults.vim-explained*
+*05.3*	A defaults.vim fájl    *defaults.vim-explained* *defaults.vim-magyarázata*
 
 A |defaults.vim| akkor töltődik be, ha felhasználónak nincs vimrc fájlja. Ha a
 továbbiakban is használni szeretnéd a beállításait, akkor a vimrc fájlodhoz
@@ -271,7 +272,7 @@ sem többek annál, mintha a parancsot részenként és manuálisan futtatnánk.
 
 Szintaxis kiemelés használata. Lásd |syntax|.
 
-							*vimrc-filetype*  >
+					*vimrc-filetype* *vimrc-fájltípusok*  >
 	filetype plugin indent on
 
 Három nagyszerű funkció bekapcsolása:
@@ -296,7 +297,9 @@ Három nagyszerű funkció bekapcsolása:
    definícióját, melyet akár ki is egészíthetünk. Lásd |:filetype-indent-on|és
    'indentexpr'.
 
-				*restore-cursor* *last-position-jump*  >
+				*restore-cursor* *last-position-jump* 
+				*kurzor-pozíciójának-visszaállítása*
+			    >
     autocmd BufReadPost *
       \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
       \ |   exe "normal! g`\""
@@ -372,6 +375,7 @@ mapjeivel együtt). Legalább a Normál módúakat. Még több a mappelésekről
 
 ==============================================================================
 *05.5*	Csomag hozzáadása			*add-package* *matchit-install*
+				        *csomag-hozzáadása* *matchit-telepítés*
 
 A csomagok tulajdonképpen fájlok, melyeket hozzáadhatsz a Vimhez. Két fajtája
 létezik: opcionális és indításnál automatikusan betöltött.
@@ -417,7 +421,8 @@ velük. Tömörített állomány esetében a teendő a  következő:
 Több információ a csomagokról: |packages|.
 
 ==============================================================================
-*05.6*	Beépülő hozzáadása				*add-plugin* *plugin*
+*05.6*	Beépülő hozzáadása	 			*add-plugin* *plugin*
+			                 	*beépülő* *beépülő-telepítése*
 
 Beépülőkkel bővíthetjük a Vim funkcionalitását. A beépülők csak egyszerű Vim
 script fájlok, melyek automatikusan betöltődnek induláskor. Beépülő
@@ -434,6 +439,7 @@ belépülőket |add-filetype-plugin|.
 
 
 GLOBÁLIS BEÉPÜLŐK					*standard-plugin*
+						    *alapértelmezett-beépülők*
 
 A Vim indulásakor számos globális beépülőt tölt be. Ehhez nem kell semmit
 tenned. Ezek olyan funkcionalitások, melyeket a legtöbb fejlesztő használ,
@@ -442,6 +448,8 @@ script formában léteznek. A listát itt tekintheted meg |standard-plugin-list|
 valamint |load-pugins|.
 
 							*add-global-plugin*
+						 *globális-beépülő-telepítése*
+
 Globális kiegészítők hozzáadásával az extra funkciók feltétel nélkül
 rendelkezésre állnak a Vim használata során. Globális beépülők telepítésének a
 menete:
@@ -494,7 +502,8 @@ megfontolni a rendezésüket, alkönyvtárakba szervezni őket. Például
 kiegészítő tárolására.
 
 
-FILETYPE BEÉPÜLŐK			*add-filetype-plugin* *ftplugins*
+FILETYPE BEÉPÜLŐK				*add-filetype-plugin* *ftplugins*
+						*filetype-beépülők-telepítése*
 
 A Vim disztribúciók számos kiterjesztéshez tartozó beállításai. Így
 kapcsolhatod be őket: >
@@ -518,7 +527,8 @@ globális beépülő.
     pluginok a $VIMRUNTIME/ftplugin könyvtárban találhatóak.
 
 
-FILETYPE PLUGINOK HASZNÁLATA				*ftplugin-name*
+FILETYPE PLUGINOK HASZNÁLATA				    	*ftplugin-name*
+								*ftplugin-név*
 
 Filetype plugin hozzáadásához csak másold be a fájlt a megfelelő könyvtárba. A
 könyvtár neve a fent már említettekkel megegyező, de az utolsó rész
@@ -575,6 +585,7 @@ További irodalom:
 
 ==============================================================================
 *05.7*	Help fájl hozzáadása				*add-local-help*
+							*help-fájl-hozzáadása*
 
 Ha szerencsés vagy, akkor a beépülő telepítette a help fájlját. Ebben a
 részben kitérünk a help fájlok importálásának menetére.

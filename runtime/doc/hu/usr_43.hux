@@ -1,5 +1,6 @@
 *usr_43.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2015 Oct 23
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			    Fájltípusok használata
@@ -19,6 +20,7 @@ Következő fejezet: |usr_44.txt|  Egyedi szintaxis kiemelés
 
 ==============================================================================
 *43.1*	Beépülők a fájltípusokhoz			*filetype-plugin*
+							*beépülő-filetype*
 
 A fájltípus beépülők kezdetleges használatáról a |add-filetype-plugin|
 fejezetben már szó esett, viszont lehetséges, hogy nem vagy megelégedve a az
@@ -28,6 +30,7 @@ valamit parancsot létrehozni a három-soros kommentek létrehozására. Ezt ké
 lépésben elvégezhetjük:
 
 							*your-runtime-dir*
+							*runtime-könyvtárad*
 1. Hozd létre a saját runtime könyvtáradat. Unixon ez általában "~/.vim".
    Ebben a könyvtárban pedig hozd létre a "ftplugin" könyvtárat: >
 

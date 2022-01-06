@@ -1,5 +1,6 @@
 *usr_12.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2021 Apr 19
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			       Tippek, Trükkök
@@ -248,6 +249,7 @@ Szavak számolásának egyéb módszerei és más számolással kapcsolatos elem
 
 ==============================================================================
 *12.6*	Keresés a dokumentációban				*find-manpage*
+								 *man-keresés*
 
 Shell szkriptek vagy C programok szerkesztésekor egy adott függvényhez vagy
 parancshoz sokszor meg szeretnénk nyitni a manuált (Unixon). Nézzük a

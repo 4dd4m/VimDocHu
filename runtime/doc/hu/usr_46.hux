@@ -1,5 +1,6 @@
 *usr_46.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jun 14
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			Beépülők írása Vim9 szkripttel
@@ -20,6 +21,7 @@ Következő fejezet: |usr_90.txt|  A Vim telepítése
 
 ==============================================================================
 *46.1*	Bevezetés				*vim9-script-intro*
+						*vim9-szkript-bevezető*
 
 A Vim9-et arra tervezték, hogy könnyebb legyen nagyobb terjedelmű szkripteket
 írni. Hasonlít a többi szkriptnyelvhez, különösen a Typescripthez. A
@@ -72,6 +74,7 @@ Figyeljük meg, hogy az értékadás result = `GetPart(count)` nem használja a
 
 ==============================================================================
 *46.2*	Változók deklarálása				*vim9-declarations*
+							*vim9-deklarációk*
 
 A Vim9 szkriptekben a változókat a :`let`, vagy a :`const` paranccsal deklaráljuk.
 Az értékadás történhet a :`let` nélkül, a változóra nem használhatjuk a :`unlet`
@@ -180,6 +183,7 @@ Ebben az esetben nem kell törődnünk a típussal. Ha olyan függvényt szeretn
 
 ==============================================================================
 *46.?*	Vim9 szkript használata				*source-vim9-script*
+						        *vim9-szkript-betöltés*
 
 Olykor a régi Vim szkripteket a Vim9 szkriptből szeretnéd használni. Például a
 .vimrc fájlodban szeretnél inicializálni egy beépülőt. A legjobb, ha ezt az

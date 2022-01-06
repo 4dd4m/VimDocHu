@@ -1,5 +1,6 @@
 *usr_06.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 Nov 07
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 		       Szintaxis kiemelés használata
@@ -134,6 +135,7 @@ Ha a színek rosszak:
 
 ==============================================================================
 *06.3*	Különböző színek				*:syn-default-override*
+							      *saját-színséma*
 
 Ha nem tetszenek az alapértelmezett színek, akkor megváltoztathatod. GUI módban
 a Szerkesztés/Színséma menüpont alatt, vagy ezzel a paranccsal: >
@@ -240,6 +242,7 @@ A szintaxis kiemelés bekapcsolása az aktuális bufferben, lásd 'syntax': >
 <
 ==============================================================================
 *06.5*	Színes nyomtatás				*syntax-printing*
+							*nyomtatási-színek*
 
 MS-Windows platformon a nyomtatás megkezdéséhez az alábbi parancs áll
 rendelkezésre: >

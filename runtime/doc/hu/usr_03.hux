@@ -593,7 +593,7 @@ A ":jumps" parancs kilistázza a bejárható pozíciókat. A legutolsó használ
 pozíció ">" karakterrel van megjelölve.
 
 
-NÉVVEL ELLÁTOTT JELÖLŐK					    *bookmark*
+NÉVVEL ELLÁTOTT JELÖLŐK				   *bookmark* *jelölések*
 
 Saját magadnak is készíthetsz jelölőket a szövegben. Az "ma" parancs egy
 képzeletbeli jelölőt tesz a kurzor helyére "a" néven. Összesen 26 jelölő

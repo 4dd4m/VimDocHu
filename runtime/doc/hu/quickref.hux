@@ -4,7 +4,7 @@
 
 			    Referencia Áttekintés
 
-							 *quickref* *Contents*
+					    *quickref* *Contents* *áttekintés*
  tag	  tárgy				tag	tárgy	~
 |Q_ct|	helpfájlok listája		|Q_re|	Parancsok ismétlése
 |Q_lr|	mozgás: Balra-jobbra		|Q_km|	Billentyű-mappek
@@ -634,7 +634,7 @@ Insert vagy Command-line módban:
 					  csoportosítva, illetve egy rövid egy
 					  soros összefoglalóval
 
-Az összes opció rövid magyarázata:		*option-list*
+Az összes opció rövid magyarázata:		*option-list* *opciók-listája*
 'aleph'		  'al'	    ASCII code of the letter Aleph (Hebrew)
 'allowrevins'	  'ari'     engedélyezi CTRL-_ használatát Insert és Command
 			    line módban

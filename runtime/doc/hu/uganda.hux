@@ -3,7 +3,8 @@
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 
-			*uganda* *Uganda* *copying* *copyright* *license*
+			     *uganda* *Uganda* *copying* *copyright* *license*
+					  *licensz* *szerzői-jog* *terjesztés*
 ÖSSZEGZÉS
 								*iccf* *ICCF*
 A Vim úgynevezett "Charityware". Szabadon másolható és felhasználható, de arra
@@ -205,7 +206,7 @@ Megjegyzés:
   argumentumba, vagy a MODIFIED_BY define direktívába beírhatjuk.
 
 ==============================================================================
-Kibaale Gyermekközpont		*kcc* *Kibaale*  *charity*
+Kibaale Gyermekközpont		*kcc* *Kibaale*  *charity* *adomány*
 
 A Kibaale Children's Centre (továbbiakban KCC) Kibaaleban található kisváros,
 Uganda déli részén, Tanzánia közelében, kelet Afrikában. A környék Rakai járás
@@ -290,16 +291,15 @@ A központ címe:
 		p.o. box 1658
 		Masaka, Uganda, East Africa
 
-Pénzküldés:						*iccf-donations*
+Pénzküldés:				*iccf-donations* *iccf-adományok*
 
 Olvasd el az ICCF weboldalát a legfrissebb információkról. Lásd |iccf|.
 
 
 USA:		Az alábbiakban leírtak alapján.
 		Csekk küldése a Nehemiah Group Outreach Society (NGOS) részére
-		sajnos nem lehetséges.
-		További módszereket keresünk az  IRS tax bizonylatok
-		küldésére.
+		sajnos nem lehetséges.  További módszereket keresünk az  IRS
+		tax bizonylatok küldésére.
 		A gyermekek támogatásával kapcsolatban keresd a Kanadai KCF
 		szervezetet (lásd alul). Az amerikai csekkeket ők alacsony
 		banki költségek mellett tudják fogadni.

@@ -1,5 +1,6 @@
 *usr_01.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2019 Nov 21
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 				A kézikönyvről
@@ -107,7 +108,7 @@ További információkhoz olvasd el |vimrc| és |compatible-default|.
 	működése is egyértelmű). Lásd |evim-keys| a részletekhez.
 
 ==============================================================================
-*01.3*	A Vimtutor használata				*tutor* *vimtutor*
+*01.3*	A Vimtutor használata			*tutor* *vimtutor* *tutoriál*
 
 Szöveg olvasása helyett (amely nagyon unalmas), a Vimtutort interaktívan
 		megtanítja az alapvető Vim parancsokat 30 perc alatt.
@@ -162,7 +163,7 @@ kell keresnie:
 	del TUTORCOPY
 <
 ==============================================================================
-*01.4*	Jogi Információk				*manual-copyright*
+*01.4*	Jogi Információk		*manual-copyright* *jogi-információk*
 
 A Vim kézikönyv és Referencia szerzői jogai (1988-2003) Bram Moolenaart
 illetik. Az anyagot a Open Publication License v1.0 szerinti 4. pontja alapján
@@ -172,7 +173,7 @@ szabad terjeszteni. A legújabb verzió megtekinthető itt:
 
 Az anyagok egyéb szerkesztőinek is el kell fogadniuk a fent említett jogi
 információkat.
-							*frombook*
+							*frombook* *könyv*
 Az anyag egyes részei a Steve Oualline által írt "Vi IMproved - Vim" könyvből
 lett átvéve (ISBN: 0735710015). A fentebb említett Open Publication License
 természetesen erre a könyvre is vonatkozik. A könyvből részletek vannak

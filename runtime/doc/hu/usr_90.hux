@@ -1,10 +1,12 @@
 *usr_90.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jun 11
 
+
 		  Bram Moolenaar: Vim felhasználói kézikönyv
 
 			       A Vim telepítése
 
 								*install*
+								*telepítés*
 
 Használat előtt telepítenünk kell a Vimet. Rendszerünktől függően a folyamat
 könnyű, vagy akár nehéz is lehet. A fejezet tippeket és elmagyarázza, hogy
@@ -122,6 +124,7 @@ megoldást. Legutolsó esetben megkérhetünk valakit a |maillist|en keresztül.
 
 TELEPÍTÉS
 							*install-home*
+							*telepítés-home*
 A home könyvtárba való telepítéshez szerkesszük a Makefilet az alábbiak
 szerint:
 

@@ -11,7 +11,7 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn match helpHeadline		"^[-A-ZÓÜÖÚŐŰÁÉÍ .][-A-ZÓÜÖÚŐŰÁÉÍ0-9 .()_]*\ze\(\s\+\*\|$\)"
+syn match helpHeadline		"^[-A-ZÓÜÖÚŐŰÁÉÍ,? .][-A-ZÓÜÖÚŐŰÁÉÍ0-9,? .()_]*\ze\(\s\+\*\|$\)"
 if has("conceal")
   syn region helpExample	matchgroup=helpIgnore start=" >$" start="^>$" end="^[^ \t]"me=e-1 end="^<" concealends
 else
