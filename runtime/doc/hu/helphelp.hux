@@ -1,0 +1,431 @@
+*helphelp.txt*	Vim Verzió  8.2.  Utolsó módosítás: 2021 Dec 13
+
+
+		  Bram Moolenaar: Vim felhasználói kézikönyv
+
+
+Segédlet a referenciában történő kereséshez		*helphelp*
+
+1. Help parancsok		|online-help|
+2. Lefordított help fájlok	|help-translated|
+3. Help fájlok létrehozása	|help-writing|
+
+==============================================================================
+1. Help parancsok			    *online-segítség*	*online-help*
+
+			*help* *<Help>* *:h* *:help* *<F1>* *i_<F1>* *i_<Help>*
+<Help>		vagy
+:h[elp]			Új, csak olvasható ablakban jeleníti meg a help-fájl
+			tartalmát. Amennyiben már létezik egy ilyen ablak,
+			akkor azt újrahasznosítja. Továbbá, ha az aktív ablak
+			a teljes ablakszélességet használja, akkor (vagy
+			legalább 80 karaktert), akkor a dokumentáció ablaka az
+			aktív ablak fölött jelenik meg, vagy más esetekben
+			legfelülre kerül.
+			A 'helplang' opcióval megadhatjuk a kézikönyv és
+			dokumentáció nyelvét, amennyiben ezeket letöltöttük és
+			telepítettük.
+
+
+						*{subject}* *E149* *E661*
+:h[elp] {subject}	Mint a  ":help", de a megadott {subject} részhez ugrik.
+			Például:  >
+				:help options
+
+<			{subject} támogatja a metakaraktereket: "*", "?" stb.
+			"[a-z]":
+			   :help z?	az első "z"-vel kezdődő találatra
+			   ugrik
+			   :help z.	"z."-hez ugrik
+			Ha a tag definiált, akkor közvetlenül oda:
+			   :help :?	jump to help for ":?"
+
+			Ha a keresés nem eredményezett találatot, vagy több
+			találat is rendelkezésre áll, akkor a "legjobb"
+			találat kerül megjelenítésre, melyet egy bonyolult
+			algoritmus dönt el, az alábbi szempontok
+			figyelembevételével:
+			- Preferencia betűérzékenység alapján.
+			- A nem alfanumerikus karakterek után egyezés
+			  általában jobb, mint a szó közepén.
+			- Az egyezés jobb, ha a szó környékén található
+			- Minél több alfanumerikus karakter.
+			- Minél rövidebb az egyezés, annál jobb.
+
+			A 'helplang' opcióval választhatjuk ki a megjelenítés
+			nyelvét, ha az a {subject} több nyelven is elérhető.
+			Nyelvspecifikus kereséshez adjuk hozzá a keresésünk
+			tárgyához az "@ab" karaktereket, ahol "ab" egy
+			kétjegyű nyelvkód. Lásd |help-translated|.
+
+			Megjegyzés: minél hosszabb a {subject}, annál kevesebb
+			lesz a találat is. Ezt megszemlélhetjük a commandline
+			használatával (kiegészítéshez CTRL-D, azaz ":help
+			subject" |c_CTRL-D|).
+			Egynél több találat esetén egy CTRL-D leütése után egy
+			listát kapunk a lehetséges szavakról. Például: >
+
+				:help cont<Ctrl-D>
+<
+			A CTRL-V billentyűkombinációra úgy is rákereshetünk,
+			hogy ezt írjuk: ":help CTRL-V", normál esetben ezt
+			kell lássuk: >
+
+				:help ^V
+<		        
+			A módszer kompatibilis egyéb karakterekkel is. Példa:  
+			Insert módú CTRL-V keresése: >
+
+				:help i^V
+<
+
+		        Arra is van lehetőség, hogy először kiadjuk a ":help"
+			parancsot, majd a ":tag {pattern}" parancsot
+			használjuk, A ":tnext" paranccsal a következő
+			találatokra ugorhatunk, a "tselect" paranccsal pedig
+			listából választhatjuk ki az egyezéseket.  >
+
+				:help index
+				:tselect /.*mode
+<
+			Argumentum nélküli hívás esetén egyszerűen a "help"
+			jelenik meg, ahelyett, hogy listázódna minden (nagyon
+			lassú lenne).
+			Az egyezések megjelenítésének felső határa 300 elem.
+
+			A `:help` parancsot további parancsok követhetik,
+			melyeket a '|' karakter választ el egymástól.
+			Escapelni nem szükséges a help parancsban, tehát az
+			alábbiak érvényes parancsok: >
+
+				:help |
+				:help k| only
+<			
+			Megjegyzés: az '|' karakter előtt szereplő szóköz
+			karakterek a ":help" parancs argumentumát képzik.
+			Az <NL> vagy <CR> típusú kombinációk önmagukban is
+			elválasztó funkciót töltenek be. Például: >
+
+				:help so<C-V><CR>only
+
+:h[elp]! [subject]	Mint a ":help", de nem Angol nyelvű dokumentáció
+			esetén a Vim először a beállított nyelven keres.
+			Lásd: |help-translated|.
+
+
+						 	*:helpc* *:helpclose*
+:helpc[lose]		Help ablak bezárása (ha van). A Vim megpróbálja
+			visszaállítani az ablakok elrendezését (és
+			kurzorpozícióját is) a dokumentáció megnyitása előtti
+			állapotra. A parancs lefuttathat egy-két esetleges
+			autocommandot.
+
+							*:helpg* *:helpgrep*
+:helpg[rep] {pattern}[@xx]
+			Keresés az dokumentációban (nem a kézikönyvben),
+			melyeket a {pattern} szóra illeszkedő  találati
+			listában végigjárhatunk. Az első találat automatikusan
+			megnyílik. Az opcionális [@xx] határozza meg a
+			találat nyelvét (amennyiben az elérhető).
+			A találati listában a |quickfix| parancsokkal
+			navigálhatunk, például: |:cnext| a következő
+			találathoz. A |:cwindow| használatával a lista
+			quickfix ablakban jelenik meg.
+
+		        A {pattern} mintát a Vim regexp keresés szerint kezeli
+			(|pattern|). 
+			A keresés nem veszi figyelembe az 'ignorecase'
+			értékét, a betűérzékenység ignorálásához használjuk a
+			"\c" karaktereket.
+			Példa a betűérzékeny keresésre: >
+				:helpgrep Uganda
+<			Példa a betűérzéketlen keresésre: >
+				:helpgrep uganda\c
+<			Példa a Magyar nyelvű keresésre: >
+				:helpgrep backspace@hu
+<			A minta nem támogatja a sortöréseket, a keresés
+			csak egy sorra lesz illesztve. A |:grep| használható,
+			de ez egy sokkal komplexebb találati fájl-listát
+			eredményez.
+			Nem követheti parancs, minden a keresés tárgyát képzi.
+			Szükség esetén az |:execute| használható.
+			A tömörített fájlokban nem történik keresés (a Fedora
+			tömöríti a help-fájlokat).
+
+							*:lh* *:lhelpgrep*
+:lh[elpgrep] {pattern}[@xx]
+			Mint a |:helpgrep|, a találatok viszont location
+			listben jelennek meg. Ha már nyitva van egy help
+			ablak, akkor a location list oda lesz csatolva, ha
+			nem, akkor egy új help ablak nyílik a location
+			listtel. Az aktív ablakhoz tartozó location listát nem
+			írja felül.
+
+							*:exu* *:exusage*
+:exu[sage]		Ex parancsok dokumentációja. Az Nvi parancs
+			szimulálásához.
+
+							*:viu* *:viusage*
+:view[sage]		Normal módú parancsok dokumentációja. Az Nvi parancs
+			szimulálásához.
+
+A 'helpfile'-ban tárolt fájl nyílik meg, ha a |:help| parancsnak nem adunk át
+argumentumot, minden más esetben a Vim a "doc/tags" fájlban keres az adott tag
+után azokban a könyvtárakban, melyek a 'runtimepath' opció részét képzik.
+
+Ha a dokumentációt az aktív ablakban szeretnénk megnyitni, akkor olvassuk el:
+|help-curwin|.
+
+A help ablak kezdeti magasságát a 'helpheight' opció tárolja
+(alapértelmezetten 20 karakter).
+				    *help-buffer-opciók* *help-buffer-options*
+A help ablak létrehozásakor egyes lokális változók automatikus értékeket
+vesznek fel, biztosítva az optimális megjelenést:
+    'iskeyword'		az összes ASCII karakter, kivéve: ' ', '*', '"' and '|'
+    'foldmethod'	"manual"
+    'tabstop'		8
+    'arabic'		off
+    'binary'		off
+    'buflisted'		off
+    'cursorbind'	off
+    'diff'		off
+    'foldenable'	off
+    'list'		off
+    'modifiable'	off
+    'number'		off
+    'relativenumber'	off
+    'rightleft'		off
+    'scrollbind'	off
+    'spell'		off
+
+A linkelt dokumentációt az úgynevezett tageken keresztül érjük el, melynek két
+módja van:
+- Az adott tagre állítva a kurzort "CTRL-]" (Magyar kiosztáson az
+  <CTRL-Alt-G>) paranccsal. A módszer csak akkor működik, ha a kurzor alatt
+  kulcsszó szerepel. "<C-Leftmouse>" és "g<LeftMouse>" ugyanúgy működik, mint
+  a "CTRL-]".
+- A ":ta {pattern}" parancs használatával. Ez működik nem kulcsszó karakterek
+  esetében is.
+
+A CTRL-T vagy CTRL-O billentyűkkel visszafelé navigálhatunk.
+A ":q" bezárja a help ablakot.
+
+Ha a keresés több találatot eredményezett, akkor a következő módon
+navigálhatunk a találatok között:
+1. Nyissunk egy help ablakot
+2. Adjuk ki a ":tag" parancsot, a tag elé pedig tegyünk egy "/" jelet: >
+	:tag /min
+3. A ":tnext" parancs kiadásával a következő találatra lépünk.
+
+Lehetőség van saját dokumentáció hozzáadására (például beépülőkhöz). Ne
+módosítsuk a disztribúcióval érkező help-fájlokat, helyette adjuk hozzá a
+sajátunkat: |add-local-help|.
+
+A help-fájlok írásával kapcsolatban pedig: |write-local-help|.
+
+Megjegyzés: A fájl fejléce automatikusan hozzáadódik a "HELYI KIEGÉSZÍTŐK"
+részhez, melyet a "help.txt" fájlban találhatunk |local-additions|.
+Ez csak akkor látható, ha a help-fájl a Vimből nyitjuk meg (telepített
+dokumentáció esetén). A Vim megvizsgálja az összes dokumentáció fejlécét, de
+kihagyja a  $VIMRUNTIME/doc könyvtárban lévő fájlokat.
+
+					*help-xterm-window* *help-xterm-ablak*
+Ha a dokumentációt egy külön terminálablakban szeretnéd megnyitni, akkor: >
+	:!xterm -e vim +help &
+<
+
+			*:helpfind* *:helpf*
+:helpf[ind]		Mint a |:help|, de az argumentumot egy
+			párbeszédablakban kéri be. A parancs csak a régebbi
+			verziók kompatibilitása miatt létezik, mely a
+			ToolBar.FindHelp menüelemet futtatja a beépített
+			helyett. {csak |+GUI_GTK| modul esetén}
+
+					*:helpt* *:helptags*
+				*E154* *E150* *E151* *E152* *E153* *E670*
+:helpt[ags] [++t] {dir}
+			A {dir} könyvtárban lévő dokumentáció tagjeit
+			generálja le. Ha {dir} értéke ALL, akkor az összes
+			'runtimepath'-ban található "doc" könyvtárral elvégzi
+			a műveletet.
+
+			Tagdefiníciók után a könyvtár (illetve annak
+			alkönyvtáraiban) található  "*.txt" és "*.??x"
+			fájlokban történik a keresés. A tagek "*" karakterek
+			között helyezkednek el. A "*.??x" fájlok nem Angol
+			nyelvűek, róluk egy "tags-??" fájl készül, lásd
+			|help-translated|. A generált tag fájlok rendezettek.
+
+			Duplikáció esetén hibaüzenetet kapunk. A létező
+			tagfájl felülíródik.
+
+			Az opcionális "++t" argumentum kényszeríti a
+			"help-tags" tag hozzáadását. Ez akkor is megtörténik,
+			ha a {dir} argumentum egyenlő a $VIMRUNTIME/doc-al.
+
+			A dokumentáció tagjeinek a  újjáépítéséhez (mely írási
+			jogosultságokat igényel): >
+				:helptags $VIMRUNTIME/doc
+
+==============================================================================
+2. Dokumentáció fordítása			*help-translated* *help-fordítás*
+
+Lehetőség van az Angol nyelvű dokumentáció lefordítására. A Vim megkeresi az
+összes 'runtimepath'-ban megtalálható "doc" könyvtárat. Ez csak akkor működik,
+ha a fordításkor kijelöltük a |+multi_lang| modult.
+
+Jelen pillanatban a fordítások elérhetőek:
+	Kínai  - csoportos közreműködés
+	Francia   - fordította David Blanchet
+	Olasz  - fordította Antonio Colombo
+	Japán - csoportos közreműködés
+	Lengyel   - fordította Mikolaj Machowski
+	Orosz  - fordította Vassily Ragosin
+A Fordításokat beszerezhetjük: http://www.vim.org/translations.php
+
+A lefordított fájlok az alábbi struktúrát veszik fel:
+
+	help.hux
+	howto.hux
+	...
+	tags-hu
+
+A "hu" a nyelvkód. Például Olasz nyelv esetén:
+
+	help.itx
+	howto.itx
+	...
+	tags-it
+
+A 'helplang' opcióval állíthatjuk be a dokumentáció preferált nyelvezetét. Az
+alapértelmezett beállítás igazodik az operációs rendszerben beállított
+értékhez. Keresésekkor a Vim megpróbálja a találatokat elsődlegesen a
+preferált nyelven megjeleníteni. Hiányzó találat esetén az Angol nyelvű
+dokumentáció töltődik be.
+
+Kereséskor meghatározhatjuk a találat nyelvezetét, ehhez a kereséshez fűzzük
+hozzá az "@ab" karaktereket, ahol "ab" egy kétbetűs nyelvkód.  Például: >
+	:he user-manual@hu
+	:he user-manual@en
+Az első a Magyar nyelvű dokumentációban keres, nyelvűben (még akkor is, ha a
+'helplang'-ban nincs beállított érték).
+A második az Angol nyelvű dokumentációban keres (még akkor is, ha a 'helplang'
+értéke "hu".
+
+Command-lineban történő kiegészítés esetén a ":help" parancsban csak akkor
+jelennek meg a nyelvi kiterjesztések, ha az adott nyelven a dokumentáció
+elérhető. Ha az adott tag csak Angol nyelven létezik, akkor az "@en" nem
+jelenik meg. Ha az első találat kiterjesztése "@hu" illetve a 'helplang'
+értéke is "@hu", akkor a kiterjesztés szintén nem kerül megjelenítésre.
+
+Amennyiben a dokumentáció nem Angol nyelvű, a |CTRL-]| és ":help!" parancsok
+először a megjelenített nyelv alapján keresik a tageket. Ennek hiányában a
+'helplang' értéke határozza meg a nyelvválasztást.
+
+A dokumentáció karakterkódolása szigorúan latin1 vagy utf-8. A Vim akkor is az
+utf-8 karakterkódolást feltételezi, ha az első sorban nem ASCII karaktert
+talál. Ezért a fejléc "For Vim version" részét mindenképpen le kell
+fordítanunk.
+
+A könyvtárakban található dokumentáció fájljainak karakterkódolásának
+egységesnek kell lennie. Egy könyvtárban csak egy karakterkódolás
+alkalmazható. A különböző karakterkódolás használata nyelvenként, vagy azonos
+karakterkódolás használata megengedett (ebben az esetben a fájloknak
+karakterkódolásonként különböző könyvtárakban kell elhelyezkedniük.
+
+Tippek a fordítóknak:
+- Ne fordítsuk le a tageket. Ez teszi lehetővé a 'helplang' számára, hogy
+  meghatározza a preferált nyelvet, azonban a saját nyelvünk tagjeivel a
+  dokumentációt kibővíthetjük.
+- Ha a fájl egy része nem került lefordításra, akkor az Angol nyelven maradt
+  részek tagjeit módosítsuk "tag@en" formátumra.
+- Tegyük elérhetővé a lefordított fájlokat csomag formájában, melyet a
+  felhasználók a "doc" könyvtárba történő másolással azonnal használatba
+  vehetnek. Jelentsük Bramnek, hogy publikálásra kerülhessen a www.vim.org
+  oldalon.
+- Futtassuk a |:helptags| parancsot a tagfájl elkészítéséhez, mely az összes
+  nyelvet le fogja generálni.
+
+==============================================================================
+3. Dokumentáció készítés	*help-writing* *help-dokumentáció-készítés*
+
+Az egyszerűség kedvéért a beépülők dokumentációjának formátuma meg kell
+egyezzen a Vim dokumentációjának formátumával, kivéve az első sort. Ha egy új
+fájlt készítünk, akkor ajánlott egy már létező fájlról másolatot készíteni és
+azt szerkeszteni, mintegy sablonként használva azt.
+
+Az első sornak az alábbi formátumot kell követnie:
+
+*plugin_name.txt*	{a beépülő rövid leírása}
+
+Az első mező a tag, melyre a ":help plugin_name" ugrani fog. A sor további
+része, Tab karakterrel elválasztva a help.txt "HELYI KIEGÉSZÍTŐK" részében lesz feltüntetve.
+Ennek meglétét ellenőrizhetjük: |location-additions|.
+
+Ha a verziószámot, vagy az utolsó módosítás dátumát meg szeretnénk adni, akkor
+az legyen a második sorban, jobbra rendezve.
+
+A fájl legutolsó sorában helyezzük el a módsort, amely a 'textwidth' és
+'tabstop', 'filetype' értékét fogja beállítani. A módsorban soha ne helyezzünk
+el globális beállítást, hiszen nemkívánatos hatásokat eredményezhet.
+
+
+TAGEK
+
+A tagek definiálásához az taget tegyük "*" karakterek közé: *ez-egy-tag*. A
+tag nevének egyedinek kell lennie, ideális esetben a tag prefixuma a beépülő
+neve, mely általában jobbra zárt.
+
+Hivatkozáshoz tegyük a tag nevét "|" karakterek közé, például |help-writing|.
+
+Parancsra történő hivatkozás esetén a parancs nevét tegyük "`" karakterek közé
+(ez szintén linkként működik), például `:filetype`. 
+
+Ha opcióra hivatkozunk, akkor a beállítás nevét zárjuk "'" karakterek közé,
+például 'statusline'.
+
+
+KIEMELÉS
+
+Fejléc deklarálásához használjuk a "~" karakter a sor végén. Ez különböző
+színnel kiemeli a fejlécet. Például:
+
+Column heading~
+
+A fejezetek elválasztásához használjuk a "=" karaktereket a sor első
+oszlopától kezdve, mely ki lesz emelve.
+
+A ex-parancsok kiemeléséhez a "<" és ">" jeleket alkalmazhatjuk (> a sor
+végén, < pedig a blokkot követő sor első nem üres karaktereként). A blokkokat
+követő sor, ha az az első oszloptól kezdődik, akkor megszakítja az ex-blokk
+kiemelést. Például: >
+    function Example_Func()
+	echo "Example"
+    endfunction
+<
+
+Továbbá az alábbi kiemelésekkel találkozhatunk a dokumentációban:
+  - speciális billentyűk <> formában, mint <PageDown>, vagy Ctrl formátumként,
+    mint CTRL-X
+  - {} karakterek között bármi, például {lhs}{rhs}
+
+A "Megjegyzés" szó automatikus kiemelést kap, az alábbiak is:
+	*Todo	something to do
+	*Error	something wrong
+
+A dokumentációt leíró szintaxis fájl $VIMRUNTIME/syntax/help.vim
+
+							*inclusion*
+A Vim mindenkié, faji és nemi megkülönböztetések nélkül. Egyesek problémáznak
+a felhasználók "he" vagy "his" megszólításán, gondolván azt, hogy mi azt
+feltételezzük, hogy az összes felhasználó férfi. Korántsem, ez szimplán csak
+egy szövegalkotást érintő szokás. Ráadásul ezeket a szövegek jó pár évvel
+ezelőtt íródtak sokszor olyanok által, akiknek nem az Angol az anyanyelvük.
+Egyáltalán nem feltételezzük a felhasználó nemi hovatartozását, bárhogyan is
+legyen a szöveg megfogalmazva. Sokan ajánlották a "they" használatát, de az
+nem szabályos Angol. Nem szeretnénk tovább rabolni az időnket ebben a
+párbeszédben. A cél az, hogy a Vim felhasználó megértse, hogy hogyan működik a
+Vim. A megfogalmazás másodlagos.
+
+
+ vim:tw=78:ts=8:noet:ft=help:norl:
