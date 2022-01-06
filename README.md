@@ -9,7 +9,6 @@
 ## Teendők
 * [ ] Nyelvtani pontosítások
 * [x] Frissítések implementálása
-* [ ] syntax fejléc "?,"
 
 
 ## A jelenlegi fordítás használatba vétele
