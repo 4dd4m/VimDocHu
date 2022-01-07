@@ -439,7 +439,7 @@ belépülőket |add-filetype-plugin|.
 
 
 GLOBÁLIS BEÉPÜLŐK					*standard-plugin*
-						    *alapértelmezett-beépülők*
+							*globális-beépülők*
 
 A Vim indulásakor számos globális beépülőt tölt be. Ehhez nem kell semmit
 tenned. Ezek olyan funkcionalitások, melyeket a legtöbb fejlesztő használ,

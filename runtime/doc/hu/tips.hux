@@ -1,0 +1,609 @@
+*tips.txt*      Vim Verzió 8.2.  Utolsó módosítás: 2021 Nov 06
+
+
+		  Bram Moolenaar: Vim felhasználói kézikönyv
+
+
+Tippek és ötletek a Vim használatához			*tips*
+						        *tippek*
+
+Következzen pár tipp, melyek a felhasználó segítségére lehetnek.
+A wikiben még több tippet találhatunk: http://www.vim.org
+
+Ne felejtsük el a kézikönyvet sem, számos hasznos dolgot tartalmaz
+|usr_toc.txt|
+
+C programok szerkesztése				|C-editing|
+Azonosító használati helyeinek felderítése		|ident-search|
+Képernyők váltása xterm környezetben			|xterm-screens|
+Görgetés Insert módban					|scroll-insert|
+Finom görgetés						|scroll-smooth|
+Gyakori gépelési hibák javítása				|type-mistakes|
+Szavak, sorok, stb. számolása				|count-items|
+Kurzor pozíciójának visszaállítása			|restore-position|
+Fájlok átnevezése					|rename-files|
+Nevek cseréje több fájlban				|change-name|
+Külső parancsok felgyorsítása				|speed-up|
+Hasznos mappek						|useful-mappings|
+Dokumentáció tömörítése					|gzip-helpfile|
+Shell parancsok futtatása			    	|shell-window|
+Hexadecimális értékek szerkesztése			|hex-editing|
+<> jelölések használata Autocommandokban		|autocmd-<>|
+Zárójelek párjának kiemelése				|match-parens|
+Dokumentáció megnyitása az aktív ablakban		|help-curwin|
+
+==============================================================================
+C programok szerkesztése				*C-editing*
+							*C-programok-tippek*
+
+A Vim sokrétűen támogatja a C típusú fájlok szerkesztését. Egy rövid
+áttekintés, a tagek segítségével többet is megtudhatunk az adott funkcióról:
+
+|usr_29.txt|		Mozgás a kódbázisban
+|usr_30.txt|		Programok szerkesztése
+|C-indenting|		A behúzás gépelés közben állítódik be.
+|=|			Sorok automatikus behúzása
+|format-comments|	Kommentek formázása
+
+|:checkpath|		Rekurzívan beágyazott fájlok listázása
+|[i|			Kurzor alatt lévő szó keresése a jelenlegi, és a
+			beágyazott fájlokba.
+|[_CTRL-I|		"[i" találatára ugrás
+|[I|			A kurzor alatt lévő szó előfordulásainak listázása
+			(teljes sor), az aktív fájlban (és beágyazott fájlokban) 
+|[d|			Kurzor alatt lévő szó definíciójának keresése az aktív
+			és beágyazott fájlokban.
+
+|CTRL-]|		Kurzor alatt lévő szó tagjéhez ugrik (például
+			függvény-definíció).
+|CTRL-T|		A CTRL-] parancsról lép vissza egyet.
+|:tselect|		Illeszkedő tagek kiválasztása listából
+
+|gd|			Kurzor alatt lévő lokális változó definíciójához
+			ugrik.
+|gD|			Kurzor alatt lévő globális változó definíciójához
+			ugrik.
+
+|gf|			Kurzor alatt lévő fájlnév megnyitása
+
+|%|			(), {}, [], /* */, #if, #else, #endif párok között
+			váltás
+|[/|			Előző komment elejére ugrik.
+|]/|			Következő komment végéhez ugrik.
+|[#|			Páratlan #if, #ifdef, vagy #else-hez ugrik, hátra
+|]#|			Páratlan #else vagy  #endif-hez ugrik, előre
+|[(|			Páratlan '(' karakterhez ugrik, hátra
+|])|			Páratlan ')' karakterhez ugrik, előre
+|[{|			Páratlan '{' karakterhez ugrik, hátra
+|]}|			Páratlan '}' karakterhez ugrik, előre
+
+|v_ab|			Blokk kiválasztása "[(" to "])", beleértve a
+			zárójeleket
+|v_ib|			Belső blokk kiválasztása "[(" között "])"
+|v_aB|			Select "a block" from "[{" to "]}", beleértve a
+			zárójeleket
+|v_iB|			Belső blokk kiválasztása "[{" között "]}"
+
+==============================================================================
+Azonosítók használati helyeinek felderítése			*ident-search*
+					    		*kulcsszavak-keresése*
+
+Azt már tudjuk, hogy a |tags| segítségével a függvény vagy változó
+definíciójához ugorhatunk. Néha azonban szeretnénk bejárni a használati
+helyeket is. Ezt két módon tehetjük meg:
+1. A |:grep| parancs használatával, mely a legtöbb Unix rendszeren működik, de
+esetenként lassú lehet (hiszen beolvassa az összes fájlt), ráadásul csak egy
+könyvtárban keres.
+2. ID utils segítségével, mely gyors több könyvtárban is keres egyszerre. A
+lokációk tárolására adatbázist használ, melyhez szükségünk vagy egy külsős
+programra, valamit az adatbázis is karban kell tartanunk.
+
+GNU id-tools használata:
+
+Amire szükségünk van:
+- A GNU id-tools telepítésére (mkid az ID-k generálására és lid a makrók
+  használatához).
+- Az azonosítókat tartalmazó adatbázisra (ID), az aktív könyvtárban. Ezt a
+  fájlt létrehozhatjuk egy shell paranccsal: "mkid file1 file2 ..".
+
+Másoljuk be az alábbi részletet a .vimrc fájlunkba: >
+	map _u :call ID_search()<Bar>execute "/\\<" . g:word . "\\>"<CR>
+	map _n :n<Bar>execute "/\\<" . g:word . "\\>"<CR>
+
+	function! ID_search()
+	  let g:word = expand("<cword>")
+	  let x = system("lid --key=none ". g:word)
+	  let x = substitute(x, "\n", " ", "g")
+	  execute "next " . x
+	endfun
+
+Használatához vigyük a kurzort a kívánt szó fölé ás üssünk "-u"-t, melynek
+hatására a Vim betölti azt a fájlt, amely az adott szót tartalmazza. Fájlon
+belül a következő találatra az "n", míg a következő fájlra a "_n" paranccsal
+ugorhatunk.
+
+Az fent említett módszer id-utils-3.2 alatt volt tesztelve.
+
+[az ötlet Andreas Kutscheratól származik]
+
+==============================================================================
+Képernyők váltása xterm környezetben		*xterm-screens* *xterm-save-screen*
+						*xterm-képernyők* 
+
+:>(Az alábbi választ Juergen Weigert adta a comp.editors oldalon)
+:>"A másik kérdés az volt, hogy kilépés után miért marad hátra a képernyő
+:>tartalma. Az előző shell parancs, például az "ls" kimenete pedig eltűnt. Az
+:>tudom, hogy hogyan lehet a megjelenítést visszaállítani a Vim, vagy más vi
+:>stílusú szerkesztőkből, csak azt nem, hogy hogy. Köszönöm a segítséget.
+:>
+:>Valaki megválaszolhatná. Szerintem a Vim és vi ugyanúgy viselkednek az azonos
+:>xterm beállításokkal.
+
+Nem feltétlenül csinálják ugyanazt, mert ez lehet a termcap-terminfo
+problémája is. Azt tudnunk kell, hogy két adatbázis létezik a termináltípusok
+attribútumainak tárolására: az egyik a termcap, a másik pedig a terminfo. A
+különböző értékek problémát jelenthetnek, illetve ha az előbbi program
+terminfót használ, míg az utóbbi termcapet. (lásd: |+terminfo|).
+
+Az imént említett probléma kapcsán meg kell vizsgáljuk a kontroll szekvenciát
+^[[?47h and ^[[?47l. Xtermben ezen kódok hatására cserélődik a főképernyő
+buffere. Egy gyors megoldás: >
+	echo -n "^[[?47h"; vim ... ; echo -n "^[[?47l"
+Ez talán azt fogja csinálni, amit szerettél volna. (A jelölésemben ^[ jelenti
+az ESC karaktert, lentebb látható, hogy az adatbázis \E karaktereket
+használja.
+
+Induláskor a Vim kiírja a termcap ti változót a terminálba (terminfo: smcup).
+Kilépéskor pedig a te változót írja ki (terminfo: rmcup), ezért az említett
+szekvenciákat ide kell elhelyezni, hiszen ez a hely a legmegfelelőbb a
+számukra.
+
+Compare your xterm termcap entry (found in /etc/termcap) with your xterm
+terminfo entry (retrieved with "infocmp -C xterm").  Both should contain
+entries similar to: >
+	:te=\E[2J\E[?47l\E8:ti=\E7\E[?47h:
+
+<    
+    Ha különbséget találsz, akkor valakinek (a rendszergazdának?), ildomos
+    átvizsgálnia a teljes termcap és terminfo adatbázisokat a konzisztencia
+    miatt
+
+Megjegyzés 1: Ha a Vimet újra fordítjuk a feature.h-ban található
+FEAT_XTERM_SAVE direktívával, akkor az gondoskodni fog a "te" és "ti" változók
+meglétéről.
+
+
+Megjegyzés 2: Ha le szeretnénk tiltani a képernyőváltást, de nem szeretnénk a
+termcapot megváltoztatni, akkor ezt adjuk hozzá a .vimrc fájlhoz: >
+	:set t_ti= t_te=
+
+==============================================================================
+Gördítés Insert módban					*scroll-insert*
+							*görgetés-insert*
+
+Ha Insert módban valami csak épphogy nincs rajta a képernyőn, akkor a CTRL-X
+CTRL-E és a CTRL-X CTRL-Y kombinációkkal gördíthetünk egy sort fel és le.
+						|i_CTRL-X_CTRL-E|
+
+Ha ez túl bonyodalmas, akkor átrakhatjuk egy kényelmesebb mappre:
+To make this easier, you could use these mappings: >
+	:inoremap <C-E> <C-X><C-E>
+	:inoremap <C-Y> <C-X><C-Y>
+(Karakterre pontosan ezeket írjuk be és győződjünk meg arról, hogy a '<'
+karaktert nem tartalmazza a 'cpoptions' opció).
+Ebben az esetben természetesen elvesztjük a kurzor sora fölötti/alatti sorból
+történő másolást.  |i_CTRL-E|.
+
+Fontoljuk meg a 'scrolloff' opció nagyobbra állítását, így görgetésnél a
+kurzor megadott sorral egyenlő távolságot tart a képernyő széleitől. Ha a
+'scrolloff' opció értéke nagyobb, mint fél képernyő, akkor görgetés esetén a
+kurzor állandóan a középső sorban marad és csak a szöveg mozdul.
+
+==============================================================================
+Finom görgetés					*scroll-smooth*
+						*görgetés-finom*
+
+Ha az alapértelmezett görgetéssel nem vagyunk megbarátkozva, akkor próbáljuk
+ki az alábbi mappet: >
+	:map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+	:map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+
+(Szó szerint, '<' karaktert ne tartalmazza a 'cpoptions').
+
+==============================================================================
+Gyakori gépelési hibák javítása			*type-mistakes*
+						*javítás-elgépelés*
+
+Ha azon kapjuk magunkat, hogy egy adott szót folyamatosan rosszul gépelünk,
+akkor hozzunk létre egy rövidítést ennek korrigálására. Például: >
+	:ab teh the
+	:ab fro for
+
+==============================================================================
+Szavak, sorok, stb. számolása			*count-items*
+					    *sorok-számolás* *szavak-számolás*
+
+A technika a csere parancsra alapul, melyhez hozzáadjuk az 'n' opciót, hogy
+elkerüljük a tényleges cserét. A kijelzett helyettesítések száma gyakorlatilag
+az általunk keresett gyakoriság. Például: >
+
+	:%s/./&/gn		characters
+	:%s/\i\+/&/gn		words
+	:%s/^//n		lines
+	:%s/the/&/gn		"the" anywhere
+	:%s/\<the\>/&/gn	"the" as a word
+
+Visszaállíthatjuk a 'hlsearch' értékét, vagy kiadhatjuk a ":nohlsearch"
+parancsot.
+Az 'e' flag hozzáadásával kikapcsolhatjuk azokat a hibaüzeneteket, melyeket a
+találat nélküli keresések okoznak.
+
+Alternatívaként, a |v_g_CTRL-G|-t használhatjuk Visual módban.
+
+Ha egynél több fájlban szeretnénk keresni, akkor használjuk a |:vimgrep|
+parancsot.
+
+							*count-bytes*
+							*számolás-bájtok*
+Ha a bájtokat szeretnénk megszámolni, akkor így járjunk el.
+If you want to count bytes, you can use this:
+
+	Jelöljük ki a karaktereket Visual módban (blokk kijelölés is
+	lehetséges)
+	Másoljuk ki a kijelölést "y"
+	Hívjuk meg az strlen() függvényt: >
+		:echo strlen(@")
+A sortörés 1 bájtnak számít.
+
+==============================================================================
+Kurzor pozíciójának visszaállítása			*restore-position*
+							*kurzor-visszaállítása*
+
+Tételezzük fel, hogy egy olyan mappet szeretnénk készíteni, amely a fájl egy
+adott pontjára ugrik, majd frissít egy dátumot, a kurzor pedig ismét felveszi
+eredeti pozícióját anélkül, hogy az ablakot gördítenünk kellene. Például az
+alábbi map lecseréli a dátumot a Last change után: >
+
+   :map <F2> msHmtgg/Last [cC]hange:\s*/e+1<CR>"_D"=strftime("%Y %b %d")<CR>p'tzt`s
+
+A pozíció mentése:
+	ms	kurzor pozíciójának jelölése 's'-el
+	H	ablak első sorára ugrás
+	mt	pozíció jelölése 't'-vel
+
+A pozícióhoz ugrás:
+	't	ugrás az előzőleg a képernyő tetején lévő sorra
+	zt	a sort az ablak közepére húzza
+	`s	ugrás a kurzor eredeti pozíciójára
+
+Komplexebb dolgokhoz olvassuk el: |winsaveview()| és |winrestview()|.
+
+==============================================================================
+Fájlok átnevezése					*rename-files*
+							*átnevezés*
+
+Tegyük fel, hogy a könyvtáramban az alábbi fájlok vannak (random választás
+:-):
+
+buffer.c
+charset.c
+digraph.c
+...
+
+Amiket át szeretnék nevezni: *.c *.bla.  Ezt így csinálom: >
+
+	$ vim
+	:r !ls *.c
+	:%s/\(.*\).c/mv & \1.bla
+	:w !sh
+	:q!
+
+==============================================================================
+Nevek cseréje több fájlban				*change-name*
+							*nevek-cseréje*
+
+Az alábbi példa egyszerre több fájlban nevezi át a kívánt személyeket:
+
+	Készítsünk egy "sub.vim" nevű fájlt az alábbi helyettesítési és
+	:update paranccsal: >
+		:%s/Jones/Smith/g
+		:%s/Allen/Peter/g
+		:update
+<
+	Indítsuk el a Vimet a módosítani kívánt fájlokkal, majd az
+	argumentumaira hívjuk meg az általunk készített szkriptet: >
+
+		vim *.let
+		argdo source subs.vim
+
+Lásd |:argdo|.
+
+==============================================================================
+Külső parancsok felgyorsítása				*speed-up*
+							*gyorsítás*
+
+Esetenként a külső parancsok futtatása nagyon lassú lehet, amit még ráadásul a
+Unix metakarakter-értelmezése is tovább lassít. Ennek kapcsán következzen pár
+hasznos tipp.
+
+Ha a .cshrc (vagy akármelyik fájlt, melyet a shellünk használ) nagyon hosszú,
+akkor két részre kell választanunk interaktív és nem-interaktív részekre
+(ezt hívják másodlagos shellnek). Ha Vimből például futtatjuk az ":!ls"
+parancsot, akkor nincs szükségünk az interaktív beállításokra (például a
+prompt beállítása, stb.). Az ilyen szempontból felesleges beállítások fölé
+illesszük be az alábbi kódot: >
+
+
+	if ($?prompt == 0) then
+		exit 0
+	endif
+
+Alternatíva lehet, ha az "-f" kapcsolót hozzáadjuk a 'shell' opcióhoz,
+például: >
+
+	:set shell=csh\ -f
+
+(a visszaperjelet itt kötelező, mert ez escapeli a mögötte álló szóközt).
+Az opció lényege, hogy a csh nem fogja beolvasni a .cshrc fájlt egyáltalán,
+ami miatt egyes dolgok működése meghiúsulhat.
+
+==============================================================================
+Hasznos mappek						*useful-mappings*
+							*hasznos-mappek*
+
+Számos felhasználó által kedvel mappek.
+
+							*map-backtick*  >
+	:map ' `
+Az aposztróf backtikkel való egyenlővé tétele. A kurzort a jelölő oszlopára
+helyezi, ahelyett, hogy a sor első nem üres karakterére ugrana.
+Make the single quote work like a backtick.  Puts the cursor on the column of
+a mark, instead of going to the first non-blank character in the line.
+
+							*emacs-keys*
+							*emacs-billentyűk*
+A command-line Emacs-stílusú szerkesztéséhez: >
+	" sor eleje
+	:cnoremap <C-A>		<Home>
+	" egy karaktert vissza
+	:cnoremap <C-B>		<Left>
+	" kurzor alatti karakter törlése
+	:cnoremap <C-D>		<Del>
+	" sor vége
+	:cnoremap <C-E>		<End>
+	" egy karaktert előre
+	:cnoremap <C-F>		<Right>
+	" előzményekben visszafelé lapoz (újabb)
+	:cnoremap <C-N>		<Down>
+	" előzményekben visszafelé lapoz (régebbi)
+	:cnoremap <C-P>		<Up>
+	" vissza egy szót
+	:cnoremap <Esc><C-B>	<S-Left>
+	" előre egy szót
+	:cnoremap <Esc><C-F>	<S-Right>
+
+Megjegyzés: Ennek feltétele, hogy a '<' karakter ne szerepelje a 'cpoptions'
+értékében. |<>|
+
+							*format-bullet-list*
+							*formázás-lista*
+Az alábbi map bármilyen listát megformáz. Egy üres sornak kell elhelyezkednie
+minden menüelem előtt és után. A kifejezés-parancsok teszik lehetővé a
+soronkénti kommentelést. >
+
+	:let m =     ":map _f  :set ai<CR>"    " 'autoindent' beállítása
+	:let m = m . "{O<Esc>"		      " elem fölé üres sor beszűrása
+	:let m = m . "}{)^W"		      " szöveg mozgatása az elem után
+	:let m = m . "i     <CR>     <Esc>"    " szóköz a behúzáshoz
+	:let m = m . "gq}"		      " szöveg formázása az elem után
+	:let m = m . "{dd"		      " üres sor eltávolítása
+	:let m = m . "5lDJ"		      " szöveg a listaelem után
+	:execute m			      |" map definiálása
+
+(<> jelölés |<>|. Megjegyzés: A mapben szereplő ^W az "^" és "W", nem CTRL-W.
+Ezt ki is másolhatjuk, beilleszthetjük, ha '<' nincs a 'cpoptions'-ban.)
+
+Megjegyzés: az utolsó komment "|" karakterrel kezdődik, mert az ":execute"
+parancs nem fogadja el a kommentet közvetlenül.
+
+A 'textwidth' értékét szintén be kell állítanunk egy nullától eltérő értékre,
+például: >
+	:set tw=70
+
+A következő map ugyanazt csinálja, de a behúzást az első listaelemhez igazítja
+(Megjegyzés: a map egyetlen egy hosszú sorból áll, rengeteg szóközzel): >
+	:map _f :set ai<CR>}{a                                                          <Esc>WWmmkD`mi<CR><Esc>kkddpJgq}'mJO<Esc>j
+<
+							*collapse*
+							*üres-sorok-törlése*
+A következő két mapping a fájlban szereplő üres (;b), vagy csak az üres
+karaktereket tartalmazó sorok (;n) szekvenciáját redukálja egy sorrá: >
+
+    :map ;b   GoZ<Esc>:g/^$/.,/./-j<CR>Gdd
+    :map ;n   GoZ<Esc>:g/^[ <Tab>]*$/.,/[^ <Tab>]/-j<CR>Gdd
+
+==============================================================================
+Dokumentáció tömörítése					*gzip-helpfile*
+							*dokumentáció-gzip*
+
+Ha nagyon szűkösen rendelkezünk a merevlemezen lévő hellyel, akkor a
+dokumentációt tömöríthetjük és továbbra is képesek leszünk azt olvasni. Ez
+természetesen lassítani fogja a folyamatot, hiszen a háttérben a "gzip"
+elvégzi a szükséges műveleteket.
+
+(1) Tömörítsük az állományokat:  "gzip doc/*.txt".
+
+(2) Szerkesszük a "doc/tags" fájlt és cseréljük le a kiterjesztéseket
+    ".txt"-ről ".txt.gz"-re: >
+
+(2) Edit "doc/tags" and change the ".txt" to ".txt.gz": >
+	:%s=\(\t.*\.txt\)\t=\1.gz\t=
+
+(3) Végül adjuk hozzá ezt a .vimrc fájlunkhoz: >
+	set helpfile={dirname}/help.txt.gz
+
+Ahol a {dirname} a dokumentációt tartalmazó könyvtár elérési útja. A |gzip|
+plugin gondoskodik a fájlok kitömörítéséről.
+
+Ellenőrizzük, hogy a $VIMRUNTIME arra a könyvtárra mutat, ahol a többi Vim
+fájl is található. Lásd |$VIMRUNTIME|.
+
+==============================================================================
+Shell parancsok futtatása				*shell-window*
+							*shell-ablakban*
+
+Lásd |terminal|.
+
+Az "splitvt" program segítségével a terminál (vagy a megjelenített ablakot)
+fel tudjuk osztani. Egyes ftp szervereken elérhető. Erről többet tud mondani
+Sam Lantinga <slouken@cs.ucdavis.edu>.
+
+Alternatívát jelenthet még a BSD rendszereken lévő  "window" parancs, ami
+támogatja a többszörösen fedett ablakokat. Vagy a "screen" program, ami képes
+
+==============================================================================
+Hexadecimális értékek szerkesztése		    *hex-editing* *using-xxd*
+						*szerkesztés-hex* *xxd-használata*
+
+Lásd a kézikönyv |23.4| pontját.
+
+Ha olyan fájlokkal dolgozunk, melyek futtatható állományra uralnak (ilyen az
+exe, bin, stb.), akkor az alábbi folyamatot automatizálhatjuk a .vimrc fájlunk
+bővítésével. Írjuk át a "*.bin" kiterjesztést arra, amelyikre éppen szükségünk
+van. Vesszővel elválasztva több kiterjesztést is megadhatunk: >
+
+	" vim -b : edit binary using xxd-format!
+	augroup Binary
+	  au!
+	  au BufReadPre  *.bin let &bin=1
+	  au BufReadPost *.bin if &bin | %!xxd
+	  au BufReadPost *.bin set ft=xxd | endif
+	  au BufWritePre *.bin if &bin | %!xxd -r
+	  au BufWritePre *.bin endif
+	  au BufWritePost *.bin if &bin | %!xxd
+	  au BufWritePost *.bin set nomod | endif
+	augroup END
+
+==============================================================================
+<> jelölések használata Autocommandokban		 *autocmd-<>*
+
+A <> jelölés nem értelmeződik az autocommandok argumentumaként. A speciális
+karaktereket az önmegsemmisítő mappek alkalmazásával el tudjuk kerülni, mely
+először megkapja a <> jelölést, a mappet pedig az autocommand fogja meghívni.
+Példa:
+
+						*map-self-destroy*  
+						*önmegsemmisítő-map*
+>
+ " A fájlnevet automatikusan hozzáadja a menü-listához
+ " Önmegsemmisítő mappet használ!
+ " 1. a buffer egyik sorát használja a fájlnevekben szereplő "."-ok "\."
+      karakterekre történő cserjéhez.
+ " 2. tárolás '"' regiszterben
+ " 3. név hozzáadása a buffer-menü listához
+ " FIGYELEM: a parancs mellékhatásai az aktuális regiszter tartalmának
+   felülírása, illetve az "i" mappjeinek eltávolítása.
+ "
+ autocmd BufNewFile,BufReadPre * nmap i :nunmap i<CR>O<C-R>%<Esc>:.g/\./s/\./\\./g<CR>0"9y$u:menu Buffers.<C-R>9 :buffer <C-R>%<C-V><CR><CR>
+ autocmd BufNewFile,BufReadPre * normal i
+
+Másik módszer (ami talán egy picivel jobb is) az ":execute" parancsot
+alkalmazza. A stringben belerakhatjuk a <> jelölést, visszaperrel escapelve.
+Ne felejtsük el a már létező visszaperjeleinket duplázni, valamint escapelni a
+'"' karaktert is.
+>
+  autocmd BufNewFile,BufReadPre * exe "normal O\<C-R>%\<Esc>:.g/\\./s/\\./\\\\./g\<CR>0\"9y$u:menu Buffers.\<C-R>9 :buffer \<C-R>%\<C-V>\<CR>\<CR>"
+
+Az igazi megvalósítás egy saját függvénydefiníció lenne, (lásd |:function|),
+de akkor nem használhatnánk a <> jelölést, a példa pedig pont ezért jött
+létre.
+
+==============================================================================
+Zárójelek párjának kiemelése				    *match-parens*
+							    *zárójelek-párja*
+
+Komplexebb példák és trükkök:
+- a |CursorMoved| atocommand használata
+- a |searchpairpos()| használata a zárójelek párjának felkutatására
+- kurzorpozíció megállapítása (stringen, vagy kommenten állunk): |synID()|
+- megjelelölés a |:match| segítségével
+- minta pontos pozíciója a fájlban |pattern|.
+
+Az alábbiakat egy külön szkriptfájlban kell elhelyeznünk, a lokális változók
+miatt. A stringekben és kommentekben lévő egyezéseket átugorja, kivéve ha a
+keresést kommentből vagy stringből indítottuk. Szintaxis kiemelésre itt
+szükségünk van.
+
+A |matchparen| beépülőnek egy picivel egyszerűbb implementációja.
+>
+	let s:paren_hl_on = 0
+	function s:Highlight_Matching_Paren()
+	  if s:paren_hl_on
+	    match none
+	    let s:paren_hl_on = 0
+	  endif
+
+	  let c_lnum = line('.')
+	  let c_col = col('.')
+
+	  let c = getline(c_lnum)[c_col - 1]
+	  let plist = split(&matchpairs, ':\|,')
+	  let i = index(plist, c)
+	  if i < 0
+	    return
+	  endif
+	  if i % 2 == 0
+	    let s_flags = 'nW'
+	    let c2 = plist[i + 1]
+	  else
+	    let s_flags = 'nbW'
+	    let c2 = c
+	    let c = plist[i - 1]
+	  endif
+	  if c == '['
+	    let c = '\['
+	    let c2 = '\]'
+	  endif
+	  let s_skip ='synIDattr(synID(line("."), col("."), 0), "name") ' .
+		\ '=~?	"string\\|comment"'
+	  execute 'if' s_skip '| let s_skip = 0 | endif'
+
+	  let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip)
+
+	  if m_lnum > 0 && m_lnum >= line('w0') && m_lnum <= line('w$')
+	    exe 'match Search /\(\%' . c_lnum . 'l\%' . c_col .
+		  \ 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+	    let s:paren_hl_on = 1
+	  endif
+	endfunction
+
+	autocmd CursorMoved,CursorMovedI * call s:Highlight_Matching_Paren()
+	autocmd InsertEnter * match none
+<
+
+==============================================================================
+Dokumentáció megnyitása az aktív ablakban			*help-curwin*
+
+A dokumentáció splitben jelenik meg, de ha az aktív ablakban szeretnénk
+megjeleníteni, akkor próbáljuk kis ezt az egyedi `:HelpCurwin` parancsot: >
+>
+	command -bar -nargs=? -complete=help HelpCurwin execute s:HelpCurwin(<q-args>)
+	let s:did_open_help = v:false
+	
+	function s:HelpCurwin(subject) abort
+	  let mods = 'silent noautocmd keepalt'
+	  if !s:did_open_help
+	    execute mods .. ' help'
+	    execute mods .. ' helpclose'
+	    let s:did_open_help = v:true
+	  endif
+	  if !getcompletion(a:subject, 'help')->empty()
+	    execute mods .. ' edit ' .. &helpfile
+	    set buftype=help
+	  endif
+	  return 'help ' .. a:subject
+	endfunction
+<
+
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

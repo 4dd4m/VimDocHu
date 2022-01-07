@@ -20,7 +20,7 @@ Következő fejezet: |usr_44.txt|  Egyedi szintaxis kiemelés
 
 ==============================================================================
 *43.1*	Beépülők a fájltípusokhoz			*filetype-plugin*
-							*beépülő-filetype*
+							*filetype-beépülő*
 
 A fájltípus beépülők kezdetleges használatáról a |add-filetype-plugin|
 fejezetben már szó esett, viszont lehetséges, hogy nem vagy megelégedve a az
