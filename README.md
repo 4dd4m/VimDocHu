@@ -3,12 +3,11 @@
 * A Vim felhasználói kézikönyvének, dokumentációjának (részleges) fordítása
 
 ## Állapot
-* [x] Kézikönyv: ~100%. 
+* [x] Kézikönyv: 100%. 
 * [x] Utolsó merge: 2022.01.05
 
-## Teendők
-* [ ] Nyelvtani pontosítások
-* [x] Frissítések implementálása
+## Folyamatban
+* usr_41.hux merge
 
 
 ## A jelenlegi fordítás használatba vétele
