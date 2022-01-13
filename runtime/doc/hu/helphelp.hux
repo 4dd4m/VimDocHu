@@ -1,4 +1,4 @@
-*helphelp.txt*	Vim Verzió  8.2.  Utolsó módosítás: 2021 Dec 13
+*helphelp.txt*	Vim Verzió  8.2.  Utolsó módosítás: 2022 Jan 08
 
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
@@ -242,7 +242,7 @@ Ha a dokumentációt egy külön terminálablakban szeretnéd megnyitni, akkor: 
 			helyett. {csak |+GUI_GTK| modul esetén}
 
 					*:helpt* *:helptags*
-				*E154* *E150* *E151* *E152* *E153* *E670*
+				 *E150* *E151* *E152* *E153* *E154* *E670*
 :helpt[ags] [++t] {dir}
 			A {dir} könyvtárban lévő dokumentáció tagjeit
 			generálja le. Ha {dir} értéke ALL, akkor az összes

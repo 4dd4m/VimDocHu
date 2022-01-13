@@ -1,0 +1,1912 @@
+*editing.txt*   Vim Verzió 8.2.  Utolsó módosítás: 2021 Dec 27
+
+
+		  VIM REFERENCE MANUAL    by Bram Moolenaar
+
+
+Fájlok szerkesztése					*edit-files*
+						    *szerkesztés-fájlok*
+
+1.  Bevezetés			    |edit-intro|
+2.  Fájl szerkesztése		    |edit-a-file|
+3.  Az argumentumlista		    |argument-list|
+4.  Mentés			    |writing|
+5.  Mentés és kilépés		    |write-quit|
+6.  Párbeszédablakok		    |edit-dialogs|
+7.  Az aktív könyvtár		    |current-directory|
+8.  Bináris fájlok szerkesztése	    |edit-binary|
+9.  Titkosítás			    |encryption|
+10. Időbélyegek			    |timestamps|
+11. Fájlok keresése		    |file-searching|
+
+==============================================================================
+1. Bevezetés						*edit-intro*
+						    *szerkesztés-bevezetés*
+
+Szerkesztés alatt Vimben a következőket értjük:
+
+1. fájl beolvasása a bufferbe
+2. buffer tartalmának megváltoztatása szerkesztő parancsokkal
+3. buffer kiírása fájlba
+
+							*current-file*
+							*aktív-fájl*
+Addig, amíg ki nem írod a buffer tartalmát, a merevlemezen lévő fájl tartalma
+változatlan marad. A fájl szerkesztésének kezdetekor (fájl beolvasása a
+bufferbe), a fájlnév "aktív fájl" néven eltárolódik. Hívhatjuk akár aktív
+buffernek is. A command-lineban ezt "%"-al használhatjuk |:_%|.
+
+							*alternate-file*
+							*előző-fájl*
+Ha az aktív fájlhoz már van fájlnév rendelve, akkor a fájl az "előző fájt"
+fogja reprezentálni innentől kezdve.  A command-lineban ezt "#"-el
+használhatjuk |:_#|, valamint a |CTRL-^| kombinációval (Magyar kiosztáson a
+<CTRL-Alt-3>) a kettő között válthatunk. Az előző fájl nem változik, ha a
+|:keepalt| parancsot használjuk. Az előző fájl értéke ablakonként különböző
+értéket vesz fel.
+
+							*:keepalt* *:keepa*
+:keepalt {cmd}		Végrehajtja a {cmd} parancsot, az előző fájlt
+			megtartva. Megjegyzés: az indirekt módon,
+			függvényekből kapott hívások megváltoztathatják az
+			előző fájl értékét.
+
+
+A bufferlista tárolja az összes fájlt, amit megnyitottunk szerkesztésre
+(például ":e fájlnév"), vagy mentettünk (például ":w fájlnév"). A bufferlistát
+használhatjuk két fájlon történő művelet elvégzésére (például szöveg
+másolására), a szerkesztési pontok megjegyzésére és két fájl között történő
+gyors váltásra a |CTRL-^| parancs segítségével. Üssük be a buffer sorszámát és
+nyomjunk CTRL-^ (vagy <CTRL-Alt-3>).
+
+
+CTRL-G		vagy				*CTRL-G* *:f* *:fi* *:file*
+:f[ile]			Kiírja az aktív fájl nevét (amíg ":cd" paranccsal el
+			nem navigálunk), a kurzor pozícióját (ha a 'ruler'
+			opció be van kapcsolva) és a fájl állapotát (új fájl,
+			módosított, olvasási hibák, csak olvasható). A
+			'shortmess' opcióval az üzenet rövidíthető.
+
+:f[ile]!		Mint a |:file|, de nem csonkolja fájlnevet akkor sem,
+			ha erre a 'shortmess' utasítást ad.
+
+{count}CTRL-G		Mint a CTRL-G, de a fájlnévvel megjelenik a teljes
+			elérési út is. Ha a {count} nagyobb, mint 1, akkor
+			kiírja a buffer számát is.
+
+					*g_CTRL-G* *word-count* *byte-count*
+					*szavak-számolása* *byte-számolás*
+g CTRL-G		Kiírja a kurzor pozícióját ötféle módon: Oszlopszám,
+			sorszám, szó, karakter és bájt. Ha karakter és a bájt
+			értéke megegyezik, akkor a karakterpozíciót nem írja
+			ki.
+
+			Ha olyan karakterek szerepelnek a sorban, melyek
+			egynél több pozíciót foglalnak (<Tab> és egyéb
+			speciális karakterek), vagy ha a karakter több mint
+			egy bájtot használ oszloponként (0x7F feletti
+			karakterek, ha az 'encoding' utf-8), mindkét érték ki
+			van írva, a két értéket egy "-" karakter választja el
+			egymástól.
+
+			Lásd a 'ruler' opciót és a |wordcount()| függvényt.
+
+							*v_g_CTRL-G*
+{Visual}g CTRL-G	Hasonló a "g CTRL-G"-hez, de Szó, Karakter, Sor és
+			Bájt értékeket a kijelölt területen számolja.
+			A Blockwise módban az oszlopszám is megjelenítésre
+			kerül. ({Visual}-ról bővebben |Visual-mode|.)
+
+							*:file_f*
+:f[ile][!] {name}	A fájl nevét állítja {name}-re. Az opcionális !
+			megakadályozza az üzenet csonkolását, akárcsak a
+			|:file| parancsnál. Ha a buffernek van neve, akkor a
+			régi név lesz az előző fájlt |alternate-file|. A régi
+			fájlnevet egy nem listázott buffer tárolja.
+
+							*:0file*
+:0f[ile][!]		Az aktív buffer nevének eltávolítása. Az opcionális !
+			megakadályozza az üzenet csonkolását, akárcsak a
+			|:file| esetében.
+
+:buffers
+:files
+:ls			Kilistázza az összes ismert fájlnevet.  Lásd:
+			|windows.txt| |:files| |:buffers| |:ls|.
+
+A Vim megjegyzi a fájlt teljes elérési útját. A legtöbb esetben csak a fájlnév
+kerül megjelenítésre, kivéve ha a ":cd" parancsot használtuk |:cd|.
+
+							*home-replace*
+							*home-csere*
+Ha a $HOME környezeti változó be van állítva és a fájl elérési útja ezzel
+kezdődik, akkor ez gyakran helyettesítve van a "~" karakterrel. Így röviden
+tartható a fájl neve. Fájlok olvasása és írása a teljes elérési útvonallal
+történik, a "~" jel csak a fájlnév megjelenítéséhez van használva. Fájlok
+átnevezésekor az esetleges "~" jeleket "~/" jelekre vannak lecserélve ( a
+félreértések elkerülése végett, melyet a $HOME és a 'backupext' hasonló
+deklarációi okozhatnak).
+
+A buffer kiírásakor az alapértelmezett fájlnév az aktív fájl neve. Így ha
+kiadjuk a "ZZ" vagy a "wq" parancsokat, akkor a fájl felülíródik. Ha ezt nem
+szeretnénk, a buffer tartalma külön fájlba is írható, ekkor az új fájlnevet
+adjuk át argumentumként a ":write" parancsnak. Például: >
+
+	vim testfile
+	[change the buffer with editor commands]
+	:w newfile
+	:q
+
+Mely létrehozza a "newfile"-t, ami a "testfile" módosított másolata lesz. A
+"testfile" változatlan marad. Ha a 'backup' opció be ban állítva, akkor a Vim
+átnevezi, vagy lemásolja az eredeti fájlt, mielőtt felülírná azt.
+A biztonsági másolatok tökéletesek arra, hogy visszaállítsuk a fájlt eredeti
+állapotát. Lásd még 'patchmode' opció. Normál esetben a biztonsági másolat
+fájlneve megegyezik az eredetiével, melyet a 'backupext' opcióban
+meghatározott kiterjesztés követ. Vigyázzunk, hiszen az beállított "~" érték
+mellet könnyedén felülírhatjuk a biztonsági másolatot. Ha például ezt jobbnak
+látjuk ".bak"-ra cserélni, akkor ezt megtehetjük a 'backupext' opcióban. Az
+extra pont karaktereket a Vim lecseréli '_' karakterre, ha az MS-DOS féle
+operációs rendszer detektálható a Vim által (például messydos vagy crossdos)
+vagy amikor a 'shortname' opció be van kapcsolva. A biztonsági másolatok
+tetszőleges könyvtárba gyűjthetőek a 'backupdir' opció átállításával.
+
+
+							*auto-shortname*
+Technikailag: Az Amiga 30 karakterben korlátozza a fájlnevet. Az
+	      MS-DOS-kompatibilis fájlrendszeren pedig 8 plussz 3 karakter áll
+	      a rendelkezésre. A .swp fájl létrehozásakor a Vim megpróbálja
+	      detektálni a fájlrendszer típusát. Ha az eredmény MS-DOS szerű
+	      fájlrendszer, akkor egy flag kerül beállításra, aminek
+	      ugyanolyan hatása van, mint ha a beállítottuk volna a
+	      'shortname' opciót. A flag új fájl szerkesztése esetén azonnal
+	      törlődik. A flag hatással lesz az aktív fájlhoz tartozó ".swp"
+	      és a ".~" fájlnevek kiválasztásakor. Amennyiben a fájlunkat egy
+	      normál fájlrendszeren szerkesztjük (majd ugyanazt a fájlt később
+	      egy MS-DOS féle fájlrendszeren), akkor ez a flag nem lesz
+	      beállítva. Ebben az esetben a ".~" fájl létrehozása hibába
+	      ütközhet, melyről hibaüzenetet kapunk. Használjuk a 'shortname'
+	      opciót ebben az esetben.
+
+Ha a szerkesztést fájlnév megadása nélkül kezdtük, akkor a fájl állapotaként a
+"No File" üzenet lesz feltüntetve. Ha a ":write" parancsnak átadtunk
+paraméterként egy fájlnevet, akkor az új fájlnév beállítódik aktív fájlként.
+Ez csak akkor történik meg, ha a 'cpoptions'-ban be van állítva az 'F' flag
+(alapértelmezetten igen) |cpo-F|. Ez akkor hasznos, ha a először a szöveget
+egy üres bufferbe írjuk, aztán pedig fájlba. Ha a 'cpoptions' a 'f' flaget
+tartalmazza (alapértelmezetten NEM) |cpo-f|, pedig a ":read file" parancs
+alapján kapja a fájlnevet. Ez akkor hasznos, ha a Vimet argumentumok nélkül
+nyitjuk meg és a ":read" paranccsal olvasunk be egy fájlt. A fájlnév megadása
+után ha a 'filetype'-nak nincs értéke, akkor a megfelelő autocommandok
+lefutnak a fájltípus felismerésére.
+
+							*not-edited*
+Mivel a fájlnevet a szerkesztést megelőzően már beállítottuk, így védve
+leszünk annak felülírásától. Ezt a "notedited" flag beállításával tudjuk
+megtenni. A flag állapota megtekinthető a CTRL-G vagy a "file" paranccsal.
+Ha a "notedited" flag be van állítva, akkor az üzenet tartalmazni fogja a
+"[Not edited]" állapotot. Ha a buffert azonos fájlnévvel mentjük (":w!"-vel),
+akkor a "notedited" flag alapállapotba kerül.
+
+							*abandon*
+							*buffer-elhagyás*
+A Vim tudja, ha a buffer tartalma megváltozott, ezért az adatvesztést meg
+tudja akadályozni. Ha mentés nélkül akarunk kilépni, vagy másik fájlt
+szeretnénk szerkeszteni, akkor visszautasítja azt. A megerősítéshez fűzzünk
+egy "!" jelet a parancshoz. A módosításokat a szerkesztő eldobja. Például:
+":q" nem működik, ha a buffer tartalma változott, viszont ":q!" igen. CTRL-G
+billentyűvel ellenőrizhetjük a buffer állapotát. Ha a buffer tartalma
+módosult, akkor a "[Modified]" állapotjelzőt olvashatjuk, vagy "+" jelet ha az
+'m' flag szerepel a 'shortmess' opcióban.
+
+Ha a buffert kérdés nélkül, automatikusan szeretnénk menteni, akkor kapcsoljuk
+be az 'autowriteall' opciót. Az 'autowrite' a Vi-kompatibilis opciók részét
+képzi, ezért ez nem működik az összes parancs esetében.
+
+Ha meg szeretnénk tartani a módosított buffer tartalmát, akkor kapcsoljuk be a
+'hidden' opciót. Lásd |hidden-buffer|. Egyes parancsok így működnek annak
+ellenére, hogy a 'hidden' nincs beállítva, ezért ellenőrizzük az adott parancs
+dokumentációját.
+
+==============================================================================
+2. Fájl szerkesztése					*edit-a-file*
+							*fájl-szerkesztése*
+
+							*:e* *:edit* *reload*
+:e[dit] [++opt] [+cmd]	Aktív fájl szerkesztése. Hasznos, ha a fájl tartalma
+			időközben megváltozott. Hibát eredményez, ha a buffer
+			tartalma megváltozott, az 'autowriteall' opció nincs
+			beállítva, vagy a fájl egyéb okok miatt nem írható.
+			Lásd |++opt| és |+cmd|.
+
+							*:edit!* *discard*
+							*kilépés-mentés-nélkül*
+:e[dit]! [++opt] [+cmd]
+			Aktív fájl erőltetett szerkesztése. A buffer
+			változásai eldobja. Jól jön, ha egyszerűen csak "újra
+			szeretnénk kezdeni".
+			Lásd |++opt| és |+cmd|.
+
+							*:edit_f*
+:e[dit] [++opt] [+cmd] {file}
+			{file} szerkesztése.
+			Hibát eredményez, ha a buffer tartalma már
+			megváltozott, a fájl írható, valamint  'hidden' és 'autowriteall'
+			opciók nincsenek bekapcsolva.
+			Lásd |++opt| és |+cmd|.
+
+							*:edit!_f*
+:e[dit]! [++opt] [+cmd] {file}
+			{file} szerkesztése a buffer módosításainak
+			eldobásával.
+			Lásd |++opt| és |+cmd|.
+
+:e[dit] [++opt] [+cmd] #[count]
+			Szerkeszti a [count] számú buffert (|:files| parancs
+			fájl-azonosítója alapján).
+			A parancs egyenértékű a  [count] CTRL-^ (Magyar
+			kiosztáson [count] <CTRL-Altgr-3>) parancsokkal. Nem
+			működik az ":e #", ha az előző-fájl bufferhez nem
+			tartozik fájlnév, CTRL-^ (<CTRL-Altgr-3> viszont igen.
+			Lásd |++opt| és |+cmd|.
+
+							*:ene* *:enew*
+:ene[w]			Egy új névtelen buffert szerkeszt.
+			Hibát eredményez, ha a buffer tartalma már
+			megváltozott, a fájl írható, valamint  'hidden' és 'autowriteall'
+			opciók nincsenek bekapcsolva.
+			Ha a 'fileformats' opció nem üres, akkor az opció
+			legelső eleme lesz a buffer fájlformátuma. Ha a
+			'fileformats' opció üres, akkor az aktív buffer
+			'fileformat' opciója lesz az új buffer fájltípusa.
+
+							*:ene!* *:enew!*
+:ene[w]!		Egy új névtelen buffert szerkeszt. Az aktív buffer
+			módosításait eldobja.
+			A 'fileformat' beállítása az |:enew| parancs
+
+							*:fin* *:find*
+:fin[d][!] [++opt] [+cmd] {file}
+			{file} keresése a 'path'-ban, majd annak szerkesztése
+			(|:edit|).
+			{csak a |+file_in_path| modullal elérhető el}
+			Find {file} in 'path' and then |:edit| it.
+			{követelmény: |+file_in_path|}
+
+:{count}fin[d][!] [++opt] [+cmd] {file}
+			Mint a ":find", de a 'path'-ban szereplő egyezések
+			{count} számú találatát adja vissza. Azaz ":2find
+			file" a második 'path'-ban szereplő "file" találatot
+			fogja visszaadni. Ha a 'path'-ban a megadott {count}
+			értéknél kevesebb találat szerepel, akkor hibaüzenetet
+			kapunk.
+
+							*:ex*
+:ex [++opt] [+cmd] [file]
+			Ugyanaz, mint az |:edit|.
+
+							*:vi* *:visual*
+:vi[sual][!] [++opt] [+cmd] [file]
+			Ex módban történő használat esetén kilép az
+			|Ex-mode|ból és visszatér normál módba. Egyéb esetben
+			az |:edit|tel egyenértékű.
+
+							*:vie* *:view*
+:vie[w][!] [++opt] [+cmd] file
+			Ex módban történő használat esetén kilép az
+			|Ex-mode|ból és visszatér normál módba. Egyéb esetben
+			az |:edit|tel egyenértékű, de a buffer számára
+			beállítja a 'readonly' opciót.
+
+						*CTRL-Alt-3* *CTRL-^* *CTRL-6*
+CTRL-^			Szerkeszti az előző (alternatív fájlt). Legtöbbször az
+<CTRL-Altgr-3>		alternatív fájl az előzőleg szerkesztett fájl. Nagyon
+			jó módszer, hogy két fájl között gyorsan váltsunk. Az
+			":e #" paranccsal ekvivalens, azzal a kivétellel, hogy
+			akkor is működik, ha nincs fájlnév.  Edit the
+			alternate file.  Mostly the alternate file is
+
+			Ha az 'autowrite' vagy 'autowriteall' opciók be vannak
+			állítva, akkor változás esetén a buffer tartalmát
+			kiírja.
+			Többnyire a ^ karakter a 6-os billentyűn található,
+			tehát a CTRL, illetve a 6-os billentyű együtt alkotják
+			a CTRL-^ parancsot. Magyar billentyűzeten ezt a CTRL,
+			Altgr és 3-as billentyűkkel tudjuk megtenni. További
+			információk erről a problémáról: |magyar-ctrl-^|.
+
+{count}CTRL-^		A [count] sorszámú buffer szerkeszti a bufferlistában.
+			A fájlok váltásának egyik nagyszerű módszere.
+			(ekvivalens a ":e #[count]" paranccsal).
+			Lásd az említett |CTRL-^| fentebb a részletekért. 
+			Lásd a Magyar vonatkozást: |magyar-ctrl-^|.
+
+[count]]f						*]f* *[f*
+[count][f		Ugyanaz, mint a  "gf".  Elavult.
+
+							*gf* *E446* *E447*
+[count]gf		Kurzor alatt (vagy után) lévő fájlra ugrás.  Röviden:
+			"goto file".
+			Az 'isfname' opcióra támaszkodva megállapítja, hogy
+			melyek az érvényes fájl-karakterek. A fájlnevet követő
+			írásjeleket ".,:;!" nem veszi figyelembe. Az escapelt
+			szóközök "\ " egyetlen szóközre redukálódnak. 
+			A keresés alapja a 'path' változóban található
+			könyvtárak elérési útja. Lásd a 'path' opciót a
+			részletekről, relatív könyvtárakról és
+			metakarakterekről.
+			A 'suffixesadd' opciót használva az utótagokat
+			automatikusan hozzáfűzi a fájlnévhez.
+			Ha a fájlnév nem található, akkor az 'includeexpr'
+			használja a fájlnév módosítására, majd újból keresést
+			indít.
+			Ha a [count]-nak van értéke, akkor a [count] sorszámú
+			találat kerül szerkesztésre.
+			A parancs hibába ütközik, ha a Vim nem képes elhagyni
+			(|abandon|) az aktív fájlt.
+			Ha a fájlt új ablakban szeretnénk szerkeszteni akkor
+			üssünk |CTRL-W_CTR-F|.
+			Ha új fájlt szeretnénk szerkeszteni: >
+				:e <cfile>
+<			A gf map mindig így működjön: >
+				:map gf :e <cfile><CR>
+<			Ha név http-link, ami hasonló ehhez:
+			"type://machine/path", akkor a |netrw| beépülőt kell 
+			használnunk. 
+			A Unixon használatos '~' karakter értelmeződik, mint a
+			"~user/file" esetén. A környezeti változók is
+			értelmezve vannak |expand-env|.
+			{követelmény: |+file_in_path|}
+
+							*v_gf*
+{Visual}[count]gf	Mint a "gf" de vizuális kijelölést használja
+			fájlnévként. 'isfname' figyelmen kívül van hagyva.
+			A szót megelőző üres karakterek ignorálva vannak,
+			azonban a szóban szereplő szóközök és speciális
+			karakterek a fájlnév részét fogják képezni.
+			(A {Visual} módról: |Visual-mode|.)
+
+							*gF*
+[count]gF		Mint a "gf", kivéve ha a fájlnevet szám követi, akkor
+			a kurzor a megadott sorra lesz pozícionálva.
+			A fájlnevet és a számot egy nem fájlnév-karakterrel
+			(lásd 'isfname') és nem számmal kell elválasztani. 
+			A " line " értelmeződik, mint azt a 
+			`:verbose command UserCmd` kimenetében láthattuk.
+			Szóközök a fájlnév, elválasztó és szám karakterek
+			között ignoráltak.
+			Például: 
+				eval.c:10 ~
+				eval.c @ 20 ~
+				eval.c (30) ~
+				eval.c 40 ~
+
+							*v_gF*
+{Visual}[count]gF	Ugyanaz, mint a  "v_gf".
+
+A fent említett parancsokkal kezdjük meg a fájl szerkesztését. Ez azt jelenti,
+hogy a fájl tartalmát betöltjük a bufferbe és az aktív fájl nevet kap. A
+megnyitott fájl függ a jelenlegi könyvtárunktól, lásd |:cd|.
+
+A fájlok beolvasása utáni üzenetek értelmezése részletesen: |read-messages|.
+See |read-messages| for an explanation of the message that is given after the
+file has been read.
+
+Ha valamit nagyon elrontottunk a bufferben és újra szeretnénk kezdeni, akkor
+adjuk  ki a ":e!" parancsot. Az ":e" parancs csak akkor hasznos, ha már
+megváltoztattuk a jelenlegi fájl nevét.
+
+							*:filename* *{file}*
+Az itt említett dolgon túl többet megtudhatunk a speciális elemekről, illetve,
+hogy mely elemek várnak fájlnevet és mikor: |cmdline-special|.
+
+Megjegyzés: a Unixtól eltérő rendszerek esetén: Ha olyan parancsot használunk
+amely csak egy fájlnevet fogad el, akkor használhatunk szóközöket, de a
+parancs és a fájlnév között (vezető) szóközök nem képzik a fájlnév részét.
+Ez hasznos azokon a rendszereken, melyek előszeretettel alkalmaznak szóközöket
+a fájlneveikben (például az MS-Windows az Amiga). Például: az
+":e     Long File Name" parancs a szerkeszti a "Long File Name" long fájlnév
+fájlt. Ha olyan parancsot használunk amely több fájlnév fogadására is képes,
+(mint a ":next file1 file2") akkor a szóközöket escapelni kell "\" karakterrel.
+
+				*wildcard* *wildcards* *helyettesítő-karakter*
+A {file}-ban szereplő helyettesítő karakterek értelmeződnek, de
+fájl-kiegészítés esetén a 'wildignore' és a 'suffixes' erre hatással van. A
+helyettesítő karakterek támogatása a rendszertől függ.
+A leggyakoribbak:
+	?	egy karakterre illeszkedik
+	*	mindenre illeszkedik, a semmit is belevéve
+	**	mindenre illeszkedik, a semmire is, könyvtárakban rekurzív
+	[abc]	illeszkedik 'a', 'b' vagy 'c'-re
+
+Ha el szeretnénk kerülni a helyettesítő karakterek értelmezését, akkor "\"
+karakterrel escapelnünk kell őket. Bár, MS-Windows rendszeren a visszaperjel
+szerepel az elérési útban és a "path\[abc]"-ben szereplő visszaper még mindig
+helyettesítő karakterként van kezelve, ha a "[" nincs az 'isfname' opcióban.
+Egyszerűen megkerülhetjük a problémát, ha "path\[[]abc]"-t használunk, ez
+illeszkedni fog a "path\[abc]" fájlra.
+
+					*starstar-wildcard* *csillagcsillag*
+A "**" karakterek kibontása lehetséges Unixon, Win32, Mac OS/X és egyéb
+rendszeren. Ezzel kereshetünk a teljes könyvtárstruktúrán, egészen 100-as
+mélységig.
+Megjegyzés: egyes parancsok eltérően működhetnek, lásd |file-searching|.
+Például: >
+	:n **/*.txt
+Fájlok keresése:
+	aaa.txt ~
+	subdir/bbb.txt ~
+	a/b/c/d/ccc.txt ~
+Ha egy normál karakter követi közvetlenül (vagy előzi meg) a helyettesítő
+karaktert, akkor azok csak a legfelső könyvtárra fognak illeszkedni, az
+illesztés nem fog megtörténni az alkönyvtárakban. Például: >
+	:n /usr/inc**/types.h
+Fájlok keresése:
+	/usr/include/types.h ~
+	/usr/include/sys/types.h ~
+	/usr/inc/old/types.h ~
+Megjegyzés: a "/sys"-t tartalmazó elérési út találat lesz, mert annak már nem
+kellett "/inc"-re illeszkednie. A példában szereplő illeszkedés
+"/usr/inc*/*/*..." és nem "/usr/inc*/inc*/inc*".
+
+					*backtick-expansion* *`-expansion*
+					*backtick-kibontás* *`-kibontás*
+Egyes rendszerek, köztük a Unix, képesek a backtick karaktert fájlok
+argumentumaként használni, például: >
+	:next `find . -name ver\\*.c -print`
+	:view `ls -t *.patch  \| head -n1`
+A backtickek közötti argumentumot a Vim a 'shell' paranccsal futtatja,
+kimenethez pedig a standard kimenetet használja (a shell parancsból érkező
+hibaüzeneteket eldobja).
+Ahhoz, hogy ezt szemléltessük, állítsuk a 'verbose' parancsot a 4-es opcióra.
+Amennyiben a shell parancs nem nulla kilépési kóddal tér vissza, akkor a
+hibaüzenet megjelenik, és a Vim parancs futtatása megszakad. Ennek
+elkerülésére a kényszerítsük ki az állandó nulla visszatérési értéket az
+alábbiak szerint: >
+       :next `find . -name ver\\*.c -print \|\| true`
+
+A "*" előtt szereplő visszaperjelek szükségesek, hogy megelőzzük a
+helyettesítő karakter kibontását a find parancs előtt. A "|" jel előtti
+visszaperjel megakadályozza, hogy a Vim a parancs végét értelmezze és a
+futtatást megszakítsa.
+Ez többnyire minden rendszeren működik azzal a megkötéssel, hogy a backtickkel
+közrezárt elem tekinthető egésznek, azaz sem az első backtick előtt, sem az
+utolsó backtick után nem szerepelhet szöveg.
+
+							*`=*
+A backtickek átalakulnak Vim kifejezéssé (a külső parancs meghívása helyett),
+ha egy "=" jelet teszünk rögtön az első backtick mögé. Például: >
+	:e `=tempname()`
+A kifejezés gyakorlatilag bármit tartalmazhat, ezért a '"', '|', '%' és '#'
+karakterek speciális jelentése elkerülhető. A 'wildignore' opció érvényben van
+a többi helyettesítő-karakter számára.
+
+A környezeti változók a kifejezésekben értelmeződnek: >
+	:e `=$HOME . '/.vimrc'`
+Itt viszont nem, mert a $HOME stringként van értelmezve: >
+	:e `='$HOME' . '/.vimrc'`
+
+Ha a kifejezés string értékkel tér vissza, akkor a neveket sortöréssel kell
+elválasztanunk. Ha a visszatérési érték |List|a, akkor minden eleme névként
+van használva. A sortörés elválasztja a neveket.
+Megjegyzés: az ilyen típusú kifejezéseket csak ott használhatjuk, ahol az
+Ex-parancs elvárt argumentuma egy fájlnév.
+
+							*++opt* *[++opt]*
+Az [++opt] argumentummal kényszeríthetjük ki a 'fileformat','fileencoding'
+vagy 'binary' értékét a parancs számára, valamint meghatározhatjuk a hibás
+karakterek viselkedését. Az általános alak: >
+	++{optname}
+Vagy: >
+	++{optname}={value}
+
+Ahol {optname} ezen értékek egyike:    *++ff* *++enc* *++bin* *++nobin* *++edit*
+    ff     vagy  fileformat	       'fileformat' felülírása
+    enc    vagy  encoding	       'fileencoding' felülírása
+    bin    vagy  binary		       'binary' beállítása
+    nobin  vagy  nobinary	       'binary' visszaállítása
+    bad				       hibás karakterek viselkedése
+    edit			       csak a |:read| parancs számára: az
+				       opciókat úgy tarja, mintha
+				       szerkesztenénk a fájlt
+
+A {value} nem tartalmazhat szóközöket. Például: >
+	:e ++ff=unix
+A parancs szerkeszti a fájlt újra, de immár "unix" 'fileformat' opcióval. >
+
+	:w ++enc=latin1 newfile
+Kiírja az aktuális buffer tartalmát "newfile" fájlba, latin1
+karakterkódolással.
+
+Mentéskor üzenetként a "[converted]" jelzőt láthatjuk, ha a 'fileencoding'
+vagy az általunk megadott ++enc opció értéke különbözik az 'encoding'
+opciótól.
+
+Számos ++opt argumentumot megadhatunk, szóközökkel elválasztva, de minden
+esetben meg kell előzniük a |+cmd| argumentumokat.
+
+								*++bad*
+A "++bad=" argumentum meghatározza, hogy mi történjen az illegális bájtokkal
+és azokkal a karakterekkel, melyek nem konvertálhatóak. A három opció:
+    ++bad=X      A rossz karaktereket egy egy-byteos karakterre cseréli
+    ++bad=keep   Hibás karakterek megtartása konvertálás nélkül.  
+		 Megjegyzés: ez hibás byteot eredményezhet a szövegben!
+    ++bad=drop   Hibás karakterek eltávolítása.
+
+Az alapértelmezett érték "++bad=?":, azaz az összes hibás karakter le lesz
+cserélve "?" karakterekre. Egyes helyeken előfordulhat a fordított kérdőjelek
+használata (0xBF).
+
+Megjegyzés: egyes parancsok nem használják a ++bad argumentumot, bár nem adnak
+hibaüzenetet a használatuk esetén, ilyen a |:write|.
+
+Megjegyzés: beolvasáskor a 'fileformat' és a 'fileencoding' opciók a
+választott formátumot veszik fel. Íráskor ez nincs így, ezért a következő
+mentési folyamat az opciók régi értékét fogja használni. Ugyanez vonatkozik a
+'binary' opcióra is.
+
+
+							*+cmd* *[+cmd]*
+A [+cmd] argumentummal  pozícionálhatjuk a kurzort a fájlban vagy futtathatunk
+egyéb parancsokat is:
+	+		A kurzort az utolsó sorra állítja
+	+{num}		A kurzort a {num} sorra állítja.
+	+/{pat}		A kurzort a  {pat} első találatára állítja.
+	+{command}	{command} futtatása a fájl megnyitása után.
+			A {command} bármely Ex-parancs lehet.
+A {pat} vagy {command} argumentumok tartalmazhatnak szóközöket, de akkor azt
+visszaperjelekkel escapelnünk kell, a további létező visszaperjeleket meg kell
+dupláznunk. >
+	:edit  +/The\ book	     file
+	:edit  +/dir\ dirname\\      file
+	:edit  +set\ dir=c:\\\\temp  file
+Megjegyzés: az utolsó példában szereplő visszaperjeleket kétszer dupláztuk,
+egyszer a "+cmd" argumentum miatt és egyszer a ":set" parancs miatt.
+
+
+							*file-formats*
+							*fájl-formátumok*
+A 'fileformat' opció gondoskodik a fájl <EOL> (sorvégi) karaktereiről:
+'fileformat'    karakterek	     név				~
+  "dos"		<CR><NL> vagy <NL>   DOS formátum	*DOS-format*
+  "unix"	<NL>		     Unix formátum	*Unix-format*
+  "mac"		<CR>		     Mac formátum	*Mac-format*
+Ezt megelőzően a 'textmode' volt használatban, de ez mára elavult.
+Previously 'textmode' was used.  It is obsolete now.
+
+Fájl olvasásakor az említett karakterek értelmeződnék sorvégi karakterekként
+(<EOL>). DOS formátum esetén (Win32 alapértelmezett), <CR><NL> és <NL> is
+sorvégi karakterekként értelmeződnek (<EOL>). Megjegyzés: ha a fájlt DOS
+formátumban írjuk, akkor <CR> karakterek hozzáadódnak minden egyes <NL>
+karakterhez. Lásd |file-read|.
+
+
+Fájl írásakor, az említett karakterek <EOL>-két vannak értelmezve. DOS
+formátumban ez <CR><NL>. Lásd |DOS-format-write|.
+
+Fájlunkat beolvashatjuk DOS formátumban és kiírhatjuk azt Unix formátumban. Ez
+le fogja cserélni az összes <CR><NL> párt <NL>-re (feltételezve, hogy a
+'fileformats' opcióban szerepel a "dos"): >
+	:e file
+	:set fileformat=unix
+	:w
+Ha a fájlt Unix formátumban olvassuk be és DOS formátumban írjuk ki, akkor  az
+összes <NL> karakter le lesz cserélve <CR><NL> karakterekre (feltételezve, hogy a
+'fileformats' opcióban szerepel a "unix"): >
+	:e file
+	:set fileformat=dos
+	:w
+
+A fájl szerkesztésének kezdetekor, ha a 'fileformats' opció nem üres (ami az
+alapértelmezett), akkor a Vim megvizsgálja, hogy a fájlok sorai milyen
+formátumnak megfelelő karakterekkel vannak elválasztva. Ha az opció értéke
+"unix,dos", akkor a Vim a sorok végén szimpla <NL> karaktereket keres (mely
+Unixon és Amigán használatos), vagy pedig a <CR><NL> párokat, (MS-Windows). A
+'fileformat' értéke csak akkor lesz "dos", ha a fájl ÖSSZES sora <CR><NL>
+párra végződik, máskülönben az érték "unix". Ha a 'fileformats' opció
+tartalmazza a "mac" értéket is és a fájlban nem található <NL> karakter, akkor
+a 'fileformat' értéke "mac" lesz.
+
+Ha a 'fileformat' értéke "dos"-ra van állítva egy nem MS-Windows rendszeren,
+akkor a "[dos format]" állapotjelzőt láthatjuk, ami arra kell emlékeztessen 
+bennünket, hogy valami szokatlan történik. MS-Windows rendszeren a "[unix
+format]" állapotjelzőt láthatjuk, ha a 'fileformat' "unix"-ra van állítva.
+Minden rendszeren, kivéve a Macintoshon megjelenik a "[mac format]"
+állapotjelző, ha a 'fileformat' értéke "mac".
+
+Ha a 'fileformats' értéke üres és DOS formátum esetén a fájl olvasása közben
+olyan sor található, amely nem <CR><NL> párra végződik, akkor a "[CR missing]"
+állapotjelzőt olvashatjuk.
+
+Ha a 'fileformats' értéke üres és Mac formátum esetén a fájl olvasása közben
+olyan sor található, amely nem <NL>-re végződik, akkor a "[NL missing]"
+állapotjelzőt olvashatjuk.
+
+Ha az új fájl nem létezik, akkor az aktív buffer 'fileformat' értéke a
+mérvadó, ha a 'fileformats' üres. Egyéb esetben a 'fileformats' első formátuma
+lesz az új fájlban beállítva.
+
+Bináris, futtatható vagy Vim szkriptek szerkesztése esetén be kell állítanunk
+a 'binary' opciót. Ennek legegyszerűbb módja, ha a Vimet a "-b" argumentummal
+indítjuk, mely ignorálja a 'fileformat' értékét. Ennek hiányában azt
+kockáztatjuk, hogy szimpla <NL> karakterek lecserélődnek <CR><NL>
+karakterekre.
+
+A mentett fájljainkat titkosíthatjuk a 'key' opció segítségével, így mások a
+fájlunkat nem tudják olvasni. |encryption|.
+
+
+==============================================================================
+3. Az argumentumlista				*argument-list* *arglist*
+						*argumentum-lista*
+
+Ha a Vim indítása esetén egynél több fájlt adunk meg, akkor ezek a fájlok az
+argumentumlistában tárolódnak, melyek között válthatunk.
+
+Ne tévesszük ezt össze a bufferlistával, amit a |:buffers| parancs esetén
+láthatunk. Az argumentumlista már a Vi szerkesztőben is szerepelt, a
+bufferlista a Vim újdonsága. Az összes argumentumlistában szereplő elem
+megjelenik a bufferlistában is (amíg ki nem töröljük a |:bdel| vagy a |:bwipe|
+parancsokkal). Az ellenkezője viszont elég gyakori, hogy nem minden
+bufferlistában szereplő fájl tagja az argumentumlistának.
+
+A témakör gyakorlatiasabb szemléltetéséhez olvassuk el a kézikönyv |07.2|
+pontját.
+
+A globális argumentumlistát az összes ablak használja alapértelmezett esetben.
+Van lehetőség új argumentumlisták létrehozására is, melyek lokálisak az adott
+ablakhoz, lásd |:arglocal|.
+
+Az argumentumlistát az alábbi parancsokkal és az |argc()| és |argv()|
+kifejezés-függvényekkel használhatjuk. Az alábbi parancsok az aktív ablakban
+működnek.
+
+							*:ar* *:arg* *:args*
+:ar[gs]			Kiírja az argumentumlistát (az aktív fájl szögletes
+			zárójelekben van feltüntetve).
+
+:ar[gs] [++opt] [+cmd] {arglist}			*:args_f*
+			Definiálja az {arglist} argumentumlistát új
+			argumentumlistaként és szerkeszti az első fájlt. Hibát
+			kapunk, ha az aktív buffer módosításai miatt a Vim nem
+			Lásd még |++opt| és |+cmd|.
+
+:ar[gs]! [++opt] [+cmd] {arglist}			*:args_f!*
+			Definiálja az {arglist} argumentumlistát új
+			argumentumlistaként és szerkeszti az első fájlt.
+			Az aktív buffer módosításait eldobja.
+			Lásd még |++opt| és |+cmd|.
+
+:[count]arge[dit][!] [++opt] [+cmd] {name} ..		*:arge* *:argedit*
+			Hozzáadja a {name} fájlt az argumentumlistához és
+			szerkeszti azt. Ha {name} már szerepel az
+			argumentumlistában, akkor azt szerkeszti.
+			Tulajdonképpen ez az |:argadd| és az |:edit|
+			kombinációja.  A fájlokban szereplő szóközöket "\"
+			karakterekkel escapelni kell.
+			A [count] ugyanúgy működik, mint |:argadd| esetén.
+			Ha az aktív buffer nem elhagyható, akkor is
+			hozzáadásra kerül a {name} fájl, de nem nyílik meg
+			szerkesztésre. Duplikáció nincs ellenőrizve. 
+			Lásd még |++opt| és |+cmd|.
+
+:[count]arga[dd] {name} ..			*:arga* *:argadd* *E479*
+:[count]arga[dd]
+			{name} hozzáadása az argumentumlistához. {name}
+			paraméter hiánya esetén az aktív buffer nevét adja az
+			argumentumlistához. Egynél több {name} paramétert is
+			megadhatunk.
+			A [count] paraméter hiánya esetén az
+			argumentumlistában aktív elem után lesz {name}
+			hozzáadva, ellenkező esetben az argumentumlista
+			[count]-al jelölt pozícióban kerül.
+			Ha az argumentumlista "a b c", és "b" az aktív
+			argumentum, akkor az alábbi parancsok a
+			következőképpen változtatják meg a listát:
+				parancs		új argumentumlista~
+				:argadd x	a b x c
+				:0argadd x	x a b c
+				:1argadd x	a x b c
+				:$argadd x	a b c x
+			És az utolsó után:
+				:+2argadd y	a b c x y
+			A duplikátumok nincsenek ellenőrizve hozzáadáskor,
+			ezért egy fájl többször is szerepelhet a listában. A
+			duplikátumok eltávolítására az |:argdedupe| parancs
+			áll rendelkezésre: >
+				:argadd *.txt | argdedupe
+<			Az aktív fájl nem változott.			
+			Megjegyzés: másik módszer: >
+				:args ## x
+<			Mely hozzáadja "x" elemet és rendezi a listát.	
+
+:argded[upe]					*:argded* *:argdedupe*
+			Eltávolítja az argumentumlistában lévő duplikátumokat.
+			Ha az aktív fájl a duplikátum, akkor az aktív fájl
+			megkapja az eredeti indexét.
+
+:argd[elete] {pattern} ..		*:argd* *:argdelete* *E480* *E610*
+			Törli az argumentumlistából a {pattern}re illeszkedő
+			fájlokat. Egynél több {pattern}t is megadhatunk. A
+			{pattern} "file patternként" van értelmezve, lásd
+			|file-pattern|.A "%" törli az aktív bejegyzést.
+			Az alábbi parancs megtartja az aktív fájlt, még akkor
+			is, ha azt az argumentumlistából eltávolítottuk.
+			Például: >
+				:argdel *.obj
+
+:[range]argd[elete]	Törli a [range] tartományt az argumentumlistából.
+			Például: >
+				:10,$argdel
+<			Törli a 10 és annál nagyobb indexű elemeket: >
+				:$argd
+<			Csak az utolsót törli: >
+				:argd
+				:.argd
+<			Az aktív argumentumot törli.   >
+				:%argd
+<			Az összes fájlt eltávolítja az argumentumlistából.
+			Ha hivatkozott argumentum száma nagyobb, mint az
+			argumentumlista elemeinek a száma, akkor az utolsó
+			elemig töröl.
+
+							*:argu* *:argument*
+:[count]argu[ment] [count] [++opt] [+cmd]
+			Szerkeszti az argumentumlista [count] indexű elemét.
+			[count] hiánya esetén az aktív bejegyzés kerül
+			szerkesztésre.  Hibaüzenetet produkál, ha a Vim nem
+			tudja elhagyni az aktív buffert (|abandon|).
+			Lásd még |++opt| és |+cmd|.
+
+:[count]argu[ment]! [count] [++opt] [+cmd]
+			Szerkeszti az argumentumlista [count] indexű elemét,
+			az aktív buffer módosításait eldobja. [count] hiánya
+			esetén az aktív bejegyzés kerül szerkesztésre.
+			Lásd még |++opt| és |+cmd|.
+
+:[count]n[ext] [++opt] [+cmd]			*:n* *:ne* *:next* *E165* *E163*
+			Szerkeszti az aktív bejegyzéstől [count] pozícióra
+			lévő fájlt (előre irányban). Hibaüzenetet kapunk, ha
+			a Vim nem tudja elhagyni az aktív buffert (|abandon|).
+			Lásd még |++opt| és |+cmd|.
+
+:[count]n[ext]! [++opt] [+cmd]
+			Szerkeszti az aktív bejegyzéstől [count] pozícióra
+			lévő fájlt (előre irányban). Az aktív buffer
+			módosításait eldobja.
+			Lásd még |++opt| és |+cmd|.
+
+:n[ext] [++opt] [+cmd] {arglist}			*:next_f*
+			Ugyanaz, mint |:args_f|.
+
+:n[ext]! [++opt] [+cmd] {arglist}
+			Ugyanaz, mint |:args_f!|.
+
+:[count]N[ext] [count] [++opt] [+cmd]			*:Next* *:N* *E164*
+			Szerkeszti az aktív bejegyzéstől [count] pozícióra
+			lévő fájlt (hátra irányban).
+			Hibaüzenetet kapunk, ha a Vim nem tudja elhagyni az
+			aktív buffert (|abandon|).
+			Lásd még |++opt| és |+cmd|.
+
+:[count]N[ext]! [count] [++opt] [+cmd]
+			Szerkeszti az aktív bejegyzéstől [count] pozícióra
+			lévő fájlt (hátra irányban). Az aktív buffer
+			módosításait eldobja.
+			Lásd még |++opt| és |+cmd|.
+
+:[count]prev[ious] [count] [++opt] [+cmd]		*:prev* *:previous*
+			Ugyanaz, mint :Next.  Lásd még |++opt| és |+cmd|.
+
+							*:rew* *:rewind*
+:rew[ind] [++opt] [+cmd]
+			Az argumentumlistában szereplő első fájl szerkesztése.
+			Hibaüzenetet kapunk, ha a Vim nem tudja elhagyni az
+			aktív buffert (|abandon|).
+			Lásd még |++opt| és |+cmd|.
+
+:rew[ind]! [++opt] [+cmd]
+			Az argumentumlistában szereplő első fájl szerkesztése.
+			Az aktív buffer módosításait eldobja.
+			Lásd még |++opt| és |+cmd|.
+
+							*:fir* *:first*
+:fir[st][!] [++opt] [+cmd]
+			Ugyanaz, mint a  ":rewind".
+
+							*:la* *:last*
+:la[st] [++opt] [+cmd]
+			Az argumentumlistában szereplő utolsó fájl
+			szerkesztése.  
+			Hibaüzenetet kapunk, ha a Vim nem tudja
+			elhagyni az aktív buffert (|abandon|).
+			Lásd még |++opt| és |+cmd|.
+
+:la[st]! [++opt] [+cmd]
+			Az argumentumlistában szereplő utolsó fájl
+			szerkesztése.  
+			Az aktív buffer módosításait eldobja.
+			Lásd még |++opt| és |+cmd|.
+
+							*:wn* *:wnext*
+:[count]wn[ext] [++opt]
+			Az aktív fájl mentése, majd a [count] pozícióra lévő
+			fájl (előre irányban) szerkesztése.
+			Lásd még |++opt| és |+cmd|.
+
+:[count]wn[ext] [++opt] {file}
+			Az aktív fájl írása új {file}ba, és a [count]
+			pozícióra lévő (előre irányban) fájl szerkesztése, ha
+			a fájl nem létezik és a 'writeany' opció ki van
+			kapcsolva.
+			Lásd még |++opt| és |+cmd|.
+
+:[count]wn[ext]! [++opt] {file}
+			Az aktív fájl írása {file}ba és  [count] pozícióra
+			lévő fájl szerkesztése.
+			Lásd még |++opt| és |+cmd|.
+
+:[count]wN[ext][!] [++opt] [file]		*:wN* *:wNext*
+:[count]wp[revious][!] [++opt] [file]		*:wp* *:wprevious*
+			Ugyanaz, mint  :wnext, de visszafelé halad.
+
+Az imént említett lista parancsaiban a [count] paraméter alapértelmezés
+szerint csak egyszer fordulhat elő. Egyes parancsokhoz megadhatunk két [count]
+paramétert, de akkor a jobb oldalon lévő [count] érték fog értelmeződni. 
+
+Ha a [+cmd] argumentum nincs jelen, akkor a kurzor pozíciója a legutolsó
+ismert pozíciót veszi fel. A kurzor a sor elején lévő első nem üres karakterre
+lesz pozícionálva, ha a 'startofline' be van állítva, ellenkező esetben az
+utolsó ismert oszlopszámra. Az első sorra kerül a kurzor, ha a pozíció
+egyáltalán nem ismert ( a legutolsó sorra Ex módban).
+
+							*{arglist}*
+Az argumentumlistában szereplő helyettesítő karakterek értelmeződnek, a
+fájlnevek pedig rendeződnek. Ezért például az összes C fájl szerkesztéséhez
+kiadhatjuk a "vim *.c" parancsot. Vimből pedig a ":n *.c" parancs ugyanazt
+csinálja. 
+
+A fájlneveket szóköz választja el egymástól. A fájlnévben szereplő szóközök,
+vagy tabulátorok elé tegyünk visszaperjelet. Például: a "foo bar" fájl
+szerkesztése: >
+	:next foo\ bar
+
+Unixon és még néhány rendszeren backtickeket is alkalmazhatunk, például: >
+	:next `find . -name \\*.c -print`
+A "*" karaktert megelőző visszaperjelek kötelezőek, itt megakadályozzák,
+hogy a "*" karaktert a shell értelmezze, mielőtt futtatná a find parancsot.
+
+				    *arglist-position* *argumentumlista-pozíció*
+Argumentumlista esetén a szerkesztett fájl neve megjelenik az ablak fejlécében
+(ha van ilyen és a 'title' opció be van kapcsolva), a listához tartozó
+állapotjelzővel, ami a "CTRL-G" parancshoz hasonlít:
+	(file 4 of 11)
+Ha a 'shortmess' opció be van kapcsolva, és tartalma 'f':
+	(4 of 11)
+Ha a fájlt nem egészen az argumentumlista adott pozícióján szerkesztjük, akkor:
+	(file (4) of 11)
+Ez azt jelenti, hogy  az argumentumlista 4. pozícióján tartózkodunk, de nem a
+negyedik fájlt szerkesztjük (például ha az alábbi parancsot adjuk ki ":e
+file").
+
+
+LOKÁLIS ARGUMENTUMLISTÁK
+
+							*:arglocal*
+:argl[ocal]		A globális argumentumlistáról egy helyi másolatot
+			készít. Nem kezd el új fájlt szerkeszteni.
+
+:argl[ocal][!] [++opt] [+cmd] {arglist}
+			Definiál egy új argumentumlistát, ami az aktív
+			ablakhoz lokális lesz. Úgy működik, mint |:args_f|
+			egyébkénét.
+
+							*:argglobal*
+:argg[lobal]		Globális argumentumlista használata az aktív
+			ablakban. Nem kezd el új fájlt szerkeszteni.
+
+:argg[lobal][!] [++opt] [+cmd] {arglist}
+			Globális argumentumlista használata az aktív
+			ablakban. Definiál egy új globális argumentumlistát,
+			mint az |:args_f|.
+			Az összes globális argumentumlistát használó ablak
+			látni fogja ezt a listát.
+
+Egyszerre több argumentumlistánk is lehet, melyeket az ablakaink között
+megoszthatunk. A lista egyik ablakban történő változtatása esetén a többi
+ablakban is megváltozik a lista.
+
+Ha az ablak egy split, akkor az új ablak örökli az argumentumlistát az aktív
+ablaktól, melyet mindkét ablak lát addig, amíg valamelyik ablak nem használja
+az |:arglocal| vagy az |:argglobal| parancsot.
+
+
+AZ ARGUMENTUMLISTA HASZNÁLATA
+
+						*:argdo*
+:[range]argdo[!] {cmd}	Futtatja a {cmd} parancsot az argumentumlista összes
+			fájlján, vagy azokon a fájlokon, melyek az általunk
+			megadott tartományba [range] tartoznak. Így működik: >
+				:rewind
+				:{cmd}
+				:next
+				:{cmd}
+				etc.
+<
+			Ha az aktív buffer nem hagyható el (|abandon|) és [!]
+			nincs jelen, akkor parancs futása hibával leáll.
+			Hiba esetén a parancs azonnal leáll, az esedékes
+			fájlokon a parancs már nem fut le.
+			Az argumentumlista utolsó eleme  (vagy ahol a hiba
+			keletkezett) lesz az aktív fájl.
+			A {cmd} tartalmazhat '|' jelet, mellyel több parancsot
+			vonhatunk össze.
+			A {cmd} nem változtathatja meg az argumentumlistát.
+			Megjegyzés: A parancs futásakor a Syntax autocommand
+			esemény tiltva van (automatikusan hozzáadva az
+			'eventignore' opcióhoz), mely nagyban meggyorsítja a
+			szerkesztési műveleteket.
+			Lásd még |:windo|, |:tabdo|, |:bufdo|, |:cdo|, |:ldo|,
+			|:cfdo| és |:lfdo|
+
+Például: >
+	:args *.c
+	:argdo set ff=unix | update
+Beállítja a 'fileformat' értékét "unix"-ra és kiírja az összes *.c fájlt, ha a
+tartalmuk megváltozott.
+
+Például: >
+	:args *.[ch]
+	:argdo %s/\<my_foo\>/My_Foo/ge | update
+Cseréli az összes 'my_foo"-t "My_Foo"-ra az összes *.c és *.h fájlban. Az "e"
+flaget a keresésben (":substitute") arra használjuk, hogy elkerüljük a
+hibaüzeneteket, amiket a "my_foo" hiánya okozhatna a fájlban. Az ":update"
+parancs csak akkor írja ki a fájlt, ha annak tartalma megváltozott. 
+
+==============================================================================
+4. Mentés					*writing* *save-file*
+						*mentés*
+
+Megjegyzés: Ha a 'write' opció ki van kapcsolva, akkor egyáltalán nem tudunk
+menteni.
+
+							*:w* *:write*
+					*E502* *E503* *E504* *E505*
+					*E512* *E514* *E667* *E796* *E949*
+:w[rite] [++opt]	A buffer teljes tartalmát fájlba írja ki. Hibaüzenetet
+			generál, ha a 'readonly' opció be van kapcsolva, vagy 
+			egyéb okokból a fájl nem menthető.
+			Az ++opt-hoz lásd |++opt|, de csak ++bin, ++nobin, ++ff
+			és ++enc effektívek.
+
+:w[rite]! [++opt]	Mint a ":write", de írja a fájlt akkor is, ha a
+			'readonly' be van kapcsolva, vagy valamilyen okból
+			kifolyólag a fájl írása meghiúsult.
+			Megjegyzés: Ez megváltoztathatja a fájlok
+			jogosultságát, tulajdonosát és működésképtelenné
+			teheti a szimbolikus linkeket. A 'cpoptions' opcióban
+			állítsuk be a 'W' flaget, hogy ezt elkerüljük.
+
+:[range]w[rite][!] [++opt]
+			A meghatározott sorok tartományát az aktív fájlba írja
+			ki. Szokatlan parancs, hiszen a fájl természetesen
+			kevesebb sort fog tartalmazni, mint az aktív buffer.
+
+							*:w_f* *:write_f*
+:[range]w[rite] [++opt]	{file}
+			A kijelölt sorokat egy új {file}ba írja, kivéve ha az
+			létezik, vagy a 'writeany' opció ki van kapcsolva.
+
+							*:w!*
+:[range]w[rite]! [++opt] {file}
+			A kijelölt sorokat egy új {file}ba írja, felülírva a
+			fájlt.
+
+						*:w_a* *:write_a* *E494*
+:[range]w[rite][!] [++opt] >>
+			Hozzáfűzi a kijelölt sorokat az aktív fájlhoz.
+
+:[range]w[rite][!] [++opt] >> {file}
+			Hozzáfűzi a kijelölt sorokat egy másik {file}hoz. '!'
+			kényszeríti az írást, akkor is, ha az nem létezik.
+
+							*:w_c* *:write_c*
+:[range]w[rite] [++opt] !{cmd}
+			Az általunk kijelölt sorokon futtatja a{cmd}
+			parancsot sztenderd bemenetként (vegyük észre a '!'
+			jel előtt található szóközt). A {cmd} parancs ":!{cmd}
+			formában van futtatva, a '!' jeleket az előző
+			parancsra cseréli: |:!|.
+
+A ":w" parancs alapértelmezett [range] tartománya a teljes buffer(1,$). Ha a
+teljes buffert kiírjuk, akkor az onnantól nem számít módosítottnak. Ha egy
+másik fájlba írjuk ki ":w somefile", akkor ez a  'cpoptions' "+" flagjétől
+függ. Amennyiben tartalmazza ezt a beállítást, akkor az mindig visszaállítja a
+'modified' flag értékét, bár ettől függetlenül a buffer és a hozzá tartozó
+fájlban lehetnek különbségek.
+
+Ha a ":w" parancsnak fájlnevet is adunk, akkor az aktív fájl lesz az
+alternatív (előző) fájl. Ezt arra használhatjuk, hogy ha például az írás
+valamiért nem sikerül, akkor megpróbáljuk újra (":w #"). Ez kikapcsolható, ha
+eltávolítjuk az 'A' flaget a 'cpoptions'-ből.
+
+Megjegyzés: az 'fsync' opciója itt nem számít. Bekapcsolása lassítja az írási
+folyamatot, de egyben biztonságosabb is.
+Note that the 'fsync' option matters here.  If it's set it may make writes
+slower (but safer).
+
+						*:sav* *:saveas* *mentés-másként*
+:sav[eas][!] [++opt] {file}
+			{file}névvel írja az aktív buffert és az aktív
+			fájlnevet {file}névnek állítja be. Az alternatív
+			buffer neve az a név lesz, amelyből a parancsot
+			kiadtuk. [!] szükséges létező fájl felülírásához. Ha a
+			'filetype' opció üres, akkor a fájltípus detektálás a
+			fájlnév alapján lesz elvégezve, mielőtt a fájl
+			kiíródna. A 'readonly' beállítása alapértelmezett
+			lesz, ha az írási folyamat rendben lezajlott.
+
+						    *:up* *:update* *frissítés*
+:[range]up[date][!] [++opt] [>>] [file]
+			Mint a ":write", de csak akkor írja ki a buffert, ha
+			annak tartalma változott.
+
+
+TÖBB BUFFER ÍRÁSA	 		*buffer-write* *írás-buffer* *mentés-buffer*
+
+							*:wa* *:wall*
+:wa[ll]			Az összes módosított buffert kiírja. A fájlnév nélküli
+			bufferek hibaüzenetet váltanak ki. A csak olvasható
+			bufferek nem íródnak.
+
+:wa[ll]!		Az összes módosított buffert kiírja, még a csak
+			olvasható buffereket is. A csak olvasható bufferek nem
+			íródnak és hibaüzenetet váltanak ki.
+
+
+Ha olyan fájlt szeretnénk kiírni, melynek tartalmát megváltozott kívülről,
+akkor a Vim figyelmeztet bennünket. Lásd |timestamp|.
+
+			    *backup* *E207* *E506* *E507* *E508* *E509* *E510*
+Ha írni szeretnénk egy létező fájlt (nem hozzáfűzni) és a 'backup',
+'writebackup' vagy a 'patchmode' változók egyike be van kapcsolva, az eredeti
+fájlról egy biztonsági másolat készül. A fájl másolat készül, vagy át lesz
+nevezve (lásd 'backupcopy'). Ha a 'writebackup' és 'backup' opció be vannak
+kapcsolva, sikeres írás után a biztonsági másolat törölve lesz. Ha a
+'patchmode' opció be van kapcsolva, akkor a biztonsági másolat átneveződhet.
+
+					    *backup-table* *backup-táblázat*
+'backup' 'writebackup'	eredmény	~
+   off	     off	nem készül biztonsági másolat
+   off	     on		biztonsági másolat az aktív fájlról, majd törlése
+			(alapértelmezett)
+   on	     off	régi biztonsági másolat törlése, biztonsági másolat
+			készítése az aktív fájlról
+   on	     on		régi biztonsági másolat törlése, biztonsági másolat
+			készítése az aktív fájlról
+
+
+Ha a 'backupskip' opció értéke illeszkedik írandó fájl nevére, akkor arról nem
+készül biztonsági másolat. A 'backup' és a 'writebackup' értékei ignorálódnak.
+
+Ha a 'backup' opció be van kapcsolva, a régi biztonsági másolat (melynek neve
+megegyezik az új biztonsági másolat nevével) törölve lesz. A fájl írása közben
+készített biztonsági másolatának különböző neve lesz.
+
+Egyes fájlrendszereken megtörténhet, hogy összeomlást követően a biztonsági
+mentésünket és az aktív fájlunkat is elveszítjük (mely fizikailag jelen lehet
+ugyan, de nagy valószínűséggel hamis adatot fog tartalmazni). Ebben az esetben
+próbáljuk meg a helyreállítást, a swap fájl még mindig jelen lehet a
+merevlemezen. |:recover|
+
+A biztonsági mentéseinket a 'backupdir'-ben meghatározott könyvtárba kerülnek.
+(alapértelmezés szerint ez ugyanaz a könyvtár, amelybe a fájlt írjuk).
+
+Ha a biztonsági másolat új fájl, ami lehet az eredeti fájl másolata, vagy az
+eredeti fájl átnevezett változata, ez a 'backupcopy' értékétől függ.
+Dokumentációja elmagyarázza, hogy mely esetekben történik másolás és mely
+esetekben átnevezés.
+
+Ha a biztonsági másolat készítése meghiúsul, akkor a fájl nem íródik ki.
+Amennyiben mégis írnánk a fájlt, fűzzünk egy '!' jelet a parancshoz.
+
+					*write-permissions* *írási-jogosultság*
+Az új fájlok írásra és olvasásra kapnak jogosultságot. Unixon a maszk értéke
+0o666, kiegészítő umaskkal. A Vim megőrzi a megnyitott fájlok jogosultságait,
+de törli az s-bitet.
+
+					*write-readonly* *írás-csak-olvasható*
+A Vim visszautasítja a csak olvasható fájlok írását, ha a 'cpoptions'
+beállításban szerepel az 'W' flag. Ha a 'W' flag nincs jelen, akkor ":w!"
+felül fogja írni a csak olvasható fájlt, ha ezt a rendszerünk engedélyezi (a
+könyvtárnak írhatónak kell lennie).
+
+						    *write-fail* *írási-hiba*
+Fokozott figyelmet kell fordítani arra az esetre, ha az új fájlt nem tudjuk
+menteni valami oknál fogva, hogy ne veszítsük el a módosításainkat ÉS az
+eredeti fájlt is. Amennyiben nincs biztonsági mentésünk és az írási folyamat
+hibába ütközik, akkor már el is vesztettük az eredeti fájlt! NE LÉPJÜNK KI A
+VIMBŐL MENTÉS ELŐTT!. Ha készült biztonsági másolat, akkor az kicserélődik
+az eredeti fájllal (ha ez lehetséges). Kilépéskor a módosítások elvesznek, de
+az eredeti fájl még többnyire jelen van. Ha az eredeti fájl visszaállítása
+hibába ütközik, akkor az eredeti fájl elvesztéséről hibaüzenetben
+tájékozódhatunk.
+
+					*DOS-format-write* *írás-DOS-formátum*
+Ha a 'fileformat' értéke "dos", az <EOL> karakterként a <CR><NL> karakterpárok
+vannak használatban, amely Win32 alapértelmezés. Egyéb rendszereken a "[dos
+format]" állapotjelző tájékoztat, hogy a fájlban szokatlan <EOL> karakterekkel
+találkozhatunk.
+					*Unix-format-write* *írás-Unix-formátum*
+Ha a 'fileformat' "unix", akkor <EOL> karakterként az <NL> karakter van
+használatban. Win32 rendszeren a "[unix format]" állapotjelzőt olvashatjuk.
+
+					*Mac-format-write* *írás-Mac-formátum*
+Ha a 'fileformat' "mac,", akkor az <EOL> karakterként a <CR> karakter van
+használatban. Nem-Mac fájlrendszereken a "[mac format]" állapotjelzőt
+olvashatjuk.
+
+Lásd még |file-formats| és a 'fileformat' és 'fileformats' opciókat.
+
+						*ACL*
+Az ACL rövidítése Access Control List, mely egy fejlett módszer a fájlok
+jogosultságának kezelésére. Az új MS-Windows és Unix rendszerekben
+alkalmazzák, ha a fájlrendszer támogatja.
+   A Vim megpróbálja megőrizni az ACL információkat fájlok írása esetén. A
+biztonsági másolat az eredeti fájl ACL információit kapja meg.
+   Az ACL információk alapján dől el a fájl csak-olvasható állapota (a
+megnyitás pillanatában).
+
+				*read-only-share* *csak-olvasható-megosztás*
+A MS-Windows hálózaton megosztott meghajtóin egyes fájlokat csak olvashatónak
+jelölhetnek. Tehát a fájl read-only attribútumának hiánya esetén az ACL
+beállítások a hálózati meghajtókon engednék a fájl írását, ezt mégsem tudjuk
+megtenni. A Win32 platformon futtatott Vim detektálja a csak olvasható
+hálózati meghajtókat és a fájlt csak olvashatóként jelöli meg. Ezt a |:write|
+paranccsal sem tudjuk felülírni.
+
+						*write-device* ̣*írás-eszköz*
+Ha a fájlnév egy eszköz neve, akkor arról a Vim nem készít biztonsági
+másolatot (lehetetlen lenne). A "!" megerősítést kell használnunk, hiszen az
+eszköz már létezik.
+Példa Unixon: >
+	:w! /dev/lpt0
+és MS-Windowson: >
+	:w! lpt0
+Unixon akkor tekintünk egy fájlt eszköznek, ha név nem egy normál fájlra, vagy
+könyvtárra hivatkozik. A fifo (named pipe) a Vim számára eszközként néz ki.
+MS-Windows rendszeren a detektálás név alapján történik:
+	AUX
+	CON
+	CLOCK$
+	NUL
+	PRN
+	COMn	n=1,2,3... etc
+	LPTn	n=1,2,3... etc
+A név lehet kis- és nagybetű.
+
+==============================================================================
+5. Mentés és kilépés				*write-quit* *mentés-kilépés*
+
+							*:q* *:quit*
+:q[uit]			Kilép az aktív ablakból. Kilép a Vimből, ha az az
+			utolsó szerkesztési ablak volt |edit-window|.
+			Hibaüzenetet kapunk, ha a módosítások miatta Vim nem
+			tudja elhagyni |abandon| az aktív buffert, vagy ha az
+			utolsó fájl az argumentumlistában nem szerkesztett.
+			Több fül esetén, ha az aktív fülön az utolsó
+			ablakot zártuk be, akkor az aktív fül bezáródik
+			|tab-page|.
+			Kiváltja a |QuitPre| autocommand eseményt.
+			Lásd |CTRL-W_q| másik ablakból történő kilépéshez.
+
+:conf[irm] q[uit]	Kilépés, de egy promptot ad módosítások esetén, vagy
+			ha az argumentumlista utolsó eleme nem szerkesztett.
+			Lásd: |:confirm| és 'confirm'.
+
+:q[uit]!		Kilépés írás nélkül, akkor is ha a buffer tartalmaz
+			módosításokat. A buffert el lesz rejtve, akkor is, ha
+			a 'hidden' opció be van kapcsolva.
+			Az utolsó ablakból történő kilépéskor, ha egy rejtett
+			buffer tartalmaz még módosításokat, akkor a jelenlegi
+			buffer el lesz hagyva és az első módosított rejtett
+			buffer lesz az aktív buffer.
+			Kilpés minden eseteben: ":qall!".
+
+:cq[uit]		Kilép minden esetben, írás nélkül, majd visszatér egy
+			hibakóddal. Lásd |:cq|. Manx QuickFix módja használja
+			(lásd |quickfix|).
+
+							*:wq*
+:wq [++opt]		Az aktív fájlt írása és az ablak bezárása. Ha ez volt
+			az utolsó ablak |edit-window|, akkor a Vim kilép.
+			Az írás meghiúsul, ha a fájl csak olvasható vagy ha a
+			buffernek nincs neve. A kilépés meghiúsul, ha az
+			argumentumlista utolsó eleme nem volt szerkesztve.
+
+:wq! [++opt]		Írja az aktív buffer és bezárja az ablakot. Ha ez volt
+			az utolsó ablak |edit-window|, akkor a Vim kilép. A
+			kilépés meghiúsul, ha buffernek nincs neve.
+
+:wq [++opt] {file}	Írás {file}ba és az ablak bezárása. Ha ez volt
+			az utolsó ablak |edit-window|, akkor a Vim kilép. A
+			kilépés meghiúsul, ha az argumentumlista utolsó eleme
+			nem volt szerkesztve.
+
+:wq! [++opt] {file}	Írás {file}ba és az ablak bezárása. Ha ez volt
+			az utolsó ablak |edit-window|, akkor a Vim kilép.
+
+:[range]wq[!] [++opt] [file]
+			Mint a ":wq!", de csak a kijelölt sorok tartományát
+			[range] írja ki.
+
+							*:x* *:xit*
+:[range]x[it][!] [++opt] [file]
+			Mint a ":wq", de csak módosítások esetén írja a
+			buffert.
+			Ha a 'hidden' opció be van kapcsolva és több ablak is
+			meg van nyitva, akkor az aktív buffer el lesz rejtve a
+			fájl írása után.
+			A parancs jelenleg nem támogatott a |Vim9| szkriptben,
+			mert túl egyszerű lenne összekeverni egy változó
+			nevével.
+
+							*:exi* *:exit*
+:[range]exi[t][!] [++opt] [file]
+			Mint az :xit.
+
+							*ZZ*
+ZZ			Írja az aktív fájlt és bezárja az ablakot (ugyanaz,
+			mint ":x).
+			Több ablak esetén csak az aktív ablakot zárja be.
+
+							*ZQ*
+ZQ			Ellenőrzés nélkül kilép (ugyanaz, mint ":q!").
+
+
+TÖBB ABLAK ÉS BUFFER			*window-exit* *kilépés-ablak*
+
+							*:qa* *:qall*
+:qa[ll]		Kilép a Vimből, ha az összes buffer módosítatlan. (Használjuk
+		a ":bmod" parancsot, hogy a következő módosított bufferre 
+		ugorjunk).
+		Ha az 'autowriteall' be van állítva, akkor az összes
+		módosított buffer ki lesz írva, mint |:wqall|.
+
+:conf[irm] qa[ll]
+		Kilpés a Vimből. Módosított bufferek esetén promptot kapunk.
+		Lásd |:confirm|.
+
+:qa[ll]!	Kilépés a Vimből a módosítások eldobásával. Továbbá |:cquit|,
+		ugyanezt csinálja, de nem nulla értékkel lép ki.
+
+							*:quita* *:quitall*
+:quita[ll][!]	 Ugyanaz, mint a ":qall".
+
+:wqa[ll] [++opt]				*:wqa* *:wqall* *:xa* *:xall*
+:xa[ll]		Írja az összes módosított buffert. Nem lép ki névtelen
+		bufferek esetén, melyek csak olvashatók, vagy valamiért
+		nem írhatóak.
+
+:conf[irm] wqa[ll] [++opt]
+:conf[irm] xa[ll]
+		Írja az összes módosított buffer és kilép a Vimből. Promptod
+		ad a csak olvasható, vagy nem írható bufferek esetében. Lásd
+		|:confirm|.
+
+:wqa[ll]! [++opt]
+:xa[ll]!	Írja az összes módosított buffert, még a csak olvashatóakat is
+		és kilép a Vimből. Terminál-munkafolyamatok, névtelen
+		bufferek, az írási folyamat meghiúsulása esetén nem lép ki.
+
+==============================================================================
+6. Párbeszédablakok					*edit-dialogs*
+
+							*:confirm* *:conf*
+:conf[irm] {command}	Futtatja a {cmd} parancsot, a megerősítésre
+			párbeszédablakot használ. Használható a |:q|, |:qa| és
+			|:w| parancsokhoz (az utóbbi felülírja a read-only
+			beállításokat, és bármely paranccsal, amely ilyen
+			módon hibával lépne ki: |:only|, |:buffer|,
+			|:bdelete|, stb.
+
+Példák: >
+  :confirm w foo
+<	Megerősítést kér, ha "foo" már létezik. >
+  :confirm q
+<	Megerősítést kér, ha a buffer tartalma módosult  >
+  :confirm qa
+<	Az összes nem mentett buffer esetében mentenünk kell, vagy eldobni a
+	módosításokat. Válaszunk akár az összes bufferre is érvényes lehet.
+
+A 'confirm' opció beállításával a ":confirm" parancs használatát állandóvá
+tehetjük.
+
+			*:browse* *:bro* *E338* *E614* *E615* *E616*
+:bro[wse] {command}	Fájlválasztó ablakot dob fel, melynek értékét
+			argumentumként megkapja a {command} parancs.
+			Jelenleg ez az alábbi parancsokkal működik:
+			|:e|, |:w|, |:wall|, |:wq|, |:wqall|, |:x|, |:xall|,
+			|:exit|, |:view|, |:sview|, |:r|, |:saveas|, |:sp|,
+			|:mkexrc|, |:mkvimrc|, |:mksession|, |:mkview|,
+			|:split|, |:vsplit|, |:tabe|, |:tabnew|, |:cfile|,
+			|:cgetfile|, |:caddfile|, |:lfile|, |:lgetfile|,
+			|:laddfile|, |:diffsplit|, |:diffpatch|, |:open|,
+			|:pedit|, |:redir|, |:source|, |:update|, |:visual|,
+			|:vsplit|, és |:qall| ha 'confirm' be van állítva.
+			{csak Win32, Athena, Motif, GTK and Mac GUI, konzol
+			módban a `browse edit` csak akkor működik, ha a
+			FileExplorer autocommand csoport létezik}.
+			Ha a ":browse" parancs nem futtatható, akkor
+			hibaüzenetet kapunk.
+			A ":browse set" ugyanúgy működik, mint az |:options|.
+			Lásd |:oldfiles| a ":browse oldfiles"-hoz.
+
+A szintaxis bemutatása példákon keresztül: >
+	:browse e $vim/foo
+<		Megnyitja a fájlböngészőt a $vim/foo könyvtárban és szerkeszti
+		a kiválasztott fájlt. >
+	:browse e
+<		Megnyitja a fájlböngészőt a 'browsedir' opció által
+		meghatározott könyvtárban, majd szerkeszti a kiválasztott
+		fájlt >
+	:browse w
+<		Megnyitja az aktív bufferhez tartozó fájlböngészőt, fájlnévként
+		a buffer nevével, és kiírja a buffert a kiválasztott
+		fájlnévvel >
+	:browse w C:/bar
+<		Megnyitja a fájlböngészőt a C:/bar könyvtárban,
+		alapértelmezett fájlnévként az aktív buffer nevével és kiírja
+		a buffert a kiválasztott fájlnévvel
+
+Lásd még 'browsedir' opció.
+Azoknál a Vim verzióknál, melyekben a ":browse" parancs nem támogatott, a
+parancs lefut, de nem módosítja a buffert.
+
+					    *browsefilter* *fájlválasztó-szűrő*
+A fájlválasztó-ablakhoz MS-Windows és GTK környezetek esetében különbféle
+szűrőket adhatunk meg (a g:browsefilter és a b:browsefilter beállításával).  A
+szűrők lehetnek globálisak (g), vagy lokálisak (b) az adott bufferhez. A
+változót string formátumban kell megadni:
+"{filter label}\t{pattern};{pattern}\n", ahol {filter label} a "Fájltípus"
+legördülő lista értéke, a {pattern} pedig szűri a fájlneveket. Több szűrőt is
+definiálhatunk, melyeket ';' karakterrel kell elválasztanunk.
+
+Motifhoz ugyanezt a formátumot használhatjuk, de csak a legelső minta lesz
+felhasználva. (A motif kizárólag egy mintát kínál, ellenben szerkeszthetjük
+azt).
+
+Amennyiben csak a Vim fájljait szeretnénk a fájlböngészőben megjeleníteni: >
+
+     let g:browsefilter = "Vim Scripts\t*.vim\nVim Startup Files\t*vimrc\n"
+
+A szűrők bufferenként különböző értékeket vehetnek fel, ha a b:browsefilter t
+tároljuk el az értékét. Például a  b:browsefilter értékét célszerű fájltípus
+beépülőkben beállítani, így a fájlböngészőben csak a releváns fájlok jelennek
+meg. Hátrány: nehézkes az olyan fájlok szerkesztése, ahol teljesen más a
+fájltípus. Megoldást jelenthet, ha szűrőként hozzáadjuk az "All Files\t*.*\n"
+utolsó szabályként, így a felhasználó még mindig ki tud választani bármit.
+
+A has("browsefilter") függvény segítségével csak akkor állítjuk be a változót,
+ha azt a Vim verziója támogatja: >
+
+	if has("browsefilter")
+	   let g:browsefilter = "whatever"
+	endif
+
+==============================================================================
+7. Az aktív könyvtár				*current-directory*
+						*aktív-könyvtár*
+Könyvtárváltáshoz a |:cd| , |:tcd| és |:lcd| parancsokat használhatjuk. A
+teljes elérési utat nem szükséges begépelnünk. Ez természeten a külsős
+parancsoknál is működik (például ":!ls").
+
+A könyvtárváltás meghiúsul, ha az aktív buffer módosított, a '.' flag jelen
+van a 'cpoptions'-ben és nem használtuk a "!" jelet a parancshoz.
+
+							*:cd* *E747* *E472*
+:cd[!]			Nem Unix típusú rendszerek esetén ha a 'cdhome' ki van
+			kapcsolva: kiírja az aktív könyvtár nevét.
+			Egyébként: a home könyvtárba lép
+			current directory name. Törli az ablak lokálás
+			könyvtárát (ha rendelkezik vele). A |:pwd| parancs az
+			összes rendszeren az aktív könyvtárat írja ki.
+
+:cd[!] {path}		Az aktív könyvtárat {path} elérési útra változtatja.
+			Ha az elérési út relatív, akkor 'cdpath' opcióban
+			ellenőrizve lesz a könyvtár neve. Törli az ablak
+			lokális könyvtárát (ha rendelkezik vele).
+			Nem változtatja meg a fájlok értelmezését megnyitott
+			fájlok esetén, mert a teljes elérési út meg van
+			jegyezve. Az argumentumlistában |arglist| szereplő
+			fájlok megváltozhatnak.
+			MS-Windowson az aktív meghajtót is megváltoztathatja.
+			A fájl könyvtárába való váltás: >
+				:cd %:h
+<
+							*:cd-* *E186*
+:cd[!] -		Váltás az előző könyvtárba (az előző ":cd {path}
+			parancs elérési útjára).
+
+							*:chd* *:chdir*
+:chd[ir][!] [path]	Ugyanaz, mint a |:cd|.
+
+							*:tc* *:tcd*
+:tc[d][!] {path}	Ugyanaz, mint a |:cd|, de az aktív könyvtárat az aktív
+			fülhöz állítja be. Az aktív ablak is beállítja ezt az
+			elérési utat. Az aktív könyvtárat nem változtatja meg
+			a többi füleken szereplő ablakokban, illetve a
+			jelenlegi fülön saját lokális könyvtárat tartalmazó
+			ablakok esetén.
+
+							*:tcd-*
+:tc[d][!] -		Váltás az előző könyvtárba (az előző ":tcd {path}
+			parancs elérési útjára).
+
+							*:tch* *:tchdir*
+:tch[dir][!]		Ugyanaz, mint a |:tcd|.
+
+							*:lc* *:lcd*
+:lc[d][!] {path}	Mint a |:cd|, de csak az aktív ablak könyvtárát
+			változtatja meg (amelyikben van a kurzor).  Más
+			ablakok lokális könyvtárait nem változtatja meg.
+			Ablakváltás esetén az új aktív nem a {path} elérési
+			utat fogja használni.
+
+							*:lcd-*
+:lcd[!] -		Váltás az előző könyvtárra (az előző ":lcd {path}
+			parancs kimenetelére).
+
+							*:lch* *:lchdir*
+:lch[dir][!]		Ugyanaz, mint a |:lcd|.
+
+							*:pw* *:pwd* *E187*
+:pw[d]			Kiírja az aktív könyvtárat.
+			Lásd még |getcwd()|.
+
+							*:pwd-verbose*
+			Ha a 'verbose' értéke nem nulla, akkor a |:pwd|
+			parancs kiírja az aktív könyvtár típusát is. Például:
+			 >
+				" Set by :cd
+				:verbose pwd
+				[global] /path/to/current
+
+				" Set by :lcd
+				:verbose pwd
+				[window] /path/to/current
+
+				" Set by :tcd
+				:verbose pwd
+				[tabpage] /path/to/current
+
+Az összes ablak ugyanazon az aktív könyvtáron osztozik, amíg ki nem adjuk az
+|:lcd| vagy |:tcd| parancsok egyikét. Az ablakok között váltás nem változtatja
+meg az ablakban beállított aktív könyvtárat.
+
+Ha az |:lcd| parancsot használjuk, akkor az aktív könyvtár csak az aktív
+ablakban lesz érvényes. Azokban az ablakokban, ahol nem adtuk ki az |:lcd|
+parancsot, mindig a globális (vagy tab-lokális) beállítás marad érvényben.
+Ablakváltás esetén az aktív könyvtár felveszi az ablakban beállított lokális
+értéket. Lokális aktív könyvtár hiányában a globális, vagy tab lokális
+beállítás lesz az aktív könyvtár értéke.
+
+Ha a |:tcd| parancsot használjuk az egyik fülön, akkor a megadott könyvtár
+lesz a fül és az aktív ablak aktív könyvtára. A többi fül aktív könyvtára nem
+változik. Fülváltás esetén az aktív könyvtár felveszi az új fül lokális aktív
+könyvtárát. Ha az új fül nem rendelkezik lokális beállítással, akkor a
+globális beállítások maradnak érvényben.
+
+Ha a |:cd| parancsot használjuk, az aktív ablak és fül elveszti a lokális
+beállításait és a globális beállításokat használja ettől a ponttól kezdve.
+
+A |:cd| parancs használata után fájl olvasásakor és írásakor a teljes elérési
+fel lesz használva. Hálózati fájlrendszerek esetén ez olykor problémát
+jelenthet, mert a fájl teljes elérési útja ugyanarra a fájlra fog hivatkozni.
+Például: Tegyük fel, hogy van egy fájlunk: a:test és egy könyvtárunk: a:vim.
+Az ":test" ":cd vim" ":w" parancsok felülírják az a:test fájlt, de nem írják
+az a:vim/test fájlt. Amennyiben a parancsunk ":w test", akkor a fájl
+a:vim/test nem lesz írva, mert új fájlnevet  adtunk, ami nem ":cd" parancs
+előtti fájlnévre hivatkozott.
+
+==============================================================================
+8. Bináris fájlok szerkesztése				*edit-binary*
+							*szerkesztés-bináris*
+Bár a Vim szöveges eredetű fájlok szerkesztésére lett tervezve, lehetőségünk
+van a bináris fájlok szerkesztésére. A |-b| argumentum (b, mint bináris)
+hatására a fájl I/O módban lesz megnyitva, valamint értéket kap néhány ezzel
+kapcsolatos opció. ('binary' be, 'textwidth' 0, 'modeline' ki, 'expandtab'
+ki). A 'binary' opció bekapcsolásának önmagában ugyanez az eredménye. Ne
+felejtsük el ezt bekapcsolni bináris fájlok olvasása előtt.
+
+Bináris fájlok szerkesztésekor az alábbi pontokat kell megjegyeznünk:
+- Futtatható állományok esetén a bájtok száma nem változhat meg. Szöveget csak
+  "R" vagy "r" paranccsal cseréljünk. Ne töröljünk ki karaktereket "x" vagy
+  backspace billentyűvel.
+- Állítsuk be a 'textwidth' értékét nullára, máskülönben a sorok váratlanul
+  tördelve lesznek.
+- Ha túl sok az <EOL> karakter, az nagyon hosszú sorokat eredményezhet.
+  Állítsuk vissza a 'wrap' opciót, ha olyan sort akarunk szerkeszteni, amely
+  nem fér á a képernyőre. Ez esetben alkalmazzuk a horizontális görgetést. A
+  nagyon nagyon hosszú sorokat sajnos nem tudjuk szerkeszteni (több, mint
+  32767 bájt Amigán, sokkal több 32-bites és 64-bites rendszerek esetén. A
+  pontos adatokat itt érjük el: |limits|). Ezen sorok olvasás után tördelve
+  jelennek meg. Olvasás közben kaphatunk "out of memory" hibát is.
+- A 'binary' opció legyen bekapcsolva a fájl szerkesztése ELŐTT. Ellenben
+  <CR><NL> és <NL> karakterek a sorok végeként értelmeződnek és a fájl
+  írásakor az <NL> karakterek helyettesítve lesznek a <CR><NL> karakterpárok
+  által.
+- A <Nul> karakterek a képernyőn ^@ karakterként jelennek meg, melyeket
+  "CTRL-V CTRL-@", vagy "CTRL-V 000" kombinációval vihetünk be. Magyar
+  kiosztáson "CTRL-V Altgr-V"i, vagy "CTRL-V 000".
+- Az <NL> karakter beillesztéséhez illesszünk be egy sortörést. Íráskor az
+  <NL> karakterek <EOL> karakterekkel íródnak felül.
+- A Vim normális esetben egy <EOL> karakterrel zárja a fájlt (ha a fájl vége
+  nem tartalmazza). A 'binary' opció beállítása ezt megakadályozza. Amennyiben
+  hozzá szeretnénk adni az fájl végi <EOL> karaktert, akkor azt állítsuk be az
+  'endofline' opciót. Az opció megtekintésével a karakter meglétéről
+  meggyőződhetünk (hiszen a karakter nem jelenik meg a képernyőn).
+
+==============================================================================
+9. Titkosítás						*encryption*
+							*titkosítás*
+
+A Vim képes a szöveges állományokat titkosított kiírására és visszaolvasására.
+A titkosított szöveget a helyes kulcs nélkül képtelenség olvasni.
+{követelmény: |+cryptv|}  *E833*
+
+								*E843*
+A swap és undo fájlok tartalma szintén titkosítva lesz. A titkosítás
+blokkonként történik, ami lecsökkentheti a megfejtéshez szükséges időt.
+Letilthatjuk a swapfájlt, viszont összeomlás esetén adatvesztés történik. Az
+undo-fájl viszonylag kevés hátránnyal tiltható. >
+
+	:set noundofile
+	:noswapfile edit secrets
+
+Megjegyzés: A memóriában helyet foglaló szöveg nincs titkosítva, így a
+rendszergazda láthatja azt. A szöveg szűrése a ":!filter" és a ":w !command"
+parancs a szöveg szintén nincs titkosítva. A 'viminfo' fájl nincs titkosítva.
+
+A nagy titkok szerkesztése előtt készítsük fel a Vimet: >
+	:set noundofile viminfo=
+	:noswapfile edit secrets.txt
+Swap fájl esetén jelentős az adatvesztés kockázata (melyet akár egy egyszerű
+áramkimaradás is eredményezhet).
+
+FIGYELEM: Ha a titkosítási folyamatban elgépeljük a kulcsot (mentés és
+kilépést követően) a fájl tartalmát nem tudjuk megnyitni.
+
+A titkosítási folyamat megkezdéséhez adjuk ki az ":X" parancsot, ami bekéri a
+titkosítási kulcsot. A fájl kiírásakor a kulcs véglegessé válik, melyet a fájl
+újbóli szerkesztése előtt a Vim kérni fog. Ha ugyanazt a kulcsot adjuk meg,
+mint az írási folyamat során, akkor a fájl tartalma láthatóvá válik,
+ellenkező esetben a szöveg olvashatatlan lesz.
+
+							*:X*
+:X	Titkosítási kulcs megadása. A kulcs bevitele nem fedi fel a leütött
+	karaktereket, mely a 'key' opcióban tárolódik.
+	A fájl addig nem lesz titkosítva, amíg ki nem írjuk azt.
+	Megjegyzés: az `:xit` és `ZZ` parancsok nem írják a fájlt amíg az nem
+	módosult.
+	Lásd |-x|.
+
+A 'key' opció a fájl mentéséhez van felhasználva. Ha az opciónak van értéke,
+akkor a fájl titkosítva lesz a titkosítási kulccsal, mely elé a Vim egy random
+számot fűz (magic number), így a Vim felismeri, hogy a fájl titkosítva lett.
+
+A titkosítás megszüntetéséhez állítsuk a 'key' opciót üres értékre: >
+	:set key=
+
+A 'cryptmethod' beállításával kiválaszthatjuk a titkosításban használt
+algoritmust: >
+	:setlocal cm=zip        " gyenge algoritmus, visszafelé kompatibilis
+	:setlocal cm=blowfish   " algoritmus egyéb hibákkal
+	:setlocal cm=blowfish2  " közepesen erős algoritmus
+
+Az opciókat állítsuk be a fájl mentése előtt. Az alkalmazott algoritmus a fájl
+megnyitásakor automatikusan detektálódik. A 'cryptmethod' opció
+megváltoztatásával az írási folyamat előtt megválaszthatjuk az alkalmazott
+titkosítási algoritmust.
+
+Az alapértelmezett algoritmus megváltoztatása új fájlok esetén (|vimrc|): >
+	set cm=blowfish2
+A "blowfish2" algoritmus használata erősen ajánlott. Csak akkor használjuk más
+módszert, ha az adott Vim verzió nem támogatja az algoritmust.
+
+A mentés után állapotjezőként  a "[crypted]"-et olvashatjuk zip algoritmus, a
+"[blowfish]"-t pedig blowfish esetén, stb.
+
+Az undo fájl ugyanazzal a titkosítási kulccsal lesz titkosítva.
+|persistent-undo|.
+
+A blowfish titkosítás tesztelésére használható feltételek: >
+	has('crypt-blowfish')
+	has('crypt-blowfish2')
+A feltétel a Vim 7.4.1099 verziójában került implementálásra, a blowfish
+támogatás már jóval korábban. Ha a feltétel használatakor hibát tapasztalunk,
+az nem azért van, mert a blowfish nincs támogatva. A blowfish verzióját így
+tesztelhetjük: >
+	v:version >= 703
+A blowfish2 verziót pedig: >
+	v:version > 704 || (v:version == 704 && has('patch401'))
+Ha a Vim tartalmazza a 7.4.237-es patchet, akkor az ellenőrzés egyszerűbb: >
+	has('patch-7.4.401')
+<
+						*E817* *E818* *E819* *E820*
+Ha a titkosítás nem működik megfelelően, akkor képesek vagyunk a fájl
+tartalmát menteni, viszont nem tudjuk visszaolvasni, ezért egy teszt elvégzése
+javasolt. Ha a bekezdés feletti hibakódokat kapjuk, akkor ne mentsünk
+titkosított fájlt! Le kell a Vimet fordítanunk forrásból újra, hogy megoldjuk
+a hibát.
+
+*E831* Egy belső hibát jelent "nem történt meg". Ha képes vagy reprodukálni,
+akkor azt jelents a fejlesztőknek.
+
+Fájl beolvasásakor, ha a 'key' opció nem üres, akkor a titkosítási kulcs lesz 
+felhasználva a visszafejtéshez. Ha az opciónak üres értéke van, akkor egy
+promptot kapunk, melyben meg kell adnunk a titkosítási kulcsot. Üres, vagy
+rossz kulcs esetén a fájlt titkosítatlanul lesz szerkesztve. Rossz titkosítási
+kulcs esetén nem jelenik meg figyelmeztető üzenet (ami a brute force jellegű
+visszafejtést nehezíti meg).
+
+Ha egy másik titkosított fájlt szeretnénk megnyitni, akkor állítsuk a 'key'
+értékét üres stringre, így Vim promptban fogja az új kulcsot bekérni. Ne
+használjuk a ":set" parancsot a beállításhoz, hiszen ezt mindenki láthatja.
+
+Mivel a 'key' értéke titkos, ezért az nem tekinthető meg. 'key' opciós
+értékadásokat soha ne tároljunk a vimrc fájlban.
+
+A file parancs felismeri a titkosított állományokat, ha a következőket
+hozzáadjuk az "/etc/magic", "/usr/share/misc/magic/" rendszerünk "magic"
+fájljához: >
+     0	string	VimCrypt~	Vim encrypted file
+     >9	string	01	- "zip" cryptmethod
+     >9	string	02	- "blowfish" cryptmethod
+     >9	string	03	- "blowfish2" cryptmethod
+
+Megjegyzés: 
+- A titkosítás nem lehetséges, ha a konverziót 'charconvert'-el végezzük.
+- A másolt vagy törölt karakterek a számozott regiszterekbe kerülnek. A
+  regiszterek tartalmát a .viminfo fájl menti, ahol azokat el tudjuk olvasni.
+  Állítsuk be a 'viminfo' opciót biztonságosra (safe). 
+- Harmadik fél nem tudja megszerezni a titkosítási kulcsot Vimből.
+- Gépelési hiba (kulcs) esetén nem fogjuk tudni olvasni a fájlt
+- Ha kiadjuk a ":set key=value" parancsot, akkor azt látni lehet az
+  előzményekben, valamit a viminfo fájlban a 'key' opció értékénél.
+- Nincs 100%-os biztonság. A Vim titkosítása tesztelésekor a robosztusság nem
+  volt szempont.
+- A 'cryptmethod'-ban használt "zip" algoritmus törhető. A 4 karakteres
+  kulcsot egy óra alatt, a 6 karakteres kulcsot egy nap alatt meg lehet
+  fejteni (Pentium 133-as gépen (90'-es évek)). Ehhez a fájl tartalmának kis
+  részét kell ismertünk. A kulcs visszafejtése azt jelenti, hogy láthatóvá
+  válnak azok a fájlok, melyek ugyanazzal a kulccsal lettek titkosítva. 
+- A Pkzip is a "zip" algoritmust használja. Pkzip publikus fájlja, az
+  APPNOTE.txt részletesen leírja az algoritmus működését.
+- A blowfish implementációja hibát tartalmaz. Így a fájl első 64 bájtja
+  megfejthető, egyes esetekben még ennél is több. Használata nem ajánlott, de
+  a Vim 7.3-as és 7.4-es verzióinak ez a legerősebb titkosítási algoritmusa. A
+  "zip" algoritmus még ennél is gyengébb.
+- A Vim eredete Hollandia. A titkosítási algoritmus nem az USA-ból
+  származik.
+
+==============================================================================
+10. Időbélyegek					*timestamp* *timestamps*
+						*időbélyeg* *időbélyegek*
+
+A Vim jegyzi a módosítás dátumát, a módot, méretet, mielőtt a fájlt
+szerkesztenénk. Ezzel kerülhető el, hogy a fájl két különböző verzióját
+szerkesszük (akár a tudtunk nélkül).
+
+Az alábbi shell parancsok futása után (|:!cmd| |suspend| :|read!| |K|), az
+időbélyegeket, fájl módokat és méreteket a Vim összehasonlítja a többi ablak
+bufferének értékeivel. Ezen a ponton futtatja az esetleges |FileChangedShell|
+autocommandot és figyelmeztető üzenetet jelenít meg azon fájlok számára,
+amelyek változtak. A GUI verzióban ez akkor történik meg, ha a Vim megkapja az
+input fókuszt.
+
+							*E321* *E462*
+A fájlokat automatikusan újratölthetjük (ha Vimen kívülről változott meg),
+kapcsoljuk be az 'autoread' opciót. 
+					    *ignore-timestamp* *időbélyeg-ignorálás*
+Ha nem szeretnénk állandóan promptot kapni a fájl tartalmának megváltozása
+miatt: >
+	set buftype=nofile
+
+Illetve gvim indítása a shellből: >
+	gvim file.log -c "set buftype=nofile"
+
+Megjegyzés: a ha FileChangedShell autocommand definiálva van, akkor nem kapunk
+erről figyelmeztető üzenetet vagy promptot. Ezt az autocommandnak kell
+kezelnie.
+
+Nincs figyelmeztető üzenet a fájlok böngészése során (például |netrw-browse|).
+Később viszont figyelmeztetve leszünk, hogy az általunk létrehozott új fájl
+könyvtárként jött lére.
+
+Ha a Vim eltérést tapasztal az időbélyegek között és ha az aktív buffer
+tartalma nem módosult, akkor a Vim leellenőrzi, hogy a fájl tartalma egyenlő-e
+az aktív bufferrel. A fájlt újra beolvassa (egy rejtett bufferbe, amit a
+művelet után azonnal ki is töröl) és összehasonlítja a tartalmat. Csak akkor
+kapunk figyelmeztetést, ha tartalomban van eltérés.
+
+
+Ha még nem kaptunk elég figyelmeztető üzenetet, akkor adjuk ki az alábbiakat.
+
+							*:checkt* *:checktime*
+:checkt[ime]		Ellenőrzi, hogy a buffer tartalma megváltozott-e Vimen
+			kívül. Figyelmeztet, ha a fájlról két verzió
+			található.
+			Ha a hívás autocommandból, vagy ":global" parancs
+			részeként érkezik és az ellenőrzést nem mi magunk
+			gépeltük be, akkor az ellenőrzés kitolódik addig a
+			pontig, mikortól ez következményekkel járna (fájl
+			újratöltést).
+			Minden betöltött buffernek ellenőrizve van a társított
+			fájl ellenőrzése. Amennyiben a fájl tartalma
+			változott, a Vim intézkedik. Ha az 'autoread' be van
+			kapcsolva és a buffer tartalma nem változott, a fájl
+			újra lesz töltve, ellenkező esetben a fájl
+			újratöltésének lehetőségét a Vim felajánlja. Ha a
+			fájlt időközben törölték, akkor hibaüzenetet kapunk.
+			Figyelmeztetést kapunk akkor is, ha a fájl előzőleg
+			nem létezett, de időközben valaki létrehozta azt.
+			A fájlok ellenőrzése után az időbélyegek értéke
+			alapértelmezett lesz, így nem kapunk további
+			figyelmeztetéseket.
+
+:[N]checkt[ime] {filename}
+:[N]checkt[ime] [N]
+			Adott buffer időbélyegét ellenőrzi. A buffer
+			meghatározható név, szám, vagy minta alapján.
+
+
+							*E813* *E814*
+Újratölthetjük a buffert, ha ezt az opciót választjuk. Ha látható az az ablak
+amely ezt a buffert tartalmazza, akkor az újratöltés abban az ablakban fog
+megtörténni. Ha nem látható, akkor pedig egy speciális ablakban, így működni
+fognak az autocommandok. A speciális ablakot nem tudjuk bezárni, mely
+korlátozásokkal is jár. Legjobb, ha meggyőződünk, hogy semmi nem történik az
+aktív bufferen kívül. Például: egy ablak-specifikus változó beállítása, ami
+egy rossz ablakban futna le. Az ablak splitelése, feladatok elvégzése, majd
+annak bezárásának működnie kell (ha az autocommandok nem okoznak hibát). A
+független ablakok bezárása bajba fog sodorni bennünket.
+
+A fájl kiírása előtt az időbélyeg ellenőrzése megtörténik. Ha változott, akkor
+a Vim promptban megkérdezi, hogy valóban felül kívánjuk-e írni a fájlt:
+
+	WARNING: The file has been changed since reading it!!!
+	Do you really want to write to it (y/n)?
+
+Az 'y' billentyű leütése folytatja  fájl írását. Az 'n' billentyű megszakítja
+azt. ":wq" vagy "ZZ" parancsok hatására a Vim nem fog kilépni, a fájl írására
+egy újabb lehetőséget kapunk.
+
+Az üzenet általában azt jelenti, hogy valaki a szerkesztési folyamat
+megkezdése után felülírta a fájlt. Ez lehet egy másik felhasználó, így
+ellenőriznünk kell a fájlt, a fájl differenciáit pedig frissíteni. Mentsük a
+fájl más néven és a különbségeket ellenőrizzük a "diff" programmal.
+
+Előfordulhat az is, hogy a fájlt mi magunk módosítottuk egy különálló
+szerkesztési folyamattal (például a filter paranccsal). Ebben az esetben tudni
+fogjuk, hogy melyik verziót tartsuk meg.
+
+Az időbélyeg-ellenőrzés pontossága a fájlrendszertől függ. Unixon ez az időköz
+kevesebb, mint egy másodperc. Régebbi fájlrendszerek és MS-Windows esetében
+egy másodperc. A has('nanotime') függvénnyel ellenőrizhető a pontosság.
+
+Egyes szituációkban akkor is megkapjuk az üzenetet, ha egyébként nincs
+probléma: Win32 rendszeren az óraállítás napja. Van valami a Win32
+könyvtárban, ami összezavarja a Vimet. A következő napon viszont megszűnik a
+probléma.
+
+==============================================================================
+11. Fájlok keresése					*file-searching*
+							*keresés-fájlok*
+{követelmény: |+path_extra|}
+
+A keresést használó opciók és függvények: 'path', 'cdpath', és 'tags',
+valamint az |finddir()| és |findfile()|. A többi parancs helyettesítő
+karaktereket alkalmaz |wildcards|, ami egy picit különbözik.
+
+Három különbféle keresési módszer létezik:
+
+1) Keresés lefelé:					*starstar*
+   A lefelé keresésben találkozhatunk a '*', '**' helyettesítő karakterekkel
+   (illetve az operációs rendszerünk által támogatottakkal). A '*','**'
+   karakterek értelmezését a Vim végzi, ezért működése rendszerfüggetlen.
+   Megjegyzés: a '**' egy speciális helyettesítő karakterként működik, ha a
+   név kezdetén szerepel.
+
+   A '*' használata viszonylag egyszerű: 0 vagy több karaktert illesz.
+   Keresési mintában például ".*". Megjegyzés: a "." nem használhatjuk fájlok
+   kereséséhez.
+
+   '**' értelmezése komplexebb:
+      - CSAK könyvtárakra illeszkedik.
+      - 30 könyvtár mélységig illeszt, ezért sok esetben a teljes
+	könyvtárstruktúrán belül tudunk keresni.
+      - A maximális mélységet hozzáfűzhetjük a '**' karakterekhez.
+	Ezért '/usr/**2' illeszkedni fog: >
+		/usr
+		/usr/include
+		/usr/include/sys
+		/usr/include/g++
+		/usr/lib
+		/usr/lib/X11
+		....
+<	
+	Nem illeszkedik '/usr/include/g++/std'-re, mivel ez már a harmadik
+	szint lenne.
+	Az engedélyezett tartomány 0-tól ('**0' a nullát nem kötelező kiírni)
+	100-ig terjed. Ha a szám kisebb, mint 0, akkor az értéke
+	alapértelmezetten 30 lesz, ha nagyobb, mint 100, akkor pedig 100-ra
+	csökken. A rendszerben limitálva van az elérési út hossza, mely
+	általában 256 vagy 1024 bájt.
+      - a '**' csak az elérési út végén szerepelhet, ha középen szerepel,
+	elválasztónak, vagy számnak és elválasztónak követnie kell.
+
+   A '*' és '**' kombinálása tetszőlegesen: >
+	/usr/**/sys/*
+	/usr/*tory/sys/**
+	/usr/**2/sys/*
+
+2) Felfelé keresés:
+   A megadott könyvtárból felfelé keres a fájlok között. Egy megadott
+   könyvtárnévvel limitálhatjuk a felfelé keresést.  A stop könyvtárak
+   hozzáadódnak az elérési úthoz (a 'path' opcióban), vagy a fájlnévhez (a
+   'tag' opcióhoz) ';' karakterrel. Ha több stop könyvtárat szeretnénk
+   meghatározni, akkor ';' karakterrel kell elválasztanunk őket. Ha egyáltalán
+   nem szeretnénk stop-könyvtárat használni (keresés teljesen a gyökérig),
+   akkor állítsuk az opció értékét szimplán ';'-re.   >
+	/usr/include/sys;/usr
+<   itt keres: >
+	   /usr/include/sys
+	   /usr/include
+	   /usr
+<
+   Relatív elérési út használata esetén a keresés a Vim aktív könyvtárában
+   kezdődik, vagy a fájl aktív könyvtárában (ha a relatív útvonal './'
+   karakterekkel kezdődik és 'd' nincs a 'cpoptions' opcióban).
+
+   Ha a Vim aktív könyvtára /u/user_x/work/release és így állítjuk be a path
+   opciót: >
+	:set path=include;/u/user_x
+<  akkor a |gf| parancs az alábbi könyvtárakban keresi a fájlokat: >
+	/u/user_x/work/release/include
+	/u/user_x/work/include
+	/u/user_x/include
+
+<   Megjegyzés: Ha a 'path' opcióban egy nem létező könyvtár szerepel, akkor a
+   Vim ki fogja hagyni a könyvtárat, de a keresés tovább folytatódik a nem
+   létező könyvtár szülő könyvtárában felfelé történő keresés esetén. Például,
+   ha "../include" nem létezik, és felfelé történő keresést használtunk, akkor
+   az ".."-ban is keresni fog.
+
+3) Kombinált keresés felfelé és lefelé:
+   Ha a Vim aktív könyvtára /u/user_x/work/release és így állítjuk be a path
+   opciót: >
+	set path=**;/u/user_x
+<  akkor a |gf| parancs az alábbi könyvtárakban keresi a fájlokat: >
+	/u/user_x/work/release/**
+	/u/user_x/work/**
+	/u/user_x/**
+<
+   LEGYÜNK ÓVATOSAK! Sok időbe telhet, mert a '/u/user_x/**' keresése
+   tartalmazza a '/u/user_x/work/**' és '/u/user_x/work/release/**' keresést
+   is. Ezért '/u/user_x/work/release/**' úton háromszor is lefut a keresés és 
+   '/u/user_x/work/**' úton pedig kétszer.
+
+   A példában szereplő keresés helyesen: >
+	:set path=**,/u/user_x/**
+<  Ami itt  keres:
+	/u/user_x/work/release/** ~
+	/u/user_x/** ~
+   A keresés ugyanazokat a könyvtárakat járja végig, de különböző sorrendben.
+
+   Megjegyzés: a ":find", ":sfind" és "tabfind" parancsok kiegészítése nem
+   működik azokkal a 'path' elemekkel, amelyek URL-t tartalmaznak vagy dupla
+   csillagot mélység-meghatározással (/usr/**2), vagy felfelé kereséseket (;)
+   jelöléssel.
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

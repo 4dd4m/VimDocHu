@@ -1,4 +1,4 @@
-*usr_40.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Sep 02
+*usr_40.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2020 Jan 03
 
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
@@ -22,7 +22,7 @@ Következő fejezet: |usr_41.txt|  Vim szkriptek
 ==============================================================================
 *40.1*	Billentyű mappek
 
-Az egyszerű mappekkel már foglalkoztunk a |05.3| fejezetben. A lényeg, hogy a
+Az egyszerű mappekkel már foglalkoztunk a |05.4| fejezetben. A lényeg, hogy a
 billentyűleütésekkel (általában több) billentyűleütést idézünk elő, mely egy
 egyszerű, de erőteljes mechanizmus.
    A mappelés legegyszerűbb formája, amikor egy billentyűleütés (vagy
