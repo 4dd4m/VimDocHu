@@ -3,12 +3,8 @@
 * A Vim felhasználói kézikönyvének, dokumentációjának (részleges) fordítása
 
 ## Állapot
-* [x] Kézikönyv: 100%. 
-* [x] Utolsó merge: 2022.01.05
-
-## Folyamatban
-* usr_41.hux merge
-
+* Kézikönyv: 100%. 
+* Utolsó merge: 2022.01.014
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal a `$VIMRUNTIME` mappában

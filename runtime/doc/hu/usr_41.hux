@@ -199,7 +199,7 @@ megkülönböztetünk globális és lokális változókat. Például az alábbi 
 	echo counter
 <	5 ~
 
-Ha ezt a "script2.vim" fájlunkban szeretnénnk használni, akkor: >
+Ha ezt a "script2.vim" fájlunkban szeretnénk használni, akkor: >
 
 	vim9script
 	echo counter
@@ -376,9 +376,10 @@ neki, csinálunk valamit és visszaállítjuk a régi értékére. Például: >
 	s/The Start/The Beginning/
 	&ic = save_ic
 
-Így biztosak lehetünk benne, hogy a "The Start" minta használatakor az 'ignorecase' opció ki lesz kapcsolva.
-Ráadásul még meg is tartja a régi értékét, amit a felhasználó beállított. (Egy
-másik módja ennek a "\C" hozzáadása lett volna a mintához, lásd |/\C|.)
+Így biztosak lehetünk benne, hogy a "The Start" minta használatakor az
+'ignorecase' opció ki lesz kapcsolva.  Ráadásul még meg is tartja a régi
+értékét, amit a felhasználó beállított. (Egy másik módja ennek a "\C"
+hozzáadása lett volna a mintához, lásd |/\C|.)
 
 
 MATEMATIKA
@@ -632,26 +633,33 @@ A "&" karaktert a "path" elé fűztük, ezért az eval() függvény argumentumk�
 A Vim a beépített függvényei révén hatalmas funkcionalitást biztosít. Néhány
 példán keresztül ezt bemutatjuk. A teljes függvénylista: |functions|.
 
-Függvényeket a ":call" paranccsal hívhatunk. A paramétereket a zárójelek
+Függvényeket a `call` paranccsal hívhatunk. A paramétereket a zárójelek
 között kell átadnunk vesszővel elválasztva. Például:   >
 
-	:call search("Date: ", "W")
+	call search("Date: ", "W")
 
 Ez meghívja a search() függvényt a "Date: " és a "W" argumentumokkal. A search
 függvény első paramétere a keresési minta, a második pedig a flag. A "W" flag
 azt jelenti, hogy a keresés nem folytatódik a fájl végéhez érve.
 
+A `call` használata opcionális a |Vim9| szkriptben, az alábbi szintén
+szabályos hívás: >
+
+	search("Date: ", "W")
+
 A függvényeket kifejezésekben is meghívhatjuk. Például:   >
 
-	:let line = getline(".")
-	:let repl = substitute(line, '\a', "*", "g")
-	:call setline(".", repl)
+	var line = getline(".")
+	var repl = substitute(line, '\a', "*", "g")
+	setline(".", repl)
 
 A getline() függvény a buffer egy sorával tér vissza. Argumentumként a sor
 számát várja. A példában "."-t használtunk, mely a kurzor sorára utal.
-   A substitute() függvény a ":substitute" parancs megfelelője. Az első
+
+   A substitute() függvény a `substitute` parancs megfelelője. Az első
 argumentum a string, melyen a műveletet végezzük, második a minta, a harmadik
-pedig a csere string. Végül utolsó argumentumként pedig a flag.
+pedig a csere string. Végül utolsó argumentumként pedig a különbféle flagek.
+
    A setline() függvény felülírja az első argumentumban hivatkozott sort a
 második argumentumban szereplő értékkel. A példában a kurzor sorát cseréljük
 le a substitute() függvény eredményével. A három kifejezés egyenlő: >
@@ -666,8 +674,8 @@ FÜGGVÉNYEK						       *function-list*
 							      *függvény-lista*
 
 Rengeted függvény létezik. Használati jellegük alapján csoportosítottuk a
-listát. A betűrendi lista itt található: |functions|. CTRL-] a függvény nevén
-megnyitja a részletes leírást.
+listát. A betűrendi lista itt található: |builtin-function-list|. CTRL-] a
+függvény nevén megnyitja a részletes leírást.
 
 String manipuláció:					*string-functions*
 							*függvények-string*
@@ -969,6 +977,8 @@ Bufferek, ablakok és az argumentum lista:
 	win_gotoid()		váltás ablakra ID alapján
 	win_id2tabwin()		fül és ablakszám ablak ID alapján
 	win_id2win()		ablakszám ablak ID alapján
+	win_move_separator()	vertikális abal-elválasztó mozgatása
+	win_move_statusline()	ablak állapotsávjának mozgatása
 	win_splitmove()		ablak mozgatása másik ablakba (split)
 	getbufinfo()		buffer információi | lista
 	gettabinfo()		fül információi | lista
@@ -1347,9 +1357,9 @@ Egyebek:						*various-functions*
 A Vimben létrehozhatjuk saját függvényeinket. Az alapvető függvénydeklaráció a
 következő: >
 
-	:function {name}({var1}, {var2}, ...)
-	:  {body}
-	:endfunction
+	def {name}({var1}, {var2}, ...): return-type
+	  {body}
+	enddef
 <
 	Megjegyzés:
 	A függvényneveknek nagy kezdőbetűvel kell kezdődniük
@@ -1357,114 +1367,107 @@ következő: >
 Hozzunk lére egy olyan függvényt, mely két számból a kisebbel tért vissza.
 Kezdjük ezzel a sorral: >
 
-	:function Min(num1, num2)
+	def Min(num1: number, num2: number): number
 
-Ezzel meghatároztuk a függvény nevét "Min", illetve a két argumentumot: "num1"
-és "num2".
-   Első lépésben ellenőriznünk kell, hogy melyik szám kisebb:
+Ezzel meghatároztuk a függvény nevét "Min", mely két argumentumot fogad:
+"num1" , "num2" és egy number értékkel tér vissza.
+
+Első lépésben ellenőriznünk kell, hogy melyik szám kisebb:
    >
-	:  if a:num1 < a:num2
+	if num1 < num2
 
-Az "a:" prefixum azt jelenti, hogy a változó egy függvényargumentum. Rendeljük
- hozzá a kisebb számot a "smaller" nevű változóhoz: >
+Rendeljük hozzá a kisebb számot a "smaller" nevű változóhoz: >
 
-	:  if a:num1 < a:num2
-	:    let smaller = a:num1
-	:  else
-	:    let smaller = a:num2
-	:  endif
+	var smaller: number
+	if num1 < num2
+	  smaller = num1
+	else
+	  smaller = num2
+	endif
 
 A "smaller" változó lokális. Minden változó lokális a függvényre nézve, amíg
-ezt máshogyan nem jelöljük, mint például: "g:", "a:", vagy "s:".
+ezt máshogyan nem jelöljük, mint például: "g:", "w:", vagy "s:".
 
 	Megjegyzés:
 	Ahhoz, hogy egy globális változót el tudjuk érni a függvényen
 	belülről, "g:" prefixummal kell ellássuk. Ezért "g:today" változóra
 	globális változóként tekintünk, "today"-t egy külön változóként
-	kezeljük, ami a függvény lokális változója.
+	kezeljük, ami a függvény vagy a script lokális változója.
 
-Végül használjuk a ":return" parancsot a visszatéréshez, amely a kisebb
+Végül használjuk a `return` parancsot a visszatéréshez, amely a kisebb
 számmal tér vissza, majd zárjuk a függvényt: >
 
-	:  return smaller
-	:endfunction
+	  return smaller
+	enddef
 
 A teljes függvénydefiníció: >
 
-	:function Min(num1, num2)
-	:  if a:num1 < a:num2
-	:    let smaller = a:num1
-	:  else
-	:    let smaller = a:num2
-	:  endif
-	:  return smaller
-	:endfunction
+	def Min(num1: number, num2: number): number
+	  var smaller: number
+	  if num1 < num2
+	    smaller = num1
+	  else
+	    smaller = num2
+	  endif
+	  return smaller
+	enddef
 
-Akik szeretik a rövid függvényeket: >
+Nyilvánvalóan ez egy elég hosszú példa. Rövidebbre is írhatjuk két `return`
+paranccsal: >
 
-	:function Min(num1, num2)
-	:  if a:num1 < a:num2
-	:    return a:num1
-	:  endif
-	:  return a:num2
-	:endfunction
+	def Min(num1: number, num2: number): number
+	  if num1 < num2
+	    return num1
+	  endif
+	  return num2
+	enddef
+
+Ha emlékszünk még a feltételes kifejezésekre, akkor csak egy sorra van
+szükségünk: >
+
+	def Min(num1: number, num2: number): number
+	  return num1 < num2 ? num1 : num2
+	enddef
 
 A felhasználó által definiált függvényeket ugyanúgy kell meghívnunk, mint a
 beépítetteket. A Min függvényt így tudjuk meghívni: >
 
-	:echo Min(5, 8)
+	echo Min(5, 8)
 
-
-A függvény futtatása elkezdődik és a Vim soronként végrehajtja a parancsokat.
+A függvény futtatása elkezdődik és a Vim soronként értelmezi a parancsokat.
 Hiba esetén (például ismeretlen változó vagy függvény esetén) hibaüzenetet
 ebben a szakaszban kapjuk meg. A függvény írásakor nincs mód a hibák
-észlelésére.
+észlelésére. A hibakezelés könnyebb lehet, ha a fájl összes függvényét
+lefordítjuk előre: >
 
-Amikor a függvény eléri az ":endfunction" vagy ":return" kulcsszavakat,
-argumentum használata nélkül a függvény automatikusan nulla (0) értékkel tér
-vissza.
+	defcompile
 
-Létező függvény újradefiniálásához  a "!" jelet kell használjuk a ":function"
-parancsban: >
+A `return` kulcsszó elhagyható olyan függvények esetében, ahol nincs
+visszatérési érték: >
 
-	:function!  Min(num1, num2, num3)
+	def SayIt(text: string)
+	  echo text
+	enddef
 
+Függvényeinket definiálhatjuk a régi, `function` és `endfunction` szerint is,
+bár ezeknek nincs típusuk és az értelmező nem fordítja le őket, így a
+futtatásuk lassabb.
 
 TARTOMÁNY HASZNÁLATA
 
-A ":call" parancsnak sorokra hivatkozó tartományt is átadhatunk. Ennek két
-értelme lehet. Ha a függvényt a "range" kulcsszóval definiáltuk, akkor ennek
-kezeléséről magának gondoskodik.
-  Ekkor a függvény megkapja a "a:firstline" és a "a:lastline" változókat,
-melyek tartalmazzák a tartomány kezdeti- és végpontját. Például: >
+Sor-tartományok használata engedélyezett, ilyenkor a függvény meghívódik a
+tartományban szereplő összes sorra. Például: >
 
-	:function Count_words() range
-	:  let lnum = a:firstline
-	:  let n = 0
-	:  while lnum <= a:lastline
-	:    let n = n + len(split(getline(lnum)))
-	:    let lnum = lnum + 1
-	:  endwhile
-	:  echo "found " .. n .. " words"
-	:endfunction
-
-A függvényt meghívatjuk így: >
-
-	:10,30call Count_words()
-
-A függvény egyszer fut le és kiírja a szavak számát.
-   A másik módszer, ha  a függvényt a "range" kulcsszó nélkül definiáljuk. Így
-a függvény minden sorban külön meghívódik. Például: >
-
-	:function  Number()
-	:  echo "line " .. line(".") .. " contains: " .. getline(".")
-	:endfunction
+	def Number()
+	  echo "line " .. line(".") .. " contains: " .. getline(".")
+	enddef
 
 Ha a függvényt így hívjuk meg: >
 
 	:10,15call Number()
 
-Akkor az hat hívást jelent.
+A függvény hatszor kap hívást, soronként, a 10. sorral kezdve, és a 15. sorral
+befejezve.
 
 
 VÁLTOZÓ ARGUMENTUMLISTA
@@ -1474,43 +1477,51 @@ paranccsal, például egy olyan függvényt definiálunk, melyben kötelezően k
 szerepelnie egy (start) argumentumnak. (A függvények maximálisan 20
 argumentumot képesek kezelni: >
 
-	:function Show(start, ...)
+	def Show(start: string, ...items: list<string>)
 
-Az "a:1" változó tartalmazza az első argumentumot, a "a:2" a másodikat és így
-tovább. Az "a:0" tartalmazza az extra argumentumok számát. Például: >
+Az `items` változó tartalmazza az extra argumentumokat, melyeket úgy
+használhatunk, akár egy listát, például: >
 
-	:function Show(start, ...)
-	:  echohl Title
-	:  echo "start is " .. a:start
-	:  echohl None
-	:  let index = 1
-	:  while index <= a:0
-	:    echo "  Arg " .. index .. " is " .. a:{index}
-	:    let index = index + 1
-	:  endwhile
-	:  echo ""
-	:endfunction
+	def Show(start: string, ...items: list<string>)
+	  echohl Title
+	  echo "start is " .. start
+	  echohl None
+	  for index in range(len(items))
+	    echon "  Arg " .. index .. " is " .. items[index]
+	  endfor
+	  echo
+	enddef
 
-A példa "echohl" a következő ":echo" parancs kiemelését határozza meg.
-":echohl None" visszaállítja a kiemelést. Az ":echon" parancs ugyanúgy
+Ezt a következőképpen hívhatjuk meg: >
+
+	Show('Title', 'one', 'two', 'three')
+<	start is Title  Arg 0 is one  Arg 1 is two  Arg 2 is three ~
+
+A példa `echohl` a következő `echo` parancs kiemelését határozza meg.
+`echohl None` visszaállítja a kiemelést. Az `echon` parancs ugyanúgy
 működik, mint az ":echo", sortörést viszont nem alkalmaz.
 
-Az "a:000" speciális változó, egy lista, mely az összes "..." argumentumot
-tartalmazza. Lásd |a:000|.
-
+Ha ezt csak egy argumentummal hívjuk meg, akkor az "items" lista üres lesz.
+`range(len(items))` visszatér a lista indexeivel, melyet a `for` loop
+iterálja, ezt elmagyarázzuk később.
 
 LISTÁZÓ FÜGGVÉNYEK
 
-A ":function" parancs az összes felhasználó által definiált (beleértve a
+A `function` parancs az összes felhasználó által definiált (beleértve a
 telepített beépülőket is) neveket és argumentumokat listázza: >
 
 	:function
-<	function Show(start, ...) ~
+<	def <SNR>86_Show(start: string, ...items: list<string>) ~
 	function GetVimIndent() ~
 	function SetSyn(name) ~
 
-Ha meg szeretnénk tekinteni magát a függvényt, akkor adjuk át a függvény nevét
-argumentumként a ":function" parancsnak: >
+Az "<SNR>" prefixum jelöli, hogy a függvény lokális a szkripthez. A |Vim9|
+függvényei a "def" kulcsszóval kezdődnek, argumentumokat tartalmazhatnak és
+visszatérési értékeket. A régi függvények csak egyszerűen a "function"
+kulcsszó vezeti be.
+
+Ha meg szeretnénk tekinteni a függvény tartalmát, akkor adjuk át a függvény
+nevét argumentumként a `function` parancsnak: >
 
 	:function SetSyn
 <	1     if &syntax == '' ~
@@ -1518,11 +1529,26 @@ argumentumként a ":function" parancsnak: >
 	3     endif ~
 	   endfunction ~
 
+Ahhoz, hogy megjelenítsük a "Show" függvényt, adjuk át a szkript prefixumát
+is, hiszen a "Show" függvénynek több definíciója is létezik más és más
+szkriptfájlokban. A pontos név meghatározásához kiadhatjuk  a `function`
+parancsot, de a lista valószínűleg elég hosszú lenne. A `filter` prefixummal
+rövidíthetjük a találati listát: >
+
+	:filter Show function
+<	def <SNR>86_Show(start: string, ...items: list<string>) ~
+>
+	:function <SNR>86_Show
+<	1    echohl Title ~
+	2    echo "start is " .. start ~
+	etc.
+
 
 HIBAKERESÉS
 
 A sor száma nagyon hasznos hibaüzenetek értelmezésekor, vagy hibakeresésnél.
 Lásd |debug-scripts|.
+
    A 'verbose' opció 12, vagy annál nagyobbra állításával láthatóvá válik
 minden függvényhívás. 15, vagy annál nagyobb esetén az összes futtatott sor
 látszik.
@@ -1530,42 +1556,38 @@ látszik.
 
 FÜGGVÉNY TÖRLÉSE
 
-A Show() függvény törlése: >
+A SetSyn() függvény törlése: >
 
-	:delfunction Show
+	:delfunction SetSyn
 
-Ha a függvény nem létezik, akkor hibaüzenetet kapunk.
+A törlés csak globális függvények, valamint a régi szkript-rendszer által
+definiált függvények esetében lehetséges, a |Vim9| szkriptekben ilyen
+lehetőségünk nincs.
+
+Ha a függvény nem létezik vagy nem törölhető, akkor hibaüzenetet kapunk.
 
 
 FÜGGVÉNYHIVATKOZÁSOK
 
-Olykor hasznos, ha egy függvényt változóhoz tudunk rendelni, ezt a function()
-függvénnyel tudjuk megtenni, mely átalakítja a függvény nevét hivatkozássá. >
+Olykor hasznos, ha egy függvényt változóhoz tudunk rendelni, ezt a function
+függvény-hivatkozás változóval tudjuk megtenni, melyet gyakran csak
+"funcref"-ként rövidítünk, Például: >
 
-	:let result = 0		" or 1
-	:function! Right()
-	:  return 'Right!'
-	:endfunc
-	:function! Wrong()
-	:  return 'Wrong!'
-	:endfunc
-	:
-	:if result == 1
-	:  let Afunc = function('Right')
-	:else
-	:  let Afunc = function('Wrong')
-	:endif
-	:echo call(Afunc, [])
+	def Right()
+	  return 'Right!'
+	enddef
+	def Wrong()
+	  return 'Wrong!'
+	enddef
+	
+	var Afunc = g:result == 1 ? Right : Wrong
+	Afunc()
 <	Wrong! ~
+
+Mely feltételezi, hogy "g:result" értéke nem 1.
 
 Megjegyzés: a függvényhivatkozást tartalmazó változó nevének nagy betűvel kell
 kezdődnie, különben könnyen egy beépített függvénynek tekinthetjük.
-   A hivatkozott függvényt a call() függvénnyel tudjuk meghívni, melynek első
-argumentuma a függvényhivatkozást tartalmazó változó, a második pedig az
-argumentumokat tartalmazó lista.
-
-A függvényhivatkozások szótárakkal való kombinálása további lehetőségeket
-nyújt, erről azonban a következő fejezetben.
 
 A saját magunk által definiálható függvényekről itt olvashatunk:
 |user-functions|.
@@ -1576,93 +1598,97 @@ A saját magunk által definiálható függvényekről itt olvashatunk:
 Eddig az alap String és szám típusokat használtuk. A Vim további két összetett
 változó típust támogat: a listákat és a szótárakat.
 
-A lista különböző adatok rendezett sora. Az adatok bármik lehetnek, ezért
+A lista különböző elemek rendezett sora. Az elemek bármik lehetnek, ezért
 létrehozhatunk listát számokkal, listát tartalmazó listákat, vagy akár a kettő
 kombinációját. Lista három elemmel: >
 
-	:let alist = ['aap', 'mies', 'noot']
+	var alist = ['aap', 'mies', 'noot']
 
 A listát szögletes zárójelek határolják és értékeit vesszők választják el
 egymástól. Üres lista létrehozása: >
 
-	:let alist = []
+	:let alist = ['aap', 'mies', 'noot']
 
 Az add() függvénnyel a listához elemeket rendelhetünk: >
 
-	:let alist = []
-	:call add(alist, 'foo')
-	:call add(alist, 'bar')
-	:echo alist
+	var alist = []
+	add(alist, 'foo')
+	add(alist, 'bar')
+	echo alist
 <	['foo', 'bar'] ~
 
 Listák összefűzéséhez a "+" operátort használhatjuk: >
 
-	:echo alist + ['foo', 'bar']
-<	['foo', 'bar', 'foo', 'bar'] ~
+	var alist = ['foo', 'bar']
+	alist = alist + ['and', 'more']
+	echo alist
+<	['foo', 'bar', 'and', 'more'] ~
 
-Vagy, ha közvetlenül szeretnéd kiegészíteni: >
+Vagy, ha ki szeretnénk egészíteni a listát egy függvénnyel: >
 
-	:let alist = ['one']
-	:call extend(alist, ['two', 'three'])
-	:echo alist
+	var alist = ['one']
+	extend(alist, ['two', 'three'])
+	echo alist
 <	['one', 'two', 'three'] ~
 
-Vegyük észre az add() és extend() közötti különbséget:  >
+Vegyük észre, hogy az `add()` függvénynek itt eltérő hatása van:  >
 
-	:let alist = ['one']
-	:call add(alist, ['two', 'three'])
-	:echo alist
+	var alist = ['one']
+	add(alist, ['two', 'three'])
+	echo alist
 <	['one', ['two', 'three']] ~
 
-Az add() második argumentuma egy elemeként adódik a listához.
+Az add() második argumentuma egy elemeként adódik a listához, a lista immár
+egy újabb listát is tartalmaz.
 
 
 FOR CIKLUS
 
 A listák egyik jó tulajdonsága, hogy bejárhatjuk őket: >
 
-	:let alist = ['one', 'two', 'three']
-	:for n in alist
-	:  echo n
-	:endfor
+	var alist = ['one', 'two', 'three']
+	for n in alist
+	  echo n
+	endfor
 <	one ~
 	two ~
 	three ~
 
-A példa az "alist" lista összes elemét bejárja, az értéket "n"-hez rendelve
-kiírja a kimenetre. A for ciklus általános formája: >
+A példa az "alist" lista összes elemét bejárja, az összes értéket "n"-hez
+rendelve. A for ciklus általános formája: >
 
-	:for {varname} in {listexpression}
-	:  {commands}
-	:endfor
+	for {varname} in {listexpression}
+	  {commands}
+	endfor
 
 Meghatározott ismétlésszámhoz a range() függvényt használhatjuk: >
 
-	:for a in range(3)
-	:  echo a
-	:endfor
+	for a in range(3)
+	  echo a
+	endfor
 <	0 ~
 	1 ~
 	2 ~
 
 Jegyezzük meg, hogy a range() függvény első eleme mindig nullával kezdődik,
 ezért az utolsó elem eggyel kevesebb lesz, mint a lista hossza.
-   Maximum értéket is meghatározhatunk, sőt, akár visszafelé is haladhatunk: >
 
-	:for a in range(8, 4, -2)
-	:  echo a
-	:endfor
+Maximum értéket is meghatározhatunk, sőt, akár visszafelé is haladhatunk: >
+
+	for a in range(8, 4, -2)
+	  echo a
+	endfor
 <	8 ~
 	6 ~
 	4 ~
 
 Még hasznosabb példa: a buffer sorainak bejárása: >
 
-	:for line in getline(1, 20)
-	:  if line =~ "Date: "
-	:    echo matchstr(line, 'Date: \zs.*')
-	:  endif
-	:endfor
+	for line in getline(1, 20)
+	  if line =~ "Date: "
+	    echo line
+	  endif
+	endfor
 
 Mely végighalad az első húsz soron (1-20 inkluzív) és kiírja a megtalált
 dátumokat.
@@ -1673,11 +1699,18 @@ SZÓTÁRAK
 A szótárak kulcs-értékpárokat tárolnak. A bejárás nagyon gyors, ha ismerjük a
 kulcsokat. A szótárakat kapcsos zárójelek határolják: >
 
-	:let uk2nl = {'one': 'een', 'two': 'twee', 'three': 'drie'}
+	var uk2nl = {one: 'een', two: 'twee', three: 'drie'}
 
 A kulcsokhoz tartozó értékeket így érhetjük el: >
 
 	:echo uk2nl['two']
+<	twee ~
+
+
+Ha a kulcsban nincsenek speciális karakterek, akkor használhatjuk a "."
+hivatkozást: >
+
+	echo uk2nl.two
 <	twee ~
 
 A szótár általános definíciója: >
@@ -1691,18 +1724,18 @@ A szótár általános definíciója: >
 A szótárakban rejlő potenciál hatalmas. Kezelésükhöz számos beépített függvény
 elérhető. Például, a lista kulcsainak bejárása: >
 
-	:for key in keys(uk2nl)
-	:  echo key
-	:endfor
+	for key in keys(uk2nl)
+	  echo key
+	endfor
 <	three ~
 	one ~
 	two ~
 
 Észrevehetjük, hogy a kulcsok nem rendezettek. Így rendezhetjük őket: >
 
-	:for key in sort(keys(uk2nl))
-	:  echo key
-	:endfor
+	for key in sort(keys(uk2nl))
+	  echo key
+	endfor
 <	one ~
 	three ~
 	two ~
@@ -1711,146 +1744,6 @@ A szótárban tárolt elemek eredeti elrendezését soha nem kapjuk meg, ehhez
 listát kell használnunk, mely sorrendben tárolja az elemeket.
 
 
-SZÓTÁRFÜGGVÉNYEK
-
-A szótár elemeit a szögletes zárójelek közötti kulcs átadásával érthetjük el.
->
-	:echo uk2nl['one']
-<	een ~
-
-Az alábbi módszerrel is elérhetjük az elemeket, speciális karakterek írása
-nélkül: >
-
-	:echo uk2nl.one
-<	een ~
-
-A módszer csak az ASCII karakterek betűivel, számokkal és "_" karakterrel
-működik. Így akár új elemeket is létrehozhatunk:  >
-
-	:let uk2nl.four = 'vier'
-	:echo uk2nl
-<	{'three': 'drie', 'four': 'vier', 'one': 'een', 'two': 'twee'} ~
-
-És most valami specialitás, függvényeket is létrehozhatunk listaelemként. >
-
-	:function uk2nl.translate(line) dict
-	:  return join(map(split(a:line), 'get(self, v:val, "???")'))
-	:endfunction
-
-Próbáljuk ki: >
-
-	:echo uk2nl.translate('three two five one')
-<	drie twee ??? een ~
-
-Vegyük észre a "dict" szót a ":function" sorában. Ez jelöli azt, hogy a
-függvényt egy szótáron használjuk. A "self" lokális változó erre a szótárra
-utal.
-   Vizsgáljuk meg a függvény visszatérési értékét: >
- 
-	split(a:line)
-
-A split() függvény paraméterként egy stringet vár, melyet a szóközök mentén
-elválaszt és listaként adja vissza ezen szavakat. A példában szereplő
-visszatérési érték: >
-
-	:echo split('three two five one')
-<	['three', 'two', 'five', 'one'] ~
-
-Ez a lista lesz a map() függvény első argumentuma. Bejárjuk a szótárat, és  a
-kulcsokhoz tartozó értékeket a "v:val" változóhoz rendeljük. Gyakorlatilag
-egy ciklus rövidített változata. A parancs: >
-
-	:let alist = map(split(a:line), 'get(self, v:val, "???")')
-
-Mely egyenértékű ezzel: >
-
-	:let alist = split(a:line)
-	:for idx in range(len(alist))
-	:  let alist[idx] = get(self, alist[idx], "???")
-	:endfor
-
-A get() függvény ellenőrzi, hogy a kulcs szerepel-e a szótárban. Ha igen,
-akkor az értéket visszaadja. Ha nem, akkor az előre beállított alapértelmezett
-értéket adja vissza (ebben az esetben '???'). Kényelmes megoldás a nem létező
-kulcsok kezelésére, ha nem szeretnénk hibaüzenetet kapni.
-
-A join() függvény a split(): ellentéte, összefűzi a lista értékeit
-szóközökkel.
-  A split(), map() és join() kombinációjával kompakt módon szűrhetjük az
-értékeket.
-
-
-OBJEKTUM ORIENTÁLT PROGRAMOZÁS
-
-Mivel a szótárakban nem csak értékeket helyezhetünk el, hanem függvényeket is,
-ezért a szótárakat használhatjuk objektum-szerűen is.
-   A fent említett példában a szótárat holland szavak angolra fordításához
-használtuk. Ha ezt a mechanizmust újra fel szeretnénk használni, akkor először
-hozzunk létre egy "objektumot" (szótárat), egy translate nevű függvénnyel: >
-
-	:let transdict = {}
-	:function transdict.translate(line) dict
-	:  return join(map(split(a:line), 'get(self.words, v:val, "???")'))
-	:endfunction
-
-Ez picit különbözik az előzőleg használt módszertől. Itt a 'self.words'
-segítségével hivatkozhatunk a szótár értékeire. Mivel konkrétan nincs a
-'self.word' definiálva, ezért ezt az objektumot kezelhetjük absztrakt
-osztályként.
-
-Példányosítsuk a holland szavak fordításához: >
-
-	:let uk2nl = copy(transdict)
-	:let uk2nl.words = {'one': 'een', 'two': 'twee', 'three': 'drie'}
-	:echo uk2nl.translate('three one')
-<	drie een ~
-
-És a német fordító: >
-
-	:let uk2de = copy(transdict)
-	:let uk2de.words = {'one': 'eins', 'two': 'zwei', 'three': 'drei'}
-	:echo uk2de.translate('three one')
-<	drei eins ~
-
-Láthatjuk, hogy a copy() függvénnyel másoltuk a "transdict"-et, a másolatban
-pedig átírtuk az értékeket. Az eredeti szótár természetesen nem változik.
-
-Lépjünk tovább: >
-
-	:if $LANG =~ "de"
-	:  let trans = uk2de
-	:else
-	:  let trans = uk2nl
-	:endif
-	:echo trans.translate('one two three')
-<	een twee drie ~
-
-A példában a két objektum (szótár) egyikére hivatkozunk. Másolás nem történik.
-A listákról és szótárakról bővebben: |list-identity| és |dict-identity|.
-
-Előfordulhat olyan eset, amikor az adott nyelv nem támogatott. A translate()
-függvényt felülírhatjuk, hogy ne tegyen semmit: >
-
-	:let uk2uk = copy(transdict)
-	:function! uk2uk.translate(line)
-	:  return a:line
-	:endfunction
-	:echo uk2uk.translate('three one wladiwostok')
-<	three one wladiwostok ~
-
-Vegyük észre a ! jelet, mellyel felülírtuk a létező függvényhivatkozást. Most
-használjuk a "uk2uk"-t, ha a nyelv nem támogatott: >
-
-	:if $LANG =~ "de"
-	:  let trans = uk2de
-	:elseif $LANG =~ "nl"
-	:  let trans = uk2nl
-	:else
-	:  let trans = uk2uk
-	:endif
-	:echo trans.translate('one two three')
-<	one two three ~
-
 További olvasnivaló: |Lists| és |Dictionaries|.
 
 ==============================================================================
@@ -1858,54 +1751,59 @@ További olvasnivaló: |Lists| és |Dictionaries|.
 
 Például: >
 
-	:try
-	:   read ~/templates/pascal.tmpl
-	:catch /E484:/
-	:   echo "Sorry, the Pascal template file cannot be found."
-	:endtry
+	try
+	   read ~/templates/pascal.tmpl
+	catch /E484:/
+	   echo "Sorry, the Pascal template file cannot be found."
+	endtry
 
-A ":read" parancs hibával tér vissza, ha a fájl nem található. A beépített
+A `read` parancs hibával tér vissza, ha a fájl nem található. A beépített
 hibaüzenet helyet a hiba kódjával elkaphatjuk a hibát és egy szebb (vagy
 relevánsabb) üzenetet írathatunk ki.
 
-A ":try" és az ":endtry" között keletkezett hibák kivételeket képeznek. A
+A `try` és az `endtry` között keletkezett hibák kivételeket képeznek. A
 kivétel egy sztring. Hiba esetén a sztring tartalmazza a hibaüzenetet. Minden
 hibaüzenethez tartozik egy azonosító. A példában szereplő kód az "E484:"
 kivételt kezeli. A hiba garantáltan nem változik, a hibaüzenet viszont
 változhat (a fordítás függvényében).
 
-Ha a ":read" parancs futása közben egy más jellegű hibába ütközünk, azt az
+A szépen formázott hibaüzenet mellett a Vim tovább futtatja a prancsok
+végrehajtását, egészen addig a pontig, amíg egy nem kezelhető (uncaught error)
+hibával találkozik. Ekkor a prancsok végrehajtása megszakad.
+
+Ha a `read` parancs futása közben egy más jellegű hibába ütközünk, azt az
 "E484:" nem fogja kezelni, ezért a kivétel nem lesz elkapva és hiba
 alapértelmezett hibaüzenete jelenik meg.
 
 Kezelhetjük a kivételt így: >
 
-	:try
-	:   read ~/templates/pascal.tmpl
-	:catch
-	:   echo "Sorry, the Pascal template file cannot be found."
-	:endtry
+	try
+	   read ~/templates/pascal.tmpl
+	catch
+	   echo "Sorry, the Pascal template file cannot be found."
+	endtry
 
-Ez azt jelenti, hogy az összes hiba el lesz kapva. Ezért a hibaüzenet az
-alapértelmezett üzenet lesz, például "E21: Cannot make changes, 'modifiable' is off".
+Ez azt jelenti, hogy az összes hiba el lesz kapva, de ekkor nem látjuk a hibát
+kiváltó okot, ami teljesen más is lehet, például "E21: Cannot make changes,
+'modifiable' is off.
 
-Hasznos mechanizmus a ":finally" használata: >
+Hasznos mechanizmus a `finally` használata: >
 
-	:let tmp = tempname()
-	:try
-	:   exe ".,$write " .. tmp
-	:   exe "!filter " .. tmp
-	:   .,$delete
-	:   exe "$read " .. tmp
-	:finally
-	:   call delete(tmp)
-	:endtry
+	var tmp = tempname()
+	try
+	   exe ":.,$write " .. tmp
+	   exe "!filter " .. tmp
+	   :.,$delete
+	   exe ":$read " .. tmp
+	finally
+	   call delete(tmp)
+	endtry
 
 A kódrészlet szűri a kurzor pozíciójától a fájl végéig terjedő tartalmat a
-":filter" paranccsal, ami egy fájlnevet vár argumentumként. Nem számít, hogy a
-szűrés sikeres-e, ha valami hiba történik a ":try" és a ":finally" parancs
+"filter" paranccsal, ami egy fájlnevet vár argumentumként. Nem számít, hogy a
+szűrés sikeres-e, ha valami hiba történik a `try` és a `finally` parancs
 között (akár ha a felhasználó megszakítja a szűrést a CTRL-C billentyűvel, a
-"call delete(tmp)" függvény mindig lefut, így nem hagyunk hátra ideiglenes
+`call delete(tmp)` függvény mindig lefut, így nem hagyunk hátra ideiglenes
 fájlt.
 
 Több információ a kivételkezelésről a referenciában: |exception-handling|.
@@ -1913,12 +1811,15 @@ Több információ a kivételkezelésről a referenciában: |exception-handling|
 ==============================================================================
 *41.10* Általános információk
 
-Az alábbi lista a Vim szkriptekre jellemző tulajdonságokat ír le, melyek
-említve vannak a releváns pontokon, de ez egy szép tömör lista.
+Az alábbi lista a Vim szkriptekre jellemző tulajdonságokat ír le, melyeket
+illik ismernünk.
 
-A sorvégi karakterek a rendszerünktől függ. A Unix rendszer <NL> karaktert
-használ, a MS-Windows <CR><NL> karaktereket használ. Ez fontos a, ha mapjeink
-a <CR> karakterrel végződnek. Lásd |:source_crnl|.
+A sorvégi karakterek a rendszerünktől függ. A Vim szkriptek készítése esetén
+ajánlott a Unix fájlformátum használata, mely bármely rendszeren működik. Így
+a MS-Windowson készített szkriptjeink Unix alatt is működni fognak.  Lásd
+|:source_crnl|. Állítsuk be a szerkesztés megkezdése előtt: >
+
+	:setlocal fileformat=unix
 
 
 ÜRES KARAKTEREK
@@ -1926,17 +1827,11 @@ a <CR> karakterrel végződnek. Lásd |:source_crnl|.
 Az üres sorok engedélyezettek és figyelmen kívül vannak hagyva.
 
 A vezető üres karakterek (szóközök és TABok), mindig figyelmen kívül vannak
-hagyva minden esetben. A paraméterek közötti üres karakterek (például a "set"
-és a "cpoptions" között a lenti példában), redukálva vannak egy karakterre,
-amik elválasztó szerepet töltenek be. A sor utolsó karaktere után szereplő
-üres karakterek szituációtól függően értelmezve vannak, lásd alább.
+hagyva. 
 
-A ":set" parancshoz használnunk kell a "=" jelet: >
+A parancsok végén elhelyezkedő üres karakterek ignorálva vannak, de nem minden
+esetben. Akkor nem, ha az aktuális `map` használja azt.
 
-	:set cpoptions    =aABceFst
-
-a "=" jelet megelőző üres karakterek ignorálva vannak, de a "=" jel után nem
-szerepelhet üres karakter!
 
 Ha üres karaktereket szeretnénk használni értékként, akkor escapelnünk kell
 őket "\" karakterrel: >
@@ -1953,12 +1848,18 @@ hibát eredményez, hiszen így értékelődik ki: >
 	:set nice
 	:set file
 
+A |Vim9| nagyon kényes az üres karakterekkel kapcsolatban. Ez tudatosan van
+így, a szkript olvashatósága és a hibakeresés miatt.
+
 
 KOMMENTEK
 
-A " (idézőjel), a komment kezdetét jelenti. Minden további karakter a az
-aktuális sor végéig kommentként van értelmezve, kivéve azokat a parancsokat,
-ahol a " karakternek jelentősége van.
+A |Vim9| szkriptekben a komment # karakterrel kezdődik. Minden további
+karakter az aktuális sor végéig kommentként van értelmezve, a komment a sorban
+bárhol szerepelhet, kivéve ott, ahol ez a parancs részét képzi (például
+stringben).
+
+A régi sciptben a kommenteléshez a " (idézőjel) használatos.
 
 Egy dologra különösen figyelnünk kell, például: >
 
@@ -1967,66 +1868,62 @@ Egy dologra különösen figyelnünk kell, például: >
 	:execute cmd			" do it
 	:!ls *.c			" list C files
 
-A 'dev' rövidítés 'development     " shorthand'-re lesz kibontva. Az <F3> map
-a teljes sort tartalmazza, beleértve a '" insert include'-t is. Az "execute"
+A 'dev' rövidítés 'development     # shorthand'-re lesz kibontva. Az <F3> map
+a teljes sort tartalmazza, beleértve a '#" insert include'-t is. Az `execute`
 parancs hibát eredményez. A "!" parancs mindent átad a shell értelmezőnek,
-mely páratlan '"' karakter miatt hibát eredményez.
-   A ":map", ":abbreviate", ":execute", és a "!" parancsok után nem
-szerepelhet megjegyzés (létezik még pár parancs ezzel a megszorítással). A
-":map", ":abbreviate", ":execute" parancsokhoz az alábbi trükköt
-alkalmazhatjuk: >
+mely páratlan '"' karakter miatt valószínűleg hibát eredményez.
+
+A `map`, `abbreviate`, `execute`, és a `!` parancsok után nem szerepelhet
+(létezik még pár parancs ezzel a megszorítással). A `map`, `abbreviate`,
+`execute` parancsokhoz az alábbi trükköt alkalmazhatjuk: >
 
 	:abbrev dev development|" shorthand
 	:map <F3> o#include|" insert include
 	:execute cmd			|" do it
 
 A '|' két parancsot választ el egymástól. Ezért a következő parancs csak
-kommentként értékelődik ki. Az utolsó parancshoz két dolgok kell ismernünk: az
-|:execute| és a '|' karakter használatát: >
-
-	:exe '!ls *.c'			|" list C files
+kommentként értékelődik ki. Az `execute` utolsó parancshoz való használata egy
+általános megoldás, mely működik az összes parancs esetén, amelyek nem
+kommentelhetőek és nem választhatóak el '\' karakter által.
 
 Vegyük észre, hogy a '|' karakter előtt nincs üres karakter a rövidítésben és
 a mappingben. Ezekben a parancsokban minden karakter kiértékelődik a sor végig
 (vagy a '|' karakterig), ezért sorok vége előtti üres karakterek nem
 láthatóak.  >
 
-	:map <F4> o#include
+	map <F4> o#include  
 
-A hiba felderítéséhez állítsuk be a 'list' beállítást, ha szerkesztjük a vimrc
-fájlt.
+A hiba felderítéséhez emeljük ki a sor végi üres karaktereket: >
+	match Search /\s\+$/
 
 Unix rendszereken egy speciális módszerrel is kommentelhetjük a fájlokat, így
-a Vim szkript futtatható marad: >
+a Vim szkript futtatható marad és a régi szkriptben is futni fog: >
 
 	#!/usr/bin/env vim -S
 	echo "this is a Vim script"
 	quit
-
-A '#' önmagában kiírja a fájl sorát a hozzá tartozó sor számával. Egy '!'
-jelet hozzáadva a '#' jel alapértelmezett működését elveszti|:#!| |-S|
 
 
 CSAPDÁK
 
 Az alábbi kódrészlet még nagyobb problémát okozhat: >
 
-	:map ,ab o#include
-	:unmap ,ab
+	map ,ab o#include
+	unmap ,ab 
 
 Itt az unmap nem fog működni, hiszen az ",ab " mappelésre vonatkozik. Ez a map
-pedig nem létezik. A hibát nehéz észrevenni, mert a ":unmap ,ab " utolsó
+pedig nem létezik. A hibát nehéz észrevenni, mert a `unmap ,ab ` utolsó
 szóköz karaktere nem látható.
 
 Ugyanez történik, ha a kommentünket az 'unmap' parancs után helyezzük el: >
 
-	:unmap ,ab     " comment
+	unmap ,ab     # comment
 
 Ebben az esetben a komment természetesen figyelmen kívül lesz hagyva. A Vim
 pedig a ',ab     ' mappet szeretné unmappelni, ami nem létezik. Írjuk át
 ilyen módon: >
 
-	:unmap ,ab|    " comment
+	unmap ,ab|    # comment
 
 
 NÉZET VISSZAÁLLÍTÁSA
@@ -2034,7 +1931,8 @@ NÉZET VISSZAÁLLÍTÁSA
 Olykor szükségünk lehet arra, hogy módosítás után visszatérjünk a kurzor előző
 pozíciójához. A relatív pozíció visszaállítása a megfelelő megoldás, így
 ugyanaz a sor jelenik meg az ablak első sorában.
-   A példa másolja az aktuális sort, majd a másolatot a fájl első sorába
+
+A példa másolja az aktuális sort, majd a másolatot a fájl első sorába
 illeszti be, és visszaállítja a nézetet: >
 
 	map ,p ma"aYHmbgg"aP`bzt`a
@@ -2053,33 +1951,23 @@ A működés: >
 
 NEVEK, KONVENCIÓK
 
-Az alábbi pár ponttal meg tudjuk előzni, hogy az általunk írt függvények nem
-kívánt kapcsolatba lépjenek a mások által megírt függvényekkel. Az eljárás a
-következő:
-- Használjunk egyedi prefixumot minden függvény előtt. Ez lehet akár rövidítés
-  is. Például: az "OW_" használata az option windowwal kapcsolatos
-  függvényeknél.
-- A függvénydefiníciókat tegyük egy helyre, állítsunk be egy globális
-  változót, mely a függvények betöltöttségét jelenti. Ha ismét betöltjük, a
-  függvényeinket, akkor először távolítsuk el őket (unload). 
-Például: >
+Olykor globális változókat és függvényeket is szeretnénk definiálni, hogy
+azok bárhonnan elérhetőek legyenek. Jó példa erre az a globális változó, amely
+átadja a preferenciáját a beépülő számára. A névütközések elkerülése érdekében
+válasszuk egyedi prefixumot. Például a "mytags" nevezetű beépülő számára így
+járhatunk el: >
 
-	" This is the XXX package
+	g:mytags_location = '$HOME/project'
+	g:mytags_style = 'fast'
 
-	if exists("XXX_loaded")
-	  delfun XXX_one
-	  delfun XXX_two
-	endif
+Az ütközések elkerülése érdekében törekedjünk a lehető legtöbb lokális
+változók és függvények használatára. A |Vim9| egyik nagyszerű tulajdonsága,
+hogy a függvények és változók alapértelmezetten lokálisak, így ezt nem kell
+nekünk minden egyes alkalommal meghatároznunk.
 
-	function XXX_one(a)
-		... body of function ...
-	endfun
-
-	function XXX_two(b)
-		... body of function ...
-	endfun
-
-	let XXX_loaded = 1
+Ha egy beépülőt részekre bontunk, akkor a részeket az `import` és `export`
+parancsok segítségével oszthatjuk meg a részek között. Lásd `:export` a
+részletekért.
 
 ==============================================================================
 *41.11*	Beépülő írása				*write-plugin*
@@ -2103,11 +1991,10 @@ NEVEK
 
 Első lépésben el kell neveznünk a beépülőnket, mely rövid, tömör és általában
 a beépülő funkcionalitását írja le. A legjobb, ha egy teljesen egyedi nevet
-választunk, hogy elkerüljük a későbbi ütközést. A névnek nyolc, vagy annál
-kevesebb karakterből kell állnia (a régi Windows rendszerek sajnos ennyit
-kezelek).
+választunk, hogy elkerüljük a későbbi ütközést. 
 
-A példában létrehozott szkript a "typecorr.vim". 
+A példában létrehozott szkriptet elnevezhetjük  "typecorr.vim"-nek. Itt a
+szkriptet példaként használjuk. 
 
 Be kell tartsunk bizonyos szabályokat, hogy az általunk írt szkript mindenki
 számára működőképes legyen. Ezeket lépésről lépésre meg fogjuk ismerni. A
@@ -2123,12 +2010,24 @@ Kezdjük a beépülő törzsével, a sorok, mely az aktuális munkát végzik: >
  16	iabbrev wnat want
  17	iabbrev synchronisation
  18		\ synchronization
- 19	let s:count = 4
 
 Az aktuális lista természetesen sokkal hosszabb lehet.
 
 A sorszámozás csak a magyarázat miatt van feltüntetve, az aktuális beépülőbe
 ne írjuk bele!
+
+
+ELSŐ SOR
+>
+  1	vim9script noclear
+
+A `vimscript` parancsot kötelező használni, ezért jobb, ha az első sorba
+rakjuk.
+
+Az általunk írt szkriptnek lesz egy `finish` parancsa is, ami a kilépésre ad
+lehetőséget ha a szkript második alkalommal töltődik be. A "noclear"
+argumentum használatával a definiált elemek megmaradnak és nem vesznek el. A
+mechanizmusról bővebben itt: |Vim9-reload|.
 
 
 FEJLÉC
@@ -2139,37 +2038,35 @@ harmadik fél fogja használni, akkor tájékoztassuk, hogy ki írta ezt a gyön
 beépülőt. 
 Ezért, a beépülő tetejére írjunk egy fejlécet: >
 
-  1	" Vim global plugin for correcting typing mistakes
-  2	" Last Change:	2000 Oct 15
-  3	" Maintainer:	Bram Moolenaar <Bram@vim.org>
+  2	# Vim global plugin for correcting typing mistakes
+  3	# Last Change:	2021 Dec 30
+  4	# Maintainer:	Bram Moolenaar <Bram@vim.org>
 
 Jogi és licensz információk: A beépülők hasznosak és nem igazán éri meg
 korlátozni a terjesztésüket, ezért fontoljuk meg, hogy a beépülőnket
 nyilvánosan elérhetővé tesszük, vagy használjuk a Vim |license|-t. Erről egy
 rövid sort elég írnunk. Például: >
 
-  4	" License:	This file is placed in the public domain.
+  5	# License:	This file is placed in the public domain.
 
-
-SOROK FOLYTATÁSA, MELLÉKHATÁSOK ELKERÜLÉSE	    *use-cpo-save*
+SOROK FOLYTATÁSA ÉS A MELLÉKHATÁSOK ELKERÜLÉSE	    *use-cpo-save*
 						    *cpo-save-használata*
 
 A 18. sorban a sor folytatása a |line-continuation|ban leírtak szerint
 történik. A 'compatible' opció beállítása miatt hibaüzenetet kapunk. Nem elég,
 ha csak kikapcsoljuk a 'compatible' opciót, mert ennek több mellékhatása is
-létezik. Ennek elkerülése érdekében állítsuk be a 'cpoptions' alapértelmezett
-értékét (melyet a szkript végén visszaállíthatunk): >
+létezik. Helyette állítsuk be a 'cpoptions' alapértelmezett értékét (melyet a
+szkript végén visszaállíthatunk): >
 
- 11	let s:save_cpo = &cpo
+ 11	var save_cpo = &cpo
  12	set cpo&vim
  ..
- 42	let &cpo = s:save_cpo
- 43	unlet s:save_cpo
+ 42	&cpo = save_cpo
 
-Tároljuk a jelenlegi 'cpoptions' értékét a s:save_cpo változóban. A beépülő
+Tároljuk a jelenlegi 'cpoptions' értékét a save_cpo változóban. A beépülő
 végén ebből állítjuk vissza az értékét. 
 
-A szkriptben ezt lokális változóban tesszük meg |s:var|. Globális változó
+A szkriptben szereplő "save_cpo" a szkript lokális változója. Globális változó
 esetén van arra esély, hogy a változó már definiált. 
 
 
@@ -2178,20 +2075,22 @@ NEM TÖLTŐDIK BE
 Adjuk lehetőséget arra, hogy a felhasználó eldönthesse, hogy betölti-e az
 adott beépülőt: >
 
-  6	if exists("g:loaded_typecorr")
-  7	  finish
-  8	endif
-  9	let g:loaded_typecorr = 1
+  7	if exists("g:loaded_typecorrect")
+  8	  finish
+  9	endif
+ 10	g:loaded_typecorrect = 1
 
-Így nem tudjuk a szkriptet kétszer betölteni, ami hibát okozna (a függvények
-újradefiniálása és az autocommandok duplikálódása miatt).
+Így nem tudjuk a szkriptet kétszer betölteni feleslegesen, ami hibát okozna (a
+függvények újradefiniálása és az autocommandok duplikálódása miatt).
 
-Az ajánlott prefixum a "loaded_", melyet a plugin neve követ. A ":g"-t csak
-azért használatos, hogy a változót még véletlenül se definiáljuk a függvény
-lokális változójaként.
+Az ajánlott prefixum a "g:loaded_", melyet a plugin neve követ, szó szerint. A
+":g"-t csak azért használatos, hogy a változót globálissá tegyük, illetve hogy
+egyéb helyek ellenőrizhessék a funkcionalitás meglétét. A "g:" nélkül a
+változó lokális lenne.
 
-A "finish" parancs megszakítja a fájl további beolvasását, sokkal gyorsabb,
-mint az egész fájlt körülölelő if-endif szerkezet.
+A `finish` parancs megszakítja a fájl további beolvasását, sokkal gyorsabb,
+mint az egész fájlt körülölelő if-endif szerkezet, hiszen a Vimnek addig kell
+értelmeznie a szkriptet amíg meg nem találja az `endif` parancsot.
 
 
 MAPPEK
@@ -2206,11 +2105,11 @@ mappeket: >
 
 A "<Plug>TypecorrAdd;" megteszi, erről később.
 
-A felhasználó kijelölhet magának egy egyedi "mapleader" billentyűt, mely
+A felhasználó kijelölhet magának egy egyedi "g:mapleader" billentyűt, mely
 hozzáadódik a beépülőben meghatározott maphez. Például, ha a felhasználó az
 alábbi módon állította be a leader billentyűjét: >
 
-	let mapleader = "_"
+	g:mapleader = "_"
 
 a map értelemszerűen "_a"-re értékelődik ki. Alapértelmezett beállítás esetén
 a backslash karakter "\" van érvényben, ezért a map "\a"-ra vált.
@@ -2239,44 +2138,46 @@ MODULARITÁS
 Ahogy a szkriptünk terjedelemben hosszabb lesz, célszerű, ha darabokra
 szedjük. Erre a célra a függvények bevezetése a legcélszerűbb módszer, de nem
 szeretnénk, ha felülírná a létező függvényeinket. Például létrehozzuk az Add()
-függvényt, de egy másik szkriptben is szerepel egy ugyanilyen függvény. Az
-"s:" használatával függvényt lokálissá tehetjük a szkripthez.
+függvényt, de egy másik szkriptben is szerepel egy ugyanilyen függvény. Ezt
+megakadályozhatjuk, ha a függvényt lokálissá alakítjuk. Szerencsére ez a
+|Vim9| szkriptben alapértelmezett. A régi szkriptben viszont a "s:" prefixumot
+kell használnunk.
 
 Írjuk meg azt a függvényt, amivel egy új korrekciót adhatunk hozzá: >
 
- 30	function s:Add(from, correct)
- 31	  let to = input("type the correction for " .. a:from .. ": ")
- 32	  exe ":iabbrev " .. a:from .. " " .. to
+ 30	def Add(from: string, correct: bool)
+ 31	  var to = input("type the correction for " .. from .. ": ")
+ 32	  exe ":iabbrev " .. from .. " " .. to
  ..
- 36	endfunction
+ 36	enddef
 
-Így a szkripten belül meghívhatjuk az s:Add() függvényt. Ez lehetőséget ad
-arra, hogy más szkriptek is definiálják a s:Add() függvényt sajátjukként, de
-mindegyik a saját névterében hívható meg. Ráadásul létezhet egy globális Add()
-függvény is (az "s:" nélkül), ami egy másik függvény.
+Így a szkripten belül meghívhatjuk az Add() függvényt. Ez lehetőséget ad arra,
+hogy más szkriptek is definiálják a Add() függvényt sajátjukként, de mindegyik
+csak a saját szkriptje által hívható meg. Létezik egy globális g:Add()
+függvény is, ami egy másik függvény.
 
 Az <SID>-t a mappekben használjuk, ami generál egy szkript ID-t. Ez azonosítja
 a szkriptet. A beépülőnkben ezt így használhatjuk: >
 
  24	noremap <unique> <script> <Plug>TypecorrAdd;  <SID>Add
  ..
- 28	noremap <SID>Add  :call <SID>Add(expand("<cword>"), 1)<CR>
+ 28	noremap <SID>Add  :call <SID>Add(expand("<cword>"), true)<CR>
 
 Ezért ha a felhasználó "\a"-t ír, az alábbi szekvenciává alakul: >
 
-	\a  ->  <Plug>TypecorrAdd;  ->  <SID>Add  ->  :call <SID>Add()
+	\a  ->  <Plug>TypecorrAdd;  ->  <SID>Add  ->  :call <SID>Add(...)
 
 Ha bármely más szkriptben szintén szerepel a <SID>Add map, akkor egy másik
 azonosítót fog kapni, azaz a két map nem fog megegyezni.
 
-Megjegyzés: A példában s:Add() helyett <SID>Add()-ot használtunk. Azért, mert
+Megjegyzés: A példában Add() helyett <SID>Add()-ot használtunk. Azért, mert
 a mapet a felhasználó írja be (az pedig már nem a szkript névterében
-található). Az <SID> a szkript azonosítója, így tudja a Vim, hogy melyik Add()
+található). A <SID> a szkript azonosítója, így tudja a Vim, hogy melyik Add()
 függvényt kell keresnie.
 
 Ez egy kicsit komplex, viszont szükségünk van rá, ha azt akarjuk, hogy a
 beépülőnk más beépülőkkel együtt tudjon működni. Az alapszabály: <SID>Add()
-használata a mappekben és s:Add() használata minden egyéb helyen (a
+használata a mappekben és Add() használata minden egyéb helyen (a
 beépülőben, autocommandokban, felhasználó parancsokban).
 
 A mappet menüelemként is hozzáadhatjuk: >
@@ -2326,14 +2227,16 @@ FELHASZNÁLÓI PARANCSOK
 Adjunk egy olyan felhasználói parancsot, mellyel korrekciót adhatunk hozzá: >
 
  38	if !exists(":Correct")
- 39	  command -nargs=1  Correct  :call s:Add(<q-args>, 0)
+ 39	  command -nargs=1  Correct  :call Add(<q-args>, false)
  40	endif
 
 A felhasználói parancs definiálása akkor sikeres, ha a kívánt névvel még nem
 szerepel azonos függvény, ellenkező esetben hibaüzenetet kapunk. A parancs
 felülírása a ":command!" metódus alapján nem jó ötlet, hiszen a felhasználó
 nem fogja érteni, hogy az általa definiált függvény miért nem működik.
-|:command|
+|:command|. Ha ez megtörténik, itt deríthetjük ki, hogy kit hibáztathatunk: >
+
+	verbose command Correct
 
 
 SZKRIPT VÁLTOZÓK
@@ -2343,9 +2246,15 @@ a szkripten belül használható, a szkripten kívül pedig nem látható). A
 változók addig maradnak érvényben, amíg a Vim fut. Ugyanazok a változók
 maradnak érvényben, ha ugyanazt a szkriptfájlt töltjük be újra. |s:var|.
 
-A legjobb, hogy ezeket a változókat használhatjuk a függvényeinkben,
-auto-commandjainkban és felhasználói parancsainkban (amiket a szkriptben
-definiáltunk). Példánkban az alábbi módosításokkal megszámolhatjuk a
+Az egyik legjobb dolog a |Vim9| szkriptben, hogy a szkript változó
+alapértelmezett lokálisak. A "s:" hozzáfűzhető a változó nevéhez ugyan, de
+egyáltalán nem szükséges. A szkriptek belüli függvények a változókat prefixum
+nélkül is kezelik.
+
+A szkript lokális változói a szkriptben definiált  függvényekben,
+autocommandokban és felhasználói parancsokban felhasználhatóak, ami nagyszerű
+dolog, hiszen könnyen és biztonságosan tudjuk a változóinkat megosztani a
+szkript részei között. A példánkban néhány sor hozzáadásával számolhatjuk a
 korrekciókat: >
 
  19	let s:count = 4
@@ -2356,27 +2265,27 @@ korrekciókat: >
  35	  echo s:count .. " corrections now"
  36	endfunction
 
-Első lépésben inicializáljuk az s:count változót, "4" értékkel. Később, az
-s:Add() függvény hívása inkrementálja az s:count-ot. Nem számít, hogy a
-függvény honnan lett meghívva, mivel a változó létezik, ezért a szkript a
-lokális példányt használja. 
 
+A "count" változót a szkript definiálta és értékét 4-re inicializálta. Az
+Add() függvény hívásakor pedig az értékét eggyel növeli. A hívás helye nem
+számít, hiszen a szkript névterében van definiálva a függvény, minden esetben
+eléri a változót.
 
 VÉGEREDMÉNY
 
 A teljes szkript: >
 
-  1	" Vim global plugin for correcting typing mistakes
-  2	" Last Change:	2000 Oct 15
-  3	" Maintainer:	Bram Moolenaar <Bram@vim.org>
-  4	" License:	This file is placed in the public domain.
-  5
-  6	if exists("g:loaded_typecorr")
-  7	  finish
-  8	endif
-  9	let g:loaded_typecorr = 1
- 10
- 11	let s:save_cpo = &cpo
+  1	vim9script noclear
+  2	# Vim global plugin for correcting typing mistakes
+  3	# Last Change:	2021 Dec 30
+  4	# Maintainer:	Bram Moolenaar <Bram@vim.org>
+  5	# License:	This file is placed in the public domain.
+  6
+  7	if exists("g:loaded_typecorrect")
+  8	  finish
+  9	endif
+ 10	g:loaded_typecorrect = 1
+ 11	var save_cpo = &cpo
  12	set cpo&vim
  13
  14	iabbrev teh the
@@ -2384,7 +2293,7 @@ A teljes szkript: >
  16	iabbrev wnat want
  17	iabbrev synchronisation
  18		\ synchronization
- 19	let s:count = 4
+ 19	var count = 4
  20
  21	if !hasmapto('<Plug>TypecorrAdd;')
  22	  map <unique> <Leader>a  <Plug>TypecorrAdd;
@@ -2393,34 +2302,26 @@ A teljes szkript: >
  25
  26	noremenu <script> Plugin.Add\ Correction      <SID>Add
  27
- 28	noremap <SID>Add  :call <SID>Add(expand("<cword>"), 1)<CR>
+ 28	noremap <SID>Add  :call <SID>Add(expand("<cword>"), true)<CR>
  29
- 30	function s:Add(from, correct)
- 31	  let to = input("type the correction for " .. a:from .. ": ")
- 32	  exe ":iabbrev " .. a:from .. " " .. to
- 33	  if a:correct | exe "normal viws\<C-R>\" \b\e" | endif
- 34	  let s:count = s:count + 1
- 35	  echo s:count .. " corrections now"
- 36	endfunction
+ 30	def Add(from: string, correct: bool)
+ 31	  var to = input("type the correction for " .. from .. ": ")
+ 32	  exe ":iabbrev " .. from .. " " .. to
+ 33	  if correct | exe "normal viws\<C-R>\" \b\e" | endif
+ 34	  count += 1
+ 35	  echo "you now have " .. count .. " corrections"
+ 36	enddef
  37
  38	if !exists(":Correct")
- 39	  command -nargs=1  Correct  :call s:Add(<q-args>, 0)
+ 39	  command -nargs=1  Correct  call Add(<q-args>, false)
  40	endif
  41
- 42	let &cpo = s:save_cpo
- 43	unlet s:save_cpo
+ 42	&cpo = save_cpo
 
 A 33. sorra még nem tértünk ki. Alkalmazza az új korrekciót a kurzor alatt
 lévő szón. A |:normal| paranccsal használjuk az új korrekciót. A Vim itt a
 mappeket és rövidítések itt kibontja (annak ellenére, hogy a mapet
 ":noremap"-el definiáltuk.
-
-Ajánlott a 'fileformat' opcióhoz "unix" értéket használni. A Vim szkript így
-működni fog bármilyen környezetben. A "dos" értékre állított 'fileformat'
-esetén szkript nem működik "unix" rendszereken. Lásd |:source-crnl|. A fájl
-mentése előtt ezt be kell állítanunk: >
-
-	:set fileformat=unix
 
 
 DOKUMENTÁCIÓ						*write-local-help*
@@ -2430,9 +2331,9 @@ Ajánlott a beépülőnket dokumentációval ellátni, különösen akkor, ha a
 felhasználó a szkript működését nagymértékben befolyásolni tudja. Lásd
 |add-local-help| a telepítéshez.
 
-A beépülőnk példa-dokumentációja "typecorr.txt": >
+A beépülőnk példa-dokumentációja "typecorrect.txt": >
 
-  1	*typecorr.txt*	Plugin for correcting typing mistakes
+  1	*typecorrect.txt*	Plugin for correcting typing mistakes
   2
   3	If you make typing mistakes, this plugin will have them corrected
   4	automatically.
@@ -2447,7 +2348,7 @@ A beépülőnk példa-dokumentációja "typecorr.txt": >
  13	:Correct {word}
  14		Add a correction for {word}.
  15
- 16							*typecorr-settings*
+ 16							*typecorrect-settings*
  17	This plugin doesn't have any settings.
 
 Csak az első sorban számít a formátum. Ezt a Vim be fogja rakni a "LOCAL
@@ -2456,7 +2357,7 @@ karakterrel KELL kezdődnie. A fájl megírása után a ":help" paranccsal
 ellenőrizzük a bejegyzést.
 
 A helpfájlhoz még több taget adhatunk ** közé zárva. Arra törekednünk kell,
-hogy egyedi legyen. Például a "typecorr-" prefixum használata tökéletesen
+hogy egyedi legyen. Például a "typecorrect-settings" prefixum használata tökéletesen
 megfelel e célra. 
 
 A hivatkozásainkat || karakterek közé kell zárnunk, ezzel biztosíthatunk gyors
@@ -2470,7 +2371,7 @@ Ha a Vim nem ismeri fel a fájl típusát, akkor erre a célra egy külön fájl
 kell létrehoznunk. Általában egy autocommandot tartalmaz, ami minta alapján
 beállítja a kívánt fájltípust. Például: >
 
-	au BufNewFile,BufRead *.foo			set filetype=foofoo
+	au BufNewFile,BufRead *.foo		setlocal filetype=foofoo
 
 Mentsük ezt az egy soros fájlt a "ftdetect/foofoo.vim" néven a 'runtimepath'
 lista első könyvtárába. Unixon ez "~/.vim/ftdetect/foofoo.vim". A fájl neve a
@@ -2496,9 +2397,9 @@ hasmapto()		a szkriptben használt map definíciójának tesztelése
 <Leader>		a "mapleader" értéke, felhasználó által definiált
 			billentyű, mellyel a beépülő mapjei kezdődnek
 
-:map <unique>		figyelmeztet, ha a map már létezik
+map <unique>		figyelmeztet, ha a map már létezik
 
-:noremap <script>	a mapet csak a szkript használhatja, globálisan nem
+noremap <script>	a mapet csak a szkript használhatja, globálisan nem
 			érhető el
 
 exists(":Cmd")		felhasználói parancs meglétének ellenőrzése
@@ -2522,18 +2423,20 @@ TILTÁS
 Ha olyan fájltípus beépülőt írunk, amit sokan fognak használni, akkor adjuk
 lehetőséget a letiltására. Helyezzük el a szkriptben az alábbi két sort: >
 
-	" Only do this when not done yet for this buffer
+	# Only do this when not done yet for this buffer
 	if exists("b:did_ftplugin")
 	  finish
 	endif
-	let b:did_ftplugin = 1
+	b:did_ftplugin = 1
 
 Ez egyben azt is megakadályozza, hogy a bufferben a fájl többször is
 betöltődjön. (ez akkor történik meg, ha az ":edit" paranccsal, argumentumok
 nélkül szerkesztjük magát a beépülőt).
 
-Így a felhasználók a következő sorral tilthatják a fájlt betöltését: >
+Így a felhasználók a következő sorral tilthatják a fájlt betöltését, az alábbi
+sorokkal: >
 
+	vim9script
 	let b:did_ftplugin = 1
 
 Ehhez az szükséges, hogy a fájltípus beépülők könyvtára megelőzze a
@@ -2554,10 +2457,10 @@ BEÁLLÍTÁSOK
 A fájltípus beépülő csak az aktuális bufferre való hatását így
 kényszeríthetjük ki: >
 
-	:setlocal
+	setlocal
 
 Amely a ":set" paranccsal egyenértékű azzal a kivétellel, hogy csak az
-aktuális buffer opcióit állítja be. Ha |:setlocal| paranccsal globális
+aktuális buffer opcióit állítja be. Ha `:setlocal` paranccsal globális
 változót, vagy ablak-specifikus változót állítunk be, az több bufferre
 hatással lesz, ez pedig kerülendő.
 
@@ -2567,14 +2470,14 @@ változó inicializálásakor a kezdő értéknek a változó alapértelmezett �
 adjuk meg (előfordulhat, hogy a felhasználó esetleg már módosította a változót
 a beépülő telepítését megelőzően). Például: >
 
-	:setlocal formatoptions& formatoptions+=ro
+	setlocal formatoptions& formatoptions+=ro
 
 
 MAPPEK
 
 A map hozzárendelése a jelenlegi bufferhez: >
 
-	:map <buffer>
+	map <buffer>
 
 Ezt még kombinálnunk kell a fentebb említett map-deklarációval. Példa egy
 funkcionalitás létrehozására a fájltípus beépülőben: >
@@ -2599,9 +2502,9 @@ kezdődő mappeket.
 A felhasználónak úgy kell lehetőséget adni a szkript mapjeinek letiltására
 anélkül, hogy mindent tiltana. Részlet a mail fájltípusból: >
 
-	" Add mappings, unless the user didn't want this.
-	if !exists("no_plugin_maps") && !exists("no_mail_maps")
-	  " Quote text by inserting "> "
+	# Add mappings, unless the user didn't want this.
+	if !exists("g:no_plugin_maps") && !exists("g:no_mail_maps")
+	  # Quote text by inserting "> "
 	  if !hasmapto('<Plug>MailQuote;')
 	    vmap <buffer> <LocalLeader>q <Plug>MailQuote;
 	    nmap <buffer> <LocalLeader>q <Plug>MailQuote;
@@ -2611,8 +2514,8 @@ anélkül, hogy mindent tiltana. Részlet a mail fájltípusból: >
 	endif
 
 Az implementáció két globális változót használ:
-|no_plugin_maps|	az összes fájltípus beépülő mapjeinek a tiltása
-|no_mail_maps|		a "mail" fájltípus mapjeinek a tiltása
+|g:no_plugin_maps|	az összes fájltípus beépülő mapjeinek a tiltása
+|g:no_mail_maps|	a "mail" fájltípus mapjeinek a tiltása
 
 
 FELHASZNÁLÓI PARANCSOK
@@ -2620,16 +2523,16 @@ FELHASZNÁLÓI PARANCSOK
 A "-buffer" argumentumot használva a fájltípus beépülő felhasználói parancsai
 csak egy bufferben futnak. |:command| Például: >
 
-	:command -buffer  Make  make %:r.s
+	command -buffer  Make  make %:r.s
 
 
 VÁLTOZÓK
 
 A fájlt típusának megegyezésekor az összes buffer betölti a fájltípus
-beépülőt. A szkript lokális változóit |s:var| a bufferek látják, értékét
-felülírhatják (az aktuális bufferek osztoznak a változón). Ha kimondottan
-buffer-specifikus változót szeretnénk létrehozni (a szkripten belül), akkor
-használjuk a |b:var| változókat.
+beépülőt. A szkript lokális változóit az összes bufferek látja (melyek
+betöltötték a szkriptet). Ha csak az adott bufferrel szeretnénk elérni a
+változót, akkor használjuk a |b:var| változót, melyhez csak az adott buffer
+fér hozzá.
 
 
 FÜGGVÉNYEK
@@ -2638,11 +2541,10 @@ A függvényeket elég egyszer deklarálnunk. A fájltípus beépülő újbóli 
 (új bufferhez), újra és újra felülírja a függvényünket. A következő
 megoldás biztosítja, hogy a függvények csak egyszer legyenek deklarálva: >
 
-	:if !exists("*s:Func")
-	:  function s:Func(arg)
-	:    ...
-	:  endfunction
-	:endif
+	if !exists("*Func")
+	  def Func(arg)
+	    ...
+	  enddef
 <
 
 VISSZAVONÁS				    *undo_indent* *undo_ftplugin*
@@ -2653,7 +2555,7 @@ akkor az előző fájltípus beállításait vissza kell vonnunk. A "b:undo_ftpl
 változóban helyezzük el azt a parancsot, ami visszaállítja a módosításokat.
 Például: >
 
-	let b:undo_ftplugin = "setlocal fo< com< tw< commentstring<"
+	b:undo_ftplugin = "setlocal fo< com< tw< commentstring<"
 		\ .. "| unlet b:match_ignorecase b:match_words b:match_skip"
 
 Ha a ":setlocal" parancsot "<" jellel használjuk, az visszaállítja az opciók
@@ -2687,13 +2589,13 @@ A fájltípus beépülő egyedi technikái:
 <LocalLeader>		A "maplocalleader" értéke, mellyel a fájltípus beépülő
 			mapjei kezdődnek.
 
-:map <buffer>		Buffer-specifikus map
+map <buffer>		Buffer-specifikus map
 
-:noremap <script>	Csak a <SID>-vel kezdődő mappek remappelése.
+noremap <script>	Csak a <SID>-vel kezdődő mappek remappelése.
 
-:setlocal		Buffer-specifikus opció beállítása.
+setlocal		Buffer-specifikus opció beállítása.
 
-:command -buffer	Buffer-specifikus felhasználói parancs
+command -buffer	Buffer-specifikus felhasználói parancs
 
 exists("*s:Func")	Függvénynév-definíció ellenőrzés
 
@@ -2710,7 +2612,7 @@ Az ilyen típusú beépülők fordító-specifikus opciókat is beállítanak. E
 A legegyszerűbb ezt egy példán szemléltetni. A következő parancs szerkeszti az
 összes fordítóval kapcsolatos beépülőt: >
 
-	:next $VIMRUNTIME/compiler/*.vim
+	next $VIMRUNTIME/compiler/*.vim
 
 A |:next| használatával ugorhatunk a következő fájlra.
 
@@ -2718,10 +2620,10 @@ A fordító fájloknak két fő feladata van. Az egyik a mechanizmus, amivel a
 felhasználó felülírhatja, vagy kiegészítheti az alapértelmezett fájlt. Az
 alapértelmezett fájlban az alábbi szerepel: >
 
-	:if exists("current_compiler")
-	:  finish
-	:endif
-	:let current_compiler = "mine"
+	if exists("g:current_compiler")
+	  finish
+	endif
+	g:current_compiler = "mine"
 
 Ha saját fordító-fájlt írunk, akkor azt tegyük be a saját runtime
 könyvtárunkban (például: ~/.vim/compiler Unixon), ezzel átállítjuk a
@@ -2765,7 +2667,9 @@ jelent. Az első rész azonnal betöltődik, de a második rész csak akkor, ha 
 beépülő funkcionalitását ténylegesen használjuk. Ha állandóan használjuk a
 script funkcionalitását, akkor a szkript mindig lassabb!
 
-A Vim 7-től kezdődően a quickload alternatívája az 'autoload' |41.15|.
+Ez a FuncUndefined autcommandot használja. Vim 7-től egy alternatíva is
+létezik: az autoload funkcionalitás |42.15|, mely szintén elérhető a Vim9
+szkriptben, a példában itt a régi szkript kompatibilis megoldás szerepel.
 
 Ezt az alábbi példa demonstrálja: >
 
@@ -2837,17 +2741,18 @@ A könyvtár szkript manuális betöltése lehetséges az |exists()| függvénny
 	if !exists('*MyLibFunction')
 	   runtime library/mylibscript.vim
 	endif
-	call MyLibFunction(arg)
+	MyLibFunction(arg)
 
 Tudnunk kell, hogy a MyLibFunction() a "library/mylibscript.vim" fájlban van
 definiálva a 'runtimepath' könyvtárak egyikében.
 
 Hogy ezt leegyszerűsítsük, használjuk a Vim autoload mechanizmusát: >
 
-	call mylib#my function(arg)
+	mylib#myfunction(arg)
 
-Sokkal egyszerűbb, ugye? A Vim felismerte a függvény nevét, mivel ez nem volt
-definiálva, megkereste az "autoload/mylib.vim" fájlt a 'runtimepath'-ban.
+Sokkal egyszerűbb, ugye? A Vim felismerte a függvény nevét a beágyazott "#"
+karakter által, majd megkeresi az "autoload/mylib.vim" fájlt a
+'runtimepath'-ban.
 A szkriptek muszáj definiálnia a "mylib#myfunction()" függvényt.
 
 A mylib.vim fájlba annyi függvényt tehetünk, amennyi jól esik. Ha így
@@ -2857,7 +2762,7 @@ be).
 
 Szkriptjeinket szervezhetjük alkönyvtárakba is. Például: >
 
-	call netlib#ftp#read('somefile')
+	netlib#ftp#read('somefile')
 
 Unixon a könyvtár szkriptek elérése útja általában: >
 
@@ -2865,21 +2770,21 @@ Unixon a könyvtár szkriptek elérése útja általában: >
 
 Melyekben a függvényeinket így definiáljuk: >
 
-	function netlib#ftp#read(fname)
-		"  Read the file fname through ftp
-	endfunction
+	def netlib#ftp#read(fname: string)
+		#  Read the file fname through ftp
+	enddef
 
 A függvény neve a függvényhívási paranccsal megegyezik. A '#' előtti rész
 természetesen követi a fájl elhelyezkedési struktúráját.
 
 Változókat létrehozása hasonlóképpen: >
 
-	let weekdays = dutch#weekdays
+	var weekdays = dutch#weekdays
 
 Így a változót az "autoload/dutch.vim" fájlból töltjük be, ami valami hasonlót
 rejt: >
 
-	let dutch#weekdays = ['zondag', 'maandag', 'dinsdag', 'woensdag',
+	var dutch#weekdays = ['zondag', 'maandag', 'dinsdag', 'woensdag',
 		\ 'donderdag', 'vrijdag', 'zaterdag']
 
 Lásd: |autoload|.
@@ -2891,6 +2796,9 @@ Lásd: |autoload|.
 A Vim felhasználók a szkriptjeiket a Vim oldaláról szerzik be
 http://www.vim.org. Amennyiben készítettél valami hasznosat, akkor ne habozz
 azt megosztani!
+
+Nagyszerű platform a github. Viszont itt tudnunk kell, hogy hol keressük! Az
+előnye, hogy a legtöbb beépülő-kezelő automatikuson be tudja őket importálni.
 
 A Vim szkriptek bármilyen rendszeren futtathatóak. Tar és gzip azonban egyes
 rendszereket nem érhető el alapértelmezetten, így munkádat készítsd el "zip"
