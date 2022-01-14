@@ -11,7 +11,6 @@
 * rendelkezz megfelelő jogosultságokkal a `$VIMRUNTIME` mappában
 * A VimDocHu/runtime/doc/hu könyvtárat másold be ide: `$VIMRUNTIME/doc`
 * A VimDocHu/runtime/syntax/hux.vim fájlt másold be ide `$VIMRUNTIME/syntax`
-* töröld a régi tagfájlokat (tags,tags-hu) itt: `$VIMRUNTIME/doc`
 * futtasd `:helptags $VIMRUNTIME/doc` a Vimből
 * a .vimrchez add hozzá (opcionális):
 	* `set helplang=hu,en` (alapértelmezett :help a magyar dokumentációt nyitja
