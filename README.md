@@ -5,6 +5,7 @@
 ## Állapot
 * Kézikönyv: 100%. 
 * Utolsó merge: 2022.01.014
+* Terjedelem: 117.681 szó, 965.285 karakter
 
 ## A jelenlegi fordítás használatba vétele
 * rendelkezz megfelelő jogosultságokkal a `$VIMRUNTIME` mappában
