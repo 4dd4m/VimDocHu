@@ -1,4 +1,4 @@
-*Usr_41.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2022 Jan 01
+*usr_41.txt*	Vim Verzió 8.2.	Utolsó módosítás: 2022 Jan 01
 
 
 		  Bram Moolenaar: Vim felhasználói kézikönyv
@@ -608,7 +608,7 @@ belőle.  Az alábbi beilleszti a "new text" stringet: >
 
 	execute "normal inew text"
 
-Ha Isert mód után még normál módban tenni szeretnénk avalamit, akkor el kell
+Ha Insert mód után még normál módban tenni szeretnénk a valamit, akkor el kell
 hagyjuk az Insert módot: >
 
 	execute "normal Inew text \<Esc>"
@@ -977,7 +977,7 @@ Bufferek, ablakok és az argumentum lista:
 	win_gotoid()		váltás ablakra ID alapján
 	win_id2tabwin()		fül és ablakszám ablak ID alapján
 	win_id2win()		ablakszám ablak ID alapján
-	win_move_separator()	vertikális abal-elválasztó mozgatása
+	win_move_separator()	vertikális-ablak mozgatása
 	win_move_statusline()	ablak állapotsávjának mozgatása
 	win_splitmove()		ablak mozgatása másik ablakba (split)
 	getbufinfo()		buffer információi | lista
@@ -1859,7 +1859,7 @@ karakter az aktuális sor végéig kommentként van értelmezve, a komment a sor
 bárhol szerepelhet, kivéve ott, ahol ez a parancs részét képzi (például
 stringben).
 
-A régi sciptben a kommenteléshez a " (idézőjel) használatos.
+A régi szkriptben a kommenteléshez a " (idézőjel) használatos.
 
 Egy dologra különösen figyelnünk kell, például: >
 
