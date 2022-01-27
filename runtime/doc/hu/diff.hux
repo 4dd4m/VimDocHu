@@ -1,0 +1,476 @@
+*diff.txt*      Vim Verzió 8.2.  Utolsó módosítás: 2021 May 24
+
+
+		  Bram Moolenaar: Vim felhasználói kézikönyv
+
+
+				*diff* *vimdiff* *gvimdiff* *diff-mode* *diff-mód*
+A dokumentáció a Vim |+diff| képességéről szól, mellyel két, összesen nyolc
+fájlt hasonlíthatunk össze egy időben.
+
+Az alapvető tudnivalókat a kézikönyv |08.7| pontjában találjuk.
+
+1. Diff mód indítása		|start-vimdiff|
+2. Diffek nézete		|view-diffs|
+3. Diffekhez ugrás		|jumpto-diffs|
+4. Diffek másolása		|copy-diffs|
+5. Diffek opciói		|diff-options|
+
+==============================================================================
+1. Diff mód indítása			*start-vimdiff* *vimdiff-indítás*
+
+A diff mód megnyitása a "vimdiff" paranccsal a legegyszerűbb, hatására elindul
+a Vim és automatikusan különbféle beállítások alkalmazásával felkészíti a
+szerkesztőt az argumentumban átadott fájlok összehasonlítására. >
+
+	vimdiff file1 file2 [file3 [file4]]
+
+Ami ekvivalens ezzel: >
+
+	vim -d file1 file2 [file3 [file4]]
+
+A következetesség kedvéért, a "gvimdiff" vagy a "vim -d -g" parancsok is
+ugyanígy működnek, ekkor azonban a GUI is elindul.
+Csak olvasható módot a "viewdiff" és "gviewdiff" parancsokkal
+kezdeményezhetünk. "r" prefixummal pedig a korlátozott módba érkezünk (|-Z|).
+
+A második (és az összes további) argumentum lehet könyvtár is. A Vim az első
+argumentum kiterjesztése alapján megkeresi az átadott könyvtárban lévő fájlt,
+ezért elég, ha csak a könyvtárat adjuk át argumentumként. 
+
+Egy beépített könyvtár gondoskodik a diffelésről, a 'diffopt' vagy 'diffexpr'
+opcióknak viszont  megadhatjuk, hogy melyik külsős diff programot használja a
+Vim. Ez természetesen csak akkor működik, ha a harmadik féltől származó diff
+program elérhető.
+
+A Diffek mindig lokálisak az aktív fülhöz |tab-page|. Ezért az nem fordulhat
+elő, hogy az egyik ablakunk az egyik fülön, a másik pedig a másikon jelenik
+meg. Ez teszi lehetővé, hogy egyszerre több fájlon is dolgozhassunk egy időben
+(de külön fülön).
+
+A Vim minden egyes fájl számára új ablakot nyit, mintha az |-O| argumentumot
+használnánk. A Diffek vertikális splitet használnak. Ha nekünk jobban tetszik,
+akkor nyugodtan használhatunk horizontálisat is (|-o|): >
+
+	vimdiff -o file1 file2 [file3 [file4]]
+
+Amennyiben állandósítani szeretnénk a horizontális spliteket, akkor adjuk
+hozzá a "horizontal" stringet a 'diffopt' opcióhoz.
+
+A következő beállításokat minden fájl megkapja:
+
+	'diff'		on
+	'scrollbind'	on
+	'cursorbind'	on
+	'scrollopt'	tartalmazza: "hor"
+	'wrap'		off, vagy hagyjuk ahogy van, ha
+			a 'diffopt' tartalmazza: "followwrap"
+	'foldmethod'	"diff"
+	'foldcolumn'	örökölve 'diffopt'-től, alapértelmezetten  2
+
+Ezek az ablakbeállítások. Hagyományos fájl szerkesztése esetén értékük a
+globális értékekre tér vissza.
+Az opciók módsorokkal felülírhatóak a fájl újra-szerkesztése esetén, viszont a
+'foldmethod' és a 'wrap' értékét így sem tudjuk átállítani, ha a 'diff' be van
+kapcsolva.
+Lásd `:diffoff` - az opciók visszaállításának egy egyszerű módja.
+
+Amit látunk a szerkesztőben az gyakorlatilag a két buffer differenciája. Ezért
+ha a fájl betöltése után változtatunk a fájlon, akkor még csak a buffer
+differenciáit változtatjuk. Előfordulhat, hogy néha ki kell adjuk a
+":diffupdate" parancsot, mert nem minden változtatás lép érvénybe azonnal,
+főleg nem akkor, ha harmadik féltől származó diff programot használnunk.
+
+A .vimrc fájlunkban jobban felkészíthetjük a szerkesztőt a diff mód
+használatára az alábbi szerkezettel: >
+
+	if &diff
+	   setup for diff mode
+	else
+	   setup for non-diff mode
+	endif
+
+A  Vim nyitott állapota esetén az alábbi három módon kerülhetünk diff módba.
+While already in Vim you can start diff mode in three ways.
+
+							*E98*
+:diffs[plit] {filename}					*:diffs* *:diffsplit*
+		Új ablakban megnyitja a {filename} fájlt. Ugyanazokat az
+		opciókat állítja be, mint a "vimdiff" az aktív és újonnan
+		nyitott ablakokhoz.
+		Lásd 'diffexpr'.
+
+							*:difft* *:diffthis*
+:difft[his]	Az aktív ablakot a diff részévé alakítja a "vimdiff" opciók
+		beállításával.
+
+:diffp[atch] {patchfile}			 *E816* *:diffp* *:diffpatch*
+		Az aktív buffer patchelése {patchfile}-al, majd ez eredmény
+		megnyitása. Az opciók ugyanazok, mint "vimdiff" esetén.
+		A {patchfile} bármilyen formátumban lehet, amit a "patch"
+		program vagy a 'patchexpr' értelmezni tud.
+		Megjegyzés: a {patchfile}-nak csak egy fájl diffjét
+		tartalmazhatja, az aktív fájlét. Ha a {patchfile}-ban több
+		fájl is szerepel, akkor az eredmény kiszámíthatatlan. A Vim
+		átvált a /tmp könyvtárba, hogy elkerülje az aktív könyvtárban
+		lévő fájlok véletlenszerű patchelését. Létrehozhat számos
+		".rej" fájlt. Abszolút elérési utak esetén a fájlok
+		patchelődhetnek.
+
+A |:vertical| paranccsal kezdve az eredmény vertikális ablakokban jelenik meg.
+Például: >
+
+	:vert diffsplit main.c~
+	:vert diffpatch /tmp/diff
+
+Ha véglegesíteni szeretnénk a vertikális spliteket, akkor adjuk hozzá a
+"vertical" stringet a 'diffopt' opcióhoz.
+
+							*E96*
+A 'diff' ben maximum nyolc buffert állíthatunk be.
+
+A bufferekhez társított opciók nem vesznek el, így gyorsan fájlt válthatunk és
+visszatérhetünk.
+
+							*:diffo* *:diffoff*
+:diffo[ff]	Diff mód kikapcsolása az aktív ablakban. Akkor is
+		visszaállítja az értékeket, ha a 'diff' opció nem volt
+		bekapcsolva.
+
+:diffo[ff]!	Kikapcsolja a diff módot az összes ablakban (az aktívban is),
+		az aktív fülön, melyekben a 'diff' be volt kapcsolva.
+		A visszaállítás csak akkor történik meg, ha a 'diff' be volt
+		állítva, tehát abban az ablakban, ahol a 'diff' nem volt
+		beállítva, ott nem történik semmi.
+		A rejtett buffereket eltávolítja a diff-bufferlistáról.
+
+
+A `:diffoff` parancs visszaállítja a releváns opciókat `:diffsplit`,
+`:diffpatch` , `:diffthis` parancsokkor érvényben lévő értékeikre.  
+
+A `:diffoff` kétszeri kiadása esetén az utólag mentett értékeket
+visszaállítja:
+
+	'diff'		off
+	'scrollbind'	off
+	'cursorbind'	off
+	'scrollopt'	nem tartalmazza "hor"
+	'wrap'		on, vagy úgy hagyja, ha a 'diffopt' 
+			tartalmazza a  "followwrap"-et
+	'foldmethod'	"manual"
+	'foldcolumn'	0
+
+==============================================================================
+2. Diffek nézete						*view-diffs*
+
+A diff nézet egy olyan nézet, melyben az ablakok a fájlnak ugyanazok részeit
+mutatják és a különbségek ki vannak emelve különböző színekkel. A görgetés
+során a 'scrollbind' opció szinkronizálja a fájlok görgetését (vertikális
+splitek esetén is).
+
+A szöveg elrendezése hibás lehet, ha:
+- 'wrap' be van kapcsolva, egyes sorok tördelve lesznek és több sort is
+  elfoglalhatnak a képernyőn
+- ha a foldok az egyik ablakban nyitottak, míg a másikban nem
+- 'scrollbind' ki van kapcsolva
+- a szöveg megváltozott
+- a 'diffopt'-ban nincs "filler", a törölt és beillesztett sorok elcsúsztatják
+  az igazítást
+
+Az ablakban szereplő összes buffer a diff részét fogja képezni, amelyekben
+beállítjuk a 'diff' opciót. Ez lehetséges még rejtett bufferek esetén is,
+hiszen egyszer legalább szerkesztenünk kellett a buffert, mielőtt rejtetté
+vált. A `:diffoff!` paranccsal megszabadulhatunk a rejtett bufferektől.
+
+					*:DiffOrig* *diff-original-file*
+Since 'diff' is a window-local option, it's possible to view the same buffer
+in diff mode in one window and "normal" in another window.  It is also
+possible to view the changes you have made to a buffer since the file was
+loaded.  Since Vim doesn't allow having two buffers for the same file, you
+need another buffer.  This command is useful: >
+	 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
+	 	\ | diffthis | wincmd p | diffthis
+(this is in |defaults.vim|).  Use ":DiffOrig" to see the differences between
+the current buffer and the file it was loaded from.
+
+A buffer that is unloaded cannot be used for the diff.  But it does work for
+hidden buffers.  You can use ":hide" to close a window without unloading the
+buffer.  If you don't want a buffer to remain used for the diff do ":set
+nodiff" before hiding it.
+
+						*:dif* *:diff* *:diffupdate*
+:dif[fupdate][!]		Update the diff highlighting and folds.
+
+Vim attempts to keep the differences updated when you make changes to the
+text.  This mostly takes care of inserted and deleted lines.  Changes within a
+line and more complicated changes do not cause the differences to be updated.
+To force the differences to be updated use: >
+
+	:diffupdate
+
+If the ! is included Vim will check if the file was changed externally and
+needs to be reloaded.  It will prompt for each changed file, like `:checktime`
+was used.
+
+Vim will show filler lines for lines that are missing in one window but are
+present in another.  These lines were inserted in another file or deleted in
+this file.  Removing "filler" from the 'diffopt' option will make Vim not
+display these filler lines.
+
+
+Folds are used to hide the text that wasn't changed.  See |folding| for all
+the commands that can be used with folds.
+
+The context of lines above a difference that are not included in the fold can
+be set with the 'diffopt' option.  For example, to set the context to three
+lines: >
+
+	:set diffopt=filler,context:3
+
+
+The diffs are highlighted with these groups:
+
+|hl-DiffAdd|	DiffAdd		Added (inserted) lines.  These lines exist in
+				this buffer but not in another.
+|hl-DiffChange|	DiffChange	Changed lines.
+|hl-DiffText|	DiffText	Changed text inside a Changed line.  Vim
+				finds the first character that is different,
+				and the last character that is different
+				(searching from the end of the line).  The
+				text in between is highlighted.  This means
+				that parts in the middle that are still the
+				same are highlighted anyway.  The 'diffopt'
+				flags "iwhite" and "icase" are used here.
+|hl-DiffDelete|	DiffDelete	Deleted lines.  Also called filler lines,
+				because they don't really exist in this
+				buffer.
+
+==============================================================================
+3. Diffekhez ugrás					*jumpto-diffs*
+
+Two commands can be used to jump to diffs:
+								*[c*
+	[c		Jump backwards to the previous start of a change.
+			When a count is used, do it that many times.
+								*]c*
+	]c		Jump forwards to the next start of a change.
+			When a count is used, do it that many times.
+
+Hibaüzenetet kapunk, ha nincs olyan változás, melyhez ugorhatunk.
+
+==============================================================================
+4. Diffek másolása			*copy-diffs* *E99* *E100* *E101* *E102* *E103*
+								*merge*
+There are two commands to copy text from one buffer to another.  The result is
+that the buffers will be equal within the specified range.
+
+							*:diffg* *:diffget*
+:[range]diffg[et] [bufspec]
+		Modify the current buffer to undo difference with another
+		buffer.  If [bufspec] is given, that buffer is used.  If
+		[bufspec] refers to the current buffer then nothing happens.
+		Otherwise this only works if there is one other buffer in diff
+		mode.
+		See below for [range].
+
+						*:diffpu* *:diffput* *E793*
+:[range]diffpu[t] [bufspec]
+		Modify another buffer to undo difference with the current
+		buffer.  Just like ":diffget" but the other buffer is modified
+		instead of the current one.
+		When [bufspec] is omitted and there is more than one other
+		buffer in diff mode where 'modifiable' is set this fails.
+		See below for [range].
+
+							*do*
+[count]do	Same as ":diffget" without range.  The "o" stands for "obtain"
+		("dg" can't be used, it could be the start of "dgg"!). Note:
+		this doesn't work in Visual mode.
+		If you give a [count], it is used as the [bufspec] argument
+		for ":diffget".
+
+							*dp*
+[count]dp	Same as ":diffput" without range.  Note: this doesn't work in
+		Visual mode.
+		If you give a [count], it is used as the [bufspec] argument
+		for ":diffput".
+
+
+When no [range] is given, the diff at the cursor position or just above it is
+affected.  When [range] is used, Vim tries to only put or get the specified
+lines.  When there are deleted lines, this may not always be possible.
+
+There can be deleted lines below the last line of the buffer.  When the cursor
+is on the last line in the buffer and there is no diff above this line, the
+":diffget" and "do" commands will obtain lines from the other buffer.
+
+To be able to get those lines from another buffer in a [range] it's allowed to
+use the last line number plus one.  This command gets all diffs from the other
+buffer: >
+
+	:1,$+1diffget
+
+Note that deleted lines are displayed, but not counted as text lines.  You
+can't move the cursor into them.  To fill the deleted lines with the lines
+from another buffer use ":diffget" on the line below them.
+								*E787*
+When the buffer that is about to be modified is read-only and the autocommand
+that is triggered by |FileChangedRO| changes buffers the command will fail.
+The autocommand must not change buffers.
+
+The [bufspec] argument above can be a buffer number, a pattern for a buffer
+name or a part of a buffer name.  Examples:
+
+	:diffget		Use the other buffer which is in diff mode
+	:diffget 3		Use buffer 3
+	:diffget v2		Use the buffer which matches "v2" and is in
+				diff mode (e.g., "file.c.v2")
+
+==============================================================================
+5. Diffek opciói						*diff-options*
+								*opciók-diff*
+Lásd a 'diffopt' és a 'fillchars' "diff" elemét.
+
+				    *diff-slow* *diff_translations* *lassú-diff*
+Kiemelés nagyon hosszú sorok esetén lassú lehet, különösen különböző nyelvek
+esetén. Tiltsuk le a nyelvi nyelvi beállításokat, melyek felgyorsítják a
+kiemelést, állítsuk a g:diff_translations értékét nullára: >
+
+    let g:diff_translations = 0
+<
+Majd végül töltsük újra a szintaxis fájlt: >
+
+    set syntax=diff
+<
+
+
+KÜLÖNBSÉGEK KERESÉSE					*diff-diffexpr*
+
+A 'diffexpr' opciónak megadhatjuk, hogy melyik diff programmal szeretnénk a
+különbségeket keresni. *E959*
+
+Ha a 'diffexpr' értéke üres, akkor a Vim az alábbi parancsot használja
+a diffeléshez file1 és file2 között: >
+
+	diff file1 file2 > outfile
+
+A ">" karaktert a 'shellredir' értéke helyettesíti.
+
+A diff kimenetének normál "ed" diff, vagy "unified" stílusú diffnek kell
+lennie. A "context" diff NEM működik. Unified diff esetében nem használhatóak
+a kontextus sorok (context line). A "diff -u" parancs NEM működik, használjunk
+helyette: "diff -U0".
+
+Az alábbi példa szemlélteti a formátumot, melyet a Vim "ed" stílusú diff
+esetén vár: >
+
+	1a2
+	> bbb
+	4d4
+	< 111
+	7c7
+	< GGG
+	---
+	> ggg
+
+Az "1a2" elem hozzáfűzve "bbb"-hez.
+A "4d4" elem törli "111"-t.
+A "7c7" elem kicseréli "GGG"-t "ggg"-re.
+
+Ha a 'diffexpr' értéke nem üres, akkor a Vim kiértékeli a diffet a fenti
+formátum szerint. A fájlnevekhez az alábbi változók deklarálódnak: 
+
+	v:fname_in		eredeti fájl
+	v:fname_new		eredeti fájl új verziója
+	v:fname_out		a diff eredménye
+
+Ráadásul, 'diffexpr' gondoskodik a 'diffopt' "icase" és a "iwhite" opcióiról.
+A 'diffexpr' nem tudja megváltoztatnia 'lines' és 'columns' értékét.
+
+Példa (mely egyenértékű azzal, mintha a 'diffexpr' majdnem üres lenne): >
+
+	set diffexpr=MyDiff()
+	function MyDiff()
+	   let opt = ""
+	   if &diffopt =~ "icase"
+	     let opt = opt . "-i "
+	   endif
+	   if &diffopt =~ "iwhite"
+	     let opt = opt . "-b "
+	   endif
+	   silent execute "!diff -a --binary " . opt . v:fname_in . " " . v:fname_new .
+		\  " > " . v:fname_out
+	   redraw!
+	endfunction
+
+Az "-a" argumentum hatására a fájlok szöveges állományként lesznek
+összehasonlítva, a bináris állományok összehasonlításának nem sok értelme van.
+A "--binary" argumentum a fájlokat bináris módban olvassa be, ezért CTRL-Z nem
+szakítja meg a szöveget DOS alatt.
+
+A `redraw!` parancsra lehet, hogy nem lesz szükségünk. Attól függ, hogy a
+futtatott shell parancsoknak van-e kimenete, vagy sem.
+
+Ha a 'diffexpr' kifejezés :s, vagy <SID>-vel kezdődik, akkor a
+szkript-azonosítójával kerül behelyettesítésre. (|local-function|). Például: >
+
+		set diffexpr=s:MyDiffExpr()
+		set diffexpr=<SID>SomeDiffExpr()
+<
+						*E810* *E97*
+A Vim teszteli, hogy a diff kimenete megfelelő-e. Ha nem, akkor hibaüzenetet
+kapunk. A lehetséges okok:
+-  A "diff" programot nem sikerül futtatni.
+-  A "diff" program nem "ed"stílusú kimentet adott (lásd feljebb).
+-  A 'shell' és opciói nem lettek megfelelően beállítva. Próbáljuk ki egy
+   egyszerű parancson a működést, például ":!sort".
+-  A 'diffexpr'-t használtuk, ami nem működött.
+Ha ezek után sem sikerült rájönnünk a hiba okára, akkor állítsuk be a
+'verbose' opciót egyre, hogy több üzenetet lássunk.
+
+A MS-Windows telepítőkészlete tartalmazza a diff programot. Ha nem így lenne,
+akkor le kell töltenünk a diff.exe fájlt. Például innen:
+http://gnuwin32.sourceforge.net/packages/diffutils.htm.
+
+
+PATCHEK HASZNÁLATA					*diff-patchexpr*
+
+A 'patchexpr' átállításával a sztenderdtől eltérő "patch" programot
+használhatunk.
+
+Ha a 'patchexpr' értéke üres, akkor a Vim így hívja mega a "patch" programot: >
+
+	patch -o outfile origfile < patchfile
+
+Ez működik a "patch" legtöbb verzióján. Megjegyzés: a sörközi CR karakterek
+problémát jelenthet, mert sörtörésekként értelmeződhetnek.
+
+Ha az alap patch program nem felel meg nekünk, akkor a 'patchexpr' állítsuk át
+egy másik kifejezésre. A fájlokhoz definiált változónevek:
+
+	v:fname_in		eredeti fájlt
+	v:fname_diff		patch fájl
+	v:fname_out		patch fájl eredménye
+
+Példa (mely egyenértékű azzal, mintha a 'patchexpr' majdnem üres lenne): >
+
+	set patchexpr=MyPatch()
+	function MyPatch()
+	   :call system("patch -o " . v:fname_out . " " . v:fname_in .
+	   \  " < " . v:fname_diff)
+	endfunction
+
+Győződjünk meg arról, hogy az általunk használt patch programnak nincsenek
+kellemetlen mellékhatásai. Például, figyeljünk az extra generált sorokra,
+melyeket törölnünk kell. A fájlt csak patchelésén kívül más dolga nincs.
+   A Vim a 'patchexpr' kiértékelése előtt átvált a "/tmp" (vagy másik
+ideiglenes) könyvtárba, mellyel remélhetőleg elkerülhető az aktív könyvtárban
+lévő fájlok véletlenszerű patchelése. Végezetül a Vim törli a v:fname_in-nel
+kezdődő és a ".rej" vagy ".orig"-re végződő fájlokat.
+
+Ha a 'patchexpr' kifejezés :s, vagy <SID>-vel kezdődik, akkor a
+szkript-azonosítójával kerül behelyettesítésre. (|local-function|). Például: >
+		set patchexpr=s:MyPatchExpr()
+		set patchexpr=<SID>SomePatchExpr()
+<
+ vim:tw=78:ts=8:noet:ft=help:norl:
